@@ -21,7 +21,7 @@ Vue.component('scheduler', require('./components/CalendarScheduler.vue'));
 
 Vue.component('clients-table', require('./components/clients/clients-table.vue'));
 
-
+Vue.component('jo-table', require('./components/job-orders/jo-table.vue'));
 
 const app = new Vue({
     el: '#app'

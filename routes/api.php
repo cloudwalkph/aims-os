@@ -39,4 +39,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::put('/{clientId}', 'ClientsController@update');
         Route::delete('/{clientId}', 'ClientsController@delete');
     });
+
+    // Job Orders
+    Route::group(['prefix' => 'job-orders'], function() {
+        Route::get('/', 'JobOrdersController@index');
+        Route::get('/{jobOrderId}', 'JobOrdersController@show');
+        Route::post('/', 'JobOrdersController@store');
+        Route::put('/{jobOrderId}', 'JobOrdersController@update');
+        Route::delete('/{jobOrderId}', 'JobOrdersController@delete');
+    });
 });

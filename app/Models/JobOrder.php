@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,28 +13,43 @@ class JobOrder extends Model
     protected $table = 'job_orders';
     protected $guarded = ['id'];
 
+    public static $rules = [
+        'project_name'           => 'required|min:2',
+        'project_types.*.name'   => 'required',
+        'clients.*.id'           => 'required'
+    ];
+
+    public static $filterable = [
+        'job_order_no',
+        'project_name',
+        'created_by',
+        'brands',
+        'company',
+        'status'
+    ];
+
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
     public function clients()
     {
-        return $this->hasMany('App\Models\JobOrderClient');
+        return $this->hasMany(JobOrderClient::class);
     }
 
     public function moms()
     {
-        return $this->hasMany('App\Models\JobOrderMom');
+        return $this->hasMany(JobOrderMom::class);
     }
 
     public function joManpower()
     {
-        return $this->hasMany('App\Models\JobOrderManpower');
+        return $this->hasMany(JobOrderManpower::class);
     }
 
     public function creativesJob()
     {
-        return $this->hasMany('App\Models\CreativesJob', 'id', 'job_order_no');
+        return $this->hasMany(CreativesJob::class, 'id', 'job_order_no');
     }
 }

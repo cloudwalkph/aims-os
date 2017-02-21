@@ -27,7 +27,7 @@
                     <i class="fa fa-plus"></i> Create Job Order
                 </a>
 
-
+                <jo-table></jo-table>
             </div>
 
         </div>
