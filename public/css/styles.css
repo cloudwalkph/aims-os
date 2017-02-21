@@ -2,6 +2,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+    color: #333;
+    background-color: #ffffff;
 }
 
 .btn.btn-primary {
@@ -74,3 +76,64 @@ body {
 table tbody tr {
     cursor: pointer;
 }
+
+.navbar.topbar {
+    background-color: #F67D22;
+}
+
+.navbar-brand {
+    font-size: 30px;
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+}
+
+.navbar a.navbar-brand,
+.navbar a.dropdown-toggle {
+    color: #fff !important;
+}
+
+.topbar .nav > li > a:hover, .topbar .nav > li > a:focus {
+    background-color: #d86611 !important;
+}
+.topbar .nav .open > a, .topbar .nav .open > a:hover, .topbar nav .open > a:focus {
+    background-color: #d86611 !important;
+}
+
+.navbar-right {
+    margin-right: 0!important;
+}
+
+/*home buttons start*/
+.hero-widget {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.hero-widget:hover {
+    color: #f57e20;
+    cursor: pointer;
+}
+
+.hero-widget .icon {
+    display: block;
+    font-size: 80px;
+    line-height: 90px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.hero-widget var {
+    display: block;
+    height: 50px;
+    font-size: 50px;
+    line-height: 50px;
+    font-style: normal;
+}
+.hero-widget label {
+    font-size: 17px;
+}
+.hero-widget .options {
+    margin-top: 10px;
+}
+/*home buttons end*/
