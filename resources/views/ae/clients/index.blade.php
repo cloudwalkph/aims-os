@@ -27,9 +27,7 @@
                     <i class="fa fa-plus"></i> Create New Client
                 </button>
 
-                @include('ae.clients.modals.add')
-
-                <example-vuetable></example-vuetable>
+                <clients-table></clients-table>
             </div>
 
 

@@ -21,6 +21,12 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+    @if(session('token'))
+        <script>
+            window.token = '{{ session('token') }}'
+        </script>
+    @endif
 </head>
 <body>
     @yield('styles')

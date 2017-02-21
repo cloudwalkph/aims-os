@@ -13,11 +13,15 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.http.headers.common['Authorization'] = `Bearer ${window.token}`;
+
 Vue.component('example', require('./components/Example.vue'));
 
 Vue.component('scheduler', require('./components/CalendarScheduler.vue'));
 
-Vue.component('example-vuetable', require('./components/tables/example-vuetable.vue'));
+Vue.component('clients-table', require('./components/clients/clients-table.vue'));
+
+
 
 const app = new Vue({
     el: '#app'
