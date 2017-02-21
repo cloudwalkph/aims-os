@@ -24,6 +24,6 @@ class CmtuvaController extends Controller
      */
     public function index()
     {
-        return view('CMTUVA.index');
+        return view('cmtuva.index');
     }
 }

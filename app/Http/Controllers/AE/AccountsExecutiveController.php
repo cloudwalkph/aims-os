@@ -26,6 +26,6 @@ class AccountsExecutiveController extends Controller
     {
         config(['app.name' => 'Accounts Executive | AIMS']);
 
-        return view('AE.index');
+        return view('ae.index');
     }
 }
