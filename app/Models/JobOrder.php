@@ -16,7 +16,8 @@ class JobOrder extends Model
     public static $rules = [
         'project_name'           => 'required|min:2',
         'project_types.*.name'   => 'required',
-        'clients.*.id'           => 'required'
+        'clients.*.id'           => 'required',
+        'clients.*.brands'       => 'required'
     ];
 
     public static $filterable = [

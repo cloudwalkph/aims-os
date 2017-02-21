@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobOrders\CreateJobOrderRequest;
 use App\Models\JobOrder;
+use App\Models\JobOrderClient;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
 
@@ -64,8 +65,17 @@ class JobOrdersController extends Controller {
         // Create the client
         \DB::transaction(function() use ($user, $input, &$jo) {
             $input['user_id'] = $user->id;
-            $input['brands'] = json_encode($input['brands']);
+            $input['project_types'] = json_encode($input['project_types']);
+            $clients = $input['clients'];
+            unset($input['clients']);
+
             $jo = JobOrder::create($input);
+            foreach ($clients as $client) {
+                $client['job_order_id'] = $jo->id;
+                $client['brands'] = json_encode($input['brands']);
+
+                JobOrderClient::create($client);
+            }
         });
 
         return response()->json($jo, 201);

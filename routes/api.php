@@ -48,4 +48,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::put('/{jobOrderId}', 'JobOrdersController@update');
         Route::delete('/{jobOrderId}', 'JobOrdersController@delete');
     });
+
+    // Project Types
+    Route::group(['prefix' => 'project-types'], function() {
+        Route::get('/', 'ProjectTypesController@index');
+    });
 });
