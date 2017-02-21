@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Clients;
+namespace App\Http\Requests\JobOrders;
 
 use App\Http\Requests\APIFormRequest;
-use App\Models\Client;
+use App\Models\Event;
+use App\Models\JobOrder;
 
-class CreateClientRequest extends APIFormRequest
+class CreateJobOrderRequest extends APIFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,6 +15,6 @@ class CreateClientRequest extends APIFormRequest
      */
     public function rules()
     {
-        return Client::$rules;
+        return JobOrder::$rules;
     }
 }

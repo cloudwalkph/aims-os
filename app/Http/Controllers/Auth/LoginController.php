@@ -41,7 +41,10 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         $department = str_slug($user->department->slug);
-        
+        session(['token' => $user->api_token]);
+
+        \Log::info(session('token'));
+
         $this->redirectTo = "/{$department}";
     }
 }

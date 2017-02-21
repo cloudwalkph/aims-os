@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
             'department_id' => 1,
             'email'         => 'productions@activations.com',
             'password'      => Hash::make('password'),
+            'api_token'     => str_random(60)
         ]);
 
         $productions->profile()->create([
@@ -39,6 +40,7 @@ class UsersTableSeeder extends Seeder
             'department_id' => 2,
             'email'         => 'creatives@activations.com',
             'password'      => Hash::make('password'),
+            'api_token'     => str_random(60)
         ]);
 
         $creatives->profile()->create([
@@ -59,6 +61,7 @@ class UsersTableSeeder extends Seeder
             'department_id' => 3,
             'email'         => 'cmtuva@activations.com',
             'password'      => Hash::make('password'),
+            'api_token'     => str_random(60)
         ]);
 
         $cmtuva->profile()->create([
@@ -79,6 +82,7 @@ class UsersTableSeeder extends Seeder
             'department_id' => 4,
             'email'         => 'hr@activations.com',
             'password'      => Hash::make('password'),
+            'api_token'     => str_random(60)
         ]);
 
         $hr->profile()->create([
@@ -98,6 +102,7 @@ class UsersTableSeeder extends Seeder
             'department_id' => 5,
             'email'         => 'inventory@activations.com',
             'password'      => Hash::make('password'),
+            'api_token'     => str_random(60)
         ]);
 
         $inventory->profile()->create([
@@ -117,6 +122,7 @@ class UsersTableSeeder extends Seeder
             'department_id' => 6,
             'email'         => 'admin@activations.com',
             'password'      => Hash::make('password'),
+            'api_token'     => str_random(60)
         ]);
 
         $admin->profile()->create([
@@ -136,6 +142,7 @@ class UsersTableSeeder extends Seeder
             'department_id' => 7,
             'email'         => 'ae@activations.com',
             'password'      => Hash::make('password'),
+            'api_token'     => str_random(60)
         ]);
 
         $ae->profile()->create([
@@ -155,6 +162,7 @@ class UsersTableSeeder extends Seeder
             'department_id' => 8,
             'email'         => 'accounting@activations.com',
             'password'      => Hash::make('password'),
+            'api_token'     => str_random(60)
         ]);
 
         $accounting->profile()->create([
@@ -174,6 +182,7 @@ class UsersTableSeeder extends Seeder
             'department_id' => 9,
             'email'         => 'setup@activations.com',
             'password'      => Hash::make('password'),
+            'api_token'     => str_random(60)
         ]);
 
         $setup->profile()->create([
@@ -193,6 +202,7 @@ class UsersTableSeeder extends Seeder
             'department_id' => 10,
             'email'         => 'operations@activations.com',
             'password'      => Hash::make('password'),
+            'api_token'     => str_random(60)
         ]);
 
         $operations->profile()->create([

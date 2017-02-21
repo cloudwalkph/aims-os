@@ -4339,7 +4339,7 @@ vue-loader@^10.0.2:
     vue-style-loader "^2.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-resource@^1.0.0:
+vue-resource@^1.0.0, vue-resource@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/vue-resource/-/vue-resource-1.2.0.tgz#dc368cca958655c79486dde07336db22954af40c"
   dependencies:

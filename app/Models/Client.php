@@ -20,6 +20,15 @@ class Client extends Model
         'brands.*.name'     => 'required'
     ];
 
+    public static $filterable = [
+        'company',
+        'contact_person',
+        'contact_number',
+        'birthdate',
+        'email',
+        'brands'
+    ];
+
     public function jobOrderClients()
     {
         return $this->hasMany('App\Models\JobOrderClient');

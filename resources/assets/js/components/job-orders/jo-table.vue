@@ -2,7 +2,7 @@
     <div>
         <filter-bar></filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/clients"
+                  api-url="/api/v1/job-orders"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -64,41 +64,44 @@
                         dataClass: 'text-center',
                     },
                     {
+                        name: 'job_order_no',
+                        sortField: 'job_order_no',
+                        title: 'Job Order #'
+                    },
+                    {
                         name: 'company',
                         sortField: 'company',
-                        title: 'Company'
-                    },
-                    {
-                        name: 'contact_person',
-                        sortField: 'contact_person',
-                        title: 'Contact Person'
-                    },
-                    {
-                        name: 'contact_number',
-                        sortField: 'contact_number',
-                        title: 'Contact #'
-                    },
-                    {
-                        name: 'birthdate',
-                        sortField: 'birthdate',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Birthdate'
-                    },
-                    {
-                        name: 'email',
-                        sortField: 'email',
-                        title: 'Email',
+                        title: 'Company',
                         callback: 'allcap'
                     },
                     {
                         name: 'brands',
                         sortField: 'brands',
                         title: 'Brands',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'genderLabel'
+                        callback: 'brandsDisseminate'
+                    },
+                    {
+                        name: 'created_by',
+                        sortField: 'created_by',
+                        title: 'Created By',
+                        callback: 'allcap'
+                    },
+                    {
+                        name: 'project_name',
+                        sortField: 'project_name',
+                        title: 'Project Name'
+                    },
+                    {
+                        name: 'project_types',
+                        sortField: 'project_types',
+                        title: 'Project Types',
+                        callback: 'brandsDisseminate'
+                    },
+                    {
+                        name: 'status',
+                        sortField: 'status',
+                        title: 'Status',
+                        callback: 'allcap'
                     },
                     {
                         name: 'created_at',
@@ -146,16 +149,8 @@
                 return value.toUpperCase()
             },
             brandsDisseminate (value) {
-                return value.join()
+                return JSON.parse(value).map(elem => { return elem.name }).join(', ')
             },
-//            genderLabel (value) {
-//                return value === 'M'
-//                    ? '<span class="label label-success"><i class="glyphicon glyphicon-star"></i> Male</span>'
-//                    : '<span class="label label-danger"><i class="glyphicon glyphicon-heart"></i> Female</span>'
-//            },
-//            formatNumber (value) {
-//                return accounting.formatNumber(value, 2)
-//            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
@@ -179,6 +174,9 @@
                     filter: filterText
                 }
                 Vue.nextTick( () => this.$refs.vuetable.refresh() )
+            },
+            'reload-table' () {
+                Vue.nextTick( () => this.$refs.vuetable.reload() )
             },
             'filter-reset' () {
                 this.moreParams = {}
