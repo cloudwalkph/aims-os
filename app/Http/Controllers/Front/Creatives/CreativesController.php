@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\AE;
+namespace App\Http\Controllers\Front\Creatives;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client;
 use Illuminate\Http\Request;
 
-class ClientsController extends Controller
+class CreativesController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,9 +24,8 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        config(['app.name' => 'Accounts Executive | AIMS']);
-        $clients = Client::all();
+        config(['app.name' => 'Creatives | AIMS']);
 
-        return view('ae.clients.index', compact('clients'));
+        return view('creatives.index');
     }
 }

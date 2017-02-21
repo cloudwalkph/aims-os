@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\AE;
+namespace App\Http\Controllers\Front\CMTUVA;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AccountsExecutiveController extends Controller
+class CmtuvaController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,15 +24,8 @@ class AccountsExecutiveController extends Controller
      */
     public function index()
     {
-        config(['app.name' => 'Accounts Executive | AIMS']);
+        config(['app.name' => 'CMTUVA | AIMS']);
 
-        return view('ae.index');
-    }
-
-    public function schedules()
-    {
-        config(['app.name' => 'Accounts Executive Schedules | AIMS']);
-
-        return view('ae.schedules');
+        return view('cmtuva.index');
     }
 }

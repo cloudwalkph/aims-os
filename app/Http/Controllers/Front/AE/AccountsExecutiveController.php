@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Inventory;
+namespace App\Http\Controllers\Front\AE;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class InventoryController extends Controller
+class AccountsExecutiveController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,8 +24,15 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        config(['app.name' => 'Inventory | AIMS']);
+        config(['app.name' => 'Accounts Executive | AIMS']);
 
-        return view('inventory.index');
+        return view('ae.index');
+    }
+
+    public function schedules()
+    {
+        config(['app.name' => 'Accounts Executive Schedules | AIMS']);
+
+        return view('ae.schedules');
     }
 }

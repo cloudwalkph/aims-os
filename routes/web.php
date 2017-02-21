@@ -22,41 +22,41 @@ Route::get('/admin', function () {
 });
 
 Route::group(['prefix' => 'ae'], function () {
-    Route::get('/', 'AE\AccountsExecutiveController@index');
-    Route::get('schedules', 'AE\AccountsExecutiveController@schedules');
-    Route::get('clients', 'AE\ClientsController@index');
-    Route::get('/jo', 'AE\JobOrderController@index');
+    Route::get('/', 'Front\AE\AccountsExecutiveController@index');
+    Route::get('schedules', 'Front\AE\AccountsExecutiveController@schedules');
+    Route::get('clients', 'Front\AE\ClientsController@index');
+    Route::get('/jo', 'Front\AE\JobOrderController@index');
 });
 
 Route::group(['prefix' => 'cmtuva'], function () {
-    Route::get('/', 'CMTUVA\CmtuvaController@index');
+    Route::get('/', 'Front\CMTUVA\CmtuvaController@index');
 });
 
 Route::group(['prefix' => 'creatives'], function () {
-    Route::get('/', 'Creatives\CreativesController@index');
+    Route::get('/', 'Front\Creatives\CreativesController@index');
 
 });
 
 Route::group(['prefix' => 'inventory'], function () {
-    Route::get('/', 'Inventory\InventoryController@index');
+    Route::get('/', 'Front\Inventory\InventoryController@index');
 });
 
 Route::group(['prefix' => 'accounting'], function () {
-    Route::get('/', 'Accounting\AccountingController@index');
+    Route::get('/', 'Front\Accounting\AccountingController@index');
 });
 
 Route::group(['prefix' => 'hr'], function () {
-    Route::get('/', 'HR\HumanResourcesController@index');
+    Route::get('/', 'Front\HR\HumanResourcesController@index');
 });
 
 Route::group(['prefix' => 'setup'], function () {
-    Route::get('/', 'Setup\SetupController@index');
+    Route::get('/', 'Front\Setup\SetupController@index');
 });
 
 Route::group(['prefix' => 'productions'], function () {
-    Route::get('/', 'Productions\ProductionsController@index');
+    Route::get('/', 'Front\Productions\ProductionsController@index');
 });
 
 Route::group(['prefix' => 'operations'], function () {
-    Route::get('/', 'Operations\OperationsController@index');
+    Route::get('/', 'Front\Operations\OperationsController@index');
 });

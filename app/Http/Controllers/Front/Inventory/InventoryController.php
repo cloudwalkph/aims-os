@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\AE;
+namespace App\Http\Controllers\Front\Inventory;
 
 use App\Http\Controllers\Controller;
-use App\Models\JobOrder;
 use Illuminate\Http\Request;
 
-class JobOrderController extends Controller
+class InventoryController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,10 +24,8 @@ class JobOrderController extends Controller
      */
     public function index()
     {
-        config(['app.name' => 'Accounts Executive | AIMS']);
+        config(['app.name' => 'Inventory | AIMS']);
 
-        $jos = JobOrder::all();
-
-        return view('ae.jolist.index', compact('jos'));
+        return view('inventory.index');
     }
 }
