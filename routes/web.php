@@ -26,5 +26,17 @@ Route::group(['prefix' => 'ae'], function () {
 
 Route::group(['prefix' => 'cmtuva'], function () {
     Route::get('/', 'CMTUVA\CmtuvaController@index');
+});
 
+Route::group(['prefix' => 'creatives'], function () {
+    Route::get('/', 'Creatives\CreativesController@index');
+
+});
+
+Route::group(['prefix' => 'inventory'], function () {
+    Route::get('/', 'Inventory\InventoryController@index');
+});
+
+Route::group(['prefix' => 'accounting'], function () {
+    Route::get('/', 'Accounting\AccountingController@index');
 });
