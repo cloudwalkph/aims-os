@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JobOrders\CreateJobOrderRequest;
 use App\Models\JobOrder;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
@@ -36,9 +37,9 @@ class JobOrdersController extends Controller {
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
 
         // Get the data
-        $clients = $query->paginate($perPage);
+        $jobOrders = $query->paginate($perPage);
 
-        return response()->json($clients, 200);
+        return response()->json($jobOrders, 200);
     }
 
     /**
@@ -51,55 +52,55 @@ class JobOrdersController extends Controller {
     }
 
     /**
-     * @param CreateClientRequest $request
+     * @param CreateJobOrderRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateClientRequest $request)
+    public function store(CreateJobOrderRequest $request)
     {
         $user = $request->user();
         $input = $request->all();
 
-        $client = null;
+        $jo = null;
         // Create the client
-        \DB::transaction(function() use ($user, $input, &$client) {
+        \DB::transaction(function() use ($user, $input, &$jo) {
             $input['user_id'] = $user->id;
             $input['brands'] = json_encode($input['brands']);
-            $client = JobOrder::create($input);
+            $jo = JobOrder::create($input);
         });
 
-        return response()->json($client, 201);
+        return response()->json($jo, 201);
     }
 
     /**
-     * @param CreateClientRequest $request
+     * @param CreateJobOrderRequest $request
      * @param $clientId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(CreateClientRequest $request, $clientId)
+    public function update(CreateJobOrderRequest $request, $joId)
     {
         $input =$request->all();
 
-        $client = null;
+        $jo = null;
         // Create the client
-        \DB::transaction(function() use ($input, $clientId, &$client) {
-            $client = JobOrder::where('id', $clientId)->update($input);
+        \DB::transaction(function() use ($input, $joId, &$jo) {
+            $jo = JobOrder::where('id', $joId)->update($input);
         });
 
-        return response()->json($client, 200);
+        return response()->json($jo, 200);
     }
 
     /**
-     * @param $clientId
+     * @param $joId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function delete($clientId)
+    public function delete($joId)
     {
-        $client = JobOrder::where('id', $clientId)->delete();
+        $jo = JobOrder::where('id', $joId)->delete();
 
-        if (! $client) {
+        if (! $jo) {
             return response()->json([], 400);
         }
 
-        return response()->json($client, 200);
+        return response()->json($jo, 200);
     }
 }
