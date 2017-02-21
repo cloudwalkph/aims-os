@@ -38735,7 +38735,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         itemAction: function itemAction(action, data, index) {
+            var _this = this;
+
             console.log('custom-actions: ' + action, data.id, index);
+
+            var url = '/api/v1/clients/' + data.id;
+            this.$http.delete(url, data).then(function (response) {
+                console.log(response);
+
+                _this.$events.fire('reload-table');
+            }, function (error) {
+                console.log(error);
+            });
         }
     }
 };
