@@ -29,7 +29,7 @@ class UserProfile extends Model
      * ======================================================================================================
      */
 
-    public function getFullName()
+    public function getFullNameAttribute()
     {
         return ucwords($this->attributes['first_name'] . ' ' . $this->attributes['last_name']);
     }
