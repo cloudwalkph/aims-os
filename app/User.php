@@ -2,6 +2,11 @@
 
 namespace App;
 
+use App\Models\Department;
+use App\Models\Event;
+use App\Models\JobOrder;
+use App\Models\UserProfile;
+use App\Models\UserRole;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -29,28 +34,33 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Associations
+     * ======================================================================================================
+     */
+
     public function profile()
     {
-        return $this->hasOne('App\Models\UserProfile');
+        return $this->hasOne(UserProfile::class);
     }
 
     public function department()
     {
-        return $this->belongsTo('App\Models\Department');
+        return $this->belongsTo(Department::class);
     }
 
     public function role()
     {
-        return $this->belongsTo('App\Models\UserRole', 'user_role_id');
+        return $this->belongsTo(UserRole::class, 'user_role_id');
     }
 
     public function jobOrders()
     {
-        return $this->hasMany('App\Models\JobOrder');
+        return $this->hasMany(JobOrder::class);
     }
 
-    public function assignedPerson()
+    public function events()
     {
-        return $this->hasMany('App\Models\CreativesJobAssignedPerson');
+        return $this-$this->hasMany(Event::class);
     }
 }
