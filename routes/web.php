@@ -19,9 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/ae', function () {
-    return view('AE.index');
+Route::group(['prefix' => 'ae'], function () {
+    Route::get('/', 'AE\AccountsExecutiveController@index');
+
 });
-Route::get('/cmtuva', function () {
-    return view('CMTUVA.index');
+
+Route::group(['prefix' => 'cmtuva'], function () {
+    Route::get('/', 'CMTUVA\CmtuvaController@index');
+
 });
