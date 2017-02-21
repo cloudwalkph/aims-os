@@ -19,6 +19,15 @@ class Event extends Model
      */
     protected $guarded = ['id'];
 
+    /**
+     * @var array
+     */
+    public static $rules = [
+        'title'             => 'required|min:3',
+        'event_datetime'    => 'required|date',
+        'meta.description'  => 'required'
+    ];
+
 
     /**
      * Associations
