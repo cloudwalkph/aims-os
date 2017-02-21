@@ -27,6 +27,18 @@ window.Vue = require('vue');
 
 window.axios = require('axios');
 
+
+/**
+ * Moment js
+ */
+window.moment = require('moment');
+
+/**
+ * FullCalendar
+ */
+window.fullcalender = require('fullcalendar');
+
+
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Laravel.csrfToken,
     'X-Requested-With': 'XMLHttpRequest'

@@ -11,8 +11,6 @@
 </template>
 
 <script>
-    require('fullcalendar')
-
     export default {
         mounted() {
             $('.calendar').fullCalendar({
