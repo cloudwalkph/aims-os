@@ -14,7 +14,7 @@
                         <a href="/ae"><i class="fa fa-dashboard"></i> AE Department</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-address-book-o"></i> Client Lists
+                        <i class="fa fa-file-text-o"></i> Job Order Lists
                     </li>
                 </ol>
             </div>
@@ -22,40 +22,46 @@
 
             <div class="col-md-12">
 
-                <button type="button" class="btn btn-primary btn-create"
-                        data-toggle="modal" data-target="#createClient">
-                    <i class="fa fa-plus"></i> Create New Client
-                </button>
+                <a type="button" href="/ae/jo/create"
+                    class="btn btn-primary btn-create">
+                    <i class="fa fa-plus"></i> Create Job Order
+                </a>
 
-                @include('ae.clients.modals.add')
-
-                <table class="table table-striped" id="clientsList">
-                    <thead>
-                    <tr>
-                        <th>Company</th>
-                        <th>Name</th>
-                        <th>Contact #</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($clients as $client)
+                <div class="col-md-12 col-xs-12">
+                    <table class="table table-striped">
+                        <thead>
                         <tr>
-                            <td>{{ $client['company_name'] }}</td>
-                            <td>{{ $client['contact_person'] }}</td>
-                            <td>{{ $client['contact_number'] }}</td>
-                            <td>{{ $client['email'] }}</td>
-                            <td>
-                                <button class="btn btn-success"><i class="fa fa-edit fa-lg"></i></button>
-                                <button class="btn btn-danger"><i class="fa fa-trash fa-lg"></i></button>
-                            </td>
+                            <th>Job Order Number</th>
+                            <th>Project Name</th>
+                            <th>Project Type</th>
+                            <th>Client Name</th>
+                            <th>Brand</th>
+                            <th>Status</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach($jos as $jo)
+                                <tr>
+                                    <td>{{ $jo['job_order_no'] }}</td>
+                                    <td>{{ $jo['project_name'] }}</td>
+                                    <td>
+                                        @foreach($jo['project_type'] as $type)
+                                            {{ $type }}
+                                        @endforeach
+                                    </td>
+                                    <td>{{ $jo['client_name'] }}</td>
+                                    <td>
+                                        @foreach($jo['brand'] as $brand)
+                                            {{ $brand }}
+                                        @endforeach
+                                    </td>
+                                    <td>{{ $jo['status'] }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
 
         </div>
     </div>
