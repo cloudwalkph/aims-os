@@ -66,15 +66,19 @@ class JobOrdersController extends Controller {
         \DB::transaction(function() use ($user, $input, &$jo) {
             $input['user_id'] = $user->id;
             $input['project_types'] = json_encode($input['project_types']);
+            $input['job_order_no'] = strtoupper(uniqid());
             $clients = $input['clients'];
             unset($input['clients']);
 
             $jo = JobOrder::create($input);
             foreach ($clients as $client) {
-                $client['job_order_id'] = $jo->id;
-                $client['brands'] = json_encode($input['brands']);
+                $clientData = [
+                    'job_order_id'  => $jo->id,
+                    'brands'        => json_encode($client['brands']),
+                    'client_id'     => $client['id']
+                ];
 
-                JobOrderClient::create($client);
+                JobOrderClient::create($clientData);
             }
         });
 

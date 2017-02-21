@@ -78,6 +78,7 @@
                     <div v-for="(brand, key) in JSON.parse(selectedClient.brands)">
                         <div class="checkbox checkbox-primary col-md-2">
                             <input type="checkbox"
+                                   class="brand-checkbox"
                                    @click="onChangeBrand"
                                    v-bind:id="'brand-' + key"
                                    v-bind:value="brand.name"/>
@@ -211,6 +212,8 @@
 
                 this.selectedClient = Object.assign({}, this.selectedClient, selectedClient);
                 this.selectedBrands = [];
+
+                $('.brand-checkbox').prop('checked', false);
             },
             getProjectTypes() {
                 this.$http.get('/api/v1/project-types').then(response => {
@@ -238,7 +241,7 @@
                     clients: this.addedClients
                 };
 
-                this.$http.post('/api/v1/clients', data).then(response => {
+                this.$http.post('/api/v1/job-orders', data).then(response => {
                     this.clients = response.data.data;
 
                     for (let client of this.clients) {

@@ -75673,11 +75673,12 @@ module.exports = __webpack_require__(131);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_select__ = __webpack_require__(225);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_select__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
 //
 //
 //
@@ -75900,6 +75901,8 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
 
             this.selectedClient = Object.assign({}, this.selectedClient, selectedClient);
             this.selectedBrands = [];
+
+            $('.brand-checkbox').prop('checked', false);
         },
         getProjectTypes: function getProjectTypes() {
             var _this2 = this;
@@ -75954,7 +75957,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
                 clients: this.addedClients
             };
 
-            this.$http.post('/api/v1/clients', data).then(function (response) {
+            this.$http.post('/api/v1/job-orders', data).then(function (response) {
                 _this4.clients = response.data.data;
 
                 var _iteratorNormalCompletion2 = true;
@@ -75987,6 +75990,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
         }
     }
 };
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(5)))
 
 /***/ }),
 /* 223 */
@@ -76110,6 +76114,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', [_c('div', {
       staticClass: "checkbox checkbox-primary col-md-2"
     }, [_c('input', {
+      staticClass: "brand-checkbox",
       attrs: {
         "type": "checkbox",
         "id": 'brand-' + key
