@@ -23,6 +23,7 @@
     </script>
 </head>
 <body>
+    @yield('styles')
     <div id="app">
 
         <nav class="navbar navbar-default navbar-fixed-top topbar" role="navigation">
@@ -95,6 +96,7 @@
     </div>
 
     <!-- Scripts -->
+    @yield('scripts')
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

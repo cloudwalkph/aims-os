@@ -26,6 +26,7 @@ Route::group(['prefix' => 'ae'], function () {
     Route::get('schedules', 'Front\AE\AccountsExecutiveController@schedules');
     Route::get('clients', 'Front\AE\ClientsController@index');
     Route::get('/jo', 'Front\AE\JobOrderController@index');
+    Route::get('/references', 'Front\AE\AccountsExecutiveController@references');
 });
 
 Route::group(['prefix' => 'cmtuva'], function () {

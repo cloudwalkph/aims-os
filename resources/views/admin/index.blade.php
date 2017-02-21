@@ -1,8 +1,14 @@
 @extends('layouts.admin')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('vendor/fullcalendar/fullcalendar.min.css') }}">
+@endsection
+
 @section('content')
     <div class="row">
-        <h2>Calendar here</h2>
+
+        <scheduler></scheduler>
+
     </div>
 @endsection
 
