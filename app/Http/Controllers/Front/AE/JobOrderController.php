@@ -36,4 +36,11 @@ class JobOrderController extends Controller
 
         return view('ae.jolist.create.create');
     }
+
+    public function show()
+    {
+        config(['app.name' => 'Accounts Executive | AIMS']);
+
+        return view('ae.jolist.details.index');
+    }
 }

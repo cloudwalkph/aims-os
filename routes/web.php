@@ -30,6 +30,7 @@ Route::group(['prefix' => 'ae'], function () {
     Route::group(['prefix' => 'jo'], function () {
         Route::get('/', 'Front\AE\JobOrderController@index');
         Route::get('/create', 'Front\AE\JobOrderController@create');
+        Route::get('/details/{joNo}', 'Front\AE\JobOrderController@show');
     });
 
 });
