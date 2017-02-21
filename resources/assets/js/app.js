@@ -17,6 +17,8 @@ Vue.component('example', require('./components/Example.vue'));
 
 Vue.component('scheduler', require('./components/CalendarScheduler.vue'));
 
+Vue.component('example-vuetable', require('./components/tables/example-vuetable.vue'));
+
 const app = new Vue({
     el: '#app'
 });

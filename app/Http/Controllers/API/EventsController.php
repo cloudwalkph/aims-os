@@ -6,9 +6,4 @@ use App\Traits\EventsTrait;
 
 class EventsController extends Controller {
     use EventsTrait;
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 }

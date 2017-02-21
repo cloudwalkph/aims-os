@@ -29,31 +29,7 @@
 
                 @include('ae.clients.modals.add')
 
-                <table class="table table-striped" id="clientsList">
-                    <thead>
-                    <tr>
-                        <th>Company</th>
-                        <th>Name</th>
-                        <th>Contact #</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($clients as $client)
-                            <tr>
-                                <td>{{ $client['company_name'] }}</td>
-                                <td>{{ $client['contact_person'] }}</td>
-                                <td>{{ $client['contact_number'] }}</td>
-                                <td>{{ $client['email'] }}</td>
-                                <td>
-                                    <button class="btn btn-success"><i class="fa fa-edit fa-lg"></i></button>
-                                    <button class="btn btn-danger"><i class="fa fa-trash fa-lg"></i></button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <example-vuetable></example-vuetable>
             </div>
 
 

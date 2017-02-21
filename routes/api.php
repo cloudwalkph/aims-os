@@ -30,4 +30,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::put('/{eventId}', 'EventsController@update');
         Route::delete('/{eventId}', 'EventsController@delete');
     });
+
+    // Clients
+    Route::group(['prefix' => 'clients'], function() {
+        Route::get('/', 'ClientsController@index');
+    });
 });
