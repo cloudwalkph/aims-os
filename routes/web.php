@@ -21,7 +21,6 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix' => 'ae'], function () {
     Route::get('/', 'AE\AccountsExecutiveController@index');
-
 });
 
 Route::group(['prefix' => 'cmtuva'], function () {
