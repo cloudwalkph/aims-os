@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Operations;
+namespace App\Http\Controllers\Front\Accounting;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class OperationsController extends Controller
+class AccountingController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,8 +24,8 @@ class OperationsController extends Controller
      */
     public function index()
     {
-        config(['app.name' => 'Operations | AIMS']);
+        config(['app.name' => 'Accounting | AIMS']);
 
-        return view('operations.index');
+        return view('accounting.index');
     }
 }

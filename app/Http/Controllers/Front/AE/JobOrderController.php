@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Setup;
+namespace App\Http\Controllers\Front\AE;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobOrder;
 use Illuminate\Http\Request;
 
-class SetupController extends Controller
+class JobOrderController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,8 +25,10 @@ class SetupController extends Controller
      */
     public function index()
     {
-        config(['app.name' => 'Setup | AIMS']);
+        config(['app.name' => 'Accounts Executive | AIMS']);
 
-        return view('setup.index');
+        $jos = JobOrder::all();
+
+        return view('ae.jolist.index', compact('jos'));
     }
 }

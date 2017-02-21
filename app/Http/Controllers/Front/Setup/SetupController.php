@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\CMTUVA;
+namespace App\Http\Controllers\Front\Setup;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CmtuvaController extends Controller
+class SetupController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,8 +24,8 @@ class CmtuvaController extends Controller
      */
     public function index()
     {
-        config(['app.name' => 'CMTUVA | AIMS']);
+        config(['app.name' => 'Setup | AIMS']);
 
-        return view('cmtuva.index');
+        return view('setup.index');
     }
 }
