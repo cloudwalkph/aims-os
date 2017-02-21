@@ -33,9 +33,7 @@
                         <tr>
                             <th>Job Order Number</th>
                             <th>Project Name</th>
-                            <th>Project Type</th>
                             <th>Client Name</th>
-                            <th>Brand</th>
                             <th>Status</th>
                         </tr>
                         </thead>
@@ -44,17 +42,7 @@
                                 <tr>
                                     <td>{{ $jo['job_order_no'] }}</td>
                                     <td>{{ $jo['project_name'] }}</td>
-                                    <td>
-                                        @foreach($jo['project_type'] as $type)
-                                            {{ $type }}
-                                        @endforeach
-                                    </td>
-                                    <td>{{ $jo['client_name'] }}</td>
-                                    <td>
-                                        @foreach($jo['brand'] as $brand)
-                                            {{ $brand }}
-                                        @endforeach
-                                    </td>
+                                    <td>John Doe</td>
                                     <td>{{ $jo['status'] }}</td>
                                 </tr>
                             @endforeach

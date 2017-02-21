@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col-md-6 form-group text-input-container">
                             <label class="control-label">Company Name</label>
-                            <input type="text" name="company_name" placeholder="Enter company name" class="form-control" />
+                            <input type="text" name="company" placeholder="Enter company name" class="form-control" />
                         </div>
                         <div class="col-md-6 form-group text-input-container">
                             <label class="control-label">Contact Person</label>

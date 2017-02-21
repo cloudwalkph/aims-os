@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AE;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller
@@ -25,21 +26,8 @@ class ClientsController extends Controller
     public function index()
     {
         config(['app.name' => 'Accounts Executive | AIMS']);
-        $clients = [
-            [
-                'company_name' => 'Unilever',
-                'contact_person' => 'John Doe',
-                'contact_number' => '09121231234',
-                'email' => 'johndoe@unilever.com',
-                'brand' =>
-                    [
-                        'name' => 'Cream silk'
-                    ],
-                    [
-                        'name' => 'Sun silk'
-                    ],
-            ]
-        ];
+        $clients = Client::all();
+
         return view('ae.clients.index', compact('clients'));
     }
 }

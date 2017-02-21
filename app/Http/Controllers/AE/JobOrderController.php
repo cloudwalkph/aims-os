@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AE;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobOrder;
 use Illuminate\Http\Request;
 
 class JobOrderController extends Controller
@@ -26,22 +27,7 @@ class JobOrderController extends Controller
     {
         config(['app.name' => 'Accounts Executive | AIMS']);
 
-        $jos = [
-            [
-                'job_order_no' => '58905fa4bec2e',
-                'project_name' => 'Project Doe',
-                'project_type' =>
-                    [
-                        'name' => 'Logistics',
-                    ],
-                'client_name' => 'John Doe',
-                'brand' =>
-                    [
-                        'name' => 'Cream Silk'
-                    ],
-                'status' => "pending"
-            ]
-        ];
+        $jos = JobOrder::all();
 
         return view('ae.jolist.index', compact('jos'));
     }
