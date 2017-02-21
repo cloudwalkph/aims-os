@@ -30,9 +30,12 @@
             </div>
 
             <ul class="nav navbar-nav navbar-right">
+                @if (Auth::guest())
+                    <li><a href="{{ route('login') }}">LOGIN</a></li>
+                @else
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        John Doe <span class="caret"></span>
+                        {{ Auth::user()->profile->full_name }} <span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
@@ -51,6 +54,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
             </ul>
         </nav>
 

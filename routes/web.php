@@ -17,11 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/admin', function () {
+    return view('admin.index');
+});
 
 Route::group(['prefix' => 'ae'], function () {
     Route::get('/', 'AE\AccountsExecutiveController@index');
-
 });
 
 Route::group(['prefix' => 'cmtuva'], function () {
@@ -39,4 +40,20 @@ Route::group(['prefix' => 'inventory'], function () {
 
 Route::group(['prefix' => 'accounting'], function () {
     Route::get('/', 'Accounting\AccountingController@index');
+});
+
+Route::group(['prefix' => 'hr'], function () {
+    Route::get('/', 'HR\HumanResourcesController@index');
+});
+
+Route::group(['prefix' => 'setup'], function () {
+    Route::get('/', 'Setup\SetupController@index');
+});
+
+Route::group(['prefix' => 'productions'], function () {
+    Route::get('/', 'Productions\ProductionsController@index');
+});
+
+Route::group(['prefix' => 'operations'], function () {
+    Route::get('/', 'Operations\OperationsController@index');
 });
