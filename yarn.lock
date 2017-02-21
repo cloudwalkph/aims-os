@@ -4323,6 +4323,10 @@ vue-hot-reload-api@^2.0.1:
   version "2.0.9"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.0.9.tgz#2e8cfbfc8e531eea57d8c1f0bd761047c7e11b56"
 
+vue-html-editor@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/vue-html-editor/-/vue-html-editor-0.2.1.tgz#d8c41178a2f66264ffcb45b9b137903b52d718b5"
+
 vue-loader@^10.0.2:
   version "10.3.0"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-10.3.0.tgz#436421736e9ad0f1c481330327c376963db86a19"
