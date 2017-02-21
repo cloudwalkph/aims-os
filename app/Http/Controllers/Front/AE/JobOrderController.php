@@ -27,8 +27,20 @@ class JobOrderController extends Controller
     {
         config(['app.name' => 'Accounts Executive | AIMS']);
 
-        $jos = JobOrder::all();
+        return view('ae.jolist.index');
+    }
 
-        return view('ae.jolist.index', compact('jos'));
+    public function create()
+    {
+        config(['app.name' => 'Accounts Executive | AIMS']);
+
+        return view('ae.jolist.create.create');
+    }
+
+    public function show()
+    {
+        config(['app.name' => 'Accounts Executive | AIMS']);
+
+        return view('ae.jolist.details.index');
     }
 }

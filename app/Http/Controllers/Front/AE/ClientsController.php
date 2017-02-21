@@ -26,8 +26,7 @@ class ClientsController extends Controller
     public function index()
     {
         config(['app.name' => 'Accounts Executive | AIMS']);
-        $clients = Client::all();
 
-        return view('ae.clients.index', compact('clients'));
+        return view('ae.clients.index');
     }
 }

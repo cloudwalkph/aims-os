@@ -94,10 +94,10 @@ table tbody tr {
 }
 
 .topbar .nav > li > a:hover, .topbar .nav > li > a:focus {
-    background-color: #d86611 !important;
+    background-color: #d86611;
 }
 .topbar .nav .open > a, .topbar .nav .open > a:hover, .topbar nav .open > a:focus {
-    background-color: #d86611 !important;
+    background-color: #d86611;
 }
 
 .navbar-right {
@@ -217,7 +217,7 @@ table tbody tr {
         border: none;
         border-radius: 0;
         overflow-y: auto;
-        background-color: #f67d22;
+        background-color: #222;
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
@@ -236,6 +236,12 @@ table tbody tr {
 
 .side-nav>li>ul {
     padding: 0;
+}
+
+.side-nav li a:hover,
+.side-nav li a:focus {
+    outline: none;
+    background-color: #000 !important;
 }
 
 .side-nav>li>a {

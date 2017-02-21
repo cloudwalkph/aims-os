@@ -35,4 +35,11 @@ class AccountsExecutiveController extends Controller
 
         return view('ae.schedules');
     }
+
+    public function references()
+    {
+        config(['app.name' => 'Accounts Executive | AIMS']);
+
+        return view('ae.references');
+    }
 }

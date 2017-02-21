@@ -14,7 +14,7 @@
                         <a href="/ae"><i class="fa fa-dashboard"></i> AE Department</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-file-text-o"></i> Job Order Lists
+                        <i class="fa fa-clipboard"></i> Reference Lists
                     </li>
                 </ol>
             </div>
@@ -22,10 +22,6 @@
 
             <div class="col-md-12">
 
-                <a type="button" href="/ae/jo/create"
-                    class="btn btn-primary btn-create">
-                    <i class="fa fa-plus"></i> Create Job Order
-                </a>
 
 
             </div>
