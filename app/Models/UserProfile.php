@@ -14,9 +14,23 @@ class UserProfile extends Model
         'birthdate', 'street', 'barangay', 'city', 'province', 'status',
         'date_hired', 'last_login', 'profile_picture'];
 
+    /**
+     * Association
+     * ======================================================================================================
+     */
+
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
+    /**
+     * Serialization
+     * ======================================================================================================
+     */
+
+    public function getFullName()
+    {
+        return ucwords($this->attributes['first_name'] . ' ' . $this->attributes['last_name']);
+    }
 }
