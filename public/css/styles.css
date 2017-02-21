@@ -105,6 +105,14 @@ table tbody tr {
 }
 
 /*home buttons start*/
+.hero-widget.well.well-sm i{
+    color: #333;
+}
+
+.hero-widget.well.well-sm i:hover {
+    color: #f57e20;
+}
+
 .hero-widget {
     text-align: center;
     padding-top: 20px;
