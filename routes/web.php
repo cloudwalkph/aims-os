@@ -21,6 +21,10 @@ Route::get('/admin', function () {
     return view('admin.index');
 });
 
+Route::get('/profile', function () {
+    return view('profile.index');
+});
+
 Route::group(['prefix' => 'ae'], function () {
     Route::get('/', 'Front\AE\AccountsExecutiveController@index');
     Route::get('schedules', 'Front\AE\AccountsExecutiveController@schedules');

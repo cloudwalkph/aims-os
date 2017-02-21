@@ -41,7 +41,7 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#"> <span class="fa fa-user"></span> Profile</a></li>
+                            <li><a href="/profile"> <span class="fa fa-user"></span> Profile</a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();

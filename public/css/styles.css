@@ -1,7 +1,6 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
     color: #333;
     background-color: #ffffff;
 }
@@ -100,7 +99,10 @@ table tbody tr {
 .topbar .nav > li > a:hover, .topbar .nav > li > a:focus {
     background-color: #d86611;
 }
-.topbar .nav .open > a, .topbar .nav .open > a:hover, .topbar nav .open > a:focus {
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
     background-color: #d86611;
 }
 
