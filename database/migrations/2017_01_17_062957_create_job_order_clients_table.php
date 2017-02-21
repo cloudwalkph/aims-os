@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateJobOrderClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,26 +13,22 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('job_order_clients', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_role_id')->unsigned();
-            $table->integer('department_id')->unsigned();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
+            $table->integer('job_order_id')->unsigned();
+            $table->integer('client_id')->unsigned();
+            $table->json('brands');
             $table->timestamps();
             $table->softDeletes();
 
-            // user_role relation
-            $table->foreign('user_role_id')
+            $table->foreign('job_order_id')
                 ->references('id')
-                ->on('user_roles')
+                ->on('job_orders')
                 ->onDelete('cascade');
 
-            // department relation
-            $table->foreign('department_id')
+            $table->foreign('client_id')
                 ->references('id')
-                ->on('departments')
+                ->on('clients')
                 ->onDelete('cascade');
         });
     }
@@ -44,6 +40,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::dropIfExists('job_order_clients');
     }
 }
