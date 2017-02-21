@@ -52,16 +52,30 @@ trait EventsTrait {
         // Find the event to update and check if this user owns it on their department
         $event = Event::where('id', $eventId)
             ->getDepartmentEvents($user->department_id)
-            ->first();
+            ->update($input);
 
         // Check if the event exists
         if (! $event) {
             return response()->json(['error' => 'Invalid event'], 400);
         }
 
-        // Update the event
-        Event::where('id', $eventId)->update($input);
-
         return response()->json(['message' => 'Successfully updated event'], 200);
+    }
+
+    public function delete(Request $request, $eventId)
+    {
+        // Get authenticated user
+        $user = $request->user();
+
+        // Find the event to update and check if this user owns it on their department
+        $event = Event::where('id', $eventId)
+            ->getDepartmentEvents($user->department_id)
+            ->delete();
+
+        if (! $event) {
+            return response()->json(['error' => 'Invalid event'], 400);
+        }
+
+        return response()->json(['message' => 'Successfully deleted event'], 200);
     }
 }
