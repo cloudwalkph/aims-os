@@ -28,4 +28,11 @@ class AccountsExecutiveController extends Controller
 
         return view('ae.index');
     }
+
+    public function schedules()
+    {
+        config(['app.name' => 'Accounts Executive Schedules | AIMS']);
+
+        return view('ae.schedules');
+    }
 }

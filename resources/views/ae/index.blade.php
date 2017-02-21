@@ -27,7 +27,7 @@
                             <label class="text-muted">Calendar</label>
                         </div>
                         <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">Schedules</a>
+                            <a href="/ae/schedules" class="btn btn-primary btn-lg">Schedules</a>
                         </div>
                     </div>
                 </div>
