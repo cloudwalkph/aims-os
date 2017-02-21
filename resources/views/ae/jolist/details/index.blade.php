@@ -112,6 +112,12 @@
                         </ul>
                         <div class="tab-content">
                             @include('ae.jolist.details.mom.index')
+                            @include('ae.jolist.details.event.index')
+                            @include('ae.jolist.details.project.index')
+                            @include('ae.jolist.details.client.index')
+                            @include('ae.jolist.details.status.index')
+                            @include('ae.jolist.details.requests.index')
+                            @include('ae.jolist.details.discussion.index')
                         </div>
                     </div>
                 </div>

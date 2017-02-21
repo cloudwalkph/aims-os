@@ -19,6 +19,10 @@ body {
     background-color: #c1611f !important;
 }
 
+.btn-add {
+    margin-top: 25px;
+}
+
 .checkbox+.checkbox, .radio+.radio {
     margin-top: 10px !important;
 }
@@ -280,3 +284,94 @@ table tbody tr {
 }
 
 /*sidebar end*/
+
+/*comment box start*/
+.comment-box img {
+    height: 120px;
+    float: left;
+    margin: 10px;
+}
+.comments-list {
+    margin-top: 30px;
+    padding: 0 20px !important;
+    position: relative;
+}
+
+.comments-list li {
+    margin-bottom: 15px;
+    display: block;
+    position: relative;
+}
+
+.comments-list li:after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+    width: 0;
+}
+.comment-main-level:after {
+    content: '';
+    width: 0;
+    height: 0;
+    display: block;
+    clear: both;
+}
+
+.comments-list .comment-box {
+    width: 100%;
+    position: relative;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+
+.comment-box .comment-head {
+    background: #EEEEEE;
+    padding: 10px 12px;
+    border-bottom: 1px solid #E5E5E5;
+    overflow: hidden;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+
+.comment-box .comment-name {
+    color: #03658c;
+    font-size: 14px;
+    font-weight: 700;
+    float: left;
+    margin-right: 10px;
+}
+
+.comment-box .comment-date {
+    color: #283035;
+    font-size: 14px;
+    font-weight: 700;
+    float: right;
+    margin-right: 10px;
+}
+
+.comment-box .comment-content {
+    background: #FFF;
+    padding: 12px;
+    font-size: 15px;
+    color: #595959;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+}
+
+/** =====================
+ * Responsive
+ ========================*/
+@media only screen and (max-width: 766px) {
+    .comments-container {
+        width: 480px;
+    }
+
+    .comments-list .comment-box {
+        width: 390px;
+    }
+}
+/*comment box end*/
