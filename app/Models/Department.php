@@ -12,6 +12,11 @@ class Department extends Model
     protected $table = 'departments';
     protected $fillable = ['name', 'slug'];
 
+    /**
+     * Associations
+     * ======================================================================================================
+     */
+
     public function users()
     {
         return $this->hasMany('App\User');
@@ -25,5 +30,10 @@ class Department extends Model
     public function joDepartment()
     {
         return $this->hasMany('App\Models\JobOrderDepartmentInvolved');
+    }
+
+    public function events()
+    {
+        return $this-$this->hasMany(Event::class);
     }
 }

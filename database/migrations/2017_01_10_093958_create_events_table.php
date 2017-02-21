@@ -21,6 +21,7 @@ class CreateEventsTable extends Migration
             $table->dateTime('event_datetime');
             $table->enum('type', ['jo', 'internal']);
             $table->json('meta');
+            $table->enum('scope', ['private', 'public'])->default('private');
             $table->timestamps();
             $table->softDeletes();
         });
