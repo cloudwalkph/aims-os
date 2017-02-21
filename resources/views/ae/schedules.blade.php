@@ -14,8 +14,11 @@
                     Accounting Executive<small> Department</small>
                 </h1>
                 <ol class="breadcrumb">
+                    <li>
+                        <a href="/ae"><i class="fa fa-dashboard"></i> AE Department</a>
+                    </li>
                     <li class="active">
-                        <i class="fa fa-dashboard"></i> AE Department
+                        <i class="fa fa-calendar"></i> Schedules
                     </li>
                 </ol>
             </div>
