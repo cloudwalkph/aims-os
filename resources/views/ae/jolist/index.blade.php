@@ -27,28 +27,7 @@
                     <i class="fa fa-plus"></i> Create Job Order
                 </a>
 
-                <div class="col-md-12 col-xs-12">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Job Order Number</th>
-                            <th>Project Name</th>
-                            <th>Client Name</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($jos as $jo)
-                                <tr>
-                                    <td>{{ $jo['job_order_no'] }}</td>
-                                    <td>{{ $jo['project_name'] }}</td>
-                                    <td>John Doe</td>
-                                    <td>{{ $jo['status'] }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+
             </div>
 
         </div>
