@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+}
+
+.btn.btn-primary {
+    background-color: #f57e20 !important;
+    border-color: #cd691b !important;
+}
+
+.btn.btn-primary:hover {
+    background-color: #db7520 !important;
+}
+
+.btn.btn-primary:active {
+    background-color: #c1611f !important;
+}
+
+.checkbox+.checkbox, .radio+.radio {
+    margin-top: 10px !important;
+}
+
+.content {
+    margin-top: 60px;
+}
+
+.multiple-fields {
+    padding: 0;
+    margin: 0;
+}
+
+.multiple-fields li {
+    list-style: none;
+}
+
+.table-title {
+    margin: 0;
+}
+
+.btn-create {
+    margin-top: 10px;
+}
+
+.internal-schedules {
+    min-height: 400px;
+}
+
+.internal-schedules .events {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.event {
+    line-height: 1.2em;
+    padding: 20px 30px;
+    background-color: #eeeeee;
+    border-left: 5px solid #bbbbbb;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.event:hover {
+    border-left: 12px solid #bbbbbb;
+}
+
+.event .event-title {
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+table tbody tr {
+    cursor: pointer;
+}
