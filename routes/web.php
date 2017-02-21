@@ -43,3 +43,15 @@ Route::group(['prefix' => 'accounting'], function () {
 Route::group(['prefix' => 'hr'], function () {
     Route::get('/', 'HR\HumanResourcesController@index');
 });
+
+Route::group(['prefix' => 'setup'], function () {
+    Route::get('/', 'Setup\SetupController@index');
+});
+
+Route::group(['prefix' => 'productions'], function () {
+    Route::get('/', 'Productions\ProductionsController@index');
+});
+
+Route::group(['prefix' => 'operations'], function () {
+    Route::get('/', 'Operations\OperationsController@index');
+});
