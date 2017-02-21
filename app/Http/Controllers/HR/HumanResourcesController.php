@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Creatives;
+namespace App\Http\Controllers\HR;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CreativesController extends Controller
+class HumanResourcesController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,8 +24,8 @@ class CreativesController extends Controller
      */
     public function index()
     {
-        config(['app.name' => 'Creatives | AIMS']);
+        config(['app.name' => 'Human Resources | AIMS']);
 
-        return view('creatives.index');
+        return view('hr.index');
     }
 }

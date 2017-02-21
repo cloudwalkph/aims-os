@@ -24,6 +24,8 @@ class CmtuvaController extends Controller
      */
     public function index()
     {
+        config(['app.name' => 'CMTUVA | AIMS']);
+
         return view('cmtuva.index');
     }
 }

@@ -39,3 +39,7 @@ Route::group(['prefix' => 'inventory'], function () {
 Route::group(['prefix' => 'accounting'], function () {
     Route::get('/', 'Accounting\AccountingController@index');
 });
+
+Route::group(['prefix' => 'hr'], function () {
+    Route::get('/', 'HR\HumanResourcesController@index');
+});

@@ -24,6 +24,8 @@ class AccountingController extends Controller
      */
     public function index()
     {
+        config(['app.name' => 'Accounting | AIMS']);
+
         return view('accounting.index');
     }
 }

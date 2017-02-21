@@ -24,6 +24,8 @@ class InventoryController extends Controller
      */
     public function index()
     {
+        config(['app.name' => 'Inventory | AIMS']);
+
         return view('inventory.index');
     }
 }
