@@ -34,5 +34,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     // Clients
     Route::group(['prefix' => 'clients'], function() {
         Route::get('/', 'ClientsController@index');
+        Route::get('/{clientId}', 'ClientsController@show');
+        Route::post('/', 'ClientsController@store');
+        Route::put('/{clientId}', 'ClientsController@update');
+        Route::delete('/{clientId}', 'ClientsController@delete');
     });
 });

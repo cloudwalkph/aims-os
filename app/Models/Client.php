@@ -12,6 +12,14 @@ class Client extends Model
     protected $table = 'clients';
     protected $guarded = ['id'];
 
+    public static $rules = [
+        'company'           => 'required|min:2',
+        'contact_person'    => 'required|min:2',
+        'contact_number'    => 'required|min:2',
+        'email'             => 'required|email',
+        'brands.*.name'     => 'required'
+    ];
+
     public function jobOrderClients()
     {
         return $this->hasMany('App\Models\JobOrderClient');

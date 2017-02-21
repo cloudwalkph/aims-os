@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Events;
 
 use App\Http\Requests\APIFormRequest;
-use App\Models\Event;
+use App\Models\Client;
 
-class CreateEventRequest extends APIFormRequest
+class CreateClientRequest extends APIFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,6 +14,6 @@ class CreateEventRequest extends APIFormRequest
      */
     public function rules()
     {
-        return Event::$rules;
+        return Client::$rules;
     }
 }

@@ -12,4 +12,24 @@ class ClientsController extends Controller {
 
         return response()->json($clients, 200);
     }
+
+    public function show($clientId)
+    {
+
+    }
+
+    public function store()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+
+    }
 }

@@ -2,21 +2,11 @@
 
 namespace App\Http\Requests\Events;
 
+use App\Http\Requests\APIFormRequest;
 use App\Models\Event;
-use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEventRequest extends FormRequest
+class UpdateEventRequest extends APIFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
