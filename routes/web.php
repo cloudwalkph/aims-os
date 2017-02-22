@@ -42,6 +42,15 @@ Route::group(['prefix' => 'ae'], function () {
         Route::post('/{joId}/departments', 'Front\AE\JobOrderController@saveDepartmentInvolve');
         Route::post('/{joId}/project-attachments', 'Front\AE\JobOrderController@uploadProjectAttachments');
         Route::get('/{joId}/project-attachments/{attachmentId}/download', 'Front\AE\JobOrderController@downloadAttachment');
+
+        // job orders manpower request
+        Route::post('/{joId}/manpowers-request', 'Front\AE\JobOrderController@saveManpower');
+
+        // job orders meal request
+        Route::post('/{joId}/meals-request', 'Front\AE\JobOrderController@saveMeal');
+
+        // job orders vehicle request
+        Route::post('/{joId}/vehicles-request', 'Front\AE\JobOrderController@saveVehicle');
     });
 
 });

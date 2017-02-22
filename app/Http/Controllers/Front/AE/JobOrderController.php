@@ -8,8 +8,14 @@ use App\Models\JobOrder;
 use App\Models\JobOrderAnimationDetail;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Models\JobOrderDetail;
+use App\Models\JobOrderManpower;
+use App\Models\JobOrderMeal;
 use App\Models\JobOrderMom;
 use App\Models\JobOrderProjectAttachment;
+use App\Models\JobOrderVehicle;
+use App\Models\ManpowerType;
+use App\Models\MealType;
+use App\Models\VehicleType;
 use Illuminate\Http\Request;
 
 class JobOrderController extends Controller
@@ -43,13 +49,6 @@ class JobOrderController extends Controller
         return view('ae.jolist.create.create');
     }
 
-    public function references()
-    {
-        config(['app.name' => 'Accounts Executive | AIMS']);
-
-        return view('ae.jolist.create.create');
-    }
-
     public function show($joNumber)
     {
         config(['app.name' => 'Accounts Executive | AIMS']);
@@ -76,6 +75,21 @@ class JobOrderController extends Controller
             array_push($brands, ucwords($client->brands[0]->name));
         }
 
+        $mealTypes = MealType::all();
+
+        $manpowerTypes = ManpowerType::all();
+
+        $vehicleTypes = VehicleType::all();
+
+        $manpower_request = JobOrderManpower::where('job_order_id', $jo->id)
+            ->with('manpowerType')->get();
+
+        $vehicle_request = JobOrderVehicle::where('job_order_id', $jo->id)
+            ->with('vehicleType')->get();
+
+        $meal_request = JobOrderMeal::where('job_order_id', $jo->id)
+            ->with('mealType')->get();
+
         $departmentLists = Department::all();
 
         return view('ae.jolist.details.index')
@@ -86,6 +100,12 @@ class JobOrderController extends Controller
             ->with('departmentLists', $departmentLists)
             ->with('animations', $animations)
             ->with('attachments', $attachments)
+            ->with('mealTypes', $mealTypes)
+            ->with('manpowerTypes', $manpowerTypes)
+            ->with('vehicleTypes', $vehicleTypes)
+            ->with('manpower_request', $manpower_request)
+            ->with('vehicle_request', $vehicle_request)
+            ->with('meal_request', $meal_request)
             ->with('departments', $departments);
     }
 
@@ -198,6 +218,39 @@ class JobOrderController extends Controller
         $input['job_order_id'] = $joId;
 
         $department = JobOrderDepartmentInvolved::create($input);
+
+        return redirect()->back();
+    }
+
+    public function saveManpower(Request $request, $joId)
+    {
+        $input = $request->all();
+        $input['job_order_id'] = $joId;
+
+        // Create new jo manpower request
+        $manpower = JobOrderManpower::create($input);
+
+        return redirect()->back();
+    }
+
+    public function saveMeal(Request $request, $joId)
+    {
+        $input = $request->all();
+        $input['job_order_id'] = $joId;
+
+        // Create new jo meal request
+        $meal = JobOrderMeal::create($input);
+
+        return redirect()->back();
+    }
+
+    public function saveVehicle(Request $request, $joId)
+    {
+        $input = $request->all();
+        $input['job_order_id'] = $joId;
+
+        // Create new jo vehicle request
+        $vehicle = JobOrderVehicle::create($input);
 
         return redirect()->back();
     }

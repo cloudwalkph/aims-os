@@ -13,7 +13,7 @@
             {{-- breadcrumb start --}}
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Accounting Executive<small> Department</small>
+                    Accounts Executive<small> Department</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li>

@@ -7,19 +7,20 @@
                     Manpower Request Form
                 </h3>
             </div>
-            <div id="collapseManpower" class="panel-collapse collapse" role="tabpanel" aria-labelledby="manpowerForm">
+            <div id="collapseManpower" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="manpowerForm">
                 <div class="panel-body">
 
-                    <form action="">
+                    <form action="/ae/jo/{{ $jo->id }}/manpowers-request" method="POST">
                         <div class="row">
+                            {{ csrf_field() }}
 
                             <div class="col-md-3 form-group text-input-container">
                                 <label class="control-label col-sm-12" for="manpower_type_id">Manpower Type</label>
                                 <div class="col-md-12">
                                     <select name="manpower_type_id" id="manpower_type_id" class="form-control">
-                                        <option value="1">BA</option>
-                                        <option value="2">Promodizer</option>
-                                        <option value="3">Sampling</option>
+                                        @foreach($manpowerTypes as $type)
+                                            <option value={{ $type->id }}>{{ $type->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -46,7 +47,7 @@
                             </div>
 
                             <div class="col-md-2 form-group select-input-container">
-                                <button type="button" class="btn btn-primary btn-add">Add </button>
+                                <button type="submit" class="btn btn-primary btn-add">Add </button>
                             </div>
 
                         </div>
@@ -63,13 +64,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>manpower_type name</td>
-                                <td>manpower_needed</td>
-                                <td>rate</td>
-                                <td>remarks</td>
-                                <td>status</td>
-                            </tr>
+                            @foreach($manpower_request as $manpower)
+                                <tr>
+                                    <td>{{ $manpower->manpowerType->name }}</td>
+                                    <td>{{ $manpower->manpower_needed }}</td>
+                                    <td>{{ $manpower->rate }}</td>
+                                    <td>{{ $manpower->remarks }}</td>
+                                    <td>{{ $manpower->status }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
 
@@ -77,7 +80,7 @@
             </div>
         </div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-default hide">
             <div class="panel-heading" role="tab" id="vehicleForm">
                 <h3 class="panel-title" data-toggle="collapse" data-parent="#accordion"
                     href="#collapseVehicle" aria-expanded="true" aria-controls="collapseVehicle" style="cursor: pointer;">
@@ -94,8 +97,9 @@
                                 <label class="control-label col-sm-12" for="vehicle_type_id">Vehicle Type</label>
                                 <div class="col-md-12">
                                     <select name="vehicle_type_id" id="vehicle_type_id" class="form-control">
-                                        <option value="1">Small Truck</option>
-                                        <option value="2">Big Truck</option>
+                                        @foreach($vehicleTypes as $type)
+                                            <option value={{ $type->id }}>{{ $type->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -150,14 +154,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>vehicle_type name</td>
-                            <td>vehicle_needed</td>
-                            <td>rate</td>
-                            <td>venue.venue</td>
-                            <td>remarks</td>
-                            <td>status</td>
-                        </tr>
+                            @foreach($vehicle_request as $vehicle)
+                                <tr>
+                                    <td>{{ $vehicle->vehicleType->name }}</td>
+                                    <td>{{ $vehicle->vehicle_needed }}</td>
+                                    <td>{{ $vehicle->rate }}</td>
+                                    <td>{{ $vehicle->remarks }}</td>
+                                    <td>{{ $vehicle->status }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
 
@@ -175,16 +180,17 @@
             <div id="collapseFood" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="foodForm">
                 <div class="panel-body">
 
-                    <form class="">
+                    <form action="/ae/jo/{{ $jo->id }}/meals-request" method="POST">
                         <div class="row">
+                            {{ csrf_field() }}
 
                             <div class="col-md-2 form-group text-input-container">
                                 <label class="control-label col-sm-12" for="meal_type_id">Meal Type</label>
                                 <div class="col-md-12">
                                     <select name="meal_type_id" id="meal_type_id" class="form-control">
-                                        <option value="1">Breakfast</option>
-                                        <option value="2">Lunch</option>
-                                        <option value="2">Dinner</option>
+                                        @foreach($mealTypes as $type)
+                                            <option value={{ $type->id }}>{{ $type->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -218,7 +224,7 @@
                             </div>
 
                             <div class="col-md-2 form-group select-input-container">
-                                <button type="button" class="btn btn-primary btn-add">Add </button>
+                                <button type="submit" class="btn btn-primary btn-add">Add </button>
                             </div>
 
                         </div>
@@ -236,14 +242,16 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>meal_type.name</td>
-                            <td>quantity</td>
-                            <td>serving_time</td>
-                            <td>pickup_by</td>
-                            <td>remarks</td>
-                            <td>status</td>
-                        </tr>
+                            @foreach($meal_request as $meal)
+                                <tr>
+                                    <td>{{ $meal->mealType->name }}</td>
+                                    <td>{{ $meal->quantity }}</td>
+                                    <td>{{ $meal->serving_time }}</td>
+                                    <td>{{ $meal->pickup_by }}</td>
+                                    <td>{{ $meal->remarks }}</td>
+                                    <td>{{ $meal->status }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
 
