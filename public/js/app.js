@@ -75949,8 +75949,6 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             });
         },
         createJobOrder: function createJobOrder() {
-            var _this4 = this;
-
             var data = {
                 project_name: this.projectName,
                 project_types: this.projectTypes,
@@ -75958,32 +75956,9 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             };
 
             this.$http.post('/api/v1/job-orders', data).then(function (response) {
-                _this4.clients = response.data.data;
+                var jo = response.data;
 
-                var _iteratorNormalCompletion2 = true;
-                var _didIteratorError2 = false;
-                var _iteratorError2 = undefined;
-
-                try {
-                    for (var _iterator2 = _this4.clients[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                        var client = _step2.value;
-
-                        _this4.clientOptions.push({ label: client.company + ' : ' + client.contact_person, value: client.id });
-                    }
-                } catch (err) {
-                    _didIteratorError2 = true;
-                    _iteratorError2 = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                            _iterator2.return();
-                        }
-                    } finally {
-                        if (_didIteratorError2) {
-                            throw _iteratorError2;
-                        }
-                    }
-                }
+                location.href = '/ae/jo/details/' + jo.job_order_no;
             }, function (error) {
                 console.log(error);
             });
