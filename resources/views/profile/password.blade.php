@@ -2,9 +2,22 @@
     <div class="panel-heading text-center">
         <h2>RESET PASSWORD</h2>
     </div>
-    <form method="POST" action="/api/v1/users/change-password">
+    <form method="POST" action="/change-password">
+        {{ csrf_field() }}
         <div class="panel-body">
             <div class="row">
+                <div class="col-md-12">
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
 
                 <div class="form-group">
                     <label for="current_password" class="col-md-12">Current Password</label>

@@ -21,9 +21,8 @@ Route::get('/admin', function () {
     return view('admin.index');
 });
 
-Route::get('/profile', function () {
-    return view('profile.index');
-});
+Route::get('/profile', 'HomeController@profile');
+Route::post('/change-password', 'HomeController@changePassword');
 
 Route::group(['prefix' => 'ae'], function () {
     Route::get('/', 'Front\AE\AccountsExecutiveController@index');
