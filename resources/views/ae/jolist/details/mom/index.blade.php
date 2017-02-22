@@ -11,7 +11,8 @@
                         <label for="agenda" class="col-sm-2 control-label">Agenda</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control"
-                                   name="agenda" value="{{ $mom->agenda }}"
+                                   required
+                                   name="agenda" value="{{ $mom->agenda or '' }}"
                                    id="agenda" placeholder="Agenda" />
                         </div>
                     </div>
@@ -19,7 +20,8 @@
                         <label for="date_time" class="col-sm-2 control-label">Date and Time</label>
                         <div class="col-sm-10">
                             <input type="date" class="form-control"
-                                   name="date_and_time" value="{{ \Carbon\Carbon::createFromTimestamp(strtotime($mom->date_and_time))->toDateString() }}"
+                                   required
+                                   name="date_and_time" value="{{ isset($mom['date_and_time']) ? \Carbon\Carbon::createFromTimestamp(strtotime($mom->date_and_time))->toDateString() : '' }}"
                                    id="date_time" placeholder="Date and Time" />
                         </div>
                     </div>
@@ -27,7 +29,8 @@
                         <label for="location" class="col-sm-2 control-label">Location</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control"
-                                   name="location" value="{{ $mom->location }}"
+                                   required
+                                   name="location" value="{{ $mom->location or '' }}"
                                    id="location" placeholder="Location" />
                         </div>
                     </div>
@@ -35,9 +38,10 @@
                         <label for="attendees" class="col-sm-2 control-label">Attendees</label>
                         <div class="col-sm-10">
                         <textarea class="attendees"
+                                  required
                                   name="attendees" placeholder="Place some text here"
                                   style="width: 100%; height: 100px; font-size: 14px;
-                                      line-height: 18px; border: 1px solid #dddddd; padding: 10px" >{{ $mom->attendees }}</textarea>
+                                      line-height: 18px; border: 1px solid #dddddd; padding: 10px" >{{ $mom->attendees or '' }}</textarea>
                         </div>
                     </div>
 

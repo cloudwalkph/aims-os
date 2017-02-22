@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\AE;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobOrder;
+use App\Models\JobOrderDetail;
 use App\Models\JobOrderMom;
 use Illuminate\Http\Request;
 
@@ -47,6 +48,9 @@ class JobOrderController extends Controller
             ->where('job_order_id', $jo->id)
             ->orderBy('id', 'desc')->first();
 
+        $detail = JobOrderDetail::where('job_order_id', $jo->id)
+            ->orderBy('id', 'desc')->first();
+
         $brands = [];
         foreach ($jo->clients as $client) {
             array_push($brands, ucwords($client->brands[0]->name));
@@ -55,7 +59,8 @@ class JobOrderController extends Controller
         return view('ae.jolist.details.index')
             ->with('jo', $jo)
             ->with('brands', $brands)
-            ->with('mom', $mom);
+            ->with('mom', $mom)
+            ->with('detail', $detail);
     }
 
     public function saveJobOrderMOM(Request $request, $joId)
@@ -63,6 +68,15 @@ class JobOrderController extends Controller
         $input = $request->all();
         $input['job_order_id'] = $joId;
         $mom = JobOrderMom::create($input);
+
+        return redirect()->back();
+    }
+
+    public function saveEventDetails(Request $request, $joId)
+    {
+        $input = $request->all();
+        $input['job_order_id'] = $joId;
+        $detail = JobOrderDetail::create($input);
 
         return redirect()->back();
     }
