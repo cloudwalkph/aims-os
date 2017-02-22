@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\AE;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobOrder;
+use App\Models\JobOrderMom;
 use Illuminate\Http\Request;
 
 class JobOrderController extends Controller
@@ -42,6 +43,9 @@ class JobOrderController extends Controller
         config(['app.name' => 'Accounts Executive | AIMS']);
 
         $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+        $mom = JobOrderMom::where('status', 'active')
+            ->where('job_order_id', $jo->id)
+            ->orderBy('id', 'desc')->first();
 
         $brands = [];
         foreach ($jo->clients as $client) {
@@ -50,6 +54,16 @@ class JobOrderController extends Controller
 
         return view('ae.jolist.details.index')
             ->with('jo', $jo)
-            ->with('brands', $brands);
+            ->with('brands', $brands)
+            ->with('mom', $mom);
+    }
+
+    public function saveJobOrderMOM(Request $request, $joId)
+    {
+        $input = $request->all();
+        $input['job_order_id'] = $joId;
+        $mom = JobOrderMom::create($input);
+
+        return redirect()->back();
     }
 }

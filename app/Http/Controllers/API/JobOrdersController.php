@@ -26,7 +26,9 @@ class JobOrdersController extends Controller {
         $query->join('job_order_clients', 'job_order_clients.job_order_id', '=', 'job_orders.id')
             ->join('clients', 'job_order_clients.client_id', '=', 'clients.id')
             ->join('user_profiles', 'user_profiles.user_id', '=', 'job_orders.user_id')
-            ->select('job_orders.*', 'clients.company', 'job_order_clients.brands',
+            ->groupBy('job_orders.id', 'user_profiles.last_name', 'user_profiles.first_name')
+            ->select('job_orders.*', \DB::raw("GROUP_CONCAT(clients.`company` separator ', ') as company"),
+                \DB::raw("GROUP_CONCAT(job_order_clients.`brands` separator ', ') as brands"),
                 \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as created_by'));
 
         // Filter
@@ -36,7 +38,7 @@ class JobOrdersController extends Controller {
 
         // Count per page
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
-
+\Log::info($query->toSql());
         // Get the data
         $jobOrders = $query->paginate($perPage);
 

@@ -39795,7 +39795,7 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IM
                 name: 'project_types',
                 sortField: 'project_types',
                 title: 'Project Types',
-                callback: 'brandsDisseminate'
+                callback: 'projectTypeDisseminate'
             }, {
                 name: 'status',
                 sortField: 'status',
@@ -39834,7 +39834,7 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IM
                     last: 'glyphicon glyphicon-step-forward'
                 }
             },
-            sortOrder: [{ field: 'email', sortField: 'email', direction: 'asc' }],
+            sortOrder: [{ field: 'created_at', sortField: 'created_at', direction: 'asc' }],
             moreParams: {}
         };
     },
@@ -39844,6 +39844,67 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IM
             return value.toUpperCase();
         },
         brandsDisseminate: function brandsDisseminate(value) {
+            var brands = [];
+
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = value[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var brand = _step.value;
+
+                    var tmpBrands = null;
+                    try {
+                        tmpBrands = JSON.parse(brand);
+
+                        var _iteratorNormalCompletion2 = true;
+                        var _didIteratorError2 = false;
+                        var _iteratorError2 = undefined;
+
+                        try {
+                            for (var _iterator2 = tmpBrands[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                                var tmp = _step2.value;
+
+                                brands.push(tmp['name']);
+                            }
+                        } catch (err) {
+                            _didIteratorError2 = true;
+                            _iteratorError2 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                                    _iterator2.return();
+                                }
+                            } finally {
+                                if (_didIteratorError2) {
+                                    throw _iteratorError2;
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        continue;
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            console.log(brands.join(', '));
+            return brands.join(', ');
+        },
+        projectTypeDisseminate: function projectTypeDisseminate(value) {
             return JSON.parse(value).map(function (elem) {
                 return elem.name;
             }).join(', ');

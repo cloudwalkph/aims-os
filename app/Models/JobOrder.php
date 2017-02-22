@@ -53,4 +53,16 @@ class JobOrder extends Model
     {
         return $this->hasMany(CreativesJob::class, 'id', 'job_order_no');
     }
+
+    /**
+     * Serialization
+     * ======================================================================================================
+     */
+
+    public function getBrandsAttribute()
+    {
+        $brands = explode(', ', $this->attributes['brands']);
+
+        return $brands;
+    }
 }

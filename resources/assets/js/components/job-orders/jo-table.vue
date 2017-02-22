@@ -95,7 +95,7 @@
                         name: 'project_types',
                         sortField: 'project_types',
                         title: 'Project Types',
-                        callback: 'brandsDisseminate'
+                        callback: 'projectTypeDisseminate'
                     },
                     {
                         name: 'status',
@@ -139,7 +139,7 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'email', sortField: 'email', direction: 'asc'}
+                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
                 ],
                 moreParams: {}
             }
@@ -149,6 +149,24 @@
                 return value.toUpperCase()
             },
             brandsDisseminate (value) {
+                let brands = []
+
+                for (let brand of value) {
+                    let tmpBrands = null;
+                    try {
+                        tmpBrands = JSON.parse(brand)
+
+                        for (let tmp of tmpBrands) {
+                            brands.push(tmp['name'])
+                        }
+                    } catch(e) {
+                        continue;
+                    }
+                }
+                console.log(brands.join(', '));
+                return brands.join(', ')
+            },
+            projectTypeDisseminate (value) {
                 return JSON.parse(value).map(elem => { return elem.name }).join(', ')
             },
             formatDate (value, fmt = 'D MMM YYYY') {
