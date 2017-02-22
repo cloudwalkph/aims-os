@@ -94,12 +94,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="added-ae">
-                        <p>Alleo Indong</p>
-                        <p>Alleo Indong</p>
+                    <div class="added-ae" style="margin-top: 20px">
+                        <p>{{ $jo->user->profile->full_name }}</p>
                     </div>
                     <hr/>
-                    <div class="update-history">
+                    <div class="update-history" style="display: none">
                         <h4>Update History</h4>
                         <p>December 28, 2016</p>
                         <p>December 20, 2016</p>
