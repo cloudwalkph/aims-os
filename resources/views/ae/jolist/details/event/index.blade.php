@@ -67,7 +67,7 @@
                     @include('ae.jolist.details.event.modals.animation')
                 </div>
 
-                <table class="table table-striped table-bordered animation-details">
+                <table class="table table-striped table-bordered animation-details ">
                     <thead>
                     <tr>
                         <th rowSpan="2">Particulars</th>
