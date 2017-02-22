@@ -43,6 +43,13 @@ class JobOrderController extends Controller
         return view('ae.jolist.create.create');
     }
 
+    public function references()
+    {
+        config(['app.name' => 'Accounts Executive | AIMS']);
+
+        return view('ae.jolist.create.create');
+    }
+
     public function show($joNumber)
     {
         config(['app.name' => 'Accounts Executive | AIMS']);
