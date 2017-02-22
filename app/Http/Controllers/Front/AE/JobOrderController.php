@@ -68,6 +68,34 @@ class JobOrderController extends Controller
             ->with('animations', $animations);
     }
 
+    public function preview($joNumber)
+    {
+        config(['app.name' => 'Accounts Executive | AIMS']);
+
+        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+        $mom = JobOrderMom::where('status', 'active')
+            ->where('job_order_id', $jo->id)
+            ->orderBy('id', 'desc')->first();
+
+        $detail = JobOrderDetail::where('job_order_id', $jo->id)
+            ->orderBy('id', 'desc')->first();
+
+        $animations = JobOrderAnimationDetail::where('job_order_id', $jo->id)
+            ->get();
+
+        $brands = [];
+        foreach ($jo->clients as $client) {
+            array_push($brands, ucwords($client->brands[0]->name));
+        }
+//        print_r($jo->user->profile); exit;
+        return view('ae.jolist.details.print.index')
+            ->with('jo', $jo)
+            ->with('brands', $brands)
+            ->with('mom', $mom)
+            ->with('detail', $detail)
+            ->with('animations', $animations);
+    }
+
     public function saveJobOrderMOM(Request $request, $joId)
     {
         $input = $request->all();

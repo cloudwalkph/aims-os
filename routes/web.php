@@ -25,10 +25,6 @@ Route::get('/profile', function () {
     return view('profile.index');
 });
 
-Route::get('/print', function () {
-    return view('ae.jolist.details.print.index');
-});
-
 Route::group(['prefix' => 'ae'], function () {
     Route::get('/', 'Front\AE\AccountsExecutiveController@index');
     Route::get('schedules', 'Front\AE\AccountsExecutiveController@schedules');
@@ -39,6 +35,7 @@ Route::group(['prefix' => 'ae'], function () {
         Route::get('/', 'Front\AE\JobOrderController@index');
         Route::get('/create', 'Front\AE\JobOrderController@create');
         Route::get('/details/{joNo}', 'Front\AE\JobOrderController@show');
+        Route::get('/details/{joNo}/preview', 'Front\AE\JobOrderController@preview');
         Route::post('/{joId}/mom', 'Front\AE\JobOrderController@saveJobOrderMOM');
         Route::post('/{joId}/details', 'Front\AE\JobOrderController@saveEventDetails');
         Route::post('/{joId}/animation', 'Front\AE\JobOrderController@saveAnimationDetails');

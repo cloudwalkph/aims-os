@@ -39,12 +39,12 @@
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <h5>
-                    <b>JOB ORDER NO.:</b> UNKC2015-_______
+                    <b>JOB ORDER NO.:</b> {{ $jo->job_order_no }}
                 </h5>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                 <h5>
-                    <b>DATE:</b> September 25, 2016
+                    <b>DATE:</b> {{ $jo->created_at->toFormattedDateString() }}
                 </h5>
             </div>
         </div>
@@ -52,30 +52,12 @@
 
         {{--project type checkbox start--}}
         <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <input type="checkbox" name="project_type">
-                <label for="project_type">Ambient</label>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <input type="checkbox" name="project_type">
-                <label for="project_type">Sampling</label>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <input type="checkbox" name="project_type">
-                <label for="project_type">Selling</label>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <input type="checkbox" name="project_type">
-                <label for="project_type">Tie-ups</label>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <input type="checkbox" name="project_type">
-                <label for="project_type">Activations/Events</label>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-6">
-                <input type="checkbox" name="project_type">
-                <label for="project_type">Others</label>
-            </div>
+            @foreach(json_decode($jo->project_types) as $type)
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                    <input type="checkbox" name="project_type">
+                    <label for="project_type">{{ $type->name }}</label>
+                </div>
+            @endforeach
         </div>
         {{--project type checkbox end--}}
 
@@ -86,41 +68,43 @@
         {{--additional jo details start--}}
         <div class="row">
             <div class="col-md-12">
-                <h5><b>CLIENT:</b> Unilever Philippines - Marketing</h5>
-                <h5><b>PRODUCT:</b> Various</h5>
-                <h5><b>PROJECT:</b> ART Workshop</h5>
-                <h5><b>ACCOUNT HANDLER:</b> Kim Chua</h5>
+                <h5><b>CLIENT:</b> {{ $jo->clients[0]->client->company }}</h5>
+                <h5><b>PRODUCT:</b> {{ collect($brands)->implode(', ') }}</h5>
+                <h5><b>PROJECT:</b> {{ $jo->project_name }}</h5>
+                <h5><b>ACCOUNT HANDLER:</b> {{ $jo->user->profile->first_name }} {{ $jo->user->profile->last_name }}</h5>
             </div>
         </div>
         {{--additional jo details end--}}
 
-        {{--jo event details start--}}
-        <div class="row">
-            <div class="col-md-12">
-                <h5><b>EVENT DETAILS:</b></h5>
-                <ul>
-                    <li><b>What:</b> Art Workshop (Marketing Workshop)</li>
-                    <li><b>When:</b> March 05-06, 2017</li>
-                    <li><b>Where:</b> TBC</li>
-                    <li><b>Expected Attendees:</b> 100 Attendees</li>
-                </ul>
+        @if($detail)
+            {{--jo event details start--}}
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><b>EVENT DETAILS:</b></h5>
+                    <ul>
+                        <li><b>What:</b> {{ $detail->what }}</li>
+                        <li><b>When:</b> {{ $detail->when }}</li>
+                        <li><b>Where:</b> {{ $detail->where }}</li>
+                        <li><b>Expected Guests:</b> {{ $detail->expected_guest }}</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        {{--jo event details end--}}
+            {{--jo event details end--}}
 
-        {{--jo event specification start--}}
-        <div class="row">
-            <div class="col-md-12">
-                <h5><b>EVENT SPECIFICATION:</b></h5>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad consequuntur
-                    cupiditate deserunt dolorem eaque fugiat hic ipsum iste iure maiores minus
-                    numquam possimus quae ratione reiciendis repellendus, sunt tempora.
-                </p>
+            {{--jo event specification start--}}
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><b>EVENT SPECIFICATION:</b></h5>
+                    <p>
+                        {{ $detail->event_specifications }}
+                    </p>
+                </div>
             </div>
-        </div>
-        {{--jo event specification end--}}
+            {{--jo event specification end--}}
+        @endif
 
+
+        @if($animations)
         {{--animation details start--}}
         <div class="row">
             <div class="col-md-12">
@@ -144,17 +128,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                            <td>Rural Area Malls</td>
-                            <td>Selling + Flyering + Survey</td>
-                            <td>120</td>
-                            <td>120</td>
-                            <td>3500</td>
-                            <td>120</td>
-                            <td>0</td>
-                            <td>2 Days</td>
-                            <td>20</td>
-                        </tr>
+                        @foreach($animations as $animation)
+                            <tr class="text-center">
+                                <td>{{  }}</td>
+                                <td>Selling + Flyering + Survey</td>
+                                <td>120</td>
+                                <td>120</td>
+                                <td>3500</td>
+                                <td>120</td>
+                                <td>0</td>
+                                <td>2 Days</td>
+                                <td>20</td>
+                            </tr>
+                        @endforeach
                         <tr class="text-center">
                             <td>Rural Area Malls</td>
                             <td>Selling + Flyering + Survey</td>
@@ -171,6 +157,7 @@
             </div>
         </div>
         {{--animation details end--}}
+        @endif
 
         {{--departments involved deadlines start--}}
         <div class="row">

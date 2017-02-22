@@ -2,8 +2,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\Users\ChangePasswordRequest;
+use App\Http\Requests\Users\CreateUserRequest;
 use App\Models\UserProfile;
 use App\User;
 

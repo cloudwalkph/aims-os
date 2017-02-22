@@ -26,9 +26,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // users
     Route::group(['prefix' => 'users'], function () {
-        Route::get('/', 'User\UsersController@all');
-        Route::post('/', 'User\UsersController@store');
-        Route::post('/change-password', 'User\UsersController@changePassword');
+        Route::get('/', 'UsersController@all');
+        Route::post('/', 'UsersController@store');
+        Route::post('/change-password', 'UsersController@changePassword');
     });
 
     // Events API
