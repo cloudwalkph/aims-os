@@ -114,7 +114,7 @@
             </div>
             <div class="box-body">
 
-                <div class="form-group">
+                <form action="" method="POST" class="form-group">
                     <div class="row">
 
                         <div class="col-md-6 form-group text-input-container">
@@ -147,7 +147,7 @@
                         </div>
 
                     </div>
-                </div>
+                </form>
 
                 <table class="table table-striped">
                     <thead>
