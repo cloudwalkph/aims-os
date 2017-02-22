@@ -18,6 +18,8 @@ class CreateJobOrderDetailsTable extends Migration
             $table->integer('job_order_id')->unsigned();
             $table->string('what');
             $table->mediumText('what_notes');
+            $table->string('when');
+            $table->string('where');
             $table->string('expected_guest');
             $table->mediumText('event_specifications');
             $table->enum('status', ['active', 'revision']);

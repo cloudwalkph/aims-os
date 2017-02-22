@@ -24,6 +24,20 @@
                         </div>
 
                         <div class="col-md-12 form-group text-input-container">
+                            <label class="control-label col-sm-2" for="when">When</label>
+                            <div class="col-md-10">
+                                <input type="text" name="when" placeholder="When" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 form-group text-input-container">
+                            <label class="control-label col-sm-2" for="where">Where</label>
+                            <div class="col-md-10">
+                                <input type="text" name="where" placeholder="Where" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 form-group text-input-container">
                             <label for="expected_guest" class="control-label col-sm-2">Expected Guest</label>
 
                             <div class="col-md-10">
