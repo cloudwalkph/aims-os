@@ -23,6 +23,14 @@
                     </tr>
                     </thead>
                     <tbody>
+                        @foreach ($attachments as $attachment)
+                            <tr>
+                                <td>{{ $attachment->reference_for }}</td>
+                                <td>{{ $attachment->file_name }}</td>
+                                <td>{{ $attachment->created_at->toFormattedDateString() }}</td>
+                                <td><a href="/ae/jo/{{ $jo->id }}/project-attachments/{{ $attachment->id }}/download" role="button" class="btn btn-primary"><i class="fa fa-download"></i> Download</a></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
