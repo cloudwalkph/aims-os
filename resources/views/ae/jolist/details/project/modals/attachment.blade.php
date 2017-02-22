@@ -6,7 +6,7 @@
                 <h4 class="modal-title" id="myModalLabel">Add Project Attachments</h4>
             </div>
             <div class="modal-body">
-                <form method="POST" action="/ae/jo/{{ $jo->id }}/project-attachments">
+                <form method="POST" action="/ae/jo/{{ $jo->id }}/project-attachments" enctype="multipart/form-data">
                     <div>
 
                         <div class="col-md-12 form-group text-input-container">
