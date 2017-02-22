@@ -69,11 +69,14 @@ class JobOrderController extends Controller
             array_push($brands, ucwords($client->brands[0]->name));
         }
 
+        $departmentLists = Department::all();
+
         return view('ae.jolist.details.index')
             ->with('jo', $jo)
             ->with('brands', $brands)
             ->with('mom', $mom)
             ->with('detail', $detail)
+            ->with('departmentLists', $departmentLists)
             ->with('animations', $animations)
             ->with('attachments', $attachments)
             ->with('departments', $departments);

@@ -122,10 +122,9 @@
                             <label class="control-label col-sm-12" for="department_id">Departments</label>
                             <div class="col-md-12">
                                 <select name="department_id" required id="department_id" class="form-control">
-                                    <option value="1">Accounting</option>
-                                    <option value="2">Account Executives</option>
-                                    <option value="3">CMTUVA</option>
-                                    <option value="4">Creatives</option>
+                                    @foreach($departmentLists as $dept)
+                                        <option value={{ $dept->id }}>{{ $dept->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
