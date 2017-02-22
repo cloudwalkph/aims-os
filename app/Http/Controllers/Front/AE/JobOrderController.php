@@ -115,6 +115,10 @@ class JobOrderController extends Controller
 
         $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
 
+        $mom = JobOrderMom::where('status', 'active')
+            ->where('job_order_id', $jo->id)
+            ->orderBy('id', 'desc')->first();
+
         $detail = JobOrderDetail::where('job_order_id', $jo->id)
             ->orderBy('id', 'desc')->first();
 
@@ -137,9 +141,29 @@ class JobOrderController extends Controller
             ->with('jo', $jo)
             ->with('brands', $brands)
             ->with('detail', $detail)
+            ->with('mom', $mom)
             ->with('attachments', $attachments)
             ->with('departments', $departments)
             ->with('animations', $animations);
+    }
+
+    public function previewManpower($joNumber)
+    {
+
+        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+
+        $manpower_request = JobOrderManpower::where('job_order_id', $jo->id)
+            ->with('manpowerType')->get();
+
+        $brands = [];
+        foreach ($jo->clients as $client) {
+            array_push($brands, ucwords($client->brands[0]->name));
+        }
+
+        return view('ae.jolist.details.print.manpower')
+            ->with('jo', $jo)
+            ->with('brands', $brands)
+            ->with('manpowers', $manpower_request);
     }
 
     public function saveJobOrderMOM(Request $request, $joId)

@@ -68,7 +68,7 @@
         {{--additional jo details start--}}
         <div class="row">
             <div class="col-md-12">
-                <h5><b>CLIENT:</b> {{ $jo->clients[0]->client->company }}</h5>
+                <h5><b>CLIENT:</b> {{ isset($jo->clients[0]) ? $jo->clients[0]->client->company : "No Clients" }}</h5>
                 <h5><b>PRODUCT:</b> {{ collect($brands)->implode(', ') }}</h5>
                 <h5><b>PROJECT:</b> {{ $jo->project_name }}</h5>
                 <h5><b>ACCOUNT HANDLER:</b> {{ $jo->user->profile->first_name }} {{ $jo->user->profile->last_name }}</h5>
@@ -76,11 +76,76 @@
         </div>
         {{--additional jo details end--}}
 
+        @if($mom)
+            {{--jo MOM start--}}
+            <div class="row">
+                <div class="col-md-12">
+                    <h4><b>MINUTES OF THE MEETING:</b></h4>
+                    <ul>
+                        <li><b>Agenda:</b> {{ $mom->agenda }}</li>
+                        <li><b>Date and Time:</b> {{ $mom->date_and_time }}</li>
+                        <li><b>Location:</b> {{ $mom->location }}</li>
+                        <li><b>Attendees:</b> {{ $mom->attendees }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            @if($mom->campaign_overview)
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><b>CAMPAIGN OVERVIEW:</b></h5>
+                    <p>
+                        {{ $mom->campaign_overview }}
+                    </p>
+                </div>
+            </div>
+            @endif
+
+            @if($mom->activations_flow)
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5><b>ACTIVATIONS FLOW:</b></h5>
+                        <p>
+                            {{ $mom->activations_flow }}
+                        </p>
+                    </div>
+                </div>
+            @endif
+
+            @if($mom->next_step_deliverables)
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5><b>NEXT STEP DELIVERABLES:</b></h5>
+                        <p>
+                            {{ $mom->next_step_deliverables }}
+                        </p>
+                    </div>
+                </div>
+            @endif
+
+            @if($mom->other_details)
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5><b>OTHER DETAILS:</b></h5>
+                        <p>
+                            {{ $mom->other_details }}
+                        </p>
+                    </div>
+                </div>
+            @endif
+
+            {{--jo MOM end--}}
+
+            <div class="row">
+                <hr>
+            </div>
+        @endif
+
         @if($detail)
             {{--jo event details start--}}
             <div class="row">
                 <div class="col-md-12">
-                    <h5><b>EVENT DETAILS:</b></h5>
+                    <h4><b>EVENT DETAILS:</b></h4>
                     <ul>
                         <li><b>What:</b> {{ $detail->what }}</li>
                         <li><b>When:</b> {{ $detail->when }}</li>
@@ -101,6 +166,10 @@
                 </div>
             </div>
             {{--jo event specification end--}}
+
+            <div class="row">
+                <hr>
+            </div>
         @endif
 
 

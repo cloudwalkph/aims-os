@@ -35,6 +35,7 @@ Route::group(['prefix' => 'ae'], function () {
         Route::get('/create', 'Front\AE\JobOrderController@create');
         Route::get('/details/{joNo}', 'Front\AE\JobOrderController@show');
         Route::get('/details/{joNo}/preview', 'Front\AE\JobOrderController@preview');
+        Route::get('/details/{joNo}/manpower', 'Front\AE\JobOrderController@previewManpower');
         Route::post('/{joId}/mom', 'Front\AE\JobOrderController@saveJobOrderMOM');
         Route::post('/{joId}/details', 'Front\AE\JobOrderController@saveEventDetails');
         Route::post('/{joId}/animation', 'Front\AE\JobOrderController@saveAnimationDetails');
