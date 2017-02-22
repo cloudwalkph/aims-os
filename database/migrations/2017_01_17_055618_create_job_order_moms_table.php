@@ -20,10 +20,10 @@ class CreateJobOrderMomsTable extends Migration
             $table->datetime('date_and_time');
             $table->string('location');
             $table->text('attendees');
-            $table->mediumText('campaign_overview');
-            $table->mediumText('activations_flow');
-            $table->mediumText('next_step_deliverables');
-            $table->mediumText('other_details');
+            $table->mediumText('campaign_overview')->nullable();
+            $table->mediumText('activations_flow')->nullable();
+            $table->mediumText('next_step_deliverables')->nullable();
+            $table->mediumText('other_details')->nullable();
             $table->enum('status', ['active', 'revision'])->default('active');
             $table->timestamps();
             $table->softDeletes();
