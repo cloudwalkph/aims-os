@@ -56,6 +56,9 @@ class JobOrderController extends Controller
         $animations = JobOrderAnimationDetail::where('job_order_id', $jo->id)
             ->get();
 
+        $attachments = JobOrderProjectAttachment::where('job_order_id', $jo->id)
+            ->get();
+
         $brands = [];
         foreach ($jo->clients as $client) {
             array_push($brands, ucwords($client->brands[0]->name));
@@ -66,7 +69,8 @@ class JobOrderController extends Controller
             ->with('brands', $brands)
             ->with('mom', $mom)
             ->with('detail', $detail)
-            ->with('animations', $animations);
+            ->with('animations', $animations)
+            ->with('attachments', $attachments);
     }
 
     public function preview($joNumber)
@@ -142,6 +146,7 @@ class JobOrderController extends Controller
 
         // Attachment data
         $data = [
+            'job_order_id'      => $joId,
             'file_name'         => $filename,
             'reference_for'     => $request->get('reference_for')
         ];
