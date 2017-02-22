@@ -28,4 +28,11 @@ class CreativesController extends Controller
 
         return view('creatives.index');
     }
+
+    public function schedules()
+    {
+        config(['app.name' => 'Creatives Schedules | AIMS']);
+
+        return view('creatives.schedules');
+    }
 }

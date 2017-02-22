@@ -62,6 +62,7 @@ Route::group(['prefix' => 'cmtuva'], function () {
 
 Route::group(['prefix' => 'creatives'], function () {
     Route::get('/', 'Front\Creatives\CreativesController@index');
+    Route::get('schedules', 'Front\Creatives\CreativesController@schedules');
 
 });
 
