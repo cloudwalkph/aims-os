@@ -25,6 +25,10 @@ Route::get('/profile', function () {
     return view('profile.index');
 });
 
+Route::get('/print', function () {
+    return view('ae.jolist.details.print.index');
+});
+
 Route::group(['prefix' => 'ae'], function () {
     Route::get('/', 'Front\AE\AccountsExecutiveController@index');
     Route::get('schedules', 'Front\AE\AccountsExecutiveController@schedules');
