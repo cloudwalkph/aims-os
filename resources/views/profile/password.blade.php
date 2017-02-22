@@ -2,8 +2,8 @@
     <div class="panel-heading text-center">
         <h2>RESET PASSWORD</h2>
     </div>
-    <div class="panel-body">
-        <form>
+    <form method="POST" action="/api/v1/users/change-password">
+        <div class="panel-body">
             <div class="row">
 
                 <div class="form-group">
@@ -31,9 +31,9 @@
                 </div>
 
             </div>
-        </form>
-    </div>
-    <div class="panel-footer text-right">
-        <button type="button" class="btn btn-primary">Reset Password</button>
-    </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button type="submit" class="btn btn-primary">Reset Password</button>
+        </div>
+    </form>
 </div>

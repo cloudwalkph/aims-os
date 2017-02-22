@@ -7,19 +7,17 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="row">
 
-                        <div class="col-md-12 form-group text-input-container">
-                            <label class="control-label" for="reference_for">Reference For</label>
-                            <input type="text" name="reference_for" placeholder="Reference For" class="form-control" />
-                        </div>
-
-                        <div class="col-md-12 form-group text-input-container">
-                            <label class="control-label" for="file_name">Project attachment</label>
-                            <input type="file" name="file_name" placeholder="Project attachment" class="form-control" />
-                        </div>
-
+                    <div class="col-md-12 form-group text-input-container">
+                        <label class="control-label" for="reference_for">Reference For</label>
+                        <input type="text" name="reference_for" placeholder="Reference For" class="form-control" />
                     </div>
+
+                    <div class="col-md-12 form-group text-input-container">
+                        <label class="control-label" for="file_name">Project attachment</label>
+                        <input type="file" name="file_name" placeholder="Project attachment" class="form-control" />
+                    </div>
+
                 </form>
 
             </div>

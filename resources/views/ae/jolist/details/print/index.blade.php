@@ -147,7 +147,7 @@
                         <tr class="text-center">
                             <td>Rural Area Malls</td>
                             <td>Selling + Flyering + Survey</td>
-                            <td>Sat-Sun</td>
+                            <td>120</td>
                             <td>120</td>
                             <td>3500</td>
                             <td>120</td>
@@ -158,7 +158,7 @@
                         <tr class="text-center">
                             <td>Rural Area Malls</td>
                             <td>Selling + Flyering + Survey</td>
-                            <td>Sat-Sun</td>
+                            <td>120</td>
                             <td>120</td>
                             <td>3500</td>
                             <td>120</td>
