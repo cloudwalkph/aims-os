@@ -16,8 +16,8 @@ class CreateJobOrdersTable extends Migration
         Schema::create('job_orders', function (Blueprint $table) {
             $table->increments('id'); // relation id
             $table->string('job_order_no'); // public id
-            $table->string('contract_no');
-            $table->string('do_contract_no');
+            $table->string('contract_no')->nullable();
+            $table->string('do_contract_no')->nullable();
             $table->integer('user_id')->unsigned();
             $table->string('project_name');
             $table->json('project_types');

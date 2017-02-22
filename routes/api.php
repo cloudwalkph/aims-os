@@ -73,4 +73,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('/{jobOrderNo}/job-order-vehicles', 'JODetails\JobOrdersVehicleRequestController@storeByJoId');
 
     });
+
+    // Project Types
+    Route::group(['prefix' => 'project-types'], function() {
+        Route::get('/', 'ProjectTypesController@index');
+    });
 });

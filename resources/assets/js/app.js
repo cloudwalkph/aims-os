@@ -23,6 +23,8 @@ Vue.component('clients-table', require('./components/clients/clients-table.vue')
 
 Vue.component('jo-table', require('./components/job-orders/jo-table.vue'));
 
+Vue.component('create-job-order', require('./components/job-orders/create-job-order.vue'));
+
 const app = new Vue({
     el: '#app'
 });
