@@ -9,7 +9,7 @@
             </div>
             <div id="collapseManpower" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="manpowerForm">
                 <div class="panel-body">
-                    <button class="btn btn-default pull-right" onclick="frames['framemanpower'].print()">
+                    <button class="btn btn-default pull-right" onclick="frames['frameManpower'].print()">
                         <i class="fa fa-print fa-lg"></i> Print Manpower Requests
                     </button> &nbsp;
 
@@ -182,6 +182,10 @@
             </div>
             <div id="collapseFood" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="foodForm">
                 <div class="panel-body">
+
+                    <button class="btn btn-default pull-right" onclick="frames['frameMeal'].print()">
+                        <i class="fa fa-print fa-lg"></i> Print Meal Requests
+                    </button> &nbsp;
 
                     <form action="/ae/jo/{{ $jo->id }}/meals-request" method="POST">
                         <div class="row">

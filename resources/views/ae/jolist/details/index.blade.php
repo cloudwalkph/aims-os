@@ -140,8 +140,7 @@
         </div>
 
         <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/preview" name="frame" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/manpower" name="framemanpower" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/meal" name="framemeal" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/vehicle" name="framevehicle" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/manpower" name="frameManpower" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/meal" name="frameMeal" style="width: 0; height: 0"></iframe>
     </div>
 @endsection
