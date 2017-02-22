@@ -33,14 +33,14 @@
         {{--jo number and date end--}}
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">
-                <h4>
+                <h5>
                     <b>JOB ORDER NO.:</b> UNKC2015-_______
-                </h4>
+                </h5>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                <h4>
+                <h5>
                     <b>DATE:</b> September 25, 2016
-                </h4>
+                </h5>
             </div>
         </div>
         {{--jo number and date end--}}
@@ -89,6 +89,45 @@
         </div>
         {{--additional jo details end--}}
 
+        {{--jo event details start--}}
+        <div class="row">
+            <div class="col-md-12">
+                <h5><b>EVENT DETAILS:</b></h5>
+                <ul>
+                    <li><b>What:</b> Art Workshop (Marketing Workshop)</li>
+                    <li><b>When:</b> March 05-06, 2017</li>
+                    <li><b>Where:</b> TBC</li>
+                    <li><b>Expected Attendees:</b> 100 Attendees</li>
+                </ul>
+            </div>
+        </div>
+        {{--jo event details end--}}
+
+        {{--jo event specification start--}}
+        <div class="row">
+            <div class="col-md-12">
+                <h5><b>EVENT SPECIFICATION:</b></h5>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad consequuntur
+                    cupiditate deserunt dolorem eaque fugiat hic ipsum iste iure maiores minus
+                    numquam possimus quae ratione reiciendis repellendus, sunt tempora.
+                </p>
+            </div>
+        </div>
+        {{--jo event specification end--}}
+
+        {{--departments involved deadlines start--}}
+        <div class="row">
+            <div class="col-md-12">
+                <h5><b>EVENT SPECIFICATION:</b></h5>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad consequuntur
+                    cupiditate deserunt dolorem eaque fugiat hic ipsum iste iure maiores minus
+                    numquam possimus quae ratione reiciendis repellendus, sunt tempora.
+                </p>
+            </div>
+        </div>
+        {{--departments involved deadlines end--}}
 
 
 

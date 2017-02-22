@@ -126,7 +126,7 @@
                 <div class="form-group">
                     <div class="row">
 
-                        <div class="col-md-3 form-group text-input-container">
+                        <div class="col-md-6 form-group text-input-container">
                             <label class="control-label col-sm-12" for="department_id">Departments</label>
                             <div class="col-md-12">
                                 <select name="department_id" id="department_id" class="form-control">
@@ -138,10 +138,16 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 form-group text-input-container">
+                        <div class="col-md-6 form-group text-input-container">
                             <label class="control-label col-sm-12" for="deadline">Deadline</label>
                             <div class="col-md-12">
                                 <input type="date" name="deadline" placeholder="Deadline" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-9 form-group text-area-container">
+                            <div class="col-md-12">
+                                <textarea class="form-control" name="deliverables" placeholder="Enter Deliverables"></textarea>
                             </div>
                         </div>
 
