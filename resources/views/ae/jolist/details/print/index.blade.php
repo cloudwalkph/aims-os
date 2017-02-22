@@ -104,7 +104,7 @@
         @endif
 
 
-        @if($animations)
+        @if( count($animations) != 0 )
         {{--animation details start--}}
         <div class="row">
             <div class="col-md-12">
@@ -130,28 +130,16 @@
                     <tbody>
                         @foreach($animations as $animation)
                             <tr class="text-center">
-                                <td>{{  }}</td>
-                                <td>Selling + Flyering + Survey</td>
-                                <td>120</td>
-                                <td>120</td>
-                                <td>3500</td>
-                                <td>120</td>
-                                <td>0</td>
-                                <td>2 Days</td>
-                                <td>20</td>
+                                <td>{{ $animation->particular }}</td>
+                                <td>{{ $animation->target_activity }}</td>
+                                <td>{{ $animation->target_flyering }}</td>
+                                <td>{{ $animation->target_survey }}</td>
+                                <td>{{ $animation->target_experiment }}</td>
+                                <td>{{ $animation->target_others }}</td>
+                                <td>{{ $animation->target_duration }}</td>
+                                <td>{{ $animation->target_areas }}</td>
                             </tr>
                         @endforeach
-                        <tr class="text-center">
-                            <td>Rural Area Malls</td>
-                            <td>Selling + Flyering + Survey</td>
-                            <td>120</td>
-                            <td>120</td>
-                            <td>3500</td>
-                            <td>120</td>
-                            <td>0</td>
-                            <td>2 Days</td>
-                            <td>20</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
