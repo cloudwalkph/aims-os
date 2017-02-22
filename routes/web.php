@@ -40,6 +40,7 @@ Route::group(['prefix' => 'ae'], function () {
         Route::post('/{joId}/details', 'Front\AE\JobOrderController@saveEventDetails');
         Route::post('/{joId}/animation', 'Front\AE\JobOrderController@saveAnimationDetails');
         Route::post('/{joId}/project-attachments', 'Front\AE\JobOrderController@uploadProjectAttachments');
+        Route::get('/{joId}/project-attachments/{attachmentId}/download', 'Front\AE\JobOrderController@downloadAttachment');
     });
 
 });

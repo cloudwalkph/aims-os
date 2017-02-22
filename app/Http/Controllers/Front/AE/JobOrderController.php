@@ -139,7 +139,7 @@ class JobOrderController extends Controller
         $jo = JobOrder::where('id', $joId)->first();
 
         $file = $request->file('file');
-        $filename = $jo->job_order_no.'-'.$file->getFilename().$file->extension();
+        $filename = $jo->job_order_no.'-'.$file->getFilename().'.'.$file->extension();
 
         // Move to storage
         $path = $file->storeAs('project-attachments', $filename);
@@ -154,5 +154,16 @@ class JobOrderController extends Controller
         JobOrderProjectAttachment::create($data);
 
         return redirect()->back();
+    }
+
+    public function downloadAttachment($attachmentId)
+    {
+        $attachment = JobOrderProjectAttachment::where('id', $attachmentId)->first();
+
+        $filename = 'app/project-attachments/'.$attachment->file_name;
+
+        $file = storage_path($filename);
+
+        return response()->download($file, $attachment->file_name);
     }
 }
