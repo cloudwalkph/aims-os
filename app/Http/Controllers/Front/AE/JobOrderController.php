@@ -7,6 +7,7 @@ use App\Models\JobOrder;
 use App\Models\JobOrderAnimationDetail;
 use App\Models\JobOrderDetail;
 use App\Models\JobOrderMom;
+use App\Models\JobOrderProjectAttachment;
 use Illuminate\Http\Request;
 
 class JobOrderController extends Controller
@@ -55,6 +56,9 @@ class JobOrderController extends Controller
         $animations = JobOrderAnimationDetail::where('job_order_id', $jo->id)
             ->get();
 
+        $attachments = JobOrderProjectAttachment::where('job_order_id', $jo->id)
+            ->get();
+
         $brands = [];
         foreach ($jo->clients as $client) {
             array_push($brands, ucwords($client->brands[0]->name));
@@ -65,7 +69,8 @@ class JobOrderController extends Controller
             ->with('brands', $brands)
             ->with('mom', $mom)
             ->with('detail', $detail)
-            ->with('animations', $animations);
+            ->with('animations', $animations)
+            ->with('attachments', $attachments);
     }
 
     public function preview($joNumber)
@@ -121,6 +126,32 @@ class JobOrderController extends Controller
             // Create new jo animation details
             $detail = JobOrderAnimationDetail::create($input);
         });
+
+        return redirect()->back();
+    }
+
+    public function uploadProjectAttachments(Request $request, $joId)
+    {
+        if (! $request->hasFile('file')) {
+            return redirect()->back();
+        }
+
+        $jo = JobOrder::where('id', $joId)->first();
+
+        $file = $request->file('file');
+        $filename = $jo->job_order_no.'-'.$file->getFilename().$file->extension();
+
+        // Move to storage
+        $path = $file->storeAs('project-attachments', $filename);
+
+        // Attachment data
+        $data = [
+            'job_order_id'      => $joId,
+            'file_name'         => $filename,
+            'reference_for'     => $request->get('reference_for')
+        ];
+
+        JobOrderProjectAttachment::create($data);
 
         return redirect()->back();
     }
