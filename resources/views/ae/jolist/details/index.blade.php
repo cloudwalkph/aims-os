@@ -34,7 +34,7 @@
                     <div class="panel-heading">
 
                             <span class="pull-right">
-                                <button class="btn btn-default">
+                                <button class="btn btn-default" onclick="frames['frame'].print()">
                                     <i class="fa fa-print fa-lg"></i> Print
                                 </button> &nbsp;
                                 <button class="btn btn-primary">
@@ -138,5 +138,7 @@
 
 
         </div>
+
+        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/preview" name="frame" style="width: 0; height: 0"></iframe>
     </div>
 @endsection
