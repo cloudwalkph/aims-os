@@ -23,6 +23,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
+
+    // users
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', 'User\UsersController@all');
+        Route::post('/', 'User\UsersController@store');
+        Route::post('/change-password', 'User\UsersController@changePassword');
+    });
+
     // Events API
     Route::group(['prefix' => 'events'], function() {
         Route::get('/', 'EventsController@index');

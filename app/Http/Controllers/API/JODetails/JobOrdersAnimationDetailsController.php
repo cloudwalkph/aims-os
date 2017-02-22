@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\JobOrders;
+namespace App\Http\Controllers\API\JODetails;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobOrderAnimationDetail;
