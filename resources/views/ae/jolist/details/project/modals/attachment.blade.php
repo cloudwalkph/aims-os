@@ -6,8 +6,8 @@
                 <h4 class="modal-title" id="myModalLabel">Add Project Attachments</h4>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="row">
+                <form method="POST" action="/ae/jo/{{ $jo->id }}/project-attachments">
+                    <div>
 
                         <div class="col-md-12 form-group text-input-container">
                             <label class="control-label" for="reference_for">Reference For</label>
@@ -20,7 +20,7 @@
 
                         <div class="col-md-12 form-group text-input-container">
                             <label class="control-label" for="file_name">Project attachment</label>
-                            <input type="file" name="file_name" placeholder="Project attachment" class="form-control" />
+                            <input type="file" name="file" placeholder="Project attachment" class="form-control" />
                         </div>
 
                     </div>

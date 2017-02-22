@@ -7,6 +7,7 @@ use App\Models\JobOrder;
 use App\Models\JobOrderAnimationDetail;
 use App\Models\JobOrderDetail;
 use App\Models\JobOrderMom;
+use App\Models\JobOrderProjectAttachment;
 use Illuminate\Http\Request;
 
 class JobOrderController extends Controller
@@ -121,6 +122,31 @@ class JobOrderController extends Controller
             // Create new jo animation details
             $detail = JobOrderAnimationDetail::create($input);
         });
+
+        return redirect()->back();
+    }
+
+    public function uploadProjectAttachments(Request $request, $joId)
+    {
+        if (! $request->hasFile('file')) {
+            return redirect()->back();
+        }
+
+        $jo = JobOrder::where('id', $joId)->first();
+
+        $file = $request->file('file');
+        $filename = $jo->job_order_no.'-'.$file->getFilename().$file->extension();
+
+        // Move to storage
+        $path = $file->storeAs('project-attachments', $filename);
+
+        // Attachment data
+        $data = [
+            'file_name'         => $filename,
+            'reference_for'     => $request->get('reference_for')
+        ];
+
+        JobOrderProjectAttachment::create($data);
 
         return redirect()->back();
     }
