@@ -15,10 +15,16 @@ class CreateJobOrderProjectAttachmentsTable extends Migration
     {
         Schema::create('job_order_project_attachments', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('job_order_id')->unsigned();
             $table->string('file_name');
             $table->string('reference_for');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('job_order_id')
+                ->references('id')
+                ->on('job_orders')
+                ->onDelete('cascade');
         });
     }
 
