@@ -134,13 +134,18 @@
                         class="btn btn-primary btn-lg btn-block">Create Job Order</button>
             </div>
         </form>
-
+        <create-client-modal></create-client-modal>
     </div>
 </template>
 
 <script>
     import vSelect from 'vue-select'
+    import CreateClientModal from './commons/form.vue'
+    import Vue from 'vue'
+    import VueEvents from 'vue-events'
 
+    Vue.use(VueEvents)
+    Vue.component('create-client-modal', CreateClientModal)
     Vue.component('v-select', vSelect)
 
     export default {
@@ -248,6 +253,11 @@
                 }, error => {
                     console.log(error)
                 });
+            }
+        },
+        events: {
+            'reload-table' () {
+                Vue.nextTick( () => this.$methods.getClients() )
             }
         }
     }
