@@ -37,10 +37,19 @@ class JobOrderController extends Controller
         return view('ae.jolist.create.create');
     }
 
-    public function show()
+    public function show($joNumber)
     {
         config(['app.name' => 'Accounts Executive | AIMS']);
 
-        return view('ae.jolist.details.index');
+        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+
+        $brands = [];
+        foreach ($jo->clients as $client) {
+            array_push($brands, ucwords($client->brands[0]->name));
+        }
+
+        return view('ae.jolist.details.index')
+            ->with('jo', $jo)
+            ->with('brands', $brands);
     }
 }

@@ -33,4 +33,14 @@ class Client extends Model
     {
         return $this->hasMany('App\Models\JobOrderClient');
     }
+
+    /**
+     * Serialization
+     * ======================================================================================================
+     */
+
+    public function getCompanyAttribute()
+    {
+        return ucwords($this->attributes['company']);
+    }
 }

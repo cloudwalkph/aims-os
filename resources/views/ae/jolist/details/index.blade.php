@@ -36,38 +36,46 @@
                                 </button>
                             </span>
 
-                        <p> <b>Project Name: Project Doe</b> </p>
-                        <p> <b>Job Order Number: 20160131231</b> </p>
+                        <p> <b>Project Name: {{ $jo->project_name }}</b> </p>
+                        <p> <b>Job Order Number: {{ $jo->job_order_no }}</b> </p>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-2 col-sm-4 col-xs-12">
-                                <h5>Client: John Doe</h5>
+                                <h5><strong>Client:</strong> {{ $jo->clients->implode('client.company', ', ') }}</h5>
                             </div>
                             <div class="col-md-2 col-sm-4 col-xs-12">
-                                <h5>Date Created: July 07, 2017</h5>
+                                <h5><strong>Date Created:</strong> {{ \Carbon\Carbon::createFromTimestamp(strtotime($jo->created_at))->toFormattedDateString() }}</h5>
+                            </div>
+
+                            @if($jo->contract_number)
+                            <div class="col-md-2 col-sm-4 col-xs-12">
+                                <h5><strong>Contract Number:</strong> 12322125643</h5>
+                            </div>
+                            @endif
+
+                            {{--@if($jo->invoice_number)--}}
+                            {{--<div class="col-md-2 col-sm-4 col-xs-12">--}}
+                                {{--<h5>Invoice Number: 12992981721</h5>--}}
+                            {{--</div>--}}
+                            {{--@endif--}}
+
+                            <div class="col-md-2 col-sm-4 col-xs-12">
+                                <h5><strong>AE Name:</strong> {{ $jo->user->profile->full_name }}</h5>
+                            </div>
+
+                            <div class="col-md-2 col-sm-4 col-xs-12">
+                                <h5><strong>Project Type:</strong> {{ collect(json_decode($jo->project_types))->implode('name', ', ') }}</h5>
                             </div>
                             <div class="col-md-2 col-sm-4 col-xs-12">
-                                <h5>Contract Number 12322125643</h5>
+                                <h5><strong>Brand:</strong> {{ collect($brands)->implode(', ') }}</h5>
                             </div>
-                            <div class="col-md-2 col-sm-4 col-xs-12">
-                                <h5>Invoice Number: 12992981721</h5>
-                            </div>
-                            <div class="col-md-2 col-sm-4 col-xs-12">
-                                <h5>AE Name: John Doe</h5>
-                            </div>
-                            <div class="col-md-2 col-sm-4 col-xs-12">
-                                <h5>Project Type: Events</h5>
-                            </div>
-                            <div class="col-md-2 col-sm-4 col-xs-12">
-                                <h5>Brand: Nike</h5>
-                            </div>
-                            <div class="col-md-2 col-sm-4 col-xs-12">
-                                <h5>D.O. Number: 12341123123</h5>
-                            </div>
-                            <div class="col-md-2 col-sm-4 col-xs-12">
-                                <h5>Paid Date: Dec. 20, 2016</h5>
-                            </div>
+                            {{--<div class="col-md-2 col-sm-4 col-xs-12">--}}
+                                {{--<h5><strong>D.O. Number:</strong> 12341123123</h5>--}}
+                            {{--</div>--}}
+                            {{--<div class="col-md-2 col-sm-4 col-xs-12">--}}
+                                {{--<h5><strong>Paid Date:</strong> Dec. 20, 2016</h5>--}}
+                            {{--</div>--}}
                         </div>
                     </div>
                 </div>

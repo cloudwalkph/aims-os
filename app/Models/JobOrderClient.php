@@ -21,4 +21,14 @@ class JobOrderClient extends Model
     {
         return $this->belongsTo('App\Models\Client');
     }
+
+    /**
+     * Serialization
+     * ======================================================================================================
+     */
+
+    public function getBrandsAttribute()
+    {
+        return json_decode($this->attributes['brands']);
+    }
 }
