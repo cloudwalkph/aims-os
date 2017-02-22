@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 <head>
+    <style>
+        .animation-details th, .animation-details td {
+            vertical-align: middle !important;
+        }
+    </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -119,16 +124,105 @@
         {{--departments involved deadlines start--}}
         <div class="row">
             <div class="col-md-12">
-                <h5><b>EVENT SPECIFICATION:</b></h5>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad consequuntur
-                    cupiditate deserunt dolorem eaque fugiat hic ipsum iste iure maiores minus
-                    numquam possimus quae ratione reiciendis repellendus, sunt tempora.
-                </p>
+                <h5><b>REQUIREMENTS:</b></h5>
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                    <tr>
+                        <th>DEPARTMENTS</th>
+                        <th>DELIVERABLES</th>
+                        <th>DEADLINE</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Creatives</td>
+                            <td>To Follow</td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td>Operations Support</td>
+                            <td>
+                                1. Check possible venues for the 2-day workshop
+                                <ul>
+                                    <li>71 Gramercy</li>
+                                    <li>Hive</li>
+                                    <li>Raven</li>
+                                    <li>Aracama</li>
+                                </ul>
+                            </td>
+                            <td>February 10</td>
+                        </tr>
+                        <tr>
+                            <td>Creatives</td>
+                            <td>To Follow</td>
+                            <td> </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         {{--departments involved deadlines end--}}
 
+        {{--project attachment start--}}
+        <div class="row">
+            <div class="col-md-12">
+                <h5><b>PROJECT ATTACHMENTS:</b></h5>
+                <div class="col-md-12">
+                    <input type="checkbox" name="project_attachments">
+                    <label for="project_attachments">Working Cost Estimate</label>
+                </div>
+                <div class="col-md-12">
+                    <input type="checkbox" name="project_attachments">
+                    <label for="project_attachments">Working Deck</label>
+                </div>
+                <div class="col-md-12">
+                    <input type="checkbox" name="project_attachments">
+                    <label for="project_attachments">Working Checklist</label>
+                </div>
+            </div>
+        </div>
+        {{--project attachment end--}}
+
+        {{--animation details start--}}
+        <div class="row">
+            <div class="col-md-12">
+                <h5><b>ANIMATION DETAILS:</b></h5>
+                <table class="table table-striped table-bordered animation-details" style="font-size: 12px">
+                    <thead>
+                    <tr>
+                        <th rowSpan="2">Particulars</th>
+                        <th rowSpan="2">Target Activity</th>
+                        <th colSpan="5">Target Hits</th>
+                        <th rowSpan="2">Target Duration</th>
+                        <th rowSpan="2">Areas</th>
+                    </tr>
+
+                    <tr>
+                        <th> Selling </th>
+                        <th> Flyering</th>
+                        <th> Survey</th>
+                        <th> Experiment</th>
+                        <th> Other</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center">
+                        <td>Rural Area Malls</td>
+                        <td>Selling + Flyering + Survey</td>
+                        <td>Sat-Sun</td>
+                        <td>120</td>
+                        <td>3500</td>
+                        <td>120</td>
+                        <td>0</td>
+                        <td>2 Days</td>
+                        <td>20</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{--animation details end--}}
 
 
     </div>
