@@ -21,14 +21,17 @@
             itemAction (action, data, index) {
                 console.log('custom-actions: ' + action, data.id, index)
 
-                let url = `/api/v1/clients/${data.id}`;
-                this.$http.delete(url, data).then(response => {
-                    console.log(response)
+                if (action === 'delete-item') {
+                    let url = `/api/v1/clients/${data.id}`;
+                    this.$http.delete(url, data).then(response => {
+                        console.log(response)
 
-                    this.$events.fire('reload-table')
-                }, error => {
-                    console.log(error)
-                })
+                        this.$events.fire('reload-table')
+                    }, error => {
+                        console.log(error)
+                    })
+                }
+
             }
         }
     }

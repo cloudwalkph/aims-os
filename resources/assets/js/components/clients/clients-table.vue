@@ -42,7 +42,7 @@
     import CreateClientModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('custom-actions', CustomActions)
+    Vue.component('client-custom-actions', CustomActions)
     Vue.component('my-detail-row', DetailRow)
     Vue.component('filter-bar', FilterBar)
     Vue.component('create-client-modal', CreateClientModal)
@@ -113,7 +113,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:custom-actions',
+                        name: '__component:client-custom-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'

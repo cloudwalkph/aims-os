@@ -39,7 +39,7 @@
     import FilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
-    Vue.component('custom-actions', CustomActions)
+    Vue.component('jo-custom-actions', CustomActions)
     Vue.component('my-detail-row', DetailRow)
     Vue.component('filter-bar', FilterBar)
 
@@ -112,7 +112,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:custom-actions',
+                        name: '__component:jo-custom-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'

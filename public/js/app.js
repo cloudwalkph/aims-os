@@ -38808,7 +38808,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_events___default.a);
-__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
+__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('client-custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('my-detail-row', __WEBPACK_IMPORTED_MODULE_8__commons_DetailRow___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IMPORTED_MODULE_9__commons_FilterBar___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('create-client-modal', __WEBPACK_IMPORTED_MODULE_10__commons_form_vue___default.a);
@@ -38869,7 +38869,7 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('create-client-modal', __W
                 callback: 'formatDate|DD-MM-YYYY',
                 title: 'Created Date'
             }, {
-                name: '__component:custom-actions',
+                name: '__component:client-custom-actions',
                 title: 'Actions',
                 titleClass: 'text-center',
                 dataClass: 'text-center'
@@ -38994,14 +38994,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             console.log('custom-actions: ' + action, data.id, index);
 
-            var url = '/api/v1/clients/' + data.id;
-            this.$http.delete(url, data).then(function (response) {
-                console.log(response);
+            if (action === 'delete-item') {
+                var url = '/api/v1/clients/' + data.id;
+                this.$http.delete(url, data).then(function (response) {
+                    console.log(response);
 
-                _this.$events.fire('reload-table');
-            }, function (error) {
-                console.log(error);
-            });
+                    _this.$events.fire('reload-table');
+                }, function (error) {
+                    console.log(error);
+                });
+            }
         }
     }
 };
@@ -39274,14 +39276,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             console.log('custom-actions: ' + action, data.id, index);
 
-            var url = '/api/v1/clients/' + data.id;
-            this.$http.delete(url, data).then(function (response) {
-                console.log(response);
+            if (action === 'delete-item') {
+                var url = '/api/v1/job-orders/' + data.id;
+                this.$http.delete(url, data).then(function (response) {
+                    console.log(response);
 
-                _this.$events.fire('reload-table');
-            }, function (error) {
-                console.log(error);
-            });
+                    _this.$events.fire('reload-table');
+                }, function (error) {
+                    console.log(error);
+                });
+            }
+
+            if (action === 'view-item') {
+                location.href = '/ae/jo/details/' + data.job_order_no;
+            }
         }
     }
 };
@@ -39440,7 +39448,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_events___default.a);
-__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
+__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('jo-custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('my-detail-row', __WEBPACK_IMPORTED_MODULE_8__commons_DetailRow___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IMPORTED_MODULE_9__commons_FilterBar___default.a);
 
@@ -39502,7 +39510,7 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IM
                 callback: 'formatDate|DD-MM-YYYY',
                 title: 'Created Date'
             }, {
-                name: '__component:custom-actions',
+                name: '__component:jo-custom-actions',
                 title: 'Actions',
                 titleClass: 'text-center',
                 dataClass: 'text-center'
