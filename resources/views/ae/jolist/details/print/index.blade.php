@@ -148,6 +148,7 @@
         {{--animation details end--}}
         @endif
 
+        @if( count($departments) )
         {{--departments involved deadlines start--}}
         <div class="row">
             <div class="col-md-12">
@@ -162,54 +163,35 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Creatives</td>
-                            <td>To Follow</td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>Operations Support</td>
-                            <td>
-                                1. Check possible venues for the 2-day workshop
-                                <ul>
-                                    <li>71 Gramercy</li>
-                                    <li>Hive</li>
-                                    <li>Raven</li>
-                                    <li>Aracama</li>
-                                </ul>
-                            </td>
-                            <td>February 10</td>
-                        </tr>
-                        <tr>
-                            <td>Creatives</td>
-                            <td>To Follow</td>
-                            <td> </td>
-                        </tr>
+                        @foreach($departments as $d)
+                            <tr>
+                                <td>{{ $d->department->name }}</td>
+                                <td>{{ $d->deliverables }}</td>
+                                <td>{{ $d->deadline }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
         {{--departments involved deadlines end--}}
+        @endif
 
+        @if( count($attachments) )
         {{--project attachment start--}}
         <div class="row">
             <div class="col-md-12">
                 <h5><b>PROJECT ATTACHMENTS:</b></h5>
-                <div class="col-md-12">
-                    <input type="checkbox" name="project_attachments">
-                    <label for="project_attachments">Working Cost Estimate</label>
-                </div>
-                <div class="col-md-12">
-                    <input type="checkbox" name="project_attachments">
-                    <label for="project_attachments">Working Deck</label>
-                </div>
-                <div class="col-md-12">
-                    <input type="checkbox" name="project_attachments">
-                    <label for="project_attachments">Working Checklist</label>
-                </div>
+                @foreach($attachments as $a)
+                    <div class="col-md-12">
+                        <input type="checkbox" name="project_attachments">
+                        <label for="project_attachments">{{ $a->reference_for }}</label>
+                    </div>
+                @endforeach
             </div>
         </div>
         {{--project attachment end--}}
+        @endif
 
         {{--received by start--}}
         <div class="row">

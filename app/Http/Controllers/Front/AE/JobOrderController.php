@@ -95,11 +95,20 @@ class JobOrderController extends Controller
         foreach ($jo->clients as $client) {
             array_push($brands, ucwords($client->brands[0]->name));
         }
+
+        $attachments = JobOrderProjectAttachment::where('job_order_id', $jo->id)
+            ->get();
+
+        $departments = JobOrderDepartmentInvolved::where('job_order_id', $jo->id)
+            ->get();
+
 //        print_r($jo->user->profile); exit;
         return view('ae.jolist.details.print.index')
             ->with('jo', $jo)
             ->with('brands', $brands)
             ->with('detail', $detail)
+            ->with('attachments', $attachments)
+            ->with('departments', $departments)
             ->with('animations', $animations);
     }
 

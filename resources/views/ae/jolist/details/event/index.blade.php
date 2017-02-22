@@ -114,8 +114,9 @@
             </div>
             <div class="box-body">
 
-                <form action="/ae/jo/{{ $jo->id }}/deparments" method="POST" class="form-group">
+                <form action="/ae/jo/{{ $jo->id }}/departments" method="POST" class="form-group">
                     <div class="row">
+                        {{ csrf_field() }}
 
                         <div class="col-md-6 form-group text-input-container">
                             <label class="control-label col-sm-12" for="department_id">Departments</label>
@@ -164,7 +165,7 @@
                         <tr>
                             <td>{{ $item->department->name }}</td>
                             <td>{{ $item->deliverables }}</td>
-                            <td>{{ $item->deadline->toFormattedDateString() }}</td>
+                            <td>{{ $item->deadline }}</td>
                             <td>
                                 <button class="btn btn-danger"
                                         onclick="event.preventDefault();
@@ -172,7 +173,7 @@
                                     <i class="fa fa-trash"></i> Remove
                                 </button>
 
-                                <form id="deleteInvolvement-{{ $item->id }}" action="/ae/jo/{{ $jo->id }}/deparments/{{ $item->id }}/delete" method="POST" style="display: none;">
+                                <form id="deleteInvolvement-{{ $item->id }}" action="/ae/jo/{{ $jo->id }}/departments/{{ $item->id }}/delete" method="POST" style="display: none;">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                 </form>
