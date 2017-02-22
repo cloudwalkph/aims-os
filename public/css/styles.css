@@ -110,6 +110,10 @@ table tbody tr {
     margin-right: 0!important;
 }
 
+.animation-details th,
+.animation-details td {
+    text-align: center;
+}
 /*home buttons start*/
 .hero-widget.well.well-sm i{
     color: #333;
