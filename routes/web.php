@@ -41,6 +41,7 @@ Route::group(['prefix' => 'ae'], function () {
         Route::get('/details/{joNo}', 'Front\AE\JobOrderController@show');
         Route::post('/{joId}/mom', 'Front\AE\JobOrderController@saveJobOrderMOM');
         Route::post('/{joId}/details', 'Front\AE\JobOrderController@saveEventDetails');
+        Route::post('/{joId}/animation', 'Front\AE\JobOrderController@saveAnimationDetails');
     });
 
 });

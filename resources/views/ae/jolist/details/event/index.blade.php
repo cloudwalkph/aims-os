@@ -60,11 +60,7 @@
             </div>
             <div class="box-body">
                 <div class="row" style="margin-bottom: 10px">
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="search" placeholder="Search..." />
-                    </div>
-
-                    <div class="col-sm-3 col-sm-offset-6">
+                    <div class="col-sm-3 col-sm-offset-9">
                         <button class="btn btn-default pull-right"
                                 type="button" data-toggle="modal" data-target="#createAnimationDetails">
                             <i class="fa fa-plus"></i> Add Details
@@ -93,17 +89,19 @@
                     </tr>
                     </thead>
                     <tbody>
+                        @foreach ($animations as $animation)
                         <tr class="text-center">
-                            <td>particular</td>
-                            <td>target_activity</td>
-                            <td>target_selling</td>
-                            <td>target_flyering</td>
-                            <td>target_survey</td>
-                            <td>target_experiment</td>
-                            <td>target_others</td>
-                            <td>target_duration</td>
-                            <td>target_areas</td>
+                            <td>{{ $animation->particular }}</td>
+                            <td>{{ $animation->target_activity }}</td>
+                            <td>{{ $animation->target_selling }}</td>
+                            <td>{{ $animation->target_flyering }}</td>
+                            <td>{{ $animation->target_survey }}</td>
+                            <td>{{ $animation->target_experiment }}</td>
+                            <td>{{ $animation->target_others }}</td>
+                            <td>{{ $animation->target_duration }}</td>
+                            <td>{{ $animation->target_areas }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
@@ -138,14 +136,14 @@
                             </div>
                         </div>
 
-                        <div class="col-md-9 form-group text-area-container">
+                        <div class="col-md-12 form-group text-area-container">
                             <div class="col-md-12">
                                 <textarea class="form-control" name="deliverables" placeholder="Enter Deliverables"></textarea>
                             </div>
                         </div>
 
-                        <div class="col-md-3 form-group select-input-container">
-                            <button type="button" class="btn btn-primary btn-add">Add </button>
+                        <div class="col-md-12 text-right form-group select-input-container">
+                            <button type="button" style="width: 200px" class="btn btn-primary btn-add">Add Department</button>
                         </div>
 
                     </div>
@@ -175,7 +173,7 @@
             </div>
         </div>
 
-        <div class="box box-info">
+        <div class="box box-info" style="display: none">
             <div class="box-header">
                 <h3 class="box-title">Inventory</h3>
             </div>
