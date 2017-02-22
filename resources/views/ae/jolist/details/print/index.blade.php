@@ -104,7 +104,7 @@
         @endif
 
 
-        @if( count($animations) != 0 )
+        @if( count($animations) )
         {{--animation details start--}}
         <div class="row">
             <div class="col-md-12">
@@ -132,6 +132,7 @@
                             <tr class="text-center">
                                 <td>{{ $animation->particular }}</td>
                                 <td>{{ $animation->target_activity }}</td>
+                                <td>{{ $animation->target_selling }}</td>
                                 <td>{{ $animation->target_flyering }}</td>
                                 <td>{{ $animation->target_survey }}</td>
                                 <td>{{ $animation->target_experiment }}</td>

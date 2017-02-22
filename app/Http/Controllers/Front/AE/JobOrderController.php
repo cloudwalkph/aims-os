@@ -73,9 +73,6 @@ class JobOrderController extends Controller
         config(['app.name' => 'Accounts Executive | AIMS']);
 
         $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
-        $mom = JobOrderMom::where('status', 'active')
-            ->where('job_order_id', $jo->id)
-            ->orderBy('id', 'desc')->first();
 
         $detail = JobOrderDetail::where('job_order_id', $jo->id)
             ->orderBy('id', 'desc')->first();
@@ -91,7 +88,6 @@ class JobOrderController extends Controller
         return view('ae.jolist.details.print.index')
             ->with('jo', $jo)
             ->with('brands', $brands)
-            ->with('mom', $mom)
             ->with('detail', $detail)
             ->with('animations', $animations);
     }
