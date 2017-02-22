@@ -242,11 +242,9 @@
                 };
 
                 this.$http.post('/api/v1/job-orders', data).then(response => {
-                    this.clients = response.data.data;
+                    let jo = response.data;
 
-                    for (let client of this.clients) {
-                        this.clientOptions.push({label: `${client.company} : ${client.contact_person}`, value: client.id});
-                    }
+                    location.href = `/ae/jo/details/${jo.job_order_no}`;
                 }, error => {
                     console.log(error)
                 });
