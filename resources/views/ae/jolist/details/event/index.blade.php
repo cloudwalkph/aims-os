@@ -114,13 +114,13 @@
             </div>
             <div class="box-body">
 
-                <form action="" method="POST" class="form-group">
+                <form action="/ae/jo/{{ $jo->id }}/deparments" method="POST" class="form-group">
                     <div class="row">
 
                         <div class="col-md-6 form-group text-input-container">
                             <label class="control-label col-sm-12" for="department_id">Departments</label>
                             <div class="col-md-12">
-                                <select name="department_id" id="department_id" class="form-control">
+                                <select name="department_id" required id="department_id" class="form-control">
                                     <option value="1">Accounting</option>
                                     <option value="2">Account Executives</option>
                                     <option value="3">CMTUVA</option>
@@ -132,7 +132,7 @@
                         <div class="col-md-6 form-group text-input-container">
                             <label class="control-label col-sm-12" for="deadline">Deadline</label>
                             <div class="col-md-12">
-                                <input type="date" name="deadline" placeholder="Deadline" class="form-control" />
+                                <input type="date" name="deadline" required placeholder="Deadline" class="form-control" />
                             </div>
                         </div>
 
@@ -143,7 +143,7 @@
                         </div>
 
                         <div class="col-md-12 text-right form-group select-input-container">
-                            <button type="button" style="width: 200px" class="btn btn-primary btn-add">Add Department</button>
+                            <button type="submit" style="width: 200px" class="btn btn-primary btn-add">Add Department</button>
                         </div>
 
                     </div>
@@ -153,21 +153,32 @@
                     <thead>
                     <tr>
                         <th>Departments</th>
+                        <th>Deliverables</th>
                         <th>Deadline</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td>department name</td>
-                        <td>deadline</td>
-                        <td>
-                            <button class="btn btn-danger">
-                                <i class="fa fa-trash"></i> Remove
-                            </button>
-                        </td>
-                    </tr>
+                        @foreach($departments as $item)
+                        <tr>
+                            <td>{{ $item->department->name }}</td>
+                            <td>{{ $item->deliverables }}</td>
+                            <td>{{ $item->deadline->toFormattedDateString() }}</td>
+                            <td>
+                                <button class="btn btn-danger"
+                                        onclick="event.preventDefault();
+                                             document.getElementById('deleteInvolvement-{{ $item->id }}').submit();">
+                                    <i class="fa fa-trash"></i> Remove
+                                </button>
+
+                                <form id="deleteInvolvement-{{ $item->id }}" action="/ae/jo/{{ $jo->id }}/deparments/{{ $item->id }}/delete" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

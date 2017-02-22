@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Front\AE;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\JobOrder;
 use App\Models\JobOrderAnimationDetail;
+use App\Models\JobOrderDepartmentInvolved;
 use App\Models\JobOrderDetail;
 use App\Models\JobOrderMom;
 use App\Models\JobOrderProjectAttachment;
@@ -59,6 +61,9 @@ class JobOrderController extends Controller
         $attachments = JobOrderProjectAttachment::where('job_order_id', $jo->id)
             ->get();
 
+        $departments = JobOrderDepartmentInvolved::where('job_order_id', $jo->id)
+            ->get();
+
         $brands = [];
         foreach ($jo->clients as $client) {
             array_push($brands, ucwords($client->brands[0]->name));
@@ -70,7 +75,8 @@ class JobOrderController extends Controller
             ->with('mom', $mom)
             ->with('detail', $detail)
             ->with('animations', $animations)
-            ->with('attachments', $attachments);
+            ->with('attachments', $attachments)
+            ->with('departments', $departments);
     }
 
     public function preview($joNumber)
@@ -165,5 +171,15 @@ class JobOrderController extends Controller
         $file = storage_path($filename);
 
         return response()->download($file, $attachment->file_name);
+    }
+
+    public function saveDepartmentInvolve(Request $request, $joId)
+    {
+        $input = $request->all();
+        $input['job_order_id'] = $joId;
+
+        $department = JobOrderDepartmentInvolved::create($input);
+
+        return redirect()->back();
     }
 }
