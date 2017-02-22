@@ -49,6 +49,11 @@ class JobOrder extends Model
         return $this->hasMany(JobOrderManpower::class);
     }
 
+    public function joProjects()
+    {
+        return $this->hasMany(JobOrderProjectAttachment::class);
+    }
+
     public function creativesJob()
     {
         return $this->hasMany(CreativesJob::class, 'id', 'job_order_no');

@@ -121,6 +121,57 @@
         </div>
         {{--jo event specification end--}}
 
+        {{--animation details start--}}
+        <div class="row">
+            <div class="col-md-12">
+                <h5><b>ANIMATION DETAILS:</b></h5>
+                <table class="table table-striped table-bordered animation-details" style="font-size: 11px">
+                    <thead>
+                    <tr>
+                        <th rowSpan="2">Particulars</th>
+                        <th rowSpan="2">Target Activity</th>
+                        <th colSpan="5">Target Hits</th>
+                        <th rowSpan="2">Target Duration</th>
+                        <th rowSpan="2">Areas</th>
+                    </tr>
+
+                    <tr>
+                        <th> Selling </th>
+                        <th> Flyering</th>
+                        <th> Survey</th>
+                        <th> Experiment</th>
+                        <th> Other</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td>Rural Area Malls</td>
+                            <td>Selling + Flyering + Survey</td>
+                            <td>Sat-Sun</td>
+                            <td>120</td>
+                            <td>3500</td>
+                            <td>120</td>
+                            <td>0</td>
+                            <td>2 Days</td>
+                            <td>20</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td>Rural Area Malls</td>
+                            <td>Selling + Flyering + Survey</td>
+                            <td>Sat-Sun</td>
+                            <td>120</td>
+                            <td>3500</td>
+                            <td>120</td>
+                            <td>0</td>
+                            <td>2 Days</td>
+                            <td>20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{--animation details end--}}
+
         {{--departments involved deadlines start--}}
         <div class="row">
             <div class="col-md-12">
@@ -184,46 +235,18 @@
         </div>
         {{--project attachment end--}}
 
-        {{--animation details start--}}
+        {{--received by start--}}
         <div class="row">
             <div class="col-md-12">
-                <h5><b>ANIMATION DETAILS:</b></h5>
-                <table class="table table-striped table-bordered animation-details" style="font-size: 12px">
-                    <thead>
-                    <tr>
-                        <th rowSpan="2">Particulars</th>
-                        <th rowSpan="2">Target Activity</th>
-                        <th colSpan="5">Target Hits</th>
-                        <th rowSpan="2">Target Duration</th>
-                        <th rowSpan="2">Areas</th>
-                    </tr>
+                <h5><b>RECEIVED:</b></h5>
+                <div class="col-md-3 col-sm-5 col-xs-5 text-center">
+                    <hr>
+                    <h5><b>Operations Division</b></h5>
+                </div>
 
-                    <tr>
-                        <th> Selling </th>
-                        <th> Flyering</th>
-                        <th> Survey</th>
-                        <th> Experiment</th>
-                        <th> Other</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="text-center">
-                        <td>Rural Area Malls</td>
-                        <td>Selling + Flyering + Survey</td>
-                        <td>Sat-Sun</td>
-                        <td>120</td>
-                        <td>3500</td>
-                        <td>120</td>
-                        <td>0</td>
-                        <td>2 Days</td>
-                        <td>20</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
-        {{--animation details end--}}
-
+        {{--received by end--}}
 
     </div>
 

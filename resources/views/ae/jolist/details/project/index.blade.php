@@ -4,16 +4,21 @@
             <div class="box-body">
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <button class="btn btn-default pull-right" type="button"><i class="fa fa-plus"></i> Add Attachments</button>
+                        <button class="btn btn-default pull-right"
+                                type="button" data-toggle="modal" data-target="#createProjectAttachments">
+                            <i class="fa fa-plus"></i> Add Attachments
+                        </button>
                     </div>
                 </div>
 
-                <table class="table table-striped table-bordered animation-details" style="margin-top: 20px">
+                @include('ae.jolist.details.project.modals.attachment')
+
+                <table class="table table-striped table-bordered" style="margin-top: 20px">
                     <thead>
                     <tr>
-                        <th> Date Uploaded </th>
-                        <th> File Name</th>
                         <th> Reference For</th>
+                        <th> File Name</th>
+                        <th> Date Uploaded </th>
                         <th> Download</th>
                     </tr>
                     </thead>
