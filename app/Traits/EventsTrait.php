@@ -27,8 +27,15 @@ trait EventsTrait {
      */
     public function store(CreateEventRequest $request)
     {
+        // Get user
+        $user = $request->user();
+
         // Get user input
         $input = $request->all();
+
+        $input['meta'] = json_encode($input['meta']);
+        $input['user_id'] = $user->id;
+        $input['department_id'] = $user->department_id;
 
         // Create event
         $event = Event::create($input);

@@ -38690,6 +38690,57 @@ exports.default = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted: function mounted() {
@@ -38703,6 +38754,88 @@ exports.default = {
             // businessHours: true, // display business hours
             editable: true
         });
+
+        this.getEvents();
+    },
+    data: function data() {
+        return {
+            title: '',
+            event_datetime: '',
+            description: '',
+            currentEvents: []
+        };
+    },
+
+    methods: {
+        saveSchedule: function saveSchedule() {
+            var _this = this;
+
+            var data = {
+                title: this.title,
+                event_datetime: this.event_datetime,
+                meta: {
+                    description: this.description
+                }
+            };
+
+            var url = '/api/v1/events';
+            this.$http.post(url, data).then(function (response) {
+                console.log(response);
+
+                $('#createSchedule').modal('hide');
+                _this.getEvents();
+            }, function (error) {
+                console.log(error);
+            });
+        },
+        getEvents: function getEvents() {
+            var _this2 = this;
+
+            var url = '/api/v1/events';
+            this.$http.get(url).then(function (response) {
+                var events = [];
+                _this2.currentEvents = response.data;
+
+                // Remove events
+                $('#calendar').fullCalendar('removeEvents');
+
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
+
+                try {
+                    for (var _iterator = _this2.currentEvents[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var event = _step.value;
+
+                        events.push({
+                            id: event.id,
+                            title: event.title,
+                            start: event.event_datetime
+                        });
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+
+                $('.calendar').fullCalendar('renderEvents', events);
+            }, function (error) {
+                console.log(error);
+            });
+        },
+        inputChange: function inputChange(e) {
+            this[e.target.id] = e.target.value;
+        }
     }
 };
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
@@ -76805,17 +76938,156 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-5"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-md-7"
+  }, _vm._l((_vm.currentEvents), function(event) {
+    return _c('div', [_c('div', {
+      staticClass: "col-md-12 col-sm-12 col-xs-12 event"
+    }, [_c('h1', {
+      staticClass: "event-title"
+    }, [_vm._v(_vm._s(event.title))]), _vm._v(" "), _c('p', {
+      staticClass: "event-date"
+    }, [_vm._v(_vm._s(event.event_datetime))]), _vm._v(" "), _c('p', {
+      staticClass: "event-desc"
+    }, [_vm._v("Description: " + _vm._s(JSON.parse(event.meta).description))])])])
+  })), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "createSchedule",
+      "tabIndex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
   }, [_c('div', {
+    staticClass: "modal-dialog modal-lg",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('form', {
+    attrs: {
+      "id": "scheduleForm"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Schedule Title")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "company",
+      "id": "title",
+      "placeholder": "Enter company name"
+    },
+    domProps: {
+      "value": _vm.title
+    },
+    on: {
+      "input": _vm.inputChange
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Date")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "date",
+      "name": "contact_person",
+      "id": "event_datetime",
+      "placeholder": "Enter contact person"
+    },
+    domProps: {
+      "value": _vm.event_datetime
+    },
+    on: {
+      "input": _vm.inputChange
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "description"
+    }
+  }, [_vm._v("Additional Information")]), _vm._v(" "), _c('textarea', {
+    staticClass: "form-control",
+    attrs: {
+      "name": "meta[description]",
+      "id": "description",
+      "cols": "30",
+      "rows": "10"
+    },
+    domProps: {
+      "value": _vm.description
+    },
+    on: {
+      "input": _vm.inputChange
+    }
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.saveSchedule
+    }
+  }, [_vm._v("Save")])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-md-7"
+  }, [_c('button', {
+    staticClass: "btn btn-primary pull-right",
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
+    attrs: {
+      "data-toggle": "modal",
+      "data-target": "#createSchedule"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  }), _vm._v(" New Schedule\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  }), _vm._v(" "), _c('div', {
     staticClass: "calendar"
-  })])])
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Client Form")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
