@@ -54,7 +54,7 @@
         <div class="row">
             @foreach(json_decode($jo->project_types) as $type)
                 <div class="col-md-4 col-sm-6 col-xs-6">
-                    <input type="checkbox" name="project_type">
+                    <input type="checkbox" name="project_type" checked>
                     <label for="project_type">{{ $type->name }}</label>
                 </div>
             @endforeach

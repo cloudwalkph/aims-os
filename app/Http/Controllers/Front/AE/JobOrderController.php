@@ -179,7 +179,7 @@ class JobOrderController extends Controller
             array_push($brands, ucwords($client->brands[0]->name));
         }
 
-        return view('ae.jolist.details.print.meal')
+        return view('ae.jolist.details.print.manpower')
             ->with('jo', $jo)
             ->with('brands', $brands)
             ->with('meals', $meal_request);
