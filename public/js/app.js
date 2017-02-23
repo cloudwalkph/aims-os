@@ -76985,7 +76985,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "name": "company",
       "id": "title",
-      "placeholder": "Enter company name"
+      "placeholder": "Enter schedule title"
     },
     domProps: {
       "value": _vm.title

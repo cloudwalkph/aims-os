@@ -33,7 +33,7 @@
                                     <label class="control-label">Schedule Title</label>
                                     <input type="text" name="company"
                                            @input="inputChange" v-bind:value="title" id="title"
-                                           placeholder="Enter company name" class="form-control" />
+                                           placeholder="Enter schedule title" class="form-control" />
                                 </div>
                                 <div class="col-md-12 form-group text-input-container">
                                     <label class="control-label">Date</label>
