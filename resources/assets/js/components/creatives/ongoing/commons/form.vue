@@ -80,7 +80,8 @@
                 this.user_id = val.value
             },
             getUsers() {
-                this.$http.get('/api/v1/users').then(response => {
+                // the department id of creatives == 2
+                this.$http.get('/api/v1/users/2').then(response => {
                     this.users = response.data;
                 for (let user of this.users) {
                     this.userOptions.push({label: `${user.profile.first_name} ${user.profile.last_name}`, value: user.id});
