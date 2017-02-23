@@ -242,7 +242,7 @@
             createJobOrder() {
                 let data = {
                     project_name: this.projectName,
-                    project_types: this.projectTypes,
+                    project_types: this.selectedProjectTypes,
                     clients: this.addedClients
                 };
 
