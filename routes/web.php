@@ -29,6 +29,7 @@ Route::group(['prefix' => 'ae'], function () {
     Route::get('schedules', 'Front\AE\AccountsExecutiveController@schedules');
     Route::get('clients', 'Front\AE\ClientsController@index');
     Route::get('/references', 'Front\AE\AccountsExecutiveController@references');
+    Route::get('/references/{fileName}/download', 'Front\AE\ReferenceController@download');
 
     Route::group(['prefix' => 'jo'], function () {
         Route::get('/', 'Front\AE\JobOrderController@index');
