@@ -72,7 +72,9 @@ class JobOrderController extends Controller
 
         $brands = [];
         foreach ($jo->clients as $client) {
-            array_push($brands, ucwords($client->brands[0]->name));
+            foreach ($client->brands as $b) {
+                array_push($brands, ucwords($b->name));
+            }
         }
 
         $mealTypes = MealType::all();
@@ -91,6 +93,7 @@ class JobOrderController extends Controller
             ->with('mealType')->get();
 
         $departmentLists = Department::all();
+
 
         return view('ae.jolist.details.index')
             ->with('jo', $jo)
@@ -127,7 +130,9 @@ class JobOrderController extends Controller
 
         $brands = [];
         foreach ($jo->clients as $client) {
-            array_push($brands, ucwords($client->brands[0]->name));
+            foreach ($client->brands as $b) {
+                array_push($brands, ucwords($b->name));
+            }
         }
 
         $attachments = JobOrderProjectAttachment::where('job_order_id', $jo->id)
@@ -179,7 +184,7 @@ class JobOrderController extends Controller
             array_push($brands, ucwords($client->brands[0]->name));
         }
 
-        return view('ae.jolist.details.print.manpower')
+        return view('ae.jolist.details.print.meal')
             ->with('jo', $jo)
             ->with('brands', $brands)
             ->with('meals', $meal_request);
