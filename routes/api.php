@@ -27,12 +27,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     // users
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'UsersController@all');
+        Route::get('/{departmentId}', 'UsersController@getByDepartment');
         Route::post('/', 'UsersController@store');
         Route::post('/change-password', 'UsersController@changePassword');
     });
 
     // Events API
     Route::group(['prefix' => 'events'], function() {
+        Route::get('/all', 'EventsController@all');
         Route::get('/', 'EventsController@index');
         Route::post('/', 'EventsController@store');
         Route::put('/{eventId}', 'EventsController@update');

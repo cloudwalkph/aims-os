@@ -17,6 +17,14 @@ class UsersController extends Controller {
         return response()->json($users, 200);
     }
 
+    public function getByDepartment($departmentId)
+    {
+        $users = User::where('department_id', $departmentId)
+            ->with('profile', 'department', 'role')->get();
+
+        return response()->json($users, 200);
+    }
+
     public function store(CreateUserRequest $request)
     {
         $input = $request->all();
