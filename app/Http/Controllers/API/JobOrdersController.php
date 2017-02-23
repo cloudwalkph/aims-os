@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 
 class JobOrdersController extends Controller {
     use FilterTrait;
+
+    public function all()
+    {
+        $jos = JobOrder::all();
+
+        return response()->json($jos, 200);
+    }
+
     /**
      * @return \Illuminate\Http\JsonResponse
      */

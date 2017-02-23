@@ -11,7 +11,7 @@ trait FilterTrait {
 
             foreach ($filterable as $key => $filterKey) {
                 if ($key === 1) {
-                    $q->where('company', 'like', $value);
+                    $q->where($filterKey, 'like', $value);
                 }
 
                 $q->orWhere($filterKey, 'like', $value);

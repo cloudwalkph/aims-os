@@ -57,7 +57,7 @@ class JobOrder extends Model
 
     public function creativesJob()
     {
-        return $this->hasMany(CreativesJob::class, 'id', 'job_order_no');
+        return $this->hasMany(CreativesJob::class, 'id', 'job_order_id');
     }
 
     /**

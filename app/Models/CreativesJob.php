@@ -10,14 +10,29 @@ class CreativesJob extends Model
     use SoftDeletes;
 
     protected $table = 'creatives_jobs';
-    protected $fillable = ['job_order_no', 'description', 'deadline'];
+    protected $fillable = ['job_order_id', 'description', 'deadline'];
 
-    public function jobOrders()
+    public static $rules = [
+        'job_order_id'     => 'required',
+        'description'      => 'required',
+        'deadline'         => 'required',
+        'user_id'          => 'required',
+    ];
+
+    public static $filterable = [
+        'deadline',
+        'project_name',
+        'job_order_no',
+        'first_name',
+        'last_name'
+    ];
+
+    public function jo()
     {
-        return $this->belongsTo('App\Models\JobOrder', 'job_order_no', 'id');
+        return $this->belongsTo('App\Models\JobOrder', 'job_order_id', 'id');
     }
 
-    public function assignedPerson()
+    public function assigned()
     {
         return $this->hasOne('App\Models\CreativesJobAssignedPerson');
     }

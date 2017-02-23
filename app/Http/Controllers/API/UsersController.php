@@ -14,7 +14,7 @@ class UsersController extends Controller {
     {
         $users = User::with('profile', 'department', 'role')->get();
 
-        return $this->responseOK($users);
+        return response()->json($users, 200);
     }
 
     public function store(CreateUserRequest $request)

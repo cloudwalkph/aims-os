@@ -48,37 +48,23 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::delete('/{clientId}', 'ClientsController@delete');
     });
 
+    // Clients
+    Route::group(['prefix' => 'creatives/ongoing'], function() {
+        Route::get('/', 'CreativesOngoingController@index');
+        Route::get('/{joId}', 'CreativesOngoingController@show');
+        Route::post('/', 'CreativesOngoingController@store');
+        Route::put('/{joId}', 'CreativesOngoingController@update');
+        Route::delete('/{joId}', 'CreativesOngoingController@delete');
+    });
+
     // Job Orders
     Route::group(['prefix' => 'job-orders'], function() {
+        Route::get('/all', 'JobOrdersController@all');
         Route::get('/', 'JobOrdersController@index');
         Route::get('/{jobOrderId}', 'JobOrdersController@show');
         Route::post('/', 'JobOrdersController@store');
         Route::put('/{jobOrderId}', 'JobOrdersController@update');
         Route::delete('/{jobOrderId}', 'JobOrdersController@delete');
-
-        // job orders event details
-        Route::get('/{jobOrderNo}/job-order-details', 'JODetails\JobOrdersEventDetailsController@getActive');
-        Route::post('/{jobOrderNo}/job-order-details', 'JODetails\JobOrdersEventDetailsController@store');
-
-        // job orders animation details
-        Route::get('/{jobOrderNo}/job-order-animations', 'JODetails\JobOrdersAnimationDetailsController@getActive');
-        Route::post('/{jobOrderNo}/job-order-animations', 'JODetails\JobOrdersAnimationDetailsController@store');
-
-        // job orders departments involved
-        Route::get('/{jobOrderNo}/job-order-departments', 'JODetails\JobOrdersDepartmentInvolvedController@getActive');
-        Route::post('/{jobOrderNo}/job-order-departments', 'JODetails\JobOrdersDepartmentInvolvedController@store');
-
-        // job orders manpower request
-        Route::get('/{jobOrderNo}/job-order-manpowers', 'JODetails\JobOrdersManpowerRequestController@getActive');
-        Route::post('/{jobOrderNo}/job-order-manpowers', 'JODetails\JobOrdersManpowerRequestController@store');
-
-        // job orders meal request
-        Route::get('/{jobOrderNo}/job-order-meals', 'JODetails\JobOrdersMealRequestController@getActive');
-        Route::post('/{jobOrderNo}/job-order-meals', 'JODetails\JobOrdersMealRequestController@store');
-
-        // job orders vehicle request
-        Route::get('/{jobOrderNo}/job-order-vehicles', 'JODetails\JobOrdersVehicleRequestController@getActive');
-        Route::post('/{jobOrderNo}/job-order-vehicles', 'JODetails\JobOrdersVehicleRequestController@storeByJoId');
 
     });
 

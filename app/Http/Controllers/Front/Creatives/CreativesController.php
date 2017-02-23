@@ -35,4 +35,11 @@ class CreativesController extends Controller
 
         return view('creatives.schedules');
     }
+
+    public function ongoing()
+    {
+        config(['app.name' => 'Creatives On-Going Projects | AIMS']);
+
+        return view('creatives.ongoing.index');
+    }
 }
