@@ -18,6 +18,7 @@ class Agency extends Model
 
     public static $filterable = [
         'name',
+        'slug'
     ];
 
     public function manpower()
