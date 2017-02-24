@@ -10,9 +10,7 @@ trait FilterTrait {
             $value = "%{$request->get('filter')}%";
 
             foreach ($filterable as $key => $filterKey) {
-                $q->where(function($q) use ($filterKey, $value) {
-                    $q->orWhere($filterKey, 'like', $value);
-                });
+                $q->orWhere($filterKey, 'like', $value);
             }
         });
     }
