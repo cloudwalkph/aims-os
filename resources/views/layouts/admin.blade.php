@@ -66,7 +66,7 @@
                         <a href="/admin"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li id="accounts">
-                        <a href="/admin/accounts"><i class="fa fa-fw fa-users"></i> Accounts</a>
+                        <a href="/admin/users"><i class="fa fa-fw fa-users"></i> Users</a>
                     </li>
                     <li id="roles">
                         <a href="/admin/roles"><i class="fa fa-fw fa-tags"></i> Roles</a>

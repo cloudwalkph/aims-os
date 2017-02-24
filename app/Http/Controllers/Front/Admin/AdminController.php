@@ -28,4 +28,16 @@ class AdminController extends Controller
 
         return view('admin.index');
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function users()
+    {
+        config(['app.name' => 'Admin Dashboard | AIMS']);
+
+        return view('admin.users');
+    }
 }

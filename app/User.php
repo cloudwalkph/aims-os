@@ -34,6 +34,27 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static $rules = [
+        'email'         => 'required',
+        'first_name'    => 'required',
+        'last_name'     => 'required',
+        'user_role'     => 'required',
+        'department'    => 'required',
+        'street'        => 'required',
+        'barangay'      => 'required',
+        'city'          => 'required',
+        'province'      => 'required',
+        'date_hired'    => 'required',
+    ];
+
+    public static $filterable = [
+        'first_name',
+        'last_name',
+        'email',
+        'department',
+        'user_role'
+    ];
+
     /**
      * Associations
      * ======================================================================================================
