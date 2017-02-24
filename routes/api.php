@@ -91,4 +91,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('/', 'AgenciesController@store');
         Route::delete('/{agencyId}', 'AgenciesController@delete');
     });
+
+    // manpower types
+    Route::group(['prefix' => 'manpower-types'], function() {
+        Route::get('/', 'ManpowerTypesController@index');
+        Route::post('/', 'ManpowerTypesController@store');
+        Route::delete('/{typeId}', 'ManpowerTypesController@delete');
+    });
 });
