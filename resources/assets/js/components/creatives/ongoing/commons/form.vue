@@ -110,7 +110,7 @@
                     user_id: this.user_id
                 }
 
-                let url = `/api/v1/creatives/ongoing`;
+                let url = `/api/v1/creatives`;
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 

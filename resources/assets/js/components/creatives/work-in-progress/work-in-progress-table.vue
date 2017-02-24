@@ -22,8 +22,6 @@
                                  @vuetable-pagination:change-page="onChangePage"
             ></vuetable-pagination>
         </div>
-
-        <assign-user-modal></assign-user-modal>
     </div>
 </template>
 
@@ -38,12 +36,10 @@
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
     import FilterBar from './commons/FilterBar'
-    import AssignUserModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('ongoing-custom-actions', CustomActions)
+    Vue.component('work-in-progress-custom-actions', CustomActions)
     Vue.component('filter-bar', FilterBar)
-    Vue.component('assign-user-modal', AssignUserModal)
 
     export default {
         components: {
@@ -104,7 +100,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:ongoing-custom-actions',
+                        name: '__component:work-in-progress-custom-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'
