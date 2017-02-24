@@ -2,14 +2,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\ChangePasswordRequest;
 use App\Http\Requests\Users\CreateUserRequest;
-use App\Models\UserProfile;
+use App\Traits\FilterTrait;
 use App\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller {
-
+    use FilterTrait;
 
     public function all()
     {
