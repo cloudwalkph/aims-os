@@ -48,11 +48,11 @@ class User extends Authenticatable
     ];
 
     public static $filterable = [
+        'department',
+        'user_role',
         'first_name',
         'last_name',
         'email',
-        'department',
-        'user_role'
     ];
 
     /**

@@ -73,7 +73,8 @@
                     {
                         name: 'email',
                         sortField: 'email',
-                        title: 'E-Mail Address'
+                        title: 'E-Mail Address',
+                        callback: 'allcap'
                     },
                     {
                         name: 'department',
@@ -128,12 +129,15 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'deadline', sortField: 'deadline', direction: 'asc'}
+                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
                 ],
                 moreParams: {}
             }
         },
         methods: {
+            allcap (value) {
+                return value.toUpperCase()
+            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
