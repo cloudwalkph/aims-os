@@ -39137,6 +39137,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
     mounted: function mounted() {
         this.getRoles();
         this.getDepartments();
+        this.getGender();
     },
 
     methods: {
@@ -39255,13 +39256,13 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
                 province: this.province
             };
 
-            var url = '/api/v1/creatives/ongoing';
+            var url = '/api/v1/users';
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
                 _this3.$events.fire('reload-table');
                 _this3.resetForm();
-                $('#ongoingModal').modal('hide');
+                $('#userModal').modal('hide');
             }, function (error) {
                 console.log(error);
             });
