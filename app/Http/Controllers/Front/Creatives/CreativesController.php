@@ -49,4 +49,11 @@ class CreativesController extends Controller
 
         return view('creatives.work-in-progress.index');
     }
+
+    public function workDetails()
+    {
+        config(['app.name' => 'Creatives Work in Progress Details | AIMS']);
+
+        return view('creatives.work-in-progress.details');
+    }
 }
