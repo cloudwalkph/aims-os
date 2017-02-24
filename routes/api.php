@@ -26,10 +26,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // users
     Route::group(['prefix' => 'users'], function () {
-        Route::get('/', 'UsersController@all');
+        Route::get('/', 'UsersController@index');
         Route::get('/{departmentId}', 'UsersController@getByDepartment');
         Route::post('/', 'UsersController@store');
-        Route::post('/change-password', 'UsersController@changePassword');
+        Route::delete('/{userId}', 'UsersController@delete');
     });
 
     // Events API
@@ -73,5 +73,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     // Project Types
     Route::group(['prefix' => 'project-types'], function() {
         Route::get('/', 'ProjectTypesController@index');
+    });
+
+    // User roles
+    Route::group(['prefix' => 'roles'], function() {
+        Route::get('/', 'RolesController@index');
+    });
+
+    // departments
+    Route::group(['prefix' => 'departments'], function() {
+        Route::get('/', 'DepartmentsController@index');
     });
 });

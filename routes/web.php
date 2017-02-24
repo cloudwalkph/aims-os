@@ -17,10 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/admin', function () {
-    return view('admin.index');
-});
-
 Route::get('/profile', 'HomeController@profile');
 Route::post('/change-password', 'HomeController@changePassword');
 
@@ -66,6 +62,11 @@ Route::group(['prefix' => 'creatives'], function () {
     Route::get('schedules', 'Front\Creatives\CreativesController@schedules');
     Route::get('ongoing-projects', 'Front\Creatives\CreativesController@ongoing');
 
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', 'Front\Admin\AdminController@index');
+    Route::get('/users', 'Front\Admin\AdminController@users');
 });
 
 Route::group(['prefix' => 'inventory'], function () {

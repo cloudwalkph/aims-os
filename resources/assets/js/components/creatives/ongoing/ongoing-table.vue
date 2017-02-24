@@ -41,7 +41,7 @@
     import AssignUserModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('client-custom-actions', CustomActions)
+    Vue.component('ongoing-custom-actions', CustomActions)
     Vue.component('filter-bar', FilterBar)
     Vue.component('assign-user-modal', AssignUserModal)
 
@@ -104,7 +104,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:client-custom-actions',
+                        name: '__component:ongoing-custom-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'

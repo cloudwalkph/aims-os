@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Users;
 
-
 use App\Http\Requests\APIFormRequest;
+use App\User;
 
 class CreateUserRequest extends APIFormRequest
 {
@@ -15,12 +15,6 @@ class CreateUserRequest extends APIFormRequest
      */
     public function rules()
     {
-        return [
-            'email'             => 'required|email',
-            'first_name'        => 'required',
-            'last_name'         => 'required',
-            'department_id'     => 'required|exists:departments,id',
-            'user_role_id'      => 'required|exists:user_roles,id'
-        ];
+        return User::$rules;
     }
 }
