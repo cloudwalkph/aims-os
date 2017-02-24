@@ -31,9 +31,9 @@ class AgenciesController extends Controller {
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
         \Log::info($query->toSql());
         // Get the data
-        $users = $query->paginate($perPage);
+        $agencies = $query->paginate($perPage);
 
-        return response()->json($users, 200);
+        return response()->json($agencies, 200);
     }
 
     /**
