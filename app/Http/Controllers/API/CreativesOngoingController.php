@@ -3,9 +3,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreativesJo\CreateCreativesJoRequest;
-use App\Models\Client;
 use App\Models\CreativesJob;
-use App\Models\CreativesJobAssignedPerson;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
 

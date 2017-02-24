@@ -29,6 +29,8 @@ Vue.component('create-job-order', require('./components/job-orders/create-job-or
 
 Vue.component('ongoing-table', require('./components/creatives/ongoing/ongoing-table.vue'));
 
+Vue.component('admin-users-table', require('./components/admin/users/users-table.vue'));
+
 const app = new Vue({
     el: '#app'
 });
