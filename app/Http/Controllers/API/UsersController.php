@@ -69,7 +69,8 @@ class UsersController extends Controller {
                 'email'         => $input['email'],
                 'user_role_id'  => $input['user_role_id'],
                 'department_id' => $input['department_id'],
-                'password'      => \Hash::make('password')
+                'password'      => \Hash::make('password'),
+                'api_token'     => str_random(60)
             ];
 
             $user = User::create($userData);
