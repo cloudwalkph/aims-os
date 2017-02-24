@@ -23,7 +23,7 @@
                                 <label class="control-label">E-Mail Address</label>
                                 <input type="email" name="email"
                                        @input="inputChange" v-bind:value="email" id="email"
-                                       placeholder="Description" class="form-control" />
+                                       placeholder="E-Mail Address" class="form-control" />
                             </div>
 
                             <div class="col-md-6 form-group text-input-container">
@@ -35,56 +35,56 @@
                                 <label class="control-label">First Name</label>
                                 <input type="text" name="first_name"
                                        @input="inputChange" v-bind:value="first_name" id="first_name"
-                                       placeholder="Description" class="form-control" />
+                                       placeholder="First Name" class="form-control" />
                             </div>
 
                             <div class="col-md-6 form-group text-input-container">
                                 <label class="control-label">Middle Name</label>
                                 <input type="text" name="middle_name"
                                        @input="inputChange" v-bind:value="middle_name" id="middle_name"
-                                       placeholder="Description" class="form-control" />
+                                       placeholder="Middle Name" class="form-control" />
                             </div>
 
                             <div class="col-md-6 form-group text-input-container">
                                 <label class="control-label">Last Name</label>
                                 <input type="text" name="last_name"
                                        @input="inputChange" v-bind:value="last_name" id="last_name"
-                                       placeholder="Description" class="form-control" />
+                                       placeholder="Last Name" class="form-control" />
                             </div>
 
                             <div class="col-md-6 form-group text-input-container">
                                 <label class="control-label">Birthdate</label>
                                 <input type="date" name="birth_date"
                                        @input="inputChange" v-bind:value="birth_date" id="birth_date"
-                                       placeholder="Deadline" class="form-control" />
+                                       placeholder="Birthdate" class="form-control" />
                             </div>
 
                             <div class="col-md-6 form-group text-input-container">
                                 <label class="control-label">Street</label>
                                 <input type="text" name="street"
                                        @input="inputChange" v-bind:value="street" id="street"
-                                       placeholder="Description" class="form-control" />
+                                       placeholder="Street" class="form-control" />
                             </div>
 
                             <div class="col-md-6 form-group text-input-container">
                                 <label class="control-label">Barangay</label>
                                 <input type="text" name="barangay"
                                        @input="inputChange" v-bind:value="barangay" id="barangay"
-                                       placeholder="Description" class="form-control" />
+                                       placeholder="Barangay" class="form-control" />
                             </div>
 
                             <div class="col-md-6 form-group text-input-container">
                                 <label class="control-label">City</label>
                                 <input type="text" name="city"
                                        @input="inputChange" v-bind:value="city" id="city"
-                                       placeholder="Description" class="form-control" />
+                                       placeholder="City" class="form-control" />
                             </div>
 
                             <div class="col-md-6 form-group text-input-container">
                                 <label class="control-label">Province</label>
                                 <input type="text" name="province"
                                        @input="inputChange" v-bind:value="province" id="province"
-                                       placeholder="Description" class="form-control" />
+                                       placeholder="Province" class="form-control" />
                             </div>
                         </div>
                     </form>
