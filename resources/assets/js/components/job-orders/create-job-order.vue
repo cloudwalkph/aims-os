@@ -232,6 +232,9 @@
                 this.$http.get('/api/v1/clients').then(response => {
                     this.clients = response.data.data;
 
+                    // clear options
+                    this.clientOptions = []
+
                     for (let client of this.clients) {
                         this.clientOptions.push({label: `${client.company} : ${client.contact_person}`, value: client.id});
                     }
@@ -257,7 +260,7 @@
         },
         events: {
             'reload-table' () {
-                Vue.nextTick( () => this.$methods.getClients() )
+                Vue.nextTick( () => this.getClients() )
             }
         }
     }

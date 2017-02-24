@@ -39337,7 +39337,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_events___default.a);
-__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('client-custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
+__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('user-custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IMPORTED_MODULE_8__commons_FilterBar___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('assign-user-modal', __WEBPACK_IMPORTED_MODULE_9__commons_form_vue___default.a);
 
@@ -39388,7 +39388,7 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('assign-user-modal', __WEB
                 callback: 'formatDate|DD-MM-YYYY',
                 title: 'Created Date'
             }, {
-                name: '__component:client-custom-actions',
+                name: '__component:user-custom-actions',
                 title: 'Actions',
                 titleClass: 'text-center',
                 dataClass: 'text-center'
@@ -40155,7 +40155,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_events___default.a);
-__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('client-custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
+__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('ongoing-custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IMPORTED_MODULE_8__commons_FilterBar___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('assign-user-modal', __WEBPACK_IMPORTED_MODULE_9__commons_form_vue___default.a);
 
@@ -40209,7 +40209,7 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('assign-user-modal', __WEB
                 callback: 'formatDate|DD-MM-YYYY',
                 title: 'Created Date'
             }, {
-                name: '__component:client-custom-actions',
+                name: '__component:ongoing-custom-actions',
                 title: 'Actions',
                 titleClass: 'text-center',
                 dataClass: 'text-center'
@@ -40682,6 +40682,9 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('v-select', __WEBPACK_IMPO
             this.$http.get('/api/v1/clients').then(function (response) {
                 _this3.clients = response.data.data;
 
+                // clear options
+                _this3.clientOptions = [];
+
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
                 var _iteratorError = undefined;
@@ -40731,7 +40734,7 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('v-select', __WEBPACK_IMPO
             var _this4 = this;
 
             __WEBPACK_IMPORTED_MODULE_2_vue___default.a.nextTick(function () {
-                return _this4.$methods.getClients();
+                return _this4.getClients();
             });
         }
     }
