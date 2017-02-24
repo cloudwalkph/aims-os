@@ -51,7 +51,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     });
 
     // Clients
-    Route::group(['prefix' => 'creatives/ongoing'], function() {
+    Route::group(['prefix' => 'creatives'], function() {
         Route::get('/', 'CreativesOngoingController@index');
         Route::get('/{joId}', 'CreativesOngoingController@show');
         Route::post('/', 'CreativesOngoingController@store');
