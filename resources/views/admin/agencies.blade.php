@@ -11,7 +11,7 @@
                     <i class="fa fa-plus fa-lg"></i> Create Agency
                 </button>
 
-                <admin-users-table></admin-users-table>
+                <admin-agencies-table></admin-agencies-table>
             </div>
         </div>
 
