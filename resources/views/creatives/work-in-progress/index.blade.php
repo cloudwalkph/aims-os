@@ -27,7 +27,7 @@
                     <i class="fa fa-plus"></i> Assign to JO
                 </button>
 
-                <ongoing-table></ongoing-table>
+                <work-in-progress-table></work-in-progress-table>
             </div>
 
 

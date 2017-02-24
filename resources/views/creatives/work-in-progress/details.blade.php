@@ -28,12 +28,12 @@
                     <div class="panel panel-default">
                         <div class="panel-heading" style="min-height: 80px;">
                             <div class="col-md-6">
-                                <h5>Job Order Number : 0912313</h5>
-                                <h5>Project Name : test</h5>
+                                <h5>Job Order Number : {{ $jo->jo->job_order_no }}</h5>
+                                <h5>Project Name : {{ $jo->jo->project_name }}</h5>
                             </div>
                             <div class="col-md-6">
-                                <h5>Deadline : 123 321 312</h5>
-                                <h5>Assigned Persons : test </h5>
+                                <h5>Deadline : {{ \Carbon\Carbon::createFromTimestamp(strtotime($jo->deadline))->toFormattedDateString() }}</h5>
+                                <h5>Assigned Persons : {{ $jo->assigned->user->profile->first_name }} {{ $jo->assigned->user->profile->last_name }} </h5>
                             </div>
                         </div>
                     </div>
