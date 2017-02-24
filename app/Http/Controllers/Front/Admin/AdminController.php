@@ -40,4 +40,28 @@ class AdminController extends Controller
 
         return view('admin.users');
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function agencies()
+    {
+        config(['app.name' => 'Admin Dashboard | AIMS']);
+
+        return view('admin.agencies');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function manpowerTypes()
+    {
+        config(['app.name' => 'Admin Dashboard | AIMS']);
+
+        return view('admin.manpowerType');
+    }
 }

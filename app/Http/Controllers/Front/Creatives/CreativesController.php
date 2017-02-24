@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front\Creatives;
 
 use App\Http\Controllers\Controller;
+use App\Models\CreativesJob;
 use Illuminate\Http\Request;
 
 class CreativesController extends Controller
@@ -41,5 +42,22 @@ class CreativesController extends Controller
         config(['app.name' => 'Creatives On-Going Projects | AIMS']);
 
         return view('creatives.ongoing.index');
+    }
+
+    public function workInProgress()
+    {
+        config(['app.name' => 'Creatives Work in Progress | AIMS']);
+
+        return view('creatives.work-in-progress.index');
+    }
+
+    public function workDetails($id, $joId)
+    {
+        config(['app.name' => 'Creatives Work in Progress Details | AIMS']);
+
+        $jo = CreativesJob::where('id', $id)->where('job_order_id', $joId)
+            ->with('jo', 'assigned')->first();
+
+        return view('creatives.work-in-progress.details')->with('jo', $jo);
     }
 }

@@ -64,12 +64,16 @@ Route::group(['prefix' => 'creatives'], function () {
     Route::get('/', 'Front\Creatives\CreativesController@index');
     Route::get('schedules', 'Front\Creatives\CreativesController@schedules');
     Route::get('ongoing-projects', 'Front\Creatives\CreativesController@ongoing');
+    Route::get('work-in-progress', 'Front\Creatives\CreativesController@workInProgress');
+    Route::get('work-in-progress/{creativesId}/{joId}', 'Front\Creatives\CreativesController@workDetails');
 
 });
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'Front\Admin\AdminController@index');
     Route::get('/users', 'Front\Admin\AdminController@users');
+    Route::get('/agencies', 'Front\Admin\AdminController@agencies');
+    Route::get('/manpower-types', 'Front\Admin\AdminController@manpowerTypes');
 });
 
 Route::group(['prefix' => 'inventory'], function () {

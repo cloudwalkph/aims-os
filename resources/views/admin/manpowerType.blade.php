@@ -12,7 +12,7 @@
                     <a href="/admin"><i class="fa fa-dashboard"></i> Admin Department</a>
                 </li>
                 <li class="active">
-                    <i class="fa fa-book"></i> Agencies List
+                    <i class="fa fa-wrench"></i> Manpower Types List
                 </li>
             </ol>
         </div>
@@ -20,11 +20,11 @@
 
         <div class="col-md-12">
             <button type="button" class="btn btn-primary pull-right btn-create"
-                    data-toggle="modal" data-target="#agencyModal">
-                <i class="fa fa-plus fa-lg"></i> Create Agency
+                    data-toggle="modal" data-target="#typeModal">
+                <i class="fa fa-plus fa-lg"></i> Create Manpower Type
             </button>
 
-            <admin-agencies-table></admin-agencies-table>
+            <admin-manpower-types-table></admin-manpower-types-table>
         </div>
 
     </div>

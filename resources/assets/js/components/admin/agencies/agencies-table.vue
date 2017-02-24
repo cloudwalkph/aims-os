@@ -2,7 +2,7 @@
     <div>
         <filter-bar></filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/creatives"
+                  api-url="/api/v1/agencies/"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -23,7 +23,7 @@
             ></vuetable-pagination>
         </div>
 
-        <assign-user-modal></assign-user-modal>
+        <agency-modal></agency-modal>
     </div>
 </template>
 
@@ -38,12 +38,12 @@
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
     import FilterBar from './commons/FilterBar'
-    import AssignUserModal from './commons/form.vue'
+    import AgenciesModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('ongoing-custom-actions', CustomActions)
+    Vue.component('agency-custom-actions', CustomActions)
     Vue.component('filter-bar', FilterBar)
-    Vue.component('assign-user-modal', AssignUserModal)
+    Vue.component('agency-modal', AgenciesModal)
 
     export default {
         components: {
@@ -66,34 +66,14 @@
                         dataClass: 'text-center',
                     },
                     {
-                        name: 'job_order_no',
-                        sortField: 'job_order_no',
-                        title: 'Job Order No'
+                        name: 'name',
+                        sortField: 'name',
+                        title: 'Agency Name'
                     },
                     {
-                        name: 'project_name',
-                        sortField: 'project_name',
-                        title: 'Project Name'
-                    },
-                    {
-                        name: 'description',
-                        sortField: 'description',
-                        title: 'Description'
-                    },
-                    {
-                        name: 'deadline',
-                        sortField: 'deadline',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Deadline'
-                    },
-                    {
-                        name: 'assigned_person',
-                        sortField: 'assigned_person',
-                        title: 'Assigned Person',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center'
+                        name: 'slug',
+                        sortField: 'slug',
+                        title: 'Slug',
                     },
                     {
                         name: 'created_at',
@@ -104,7 +84,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:ongoing-custom-actions',
+                        name: '__component:agency-custom-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'
@@ -131,12 +111,15 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'deadline', sortField: 'deadline', direction: 'asc'}
+                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
                 ],
                 moreParams: {}
             }
         },
         methods: {
+            allcap (value) {
+                return value.toUpperCase()
+            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
