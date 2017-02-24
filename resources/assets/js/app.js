@@ -33,6 +33,8 @@ Vue.component('admin-users-table', require('./components/admin/users/users-table
 
 Vue.component('admin-agencies-table', require('./components/admin/agencies/agencies-table.vue'));
 
+Vue.component('admin-manpower-types-table', require('./components/admin/manpowerType/manpower-type-table.vue'));
+
 const app = new Vue({
     el: '#app'
 });
