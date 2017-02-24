@@ -14,17 +14,27 @@ class VehicleTypesTableSeeder extends Seeder
     {
         VehicleType::create([
             'slug'  => 'l300',
-            'name'  => 'L300'
+            'name'  => 'L300 FB Van'
         ]);
 
         VehicleType::create([
-            'slug'  => 'small-truck',
-            'name'  => 'Small Truck'
+            'slug'  => 'commuter-van',
+            'name'  => 'Commuter Van'
         ]);
 
         VehicleType::create([
-            'slug'  => 'big-truck',
-            'name'  => 'Big Truck'
+            'slug'  => 'h100-van',
+            'name'  => 'H100 Van'
+        ]);
+
+        VehicleType::create([
+            'slug'  => 'closed-truck',
+            'name'  => 'Closed Truck'
+        ]);
+
+        VehicleType::create([
+            'slug'  => 'open-truck',
+            'name'  => 'Open Truck'
         ]);
     }
 }
