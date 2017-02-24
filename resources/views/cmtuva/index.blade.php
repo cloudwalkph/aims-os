@@ -27,7 +27,7 @@
                             <label class="text-muted">Calendar</label>
                         </div>
                         <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">Schedules</a>
+                            <a href="/cmtuva/schedules" class="btn btn-primary btn-lg">Schedules</a>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                             <label class="text-muted">Venues List</label>
                         </div>
                         <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">Add Venue</a>
+                            <a href="/cmtuva/venues" class="btn btn-primary btn-lg">Add Venue</a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                             <label class="text-muted">Plans List</label>
                         </div>
                         <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">Create Plans</a>
+                            <a href="/cmtuva/plans" class="btn btn-primary btn-lg">Create Plans</a>
                         </div>
                     </div>
                 </div>

@@ -55,6 +55,9 @@ Route::group(['prefix' => 'ae'], function () {
 
 Route::group(['prefix' => 'cmtuva'], function () {
     Route::get('/', 'Front\CMTUVA\CmtuvaController@index');
+    Route::get('schedules', 'Front\CMTUVA\CmtuvaController@schedules');
+    Route::get('venues', 'Front\CMTUVA\CmtuvaController@venues');
+    Route::get('plans', 'Front\CMTUVA\CmtuvaController@plans');
 });
 
 Route::group(['prefix' => 'creatives'], function () {
