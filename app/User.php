@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'user_role_id', 'department_id'
+        'email', 'password', 'user_role_id', 'department_id', 'api_token'
     ];
 
     /**
@@ -38,21 +38,21 @@ class User extends Authenticatable
         'email'         => 'required',
         'first_name'    => 'required',
         'last_name'     => 'required',
-        'user_role'     => 'required',
-        'department'    => 'required',
+        'user_role_id'  => 'required',
+        'department_id' => 'required',
         'street'        => 'required',
         'barangay'      => 'required',
         'city'          => 'required',
         'province'      => 'required',
-        'date_hired'    => 'required',
     ];
 
     public static $filterable = [
-        'department',
-        'user_role',
         'first_name',
         'last_name',
         'email',
+        'user_role',
+        'department',
+        'full_name'
     ];
 
     /**

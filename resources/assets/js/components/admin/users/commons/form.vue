@@ -127,6 +127,7 @@
         mounted() {
             this.getRoles()
             this.getDepartments()
+            this.getGender()
         },
         methods: {
             resetForm() {
@@ -197,13 +198,13 @@
                     province: this.province
                 }
 
-                let url = `/api/v1/creatives/ongoing`;
+                let url = `/api/v1/users`;
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
                     this.$events.fire('reload-table')
                     this.resetForm()
-                    $('#ongoingModal').modal('hide')
+                    $('#userModal').modal('hide')
                 }, error => {
                     console.log(error)
                 })
