@@ -38840,10 +38840,12 @@ exports.default = {
             var url = '/api/v1/events';
             this.$http.get(url).then(function (response) {
                 var events = [];
+                var $calendar = $('.calendar');
+
                 _this2.currentEvents = response.data;
 
                 // Remove events
-                $('#calendar').fullCalendar('removeEvents');
+                $calendar.fullCalendar('removeEvents');
 
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
@@ -38874,7 +38876,7 @@ exports.default = {
                     }
                 }
 
-                $('.calendar').fullCalendar('renderEvents', events);
+                $calendar.fullCalendar('renderEvents', events);
             }, function (error) {
                 console.log(error);
             });
@@ -39365,7 +39367,8 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('assign-user-modal', __WEB
             }, {
                 name: 'email',
                 sortField: 'email',
-                title: 'E-Mail Address'
+                title: 'E-Mail Address',
+                callback: 'allcap'
             }, {
                 name: 'department',
                 sortField: 'department',
@@ -39413,12 +39416,15 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('assign-user-modal', __WEB
                     last: 'glyphicon glyphicon-step-forward'
                 }
             },
-            sortOrder: [{ field: 'deadline', sortField: 'deadline', direction: 'asc' }],
+            sortOrder: [{ field: 'created_at', sortField: 'created_at', direction: 'asc' }],
             moreParams: {}
         };
     },
 
     methods: {
+        allcap: function allcap(value) {
+            return value.toUpperCase();
+        },
         formatDate: function formatDate(value) {
             var fmt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'D MMM YYYY';
 
