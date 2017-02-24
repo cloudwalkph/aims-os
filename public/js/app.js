@@ -38874,10 +38874,12 @@ exports.default = {
             var url = '/api/v1/events';
             this.$http.get(url).then(function (response) {
                 var events = [];
+                var $calendar = $('.calendar');
+
                 _this2.currentEvents = response.data;
 
                 // Remove events
-                $('#calendar').fullCalendar('removeEvents');
+                $calendar.fullCalendar('removeEvents');
 
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
@@ -38908,7 +38910,7 @@ exports.default = {
                     }
                 }
 
-                $('.calendar').fullCalendar('renderEvents', events);
+                $calendar.fullCalendar('renderEvents', events);
             }, function (error) {
                 console.log(error);
             });
