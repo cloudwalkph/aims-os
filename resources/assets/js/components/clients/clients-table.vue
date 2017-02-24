@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filter-bar></filter-bar>
+        <client-filter-bar></client-filter-bar>
         <vuetable ref="vuetable"
                   api-url="/api/v1/clients"
                   :fields="fields"
@@ -8,7 +8,7 @@
                   :css="css.table"
                   :sort-order="sortOrder"
                   :multi-sort="true"
-                  detail-row-component="my-detail-row"
+                  detail-row-component="client-detail-row"
                   :append-params="moreParams"
                   @vuetable:cell-clicked="onCellClicked"
                   @vuetable:pagination-data="onPaginationData"
@@ -24,7 +24,7 @@
             ></vuetable-pagination>
         </div>
 
-        <create-client-modal></create-client-modal>
+        <create-client-form-modal></create-client-form-modal>
     </div>
 </template>
 
@@ -43,9 +43,9 @@
 
     Vue.use(VueEvents)
     Vue.component('client-custom-actions', CustomActions)
-    Vue.component('my-detail-row', DetailRow)
-    Vue.component('filter-bar', FilterBar)
-    Vue.component('create-client-modal', CreateClientModal)
+    Vue.component('client-detail-row', DetailRow)
+    Vue.component('client-filter-bar', FilterBar)
+    Vue.component('create-client-form-modal', CreateClientModal)
 
     export default {
         components: {

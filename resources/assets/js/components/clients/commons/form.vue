@@ -116,20 +116,22 @@
                 this.brands.splice(key, 1)
             },
             saveClient(e) {
-//                let newBrands = this.brands.filter(item => {
-//                    consoe.log(item.name);
-//                    return item.name !== ''
-//                });
-//
-//                console.log('old', this.brands);
-//                console.log('new', newBrands);
+                let newBrands = this.brands.filter(item => {
+                    console.log(item.name);
+                    return item.name !== ''
+                });
+
+
+                if (newBrands.length < 1) {
+                    return;
+                }
 
                 let data = {
                     company: this.company,
                     contact_person: this.contact_person,
                     contact_number: this.contact_number,
                     email: this.email,
-                    brands: this.brands
+                    brands: newBrands
                 }
 
                 let url = `/api/v1/clients`;
