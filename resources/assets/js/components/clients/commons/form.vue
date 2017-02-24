@@ -116,6 +116,13 @@
                 this.brands.splice(key, 1)
             },
             saveClient(e) {
+//                let newBrands = this.brands.filter(item => {
+//                    consoe.log(item.name);
+//                    return item.name !== ''
+//                });
+//
+//                console.log('old', this.brands);
+//                console.log('new', newBrands);
 
                 let data = {
                     company: this.company,
