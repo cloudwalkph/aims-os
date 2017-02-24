@@ -26,5 +26,40 @@ class ManpowerTypesTableSeeder extends Seeder
             'slug'  => 'promodizer',
             'name'  => 'Promodizer'
         ]);
+
+        ManpowerType::create([
+            'slug'  => 'push-girl',
+            'name'  => 'Push Girl'
+        ]);
+
+        ManpowerType::create([
+            'slug'  => 'seller',
+            'name'  => 'Seller'
+        ]);
+
+        ManpowerType::create([
+            'slug'  => 'pa',
+            'name'  => 'PA'
+        ]);
+
+        ManpowerType::create([
+            'slug'  => 'repacker',
+            'name'  => 'Repacker'
+        ]);
+
+        ManpowerType::create([
+            'slug'  => 'team-leader',
+            'name'  => 'TL'
+        ]);
+
+        ManpowerType::create([
+            'slug'  => 'assistant-team-leader',
+            'name'  => 'ATL'
+        ]);
+
+        ManpowerType::create([
+            'slug'  => 'project-coordinator',
+            'name'  => 'Project Coordinator'
+        ]);
     }
 }

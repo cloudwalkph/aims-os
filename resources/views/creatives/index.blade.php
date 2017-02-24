@@ -35,19 +35,21 @@
                 </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="button-menu">
-                    <div class="hero-widget well well-sm">
-                        <div class="icon">
-                            <i class="fa fa-archive"></i>
-                        </div>
-                        <div class="text">
-                            <label class="text-muted">On-Going Projects Lists</label>
-                        </div>
-                        <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">Assign Member</a>
+                <a href="/creatives/ongoing-projects">
+                    <div class="button-menu">
+                        <div class="hero-widget well well-sm">
+                            <div class="icon">
+                                <i class="fa fa-archive"></i>
+                            </div>
+                            <div class="text">
+                                <label class="text-muted">On-Going Projects Lists</label>
+                            </div>
+                            <div class="options">
+                                <a href="/creatives/ongoing-projects" class="btn btn-primary btn-lg">Assign Member</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="button-menu">

@@ -92,4 +92,14 @@ class Event extends Model
     {
         return $query->where('scope', 'public');
     }
+
+    /**
+     * Serialization
+     * ======================================================================================================
+     */
+
+    public function getTitleAttribute()
+    {
+        return ucwords($this->attributes['title']);
+    }
 }

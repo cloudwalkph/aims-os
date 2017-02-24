@@ -28,4 +28,25 @@ class CmtuvaController extends Controller
 
         return view('cmtuva.index');
     }
+
+    public function schedules()
+    {
+        config(['app.name' => 'CMTUVA SCHEDULES | AIMS']);
+
+        return view('cmtuva.schedules');
+    }
+
+    public function venues()
+    {
+        config(['app.name' => 'CMTUVA VENUES | AIMS']);
+
+        return view('cmtuva.index');
+    }
+
+    public function plans()
+    {
+        config(['app.name' => 'CMTUVA PLANS | AIMS']);
+
+        return view('cmtuva.index');
+    }
 }

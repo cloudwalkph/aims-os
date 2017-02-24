@@ -2,21 +2,63 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\ChangePasswordRequest;
 use App\Http\Requests\Users\CreateUserRequest;
-use App\Models\UserProfile;
+use App\Traits\FilterTrait;
 use App\User;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller {
-
+    use FilterTrait;
 
     public function all()
     {
         $users = User::with('profile', 'department', 'role')->get();
 
-        return $this->responseOK($users);
+        return response()->json($users, 200);
     }
 
+    public function getByDepartment($departmentId)
+    {
+        $users = User::where('department_id', $departmentId)
+            ->with('profile', 'department', 'role')->get();
+
+        return response()->json($users, 200);
+    }
+
+    public function index(Request $request)
+    {
+        // Sort
+        if ($request->has('sort')) {
+            list($sortCol, $sortDir) = explode('|', $request->get('sort'));
+            $query = User::orderBy($sortCol, $sortDir);
+        } else {
+            $query = User::orderBy('id', 'asc');
+        }
+
+        $query->join('user_profiles', 'user_profiles.user_id', '=', 'users.id')
+            ->join('user_roles', 'user_roles.id', '=', 'users.user_role_id')
+            ->join('departments', 'departments.id', '=', 'users.department_id')
+            ->select('user_profiles.*', 'users.email', 'user_roles.name as user_role',
+                'departments.name as department',
+                \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as full_name'));
+
+        // Filter
+        if ($request->has('filter')) {
+            $this->filter($query, $request, User::$filterable);
+        }
+
+        // Count per page
+        $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
+        \Log::info($query->toSql());
+        // Get the data
+        $users = $query->paginate($perPage);
+
+        return response()->json($users, 200);
+    }
+    /**
+     * @param CreateUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(CreateUserRequest $request)
     {
         $input = $request->all();
@@ -27,7 +69,8 @@ class UsersController extends Controller {
                 'email'         => $input['email'],
                 'user_role_id'  => $input['user_role_id'],
                 'department_id' => $input['department_id'],
-                'password'      => \Hash::make('password')
+                'password'      => \Hash::make('password'),
+                'api_token'     => str_random(60)
             ];
 
             $user = User::create($userData);
@@ -45,35 +88,29 @@ class UsersController extends Controller {
                 'province'      => $input['province']
             ];
 
-            $userProfile = UserProfile::create($userProfileData);
+            $user->profile()->create($userProfileData);
 
             $result = User::with('profile', 'department', 'role')
                 ->where('id', $user->id)->first();
         });
 
-        if (! $result) {
-            return $this->responseBadRequest(['error' => 'User not created']);
-        }
 
-        return $this->responseCreated($result);
+        return response()->json($result, 201);
     }
 
-    public function changePassword(ChangePasswordRequest $request)
+    /**
+     * @param $userId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete($userId)
     {
-        $user = User::where('id', $request->user()->id)->first();
-        if (! \Hash::check($request->get('current_password'), $user->password)) {
-            return $this->responseBadRequest(['error' => 'Current Password is incorrect']);
+        $user = User::where('id', $userId)->delete();
+
+        if (! $user) {
+            return response()->json([], 400);
         }
 
-        if ($request->get('new_password') !== $request->get('verify_password')) {
-            return $this->responseBadRequest(['error' => 'Password mismatch']);
-        }
-
-        User::where('id', $request->user()->id)->update([
-           'password' => \Hash::make($request->get('new_password'))
-        ]);
-
-        return $this->responseOK(['message' => 'Successfully changed password']);
+        return response()->json($user, 200);
     }
 
 }

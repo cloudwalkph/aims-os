@@ -10,10 +10,6 @@ trait FilterTrait {
             $value = "%{$request->get('filter')}%";
 
             foreach ($filterable as $key => $filterKey) {
-                if ($key === 1) {
-                    $q->where('company', 'like', $value);
-                }
-
                 $q->orWhere($filterKey, 'like', $value);
             }
         });

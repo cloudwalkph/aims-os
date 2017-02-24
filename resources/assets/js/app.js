@@ -19,11 +19,17 @@ Vue.component('example', require('./components/Example.vue'));
 
 Vue.component('scheduler', require('./components/CalendarScheduler.vue'));
 
+Vue.component('admin-scheduler', require('./components/AdminCalendarScheduler.vue'));
+
 Vue.component('clients-table', require('./components/clients/clients-table.vue'));
 
 Vue.component('jo-table', require('./components/job-orders/jo-table.vue'));
 
 Vue.component('create-job-order', require('./components/job-orders/create-job-order.vue'));
+
+Vue.component('ongoing-table', require('./components/creatives/ongoing/ongoing-table.vue'));
+
+Vue.component('admin-users-table', require('./components/admin/users/users-table.vue'));
 
 const app = new Vue({
     el: '#app'

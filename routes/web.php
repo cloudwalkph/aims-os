@@ -17,10 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/admin', function () {
-    return view('admin.index');
-});
-
 Route::get('/profile', 'HomeController@profile');
 Route::post('/change-password', 'HomeController@changePassword');
 
@@ -59,12 +55,21 @@ Route::group(['prefix' => 'ae'], function () {
 
 Route::group(['prefix' => 'cmtuva'], function () {
     Route::get('/', 'Front\CMTUVA\CmtuvaController@index');
+    Route::get('schedules', 'Front\CMTUVA\CmtuvaController@schedules');
+    Route::get('venues', 'Front\CMTUVA\CmtuvaController@venues');
+    Route::get('plans', 'Front\CMTUVA\CmtuvaController@plans');
 });
 
 Route::group(['prefix' => 'creatives'], function () {
     Route::get('/', 'Front\Creatives\CreativesController@index');
     Route::get('schedules', 'Front\Creatives\CreativesController@schedules');
+    Route::get('ongoing-projects', 'Front\Creatives\CreativesController@ongoing');
 
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', 'Front\Admin\AdminController@index');
+    Route::get('/users', 'Front\Admin\AdminController@users');
 });
 
 Route::group(['prefix' => 'inventory'], function () {

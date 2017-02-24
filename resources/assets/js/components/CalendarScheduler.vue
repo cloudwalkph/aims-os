@@ -110,10 +110,12 @@
                 let url = `/api/v1/events`;
                 this.$http.get(url).then(response => {
                     let events = [];
+                    let $calendar = $('.calendar');
+
                     this.currentEvents = response.data;
 
                     // Remove events
-                    $('#calendar').fullCalendar('removeEvents');
+                    $calendar.fullCalendar('removeEvents');
 
                     for (let event of this.currentEvents) {
                         events.push({
@@ -124,7 +126,7 @@
                         });
                     }
 
-                    $('.calendar').fullCalendar('renderEvents', events);
+                    $calendar.fullCalendar('renderEvents', events);
                 }, error => {
                     console.log(error)
                 })

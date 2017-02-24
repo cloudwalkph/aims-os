@@ -7,15 +7,7 @@
 @section('content')
     <div class="row">
 
-        <scheduler></scheduler>
+        <admin-scheduler></admin-scheduler>
 
     </div>
-@endsection
-
-@section('scripts')
-    <script type="text/javascript">
-        $(function() {
-            $('#dashboard').addClass('active');
-        });
-    </script>
 @endsection

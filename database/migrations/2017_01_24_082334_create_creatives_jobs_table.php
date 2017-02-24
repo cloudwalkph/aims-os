@@ -15,7 +15,7 @@ class CreateCreativesJobsTable extends Migration
     {
         Schema::create('creatives_jobs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('job_order_no');
+            $table->integer('job_order_id');
             $table->longText('description');
             $table->timestamp('deadline');
             $table->timestamps();

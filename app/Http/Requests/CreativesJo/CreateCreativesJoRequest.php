@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests\CreativesJo;
 
 use App\Http\Requests\APIFormRequest;
-use App\User;
+use App\Models\CreativesJob;
 
-class CreateUserRequest extends APIFormRequest
+class CreateCreativesJoRequest extends APIFormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -15,6 +14,6 @@ class CreateUserRequest extends APIFormRequest
      */
     public function rules()
     {
-        return User::$rules;
+        return CreativesJob::$rules;
     }
 }

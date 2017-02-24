@@ -1,16 +1,15 @@
 <template>
     <div>
-        <client-filter-bar></client-filter-bar>
+        <filter-bar></filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/clients"
+                  api-url="/api/v1/creatives/ongoing"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
                   :sort-order="sortOrder"
                   :multi-sort="true"
-                  detail-row-component="client-detail-row"
+                  detail-row-component="my-detail-row"
                   :append-params="moreParams"
-                  @vuetable:cell-clicked="onCellClicked"
                   @vuetable:pagination-data="onPaginationData"
         ></vuetable>
         <div class="vuetable-pagination">
@@ -24,9 +23,10 @@
             ></vuetable-pagination>
         </div>
 
-        <create-client-form-modal></create-client-form-modal>
+        <assign-user-modal></assign-user-modal>
     </div>
 </template>
+
 
 <script>
     import accounting from 'accounting'
@@ -37,15 +37,13 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import DetailRow from './commons/DetailRow'
     import FilterBar from './commons/FilterBar'
-    import CreateClientModal from './commons/form.vue'
+    import AssignUserModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('client-custom-actions', CustomActions)
-    Vue.component('client-detail-row', DetailRow)
-    Vue.component('client-filter-bar', FilterBar)
-    Vue.component('create-client-form-modal', CreateClientModal)
+    Vue.component('ongoing-custom-actions', CustomActions)
+    Vue.component('filter-bar', FilterBar)
+    Vue.component('assign-user-modal', AssignUserModal)
 
     export default {
         components: {
@@ -53,7 +51,7 @@
             VuetablePagination,
             VuetablePaginationInfo,
         },
-        data () {
+        data() {
             return {
                 fields: [
                     {
@@ -68,41 +66,34 @@
                         dataClass: 'text-center',
                     },
                     {
-                        name: 'company',
-                        sortField: 'company',
-                        title: 'Company'
+                        name: 'job_order_no',
+                        sortField: 'job_order_no',
+                        title: 'Job Order No'
                     },
                     {
-                        name: 'contact_person',
-                        sortField: 'contact_person',
-                        title: 'Contact Person'
+                        name: 'project_name',
+                        sortField: 'project_name',
+                        title: 'Project Name'
                     },
                     {
-                        name: 'contact_number',
-                        sortField: 'contact_number',
-                        title: 'Contact #'
+                        name: 'description',
+                        sortField: 'description',
+                        title: 'Description'
                     },
                     {
-                        name: 'birthdate',
-                        sortField: 'birthdate',
+                        name: 'deadline',
+                        sortField: 'deadline',
                         titleClass: 'text-center',
                         dataClass: 'text-center',
                         callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Birthdate'
+                        title: 'Deadline'
                     },
                     {
-                        name: 'email',
-                        sortField: 'email',
-                        title: 'Email',
-                        callback: 'allcap'
-                    },
-                    {
-                        name: 'brands',
-                        sortField: 'brands',
-                        title: 'Brands',
+                        name: 'assigned_person',
+                        sortField: 'assigned_person',
+                        title: 'Assigned Person',
                         titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'brandsDisseminate'
+                        dataClass: 'text-center'
                     },
                     {
                         name: 'created_at',
@@ -113,7 +104,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:client-custom-actions',
+                        name: '__component:ongoing-custom-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'
@@ -140,26 +131,12 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'email', sortField: 'email', direction: 'asc'}
+                    { field: 'deadline', sortField: 'deadline', direction: 'asc'}
                 ],
                 moreParams: {}
             }
         },
         methods: {
-            allcap (value) {
-                return value.toUpperCase()
-            },
-            brandsDisseminate (value) {
-                return JSON.parse(value).map(elem => { return elem.name }).join(', ')
-            },
-//            genderLabel (value) {
-//                return value === 'M'
-//                    ? '<span class="label label-success"><i class="glyphicon glyphicon-star"></i> Male</span>'
-//                    : '<span class="label label-danger"><i class="glyphicon glyphicon-heart"></i> Female</span>'
-//            },
-//            formatNumber (value) {
-//                return accounting.formatNumber(value, 2)
-//            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
@@ -171,10 +148,6 @@
             },
             onChangePage (page) {
                 this.$refs.vuetable.changePage(page)
-            },
-            onCellClicked (data, field, event) {
-                console.log('cellClicked: ', field.name)
-                this.$refs.vuetable.toggleDetailRow(data.id)
             },
         },
         events: {

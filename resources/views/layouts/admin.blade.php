@@ -21,6 +21,12 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+    @if(session('token'))
+        <script>
+            window.token = '{{ session('token') }}'
+        </script>
+    @endif
 </head>
 <body>
     @yield('styles')
@@ -66,19 +72,26 @@
                         <a href="/admin"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li id="accounts">
-                        <a href="/admin/accounts"><i class="fa fa-fw fa-users"></i> Accounts</a>
-                    </li>
-                    <li id="roles">
-                        <a href="/admin/roles"><i class="fa fa-fw fa-tags"></i> Roles</a>
-                    </li>
-                    <li id="departments">
-                        <a href="/admin/departments"><i class="fa fa-fw fa-sitemap"></i> Departments</a>
+                        <a href="/admin/users"><i class="fa fa-fw fa-users"></i> Users</a>
                     </li>
                     <li id="agencies">
                         <a href="/admin/agencies"><i class="fa fa-fw fa-book"></i> Agency</a>
                     </li>
                     <li id="manpower-types">
                         <a href="/admin/manpower-types"><i class="fa fa-fw fa-wrench"></i> Manpower Types</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo">
+                            <i class="fa fa-fw fa-check-square-o"></i> Validate <i class="fa fa-fw fa-caret-down"></i>
+                        </a>
+                        <ul id="demo" class="collapse" aria-expanded="true">
+                            <li>
+                                <a href="#">Evaluations</a>
+                            </li>
+                            <li>
+                                <a href="#">Reports</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
