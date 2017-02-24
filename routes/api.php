@@ -84,4 +84,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     Route::group(['prefix' => 'departments'], function() {
         Route::get('/', 'DepartmentsController@index');
     });
+
+    // agency
+    Route::group(['prefix' => 'agencies'], function() {
+        Route::get('/', 'AgenciesController@index');
+        Route::post('/', 'AgenciesController@store');
+        Route::delete('/{agencyId}', 'AgenciesController@delete');
+    });
 });

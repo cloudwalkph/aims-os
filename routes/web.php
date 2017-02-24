@@ -70,6 +70,7 @@ Route::group(['prefix' => 'creatives'], function () {
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'Front\Admin\AdminController@index');
     Route::get('/users', 'Front\Admin\AdminController@users');
+    Route::get('/agencies', 'Front\Admin\AdminController@agencies');
 });
 
 Route::group(['prefix' => 'inventory'], function () {
