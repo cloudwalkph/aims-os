@@ -51,25 +51,26 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Import Venue Data</h4>
                 </div>
-                <div class="modal-body">
-
-                    <form encType="multipart/form-data">
+                <form encType="multipart/form-data" action="/cmtuva/venues/import" method="POST">
+                    <div class="modal-body">
                         <div class="row">
+                            {{ csrf_field() }}
 
                             {{--dropzone?--}}
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Deadline</label>
                                 <input type="file" name="excel" id="excel"
-                                placeholder="Excel File" class="form-control" />
+                                    placeholder="Excel File" class="form-control" />
                             </div>
                         </div>
-                    </form>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button class="btn btn-primary" type="button" data-dismiss="modal">Save Changes</button>
-                </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

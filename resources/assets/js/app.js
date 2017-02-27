@@ -47,6 +47,10 @@ Vue.component('manpower-request-form', require('./components/job-orders/requests
 
 require('./components/inventory');
 
+/* HR */
+Vue.component('hraccount', require('./components/HR/hr-account.vue'));
+Vue.component('manpower', require('./components/HR/manpower.vue'));
+
 const app = new Vue({
     el: '#app'
 });

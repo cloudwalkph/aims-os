@@ -111,10 +111,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // manpower types
     Route::group(['prefix' => 'manpower-types'], function() {
-        Route::get('/all', 'ManpowerTypesController@all');
         Route::get('/', 'ManpowerTypesController@index');
         Route::post('/', 'ManpowerTypesController@store');
         Route::delete('/{typeId}', 'ManpowerTypesController@delete');
     });
 
+    Route::group(['prefix' => 'hr'], function() {
+        Route::get('/manpower', 'ManpowerController@index');
+        Route::post('/manpower', 'ManpowerController@store');
+    });
 });
