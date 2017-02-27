@@ -51,7 +51,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     });
 
     // Clients
-    Route::group(['prefix' => 'creatives/ongoing'], function() {
+    Route::group(['prefix' => 'creatives'], function() {
         Route::get('/', 'CreativesOngoingController@index');
         Route::get('/{joId}', 'CreativesOngoingController@show');
         Route::post('/', 'CreativesOngoingController@store');
@@ -83,5 +83,19 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     // departments
     Route::group(['prefix' => 'departments'], function() {
         Route::get('/', 'DepartmentsController@index');
+    });
+
+    // agency
+    Route::group(['prefix' => 'agencies'], function() {
+        Route::get('/', 'AgenciesController@index');
+        Route::post('/', 'AgenciesController@store');
+        Route::delete('/{agencyId}', 'AgenciesController@delete');
+    });
+
+    // manpower types
+    Route::group(['prefix' => 'manpower-types'], function() {
+        Route::get('/', 'ManpowerTypesController@index');
+        Route::post('/', 'ManpowerTypesController@store');
+        Route::delete('/{typeId}', 'ManpowerTypesController@delete');
     });
 });

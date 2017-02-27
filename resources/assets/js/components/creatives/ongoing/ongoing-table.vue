@@ -2,7 +2,7 @@
     <div>
         <filter-bar></filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/creatives/ongoing"
+                  api-url="/api/v1/creatives"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"

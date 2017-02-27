@@ -31,6 +31,14 @@ Vue.component('ongoing-table', require('./components/creatives/ongoing/ongoing-t
 
 Vue.component('admin-users-table', require('./components/admin/users/users-table.vue'));
 
+Vue.component('admin-agencies-table', require('./components/admin/agencies/agencies-table.vue'));
+
+Vue.component('admin-manpower-types-table', require('./components/admin/manpowerType/manpower-type-table.vue'));
+
+Vue.component('work-in-progress-table', require('./components/creatives/work-in-progress/work-in-progress-table.vue'));
+
+require('./components/inventory');
+
 const app = new Vue({
     el: '#app'
 });

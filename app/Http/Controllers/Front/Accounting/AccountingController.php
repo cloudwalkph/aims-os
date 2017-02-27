@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Front\Accounting;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use App\Accounting;
 
 class AccountingController extends Controller
 {
@@ -26,6 +29,10 @@ class AccountingController extends Controller
     {
         config(['app.name' => 'Accounting | AIMS']);
 
-        return view('accounting.index');
+        $tasks = DB::table('job_orders')->get();
+
+//        return $tasks;
+
+        return view('accounting.index', compact('tasks'));
     }
 }
