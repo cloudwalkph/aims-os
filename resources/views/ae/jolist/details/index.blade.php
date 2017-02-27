@@ -8,6 +8,7 @@
 
 @section('content')
     <div class="container-fluid">
+        <input type="hidden" name="job_order_id" id="jobOrderId" value="{{ $jo->id }}">
         <div class="row">
 
             {{-- breadcrumb start --}}
