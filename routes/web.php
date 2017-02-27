@@ -98,3 +98,9 @@ Route::group(['prefix' => 'productions'], function () {
 Route::group(['prefix' => 'operations'], function () {
     Route::get('/', 'Front\Operations\OperationsController@index');
 });
+
+Route::group(['prefix' => 'validate'], function () {
+    Route::get('/', 'Front\Validate\ValidateController@index');
+    Route::get('/create_project', 'Front\Validate\ValidateController@create_project');
+    Route::get('/summary_result', 'Front\Validate\ValidateController@summary_result');
+});
