@@ -14,6 +14,9 @@ class CreativesOngoingController extends Controller {
      */
     public function index(Request $request)
     {
+        // user
+        $user = $request->user();
+
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
@@ -36,9 +39,9 @@ class CreativesOngoingController extends Controller {
 
         // Count per page
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
-        \Log::info($query->toSql());
+//        \Log::info($query->toSql());
         // Get the data
-        $jos = $query->paginate($perPage);
+        $jos = $query->where('user_id', $user['id'])->paginate($perPage);
 
         return response()->json($jos, 200);
     }
