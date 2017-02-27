@@ -1,10 +1,10 @@
 <template>
     <div>
         <button class="btn btn-primary pull-right"
-                    data-toggle="modal" data-target="#createManpower" style="margin-bottom: 20px">
+                data-toggle="modal" data-target="#createManpower" style="margin-bottom: 20px">
                 <i class="fa fa-plus"></i> Add Manpower
-            </button>
-        <vuetable ref="Vuetable"
+        </button>
+        <vuetable ref="Vuetable_manpower"
         			api-url="/api/v1/hr/manpower"
         			:fields="fields"
                     :append-params="dataVueTable"
@@ -126,7 +126,9 @@
     import Vuetable from 'vuetable-2/src/components/Vuetable'; 
     import Vue from 'vue';
     import CustomActions from '../HR/commons/CustomActions';
+    import VueEvents from 'vue-events'
 
+    Vue.use(VueEvents);
     Vue.component('CustomActions', CustomActions);
 
     export default {
@@ -212,6 +214,7 @@
                     };
                     
                     $('#createManpower').modal('hide');
+                    this.$refs.Vuetable_manpower.refresh(); // refresh vuetable
                 }, error => {
                     console.log(error)
                     this.isFetching = {
@@ -220,6 +223,21 @@
                     }
                 });
                 
+            }
+        },
+        events: {
+            'filter-set' (filterText) {
+                this.moreParams = {
+                    filter: filterText
+                }
+                Vue.nextTick( () => this.$refs.Vuetable_manpower.refresh() )
+            },
+            'reload-table' () {
+                Vue.nextTick( () => this.$refs.Vuetable_manpower.reload() )
+            },
+            'filter-reset' () {
+                this.moreParams = {}
+                Vue.nextTick( () => this.$refs.Vuetable_manpower.refresh() )
             }
         }
     }

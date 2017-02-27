@@ -132,5 +132,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     Route::group(['prefix' => 'hr'], function() {
         Route::get('/manpower', 'ManpowerController@index');
         Route::post('/manpower', 'ManpowerController@store');
+        Route::delete('/manpower/{manpowerId}', 'ManpowerController@delete');
     });
 });
