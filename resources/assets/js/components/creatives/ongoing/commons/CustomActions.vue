@@ -32,6 +32,11 @@
                     })
                 }
 
+                if (action === 'view-item') {
+                    // /creatives/work-in-progress/{creatives_job_id}/{job_order_id}
+                    location.href = `/creatives/work-in-progress/${data.id}/${data.job_order_id}`;
+                }
+
             }
         }
     }
