@@ -41,7 +41,7 @@ class CreativesOngoingController extends Controller {
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
 //        \Log::info($query->toSql());
         // Get the data
-        $jos = $query->where('user_id', $user['id'])->paginate($perPage);
+        $jos = $query->where('user_profiles.user_id', $user['id'])->paginate($perPage);
 
         return response()->json($jos, 200);
     }

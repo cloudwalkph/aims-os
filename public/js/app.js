@@ -40964,7 +40964,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
         getJobOrders: function getJobOrders() {
             var _this2 = this;
 
-            this.$http.get('/api/v1/job-orders/all').then(function (response) {
+            this.$http.get('/api/v1/job-orders/department').then(function (response) {
                 _this2.job_orders = response.data;
 
                 var _iteratorNormalCompletion2 = true;
