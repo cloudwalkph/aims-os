@@ -41,6 +41,10 @@ Vue.component('venues-table', require('./components/venues/venues-table.vue'));
 
 Vue.component('add-ae-job-order', require('./components/job-orders/add-ae.vue'));
 
+Vue.component('manpower-request-table', require('./components/job-orders/requests/manpower/manpower-table.vue'));
+
+Vue.component('manpower-request-form', require('./components/job-orders/requests/manpower/commons/form.vue'));
+
 require('./components/inventory');
 
 const app = new Vue({

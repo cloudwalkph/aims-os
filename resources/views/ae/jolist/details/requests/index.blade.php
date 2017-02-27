@@ -13,71 +13,8 @@
                         <i class="fa fa-print fa-lg"></i> Print Manpower Requests
                     </button> &nbsp;
 
-                    <form action="/ae/jo/{{ $jo->id }}/manpowers-request" method="POST">
-                        <div class="row">
-                            {{ csrf_field() }}
-
-                            <div class="col-md-3 form-group text-input-container">
-                                <label class="control-label col-sm-12" for="manpower_type_id">Manpower Type</label>
-                                <div class="col-md-12">
-                                    <select name="manpower_type_id" id="manpower_type_id" class="form-control">
-                                        @foreach($manpowerTypes as $type)
-                                            <option value={{ $type->id }}>{{ $type->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-2 form-group text-input-container">
-                                <label class="control-label col-sm-12" for="manpower_needed"># Manpower Needed</label>
-                                <div class="col-md-12">
-                                    <input type="text" name="manpower_needed" placeholder="# Manpower Needed" class="form-control" />
-                                </div>
-                            </div>
-
-                            <div class="col-md-2 form-group text-input-container">
-                                <label class="control-label col-sm-12" for="rate">Rate</label>
-                                <div class="col-md-12">
-                                    <input type="text" name="rate" placeholder="Rate" class="form-control" />
-                                </div>
-                            </div>
-
-                            <div class="col-md-2 form-group text-input-container">
-                                <label class="control-label col-sm-12" for="remarks">Remarks</label>
-                                <div class="col-md-12">
-                                    <input type="text" name="remarks" placeholder="Remarks" class="form-control" />
-                                </div>
-                            </div>
-
-                            <div class="col-md-2 form-group select-input-container">
-                                <button type="submit" class="btn btn-primary btn-add">Add </button>
-                            </div>
-
-                        </div>
-                    </form>
-
-                    <table class="table table-striped table-bordered" style="margin-top: 20px">
-                        <thead>
-                        <tr>
-                            <th> Manpower </th>
-                            <th> # Manpower Needed</th>
-                            <th> Rate</th>
-                            <th> Remarks</th>
-                            <th> Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($manpower_request as $manpower)
-                                <tr>
-                                    <td>{{ $manpower->manpowerType->name }}</td>
-                                    <td>{{ $manpower->manpower_needed }}</td>
-                                    <td>{{ $manpower->rate }}</td>
-                                    <td>{{ $manpower->remarks }}</td>
-                                    <td>{{ $manpower->status }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <manpower-request-form></manpower-request-form>
+                    <manpower-request-table></manpower-request-table>
 
                 </div>
             </div>

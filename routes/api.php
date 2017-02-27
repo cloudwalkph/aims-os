@@ -71,6 +71,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     });
 
+    // manpower types
+    Route::group(['prefix' => 'job-order-manpowers'], function() {
+        Route::get('/', 'ManpowerRequestsController@index');
+        Route::post('/', 'ManpowerRequestsController@store');
+        Route::delete('/{manpowerId}', 'ManpowerRequestsController@delete');
+    });
+
     // Venues
     Route::group(['prefix' => 'venues'], function() {
         Route::get('/', 'VenuesController@index');
@@ -104,8 +111,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // manpower types
     Route::group(['prefix' => 'manpower-types'], function() {
+        Route::get('/all', 'ManpowerTypesController@all');
         Route::get('/', 'ManpowerTypesController@index');
         Route::post('/', 'ManpowerTypesController@store');
         Route::delete('/{typeId}', 'ManpowerTypesController@delete');
     });
+
 });
