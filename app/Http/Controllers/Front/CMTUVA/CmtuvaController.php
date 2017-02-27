@@ -40,7 +40,7 @@ class CmtuvaController extends Controller
     {
         config(['app.name' => 'CMTUVA VENUES | AIMS']);
 
-        return view('cmtuva.index');
+        return view('cmtuva.venue');
     }
 
     public function plans()
