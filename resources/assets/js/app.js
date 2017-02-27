@@ -45,6 +45,10 @@ Vue.component('manpower-request-table', require('./components/job-orders/request
 
 Vue.component('manpower-request-form', require('./components/job-orders/requests/manpower/commons/form.vue'));
 
+Vue.component('meal-request-table', require('./components/job-orders/requests/meal/meal-table.vue'));
+
+Vue.component('meal-request-form', require('./components/job-orders/requests/meal/commons/form.vue'));
+
 require('./components/inventory');
 
 /* HR */
