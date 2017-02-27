@@ -43,6 +43,10 @@ Vue.component('add-ae-job-order', require('./components/job-orders/add-ae.vue'))
 
 require('./components/inventory');
 
+/* HR */
+Vue.component('hraccount', require('./components/HR/hr-account.vue'));
+Vue.component('manpower', require('./components/HR/manpower.vue'));
+
 const app = new Vue({
     el: '#app'
 });
