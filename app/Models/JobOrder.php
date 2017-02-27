@@ -61,6 +61,21 @@ class JobOrder extends Model
     }
 
     /**
+     * Local Scopes
+     * ======================================================================================================
+     */
+
+    /**
+     * @param $query
+     * @param $departmentId
+     * @return mixed
+     */
+    public function scopeGetUserCreatedJOs($query, $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    /**
      * Serialization
      * ======================================================================================================
      */
@@ -68,6 +83,13 @@ class JobOrder extends Model
     public function getBrandsAttribute()
     {
         $brands = explode(', ', $this->attributes['brands']);
+
+        return $brands;
+    }
+
+    public function getProjectNameAttribute()
+    {
+        $brands = ucwords($this->attributes['project_name']);
 
         return $brands;
     }
