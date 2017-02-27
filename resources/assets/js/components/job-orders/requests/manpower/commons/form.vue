@@ -76,10 +76,11 @@
             },
             getManpowerTypes() {
                 this.$http.get('/api/v1/manpower-types/all').then(response => {
-                    this.manpower_types = response.data;
+                    let manpower_types = response.data.data;
 
-                    for (let type of this.manpower_types) {
-                        this.manpowerOptions.push({label: `${type.name}`, value: type.id});
+                    for (let manpower_type of manpower_types) {
+                        console.log(manpower_type.name)
+                        this.manpowerOptions.push({label: `${manpower_type.name}`, value: manpower_type.id});
                     }
                 }, error => {
                         console.log(error)
@@ -98,11 +99,11 @@
 
                 let url = `/api/v1/job-order-manpowers`;
                 this.$http.post(url, data).then(response => {
+
                     console.log(response)
 
                     this.$events.fire('reload-table')
                     this.resetForm()
-                    $('#ongoingModal').modal('hide')
                 }, error => {
                     console.log(error)
                 })

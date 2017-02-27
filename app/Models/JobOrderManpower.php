@@ -21,7 +21,7 @@ class JobOrderManpower extends Model
     ];
 
     public static $filterable = [
-        'job_order_no',
+        'name',
     ];
 
     public function jobOrder()
