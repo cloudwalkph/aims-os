@@ -91,14 +91,7 @@
                 <div class="col-md-2">
                     <div>
                         <label for="exampleInputEmail1">Add AE</label>
-                        <div class="input-group">
-                            <input type="email" class="form-control col-md-10" id="exampleInputEmail1" placeholder="Add AE" />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary btn-block col-md-2">
-                                   <i class="fa fa-plus"></i>
-                                </button>
-                            </span>
-                        </div>
+                        <add-ae-job-order></add-ae-job-order>
                     </div>
                     <div class="added-ae" style="margin-top: 20px">
                         <p>{{ $jo->user->profile->full_name }}</p>

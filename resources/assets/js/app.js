@@ -37,6 +37,16 @@ Vue.component('admin-manpower-types-table', require('./components/admin/manpower
 
 Vue.component('work-in-progress-table', require('./components/creatives/work-in-progress/work-in-progress-table.vue'));
 
+Vue.component('venues-table', require('./components/venues/venues-table.vue'));
+
+Vue.component('add-ae-job-order', require('./components/job-orders/add-ae.vue'));
+
+require('./components/inventory');
+
+/* HR */
+Vue.component('hraccount', require('./components/HR/hr-account.vue'));
+Vue.component('manpower', require('./components/HR/manpower.vue'));
+
 const app = new Vue({
     el: '#app'
 });

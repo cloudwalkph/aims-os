@@ -62,12 +62,22 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     // Job Orders
     Route::group(['prefix' => 'job-orders'], function() {
         Route::get('/all', 'JobOrdersController@all');
+        Route::get('/department', 'JobOrdersController@getByDepartmentInvolvement');
         Route::get('/', 'JobOrdersController@index');
         Route::get('/{jobOrderId}', 'JobOrdersController@show');
         Route::post('/', 'JobOrdersController@store');
         Route::put('/{jobOrderId}', 'JobOrdersController@update');
         Route::delete('/{jobOrderId}', 'JobOrdersController@delete');
 
+    });
+
+    // Venues
+    Route::group(['prefix' => 'venues'], function() {
+        Route::get('/', 'VenuesController@index');
+        Route::get('/{venueId}', 'VenuesController@show');
+        Route::post('/', 'VenuesController@store');
+        Route::put('/{venueId}', 'VenuesController@update');
+        Route::delete('/{venueId}', 'VenuesController@delete');
     });
 
     // Project Types
@@ -97,5 +107,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/', 'ManpowerTypesController@index');
         Route::post('/', 'ManpowerTypesController@store');
         Route::delete('/{typeId}', 'ManpowerTypesController@delete');
+    });
+
+    Route::group(['prefix' => 'hr'], function() {
+        Route::get('/manpower', 'ManpowerController@index');
+        Route::post('/manpower', 'ManpowerController@store');
     });
 });

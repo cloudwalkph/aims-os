@@ -14,6 +14,11 @@ class JobOrderDepartmentInvolved extends Model
 
     public function department()
     {
-        return $this->belongsTo('App\Models\Department');
+        return $this->belongsTo(Department::class);
+    }
+
+    public function jobOrder()
+    {
+        return $this->belongsTo(JobOrder::class);
     }
 }

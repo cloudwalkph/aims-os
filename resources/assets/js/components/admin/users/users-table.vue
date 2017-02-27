@@ -23,7 +23,7 @@
             ></vuetable-pagination>
         </div>
 
-        <assign-user-modal></assign-user-modal>
+        <user-modal></user-modal>
     </div>
 </template>
 
@@ -38,12 +38,12 @@
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
     import FilterBar from './commons/FilterBar'
-    import AssignUserModal from './commons/form.vue'
+    import UserModal from './commons/form.vue'
 
     Vue.use(VueEvents)
     Vue.component('user-custom-actions', CustomActions)
     Vue.component('filter-bar', FilterBar)
-    Vue.component('assign-user-modal', AssignUserModal)
+    Vue.component('user-modal', UserModal)
 
     export default {
         components: {

@@ -57,7 +57,9 @@ Route::group(['prefix' => 'cmtuva'], function () {
     Route::get('/', 'Front\CMTUVA\CmtuvaController@index');
     Route::get('schedules', 'Front\CMTUVA\CmtuvaController@schedules');
     Route::get('venues', 'Front\CMTUVA\CmtuvaController@venues');
+    Route::post('venues/import', 'Front\CMTUVA\CmtuvaController@importVenues');
     Route::get('plans', 'Front\CMTUVA\CmtuvaController@plans');
+    Route::get('plans/{joNo}', 'Front\CMTUVA\CmtuvaController@planDetails');
 });
 
 Route::group(['prefix' => 'creatives'], function () {
@@ -65,6 +67,7 @@ Route::group(['prefix' => 'creatives'], function () {
     Route::get('schedules', 'Front\Creatives\CreativesController@schedules');
     Route::get('ongoing-projects', 'Front\Creatives\CreativesController@ongoing');
     Route::get('work-in-progress', 'Front\Creatives\CreativesController@workInProgress');
+    Route::get('work-in-progress/{creativesId}/{joId}', 'Front\Creatives\CreativesController@workDetails');
 
 });
 
@@ -85,7 +88,10 @@ Route::group(['prefix' => 'accounting'], function () {
 
 Route::group(['prefix' => 'hr'], function () {
     Route::get('/', 'Front\HR\HumanResourcesController@index');
+    Route::get('/schedules', 'Front\HR\SchedulerController@index');
+    Route::get('/manpower', 'Front\HR\ManpowerController@index');
 });
+
 
 Route::group(['prefix' => 'setup'], function () {
     Route::get('/', 'Front\Setup\SetupController@index');
