@@ -18,49 +18,55 @@
             {{-- breadcrumb end --}}
 
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="button-menu">
-                    <div class="hero-widget well well-sm">
-                        <div class="icon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <div class="text">
-                            <label class="text-muted">Calendar</label>
-                        </div>
-                        <div class="options">
-                            <a href="/cmtuva/schedules" class="btn btn-primary btn-lg">Schedules</a>
+                <a href="/cmtuva/schedules">
+                    <div class="button-menu">
+                        <div class="hero-widget well well-sm">
+                            <div class="icon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <div class="text">
+                                <label class="text-muted">Calendar</label>
+                            </div>
+                            <div class="options">
+                                <a href="/cmtuva/schedules" class="btn btn-primary btn-lg">Schedules</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="button-menu">
-                    <div class="hero-widget well well-sm">
-                        <div class="icon">
-                            <i class="fa fa-map-marker"></i>
-                        </div>
-                        <div class="text">
-                            <label class="text-muted">Venues List</label>
-                        </div>
-                        <div class="options">
-                            <a href="/cmtuva/venues" class="btn btn-primary btn-lg">Add Venue</a>
+                <a href="/cmtuva/venues">
+                    <div class="button-menu">
+                        <div class="hero-widget well well-sm">
+                            <div class="icon">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <div class="text">
+                                <label class="text-muted">Venues List</label>
+                            </div>
+                            <div class="options">
+                                <a href="/cmtuva/venues" class="btn btn-primary btn-lg">Add Venue</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="button-menu">
-                    <div class="hero-widget well well-sm">
-                        <div class="icon">
-                            <i class="fa fa-laptop"></i>
-                        </div>
-                        <div class="text">
-                            <label class="text-muted">Plans List</label>
-                        </div>
-                        <div class="options">
-                            <a href="/cmtuva/plans" class="btn btn-primary btn-lg">Create Plans</a>
+                <a href="/cmtuva/plans">
+                    <div class="button-menu">
+                        <div class="hero-widget well well-sm">
+                            <div class="icon">
+                                <i class="fa fa-laptop"></i>
+                            </div>
+                            <div class="text">
+                                <label class="text-muted">Plans List</label>
+                            </div>
+                            <div class="options">
+                                <a href="/cmtuva/plans" class="btn btn-primary btn-lg">Create Plans</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
         </div>

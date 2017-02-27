@@ -14,7 +14,7 @@
                         <a href="/cmtuva"><i class="fa fa-dashboard"></i> CMTUVA Department</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-calendar"></i> Schedules
+                        <i class="fa fa-map-marker"></i> Venues List
                     </li>
                 </ol>
             </div>
