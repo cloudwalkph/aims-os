@@ -70,6 +70,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     });
 
+    // Venues
+    Route::group(['prefix' => 'venues'], function() {
+        Route::get('/', 'VenuesController@index');
+        Route::get('/{venueId}', 'VenuesController@show');
+        Route::post('/', 'VenuesController@store');
+        Route::put('/{venueId}', 'VenuesController@update');
+        Route::delete('/{venueId}', 'VenuesController@delete');
+    });
+
     // Project Types
     Route::group(['prefix' => 'project-types'], function() {
         Route::get('/', 'ProjectTypesController@index');
