@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md-12 form-group text-input-container">
                                     <label class="control-label">Date</label>
-                                    <input type="date" name="contact_person"
+                                    <input type="text" name="contact_person"
                                            @input="inputChange" v-bind:value="event_datetime" id="event_datetime"
                                            placeholder="Enter contact person" class="form-control" />
                                 </div>
@@ -63,6 +63,7 @@
 
 <script>
     export default {
+
         mounted() {
             $('.calendar').fullCalendar({
                 header: {
@@ -76,12 +77,20 @@
                 // events: events
             });
 
+            $('#event_datetime').datetimepicker({
+                defaultDate: this.event_datetime,
+                sideBySide: true
+            });
+            $('#event_datetime').on('dp.change', (newDate, oldDate) => {
+                this.event_datetime = newDate.date.format("YYYY-MM-DD hh:mm a");
+            });
+
             this.getEvents();
         },
         data() {
             return {
                 title: '',
-                event_datetime: '',
+                event_datetime: moment().format("YYYY-MM-DD HH:mm"),
                 description: '',
                 currentEvents: []
             }
@@ -90,7 +99,7 @@
             saveSchedule() {
                 let data = {
                     title: this.title,
-                    event_datetime: this.event_datetime,
+                    event_datetime: moment(this.event_datetime, "YYYY-MM-DD hh:mm a").format("YYYY-MM-DD HH:mm"),
                     meta: {
                         description: this.description
                     },
