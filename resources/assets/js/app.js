@@ -39,6 +39,8 @@ Vue.component('work-in-progress-table', require('./components/creatives/work-in-
 
 Vue.component('venues-table', require('./components/venues/venues-table.vue'));
 
+Vue.component('add-ae-job-order', require('./components/job-orders/add-ae.vue'));
+
 require('./components/inventory');
 
 const app = new Vue({
