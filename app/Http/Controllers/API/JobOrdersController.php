@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\JobOrders\CreateJobOrderRequest;
 use App\Models\JobOrder;
 use App\Models\JobOrderClient;
+use App\Models\JobOrderDepartmentInvolved;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,20 @@ class JobOrdersController extends Controller {
         $jos = JobOrder::all();
 
         return response()->json($jos, 200);
+    }
+
+    public function getByDepartmentInvolvement(Request $request)
+    {
+        $user = $request->user();
+        $jos = JobOrderDepartmentInvolved::with('jobOrder')->where('department_id', $user['department_id'])
+            ->get();
+
+        $result = [];
+        foreach ($jos as $jo) {
+            $result[] = $jo->jobOrder;
+        }
+
+        return response()->json($result, 200);
     }
 
     /**

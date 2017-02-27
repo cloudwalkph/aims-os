@@ -29,7 +29,7 @@ class Department extends Model
 
     public function joDepartment()
     {
-        return $this->hasMany('App\Models\JobOrderDepartmentInvolved');
+        return $this->hasMany(JobOrderDepartmentInvolved::class);
     }
 
     public function events()
