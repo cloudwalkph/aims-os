@@ -40795,6 +40795,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(error);
                 });
             }
+
+            if (action === 'view-item') {
+                // /creatives/work-in-progress/{creatives_job_id}/{job_order_id}
+                location.href = '/creatives/work-in-progress/' + data.id + '/' + data.job_order_id;
+            }
         }
     }
 };
@@ -82153,7 +82158,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Remarks")]), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
-      "type": "number",
+      "type": "text",
       "name": "remarks",
       "id": "remarks",
       "placeholder": "Remarks"
