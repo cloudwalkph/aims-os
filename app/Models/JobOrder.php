@@ -86,4 +86,11 @@ class JobOrder extends Model
 
         return $brands;
     }
+
+    public function getProjectNameAttribute()
+    {
+        $brands = ucwords($this->attributes['project_name']);
+
+        return $brands;
+    }
 }
