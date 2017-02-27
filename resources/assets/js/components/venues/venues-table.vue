@@ -2,7 +2,7 @@
     <div>
         <filter-bar></filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/users/"
+                  api-url="/api/v1/venues"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -23,7 +23,7 @@
             ></vuetable-pagination>
         </div>
 
-        <user-modal></user-modal>
+        <venues-modal></venues-modal>
     </div>
 </template>
 
@@ -38,12 +38,12 @@
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
     import FilterBar from './commons/FilterBar'
-    import UserModal from './commons/form.vue'
+    import VenueModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('user-custom-actions', CustomActions)
+    Vue.component('ongoing-custom-actions', CustomActions)
     Vue.component('filter-bar', FilterBar)
-    Vue.component('user-modal', UserModal)
+    Vue.component('venues-modal', VenueModal)
 
     export default {
         components: {
@@ -66,32 +66,109 @@
                         dataClass: 'text-center',
                     },
                     {
-                        name: 'full_name',
-                        sortField: 'full_name',
-                        title: 'Full Name'
+                        name: 'category',
+                        sortField: 'category',
+                        title: 'Category'
                     },
                     {
-                        name: 'email',
-                        sortField: 'email',
-                        title: 'E-Mail Address',
-                        callback: 'allcap'
+                        name: 'subcategory',
+                        sortField: 'subcategory',
+                        title: 'Sub Category'
                     },
                     {
-                        name: 'department',
-                        sortField: 'department',
-                        title: 'Department'
+                        name: 'area',
+                        sortField: 'area',
+                        title: 'Area'
                     },
                     {
-                        name: 'user_role',
-                        sortField: 'user_role',
-                        title: 'User Role'
+                        name: 'sub_area',
+                        sortField: 'sub_area',
+                        title: 'Sub Area'
                     },
                     {
-                        name: 'gender',
-                        sortField: 'gender',
-                        title: 'Gender',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center'
+                        name: 'venue',
+                        sortField: 'venue',
+                        title: 'Venue'
+                    },
+                    {
+                        name: 'address',
+                        sortField: 'address',
+                        title: 'Address'
+                    },
+                    {
+                        name: 'lsm',
+                        sortField: 'lsm',
+                        title: 'LSM'
+                    },
+                    {
+                        name: 'rate',
+                        sortField: 'rate',
+                        title: 'Rate Min'
+                    },
+                    {
+                        name: 'rate_max',
+                        sortField: 'rate_max',
+                        title: 'Rate Max'
+                    },
+                    {
+                        name: 'eft',
+                        sortField: 'eft',
+                        title: 'EFT Combined'
+                    },
+                    {
+                        name: 'eft_male',
+                        sortField: 'eft_male',
+                        title: 'EFT Male'
+                    },
+                    {
+                        name: 'eft_female',
+                        sortField: 'eft_female',
+                        title: 'EFT Female'
+                    },
+                    {
+                        name: 'actual_hits',
+                        sortField: 'actual_hits',
+                        title: 'Actual Hits Male'
+                    },
+                    {
+                        name: 'actual_hits_f',
+                        sortField: 'actual_hits_f',
+                        title: 'Actual Hits Female'
+                    },
+                    {
+                        name: 'actual_dry_m',
+                        sortField: 'actual_dry_m',
+                        title: 'Dry Sampling - Male'
+                    },
+                    {
+                        name: 'actual_dry_f',
+                        sortField: 'actual_dry_f',
+                        title: 'Dry Sampling - Female'
+                    },
+                    {
+                        name: 'actual_exper_m',
+                        sortField: 'actual_exper_m',
+                        title: 'Experiential Sampling - Male'
+                    },
+                    {
+                        name: 'actual_exper_f',
+                        sortField: 'actual_exper_f',
+                        title: 'Experiential Sampling - Female'
+                    },
+                    {
+                        name: 'contact_person',
+                        sortField: 'contact_person',
+                        title: 'Name'
+                    },
+                    {
+                        name: 'contact_number',
+                        sortField: 'contact_number',
+                        title: 'Phone'
+                    },
+                    {
+                        name: 'contact_email',
+                        sortField: 'contact_email',
+                        title: 'email'
                     },
                     {
                         name: 'created_at',
@@ -102,7 +179,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:user-custom-actions',
+                        name: '__component:ongoing-custom-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'
@@ -135,9 +212,6 @@
             }
         },
         methods: {
-            allcap (value) {
-                return value.toUpperCase()
-            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
