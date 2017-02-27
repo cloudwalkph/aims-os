@@ -22,6 +22,7 @@ class JobOrderManpower extends Model
 
     public static $filterable = [
         'name',
+        'rate'
     ];
 
     public function jobOrder()
