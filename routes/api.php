@@ -85,8 +85,16 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::delete('/{mealId}', 'MealRequestsController@delete');
     });
 
+    // vehicle requests
+    Route::group(['prefix' => 'job-order-vehicles'], function() {
+        Route::get('/', 'VehicleRequestsController@index');
+        Route::post('/', 'VehicleRequestsController@store');
+        Route::delete('/{vehicleId}', 'VehicleRequestsController@delete');
+    });
+
     // Venues
     Route::group(['prefix' => 'venues'], function() {
+        Route::get('/all', 'VenuesController@all');
         Route::get('/', 'VenuesController@index');
         Route::get('/{venueId}', 'VenuesController@show');
         Route::post('/', 'VenuesController@store');
@@ -102,6 +110,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     // Meal Types
     Route::group(['prefix' => 'meal-types'], function() {
         Route::get('/', 'MealTypesController@index');
+    });
+
+    // vehicle Types
+    Route::group(['prefix' => 'vehicle-types'], function() {
+        Route::get('/', 'VehicleTypesController@index');
     });
 
     // User roles
