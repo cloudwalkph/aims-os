@@ -26,7 +26,7 @@ class CmtuvaController extends Controller
     {
         config(['app.name' => 'CMTUVA | AIMS']);
 
-        return view('cmtuva.index');
+        return view('cmtuva.main');
     }
 
     public function schedules()
