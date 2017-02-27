@@ -43106,7 +43106,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log('custom-actions: ' + action, data.id, index);
 
             if (action === 'delete-item') {
-                var url = '/api/v1/creatives/' + data.id;
+                var url = '/api/v1/venues/' + data.id;
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
@@ -43564,9 +43564,9 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('venues-modal', __WEBPACK_
                 sortField: 'venue',
                 title: 'Venue'
             }, {
-                name: 'address',
-                sortField: 'address',
-                title: 'Address'
+                name: 'street',
+                sortField: 'street',
+                title: 'Street'
             }, {
                 name: 'lsm',
                 sortField: 'lsm',
@@ -43626,7 +43626,7 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('venues-modal', __WEBPACK_
             }, {
                 name: 'contact_email',
                 sortField: 'contact_email',
-                title: 'email'
+                title: 'Email'
             }, {
                 name: 'created_at',
                 sortField: 'created_at',
@@ -82164,7 +82164,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": _vm.inputChange
     }
-  })])])])]), _vm._v(" "), _vm._m(1)])])])
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.saveProject
+    }
+  }, [_vm._v("Save Changes")])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header"
@@ -82185,22 +82201,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "myModalLabel"
     }
   }, [_vm._v("Venue Form")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v("Save Changes")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

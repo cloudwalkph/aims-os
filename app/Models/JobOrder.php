@@ -61,6 +61,21 @@ class JobOrder extends Model
     }
 
     /**
+     * Local Scopes
+     * ======================================================================================================
+     */
+
+    /**
+     * @param $query
+     * @param $departmentId
+     * @return mixed
+     */
+    public function scopeGetUserCreatedJOs($query, $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    /**
      * Serialization
      * ======================================================================================================
      */

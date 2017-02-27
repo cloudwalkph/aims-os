@@ -12,8 +12,17 @@ use Illuminate\Http\Request;
 class JobOrdersController extends Controller {
     use FilterTrait;
 
-    public function all()
+    public function all(Request $request)
     {
+        $user = $request->user();
+
+        if ($user->department->slug === "ae") {
+            $jos = JobOrder::getUserCreatedJOs($user['id'])
+                ->get();
+
+            return response()->json($jos, 200);
+        }
+
         $jos = JobOrder::all();
 
         return response()->json($jos, 200);
