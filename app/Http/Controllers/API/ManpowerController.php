@@ -109,8 +109,14 @@ class ManpowerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $manpower = Manpower::where('id', $id)->delete();
+
+        if (! $manpower) {
+            return response()->json([], 400);
+        }
+
+        return response()->json($manpower, 200);
     }
 }
