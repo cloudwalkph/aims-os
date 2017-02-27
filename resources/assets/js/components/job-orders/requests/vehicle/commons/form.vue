@@ -3,38 +3,37 @@
 
         <div class="col-md-12">
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Meal Type</label>
+                <label class="control-label col-sm-12">Vehicle Type</label>
                 <div class="col-md-12">
-                    <v-select :on-change="typeSelected" :options="mealOptions"></v-select>
+                    <v-select :on-change="typeSelected" :options="vehicleOptions"></v-select>
                 </div>
             </div>
 
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Quantity</label>
+                <label class="control-label col-sm-12">Venues</label>
                 <div class="col-md-12">
-                    <input type="number" name="quantity"
-                           @input="inputChange" v-bind:value="quantity" id="quantity"
-                           placeholder="Quantity" class="form-control" />
+                    <v-select :on-change="venueSelected" :options="venueOptions"></v-select>
                 </div>
             </div>
 
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Serving Time</label>
+                <label class="control-label col-sm-12"># Vehicle Needed</label>
                 <div class="col-md-12">
-                    <input type="text" name="serving_time"
-                           @input="inputChange" v-bind:value="serving_time" id="serving_time"
-                           placeholder="Serving Time" class="form-control" />
+                    <input type="number" name="vehicle_needed"
+                           @input="inputChange" v-bind:value="vehicle_needed" id="vehicle_needed"
+                           placeholder="# Vehicle Needed" class="form-control" />
                 </div>
             </div>
         </div>
 
         <div class="col-md-12">
+
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Pickup By</label>
+                <label class="control-label col-sm-12">Rate</label>
                 <div class="col-md-12">
-                    <input type="text" name="pickup_by"
-                           @input="inputChange" v-bind:value="pickup_by" id="pickup_by"
-                           placeholder="Pickup By" class="form-control" />
+                    <input type="text" name="rate"
+                           @input="inputChange" v-bind:value="rate" id="rate"
+                           placeholder="Rate" class="form-control" />
                 </div>
             </div>
 
@@ -64,55 +63,70 @@
     export default {
         data() {
             return {
-                meal_types: [],
-                mealOptions: [],
-                meal_type_id: '',
-                quantity: '',
-                serving_time: '',
-                pickup_by: '',
+                vehicleOptions: [],
+                vehicle_type_id: '',
+                venueOptions: [],
+                venue_id: '',
+                vehicle_needed: '',
+                rate: '',
                 remarks: ''
             }
         },
         mounted() {
-            this.getManpowerTypes()
+            this.getVenues()
+            this.getVehicleTypes()
         },
         methods: {
             resetForm() {
                 this.job_order_id = ''
-                this.quantity = ''
-                this.serving_time = ''
-                this.pickup_by = ''
+                this.vehicle_needed = ''
+                this.rate = ''
                 this.remarks = ''
             },
             inputChange(e) {
                 this[e.target.id] = e.target.value
             },
             typeSelected(val) {
-                this.meal_type_id = val.value
+                this.vehicle_type_id = val.value
             },
-            getManpowerTypes() {
-                this.$http.get('/api/v1/meal-types').then(response => {
-                    let meal_types = response.data;
+            getVehicleTypes() {
+                this.$http.get('/api/v1/vehicle-types').then(response => {
+                    let vehicle_types = response.data;
 
-                    for (let meal_type of meal_types) {
-                        this.mealOptions.push({label: `${meal_type.name}`, value: meal_type.id});
+                    for (let vehicle_type of vehicle_types) {
+                        this.vehicleOptions.push({label: `${vehicle_type.name}`, value: vehicle_type.id});
                     }
                 }, error => {
                         console.log(error)
+                });
+            },
+            venueSelected(val) {
+                this.venue_id = val.value
+            },
+            getVenues() {
+                this.$http.get('/api/v1/venues/all').then(response => {
+                    let venues = response.data;
+
+                    for (let venue of venues) {
+                        this.venueOptions.push({label: `${venue.category} : ${venue.venue}`, value: venue.id});
+                    }
+                }, error => {
+                    console.log(error)
                 });
             },
             saveProject(e) {
                 let jobOrderId = $('#jobOrderId').val();
                 let data = {
                     job_order_id: jobOrderId,
-                    meal_type_id: this.meal_type_id,
-                    quantity: this.quantity,
-                    serving_time: this.serving_time,
-                    pickup_by: this.pickup_by,
-                    remarks: this.remarks
+                    vehicle_type_id: this.vehicle_type_id,
+                    venue_id: this.venue_id,
+                    vehicle_needed: this.vehicle_needed,
+                    rate: this.rate,
+                    remarks: this.remarks,
+                    department_id: "7" // to set as AE
                 }
 
-                let url = `/api/v1/job-order-meals`;
+                let url = `/api/v1/job-order-vehicles`;
                 this.$http.post(url, data).then(response => {
 
                     this.$events.fire('reload-table')

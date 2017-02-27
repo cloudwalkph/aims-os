@@ -49,6 +49,10 @@ Vue.component('meal-request-table', require('./components/job-orders/requests/me
 
 Vue.component('meal-request-form', require('./components/job-orders/requests/meal/commons/form.vue'));
 
+Vue.component('vehicle-request-table', require('./components/job-orders/requests/vehicle/vehicle-table.vue'));
+
+Vue.component('vehicle-request-form', require('./components/job-orders/requests/vehicle/commons/form.vue'));
+
 require('./components/inventory');
 
 /* HR */

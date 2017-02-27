@@ -63,7 +63,6 @@
         methods: {
             resetForm() {
                 this.job_order_id = ''
-                this.manpower_type_id = ''
                 this.manpower_needed = ''
                 this.rate = ''
                 this.remarks = ''
@@ -79,7 +78,6 @@
                     let manpower_types = response.data.data;
 
                     for (let manpower_type of manpower_types) {
-                        console.log(manpower_type.name)
                         this.manpowerOptions.push({label: `${manpower_type.name}`, value: manpower_type.id});
                     }
                 }, error => {
@@ -95,12 +93,9 @@
                     rate: this.rate,
                     remarks: this.remarks
                 }
-                console.log(data);
 
                 let url = `/api/v1/job-order-manpowers`;
                 this.$http.post(url, data).then(response => {
-
-                    console.log(response)
 
                     this.$events.fire('reload-table')
                     this.resetForm()
