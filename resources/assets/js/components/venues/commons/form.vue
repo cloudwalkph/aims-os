@@ -166,7 +166,7 @@
 
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Remarks</label>
-                                <input type="number" name="remarks" id="remarks"
+                                <input type="text" name="remarks" id="remarks"
                                        @input="inputChange" v-bind:value="remarks"
                                        placeholder="Remarks" class="form-control" />
                             </div>
