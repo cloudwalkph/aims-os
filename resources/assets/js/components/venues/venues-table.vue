@@ -91,9 +91,9 @@
                         title: 'Venue'
                     },
                     {
-                        name: 'address',
-                        sortField: 'address',
-                        title: 'Address'
+                        name: 'street',
+                        sortField: 'street',
+                        title: 'Street'
                     },
                     {
                         name: 'lsm',
@@ -168,7 +168,7 @@
                     {
                         name: 'contact_email',
                         sortField: 'contact_email',
-                        title: 'email'
+                        title: 'Email'
                     },
                     {
                         name: 'created_at',

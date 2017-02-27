@@ -177,7 +177,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button class="btn btn-primary" type="button" data-dismiss="modal">Save Changes</button>
+                    <button class="btn btn-primary" type="button" @click="saveProject">Save Changes</button>
                 </div>
             </div>
         </div>

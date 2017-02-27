@@ -22,7 +22,7 @@
                 console.log('custom-actions: ' + action, data.id, index)
 
                 if (action === 'delete-item') {
-                    let url = `/api/v1/creatives/${data.id}`;
+                    let url = `/api/v1/venues/${data.id}`;
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
 
