@@ -446,3 +446,13 @@ table tbody tr {
     }
 }
 /*comment box end*/
+
+/*validate result buton start*/
+.categorybtn{
+    background-color: #f0ad4e;
+}
+
+.departmentbtn{
+    background-color: #f0ad4e;
+}
+/*validate result buton end*/
