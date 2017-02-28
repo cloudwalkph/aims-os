@@ -45,19 +45,19 @@
 
                     <tbody id="tbody_accounts">
 
-                        @foreach( $tasks as $task)
+                        @foreach( $jos as $jo)
                         <tr>
-                            <td>{{$task->job_order_no}}</td>
-                            <td><input class="" alt="28" placeholder="Contract No.">{{$task->contract_no}}</td>
+                            <td>{{$jo->job_order_no}}</td>
+                            <td><input class="" alt="28" placeholder="Contract No.">{{$jo->contract_no}}</td>
                             <td>
                                 <ul class="no-bullet">
                                     <li style="font-size:12px">Advertising, Acti Advertising</li>
                                 </ul>
                             </td>
-                            <td>{{$task->project_name}}</td>
+                            <td>{{$jo->project_name}}</td>
                             <td>Von Cruz</td>
                             <td>Dove</td>
-                            <td><button class="btn btn-primary tiny" data-toggle="modal" data-target="#modalCE" alt="28">CE</button></td>
+                            <td><button class="btn btn-primary tiny btnCE" data-toggle="modal" data-target="#modalCE" value="{{ $jo->job_order_no }}">CE</button></td>
                             <td><button class="btn btn-primary tiny" data-toggle="modal" data-target="#modalDO" alt="28">Do</button></td>
                             <td class="" align="center" style="text-align: center;"><input alt="28" type="date" placeholder="Date"> <label style="font-size:10px;">press enter to save</label></td>
                             <td class="" align="center" style="text-align: center;"><button class="btn btn-primary" alt="28" data-toggle="modal" data-target="#modalInvoice">Invoice</button></td>
@@ -80,26 +80,31 @@
     <div class="modal fade" id="modalCE" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Upload CE</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="text" name="ce_number" id="ce_number" class="form-control" placeholder="CE Number">
+                <form action="/accounting/check" method="post">
+                    {{ csrf_field() }}
+                    <input type="hidden" id="joID" name="joID" value="">
+                    <input type="hidden" id="ceType" name="ceType" value="ce">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Upload CE</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" name="ce_number" id="ce_number" class="form-control" placeholder="CE Number">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="file" name="ce_file" id="ce_file" class="form-control">
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="file" name="ce_file" id="ce_file" class="form-control">
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Upload</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -208,4 +213,15 @@
     </div>
     {{--EndRemarks--}}
     {{--endmodal--}}
+
+@endsection
+
+@section('scripts')
+
+    <script>
+        $('.btnCE').on('click', function(){
+            var jid = $(this).val();
+            $('#joID').val(jid);
+        });
+    </script>
 @endsection
