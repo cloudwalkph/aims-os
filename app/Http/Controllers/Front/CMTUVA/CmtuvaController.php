@@ -58,17 +58,6 @@ class CmtuvaController extends Controller
             \Log::info($results);
             \DB::transaction(function() use ($results) {
                 foreach ($results as $venues) {
-
-                    if (is_array($venues)) {
-                        if (! (isset($venues['category']) && $venues['category'])) {
-                            continue;
-                        }
-
-                        $data = $this->buildVenueData($venues);
-
-                        Venue::create($data);
-                    }
-
                     foreach ($venues as $venue) {
                         if (! (isset($venue['category']) && $venue['category'])) {
                             continue;
