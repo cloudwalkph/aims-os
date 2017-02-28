@@ -190,6 +190,25 @@ class JobOrderController extends Controller
             ->with('meals', $meal_request);
     }
 
+    public function previewVehicle($joNumber)
+    {
+
+        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+
+        $vehicle_request = JobOrderVehicle::where('job_order_id', $jo->id)
+            ->with('vehicleType')->get();
+
+        $brands = [];
+        foreach ($jo->clients as $client) {
+            array_push($brands, ucwords($client->brands[0]->name));
+        }
+
+        return view('ae.jolist.details.print.vehicle')
+            ->with('jo', $jo)
+            ->with('brands', $brands)
+            ->with('vehicles', $vehicle_request);
+    }
+
     public function saveJobOrderMOM(Request $request, $joId)
     {
         $input = $request->all();

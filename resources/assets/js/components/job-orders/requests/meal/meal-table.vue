@@ -2,7 +2,7 @@
     <div>
         <filter-bar></filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/job-order-manpowers"
+                  api-url="/api/v1/job-order-meals"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -70,17 +70,22 @@
                     {
                         name: 'name',
                         sortField: 'name',
-                        title: 'Manpower Type'
+                        title: 'Meal Type'
                     },
                     {
-                        name: 'manpower_needed',
-                        sortField: 'manpower_needed',
-                        title: '# Manpower Needed'
+                        name: 'quantity',
+                        sortField: 'quantity',
+                        title: 'Quantity'
                     },
                     {
-                        name: 'rate',
-                        sortField: 'rate',
-                        title: 'Rate'
+                        name: 'serving_time',
+                        sortField: 'serving_time',
+                        title: 'Serving Time'
+                    },
+                    {
+                        name: 'pickup_by',
+                        sortField: 'pickup_by',
+                        title: 'Pickup By'
                     },
                     {
                         name: 'remarks',

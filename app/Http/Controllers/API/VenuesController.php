@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class VenuesController extends Controller {
     use FilterTrait;
+
+    public function all()
+    {
+        $venues = Venue::all();
+
+        return response()->json($venues, 200);
+    }
+
     /**
      * @return \Illuminate\Http\JsonResponse
      */
