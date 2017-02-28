@@ -55,7 +55,7 @@ class CmtuvaController extends Controller
         \Excel::load($file, function($reader) {
 
             $results = $reader->get();
-
+            \Log::info($results);
             \DB::transaction(function() use ($results) {
                 foreach ($results as $venues) {
                     foreach ($venues as $venue) {
