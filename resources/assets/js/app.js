@@ -41,7 +41,23 @@ Vue.component('venues-table', require('./components/venues/venues-table.vue'));
 
 Vue.component('add-ae-job-order', require('./components/job-orders/add-ae.vue'));
 
+Vue.component('manpower-request-table', require('./components/job-orders/requests/manpower/manpower-table.vue'));
+
+Vue.component('manpower-request-form', require('./components/job-orders/requests/manpower/commons/form.vue'));
+
+Vue.component('meal-request-table', require('./components/job-orders/requests/meal/meal-table.vue'));
+
+Vue.component('meal-request-form', require('./components/job-orders/requests/meal/commons/form.vue'));
+
+Vue.component('vehicle-request-table', require('./components/job-orders/requests/vehicle/vehicle-table.vue'));
+
+Vue.component('vehicle-request-form', require('./components/job-orders/requests/vehicle/commons/form.vue'));
+
 require('./components/inventory');
+
+/* HR */
+Vue.component('hraccount', require('./components/HR/hr-account.vue'));
+Vue.component('manpower', require('./components/HR/manpower.vue'));
 
 const app = new Vue({
     el: '#app'

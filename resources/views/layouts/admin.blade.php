@@ -86,7 +86,7 @@
                         </a>
                         <ul id="demo" class="collapse" aria-expanded="true">
                             <li>
-                                <a href="#">Evaluations</a>
+                                <a href="/validate">Evaluations</a>
                             </li>
                             <li>
                                 <a href="#">Reports</a>

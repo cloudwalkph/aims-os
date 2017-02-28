@@ -8,6 +8,7 @@
 
 @section('content')
     <div class="container-fluid">
+        <input type="hidden" name="job_order_id" id="jobOrderId" value="{{ $jo->id }}">
         <div class="row">
 
             {{-- breadcrumb start --}}
@@ -135,5 +136,6 @@
         <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/meal" name="frameMeal" style="width: 0; height: 0"></iframe>
         <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/preview" name="frame" style="width: 0; height: 0"></iframe>
         <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/manpower" name="frameManpower" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/vehicle" name="frameVehicle" style="width: 0; height: 0"></iframe>
     </div>
 @endsection

@@ -12,6 +12,21 @@ class JobOrderMeal extends Model
     protected $table = 'job_order_meals';
     protected $guarded = ['id'];
 
+    public static $rules = [
+        'job_order_id'      => 'required',
+        'meal_type_id'      => 'required',
+        'quantity'          => 'required',
+        'serving_time'      => 'required',
+        'pickup_by'         => 'required',
+        'remarks'           => 'required',
+    ];
+
+    public static $filterable = [
+        'name',
+        'pickup_by',
+        'serving_time',
+    ];
+
     public function jobOrder()
     {
         return $this->belongsTo('App\Models\JobOrder');
