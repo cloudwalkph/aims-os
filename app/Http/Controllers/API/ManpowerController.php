@@ -57,41 +57,47 @@ class ManpowerController extends Controller
             'birthdate' => $input['birthdate'],
             'hired_date' => $input['hired_date']
         ];
-        return $request->file('documents');
-        $manpower = Manpower::create($data);
-        $manpower = $this->parseData($manpower);
-
-        $file = $this->upload($request, $manpower);
         
-        if(!$file)
-        {
-            return response()->json(['no file'], 404);
-        }
+        $manpower = Manpower::create($data);
+        
+        $file = $this->upload($request, $manpower, 'profile_picture');
+        $files = $this->multiUpload($request, $manpower, 'documents');
 
-        if($file == 'permission error')
-        {
-            return response()->json([$file], 500);
-        }
-
+        // $manpower = $this->parseData($manpower->paginate());
         return response()->json($manpower->paginate(), 200);
     }
 
-    private function parseData($manpower) {
-        
-        foreach($manpower as $d)
-        {
-            $d['name'] = $d['first_name'].' '.$d['middle_name'].' '.$d['last_name'];
-        }
-        return $manpower;
-    }
-
-    public function upload($request, $manpower) {
-        if(!$request->hasFile('profile_picture'))
+    public function multiUpload($request, $manpower, $inputName) {
+        if(!$request->hasFile($inputName))
         {
             return '';
         }
 
-        $image = $request->file('profile_picture');
+        $images = $request->file($inputName);
+        foreach($images as $image)
+        {
+            $filename = $this->processImage($image);
+            
+            if($filename)
+            {
+                $data = [
+                    'manpower_id'       => $manpower['id'],
+                    'url'               => 'images/'. $filename . '.' . $image->getClientOriginalExtension(),
+                    'type'              => 'file'
+                ];
+
+                $manpowerFile = ManpowerFile::create($data);
+            }
+        }
+    }
+
+    public function upload($request, $manpower, $inputName) {
+        if(!$request->hasFile($inputName))
+        {
+            return '';
+        }
+
+        $image = $request->file($inputName);
 
         $filename = $this->processImage($image);
 
@@ -102,9 +108,11 @@ class ManpowerController extends Controller
 
         $data = [
             'manpower_id'       => $manpower['id'],
-            'url'               => public_path() . '/images/'. $filename . '.' . $image->getClientOriginalExtension(),
+            'url'               => 'images/'. $filename . '.' . $image->getClientOriginalExtension(),
             'type'              => 'file'
         ];
+
+        $manpowerFile = ManpowerFile::create($data);
 
     }
 
@@ -123,6 +131,15 @@ class ManpowerController extends Controller
         }
 
         return $filename;
+    }
+
+    private function parseData($manpower) {
+        
+        foreach($manpower as $d)
+        {
+            $d['name'] = $d['first_name'].' '.$d['middle_name'].' '.$d['last_name'];
+        }
+        return $manpower;
     }
 
     /**
