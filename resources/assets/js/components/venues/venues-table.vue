@@ -93,7 +93,7 @@
                     {
                         name: 'street',
                         sortField: 'street',
-                        title: 'Street'
+                        title: 'Address'
                     },
                     {
                         name: 'lsm',
@@ -124,16 +124,6 @@
                         name: 'eft_female',
                         sortField: 'eft_female',
                         title: 'EFT Female'
-                    },
-                    {
-                        name: 'actual_hits',
-                        sortField: 'actual_hits',
-                        title: 'Actual Hits Male'
-                    },
-                    {
-                        name: 'actual_hits_f',
-                        sortField: 'actual_hits_f',
-                        title: 'Actual Hits Female'
                     },
                     {
                         name: 'actual_dry_m',

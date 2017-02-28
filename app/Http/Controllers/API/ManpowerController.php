@@ -5,6 +5,10 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Manpower;
+use App\models\ManpowerFile;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Carbon\Carbon;
+use Image;
 
 class ManpowerController extends Controller
 {
@@ -18,15 +22,6 @@ class ManpowerController extends Controller
         $manpower = Manpower::with('manpowerType')->with('agency')->paginate();
         $data = $this->parseData($manpower);
         return response()->json($data, 200);
-    }
-
-    private function parseData($manpower) {
-    	
-    	foreach($manpower as $d)
-    	{
-    		$d['name'] = $d['first_name'].' '.$d['middle_name'].' '.$d['last_name'];
-    	}
-    	return $manpower;
     }
 
     /**
@@ -47,7 +42,6 @@ class ManpowerController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->file('profile_picture')->getClientOriginalExtension();
         $input = $request->all();
         $data = [
             'first_name' => $input['first_name'],
@@ -61,12 +55,91 @@ class ManpowerController extends Controller
             'city' => $input['city'],
             'violations' => $input['violations'],
             'birthdate' => $input['birthdate'],
-            'hired_date' => $input['hired_date'],
+            'hired_date' => $input['hired_date']
+        ];
+        
+        $manpower = Manpower::create($data);
+        
+        $file = $this->upload($request, $manpower, 'profile_picture');
+        $files = $this->multiUpload($request, $manpower, 'documents');
+
+        // $manpower = $this->parseData($manpower->paginate());
+        return response()->json($manpower->paginate(), 200);
+    }
+
+    public function multiUpload($request, $manpower, $inputName) {
+        if(!$request->hasFile($inputName))
+        {
+            return '';
+        }
+
+        $images = $request->file($inputName);
+        foreach($images as $image)
+        {
+            $filename = $this->processImage($image);
+            
+            if($filename)
+            {
+                $data = [
+                    'manpower_id'       => $manpower['id'],
+                    'url'               => 'images/'. $filename . '.' . $image->getClientOriginalExtension(),
+                    'type'              => 'file'
+                ];
+
+                $manpowerFile = ManpowerFile::create($data);
+            }
+        }
+    }
+
+    public function upload($request, $manpower, $inputName) {
+        if(!$request->hasFile($inputName))
+        {
+            return '';
+        }
+
+        $image = $request->file($inputName);
+
+        $filename = $this->processImage($image);
+
+        if($filename == false)
+        {
+            return 'permission error';
+        }
+
+        $data = [
+            'manpower_id'       => $manpower['id'],
+            'url'               => 'images/'. $filename . '.' . $image->getClientOriginalExtension(),
+            'type'              => 'file'
         ];
 
-        $manpower = Manpower::create($data)->paginate();
-        $manpower = $this->parseData($manpower);
-        return response()->json($manpower, 200);
+        $manpowerFile = ManpowerFile::create($data);
+
+    }
+
+    protected function processImage(UploadedFile $image) {
+        $filename = Carbon::now()->timestamp.'-'.uniqid();
+        $extName = $image->getClientOriginalExtension();
+        $destination = public_path() . '/images/';
+
+        try {
+            $image->move($destination, $filename.'.'.$extName);
+            return $filename;
+            
+        } catch (NotWritableException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+
+        return $filename;
+    }
+
+    private function parseData($manpower) {
+        
+        foreach($manpower as $d)
+        {
+            $d['name'] = $d['first_name'].' '.$d['middle_name'].' '.$d['last_name'];
+        }
+        return $manpower;
     }
 
     /**

@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="col-md-12 form-group text-input-container">
                                     <label class="control-label">Documents</label>
-                                    <input type="file" name="documents"
+                                    <input type="file" name="documents[]"
                                            id="documents"
                                            class="form-control" multiple/>
                                 </div>

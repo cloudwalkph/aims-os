@@ -23,7 +23,7 @@ class CreateVenuesTable extends Migration
             $table->string('street');
             $table->string('rate')->default('0');
             $table->string('rate_max')->default('0');
-            $table->integer('eft')->default(0);
+            $table->string('eft')->default('0');
             $table->integer('eft_male')->default(0);
             $table->integer('eft_female')->default(0);
             $table->integer('target_hits')->default(0);
