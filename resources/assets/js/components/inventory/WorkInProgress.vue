@@ -14,12 +14,20 @@
                     </thead>
                     <tbody>
 
-                        <tr v-for="joborder in joborders">
+                        <tr v-for="joborder in propData.jobOrders">
                             <td>
-                                <a href="" @click.prevent="handleClick">{{joborder.jobOrderNo}}</a>
+                                <a href="#" pageID="work-details" :joID="joborder.jobOrderNo" @click.prevent="openPage">{{joborder.jobOrderNo}}</a>
                             </td>
-                            <td>{{joborder.projectName}}</td>
-                            <td>{{joborder.assignedPerson}}</td>
+                            <td>
+                                <div v-for="project in propData.projects" v-if="joborder.projectID == project.projectID">
+                                    {{project.projectName}}
+                                </div>
+                            </td>
+                            <td>
+                                <div v-for="user in propData.users" v-if="joborder.assignedPerson == user.userID">
+                                    {{user.label}}
+                                </div>
+                            </td>
                         </tr>
 
                     </tbody>
@@ -32,26 +40,6 @@
 
 <script>
     module.exports = {
-        data: function() {
-            return {
-                joborders: [
-                    {
-                        jobOrderNo: 1,
-                        projectName: 'Project Name',
-                        assignedPerson: 'Alleo Indong'
-                    },
-                    {
-                        jobOrderNo: 2,
-                        projectName: 'Project Name 2',
-                        assignedPerson: 'Michael Alumno'
-                    },
-                ]
-            }
-        },
-        methods: {
-            handleClick: function() {
-                alert('open Work Details Page');
-            }
-        }
+        props: ['openPage','propData']
     }
 </script>

@@ -25,6 +25,8 @@
             <component 
                 :is="currentView"
                 :openPage="openPage"
+                :propData="InventoryData"
+                :propJobOrderID="joID"
             >
                 <!-- component changes when vm.currentView changes! -->
             </component>
@@ -59,7 +61,104 @@
                         icon: 'fa-dashboard',
                         page: 'Inventory Department'
                     }
-                ]
+                ],
+                joID: null,
+                InventoryData: {
+                    users: [
+                        {
+                            userID: 1,
+                            label: 'Alleo'
+                        },
+                        {
+                            userID: 2,
+                            label: 'Kim'
+                        },
+                    ],
+                    projects: [
+                        {
+                            projectID: 1,
+                            projectName: 'Ponds Activations',
+                        },
+                        {
+                            projectID: 2,
+                            projectName: 'Ponds Activations 2',
+                        },
+                    ],
+                    jobOrders: [
+                        {
+                            jobOrderNo: 1,
+                            projectID: 1,
+                            description: 'description',
+                            deadline: '1/11/2017',
+                            assignedPerson: 1,
+                            traces: [
+                                {
+                                    productID: 1,
+                                    productsOnHand: '1000000',
+                                    deliveries: [
+                                        {
+                                            date: 'Thu Dec 22 2016',
+                                            delivered: 100000,
+                                            balance: 900000
+                                        },{
+                                            date: 'Fri Dec 23 2016',
+                                            delivered: 100000,
+                                            balance: 800000
+                                        },{
+                                            date: 'Sat Dec 24 2016',
+                                            delivered: 100000,
+                                            balance: 700000
+                                        }
+                                    ],
+                                    releases: [
+                                        {
+                                            date: 'Fri Dec 23 2016',
+                                            productsOnHand: '100000',
+                                            disposed: 50000,
+                                            returned: 0,
+                                            status: 'Approved',
+                                        },{
+                                            date: 'Sat Dec 24 2016',
+                                            productsOnHand: 150000,
+                                            disposed: 0,
+                                            returned: 0,
+                                            status: 'Pending',
+                                        }
+                                    ]
+                                },
+                                {
+                                    productID: 2,
+                                    productsOnHand: '1000000',
+                                    deliveries: [],
+                                    releases: []
+                                }
+                            ]
+                        },
+                        {
+                            jobOrderNo: 2,
+                            projectID: 2,
+                            description: 'description 2',
+                            deadline: '1/11/2017',
+                            assignedPerson: 2,
+                            traces: []
+                        }
+                    ],
+                    products: [
+                        {
+                            productID: 1,
+                            jobOrderNo: 1,
+                            itemName: 'Ponds Men'
+                        },{
+                            productID: 2,
+                            jobOrderNo: 1,
+                            itemName: 'Ponds Women'
+                        },{
+                            productID: 3,
+                            jobOrderNo: 2,
+                            itemName: 'Ponds 2 Women'
+                        }
+                    ]
+                }
             }
         },
         methods: {
@@ -108,7 +207,17 @@
                     });
                 }
                 else if(pageID == 'work-details') {
+                    this.joID = event.target.getAttribute('joID');
                     this.currentView = WorkDetails;
+                    this.breadcrumbs.push({
+                        icon: 'fa-dashboard',
+                        page: 'Inventory List'
+                    });
+                    this.breadcrumbs.push({
+                        icon: 'fa-dashboard',
+                        page: 'Work Details',
+                        active: true
+                    });
                 }
             }
         }

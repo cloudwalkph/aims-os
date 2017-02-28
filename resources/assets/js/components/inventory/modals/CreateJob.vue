@@ -12,30 +12,35 @@
                         This is an alert message
                     </div>
 
-                    <form>
+                    <form id="createJobForm" @submit.prevent="handleSubmit">
                         <div class="row">
-                            <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label">Job Order Number</label>
-                                <select id="job_order_id" name="job_order_id">
-                                    <option></option>
+                            <div class="col-md-12 form-group">
+                                <label for="job_order_id">Job Order Number</label>
+                                <select class="form-control" id="job_order_id" name="job_order_id">
+                                    <option 
+                                        v-for="jobOrder in propData.projects" 
+                                        :value="jobOrder.projectID"
+                                    >
+                                        {{jobOrder.projectName}}
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Description</label>
                                 <input type="text" name="description"
-                                        @input="inputChange" v-bind:value="event_datetime" id="description"
+                                        @input="inputChange" id="description"
                                         placeholder="Description" class="form-control" />
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Deadline</label>
-                                <input type="datetime" name="deadline"
-                                        @input="inputChange" v-bind:value="event_datetime" id="deadline"
+                                <input type="date" name="deadline"
+                                        @input="inputChange" id="deadline"
                                         placeholder="Deadline" class="form-control" />
                             </div>
-                            <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label">Users</label>
-                                <select id="user_id" name="user_id">
-                                    <option value="" v-for="user in users"></option>
+                            <div class="col-md-12 form-group">
+                                <label for="user_id">Users</label>
+                                <select class="form-control" id="user_id" name="user_id">
+                                    <option v-for="user in propData.users" :value="user.id">{{user.label}}</option>
                                 </select>
                             </div>
 
@@ -45,7 +50,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="handleClick">Save</button>
+                    <button type="submit" form="createJobForm" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -54,5 +59,39 @@
 </template>
 
 <script>
-    window.$
+    module.exports = {
+        data: function() {
+            return {
+                event_datetime: ''
+            }
+        },
+        methods: {
+            inputChange: function() {
+
+            },
+            handleClick: function() {
+                
+            },
+            handleSubmit: function(e) {
+                var form = $(e.target)[0];
+                var d = Date.parse(form.deadline.value);
+                var d = new Date(d);
+                // if(d.getHours() == 0) {
+                //     d.setHours(8);
+                // }
+                created_job_id = this.propData.jobOrders.length + 1;
+
+                this.propData.jobOrders.push(
+                    {
+                        jobOrderID: created_job_id,
+                        projectID: form.projectID.value,
+                        description: form.description.value,
+                        deadline: d.getHours(),
+                        assignedPerson: form.user_id.value
+                    }
+                );
+            }
+        },
+        props: ['propData']
+    }
 </script>
