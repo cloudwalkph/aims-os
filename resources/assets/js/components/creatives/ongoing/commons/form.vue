@@ -91,7 +91,7 @@
                 });
             },
             getJobOrders() {
-                this.$http.get('/api/v1/job-orders/all').then(response => {
+                this.$http.get('/api/v1/job-orders/department').then(response => {
                     this.job_orders = response.data;
 
                 for (let jo of this.job_orders) {

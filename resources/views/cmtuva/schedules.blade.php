@@ -15,7 +15,7 @@
                 </h1>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="/creatives"><i class="fa fa-dashboard"></i> CMTUVA Department</a>
+                        <a href="/cmtuva"><i class="fa fa-dashboard"></i> CMTUVA Department</a>
                     </li>
                     <li class="active">
                         <i class="fa fa-calendar"></i> Schedules

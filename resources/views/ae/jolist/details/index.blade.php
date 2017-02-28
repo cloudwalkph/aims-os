@@ -8,6 +8,7 @@
 
 @section('content')
     <div class="container-fluid">
+        <input type="hidden" name="job_order_id" id="jobOrderId" value="{{ $jo->id }}">
         <div class="row">
 
             {{-- breadcrumb start --}}
@@ -91,14 +92,7 @@
                 <div class="col-md-2">
                     <div>
                         <label for="exampleInputEmail1">Add AE</label>
-                        <div class="input-group">
-                            <input type="email" class="form-control col-md-10" id="exampleInputEmail1" placeholder="Add AE" />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary btn-block col-md-2">
-                                   <i class="fa fa-plus"></i>
-                                </button>
-                            </span>
-                        </div>
+                        <add-ae-job-order></add-ae-job-order>
                     </div>
                     <div class="added-ae" style="margin-top: 20px">
                         <p>{{ $jo->user->profile->full_name }}</p>
@@ -142,5 +136,6 @@
         <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/meal" name="frameMeal" style="width: 0; height: 0"></iframe>
         <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/preview" name="frame" style="width: 0; height: 0"></iframe>
         <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/manpower" name="frameManpower" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/vehicle" name="frameVehicle" style="width: 0; height: 0"></iframe>
     </div>
 @endsection

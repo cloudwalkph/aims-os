@@ -34,6 +34,8 @@
                     </div>
                 </a>
             </div>
+
+            @if(Auth::user()->role->slug !== 'member')
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <a href="/creatives/ongoing-projects">
                     <div class="button-menu">
@@ -51,6 +53,8 @@
                     </div>
                 </a>
             </div>
+            @endif
+
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <a href="/creatives/work-in-progress">
                     <div class="button-menu">

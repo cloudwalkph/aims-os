@@ -10,6 +10,13 @@ use Illuminate\Http\Request;
 class ManpowerTypesController extends Controller {
     use FilterTrait;
 
+    public function all()
+    {
+        $types = ManpowerType::all();
+
+        return response()->json($types, 200);
+    }
+
     public function index(Request $request)
     {
         // Sort

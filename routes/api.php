@@ -62,6 +62,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     // Job Orders
     Route::group(['prefix' => 'job-orders'], function() {
         Route::get('/all', 'JobOrdersController@all');
+        Route::get('/department', 'JobOrdersController@getByDepartmentInvolvement');
         Route::get('/', 'JobOrdersController@index');
         Route::get('/{jobOrderId}', 'JobOrdersController@show');
         Route::post('/', 'JobOrdersController@store');
@@ -70,9 +71,50 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     });
 
+    // manpower requests
+    Route::group(['prefix' => 'job-order-manpowers'], function() {
+        Route::get('/', 'ManpowerRequestsController@index');
+        Route::post('/', 'ManpowerRequestsController@store');
+        Route::delete('/{manpowerId}', 'ManpowerRequestsController@delete');
+    });
+
+    // meal requests
+    Route::group(['prefix' => 'job-order-meals'], function() {
+        Route::get('/', 'MealRequestsController@index');
+        Route::post('/', 'MealRequestsController@store');
+        Route::delete('/{mealId}', 'MealRequestsController@delete');
+    });
+
+    // vehicle requests
+    Route::group(['prefix' => 'job-order-vehicles'], function() {
+        Route::get('/', 'VehicleRequestsController@index');
+        Route::post('/', 'VehicleRequestsController@store');
+        Route::delete('/{vehicleId}', 'VehicleRequestsController@delete');
+    });
+
+    // Venues
+    Route::group(['prefix' => 'venues'], function() {
+        Route::get('/all', 'VenuesController@all');
+        Route::get('/', 'VenuesController@index');
+        Route::get('/{venueId}', 'VenuesController@show');
+        Route::post('/', 'VenuesController@store');
+        Route::put('/{venueId}', 'VenuesController@update');
+        Route::delete('/{venueId}', 'VenuesController@delete');
+    });
+
     // Project Types
     Route::group(['prefix' => 'project-types'], function() {
         Route::get('/', 'ProjectTypesController@index');
+    });
+
+    // Meal Types
+    Route::group(['prefix' => 'meal-types'], function() {
+        Route::get('/', 'MealTypesController@index');
+    });
+
+    // vehicle Types
+    Route::group(['prefix' => 'vehicle-types'], function() {
+        Route::get('/', 'VehicleTypesController@index');
     });
 
     // User roles
@@ -94,8 +136,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // manpower types
     Route::group(['prefix' => 'manpower-types'], function() {
+        Route::get('/all', 'ManpowerTypesController@index');
         Route::get('/', 'ManpowerTypesController@index');
         Route::post('/', 'ManpowerTypesController@store');
         Route::delete('/{typeId}', 'ManpowerTypesController@delete');
+    });
+
+    Route::group(['prefix' => 'hr'], function() {
+        Route::get('/manpower', 'ManpowerController@index');
+        Route::post('/manpower', 'ManpowerController@store');
+        Route::delete('/manpower/{manpowerId}', 'ManpowerController@delete');
     });
 });

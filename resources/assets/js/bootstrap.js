@@ -45,6 +45,11 @@ window.fullcalender = require('fullcalendar');
 window.toastr = require('toastr');
 
 /**
+ * datetimepicker
+ */
+window.datetimepicker = require('../lib/datetimepicker/js/bootstrap-datetimepicker.min');
+
+/**
  * Toastr Config
  *
  */
