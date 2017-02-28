@@ -59,11 +59,11 @@ class ManpowerController extends Controller
         ];
         
         $manpower = Manpower::create($data);
-
+        
         $file = $this->upload($request, $manpower, 'profile_picture');
         $files = $this->multiUpload($request, $manpower, 'documents');
 
-        // $manpower = $this->parseData($manpower);
+        // $manpower = $this->parseData($manpower->paginate());
         return response()->json($manpower->paginate(), 200);
     }
 
