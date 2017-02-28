@@ -81,7 +81,7 @@ class CmtuvaController extends Controller
             'area'      => $venue['area'],
             'sub_area'  => $venue['sub_area'],
             'venue'     => $venue['venue'],
-            'street'    => $venue['street'],
+            'street'    => isset($venue['street']) && $venue['street'] ? $venue['street'] : '',
             'lsm'       => $venue['lsm'],
             'rate'      => $venue['rate_min'],
             'rate_max'  => $venue['rate_max'],
