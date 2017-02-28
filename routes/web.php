@@ -85,6 +85,7 @@ Route::group(['prefix' => 'inventory'], function () {
 
 Route::group(['prefix' => 'accounting'], function () {
     Route::get('/', 'Front\Accounting\AccountingController@index');
+    Route::post('/check', 'Front\Accounting\AccountingController@check');
 });
 
 Route::group(['prefix' => 'hr'], function () {
