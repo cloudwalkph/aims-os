@@ -96,8 +96,8 @@ class CmtuvaController extends Controller
             'actual_exper_m'    => isset($venue['experiential_sampling_male']) && $venue['experiential_sampling_male'] ? $venue['experiential_sampling_male'] : 0,
             'actual_exper_f'    => isset($venue['experiential_sampling_female']) && $venue['experiential_sampling_female'] ? $venue['experiential_sampling_female'] : 0,
             'contact_person'    => isset($venue['name']) && $venue['name'] ? $venue['name'] : '',
-            'contact_number'    => isset($venue['email']) && $venue['email'] ? $venue['email'] : '',
-            'contact_email'     => isset($venue['contact_no']) && $venue['contact_no'] ? $venue['contact_no'] : '',
+            'contact_number'    => isset($venue['contact_no']) && $venue['contact_no'] ? $venue['contact_no'] : '',
+            'contact_email'     => isset($venue['email']) && $venue['email'] ? $venue['email'] : '',
             'remarks'           => isset($venue['remarks']) && $venue['remarks'] ? $venue['remarks'] : ''
         ];
 
