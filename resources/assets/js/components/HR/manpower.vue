@@ -7,7 +7,6 @@
         <vuetable ref="Vuetable_manpower"
         			api-url="/api/v1/hr/manpower"
         			:fields="fields"
-                    :append-params="dataVueTable"
        	></vuetable>
 
         <div class="modal fade" id="createManpower" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"> 
@@ -20,89 +19,101 @@
                     <div class="modal-body">
                         <form id="scheduleForm" @submit.prevent="onSubmitForm">
                             <div class="row">
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Profile Picture</label>
                                     <input type="file" name="profile_picture"
                                            id="profile_picture"
                                            class="form-control" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">First Name</label>
                                     <input type="text" name="first_name"
                                            id="first_name"
-                                           placeholder="Enter first name" class="form-control" />
+                                           placeholder="Enter first name" class="form-control" 
+                                           v-bind:value="rowData.first_name" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Middle Name</label>
                                     <input type="text" name="middle_name"
                                            id="middle_name"
-                                           placeholder="Enter middle name" class="form-control" />
+                                           placeholder="Enter middle name" class="form-control" 
+                                           v-bind:value="rowData.middle_name" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Last Name</label>
                                     <input type="text" name="last_name"
                                            id="last_name"
-                                           placeholder="Enter last name" class="form-control" />
+                                           placeholder="Enter last name" class="form-control" 
+                                           v-bind:value="rowData.last_name" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Manpower Type</label>
                                     <select type="date" name="manpower_type_id"
                                            id="manpower_type_id"
                                            placeholder="Select..." class="form-control">
-                                           <option>1</option>
+                                           <option v-for="manpowerType in manpowerTypeList" :value="manpowerType.id" v-bind:selected="rowData.manpower_type_id == manpowerType.id">{{manpowerType.name}}</option>
                                     </select>
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Agency</label>
                                     <select type="date" name="agency_id"
                                            id="agency_id"
                                            placeholder="Select..." class="form-control">
-                                           <option>1</option>
+                                           <option v-for="agency in agencyList" :value="agency.id" v-bind:selected="rowData.agency_id == agency.id">{{agency.name}}</option>
                                     </select>
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Birth Date</label>
                                     <input type="date" name="birthdate"
                                            id="birthdate"
-                                           class="form-control" />
+                                           class="form-control" 
+                                           v-bind:value="rowData.birthdate" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">City</label>
                                     <input type="city" name="city"
                                            id="last_name"
-                                           placeholder="Enter City" class="form-control" />
+                                           placeholder="Enter City" class="form-control" 
+                                           v-bind:value="rowData.city" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Email Address</label>
                                     <input type="email" name="email"
                                            id="last_email"
-                                           placeholder="Enter Email Address" class="form-control" />
+                                           placeholder="Enter Email Address" class="form-control" 
+                                           v-bind:value="rowData.email" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Contact Number</label>
                                     <input type="text" name="contact_number"
                                            id="contact_number"
-                                           placeholder="Enter contact number" class="form-control" />
+                                           placeholder="Enter contact number" class="form-control" 
+                                           v-bind:value="rowData.contact_number" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Facebook Profile Link</label>
                                     <input type="text" name="fb_link"
                                            id="fb_link"
-                                           placeholder="Facebook Link" class="form-control" />
+                                           placeholder="Facebook Link" class="form-control" 
+                                           v-bind:value="rowData.fb_link" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Date Hired</label>
                                     <input type="date" name="hired_date"
                                            id="hired_date"
-                                           class="form-control" />
+                                           class="form-control" 
+                                           v-bind:value="rowData.hired_date" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Violations</label>
                                     <input type="text" name="violations"
                                            id="violations"
-                                           placeholder="Enter violations" class="form-control" />
+                                           placeholder="Enter violations" class="form-control" 
+                                           v-bind:value="rowData.violations" />
                                 </div>
-                                <div class="col-md-12 form-group text-input-container">
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Documents</label>
                                     <input type="file" name="documents[]"
                                            id="documents"
@@ -136,7 +147,8 @@
             Vuetable
         },
         mounted() {
-        	
+        	this.getManpowerType();
+            this.getAgency();
         },
         data() {
         	return {
@@ -186,7 +198,10 @@
                     disabled : false,
                     saveLabel : 'Save'
                 },
-                dataVueTable : {}
+                manpowerTypeList : [],
+                agencyList : [],
+                rowData : ''
+
         	}
         },
         methods: {
@@ -204,10 +219,32 @@
                 
                 let form = new FormData($(e.target)[0]);
 
+                if(this.rowData) // EDIT
+                {
+                    let url = '/api/v1/hr/manpower/' + this.rowData.id;
+                    this.$http.post(url,form).then(response => {
+                        console.log(response);
+                        this.isFetching = {
+                            disabled: false,
+                            saveLabel: 'Save'
+                        };
+                        
+                        $('#createManpower').modal('hide');
+                        this.$refs.Vuetable_manpower.reload(); // refresh vuetable
+                    }, error => {
+                        console.log(error)
+                        this.isFetching = {
+                            disabled: false,
+                            saveLabel: 'Save'
+                        }
+                    });
+
+                    return;
+                }
+
                 let url = '/api/v1/hr/manpower';
                 this.$http.post(url,form).then(response => {
                     console.log(response);
-                    this.dataVueTable = {'persist': true,'birthdate' : 'sample'};
                     this.isFetching = {
                         disabled: false,
                         saveLabel: 'Save'
@@ -223,6 +260,26 @@
                     }
                 });
                 
+            },
+            getManpowerType() {
+                let url = '/api/v1/manpower-types/all';
+                this.$http.get(url).then(response => {
+                    this.manpowerTypeList = response.data.data;
+                    
+                }, error => {
+                    console.log(error)
+                    
+                });
+            },
+            getAgency() {
+                let url = '/api/v1/agencies';
+                this.$http.get(url).then(response => {
+                    this.agencyList = response.data.data;
+                    
+                }, error => {
+                    console.log(error)
+                    
+                });
             }
         },
         events: {
@@ -235,9 +292,14 @@
             'reload-table' () {
                 Vue.nextTick( () => this.$refs.Vuetable_manpower.reload() )
             },
-            'filter-reset' () {
-                this.moreParams = {}
-                Vue.nextTick( () => this.$refs.Vuetable_manpower.refresh() )
+            'edit-table' (data) {
+                
+                Vue.nextTick( 
+                    () => {
+                        this.rowData = data
+                        $('#createManpower').modal('show');
+                    }
+                )
             }
         }
     }

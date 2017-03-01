@@ -109,7 +109,7 @@ class ManpowerController extends Controller
         $data = [
             'manpower_id'       => $manpower['id'],
             'url'               => 'images/'. $filename . '.' . $image->getClientOriginalExtension(),
-            'type'              => 'file'
+            'type'              => 'picture'
         ];
 
         $manpowerFile = ManpowerFile::create($data);
@@ -173,7 +173,30 @@ class ManpowerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+
+        $data = [
+            'first_name' => $input['first_name'],
+            'middle_name' => $input['middle_name'],
+            'last_name' => $input['last_name'],
+            'manpower_type_id' => $input['manpower_type_id'],
+            'agency_id' => $input['agency_id'],
+            'email' => $input['email'],
+            'contact_number' => $input['contact_number'],
+            'fb_link' => $input['fb_link'],
+            'city' => $input['city'],
+            'violations' => $input['violations'],
+            'birthdate' => $input['birthdate'],
+            'hired_date' => $input['hired_date']
+        ];
+        
+        $manpower = Manpower::where('id', $id)->update($data);
+        
+        $file = $this->upload($request, $manpower, 'profile_picture');
+        $files = $this->multiUpload($request, $manpower, 'documents');
+
+        // $manpower = $this->parseData($manpower->paginate());
+        return response()->json($manpower, 200);
     }
 
     /**
