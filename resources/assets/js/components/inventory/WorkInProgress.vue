@@ -16,7 +16,9 @@
 
                         <tr v-for="joborder in propData.jobOrders">
                             <td>
-                                <a href="#" pageID="work-details" :joID="joborder.jobOrderNo" @click.prevent="openPage">{{joborder.jobOrderNo}}</a>
+                                <a href="#" pageID="work-details" :joID="joborder.jobOrderNo" @click.prevent="openPage">
+                                    {{joborder.jobOrderNo}}
+                                </a>
                             </td>
                             <td>
                                 <div v-for="project in propData.projects" v-if="joborder.projectID == project.projectID">
