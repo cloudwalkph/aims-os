@@ -113,78 +113,14 @@
                 <h3 class="box-title">Departments Involved</h3>
             </div>
             <div class="box-body">
-
-                <form action="/ae/jo/{{ $jo->id }}/departments" method="POST" class="form-group">
-                    <div class="row">
-                        {{ csrf_field() }}
-
-                        <div class="col-md-6 form-group text-input-container">
-                            <label class="control-label col-sm-12" for="department_id">Departments</label>
-                            <div class="col-md-12">
-                                <select name="department_id" required id="department_id" class="form-control">
-                                    @foreach($departmentLists as $dept)
-                                        <option value={{ $dept->id }}>{{ $dept->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 form-group text-input-container">
-                            <label class="control-label col-sm-12" for="deadline">Deadline</label>
-                            <div class="col-md-12">
-                                <input type="date" name="deadline" required placeholder="Deadline" class="form-control" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 form-group text-area-container">
-                            <div class="col-md-12">
-                                <textarea class="form-control" name="deliverables" placeholder="Enter Deliverables"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 text-right form-group select-input-container">
-                            <button type="submit" style="width: 200px" class="btn btn-primary btn-add">Add Department</button>
-                        </div>
-
-                    </div>
-                </form>
-
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Departments</th>
-                        <th>Deliverables</th>
-                        <th>Deadline</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach($departments as $item)
-                        <tr>
-                            <td>{{ $item->department->name }}</td>
-                            <td>{{ $item->deliverables }}</td>
-                            <td>{{ $item->deadline }}</td>
-                            <td>
-                                <button class="btn btn-danger"
-                                        onclick="event.preventDefault();
-                                             document.getElementById('deleteInvolvement-{{ $item->id }}').submit();">
-                                    <i class="fa fa-trash"></i> Remove
-                                </button>
-
-                                <form id="deleteInvolvement-{{ $item->id }}" action="/ae/jo/{{ $jo->id }}/departments/{{ $item->id }}/delete" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="col-md-12">
+                    <department-involvement-form></department-involvement-form>
+                    <department-involvement-table></department-involvement-table>
+                </div>
             </div>
         </div>
 
-        <div class="box box-info" style="display: none">
+        <div class="box box-info">
             <div class="box-header">
                 <h3 class="box-title">Inventory</h3>
             </div>

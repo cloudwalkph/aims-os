@@ -1,8 +1,8 @@
 <template>
     <div>
-        <meal-filter-bar></meal-filter-bar>
+        <project-status-filter-bar></project-status-filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/job-order-meals"
+                  api-url="/api/v1/job-order-department-involvements"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -35,12 +35,12 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import MealCustomActions from './commons/CustomActions'
-    import MealFilterBar from './commons/FilterBar'
+    import ProjectStatusCustomActions from './commons/CustomActions'
+    import ProjectStatusFilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
-    Vue.component('meal-actions', MealCustomActions)
-    Vue.component('meal-filter-bar', MealFilterBar)
+    Vue.component('project-status-actions', ProjectStatusCustomActions)
+    Vue.component('project-status-filter-bar', ProjectStatusFilterBar)
 
     export default {
         components: {
@@ -63,45 +63,33 @@
                         dataClass: 'text-center',
                     },
                     {
-                        name: 'job_order_no',
-                        sortField: 'job_order_no',
-                        title: 'Job Order No'
-                    },
-                    {
                         name: 'name',
                         sortField: 'name',
-                        title: 'Meal Type'
+                        title: 'Department'
                     },
                     {
-                        name: 'quantity',
-                        sortField: 'quantity',
-                        title: 'Quantity'
-                    },
-                    {
-                        name: 'serving_time',
-                        sortField: 'serving_time',
-                        title: 'Serving Time'
-                    },
-                    {
-                        name: 'pickup_by',
-                        sortField: 'pickup_by',
-                        title: 'Pickup By'
-                    },
-                    {
-                        name: 'remarks',
-                        sortField: 'remarks',
-                        title: 'Remarks'
-                    },
-                    {
-                        name: 'created_at',
-                        sortField: 'created_at',
+                        name: 'deadline',
+                        sortField: 'deadline',
                         titleClass: 'text-center',
                         dataClass: 'text-center',
                         callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Created Date'
+                        title: 'Deadline'
                     },
                     {
-                        name: '__component:meal-actions',
+                        name: 'updated_at',
+                        sortField: 'updated_at',
+                        titleClass: 'text-center',
+                        dataClass: 'text-center',
+                        callback: 'formatDate|DD-MM-YYYY',
+                        title: 'Last Updated'
+                    },
+                    {
+                        name: 'status',
+                        sortField: 'status',
+                        title: 'Status'
+                    },
+                    {
+                        name: '__component:project-status-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'
@@ -128,7 +116,7 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
+                    { field: 'updated_at', sortField: 'updated_at', direction: 'asc'}
                 ],
                 moreParams: {}
             }

@@ -1,8 +1,8 @@
 <template>
     <div>
-        <meal-filter-bar></meal-filter-bar>
+        <department-involved-filter-bar></department-involved-filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/job-order-meals"
+                  api-url="/api/v1/job-order-department-involvements"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -35,12 +35,12 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import MealCustomActions from './commons/CustomActions'
-    import MealFilterBar from './commons/FilterBar'
+    import DepartmentInvolvedCustomActions from './commons/CustomActions'
+    import DepartmentInvolvedFilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
-    Vue.component('meal-actions', MealCustomActions)
-    Vue.component('meal-filter-bar', MealFilterBar)
+    Vue.component('department-involved-actions', DepartmentInvolvedCustomActions)
+    Vue.component('department-involved-filter-bar', DepartmentInvolvedFilterBar)
 
     export default {
         components: {
@@ -63,34 +63,22 @@
                         dataClass: 'text-center',
                     },
                     {
-                        name: 'job_order_no',
-                        sortField: 'job_order_no',
-                        title: 'Job Order No'
-                    },
-                    {
                         name: 'name',
                         sortField: 'name',
-                        title: 'Meal Type'
+                        title: 'Department'
                     },
                     {
-                        name: 'quantity',
-                        sortField: 'quantity',
-                        title: 'Quantity'
+                        name: 'deliverables',
+                        sortField: 'deliverables',
+                        title: 'Deliverables'
                     },
                     {
-                        name: 'serving_time',
-                        sortField: 'serving_time',
-                        title: 'Serving Time'
-                    },
-                    {
-                        name: 'pickup_by',
-                        sortField: 'pickup_by',
-                        title: 'Pickup By'
-                    },
-                    {
-                        name: 'remarks',
-                        sortField: 'remarks',
-                        title: 'Remarks'
+                        name: 'deadline',
+                        sortField: 'deadline',
+                        titleClass: 'text-center',
+                        dataClass: 'text-center',
+                        callback: 'formatDate|DD-MM-YYYY',
+                        title: 'Deadline'
                     },
                     {
                         name: 'created_at',
@@ -101,7 +89,12 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:meal-actions',
+                        name: 'status',
+                        sortField: 'status',
+                        title: 'Status'
+                    },
+                    {
+                        name: '__component:department-involved-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filter-bar></filter-bar>
+        <manpower-filter-bar></manpower-filter-bar>
         <vuetable ref="vuetable"
                   api-url="/api/v1/job-order-manpowers"
                   :fields="fields"
@@ -35,12 +35,12 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import CustomActions from './commons/CustomActions'
-    import FilterBar from './commons/FilterBar'
+    import ManpowerCustomActions from './commons/CustomActions'
+    import ManpowerFilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
-    Vue.component('ongoing-custom-actions', CustomActions)
-    Vue.component('filter-bar', FilterBar)
+    Vue.component('manpower-actions', ManpowerCustomActions)
+    Vue.component('manpower-filter-bar', ManpowerFilterBar)
 
     export default {
         components: {
@@ -96,7 +96,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:ongoing-custom-actions',
+                        name: '__component:manpower-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'

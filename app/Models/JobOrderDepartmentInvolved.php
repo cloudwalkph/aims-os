@@ -12,6 +12,19 @@ class JobOrderDepartmentInvolved extends Model
     protected $table = 'job_order_department_involved';
     protected $guarded = ['id'];
 
+    public static $rules = [
+        'job_order_id'     => 'required',
+        'department_id'    => 'required',
+        'deliverables'     => 'required',
+        'deadline'         => 'required',
+    ];
+
+    public static $filterable = [
+        'name',
+        'deliverables',
+        'deadline',
+    ];
+
     public function department()
     {
         return $this->belongsTo(Department::class);
