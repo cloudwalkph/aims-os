@@ -113,7 +113,7 @@
                             <li><a href="#event-details" data-toggle="tab">Event Details</a></li>
                             <li><a href="#project-attachments" data-toggle="tab">Project Attachments</a></li>
                             <li><a href="#client-attachments" data-toggle="tab">Client Attachments</a></li>
-                            {{--<li><a href="#project-status" data-toggle="tab">Project Status</a></li>--}}
+                            <li><a href="#project-status" data-toggle="tab">Project Status</a></li>
                             <li><a href="#request-forms" data-toggle="tab">Request Forms</a></li>
                             <li><a href="#discussions" data-toggle="tab">Discussions</a></li>
                         </ul>

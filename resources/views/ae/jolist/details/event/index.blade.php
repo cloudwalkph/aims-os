@@ -113,14 +113,14 @@
                 <h3 class="box-title">Departments Involved</h3>
             </div>
             <div class="box-body">
-
-                <department-involvement-form></department-involvement-form>
-                <department-involvement-table></department-involvement-table>
-
+                <div class="col-md-12">
+                    <department-involvement-form></department-involvement-form>
+                    <department-involvement-table></department-involvement-table>
+                </div>
             </div>
         </div>
 
-        <div class="box box-info" style="display: none">
+        <div class="box box-info">
             <div class="box-header">
                 <h3 class="box-title">Inventory</h3>
             </div>
