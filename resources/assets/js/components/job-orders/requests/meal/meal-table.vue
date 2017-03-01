@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filter-bar></filter-bar>
+        <meal-filter-bar></meal-filter-bar>
         <vuetable ref="vuetable"
                   api-url="/api/v1/job-order-meals"
                   :fields="fields"
@@ -35,12 +35,12 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import CustomActions from './commons/CustomActions'
-    import FilterBar from './commons/FilterBar'
+    import MealCustomActions from './commons/CustomActions'
+    import MealFilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
-    Vue.component('ongoing-custom-actions', CustomActions)
-    Vue.component('filter-bar', FilterBar)
+    Vue.component('meal-actions', MealCustomActions)
+    Vue.component('meal-filter-bar', MealFilterBar)
 
     export default {
         components: {
@@ -101,7 +101,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:ongoing-custom-actions',
+                        name: '__component:meal-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'
