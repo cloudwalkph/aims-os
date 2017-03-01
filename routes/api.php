@@ -92,6 +92,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::delete('/{vehicleId}', 'VehicleRequestsController@delete');
     });
 
+    // department involvement
+    Route::group(['prefix' => 'job-order-department-involvements'], function() {
+        Route::get('/', 'DepartmentInvolvementController@index');
+        Route::post('/', 'DepartmentInvolvementController@store');
+        Route::delete('/{Id}', 'DepartmentInvolvementController@delete');
+    });
+
     // Venues
     Route::group(['prefix' => 'venues'], function() {
         Route::get('/all', 'VenuesController@all');
