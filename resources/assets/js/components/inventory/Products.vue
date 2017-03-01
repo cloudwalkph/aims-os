@@ -15,9 +15,15 @@
 
                 <tbody>
 
-                    <tr v-for="product in products">
+                    <tr v-for="(product, index) in propData.products">
                         <td>{{product.jobOrderNo}}</td>
-                        <td>{{product.projectName}}</td>
+                        <td>
+                            <div v-for="jobOrder in propData.jobOrders" v-if="product.jobOrderNo == jobOrder.jobOrderNo">
+                                <div v-for="project in propData.projects" v-if="jobOrder.projectID == project.projectID">
+                                    {{project.projectName}}
+                                </div>
+                            </div>
+                        </td>
                         <td>{{product.itemName}}</td>
                         <td>{{product.productsOnHand}}</td>
                     </tr>
@@ -31,17 +37,6 @@
 
 <script>
     module.exports = {
-        data: function() {
-            return {
-                products: [
-                    {
-                        jobOrderNo: 2006456435,
-                        projectName: 'Ponds Activations',
-                        itemName: 'Ponds Men',
-                        productsOnHand: '250000'
-                    }
-                ]
-            }
-        }
+        props: ['propData']
     }
 </script>

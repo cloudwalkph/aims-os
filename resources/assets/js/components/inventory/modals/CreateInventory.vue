@@ -46,7 +46,16 @@
 
 <script>
     module.exports = {
+        data: function() {
+            return {
+                event_datetime: '',
+
+            }
+        },
         methods: {
+            inputChange: function() {
+
+            },
             handleClick: function() {
                 alert('form submitted');
             }

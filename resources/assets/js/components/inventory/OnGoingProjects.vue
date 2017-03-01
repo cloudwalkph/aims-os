@@ -19,19 +19,27 @@
                     </thead>
                     <tbody>
 
-                        <tr v-for="joborder in joborders">
-                            <td>{{joborder.jobOrderNo}}</td>
-                            <td>{{joborder.projectName}}</td>
-                            <td>{{joborder.description}}</td>
-                            <td>{{joborder.date}}</td>
-                            <td>{{joborder.assignedPerson}}</td>
+                        <tr v-for="jobOrder in propData.jobOrders">
+                            <td>{{jobOrder.jobOrderNo}}</td>
+                            <td
+                                v-for="project in propData.projects" 
+                                v-if="jobOrder.projectID == project.projectID"
+                            >{{project.projectName}}
+                            </td>
+                            <td>{{jobOrder.description}}</td>
+                            <td>{{jobOrder.deadline}}</td>
+                            <td
+                                v-for="user in propData.users" 
+                                v-if="user.userID == jobOrder.assignedPerson"
+                            >{{user.label}}
+                            </td>
                         </tr>
 
                     </tbody>
                 </table>
             </div>
         </div>
-        <CreateJobModal></CreateJobModal>
+        <CreateJobModal :propData="propData"></CreateJobModal>
     </div>
 
     
@@ -42,22 +50,9 @@
     var CreateJobModal = require('./modals/CreateJob.vue');
 
     module.exports = {
-        data: function() {
-            return {
-                joborders: [
-                    {
-                        jobOrderNo: 1,
-                        projectName: 'Project Name',
-                        description: 'description',
-                        date: '1/11/2017',
-                        assignedPerson: 'Assigned Person'
-                    }
-
-                ]
-            }
-        },
         components: {
             CreateJobModal
-        }
+        },
+        props: ['propData']
     }
 </script>

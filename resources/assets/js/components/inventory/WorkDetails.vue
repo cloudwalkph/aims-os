@@ -2,30 +2,44 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="col-md-8">
-                <label htmlFor="joNumber" class="control-label">Job Order Number : {{joborder.jonumber}}</label>
-            </div>
-            <div class="col-md-4 text-right">
-                <label htmlFor="assigned" class="control-label">Assigned Persons : {{joborder.assignedperson}}</label>
-            </div>
-            <div class="col-md-8">
-                <label htmlFor="projectName" class="control-label">Project Name : {{joborder.projectname}}</label>
-            </div>
-            <div class="col-md-4 text-right">
-                <label htmlFor="description" class="control-label">Description : {{joborder.description}}</label>
-            </div>
-        </div>
+            <div class="row" v-for="jobOrder in propData.products" v-if="jobOrder.jobOrderNo == propJobOrderID">
+                <div class="col-sm-12">
+                    <div class="col-md-8">
+                        <label htmlFor="joNumber" class="control-label">Job Order Number : {{jobOrder.jobOrderNo}}</label>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <label htmlFor="assigned" class="control-label">
+                            <span v-for="user in propData.users" v-if="jobOrder.assignedPerson == user.userID">
+                                Assigned Persons : {{user.label}}
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        <label htmlFor="projectName" class="control-label">
+                            <span v-for="project in propData.projects" v-if="jobOrder.projectID == project.projectID">
+                                Project Name : {{project.projectName}}
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <label htmlFor="description" class="control-label">
+                            Description : {{jobOrder.description}}
+                        </label>
+                    </div>
+                </div>
 
-        <div class="col-sm-12">
-            <delivery-tracking :deliveries="deliveries"></delivery-tracking>
-        </div>
+                <div class="col-sm-12">
+                    <delivery-tracking :traces="jobOrder.traces" :products="propData.products"></delivery-tracking>
+                </div>
 
-        <div class="col-sm-12">
-            <hr/>
-        </div>
+                <div class="col-sm-12">
+                    <hr/>
+                </div>
 
-        <div class="col-sm-12">
-            <release-tracking :releases="releases"></release-tracking>
+                <div class="col-sm-12">
+                    <release-tracking :traces="jobOrder.traces" :products="propData.products"></release-tracking>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -36,54 +50,10 @@
     var ReleaseTracking = require('./ReleaseTracking.vue');
 
     module.exports = {
-        data: function() {
-            return {
-                joborder: 
-                    {
-                        jonumber: 20001345268,
-                        assignedperson: 'Alleo Indong',
-                        projectname: 'Ponds Activations',
-                        description: 'Description Here',
-                    }
-                ,
-                deliveries: [
-                    {
-                        date: 'Dec. 22, 2016',
-                        delivered: '100000',
-                        balance: '900000',
-                    },
-                    {
-                        date: 'Dec. 23, 2016',
-                        delivered: '100000',
-                        balance: '800000',
-                    },
-                    {
-                        date: 'Dec. 24, 2016',
-                        delivered: '100000',
-                        balance: '700000',
-                    },
-                ],
-                releases: [
-                    {
-                        date: 'Dec. 23, 2016',
-                        productsOnHand: '100000',
-                        disposed: '50000',
-                        returned: '0',
-                        status: 'Approved',
-                    },
-                    {
-                        date: 'Dec. 24, 2016',
-                        productsOnHand: '150000',
-                        disposed: '',
-                        returned: '',
-                        status: 'Pending',
-                    },
-                ]
-            }
-        },
         components: {
             DeliveryTracking,
             ReleaseTracking
-        }
+        },
+        props: ['propData', 'propJobOrderID']
     }
 </script>
