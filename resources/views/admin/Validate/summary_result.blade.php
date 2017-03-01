@@ -38,5 +38,22 @@
 
         <div id="chart"></div>
 
+        <div class="row">
+            <select class="fullwidth" name="selRatee" id="selRatee">
+                <option value="" disabled selected>Department</option>
+                <option value="Accounts">Accounts</option>
+                <option value="Activations">Activations</option>
+                <option value="Accounting">Accounting</option>
+                <option value="CMTUVA">CMTUVA</option>
+                <option value="HR">HR</option>
+                <option value="Inventory">Inventory</option>
+                <option value="Production">Production</option>
+                <option value="Setup">Setup</option>
+                <option value="Setup Leader">Setup Leader</option>
+                <option value="Negotiator">Negotiator</option>
+                <option value="Team Leader">Team Leader</option>
+            </select>
+        </div>
+
     </div>
 @endsection
