@@ -44,17 +44,17 @@
                         </td>
                     </tr>
 
-                <tr>
-                    <td>January 26, 2017</td>
-                    <td><input type="text" class="form-control"/></td>
-                    <td><input type="text" class="form-control"/></td>
-                    <td><input type="text" class="form-control"/></td>
-                    <td><input type="text" class="form-control"/></td>
-                    <td class="text-center">
-                        <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
-                        <i class="fa fa-times-circle-o fa-2x text-danger" />
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{dateToday}}</td>
+                        <td><input type="text" class="form-control"/></td>
+                        <td><input type="text" class="form-control"/></td>
+                        <td><input type="text" class="form-control"/></td>
+                        <td><input type="text" class="form-control"/></td>
+                        <td class="text-center">
+                            
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -64,6 +64,12 @@
 
 <script>
     module.exports = {
+        computed: {
+            dateToday: function() {
+                var d = new Date();
+                return d.toDateString();
+            }
+        },
         props: ['products', 'traces']
     }
 </script>
