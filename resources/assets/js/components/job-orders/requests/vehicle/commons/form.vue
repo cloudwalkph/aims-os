@@ -31,7 +31,7 @@
             <div class="col-md-4 form-group text-input-container">
                 <label class="control-label col-sm-12">Rate</label>
                 <div class="col-md-12">
-                    <input type="text" name="rate"
+                    <input type="number" name="rate"
                            @input="inputChange" v-bind:value="rate" id="rate"
                            placeholder="Rate" class="form-control" />
                 </div>
