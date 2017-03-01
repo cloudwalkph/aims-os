@@ -447,12 +447,32 @@ table tbody tr {
 }
 /*comment box end*/
 
-/*validate result buton start*/
+/*validate result button start*/
 .categorybtn{
     background-color: #f0ad4e;
+    border-color: #f0ad4e;
 }
 
 .departmentbtn{
     background-color: #f0ad4e;
+    border-color: #f0ad4e;
 }
-/*validate result buton end*/
+
+.btn-warning:hover {
+    color: #fff;
+    background-color: #f67d22;
+    border-color: #f67d22;
+}
+
+.btn-warning:focus, .btn-warning.focus {
+    color: #fff;
+    background-color: #f67d22;
+    border-color: #f67d22;
+}
+
+.btn-warning:active, .btn-warning.active {
+    color: #fff !important;
+    background-color: #f67d22 !important;
+    border-color: #f67d22 !important;
+}
+/*validate result button end*/
