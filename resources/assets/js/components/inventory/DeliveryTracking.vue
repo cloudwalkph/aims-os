@@ -8,7 +8,7 @@
         <div 
             class="col-sm-12" 
             style="margin-top: 20px;" 
-            v-for="(trace, index) in traces"
+            v-for="(trace, indexTrace) in traces"
         >
             <label htmlFor="itemname" class="col-sm-4 control-label">
                 <span v-for="product in products" v-if="trace.productID == product.productID">
@@ -28,20 +28,20 @@
 
                 <tbody>
 
-                    <tr v-for="delivery in trace.deliveries">
-                        <td>{{delivery.date}}</td>
+                    <tr v-for="(delivery, indexDeliveries) in trace.deliveries">
+                        <td>{{convertDate(delivery.date)}}</td>
                         <td>{{delivery.delivered}}</td>
                         <td>{{delivery.balance}}</td>
                         <td class="text-center">
                             <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
-                            <i class="fa fa-times-circle-o fa-2x text-danger" />
+                            <i class="fa fa-times-circle-o fa-2x text-danger" @click="removeDelivery(indexTrace, indexDeliveries)" />
                         </td>
                     </tr>
 
                     <tr>
                         <td>{{dateToday}}</td>
                         <td>
-                            <input type="text" class="form-control" :workIndex="index" @keyup.enter="handleSubmit" />
+                            <input type="text" class="form-control" :workIndex="indexTrace" @keyup.enter="handleSubmit" />
                         </td>
                         <td><span></span></td>
                         <td class="text-center">
@@ -58,29 +58,30 @@
 <script>
     module.exports = {
         computed: {
-            balance: function(e) {
-                var myTotal = 0;
-                for(var i = 0, len = e.work.products.length; i < len; i++) {
-                    myTotal += e.work.products[i].delivered;
-                }
-                return myTotal;
-            },
             dateToday: function() {
                 var d = new Date();
                 return d.toDateString();
             }
         },
         methods: {
+            removeDelivery: function(indexTrace, indexDelivery) {
+                this.traces[indexTrace].deliveries.splice(indexDelivery, 1);
+            },
+            convertDate: function(dateValue) {
+                var milliseconds = Date.parse(dateValue);
+                var d = new Date(milliseconds);
+                return d.toDateString();
+            },
             handleSubmit: function(e) {
                 var workIndex = e.target.getAttribute('workIndex');
-                var lastDeliveryIndex = this.products[workIndex].deliveries.length - 1;
-                var currBalance = this.products[workIndex].productsOnHand;
-                if(this.products[workIndex].deliveries.length) {
-                    var currBalance = this.products[workIndex].deliveries[lastDeliveryIndex].balance;
+                var lastDeliveryIndex = this.traces[workIndex].deliveries.length - 1;
+                var currBalance = this.traces[workIndex].productsOnHand;
+                if(this.traces[workIndex].deliveries.length) {
+                    var currBalance = this.traces[workIndex].deliveries[lastDeliveryIndex].balance;
                 }
                 var deliveryVal = e.target.value;
                 var nextBalance = currBalance - deliveryVal;
-                this.products[workIndex].deliveries.push({
+                this.traces[workIndex].deliveries.push({
                     date: this.dateToday,
                     delivered: deliveryVal,
                     balance: nextBalance

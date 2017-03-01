@@ -2,7 +2,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="row" v-for="jobOrder in propData.products" v-if="jobOrder.jobOrderNo == propJobOrderID">
+            <div class="row" v-for="jobOrder in propData.jobOrders" v-if="jobOrder.jobOrderNo == propJobOrderID">
                 <div class="col-sm-12">
                     <div class="col-md-8">
                         <label htmlFor="joNumber" class="control-label">Job Order Number : {{jobOrder.jobOrderNo}}</label>
