@@ -153,35 +153,48 @@
         data() {
         	return {
         		fields : [
+                    {
+                        name: 'profile_picture',
+                        title: 'Photo',
+                        callback: 'imageParse',
+                        dataClass : 'customWith10'
+                    },
         			{
         				name: 'name',
-        				title: 'Full Name'
+        				title: 'Full Name',
+                        dataClass : 'middleAlign'
         			},
         			{
         				name: 'manpower_type.name',
-        				title: 'Manpower Type'
+        				title: 'Manpower Type',
+                        dataClass : 'middleAlign'
         			},
         			{
         				name: 'agency.name',
-        				title: 'Agency'
+        				title: 'Agency',
+                        dataClass : 'middleAlign'
         			},
         			{
         				name: 'birthdate',
         				title: 'Age',
-        				callback: 'getAge'
+        				callback: 'getAge',
+                        dataClass : 'middleAlign'
         			},
         			{
         				name: 'email',
-        				title: 'Email'
+        				title: 'Email',
+                        dataClass : 'middleAlign'
         			},
         			{
         				name: 'contact_number',
-        				title: 'Contact #'
+        				title: 'Contact #',
+                        dataClass : 'middleAlign'
         			},
         			{
         				name: 'updated_at',
         				title: 'Last Updated',
-        				callback: 'parseDate'
+        				callback: 'parseDate',
+                        dataClass : 'middleAlign'
         			},
 					{
 						name: '__handle',   // <----
@@ -191,7 +204,7 @@
                         name: '__component:CustomActions',
                         title: 'Actions',
                         titleClass: 'text-center',
-                        dataClass: 'text-center'
+                        dataClass: 'text-center middleAlign'
                     }
         		],
                 isFetching : {
@@ -211,6 +224,10 @@
         	parseDate(value) {
         		return moment(value).format('MMM DD YYYY');
         	},
+            imageParse(value) {
+                if(value)
+                    return '<div><img src="/'+value+'" style="width : 50%;"/></div>';
+            },
             onSubmitForm(e) {
                 this.isFetching = {
                     disabled: true,
@@ -304,3 +321,13 @@
         }
     }
 </script>
+
+<style>
+    .customWith10 {
+        width : 10%;
+    }
+    .middleAlign {
+        vertical-align: middle !important;
+    }
+
+</style>
