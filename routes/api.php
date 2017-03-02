@@ -161,5 +161,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('/manpower', 'ManpowerController@store');
         Route::delete('/manpower/{manpowerId}', 'ManpowerController@delete');
         Route::post('/manpower/{manpowerId}', 'ManpowerController@update');
+
+        // pooling
+        Route::get('/poolingManpower', 'PoolingManpowerController@index');
     });
 });
