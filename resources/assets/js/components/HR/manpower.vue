@@ -149,6 +149,12 @@
         mounted() {
         	this.getManpowerType();
             this.getAgency();
+
+            $('#createManpower').on('hidden.bs.modal', (e) => {
+               this.rowData = ''; // reset form data 
+            });
+
+
         },
         data() {
         	return {
