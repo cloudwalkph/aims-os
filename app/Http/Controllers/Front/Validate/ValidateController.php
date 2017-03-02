@@ -4,9 +4,15 @@ namespace App\Http\Controllers\Front\Validate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\JobOrder;
 
 class ValidateController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,9 @@ class ValidateController extends Controller
      */
     public function index()
     {
-        return view('admin/validate');
+        $jos = JobOrder::all();
+//        dd($jos);
+        return view('admin/validate', compact('jos'));
     }
     /**
      * Display a listing of the resource.
