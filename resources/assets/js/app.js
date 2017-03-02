@@ -59,6 +59,8 @@ Vue.component('department-involvement-form', require('./components/job-orders/in
 
 Vue.component('project-status-table', require('./components/job-orders/project-status/project-status-table.vue'));
 
+Vue.component('animation-details-table', require('./components/job-orders/animation-details/animation-details-table.vue'));
+
 require('./components/inventory');
 
 /* HR */
