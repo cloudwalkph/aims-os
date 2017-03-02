@@ -59,7 +59,7 @@
                 <h3 class="box-title">Animation Details</h3>
             </div>
             <div class="box-body">
-                <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-12" style="margin-bottom: 10px">
                     <div class="col-sm-3 col-sm-offset-9">
                         <button class="btn btn-default pull-right"
                                 type="button" data-toggle="modal" data-target="#createAnimationDetails">
@@ -67,43 +67,11 @@
                         </button>
                     </div>
 
-                    @include('ae.jolist.details.event.modals.animation')
+                    <animation-details-table></animation-details-table>
                 </div>
-
-                <table class="table table-striped table-bordered animation-details ">
-                    <thead>
-                    <tr>
-                        <th rowSpan="2">Particulars</th>
-                        <th rowSpan="2">Target Activity</th>
-                        <th colSpan="5">Target Hits</th>
-                        <th rowSpan="2">Target Duration</th>
-                        <th rowSpan="2">Areas</th>
-                    </tr>
-
-                    <tr>
-                        <th> Selling </th>
-                        <th> Flyering</th>
-                        <th> Survey</th>
-                        <th> Experiment</th>
-                        <th> Other</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($animations as $animation)
-                        <tr class="text-center">
-                            <td>{{ $animation->particular }}</td>
-                            <td>{{ $animation->target_activity }}</td>
-                            <td>{{ $animation->target_selling }}</td>
-                            <td>{{ $animation->target_flyering }}</td>
-                            <td>{{ $animation->target_survey }}</td>
-                            <td>{{ $animation->target_experiment }}</td>
-                            <td>{{ $animation->target_others }}</td>
-                            <td>{{ $animation->target_duration }}</td>
-                            <td>{{ $animation->target_areas }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="col-md-12">
+                    <hr>
+                </div>
 
             </div>
         </div>
@@ -113,14 +81,17 @@
                 <h3 class="box-title">Departments Involved</h3>
             </div>
             <div class="box-body">
-
-                <department-involvement-form></department-involvement-form>
-                <department-involvement-table></department-involvement-table>
-
+                <div class="col-md-12">
+                    <department-involvement-form></department-involvement-form>
+                    <department-involvement-table></department-involvement-table>
+                </div>
+                <div class="col-md-12">
+                    <hr>
+                </div>
             </div>
         </div>
 
-        <div class="box box-info" style="display: none">
+        <div class="box box-info">
             <div class="box-header">
                 <h3 class="box-title">Inventory</h3>
             </div>

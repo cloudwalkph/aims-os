@@ -140,7 +140,14 @@
                             description: 'description 2',
                             deadline: '1/11/2017',
                             assignedPerson: 2,
-                            traces: []
+                            traces: [
+                                {
+                                    productID: 3,
+                                    productsOnHand: '1000000',
+                                    deliveries: [],
+                                    releases: []
+                                }
+                            ]
                         }
                     ],
                     products: [

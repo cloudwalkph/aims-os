@@ -143,7 +143,7 @@
                         </tbody>
                     </table>
                 </div>
-            </main>
+            </main> 
         </div>
     </div>
 @endsection
