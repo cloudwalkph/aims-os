@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front\CMTUVA;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ImportVenueFromExcel;
 use App\Models\Venue;
 use Illuminate\Http\Request;
 
@@ -55,10 +56,7 @@ class CmtuvaController extends Controller
         \Excel::load($file, function($reader) {
 
             $results = $reader->get();
-            \Log::info($results);
             \DB::transaction(function() use ($results) {
-                ini_set('memory_limit', '-1');
-
                 foreach ($results as $venues) {
                     foreach ($venues as $venue) {
                         if (! (isset($venue['category']) && $venue['category'])) {
@@ -67,12 +65,10 @@ class CmtuvaController extends Controller
 
                         $data = $this->buildVenueData($venue);
 
-                        Venue::create($data);
+                        // dispatch queue
+                        $this->dispatch(new ImportVenueFromExcel($data));
                     }
                 }
-
-                ini_set('memory_limit', '128M');
-
             });
         });
 
