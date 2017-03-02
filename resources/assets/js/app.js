@@ -61,6 +61,8 @@ Vue.component('project-status-table', require('./components/job-orders/project-s
 
 Vue.component('animation-details-table', require('./components/job-orders/animation-details/animation-details-table.vue'));
 
+Vue.component('plan-jo-table', require('./components/plans/plans-jo-table.vue'));
+
 require('./components/inventory');
 
 /* HR */
