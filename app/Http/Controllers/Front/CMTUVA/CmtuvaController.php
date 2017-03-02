@@ -57,6 +57,8 @@ class CmtuvaController extends Controller
             $results = $reader->get();
             \Log::info($results);
             \DB::transaction(function() use ($results) {
+                ini_set('memory_limit', '-1');
+
                 foreach ($results as $venues) {
                     foreach ($venues as $venue) {
                         if (! (isset($venue['category']) && $venue['category'])) {
@@ -68,6 +70,9 @@ class CmtuvaController extends Controller
                         Venue::create($data);
                     }
                 }
+
+                ini_set('memory_limit', '128M');
+
             });
         });
 
