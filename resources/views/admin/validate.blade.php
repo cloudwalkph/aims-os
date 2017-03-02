@@ -28,11 +28,11 @@
 
                             <tr>
                                 <td><a href="/validate/create_project"> {{$jo->job_order_no}}</a></td>
-                                <td>{{$jo->job_order_no}}</td>
-                                <td>ipsum</td>
+                                <td>{{$jo->project_name}}</td>
+                                <td>{{$jo->project_types}}</td>
                                 <td>dolor</td>
                                 <td>sit</td>
-                                <td>sit</td>
+                                <td>{{$jo->status}}</td>
                                 <td>
                                     <a href="/validate/summary_result" class="btn btn-success btn-rounded btn-ripple"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="#" class="btn btn-warning btn-rounded btn-ripple editButtonEvent" alt="'.$row->jobID.'" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil" aria-hidden="true"></i></a>
