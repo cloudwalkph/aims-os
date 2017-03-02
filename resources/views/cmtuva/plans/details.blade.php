@@ -33,28 +33,7 @@
             </div>
 
             <div class="col-md-12" style="margin-top: 30px">
-                <table class="table table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th rowSpan="2">Particulars</th>
-                        <th rowSpan="2">Target Activity</th>
-                        <th colSpan="5">Target Hits</th>
-                        <th rowSpan="2">Target Duration</th>
-                        <th rowSpan="2">Areas</th>
-                    </tr>
-
-                    <tr>
-                        <th> Selling </th>
-                        <th> Flyering</th>
-                        <th> Survey</th>
-                        <th> Experiment</th>
-                        <th> Other</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    </tbody>
-                </table>
+                <plan-animation-table></plan-animation-table>
             </div>
 
             <div class="col-md-12">
