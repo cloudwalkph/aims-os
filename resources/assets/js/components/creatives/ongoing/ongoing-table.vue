@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filter-bar></filter-bar>
+        <ongoing-filter-bar></ongoing-filter-bar>
         <vuetable ref="vuetable"
                   api-url="/api/v1/creatives"
                   :fields="fields"
@@ -37,12 +37,12 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import FilterBar from './commons/FilterBar'
+    import OngoingFilterBar from './commons/FilterBar'
     import AssignUserModal from './commons/form.vue'
 
     Vue.use(VueEvents)
     Vue.component('ongoing-custom-actions', CustomActions)
-    Vue.component('filter-bar', FilterBar)
+    Vue.component('ongoing-filter-bar', OngoingFilterBar)
     Vue.component('assign-user-modal', AssignUserModal)
 
     export default {
