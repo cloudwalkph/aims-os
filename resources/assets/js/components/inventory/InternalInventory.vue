@@ -31,15 +31,6 @@
 
 <script>
     module.exports = {
-        data: function() {
-            return {
-                products: [
-                    {
-                        itemName: '',
-                        productsOnHand: '',
-                    }
-                ]
-            }
-        }
+        props: ['propData']
     }
 </script>

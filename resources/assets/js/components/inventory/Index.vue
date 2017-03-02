@@ -22,15 +22,10 @@
         </div>
 
         <div class="col-lg-12">
-            <component 
-                :is="currentView"
-                :openPage="openPage"
-                :propData="InventoryData"
-                :propJobOrderID="joID"
-            >
+            <component :is="currentView" :openPage="openPage" :propData="inventoryData" :propJobOrderID="joID">
                 <!-- component changes when vm.currentView changes! -->
             </component>
-        <div>
+        </div>
 
     </div>
 
@@ -45,14 +40,32 @@
     var JOProductList = require('./Products.vue');
 
     var OnGoingProjectList = require('./OnGoingProjects.vue');
-        
+
     var WorkInProgress = require('./WorkInProgress.vue');
     var WorkDetails = require('./WorkDetails.vue');
 
     var InventoryList = require('./InventoryList.vue');
 
     module.exports = {
-        data: function() {
+        created: function () {
+            this.$http.get('/api/v1/job-orders/department')
+                .then(function (response) {
+                    this.inventoryData.jobOrders = response.data;
+                })
+                .catch(function (e) {
+                    console.log(e);
+                })
+
+            this.$http.get('/api/v1/users/5')
+                .then(function (response) {
+                    this.inventoryData.users = response.data;
+                })
+                .catch(function (e) {
+                    console.log(e);
+                })
+
+        },
+        data: function () {
             return {
                 currentView: Home,
                 isActive: 'home',
@@ -63,157 +76,171 @@
                     }
                 ],
                 joID: null,
-                InventoryData: {
-                    users: [
-                        {
-                            userID: 1,
-                            label: 'Alleo'
-                        },
-                        {
-                            userID: 2,
-                            label: 'Kim'
-                        },
-                    ],
-                    projects: [
-                        {
-                            projectID: 1,
-                            projectName: 'Ponds Activations',
-                        },
-                        {
-                            projectID: 2,
-                            projectName: 'Ponds Activations 2',
-                        },
-                    ],
+                inventoryData: {
                     jobOrders: [
                         {
-                            jobOrderNo: 1,
-                            projectID: 1,
-                            description: 'description',
-                            deadline: '1/11/2017',
-                            assignedPerson: 1,
-                            traces: [
+                            contract_no: null,
+                            created_at: "2017-02-27 03:11:36",
+                            deleted_at: null,
+                            do_contract_no: null,
+                            id: 2,
+                            job_order_no: "QWERTY1234",
+                            project_name: "Sample Project Name",
+                            project_types: [
                                 {
-                                    productID: 1,
-                                    productsOnHand: '1000000',
-                                    deliveries: [
+                                    name: "Sampling"
+                                }
+                            ],
+                            status: "pending",
+                            user_id: 5
+                        }
+                    ],
+                    users: [
+                        {
+                            id: 5,
+                            department_id: 5,
+                            user_role_id: 1,
+                            profile: {
+                                first_name: 'Juan',
+                                middle_name: '',
+                                last_name: 'Dela Cruz',
+                            },
+                        }
+                    ],
+                    products: [
+                        {
+                            id: 1,
+                            job_order_id: 2,
+                            product_code: 'PONDS-MEN',
+                            name: 'Product 1',
+                            quantity: 1000000,
+                            expiration_date: '2017-02-27',
+                        },
+                        {
+                            id: 2,
+                            job_order_id: 2,
+                            product_code: 'PONDS-WOMEN',
+                            name: 'Product 2',
+                            quantity: 2000000,
+                            expiration_date: '2017-02-27',
+                        },
+                    ],
+                    jobs: [
+                        {
+                            id: 1,
+                            job_order_id: 2,
+                            description: 'description',
+                            deadline: '2017-02-17',
+                        }
+                    ],
+                    assignedPeople: [
+                        {
+                            inventory_job_id: 1,
+                            user_id: 5
+                        }
+                    ],
+                    workDetails: [
+                        {
+                            inventory_job_id: 1,
+                            deliveries: [
+                                {
+                                    product_id: 1,
+                                    data: [
                                         {
-                                            date: 'Thu Dec 22 2016',
-                                            delivered: 100000,
-                                            balance: 900000
-                                        },{
-                                            date: 'Fri Dec 23 2016',
-                                            delivered: 100000,
-                                            balance: 800000
-                                        },{
-                                            date: 'Sat Dec 24 2016',
-                                            delivered: 100000,
-                                            balance: 700000
-                                        }
-                                    ],
-                                    releases: [
+                                            date: '2016-12-22',
+                                            delivered: 500000,
+                                        },
                                         {
-                                            date: 'Fri Dec 23 2016',
-                                            productsOnHand: '100000',
+                                            date: '2016-12-23',
+                                            delivered: 250000,
+                                        },
+                                        {
+                                            date: '2016-12-24',
+                                            delivered: 100000,
+                                        },
+                                    ]
+                                },
+                                {
+                                    product_id: 2,
+                                    data: [
+                                        {
+                                            date: '2016-12-22',
+                                            delivered: 200000,
+                                        },
+                                    ]
+                                }
+                            ],
+                            releases: [
+                                {
+                                    product_id: 1,
+                                    data: [
+                                        {
+                                            date: '2016-12-23',
+                                            productsOnHand: 100000,
                                             disposed: 50000,
                                             returned: 0,
                                             status: 'Approved',
                                         },{
-                                            date: 'Sat Dec 24 2016',
+                                            date: '2016-12-24',
                                             productsOnHand: 150000,
                                             disposed: 0,
                                             returned: 0,
                                             status: 'Pending',
                                         }
                                     ]
-                                },
-                                {
-                                    productID: 2,
-                                    productsOnHand: '1000000',
-                                    deliveries: [],
-                                    releases: []
                                 }
                             ]
-                        },
-                        {
-                            jobOrderNo: 2,
-                            projectID: 2,
-                            description: 'description 2',
-                            deadline: '1/11/2017',
-                            assignedPerson: 2,
-                            traces: [
-                                {
-                                    productID: 3,
-                                    productsOnHand: '1000000',
-                                    deliveries: [],
-                                    releases: []
-                                }
-                            ]
-                        }
-                    ],
-                    products: [
-                        {
-                            productID: 1,
-                            jobOrderNo: 1,
-                            itemName: 'Ponds Men'
-                        },{
-                            productID: 2,
-                            jobOrderNo: 1,
-                            itemName: 'Ponds Women'
-                        },{
-                            productID: 3,
-                            jobOrderNo: 2,
-                            itemName: 'Ponds 2 Women'
                         }
                     ]
                 }
             }
         },
         methods: {
-            openPage: function(event) {
+            openPage: function (event) {
                 var pageID = event.target.getAttribute('pageID');
                 this.breadcrumbs = [{
                     icon: 'fa-dashboard',
                     page: 'Inventory Department'
                 }];
-                if(pageID == 'home') {
+                if (pageID == 'home') {
                     this.currentView = Home;
                 }
-                else if(pageID == 'calendar') {
+                else if (pageID == 'calendar') {
                     this.currentView = Calendar;
                     this.breadcrumbs.push({
                         icon: 'fa-dashboard',
                         page: 'Calendar'
                     });
                 }
-                else if(pageID == 'jo-product-list') {
+                else if (pageID == 'jo-product-list') {
                     this.currentView = JOProductList;
                     this.breadcrumbs.push({
                         icon: 'fa-dashboard',
                         page: 'JO Product List'
                     });
                 }
-                else if(pageID == 'on-going-project-list') {
+                else if (pageID == 'on-going-project-list') {
                     this.currentView = OnGoingProjectList;
                     this.breadcrumbs.push({
                         icon: 'fa-dashboard',
                         page: 'On Going Project List'
                     });
                 }
-                else if(pageID == 'work-in-progress') {
+                else if (pageID == 'work-in-progress') {
                     this.currentView = WorkInProgress;
                     this.breadcrumbs.push({
                         icon: 'fa-dashboard',
                         page: 'Work in Progress'
                     });
                 }
-                else if(pageID == 'internal-inventory-list') {
+                else if (pageID == 'internal-inventory-list') {
                     this.currentView = InventoryList;
                     this.breadcrumbs.push({
                         icon: 'fa-dashboard',
                         page: 'Inventory List'
                     });
                 }
-                else if(pageID == 'work-details') {
+                else if (pageID == 'work-details') {
                     this.joID = event.target.getAttribute('joID');
                     this.currentView = WorkDetails;
                     this.breadcrumbs.push({
@@ -229,4 +256,5 @@
             }
         }
     }
+
 </script>

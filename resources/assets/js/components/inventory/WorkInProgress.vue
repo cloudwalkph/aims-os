@@ -14,21 +14,28 @@
                     </thead>
                     <tbody>
 
-                        <tr v-for="joborder in propData.jobOrders">
+                        <tr v-for="job in propData.jobs">
                             <td>
-                                <a href="#" pageID="work-details" :joID="joborder.jobOrderNo" @click.prevent="openPage">
-                                    {{joborder.jobOrderNo}}
-                                </a>
+                                <span v-for="jobOrder in propData.jobOrders" v-if="job.job_order_id == jobOrder.id">
+                                    <a href="#" pageID="work-details" :joID="job.id" @click.prevent="openPage">
+                                        {{jobOrder.job_order_no}}
+                                    </a>
+                                </span>
                             </td>
                             <td>
-                                <div v-for="project in propData.projects" v-if="joborder.projectID == project.projectID">
-                                    {{project.projectName}}
-                                </div>
+                                <span v-for="jobOrder in propData.jobOrders" v-if="job.job_order_id == jobOrder.id">
+                                    {{jobOrder.project_name}}
+                                </span>
                             </td>
                             <td>
-                                <div v-for="user in propData.users" v-if="joborder.assignedPerson == user.userID">
-                                    {{user.label}}
-                                </div>
+                                <span 
+                                    v-for="assigned_person in propData.assignedPeople" 
+                                    v-if="job.id == assigned_person.inventory_job_id"
+                                >
+                                    <span v-for="user in propData.users" v-if="assigned_person.user_id == user.id">
+                                        {{user.profile.first_name}}
+                                    </span>
+                                </span>
                             </td>
                         </tr>
 

@@ -19,19 +19,28 @@
                     </thead>
                     <tbody>
 
-                        <tr v-for="jobOrder in propData.jobOrders">
-                            <td>{{jobOrder.jobOrderNo}}</td>
-                            <td
-                                v-for="project in propData.projects" 
-                                v-if="jobOrder.projectID == project.projectID"
-                            >{{project.projectName}}
+                        <tr v-for="job in propData.jobs">
+                            <td>
+                                <span v-for="jobOrder in propData.jobOrders" v-if="job.job_order_id == jobOrder.id">
+                                    {{jobOrder.job_order_no}}
+                                </span>
                             </td>
-                            <td>{{jobOrder.description}}</td>
-                            <td>{{jobOrder.deadline}}</td>
-                            <td
-                                v-for="user in propData.users" 
-                                v-if="user.userID == jobOrder.assignedPerson"
-                            >{{user.label}}
+                            <td>
+                                <span v-for="jobOrder in propData.jobOrders" v-if="job.job_order_id == jobOrder.id">
+                                    {{jobOrder.project_name}}
+                                </span>
+                            </td>
+                            <td>{{job.description}}</td>
+                            <td>{{convertDate(job.deadline)}}</td>
+                            <td>
+                                <span 
+                                    v-for="assigned_person in propData.assignedPeople" 
+                                    v-if="assigned_person.inventory_job_id == job.id"
+                                >
+                                    <span v-for="user in propData.users" v-if="assigned_person.user_id == user.id">
+                                        {{user.profile.first_name}}
+                                    </span>
+                                </span>
                             </td>
                         </tr>
 
@@ -39,10 +48,11 @@
                 </table>
             </div>
         </div>
-        <CreateJobModal :propData="propData"></CreateJobModal>
+        <component is="create-job-modal" :propData="propData">
+        </component>
     </div>
 
-    
+
 
 </template>
 
@@ -53,6 +63,14 @@
         components: {
             CreateJobModal
         },
+        methods: {
+            convertDate: function (dateVal) {
+                var milliseconds = Date.parse(dateVal);
+                var d = new Date(milliseconds);
+                return d.toDateString();
+            }
+        },
         props: ['propData']
     }
+
 </script>
