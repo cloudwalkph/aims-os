@@ -279,46 +279,4 @@ class JobOrderController extends Controller
         return response()->download($file, $attachment->file_name);
     }
 
-    public function saveDepartmentInvolve(Request $request, $joId)
-    {
-        $input = $request->all();
-        $input['job_order_id'] = $joId;
-
-        $department = JobOrderDepartmentInvolved::create($input);
-
-        return redirect()->back();
-    }
-
-    public function saveManpower(Request $request, $joId)
-    {
-        $input = $request->all();
-        $input['job_order_id'] = $joId;
-
-        // Create new jo manpower request
-        $manpower = JobOrderManpower::create($input);
-
-        return redirect()->back();
-    }
-
-    public function saveMeal(Request $request, $joId)
-    {
-        $input = $request->all();
-        $input['job_order_id'] = $joId;
-
-        // Create new jo meal request
-        $meal = JobOrderMeal::create($input);
-
-        return redirect()->back();
-    }
-
-    public function saveVehicle(Request $request, $joId)
-    {
-        $input = $request->all();
-        $input['job_order_id'] = $joId;
-
-        // Create new jo vehicle request
-        $vehicle = JobOrderVehicle::create($input);
-
-        return redirect()->back();
-    }
 }

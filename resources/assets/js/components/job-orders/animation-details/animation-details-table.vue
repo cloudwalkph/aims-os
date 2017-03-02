@@ -1,8 +1,8 @@
 <template>
     <div>
-        <ongoing-filter-bar></ongoing-filter-bar>
+        <animation-details-filter-bar></animation-details-filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/creatives"
+                  api-url="/api/v1/job-order-animation-details"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -22,8 +22,8 @@
                                  @vuetable-pagination:change-page="onChangePage"
             ></vuetable-pagination>
         </div>
+        <animation-details-modal></animation-details-modal>
 
-        <assign-user-modal></assign-user-modal>
     </div>
 </template>
 
@@ -36,14 +36,14 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import CustomActions from './commons/CustomActions'
-    import OngoingFilterBar from './commons/FilterBar'
-    import AssignUserModal from './commons/form.vue'
+    import AnimationDetailsCustomActions from './commons/CustomActions'
+    import AnimationDetailsFilterBar from './commons/FilterBar'
+    import AnimationDetailsModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('ongoing-custom-actions', CustomActions)
-    Vue.component('ongoing-filter-bar', OngoingFilterBar)
-    Vue.component('assign-user-modal', AssignUserModal)
+    Vue.component('animation-details-actions', AnimationDetailsCustomActions)
+    Vue.component('animation-details-filter-bar', AnimationDetailsFilterBar)
+    Vue.component('animation-details-modal', AnimationDetailsModal)
 
     export default {
         components: {
@@ -66,34 +66,49 @@
                         dataClass: 'text-center',
                     },
                     {
-                        name: 'job_order_no',
-                        sortField: 'job_order_no',
-                        title: 'Job Order No'
+                        name: 'particular',
+                        sortField: 'particular',
+                        title: 'Particulars'
                     },
                     {
-                        name: 'project_name',
-                        sortField: 'project_name',
-                        title: 'Project Name'
+                        name: 'target_activity',
+                        sortField: 'target_activity',
+                        title: 'Target Activity'
                     },
                     {
-                        name: 'description',
-                        sortField: 'description',
-                        title: 'Description'
+                        name: 'target_selling',
+                        sortField: 'target_selling',
+                        title: 'Target Selling'
                     },
                     {
-                        name: 'deadline',
-                        sortField: 'deadline',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Deadline'
+                        name: 'target_flyering',
+                        sortField: 'target_flyering',
+                        title: 'Target Flyering'
                     },
                     {
-                        name: 'assigned_person',
-                        sortField: 'assigned_person',
-                        title: 'Assigned Person',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center'
+                        name: 'target_survey',
+                        sortField: 'target_survey',
+                        title: 'Target Survey'
+                    },
+                    {
+                        name: 'target_experiment',
+                        sortField: 'target_experiment',
+                        title: 'Target Experiential'
+                    },
+                    {
+                        name: 'target_others',
+                        sortField: 'target_others',
+                        title: 'Others'
+                    },
+                    {
+                        name: 'target_duration',
+                        sortField: 'target_duration',
+                        title: 'Target Duration'
+                    },
+                    {
+                        name: 'target_areas',
+                        sortField: 'target_areas',
+                        title: 'Areas'
                     },
                     {
                         name: 'created_at',
@@ -104,7 +119,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:ongoing-custom-actions',
+                        name: '__component:animation-details-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'
@@ -131,7 +146,7 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'deadline', sortField: 'deadline', direction: 'asc'}
+                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
                 ],
                 moreParams: {}
             }

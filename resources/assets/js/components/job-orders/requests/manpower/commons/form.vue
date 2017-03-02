@@ -1,14 +1,14 @@
 <template>
     <div class="row">
 
-        <div class="col-md-3 form-group text-input-container">
+        <div class="col-md-6 form-group text-input-container">
             <label class="control-label col-sm-12">Manpower Type</label>
             <div class="col-md-12">
                 <v-select :on-change="typeSelected" :options="manpowerOptions"></v-select>
             </div>
         </div>
 
-        <div class="col-md-2 form-group text-input-container">
+        <div class="col-md-3 form-group text-input-container">
             <label class="control-label col-sm-12"># Manpower Needed</label>
             <div class="col-md-12">
                 <input type="number" name="manpower_needed"
@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <div class="col-md-2 form-group text-input-container">
+        <div class="col-md-3 form-group text-input-container">
             <label class="control-label col-sm-12">Rate</label>
             <div class="col-md-12">
                 <input type="number" name="rate"
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="col-md-2 form-group text-input-container">
+        <div class="col-md-12 form-group text-input-container">
             <label class="control-label col-sm-12">Remarks</label>
             <div class="col-md-12">
                 <input type="text" name="remarks"
@@ -35,8 +35,11 @@
             </div>
         </div>
 
-        <div class="col-md-2 form-group select-input-container">
-            <button type="submit" class="btn btn-primary btn-add" @click="saveProject">Add </button>
+        <div class="col-md-12 form-group select-input-container">
+            <div class="col-md-4 pull-right">
+                <button type="submit" class="btn btn-primary btn-add btn-block" @click="saveProject">Add </button>
+            </div>
+
         </div>
 
     </div>

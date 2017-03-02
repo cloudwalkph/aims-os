@@ -41,7 +41,7 @@
     import VenueModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('ongoing-custom-actions', CustomActions)
+    Vue.component('venues-custom-actions', CustomActions)
     Vue.component('filter-bar', FilterBar)
     Vue.component('venues-modal', VenueModal)
 
@@ -169,7 +169,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:ongoing-custom-actions',
+                        name: '__component:venues-custom-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'

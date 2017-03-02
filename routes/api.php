@@ -99,6 +99,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::delete('/{Id}', 'DepartmentInvolvementController@delete');
     });
 
+    // animation details
+    Route::group(['prefix' => 'job-order-animation-details'], function() {
+        Route::get('/', 'AnimationDetailsController@index');
+        Route::post('/', 'AnimationDetailsController@store');
+        Route::delete('/{Id}', 'AnimationDetailsController@delete');
+    });
+
     // Venues
     Route::group(['prefix' => 'venues'], function() {
         Route::get('/all', 'VenuesController@all');
@@ -153,5 +160,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/manpower', 'ManpowerController@index');
         Route::post('/manpower', 'ManpowerController@store');
         Route::delete('/manpower/{manpowerId}', 'ManpowerController@delete');
+        Route::post('/manpower/{manpowerId}', 'ManpowerController@update');
+
+        // pooling
+        Route::get('/poolingManpower', 'PoolingManpowerController@index');
     });
 });

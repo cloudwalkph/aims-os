@@ -14,13 +14,13 @@
 	                    <a href="/hr"><i class="fa fa-dashboard"></i> HR Department</a>
 	                </li>
 	                <li class="active">
-	                    <i class="fa fa-dashboard"></i> Manpower
+	                    <i class="fa fa-dashboard"></i> Manpower Pooling
 	                </li>
 	            </ol>
             </div>
             {{-- breadcrumb end --}}
 
-            <manpower></manpower>
+           <manpower-pooling></manpower-pooling>
 
         </div>
     </div>

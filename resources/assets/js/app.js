@@ -59,11 +59,18 @@ Vue.component('department-involvement-form', require('./components/job-orders/in
 
 Vue.component('project-status-table', require('./components/job-orders/project-status/project-status-table.vue'));
 
+Vue.component('animation-details-table', require('./components/job-orders/animation-details/animation-details-table.vue'));
+
+Vue.component('plan-jo-table', require('./components/plans/plans-jo-table.vue'));
+
+Vue.component('plan-animation-table', require('./components/plans/animation-details-table.vue'));
+
 require('./components/inventory');
 
 /* HR */
 Vue.component('hraccount', require('./components/HR/hr-account.vue'));
 Vue.component('manpower', require('./components/HR/manpower.vue'));
+Vue.component('manpower-pooling', require('./components/HR/pooling.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -1,15 +1,15 @@
 <template>
     <div>
-        <ongoing-filter-bar></ongoing-filter-bar>
+        <plan-filter-bar></plan-filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/creatives"
+                  api-url="/api/v1/job-orders"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
                   :sort-order="sortOrder"
                   :multi-sort="true"
-                  detail-row-component="my-detail-row"
                   :append-params="moreParams"
+                  @vuetable:cell-clicked="onCellClicked"
                   @vuetable:pagination-data="onPaginationData"
         ></vuetable>
         <div class="vuetable-pagination">
@@ -22,11 +22,8 @@
                                  @vuetable-pagination:change-page="onChangePage"
             ></vuetable-pagination>
         </div>
-
-        <assign-user-modal></assign-user-modal>
     </div>
 </template>
-
 
 <script>
     import accounting from 'accounting'
@@ -37,13 +34,11 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import OngoingFilterBar from './commons/FilterBar'
-    import AssignUserModal from './commons/form.vue'
+    import FilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
-    Vue.component('ongoing-custom-actions', CustomActions)
-    Vue.component('ongoing-filter-bar', OngoingFilterBar)
-    Vue.component('assign-user-modal', AssignUserModal)
+    Vue.component('plan-jo-custom-actions', CustomActions)
+    Vue.component('plan-filter-bar', FilterBar)
 
     export default {
         components: {
@@ -51,7 +46,7 @@
             VuetablePagination,
             VuetablePaginationInfo,
         },
-        data() {
+        data () {
             return {
                 fields: [
                     {
@@ -68,7 +63,7 @@
                     {
                         name: 'job_order_no',
                         sortField: 'job_order_no',
-                        title: 'Job Order No'
+                        title: 'Job Order #'
                     },
                     {
                         name: 'project_name',
@@ -76,24 +71,15 @@
                         title: 'Project Name'
                     },
                     {
-                        name: 'description',
-                        sortField: 'description',
-                        title: 'Description'
+                        name: 'total_traffic_count',
+                        sortField: 'total_traffic_count',
+                        title: 'Total Traffic Count',
                     },
                     {
-                        name: 'deadline',
-                        sortField: 'deadline',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Deadline'
-                    },
-                    {
-                        name: 'assigned_person',
-                        sortField: 'assigned_person',
-                        title: 'Assigned Person',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center'
+                        name: 'status',
+                        sortField: 'status',
+                        title: 'Status',
+                        callback: 'allcap'
                     },
                     {
                         name: 'created_at',
@@ -104,7 +90,7 @@
                         title: 'Created Date'
                     },
                     {
-                        name: '__component:ongoing-custom-actions',
+                        name: '__component:plan-jo-custom-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'
@@ -131,12 +117,15 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'deadline', sortField: 'deadline', direction: 'asc'}
+                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
                 ],
                 moreParams: {}
             }
         },
         methods: {
+            allcap (value) {
+                return value.toUpperCase()
+            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
@@ -148,6 +137,10 @@
             },
             onChangePage (page) {
                 this.$refs.vuetable.changePage(page)
+            },
+            onCellClicked (data, field, event) {
+                console.log('cellClicked: ', field.name)
+                this.$refs.vuetable.toggleDetailRow(data.id)
             },
         },
         events: {

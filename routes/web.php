@@ -38,18 +38,9 @@ Route::group(['prefix' => 'ae'], function () {
         Route::post('/{joId}/mom', 'Front\AE\JobOrderController@saveJobOrderMOM');
         Route::post('/{joId}/details', 'Front\AE\JobOrderController@saveEventDetails');
         Route::post('/{joId}/animation', 'Front\AE\JobOrderController@saveAnimationDetails');
-        Route::post('/{joId}/departments', 'Front\AE\JobOrderController@saveDepartmentInvolve');
         Route::post('/{joId}/project-attachments', 'Front\AE\JobOrderController@uploadProjectAttachments');
         Route::get('/{joId}/project-attachments/{attachmentId}/download', 'Front\AE\JobOrderController@downloadAttachment');
 
-        // job orders manpower request
-        Route::post('/{joId}/manpowers-request', 'Front\AE\JobOrderController@saveManpower');
-
-        // job orders meal request
-        Route::post('/{joId}/meals-request', 'Front\AE\JobOrderController@saveMeal');
-
-        // job orders vehicle request
-        Route::post('/{joId}/vehicles-request', 'Front\AE\JobOrderController@saveVehicle');
     });
 
 });
@@ -92,6 +83,7 @@ Route::group(['prefix' => 'hr'], function () {
     Route::get('/', 'Front\HR\HumanResourcesController@index');
     Route::get('/schedules', 'Front\HR\SchedulerController@index');
     Route::get('/manpower', 'Front\HR\ManpowerController@index');
+    Route::get('/manpower_pooling', 'Front\HR\PoolingController@index');
 });
 
 
