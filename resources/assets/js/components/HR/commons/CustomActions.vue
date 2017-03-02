@@ -32,6 +32,11 @@
                     })
                 }
 
+                if(action === 'edit-item')
+                {
+                    this.$events.fire('edit-table', data);
+                }
+
             }
         }
     }
