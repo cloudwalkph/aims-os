@@ -42,7 +42,7 @@
 
             <div class="box box-info">
                 <div class="box-body">
-                    <div class="col-md-2">
+                    <div class="col-md-2 hide">
                         <div class="form-group">
                             <div class="col-sm-12">
 
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 hide">
                         <div class="form-group">
                             <div class="col-sm-12">
 
@@ -96,39 +96,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 venues" style="margin-top: 20px">
-                        <table class="table table-striped" id="venueMasterList">
-                            <thead>
-                            <tr>
-                                <th>Category</th>
-                                <th>Subcategory</th>
-                                <th>Area</th>
-                                <th>Subarea</th>
-                                <th>Venue</th>
-                                <th>Address</th>
-                                <th>LSM</th>
-                                <th> Rate Min </th>
-                                <th> Rate Max</th>
-                                <th> EFT Combined</th>
-                                <th> EFT Male</th>
-                                <th> EFT Female</th>
-                                <th> Actual Hits Male</th>
-                                <th> Actual Hits Female</th>
-                                <th> Dry Sampling - Male</th>
-                                <th> Dry Sampling - Female</th>
-                                <th> Experiential Sampling - Male</th>
-                                <th> Experiential Sampling - Female</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Remarks</th>
-                                <th>Images</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-
-                            </tbody>
-                        </table>
+                        <venues-table></venues-table>
                     </div>
 
                     <div class="col-md-12">

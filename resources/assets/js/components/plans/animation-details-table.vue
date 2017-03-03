@@ -56,11 +56,6 @@
                         dataClass: 'text-right'
                     },
                     {
-                        name: '__checkbox',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                    },
-                    {
                         name: 'particular',
                         sortField: 'particular',
                         title: 'Particulars'
