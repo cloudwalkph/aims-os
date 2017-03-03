@@ -23685,7 +23685,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/node_modules/vuetable-2/src/components/Vuetable.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/Vuetable.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Vuetable.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -24138,7 +24138,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/node_modules/vuetable-2/src/components/VuetablePagination.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePagination.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetablePagination.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -24172,7 +24172,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfo.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfo.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetablePaginationInfo.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -35411,7 +35411,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/CalendarScheduler.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/CalendarScheduler.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CalendarScheduler.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -35445,7 +35445,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/clients/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -42142,8 +42142,18 @@ module.exports = {
         }
     },
     methods: {
-        removeDelivery: function removeDelivery(indexTrace, indexDelivery) {
-            this.traces[indexTrace].deliveries.splice(indexDelivery, 1);
+        balance: function balance(indexTrace, indexD) {
+            var product_id = this.deliveries[indexTrace].product_id;
+            var qty = 0;
+            for (var p = 0; p < this.products.length; p++) {
+                if (this.products[p].id == product_id) {
+                    qty = this.products[p].quantity;
+                }
+            }
+            for (var d = 0; d <= indexD; d++) {
+                qty = qty - this.deliveries[indexTrace].data[d].delivered;
+            }
+            return qty;
         },
         convertDate: function convertDate(dateValue) {
             var milliseconds = Date.parse(dateValue);
@@ -42152,33 +42162,23 @@ module.exports = {
         },
         handleSubmit: function handleSubmit(e) {
             var workIndex = e.target.getAttribute('workIndex');
-            var lastDeliveryIndex = this.traces[workIndex].deliveries.length - 1;
-            var currBalance = this.traces[workIndex].productsOnHand;
-            if (this.traces[workIndex].deliveries.length) {
-                var currBalance = this.traces[workIndex].deliveries[lastDeliveryIndex].balance;
-            }
             var deliveryVal = e.target.value;
-            var nextBalance = currBalance - deliveryVal;
-            this.traces[workIndex].deliveries.push({
+            this.deliveries[workIndex].data.push({
                 date: this.dateToday,
-                delivered: deliveryVal,
-                balance: nextBalance
+                delivered: deliveryVal
             });
-            e.target.value = '';
+        },
+        removeDelivery: function removeDelivery(indexTrace, indexDelivery) {
+            this.deliveries[indexTrace].data.splice(indexDelivery, 1);
         }
     },
-    props: ['products', 'traces']
+    props: ['products', 'deliveries']
 };
 
 /***/ }),
 /* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
-//
-//
-//
-//
-//
 //
 //
 //
@@ -42228,6 +42228,19 @@ var WorkDetails = __webpack_require__(336);
 var InventoryList = __webpack_require__(332);
 
 module.exports = {
+    created: function created() {
+        this.$http.get('/api/v1/job-orders/department').then(function (response) {
+            this.inventoryData.jobOrders = response.data;
+        }).catch(function (e) {
+            console.log(e);
+        });
+
+        this.$http.get('/api/v1/users/5').then(function (response) {
+            this.inventoryData.users = response.data;
+        }).catch(function (e) {
+            console.log(e);
+        });
+    },
     data: function data() {
         return {
             currentView: Home,
@@ -42237,87 +42250,93 @@ module.exports = {
                 page: 'Inventory Department'
             }],
             joID: null,
-            InventoryData: {
-                users: [{
-                    userID: 1,
-                    label: 'Alleo'
-                }, {
-                    userID: 2,
-                    label: 'Kim'
-                }],
-                projects: [{
-                    projectID: 1,
-                    projectName: 'Ponds Activations'
-                }, {
-                    projectID: 2,
-                    projectName: 'Ponds Activations 2'
-                }],
+            inventoryData: {
                 jobOrders: [{
-                    jobOrderNo: 1,
-                    projectID: 1,
+                    contract_no: null,
+                    created_at: "2017-02-27 03:11:36",
+                    deleted_at: null,
+                    do_contract_no: null,
+                    id: 2,
+                    job_order_no: "QWERTY1234",
+                    project_name: "Sample Project Name",
+                    project_types: [{
+                        name: "Sampling"
+                    }],
+                    status: "pending",
+                    user_id: 5
+                }],
+                users: [{
+                    id: 5,
+                    department_id: 5,
+                    user_role_id: 1,
+                    profile: {
+                        first_name: 'Juan',
+                        middle_name: '',
+                        last_name: 'Dela Cruz'
+                    }
+                }],
+                products: [{
+                    id: 1,
+                    job_order_id: 2,
+                    product_code: 'PONDS-MEN',
+                    name: 'Product 1',
+                    quantity: 1000000,
+                    expiration_date: '2017-02-27'
+                }, {
+                    id: 2,
+                    job_order_id: 2,
+                    product_code: 'PONDS-WOMEN',
+                    name: 'Product 2',
+                    quantity: 2000000,
+                    expiration_date: '2017-02-27'
+                }],
+                jobs: [{
+                    id: 1,
+                    job_order_id: 2,
                     description: 'description',
-                    deadline: '1/11/2017',
-                    assignedPerson: 1,
-                    traces: [{
-                        productID: 1,
-                        productsOnHand: '1000000',
-                        deliveries: [{
-                            date: 'Thu Dec 22 2016',
-                            delivered: 100000,
-                            balance: 900000
+                    deadline: '2017-02-17'
+                }],
+                assignedPeople: [{
+                    inventory_job_id: 1,
+                    user_id: 5
+                }],
+                workDetails: [{
+                    inventory_job_id: 1,
+                    deliveries: [{
+                        product_id: 1,
+                        data: [{
+                            date: '2016-12-22',
+                            delivered: 500000
                         }, {
-                            date: 'Fri Dec 23 2016',
-                            delivered: 100000,
-                            balance: 800000
+                            date: '2016-12-23',
+                            delivered: 250000
                         }, {
-                            date: 'Sat Dec 24 2016',
-                            delivered: 100000,
-                            balance: 700000
-                        }],
-                        releases: [{
-                            date: 'Fri Dec 23 2016',
-                            productsOnHand: '100000',
+                            date: '2016-12-24',
+                            delivered: 100000
+                        }]
+                    }, {
+                        product_id: 2,
+                        data: [{
+                            date: '2016-12-22',
+                            delivered: 200000
+                        }]
+                    }],
+                    releases: [{
+                        product_id: 1,
+                        data: [{
+                            date: '2016-12-23',
+                            productsOnHand: 100000,
                             disposed: 50000,
                             returned: 0,
                             status: 'Approved'
                         }, {
-                            date: 'Sat Dec 24 2016',
+                            date: '2016-12-24',
                             productsOnHand: 150000,
                             disposed: 0,
                             returned: 0,
                             status: 'Pending'
                         }]
-                    }, {
-                        productID: 2,
-                        productsOnHand: '1000000',
-                        deliveries: [],
-                        releases: []
                     }]
-                }, {
-                    jobOrderNo: 2,
-                    projectID: 2,
-                    description: 'description 2',
-                    deadline: '1/11/2017',
-                    assignedPerson: 2,
-                    traces: [{
-                        productID: 3,
-                        productsOnHand: '1000000',
-                        deliveries: [],
-                        releases: []
-                    }]
-                }],
-                products: [{
-                    productID: 1,
-                    jobOrderNo: 1,
-                    itemName: 'Ponds Men'
-                }, {
-                    productID: 2,
-                    jobOrderNo: 1,
-                    itemName: 'Ponds Women'
-                }, {
-                    productID: 3,
-                    jobOrderNo: 2,
-                    itemName: 'Ponds 2 Women'
                 }]
             }
         };
@@ -42415,14 +42434,7 @@ module.exports = {
 //
 
 module.exports = {
-    data: function data() {
-        return {
-            products: [{
-                itemName: '',
-                productsOnHand: ''
-            }]
-        };
-    }
+    props: ['propData']
 };
 
 /***/ }),
@@ -42524,29 +42536,34 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
 
 var CreateInventoryModal = __webpack_require__(338);
 
 module.exports = {
-    data: function data() {
-        return {
-            products: [{
-                jobOrderNo: 2006456435,
-                projectName: 'Ponds Activations',
-                itemName: 'Ponds Men',
-                productsOnHand: '250000'
-            }]
-        };
-    },
     components: {
         CreateInventoryModal: CreateInventoryModal
-    }
+    },
+    props: ['propData']
 };
 
 /***/ }),
 /* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -42602,6 +42619,13 @@ module.exports = {
     components: {
         CreateJobModal: CreateJobModal
     },
+    methods: {
+        convertDate: function convertDate(dateVal) {
+            var milliseconds = Date.parse(dateVal);
+            var d = new Date(milliseconds);
+            return d.toDateString();
+        }
+    },
     props: ['propData']
 };
 
@@ -42609,6 +42633,8 @@ module.exports = {
 /* 195 */
 /***/ (function(module, exports) {
 
+//
+//
 //
 //
 //
@@ -42727,13 +42753,30 @@ module.exports = {
             return d.toDateString();
         }
     },
-    props: ['products', 'traces']
+    methods: {
+        convertDate: function convertDate(dateValue) {
+            var milliseconds = Date.parse(dateValue);
+            var d = new Date(milliseconds);
+            return d.toDateString();
+        }
+    },
+    props: ['products', 'releases']
 };
 
 /***/ }),
 /* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -42797,6 +42840,13 @@ module.exports = {
 /* 198 */
 /***/ (function(module, exports) {
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -42961,45 +43011,100 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 module.exports = {
+    computed: {
+        joOptions: function joOptions() {
+            var joOptions = [];
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.propData.jobOrders[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var jo = _step.value;
+
+                    joOptions.push({ label: jo.job_order_no + ' : ' + jo.project_name, value: jo.id });
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return joOptions;
+        },
+        userOptions: function userOptions() {
+            var userOptions = [];
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+                for (var _iterator2 = this.propData.users[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var user = _step2.value;
+
+                    userOptions.push({ label: user.profile.first_name + ' ' + user.profile.last_name, value: user.id });
+                }
+            } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
+                    }
+                } finally {
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
+                    }
+                }
+            }
+
+            return userOptions;
+        }
+    },
     data: function data() {
         return {
-            event_datetime: ''
+            selected_job_order: null,
+            selected_user: null
         };
     },
     methods: {
-        inputChange: function inputChange() {},
-        handleClick: function handleClick() {},
         handleSubmit: function handleSubmit(e) {
             var form = $(e.target)[0];
-            var d = Date.parse(form.deadline.value);
-            var d = new Date(d);
+            console.log(form);
             // if(d.getHours() == 0) {
             //     d.setHours(8);
             // }
-            created_job_id = this.propData.jobOrders.length + 1;
+            var created_job_id = this.propData.jobOrders.length + 1;
 
-            this.propData.jobOrders.push({
-                jobOrderID: created_job_id,
-                projectID: form.projectID.value,
+            this.propData.jobs.push({
+                id: created_job_id,
+                job_order_id: this.selected_job_order,
                 description: form.description.value,
-                deadline: d.getHours(),
-                assignedPerson: form.user_id.value
+                deadline: form.deadline.value
             });
+            this.propData.assignedPeople.push({
+                inventory_job_id: created_job_id,
+                user_id: this.selected_user
+            });
+        },
+        inputChange: function inputChange(e) {},
+        joSelected: function joSelected(e) {
+            this.selected_job_order = e.value;
+        },
+        userSelected: function userSelected(e) {
+            this.selected_user = e.value;
         }
     },
     props: ['propData']
@@ -83487,7 +83592,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfoMixin.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfoMixin.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -83520,7 +83625,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationMixin.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationMixin.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -83553,7 +83658,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/AdminCalendarScheduler.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/AdminCalendarScheduler.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AdminCalendarScheduler.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83587,7 +83692,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/Example.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/Example.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83625,7 +83730,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/HR/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83659,7 +83764,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/HR/hr-account.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/hr-account.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] hr-account.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83697,7 +83802,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/HR/manpower.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/manpower.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] manpower.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83731,7 +83836,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/HR/pooling.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/pooling.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] pooling.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83769,7 +83874,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/agencies/agencies-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/agencies-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] agencies-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83807,7 +83912,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/agencies/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83845,7 +83950,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/agencies/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83879,7 +83984,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/agencies/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83917,7 +84022,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/manpowerType/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83955,7 +84060,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/manpowerType/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -83989,7 +84094,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/manpowerType/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84027,7 +84132,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/manpowerType/manpower-type-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/manpower-type-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] manpower-type-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84065,7 +84170,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/users/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84103,7 +84208,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/users/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84137,7 +84242,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/users/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84175,7 +84280,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/admin/users/users-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/users-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] users-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84213,7 +84318,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/clients/clients-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/clients-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] clients-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84251,7 +84356,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/clients/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84285,7 +84390,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/clients/commons/DetailRow.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/DetailRow.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DetailRow.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84323,7 +84428,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/clients/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84361,7 +84466,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/creatives/ongoing/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84399,7 +84504,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/creatives/ongoing/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84433,7 +84538,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/creatives/ongoing/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84471,7 +84576,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/creatives/ongoing/ongoing-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/ongoing-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ongoing-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84509,7 +84614,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84547,7 +84652,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84585,7 +84690,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/creatives/work-in-progress/work-in-progress-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/work-in-progress/work-in-progress-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] work-in-progress-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84619,7 +84724,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/DeliveryTracking.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/DeliveryTracking.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DeliveryTracking.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84653,7 +84758,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/Index.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/Index.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Index.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84687,7 +84792,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/InternalInventory.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/InternalInventory.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] InternalInventory.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84721,7 +84826,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/Inventory.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/Inventory.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Inventory.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84755,7 +84860,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/InventoryList.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/InventoryList.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] InventoryList.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84789,7 +84894,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/OnGoingProjects.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/OnGoingProjects.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] OnGoingProjects.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84823,7 +84928,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/Products.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/Products.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Products.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84857,7 +84962,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/ReleaseTracking.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/ReleaseTracking.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ReleaseTracking.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84891,7 +84996,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/WorkDetails.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/WorkDetails.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] WorkDetails.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84925,7 +85030,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/WorkInProgress.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/WorkInProgress.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] WorkInProgress.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84959,7 +85064,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/modals/CreateInventory.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/modals/CreateInventory.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CreateInventory.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -84993,7 +85098,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/inventory/modals/CreateJob.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/modals/CreateJob.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CreateJob.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85027,7 +85132,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/add-ae.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/add-ae.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] add-ae.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85065,7 +85170,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/animation-details/animation-details-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/animation-details-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animation-details-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85103,7 +85208,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/animation-details/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85141,7 +85246,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/animation-details/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85175,7 +85280,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/animation-details/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85213,7 +85318,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85247,7 +85352,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/commons/DetailRow.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/commons/DetailRow.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DetailRow.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85285,7 +85390,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85319,7 +85424,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/create-job-order.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/create-job-order.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] create-job-order.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85357,7 +85462,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/involvement/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85395,7 +85500,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/involvement/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85429,7 +85534,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/involvement/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85467,7 +85572,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/involvement/involvement-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/involvement-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] involvement-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85505,7 +85610,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/jo-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/jo-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] jo-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85543,7 +85648,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/project-status/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-status/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85581,7 +85686,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/project-status/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-status/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85619,7 +85724,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/project-status/project-status-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-status/project-status-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] project-status-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85657,7 +85762,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85695,7 +85800,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85729,7 +85834,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85767,7 +85872,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/manpower/manpower-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/manpower-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] manpower-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85805,7 +85910,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85843,7 +85948,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85877,7 +85982,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85915,7 +86020,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/meal/meal-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/meal-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] meal-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85953,7 +86058,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -85991,7 +86096,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86025,7 +86130,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86063,7 +86168,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/job-orders/requests/vehicle/vehicle-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/vehicle-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] vehicle-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86101,7 +86206,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/plans/animation-details-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/animation-details-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animation-details-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86139,7 +86244,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/plans/animation-details/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/animation-details/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86177,7 +86282,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/plans/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86215,7 +86320,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/plans/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86253,7 +86358,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/plans/plans-jo-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/plans-jo-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] plans-jo-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86291,7 +86396,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/venues/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86329,7 +86434,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/venues/commons/FilterBar.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86363,7 +86468,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/venues/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86401,7 +86506,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/alleoindong/Public/projects/medix/aims-os/resources/assets/js/components/venues/venues-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/venues-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] venues-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -86766,7 +86871,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
-  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.traces), function(trace, index) {
+  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.releases), function(release, index) {
     return _c('div', {
       staticClass: "col-sm-12",
       staticStyle: {
@@ -86778,16 +86883,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "htmlFor": "itemname"
       }
     }, _vm._l((_vm.products), function(product) {
-      return (trace.productID == product.productID) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.itemName) + "\n            ")]) : _vm._e()
+      return (release.productID == product.productID) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.itemName) + "\n            ")]) : _vm._e()
     })), _vm._v(" "), _c('label', {
       staticClass: "col-sm-4 control-label",
       attrs: {
         "htmlFor": "quantity"
       }
-    }, [_vm._v("Expected Quantity: " + _vm._s(trace.productOnHand))]), _vm._v(" "), _c('table', {
+    }, _vm._l((_vm.products), function(product) {
+      return (release.product_id == product.id) ? _c('span', [_vm._v("\n                Expected Quantity: " + _vm._s(product.quantity) + "\n            ")]) : _vm._e()
+    })), _vm._v(" "), _c('table', {
       staticClass: "table table-striped table-bordered"
-    }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((trace.releases), function(r) {
-      return _c('tr', [_c('td', [_vm._v(_vm._s(r.date))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.productsOnHand))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.disposed))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.returned))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.status))]), _vm._v(" "), _vm._m(2, true)])
+    }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((release.data), function(r) {
+      return _c('tr', [_c('td', [_vm._v(_vm._s(_vm.convertDate(r.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.productsOnHand))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.disposed))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.returned))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.status))]), _vm._v(" "), _vm._m(2, true)])
     }), _vm._v(" "), _c('tr', [_c('td', [_vm._v(_vm._s(_vm.dateToday))]), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('td', {
       staticClass: "text-center"
     })])], 2)])])
@@ -87109,7 +87216,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
-  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.traces), function(trace, indexTrace) {
+  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.deliveries), function(delivery, indexTrace) {
     return _c('div', {
       staticClass: "col-sm-12",
       staticStyle: {
@@ -87121,16 +87228,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "htmlFor": "itemname"
       }
     }, _vm._l((_vm.products), function(product) {
-      return (trace.productID == product.productID) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.itemName) + "\n            ")]) : _vm._e()
+      return (delivery.product_id == product.id) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.id) + "\n            ")]) : _vm._e()
     })), _vm._v(" "), _c('label', {
       staticClass: "col-sm-4 control-label",
       attrs: {
         "htmlFor": "quantity"
       }
-    }, [_vm._v("Expected Quantity: " + _vm._s(trace.productsOnHand))]), _vm._v(" "), _c('table', {
+    }, _vm._l((_vm.products), function(product) {
+      return (delivery.product_id == product.id) ? _c('span', [_vm._v("\n                Expected Quantity: " + _vm._s(product.quantity) + "\n            ")]) : _vm._e()
+    })), _vm._v(" "), _c('table', {
       staticClass: "table table-striped table-bordered"
-    }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((trace.deliveries), function(delivery, indexDeliveries) {
-      return _c('tr', [_c('td', [_vm._v(_vm._s(_vm.convertDate(delivery.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(delivery.delivered))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(delivery.balance))]), _vm._v(" "), _c('td', {
+    }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((delivery.data), function(d, indexD) {
+      return _c('tr', [_c('td', [_vm._v(_vm._s(_vm.convertDate(d.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(d.delivered))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.balance(indexTrace, indexD)))]), _vm._v(" "), _c('td', {
         staticClass: "text-center"
       }, [_c('i', {
         staticClass: "fa fa-check-circle-o fa-2x text-success"
@@ -87138,7 +87247,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "fa fa-times-circle-o fa-2x text-danger",
         on: {
           "click": function($event) {
-            _vm.removeDelivery(indexTrace, indexDeliveries)
+            _vm.removeDelivery(indexTrace, indexD)
           }
         }
       })])])
@@ -87278,55 +87387,63 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
-  }, _vm._l((_vm.propData.jobOrders), function(jobOrder) {
-    return (jobOrder.jobOrderNo == _vm.propJobOrderID) ? _c('div', {
+  }, _vm._l((_vm.propData.workDetails), function(workDetail) {
+    return (workDetail.inventory_job_id == _vm.propJobOrderID) ? _c('div', {
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col-sm-12"
-    }, [_c('div', {
-      staticClass: "col-md-8"
-    }, [_c('label', {
-      staticClass: "control-label",
-      attrs: {
-        "htmlFor": "joNumber"
-      }
-    }, [_vm._v("Job Order Number : " + _vm._s(jobOrder.jobOrderNo))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-4 text-right"
-    }, [_c('label', {
-      staticClass: "control-label",
-      attrs: {
-        "htmlFor": "assigned"
-      }
-    }, _vm._l((_vm.propData.users), function(user) {
-      return (jobOrder.assignedPerson == user.userID) ? _c('span', [_vm._v("\n                            Assigned Persons : " + _vm._s(user.label) + "\n                        ")]) : _vm._e()
-    }))]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-8"
-    }, [_c('label', {
-      staticClass: "control-label",
-      attrs: {
-        "htmlFor": "projectName"
-      }
-    }, _vm._l((_vm.propData.projects), function(project) {
-      return (jobOrder.projectID == project.projectID) ? _c('span', [_vm._v("\n                            Project Name : " + _vm._s(project.projectName) + "\n                        ")]) : _vm._e()
-    }))]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-4 text-right"
-    }, [_c('label', {
-      staticClass: "control-label",
-      attrs: {
-        "htmlFor": "description"
-      }
-    }, [_vm._v("\n                        Description : " + _vm._s(jobOrder.description) + "\n                    ")])])]), _vm._v(" "), _c('div', {
+    }, _vm._l((_vm.propData.jobs), function(job) {
+      return (workDetail.inventory_job_id = job.id) ? _c('div', {
+        staticClass: "row"
+      }, [_c('div', {
+        staticClass: "col-md-8"
+      }, [_c('label', {
+        staticClass: "control-label",
+        attrs: {
+          "htmlFor": "joNumber"
+        }
+      }, _vm._l((_vm.propData.jobOrders), function(jobOrder) {
+        return (job.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                Job Order Number : " + _vm._s(jobOrder.job_order_no) + "\n                            ")]) : _vm._e()
+      }))]), _vm._v(" "), _c('div', {
+        staticClass: "col-md-4 text-right"
+      }, [_c('label', {
+        staticClass: "control-label",
+        attrs: {
+          "htmlFor": "assigned"
+        }
+      }, _vm._l((_vm.propData.assignedPeople), function(assigned_person) {
+        return (job.id == assigned_person.inventory_job_id) ? _c('span', _vm._l((_vm.propData.users), function(user) {
+          return (assigned_person.user_id == user.id) ? _c('span', [_vm._v("\n                                    Assigned Persons : " + _vm._s(user.profile.first_name) + "\n                                ")]) : _vm._e()
+        })) : _vm._e()
+      }))]), _vm._v(" "), _c('div', {
+        staticClass: "col-md-8"
+      }, [_c('label', {
+        staticClass: "control-label",
+        attrs: {
+          "htmlFor": "projectName"
+        }
+      }, _vm._l((_vm.propData.jobOrders), function(jobOrder) {
+        return (job.job_order_id = jobOrder.id) ? _c('span', [_vm._v("\n                                Project Name : " + _vm._s(jobOrder.project_name) + "\n                            ")]) : _vm._e()
+      }))]), _vm._v(" "), _c('div', {
+        staticClass: "col-md-4 text-right"
+      }, [_c('label', {
+        staticClass: "control-label",
+        attrs: {
+          "htmlFor": "description"
+        }
+      }, [_vm._v("\n                                Description : " + _vm._s(job.description) + "\n                            ")])])]) : _vm._e()
+    })), _vm._v(" "), _c('div', {
       staticClass: "col-sm-12"
     }, [_c('delivery-tracking', {
       attrs: {
-        "traces": jobOrder.traces,
+        "deliveries": workDetail.deliveries,
         "products": _vm.propData.products
       }
     })], 1), _vm._v(" "), _vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "col-sm-12"
     }, [_c('release-tracking', {
       attrs: {
-        "traces": jobOrder.traces,
+        "releases": workDetail.releases,
         "products": _vm.propData.products
       }
     })], 1)]) : _vm._e()
@@ -88687,10 +88804,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     tag: "component",
     attrs: {
       "openPage": _vm.openPage,
-      "propData": _vm.InventoryData,
+      "propData": _vm.inventoryData,
       "propJobOrderID": _vm.joID
     }
-  }), _vm._v(" "), _c('div')], 1)])
+  })], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('h1', {
     staticClass: "page-header"
@@ -91630,8 +91747,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "inventoryList"
     }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.products), function(product) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(product.jobOrderNo))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.projectName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.itemName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.productsOnHand))])])
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.propData.products), function(product) {
+    return _c('tr', [_c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
+      return (product.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                " + _vm._s(jobOrder.job_order_no) + "\n                            ")]) : _vm._e()
+    })), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.product_code))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.expiration_date))])])
   }))])])]), _vm._v(" "), _c('CreateInventoryModal')], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
@@ -91645,7 +91764,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-plus"
   }), _vm._v(" Create Inventory\n        ")])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("Job Order Number")]), _vm._v(" "), _c('th', [_vm._v("Inventory Code")]), _vm._v(" "), _c('th', [_vm._v("Iventory Name")]), _vm._v(" "), _c('th', [_vm._v("Expiration Date")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Job Order Number")]), _vm._v(" "), _c('th', [_vm._v("Inventory Code")]), _vm._v(" "), _c('th', [_vm._v("Inventory Name")]), _vm._v(" "), _c('th', [_vm._v("Expiration Date")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -91843,23 +91962,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "josList"
     }
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.propData.jobOrders), function(joborder) {
-    return _c('tr', [_c('td', [_c('a', {
-      attrs: {
-        "href": "#",
-        "pageID": "work-details",
-        "joID": joborder.jobOrderNo
-      },
-      on: {
-        "click": function($event) {
-          $event.preventDefault();
-          _vm.openPage($event)
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.propData.jobs), function(job) {
+    return _c('tr', [_c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
+      return (job.job_order_id == jobOrder.id) ? _c('span', [_c('a', {
+        attrs: {
+          "href": "#",
+          "pageID": "work-details",
+          "joID": job.id
+        },
+        on: {
+          "click": function($event) {
+            $event.preventDefault();
+            _vm.openPage($event)
+          }
         }
-      }
-    }, [_vm._v("\n                                " + _vm._s(joborder.jobOrderNo) + "\n                            ")])]), _vm._v(" "), _c('td', _vm._l((_vm.propData.projects), function(project) {
-      return (joborder.projectID == project.projectID) ? _c('div', [_vm._v("\n                                " + _vm._s(project.projectName) + "\n                            ")]) : _vm._e()
-    })), _vm._v(" "), _c('td', _vm._l((_vm.propData.users), function(user) {
-      return (joborder.assignedPerson == user.userID) ? _c('div', [_vm._v("\n                                " + _vm._s(user.label) + "\n                            ")]) : _vm._e()
+      }, [_vm._v("\n                                    " + _vm._s(jobOrder.job_order_no) + "\n                                ")])]) : _vm._e()
+    })), _vm._v(" "), _c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
+      return (job.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                " + _vm._s(jobOrder.project_name) + "\n                            ")]) : _vm._e()
+    })), _vm._v(" "), _c('td', _vm._l((_vm.propData.assignedPeople), function(assigned_person) {
+      return (job.id == assigned_person.inventory_job_id) ? _c('span', _vm._l((_vm.propData.users), function(user) {
+        return (assigned_person.user_id == user.id) ? _c('span', [_vm._v("\n                                    " + _vm._s(user.profile.first_name) + "\n                                ")]) : _vm._e()
+      })) : _vm._e()
     }))])
   }))])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -91966,10 +92089,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "productsList"
     }
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.propData.products), function(product, index) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(product.jobOrderNo))]), _vm._v(" "), _c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
-      return (product.jobOrderNo == jobOrder.jobOrderNo) ? _c('div', _vm._l((_vm.propData.projects), function(project) {
-        return (jobOrder.projectID == project.projectID) ? _c('div', [_vm._v("\n                                " + _vm._s(project.projectName) + "\n                            ")]) : _vm._e()
-      })) : _vm._e()
+    return _c('tr', [_c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
+      return (product.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                            " + _vm._s(jobOrder.job_order_no) + "\n                        ")]) : _vm._e()
+    })), _vm._v(" "), _c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
+      return (product.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                            " + _vm._s(jobOrder.project_name) + "\n                        ")]) : _vm._e()
     })), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.itemName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.productsOnHand))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -92326,19 +92449,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "job_order_id"
     }
-  }, [_vm._v("Job Order Number")]), _vm._v(" "), _c('select', {
-    staticClass: "form-control",
+  }, [_vm._v("Job Order Number")]), _vm._v(" "), _c('v-select', {
     attrs: {
-      "id": "job_order_id",
-      "name": "job_order_id"
+      "on-change": _vm.joSelected,
+      "options": _vm.joOptions
     }
-  }, _vm._l((_vm.propData.projects), function(jobOrder) {
-    return _c('option', {
-      domProps: {
-        "value": jobOrder.projectID
-      }
-    }, [_vm._v("\n                                    " + _vm._s(jobOrder.projectName) + "\n                                ")])
-  }))]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "col-md-12 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
@@ -92374,19 +92490,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "user_id"
     }
-  }, [_vm._v("Users")]), _vm._v(" "), _c('select', {
-    staticClass: "form-control",
+  }, [_vm._v("Users")]), _vm._v(" "), _c('v-select', {
     attrs: {
-      "id": "user_id",
-      "name": "user_id"
+      "on-change": _vm.userSelected,
+      "options": _vm.userOptions
     }
-  }, _vm._l((_vm.propData.users), function(user) {
-    return _c('option', {
-      domProps: {
-        "value": user.id
-      }
-    }, [_vm._v(_vm._s(user.label))])
-  }))])])])]), _vm._v(" "), _vm._m(1)])])])
+  })], 1)])])]), _vm._v(" "), _vm._m(1)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header"
@@ -92450,13 +92559,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "projectList"
     }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(jobOrder.jobOrderNo))]), _vm._v(" "), _vm._l((_vm.propData.projects), function(project) {
-      return (jobOrder.projectID == project.projectID) ? _c('td', [_vm._v(_vm._s(project.projectName) + "\n                        ")]) : _vm._e()
-    }), _vm._v(" "), _c('td', [_vm._v(_vm._s(jobOrder.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(jobOrder.deadline))]), _vm._v(" "), _vm._l((_vm.propData.users), function(user) {
-      return (user.userID == jobOrder.assignedPerson) ? _c('td', [_vm._v(_vm._s(user.label) + "\n                        ")]) : _vm._e()
-    })], 2)
-  }))])])]), _vm._v(" "), _c('CreateJobModal', {
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.propData.jobs), function(job) {
+    return _c('tr', [_c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
+      return (job.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                " + _vm._s(jobOrder.job_order_no) + "\n                            ")]) : _vm._e()
+    })), _vm._v(" "), _c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
+      return (job.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                " + _vm._s(jobOrder.project_name) + "\n                            ")]) : _vm._e()
+    })), _vm._v(" "), _c('td', [_vm._v(_vm._s(job.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.convertDate(job.deadline)))]), _vm._v(" "), _c('td', _vm._l((_vm.propData.assignedPeople), function(assigned_person) {
+      return (assigned_person.inventory_job_id == job.id) ? _c('span', _vm._l((_vm.propData.users), function(user) {
+        return (assigned_person.user_id == user.id) ? _c('span', [_vm._v("\n                                    " + _vm._s(user.profile.first_name) + "\n                                ")]) : _vm._e()
+      })) : _vm._e()
+    }))])
+  }))])])]), _vm._v(" "), _c("create-job-modal", {
+    tag: "component",
     attrs: {
       "propData": _vm.propData
     }
