@@ -44,28 +44,84 @@
                     </thead>
 
                     <tbody id="tbody_accounts">
-
-                        @foreach( $jos as $jo)
+                        @foreach( $results as $jo)
                         <tr>
-                            <td>{{$jo->job_order_no}}</td>
-                            <td><input class="" alt="28" placeholder="Contract No.">{{$jo->contract_no}}</td>
+                            <td>{{$jo['joId']}}</td>
+                            <td><input class="" alt="28" placeholder="Contract No.">{{$jo['coNo']}}</td>
                             <td>
-                                <ul class="no-bullet">
-                                    <li style="font-size:12px">Advertising, Acti Advertising</li>
-                                </ul>
+                                {{$jo['assigned']}}
                             </td>
-                            <td>{{$jo->project_name}}</td>
-                            <td>Von Cruz</td>
-                            <td>Dove</td>
-                            <td><button class="btn btn-primary tiny btnCE" data-toggle="modal" data-target="#modalCE" value="{{ $jo->job_order_no }}">CE</button></td>
-                            <td><button class="btn btn-primary tiny" data-toggle="modal" data-target="#modalDO" alt="28">Do</button></td>
-                            <td class="" align="center" style="text-align: center;"><input alt="28" type="date" placeholder="Date"> <label style="font-size:10px;">press enter to save</label></td>
-                            <td class="" align="center" style="text-align: center;"><button class="btn btn-primary" alt="28" data-toggle="modal" data-target="#modalInvoice">Invoice</button></td>
+                            <td>{{$jo['projName']}}</td>
+                            <td>{{$jo['contact']}}</td>
                             <td>
-                                <button class="btn btn-primary" alt="28" value="Paid" style="" data-toggle="modal" data-target="#modalPD">Unpaid</button>
+                                {{ $jo['brands'] }}
                             </td>
+
+                            @if( $jo['ceNo'] != null )
+
+                                <td>
+                                    <a href="{{ $jo['ceFile']  }}">{{ $jo['ceNo'] }}</a>
+                                </td>
+
+                            @else
+
+                                <td><button class="btn btn-primary tiny btnCE" data-toggle="modal" data-target="#modalCE" value="{{$jo['joId']}}">CE</button></td>
+
+                            @endif
+
+                            @if( $jo['doNo'] != null )
+
+                                <td>
+                                    <a href="{{ $jo['doFile']  }}">{{ $jo['doNo'] }}</a>
+                                </td>
+
+                            @else
+
+                                <td><button class="btn btn-primary tiny" data-toggle="modal" data-target="#modalDO" alt="28" value="{{$jo['joId']}}">Do</button></td>
+
+                            @endif
+
+                            @if( $jo['transmittal'] != null )
+
+                                <td>
+                                    {{ $jo['transmittal'] }}
+                                </td>
+
+                            @else
+
+                                <td class="" align="center" style="text-align: center;"><input alt="28" type="date" placeholder="Date" value="{{$jo['joId']}}"> <label style="font-size:10px;">press enter to save</label></td>
+
+                            @endif
+
+                            @if( $jo['invoiceNo'] != null )
+
+                                <td>
+                                    <a href="{{ $jo['invoiceFile']  }}">{{ $jo['invoiceNo'] }}</a>
+                                </td>
+
+                            @else
+
+                                <td class="" align="center" style="text-align: center;"><button class="btn btn-primary" alt="28" data-toggle="modal" data-target="#modalInvoice" value="{{$jo['joId']}}">Invoice</button></td>
+
+                            @endif
+
+                            @if( $jo['paidNo'] != null )
+
+                                <td>
+                                    <a href="{{ $jo['paidFile']  }}">{{ $jo['paidNo'] }}</a>
+                                </td>
+
+                            @else
+
+                                <td>
+                                    <button class="btn btn-primary" alt="28" value="Paid" style="" data-toggle="modal" data-target="#modalPD" value="{{$jo['joId']}}">Unpaid</button>
+                                </td>
+
+                            @endif
+
+
                             <td>
-                                <button class="btn btn-primary" value="" alt="28" style="" data-toggle="modal" data-target="#modalRemarks">Remarks</button>
+                                <button class="btn btn-primary" value="{{$jo['joId']}}" alt="28" style="" data-toggle="modal" data-target="#modalRemarks">Remarks</button>
                             </td>
                         </tr>
                         @endforeach
@@ -80,10 +136,10 @@
     <div class="modal fade" id="modalCE" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
-                <form action="/accounting/check" method="post">
+                <form action="/accounting/check" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" id="joID" name="joID" value="">
-                    <input type="hidden" id="ceType" name="ceType" value="ce">
+                    <input type="hidden" id="docType" name="docType" value="ce">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Upload CE</h4>
@@ -113,26 +169,31 @@
     <div class="modal fade" id="modalDO" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Upload DO</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="text" name="do_number" id="do_number" class="form-control" placeholder="DO number">
+                <form action="/accounting/check" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="hidden" id="joID" name="joID" value="">
+                    <input type="hidden" id="docType" name="docType" value="do">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Upload DO</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" name="do_number" id="do_number" class="form-control" placeholder="DO number">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="file" name="doFile" id="doFile" class="form-control">
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="file" name="doFile" id="doFile" class="form-control">
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Upload</button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Upload</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
