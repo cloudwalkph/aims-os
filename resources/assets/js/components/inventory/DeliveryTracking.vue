@@ -5,17 +5,17 @@
             <h3>Delivery Tracking</h3>
         </div>
 
-        <div 
-            class="col-sm-12" 
-            style="margin-top: 20px;" 
-            v-for="(trace, indexTrace) in traces"
-        >
+        <div class="col-sm-12" style="margin-top: 20px;" v-for="(delivery, indexTrace) in deliveries">
             <label htmlFor="itemname" class="col-sm-4 control-label">
-                <span v-for="product in products" v-if="trace.productID == product.productID">
-                    Item Name: {{product.itemName}}
+                <span v-for="product in products" v-if="delivery.product_id == product.id">
+                    Item Name: {{product.id}}
                 </span>
             </label>
-            <label htmlFor="quantity" class="col-sm-4 control-label">Expected Quantity: {{trace.productsOnHand}}</label>
+            <label htmlFor="quantity" class="col-sm-4 control-label">
+                <span v-for="product in products" v-if="delivery.product_id == product.id">
+                    Expected Quantity: {{product.quantity}}
+                </span>
+            </label>
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -28,13 +28,13 @@
 
                 <tbody>
 
-                    <tr v-for="(delivery, indexDeliveries) in trace.deliveries">
-                        <td>{{convertDate(delivery.date)}}</td>
-                        <td>{{delivery.delivered}}</td>
-                        <td>{{delivery.balance}}</td>
+                    <tr v-for="(d, indexD) in delivery.data">
+                        <td>{{convertDate(d.date)}}</td>
+                        <td>{{d.delivered}}</td>
+                        <td>{{balance(indexTrace, indexD)}}</td>
                         <td class="text-center">
                             <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
-                            <i class="fa fa-times-circle-o fa-2x text-danger" @click="removeDelivery(indexTrace, indexDeliveries)" />
+                            <i class="fa fa-times-circle-o fa-2x text-danger" @click="removeDelivery(indexTrace, indexD)" />
                         </td>
                     </tr>
 
@@ -45,7 +45,7 @@
                         </td>
                         <td><span></span></td>
                         <td class="text-center">
-                            
+
                         </td>
                     </tr>
                 </tbody>
@@ -58,37 +58,43 @@
 <script>
     module.exports = {
         computed: {
-            dateToday: function() {
+            dateToday: function () {
                 var d = new Date();
                 return d.toDateString();
             }
         },
         methods: {
-            removeDelivery: function(indexTrace, indexDelivery) {
-                this.traces[indexTrace].deliveries.splice(indexDelivery, 1);
+            balance: function (indexTrace, indexD) {
+                var product_id = this.deliveries[indexTrace].product_id;
+                var qty = 0;
+                for (var p = 0; p < this.products.length; p++) {
+                    if (this.products[p].id == product_id) {
+                        qty = this.products[p].quantity
+                    }
+                }
+                for (var d = 0; d <= indexD; d++) {
+                    qty = qty - this.deliveries[indexTrace].data[d].delivered;
+                }
+                return qty;
             },
-            convertDate: function(dateValue) {
+            convertDate: function (dateValue) {
                 var milliseconds = Date.parse(dateValue);
                 var d = new Date(milliseconds);
                 return d.toDateString();
             },
-            handleSubmit: function(e) {
+            handleSubmit: function (e) {
                 var workIndex = e.target.getAttribute('workIndex');
-                var lastDeliveryIndex = this.traces[workIndex].deliveries.length - 1;
-                var currBalance = this.traces[workIndex].productsOnHand;
-                if(this.traces[workIndex].deliveries.length) {
-                    var currBalance = this.traces[workIndex].deliveries[lastDeliveryIndex].balance;
-                }
                 var deliveryVal = e.target.value;
-                var nextBalance = currBalance - deliveryVal;
-                this.traces[workIndex].deliveries.push({
+                this.deliveries[workIndex].data.push({
                     date: this.dateToday,
-                    delivered: deliveryVal,
-                    balance: nextBalance
+                    delivered: deliveryVal
                 });
-                e.target.value = '';
-            }
+            },
+            removeDelivery: function (indexTrace, indexDelivery) {
+                this.deliveries[indexTrace].data.splice(indexDelivery, 1);
+            },
         },
-        props: ['products', 'traces']
+        props: ['products', 'deliveries']
     }
+
 </script>
