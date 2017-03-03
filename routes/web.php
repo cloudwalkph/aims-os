@@ -77,6 +77,8 @@ Route::group(['prefix' => 'inventory'], function () {
 Route::group(['prefix' => 'accounting'], function () {
     Route::get('/', 'Front\Accounting\AccountingController@index');
     Route::post('/check', 'Front\Accounting\AccountingController@check');
+    Route::post('/cono', 'Front\Accounting\AccountingController@cono');
+    Route::post('/transmittal', 'Front\Accounting\AccountingController@transmittal');
 });
 
 Route::group(['prefix' => 'hr'], function () {
@@ -85,7 +87,6 @@ Route::group(['prefix' => 'hr'], function () {
     Route::get('/manpower', 'Front\HR\ManpowerController@index');
     Route::get('/manpower_pooling', 'Front\HR\PoolingController@index');
 });
-
 
 Route::group(['prefix' => 'setup'], function () {
     Route::get('/', 'Front\Setup\SetupController@index');

@@ -30,8 +30,9 @@ class AccountingController extends Controller
      */
     public function index()
     {
-        $results = array();
         config(['app.name' => 'Accounting | AIMS']);
+
+        $results = array();
 
         $jos = JobOrder::all();
 
@@ -51,10 +52,11 @@ class AccountingController extends Controller
             $ceNo = '';
             $ceFile = '';
             $doFile = '';
+            $doNumber = '';
             $transmittal = '';
             $invoiceNo = '';
             $invoiceFile = '';
-            $paidNo = '';
+            $paidDate = '';
             $paidFile = '';
 
             if( $accounting ){
@@ -62,10 +64,11 @@ class AccountingController extends Controller
                 $ceNo = $accounting->ceNumber;
                 $ceFile = $accounting->ceFile;
                 $doFile = $accounting->do_file;
+                $doNumber = $accounting->do_number;
                 $transmittal = $accounting->transmittalDate;
                 $invoiceNo = $accounting->invoiceNumber;
                 $invoiceFile = $accounting->invoiceFile;
-                $paidNo = $accounting->paidNumber;
+                $paidDate = $accounting->paidDate;
                 $paidFile = $accounting->paidFile;
 
             }
@@ -82,21 +85,31 @@ class AccountingController extends Controller
                 $i++;
             }
 
+            $contractList = '';
+            $contractArray = json_decode($jo->contract_no);
+            if( isset( $contractArray ) ){
+                foreach ( json_decode($jo->contract_no) as $contract ){
+                    $contractList .= $contract.'<br>' ;
+                }
+
+            }
+//            dd($contractList);
+
             $jobArray = array(
                 'joId' => $jo->job_order_no,
-                'coNo' => $jo->contract_no,
+                'coNo' => $contractList,
                 'assigned' => $userProfile->last_name.', '.$userProfile->first_name,
                 'projName' => $jo->project_name,
                 'contact' => $client->contact_person,
                 'brands' => $strBrands,
                 'ceNo' => $ceNo,
                 'ceFile' => $ceFile,
-                'doNo' => $jo -> do_contract_no,
+                'doNo' => $doNumber,
                 'doFile' => $doFile,
                 'transmittal' => $transmittal,
                 'invoiceNo' => $invoiceNo,
                 'invoiceFile' => $invoiceFile,
-                'paidNo' => $paidNo,
+                'paidDate' => $paidDate,
                 'paidFile' => $paidFile,
             );
 
@@ -130,15 +143,22 @@ class AccountingController extends Controller
         $storeAccounts->job_order_no = $request['joID'];
 
         if( $request['docType'] == 'ce' ){
-            $storeAccounts->ceNumber = $request['ce_number'];
+            $storeAccounts->ceNumber = $request['doc_number'];
             $storeAccounts->ceFile = $file;
             $storeAccounts->ceDateUpdated = date("Y-m-d H:i:s");
-        } elseif ( $request['docType'] == 'do' ){
-//            $storeAccounts->ceNumber = $request['do_number'];
-//            $storeAccounts->ceFile = $file;
-//            $storeAccounts->ceDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'do' ) {
+            $storeAccounts->do_number = $request['doc_number'];
+            $storeAccounts->do_file = $file;
+            $storeAccounts->do_date_updated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'invoice' ) {
+            $storeAccounts->invoiceNumber = $request['doc_number'];
+            $storeAccounts->invoiceFile = $file;
+            $storeAccounts->invoiceDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'payment' ) {
+            $storeAccounts->paidNumber = $request['doc_number'];
+            $storeAccounts->paidFile = $file;
+            $storeAccounts->paidDateUpdated = date("Y-m-d H:i:s");
         }
-
 
         if( $storeAccounts->save() ){
             return true;
@@ -179,14 +199,28 @@ class AccountingController extends Controller
     public function update($request, $id, $file)
     {
         $accounting = Accounting::where('job_order_no', $id)->first();
-        if( $request['ceType'] == 'ce' ){
-            $accounting->ceNumber = $request['ce_number'];
+
+        if( $request['docType'] == 'ce' ){
+            $accounting->ceNumber = $request['doc_number'];
             $accounting->ceFile = $file;
             $accounting->ceDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'do' ) {
+            $accounting->do_number = $request['doc_number'];
+            $accounting->do_file = $file;
+            $accounting->do_date_updated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'invoice' ) {
+            $accounting->invoiceNumber = $request['doc_number'];
+            $accounting->invoiceFile = $file;
+            $accounting->invoiceDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'payment' ) {
+            $accounting->paidDate = $request['doc_number'];
+            $accounting->paidFile = $file;
+            $accounting->paidDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'remarks' ) {
+            $accounting->remarks = $request['accountingRemarks'];
         }
 
         if( $accounting->save() ){
-//            Redirect('/accounting/');
             return true;
         }else{
             return false;
@@ -206,23 +240,24 @@ class AccountingController extends Controller
 
     public function check(Request $request, Redirector $redirect){
 
-        if (! $request->hasFile('ce_file')) {
+        $destinationPath = 'uploads';
+        $filePath = null;
 
-            return redirect()->back();
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file');
+
+            $filePath = '/'.$destinationPath.'/'.$file->getClientOriginalName();
+
+            $file->move($destinationPath,$file->getClientOriginalName());
 
         }
-
-        $file = $request->file('ce_file');
-
-        $destinationPath = 'uploads';
 
         $checker = Accounting::where( 'job_order_no', $request->input('joID') )->count();
 
         if( $checker <= 0 ){
 
-            $file->move($destinationPath,$file->getClientOriginalName());
-
-            $retVal = AccountingController::store( $request->input(), '/'.$destinationPath.'/'.$file->getClientOriginalName() );
+            $retVal = AccountingController::store( $request->input(), $filePath );
             if( $retVal == true ){
 
                 $redirect->to('/accounting')->send();
@@ -230,9 +265,7 @@ class AccountingController extends Controller
 
         }else{
 
-            $file->move($destinationPath,$file->getClientOriginalName());
-
-            $retVal = AccountingController::update( $request->input(), $request->input('joID'), '/'.$destinationPath.'/'.$file->getClientOriginalName() );
+            $retVal = AccountingController::update( $request->input(), $request->input('joID'), $filePath );
             if( $retVal == true ){
 
                 $redirect->to('/accounting')->send();
@@ -241,4 +274,47 @@ class AccountingController extends Controller
         }
 
     }
+
+    public function cono( Request $request, Redirector $redirect ){
+
+        $conoArray = array();
+
+        $jo = JobOrder::where('job_order_no', $request->input('joID'))->first();
+
+        if ( $jo->contract_no != null ){
+
+            $conoArray = json_decode( $jo->contract_no );
+
+            if( !in_array( $request->input('cono'), $conoArray ) ){
+
+                array_push( $conoArray, $request->input('cono') );
+
+            }
+
+            $jo->contract_no = json_encode($conoArray);
+
+        } else {
+
+            array_push( $conoArray, $request->input('cono') );
+
+            $jo->contract_no = json_encode($conoArray);
+
+        }
+
+        if( $jo->save() ){
+
+            $redirect->to('/accounting')->send();
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    public function transmittal(){
+        
+    }
+
 }
