@@ -1,6 +1,6 @@
 <template>
     <div>
-        <plan-animation-details-filter-bar></plan-animation-details-filter-bar>
+        <!--<plan-animation-details-filter-bar></plan-animation-details-filter-bar>-->
         <vuetable ref="vuetable"
                   api-url="/api/v1/job-order-animation-details"
                   :fields="fields"
@@ -56,11 +56,6 @@
                         dataClass: 'text-right'
                     },
                     {
-                        name: '__checkbox',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                    },
-                    {
                         name: 'particular',
                         sortField: 'particular',
                         title: 'Particulars'
@@ -105,14 +100,6 @@
                         sortField: 'target_areas',
                         title: 'Areas'
                     },
-                    {
-                        name: 'created_at',
-                        sortField: 'created_at',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Created Date'
-                    },
                 ],
                 css: {
                     table: {
@@ -135,17 +122,12 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
+                    { field: 'particular', sortField: 'particular', direction: 'asc'}
                 ],
                 moreParams: {}
             }
         },
         methods: {
-            formatDate (value, fmt = 'D MMM YYYY') {
-                return (value == null)
-                    ? ''
-                    : moment(value, 'YYYY-MM-DD').format(fmt)
-            },
             onPaginationData (paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)
                 this.$refs.paginationInfo.setPaginationData(paginationData)

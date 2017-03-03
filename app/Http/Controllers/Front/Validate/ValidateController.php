@@ -75,6 +75,7 @@ class ValidateController extends Controller
 //        dd($jos);
         return view('admin/validate', compact('results'));
     }
+    
 
     /**
      * Display a listing of the resource.
@@ -82,11 +83,15 @@ class ValidateController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function create_project(){
+    public function create_project( $id ){
+
 //        echo 'hello';
-        return view('admin/Validate/create_project');
-        
-    }public function summary_result(){
+        $jos = JobOrder::where('job_order_no',$id)->first();
+//        dd($jos);
+        return view('admin/Validate/create_project', compact('jos'));
+    }
+
+    public function summary_result(){
 //        echo 'hello';
         return view('admin/Validate/summary_result');
     }
