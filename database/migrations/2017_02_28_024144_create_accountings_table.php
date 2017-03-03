@@ -16,6 +16,7 @@ class CreateAccountingsTable extends Migration
         Schema::create('accountings', function (Blueprint $table) {
             $table->increments('id');
             $table->text('job_order_no');
+            $table->text('contract_number')->nullable();
             $table->text('ceNumber')->nullable();
             $table->text('ceFile')->nullable();
             $table->date('ceDateUpdated')->nullable();

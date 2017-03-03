@@ -27,7 +27,7 @@
                         @foreach($results as $jo)
 
                             <tr>
-                                <td><a href="/validate/create_project"> {{ $jo['joId'] }} </a></td>
+                                <td><a href="/validate/create_project/{{ $jo['joId'] }}"> {{ $jo['joId'] }} </a></td>
                                 <td>{{ $jo['projName'] }}</td>
                                 <td>{{$jo['projecttypes']}}</td>
                                 <td>{{ $jo['contact'] }}</td>
