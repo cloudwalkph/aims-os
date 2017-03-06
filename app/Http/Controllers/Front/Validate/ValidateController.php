@@ -8,7 +8,7 @@ use App\Models\JobOrder;
 use App\Models\JobOrderClient;
 use App\Models\UserProfile;
 use App\Models\Client;
-//use App\Models\Client;
+use App\Models\ValidateQuestions;
 
 class ValidateController extends Controller
 {
@@ -88,8 +88,10 @@ class ValidateController extends Controller
 
 //        echo 'hello';
         $jos = JobOrder::where('job_order_no',$id)->first();
-//        dd($jos);
-        return view('admin/Validate/create_project', compact('jos'));
+        $questions = ValidateQuestions::all();
+
+//        dd($questions);
+        return view('admin/Validate/create_project', compact('jos', 'questions'));
     }
 
     public function summary_result(){

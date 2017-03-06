@@ -116,24 +116,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr id="eventRow'.$row->question_id.'">
-                    <td>This is longer content Donec id elit non mi porta gravida at eget metus.</td>
-                    <td>
-                        <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="'.$row->question_id.'"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
-                    </td>
-                </tr>
-                <tr id="eventRow'.$row->question_id.'">
-                    <td>This is longer content Donec id elit non mi porta gravida at eget metus.</td>
-                    <td>
-                        <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="'.$row->question_id.'"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
-                    </td>
-                </tr>
-                <tr id="eventRow'.$row->question_id.'">
-                    <td>This is longer content Donec id elit non mi porta gravida at eget metus.</td>
-                    <td>
-                        <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="'.$row->question_id.'"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
-                    </td>
-                </tr>
+                @foreach($questions as $question)
+                    <tr id="eventRow{{$question -> _id}}">
+                        <td>{{$question -> qname}}</td>
+                        <td>
+                            <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{$question -> _id}}"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
             <div class="button-group">
