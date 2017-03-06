@@ -108,7 +108,7 @@
             }
         },
         mounted() {
-            this.getDepartments()
+
         },
         methods: {
             resetForm() {
