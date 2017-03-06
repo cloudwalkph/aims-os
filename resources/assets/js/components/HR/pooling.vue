@@ -10,13 +10,19 @@
 <script>
 	import Vuetable from 'vuetable-2/src/components/Vuetable'; 
 	import Vue from 'vue';
+	import CustomSingleAction from '../HR/commons/CustomSingleAction';
+
+	import VueEvents from 'vue-events';
+
+    Vue.use(VueEvents);
+    Vue.component('CustomSingleAction', CustomSingleAction);
 
 	export default {
 		components: {
             Vuetable
         },
 		mounted() {
-			this.getJoborder();
+			
 		},
 		data() {
         	return {
@@ -33,22 +39,35 @@
                     	name: 'jo_manpower',
                     	title: 'Manpower Type',
                     	callback : 'expandType'
+                    },
+                    {
+                        name: '__component:CustomSingleAction',
+                        title: 'Actions',
+                        titleClass: 'text-center',
+                        dataClass: 'text-center middleAlign'
                     }
         		]
 
         	}
         },
         methods: {
-        	getJoborder() {
-        		let url = '/api/v1/hr/poolingManpower/';
-                this.$http.get(url).then(response => {
-                    console.log(response);
-                }, error => {
-                    console.log(error);
-                });
-        	},
         	expandType(value) {
-        		console.log(value);
+        		let arr = [];
+        		for(let v in value)
+        		{
+        			arr.push(value[v]['manpower_type'].name);
+        		}
+        		return arr.toString();
+        	}
+        },
+        events: {
+        	'view-data' (data) {
+
+        		Vue.nextTick(
+        			() => {
+        				window.location.href = window.location.origin + '/hr/manpower_pooling/view/' + data.job_order_no; 
+        			}
+        		)
         	}
         }
 	}

@@ -84,6 +84,7 @@ Route::group(['prefix' => 'hr'], function () {
     Route::get('/schedules', 'Front\HR\SchedulerController@index');
     Route::get('/manpower', 'Front\HR\ManpowerController@index');
     Route::get('/manpower_pooling', 'Front\HR\PoolingController@index');
+    Route::get('/manpower_pooling/view/{jobOrderId}', 'Front\HR\PoolingController@show');
 });
 
 
