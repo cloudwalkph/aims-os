@@ -96,6 +96,7 @@
     export default {
         data() {
             return {
+                departments: [],
                 particular: '',
                 target_activity: '',
                 target_selling: '',
@@ -108,7 +109,7 @@
             }
         },
         mounted() {
-            this.getDepartments()
+
         },
         methods: {
             resetForm() {
@@ -124,6 +125,17 @@
             },
             inputChange(e) {
                 this[e.target.id] = e.target.value
+            },
+            getDepartments() {
+                this.$http.get('/api/v1/departments').then(response => {
+                    let departments = response.data;
+
+                    for (let department of departments) {
+                        this.departmentOptions.push({label: `${department.name}`, value: department.id});
+                    }
+                }, error => {
+                        console.log(error)
+                });
             },
             saveProject(e) {
                 let jobOrderId = $('#jobOrderId').val();

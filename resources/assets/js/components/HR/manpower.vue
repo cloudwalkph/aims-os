@@ -137,7 +137,7 @@
     import Vuetable from 'vuetable-2/src/components/Vuetable'; 
     import Vue from 'vue';
     import CustomActions from '../HR/commons/CustomActions';
-    import VueEvents from 'vue-events'
+    import VueEvents from 'vue-events';
 
     Vue.use(VueEvents);
     Vue.component('CustomActions', CustomActions);

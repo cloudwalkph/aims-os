@@ -47,7 +47,20 @@
                         @foreach( $results as $jo)
                         <tr>
                             <td>{{$jo['joId']}}</td>
-                            <td><input class="" alt="28" placeholder="Contract No.">{{$jo['coNo']}}</td>
+                            <td>
+
+                                <?=$jo['coNo'] ?>
+
+                                <form action="/accounting/cono" method="post">
+
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="joID" value="{{$jo['joId']}}">
+                                    <input class="" name="cono" alt="28" placeholder="Contract No.">
+                                    <button class="btn btn-primary" type="submit">Add</button>
+
+                                </form>
+
+                            </td>
                             <td>
                                 {{$jo['assigned']}}
                             </td>
@@ -65,7 +78,7 @@
 
                             @else
 
-                                <td><button class="btn btn-primary tiny btnCE" data-toggle="modal" data-target="#modalCE" value="{{$jo['joId']}}">CE</button></td>
+                                <td><button class="btn btn-primary tiny btnForDocUpload" data-toggle="modal" data-target="#modalDoc" value="{{$jo['joId']}}" alt="ce">CE</button></td>
 
                             @endif
 
@@ -77,7 +90,7 @@
 
                             @else
 
-                                <td><button class="btn btn-primary tiny" data-toggle="modal" data-target="#modalDO" alt="28" value="{{$jo['joId']}}">Do</button></td>
+                                <td><button class="btn btn-primary tiny btnForDocUpload" data-toggle="modal" data-target="#modalDoc" value="{{$jo['joId']}}" alt="do">Do</button></td>
 
                             @endif
 
@@ -89,7 +102,20 @@
 
                             @else
 
-                                <td class="" align="center" style="text-align: center;"><input alt="28" type="date" placeholder="Date" value="{{$jo['joId']}}"> <label style="font-size:10px;">press enter to save</label></td>
+                                <td class="" align="center" style="text-align: center;">
+
+                                    <form action="/accounting/transmittal" method="post">
+
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="joID" value="{{$jo['joId']}}">
+
+                                        <input type="date" placeholder="Date" name="transmittal" >
+
+                                        <button class="btn btn-primary" type="submit">Save</button>
+
+                                    </form>
+
+                                </td>
 
                             @endif
 
@@ -101,27 +127,29 @@
 
                             @else
 
-                                <td class="" align="center" style="text-align: center;"><button class="btn btn-primary" alt="28" data-toggle="modal" data-target="#modalInvoice" value="{{$jo['joId']}}">Invoice</button></td>
+                                <td class="" align="center" style="text-align: center;">
+                                    <button class="btn btn-primary btnForDocUpload" data-toggle="modal" data-target="#modalDoc" value="{{$jo['joId']}}" alt="invoice">Invoice</button>
+                                </td>
 
                             @endif
 
-                            @if( $jo['paidNo'] != null )
+                            @if( $jo['paidDate'] != null )
 
                                 <td>
-                                    <a href="{{ $jo['paidFile']  }}">{{ $jo['paidNo'] }}</a>
+                                    <a href="{{ $jo['paidFile']  }}">{{ $jo['paidDate'] }}</a>
                                 </td>
 
                             @else
 
                                 <td>
-                                    <button class="btn btn-primary" alt="28" value="Paid" style="" data-toggle="modal" data-target="#modalPD" value="{{$jo['joId']}}">Unpaid</button>
+                                    <button class="btn btn-primary btnForPdUpload" data-toggle="modal" data-target="#modalPD" value="{{$jo['joId']}}" alt="payment">Unpaid</button>
                                 </td>
 
                             @endif
 
 
                             <td>
-                                <button class="btn btn-primary" value="{{$jo['joId']}}" alt="28" style="" data-toggle="modal" data-target="#modalRemarks">Remarks</button>
+                                <button class="btn btn-primary btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks">Remarks</button>
                             </td>
                         </tr>
                         @endforeach
@@ -132,14 +160,15 @@
     </div>
 
     {{--modal--}}
+
     {{--CE--}}
-    <div class="modal fade" id="modalCE" tabindex="-1" role="dialog">
+    <div class="modal fade" id="modalDoc" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <form action="/accounting/check" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" id="joID" name="joID" value="">
-                    <input type="hidden" id="docType" name="docType" value="ce">
+                    <input type="hidden" id="docType" name="docType" value="">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Upload CE</h4>
@@ -147,12 +176,12 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="text" name="ce_number" id="ce_number" class="form-control" placeholder="CE Number">
+                                <input type="text" name="doc_number" id="ce_number" class="form-control" placeholder="CE Number">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="file" name="ce_file" id="ce_file" class="form-control">
+                                <input type="file" name="file" id="file" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -165,114 +194,66 @@
         </div>
     </div>
     {{--EndCE--}}
-    {{--DO--}}
-    <div class="modal fade" id="modalDO" tabindex="-1" role="dialog">
+
+    {{--Payment--}}
+    <div class="modal fade" id="modalPD" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <form action="/accounting/check" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    <input type="hidden" id="joID" name="joID" value="">
-                    <input type="hidden" id="docType" name="docType" value="do">
+                    <input type="hidden" id="pd_joID" name="joID" value="">
+                    <input type="hidden" id="pd_docType" name="docType" value="">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Upload DO</h4>
+                        <h4 class="modal-title">Payment</h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="text" name="do_number" id="do_number" class="form-control" placeholder="DO number">
+                                <input type="date" name="doc_number" id="doc_number" class="form-control">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="file" name="doFile" id="doFile" class="form-control">
+                                <input type="file" name="file" id="file" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    {{--EndDO--}}
-    {{--Invoice--}}
-    <div class="modal fade" id="modalInvoice" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Upload Invoice</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="text" name="invoice_number" id="invoice_number" class="form-control" placeholder="Invoice number">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="file" name="invoiceFile" id="invoiceFile" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Upload</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{--EndInvoice--}}
-    {{--Payment--}}
-    <div class="modal fade" id="modalPD" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Update Payment</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="text" name="paidDate" id="paidDate" class="form-control" placeholder="Date">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="file" name="paidFile" id="paidFile" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Paid</button>
-                </div>
-            </div>
-        </div>
-    </div>
     {{--EndPayment--}}
+
     {{--Remarks--}}
     <div class="modal fade" id="modalRemarks" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Remarks</h4>
-                </div>
-                <div class="modal-body">
-                    <textarea name="accountingRemarks" id="accountingRemarks" style="width: 100%;" cols="30" rows="10"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
+                <form action="/accounting/check" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="hidden" id="remarks_joID" name="joID" value="">
+                    <input type="hidden" id="remarks_docType" name="docType" value="remarks">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Remarks</h4>
+                    </div>
+                    <div class="modal-body">
+                        <textarea name="accountingRemarks" id="accountingRemarks" style="width: 100%;" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     {{--EndRemarks--}}
+
     {{--endmodal--}}
 
 @endsection
@@ -280,9 +261,21 @@
 @section('scripts')
 
     <script>
-        $('.btnCE').on('click', function(){
+        $('.btnForDocUpload').on('click', function(){
             var jid = $(this).val();
+            var doc = $(this).attr('alt');
             $('#joID').val(jid);
+            $('#docType').val(doc);
+        });
+        $('.btnForPdUpload').on('click', function(){
+            var jid = $(this).val();
+            var doc = $(this).attr('alt');
+            $('#pd_joID').val(jid);
+            $('#pd_docType').val(doc);
+        });
+        $('.btnForRemarks').on('click', function(){
+            var jid = $(this).val();
+            $('#remarks_joID').val(jid);
         });
     </script>
 @endsection

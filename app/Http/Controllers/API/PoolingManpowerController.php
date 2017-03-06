@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\JobOrder;
+use App\Models\JobOrderManpower;
 
 class PoolingManpowerController extends Controller
 {
@@ -15,7 +16,7 @@ class PoolingManpowerController extends Controller
      */
     public function index()
     {
-        $jobOrder = jobOrder::with('joManpower.manpowerType')->paginate();
+        $jobOrder = JobOrder::with('joManpower.manpowerType')->paginate();
         return response()->json($jobOrder, 200);
     }
 
@@ -36,9 +37,12 @@ class PoolingManpowerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showJobOrderManpower($joNumber)
     {
-        //
+        $jo = JobOrder::where('job_order_no', $joNumber)->first();
+
+        $joManpower = JobOrderManpower::with('manpowerType')->where('job_order_id', $jo->id)->paginate();
+        return response()->json($joManpower, 200);
     }
 
     /**
