@@ -10,7 +10,7 @@
                 <label id="lblJOID" style="width: 100% text-align: left;" >JO Numbers: {{$jos->job_order_no}}</label>
             </div>
             <div class="col-sm-4">
-                <a class="btn btn-primary" style="margin-left: 300px;" href="">Back</a>
+                <a class="btn btn-primary" style="margin-left: 300px;" href="/validate/create_project/{{$jos->job_order_no}}">Back</a>
                 <!--                <Button id="backbtn" type="button" class="btn btn-info" style="margin-left: 300px;">Back</Button>-->
             </div>
         </div>
