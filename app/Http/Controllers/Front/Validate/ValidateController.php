@@ -96,6 +96,12 @@ class ValidateController extends Controller
         return view('admin/Validate/summary_result');
     }
 
+    public function summary_view($pn){
+//        echo 'hello';
+        $jos = JobOrder::where('job_order_no',$pn)->first();
+        return view('admin/Validate/summary_view', compact('jos'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
