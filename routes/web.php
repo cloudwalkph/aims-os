@@ -106,4 +106,5 @@ Route::group(['prefix' => 'validate'], function () {
 //    Route::get('/create_project', 'Front\Validate\ValidateController@create_project');
     Route::get('/create_project/{id}', 'Front\Validate\ValidateController@create_project');
     Route::get('/summary_result', 'Front\Validate\ValidateController@summary_result');
+    Route::get('/create_project/{id}/summary_view', 'Front\Validate\ValidateController@summary_view');
 });
