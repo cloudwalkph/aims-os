@@ -16,13 +16,15 @@
                 <tbody>
 
                     <tr v-for="(product, index) in propData.products">
-                        <td>{{product.jobOrderNo}}</td>
                         <td>
-                            <div v-for="jobOrder in propData.jobOrders" v-if="product.jobOrderNo == jobOrder.jobOrderNo">
-                                <div v-for="project in propData.projects" v-if="jobOrder.projectID == project.projectID">
-                                    {{project.projectName}}
-                                </div>
-                            </div>
+                            <span v-for="jobOrder in propData.jobOrders" v-if="product.job_order_id == jobOrder.id">
+                                {{jobOrder.job_order_no}}
+                            </span>
+                        </td>
+                        <td>
+                            <span v-for="jobOrder in propData.jobOrders" v-if="product.job_order_id == jobOrder.id">
+                                {{jobOrder.project_name}}
+                            </span>
                         </td>
                         <td>{{product.itemName}}</td>
                         <td>{{product.productsOnHand}}</td>
@@ -39,4 +41,5 @@
     module.exports = {
         props: ['propData']
     }
+
 </script>

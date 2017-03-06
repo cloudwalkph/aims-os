@@ -22,25 +22,7 @@
 
 
             <div class="col-md-12">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Job Order Number</th>
-                        <th>Project Name</th>
-                        <th>Total Traffic Count</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <td><a href="/cmtuva/plans/20011111">20011111</a></td>
-                        <td>Project Test</td>
-                        <td>10000</td>
-                        <td>Pending</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <plan-jo-table></plan-jo-table>
             </div>
         </div>
 

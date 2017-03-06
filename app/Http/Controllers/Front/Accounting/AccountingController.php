@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Front\Accounting;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
 use App\Models\Accounting;
 use App\Models\JobOrder;
+use App\Models\UserProfile;
+use App\Models\JobOrderClient;
+use App\Models\Client;
 
 class AccountingController extends Controller
 {
@@ -28,13 +32,92 @@ class AccountingController extends Controller
     {
         config(['app.name' => 'Accounting | AIMS']);
 
+        $results = array();
+
         $jos = JobOrder::all();
 
-//        dd($jos);
+        foreach ( $jos as $jo ){
+//            where('job_order_no', $id)->first()
 
-//        return $tasks;
+            $userProfile = UserProfile::where('user_id', $jo->user_id)->first();
 
-        return view('accounting.index', compact('jos'));
+            $orderClient = JobOrderClient::where('job_order_id', $jo->id)->first();
+
+            $client = Client::where('id', $orderClient->client_id)->first();
+
+            $accounting = Accounting::where('job_order_no',$jo->job_order_no)->first();
+
+//            dd($accounting);
+
+            $ceNo = '';
+            $ceFile = '';
+            $doFile = '';
+            $doNumber = '';
+            $transmittal = '';
+            $invoiceNo = '';
+            $invoiceFile = '';
+            $paidDate = '';
+            $paidFile = '';
+
+            if( $accounting ){
+
+                $ceNo = $accounting->ceNumber;
+                $ceFile = $accounting->ceFile;
+                $doFile = $accounting->do_file;
+                $doNumber = $accounting->do_number;
+                $transmittal = $accounting->transmittalDate;
+                $invoiceNo = $accounting->invoiceNumber;
+                $invoiceFile = $accounting->invoiceFile;
+                $paidDate = $accounting->paidDate;
+                $paidFile = $accounting->paidFile;
+
+            }
+
+            $strBrands = '';
+            $i = 1;
+            $t = count($orderClient->brands);
+            foreach ($orderClient->brands as $brand) {
+                if( $i != $t ){
+                    $strBrands .= $brand->name.', ';
+                }else{
+                    $strBrands .= $brand->name;
+                }
+                $i++;
+            }
+
+            $contractList = '';
+            $contractArray = json_decode($jo->contract_no);
+            if( isset( $contractArray ) ){
+                foreach ( json_decode($jo->contract_no) as $contract ){
+                    $contractList .= $contract.'<br>' ;
+                }
+
+            }
+//            dd($contractList);
+
+            $jobArray = array(
+                'joId' => $jo->job_order_no,
+                'coNo' => $contractList,
+                'assigned' => $userProfile->last_name.', '.$userProfile->first_name,
+                'projName' => $jo->project_name,
+                'contact' => $client->contact_person,
+                'brands' => $strBrands,
+                'ceNo' => $ceNo,
+                'ceFile' => $ceFile,
+                'doNo' => $doNumber,
+                'doFile' => $doFile,
+                'transmittal' => $transmittal,
+                'invoiceNo' => $invoiceNo,
+                'invoiceFile' => $invoiceFile,
+                'paidDate' => $paidDate,
+                'paidFile' => $paidFile,
+            );
+
+            array_push( $results, $jobArray );
+//            dd($results);
+        }
+
+        return view('accounting.index', compact('results'));
     }
 
     /**
@@ -53,20 +136,34 @@ class AccountingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($request)
+    public function store($request, $file)
     {
         $storeAccounts = new Accounting();
 
-        if( $request['ceType'] == 'ce' ){
-            $storeAccounts->job_order_no = $request['joID'];
-            $storeAccounts->ceNumber = $request['ce_number'];
-            $storeAccounts->ceFile = $request['ce_file'];
+        $storeAccounts->job_order_no = $request['joID'];
+
+        if( $request['docType'] == 'ce' ){
+            $storeAccounts->ceNumber = $request['doc_number'];
+            $storeAccounts->ceFile = $file;
             $storeAccounts->ceDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'do' ) {
+            $storeAccounts->do_number = $request['doc_number'];
+            $storeAccounts->do_file = $file;
+            $storeAccounts->do_date_updated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'invoice' ) {
+            $storeAccounts->invoiceNumber = $request['doc_number'];
+            $storeAccounts->invoiceFile = $file;
+            $storeAccounts->invoiceDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'payment' ) {
+            $storeAccounts->paidNumber = $request['doc_number'];
+            $storeAccounts->paidFile = $file;
+            $storeAccounts->paidDateUpdated = date("Y-m-d H:i:s");
         }
 
-
         if( $storeAccounts->save() ){
-            return Redirect('/accounting/');
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -99,20 +196,34 @@ class AccountingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($request, $id)
+    public function update($request, $id, $file)
     {
         $accounting = Accounting::where('job_order_no', $id)->first();
-        if( $request['ceType'] == 'ce' ){
-            $accounting->ceNumber = $request['ce_number'];
-            $accounting->ceFile = $request['ce_file'];
+
+        if( $request['docType'] == 'ce' ){
+            $accounting->ceNumber = $request['doc_number'];
+            $accounting->ceFile = $file;
             $accounting->ceDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'do' ) {
+            $accounting->do_number = $request['doc_number'];
+            $accounting->do_file = $file;
+            $accounting->do_date_updated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'invoice' ) {
+            $accounting->invoiceNumber = $request['doc_number'];
+            $accounting->invoiceFile = $file;
+            $accounting->invoiceDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'payment' ) {
+            $accounting->paidDate = $request['doc_number'];
+            $accounting->paidFile = $file;
+            $accounting->paidDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'remarks' ) {
+            $accounting->remarks = $request['accountingRemarks'];
         }
 
         if( $accounting->save() ){
-            return Redirect('/accounting/');
-//            echo 'updated';
+            return true;
         }else{
-            echo 'no changes';
+            return false;
         }
     }
 
@@ -127,19 +238,83 @@ class AccountingController extends Controller
         //
     }
 
-    public function check(Request $request){
+    public function check(Request $request, Redirector $redirect){
+
+        $destinationPath = 'uploads';
+        $filePath = null;
+
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file');
+
+            $filePath = '/'.$destinationPath.'/'.$file->getClientOriginalName();
+
+            $file->move($destinationPath,$file->getClientOriginalName());
+
+        }
 
         $checker = Accounting::where( 'job_order_no', $request->input('joID') )->count();
 
         if( $checker <= 0 ){
 
-            AccountingController::store( $request->input() );
+            $retVal = AccountingController::store( $request->input(), $filePath );
+            if( $retVal == true ){
+
+                $redirect->to('/accounting')->send();
+            }
 
         }else{
 
-            AccountingController::update( $request->input(), $request->input('joID') );
+            $retVal = AccountingController::update( $request->input(), $request->input('joID'), $filePath );
+            if( $retVal == true ){
+
+                $redirect->to('/accounting')->send();
+            }
 
         }
 
     }
+
+    public function cono( Request $request, Redirector $redirect ){
+
+        $conoArray = array();
+
+        $jo = JobOrder::where('job_order_no', $request->input('joID'))->first();
+
+        if ( $jo->contract_no != null ){
+
+            $conoArray = json_decode( $jo->contract_no );
+
+            if( !in_array( $request->input('cono'), $conoArray ) ){
+
+                array_push( $conoArray, $request->input('cono') );
+
+            }
+
+            $jo->contract_no = json_encode($conoArray);
+
+        } else {
+
+            array_push( $conoArray, $request->input('cono') );
+
+            $jo->contract_no = json_encode($conoArray);
+
+        }
+
+        if( $jo->save() ){
+
+            $redirect->to('/accounting')->send();
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    public function transmittal(){
+        
+    }
+
 }

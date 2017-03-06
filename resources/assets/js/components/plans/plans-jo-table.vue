@@ -1,15 +1,15 @@
 <template>
     <div>
-        <project-status-filter-bar></project-status-filter-bar>
+        <plan-filter-bar></plan-filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/job-order-department-involvements"
+                  api-url="/api/v1/job-orders"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
                   :sort-order="sortOrder"
                   :multi-sort="true"
-                  detail-row-component="my-detail-row"
                   :append-params="moreParams"
+                  @vuetable:cell-clicked="onCellClicked"
                   @vuetable:pagination-data="onPaginationData"
         ></vuetable>
         <div class="vuetable-pagination">
@@ -22,10 +22,8 @@
                                  @vuetable-pagination:change-page="onChangePage"
             ></vuetable-pagination>
         </div>
-
     </div>
 </template>
-
 
 <script>
     import accounting from 'accounting'
@@ -35,10 +33,12 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import ProjectStatusFilterBar from './commons/FilterBar'
+    import CustomActions from './commons/CustomActions'
+    import FilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
-    Vue.component('project-status-filter-bar', ProjectStatusFilterBar)
+    Vue.component('plan-jo-custom-actions', CustomActions)
+    Vue.component('plan-filter-bar', FilterBar)
 
     export default {
         components: {
@@ -46,7 +46,7 @@
             VuetablePagination,
             VuetablePaginationInfo,
         },
-        data() {
+        data () {
             return {
                 fields: [
                     {
@@ -61,31 +61,40 @@
                         dataClass: 'text-center',
                     },
                     {
-                        name: 'name',
-                        sortField: 'name',
-                        title: 'Department'
+                        name: 'job_order_no',
+                        sortField: 'job_order_no',
+                        title: 'Job Order #'
                     },
                     {
-                        name: 'deadline',
-                        sortField: 'deadline',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Deadline'
+                        name: 'project_name',
+                        sortField: 'project_name',
+                        title: 'Project Name'
                     },
                     {
-                        name: 'updated_at',
-                        sortField: 'updated_at',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Last Updated'
+                        name: 'total_traffic_count',
+                        sortField: 'total_traffic_count',
+                        title: 'Total Traffic Count',
                     },
                     {
                         name: 'status',
                         sortField: 'status',
-                        title: 'Status'
+                        title: 'Status',
+                        callback: 'allcap'
                     },
+                    {
+                        name: 'created_at',
+                        sortField: 'created_at',
+                        titleClass: 'text-center',
+                        dataClass: 'text-center',
+                        callback: 'formatDate|DD-MM-YYYY',
+                        title: 'Created Date'
+                    },
+                    {
+                        name: '__component:plan-jo-custom-actions',
+                        title: 'Actions',
+                        titleClass: 'text-center',
+                        dataClass: 'text-center'
+                    }
                 ],
                 css: {
                     table: {
@@ -108,12 +117,15 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'updated_at', sortField: 'updated_at', direction: 'asc'}
+                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
                 ],
                 moreParams: {}
             }
         },
         methods: {
+            allcap (value) {
+                return value.toUpperCase()
+            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
@@ -125,6 +137,10 @@
             },
             onChangePage (page) {
                 this.$refs.vuetable.changePage(page)
+            },
+            onCellClicked (data, field, event) {
+                console.log('cellClicked: ', field.name)
+                this.$refs.vuetable.toggleDetailRow(data.id)
             },
         },
         events: {

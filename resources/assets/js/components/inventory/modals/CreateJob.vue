@@ -16,32 +16,19 @@
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <label for="job_order_id">Job Order Number</label>
-                                <select class="form-control" id="job_order_id" name="job_order_id">
-                                    <option 
-                                        v-for="jobOrder in propData.projects" 
-                                        :value="jobOrder.projectID"
-                                    >
-                                        {{jobOrder.projectName}}
-                                    </option>
-                                </select>
+                                <v-select :on-change="joSelected" :options="joOptions"></v-select>
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Description</label>
-                                <input type="text" name="description"
-                                        @input="inputChange" id="description"
-                                        placeholder="Description" class="form-control" />
+                                <input type="text" name="description" @input="inputChange" id="description" placeholder="Description" class="form-control" />
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Deadline</label>
-                                <input type="date" name="deadline"
-                                        @input="inputChange" id="deadline"
-                                        placeholder="Deadline" class="form-control" />
+                                <input type="date" name="deadline" @input="inputChange" id="deadline" placeholder="Deadline" class="form-control" />
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="user_id">Users</label>
-                                <select class="form-control" id="user_id" name="user_id">
-                                    <option v-for="user in propData.users" :value="user.id">{{user.label}}</option>
-                                </select>
+                                <v-select :on-change="userSelected" :options="userOptions"></v-select>
                             </div>
 
                         </div>
@@ -60,38 +47,63 @@
 
 <script>
     module.exports = {
-        data: function() {
+        computed: {
+            joOptions: function () {
+                var joOptions = [];
+                for (let jo of this.propData.jobOrders) {
+                    joOptions.push({label: `${jo.job_order_no} : ${jo.project_name}`, value: jo.id});
+                }
+                return joOptions;
+            },
+            userOptions: function () {
+                var userOptions = [];
+                for (let user of this.propData.users) {
+                    userOptions.push({label: `${user.profile.first_name} ${user.profile.last_name}`, value: user.id});
+                }
+                return userOptions;
+            }
+        },
+        data: function () {
             return {
-                event_datetime: ''
+                selected_job_order: null,
+                selected_user: null
             }
         },
         methods: {
-            inputChange: function() {
-
-            },
-            handleClick: function() {
-                
-            },
-            handleSubmit: function(e) {
+            handleSubmit: function (e) {
                 var form = $(e.target)[0];
-                var d = Date.parse(form.deadline.value);
-                var d = new Date(d);
+                console.log(form);
                 // if(d.getHours() == 0) {
                 //     d.setHours(8);
                 // }
-                created_job_id = this.propData.jobOrders.length + 1;
+                var created_job_id = this.propData.jobOrders.length + 1;
 
-                this.propData.jobOrders.push(
+                this.propData.jobs.push(
                     {
-                        jobOrderID: created_job_id,
-                        projectID: form.projectID.value,
+                        id: created_job_id,
+                        job_order_id: this.selected_job_order,
                         description: form.description.value,
-                        deadline: d.getHours(),
-                        assignedPerson: form.user_id.value
+                        deadline: form.deadline.value
                     }
                 );
+                this.propData.assignedPeople.push(
+                    {
+                        inventory_job_id: created_job_id,
+                        user_id: this.selected_user
+                    }
+                )
+            },
+            inputChange: function (e) {
+                
+            },
+            joSelected: function (e) {
+                this.selected_job_order = e.value;
+            },
+            userSelected: function (e) {
+                this.selected_user = e.value;
             }
         },
         props: ['propData']
     }
+
 </script>

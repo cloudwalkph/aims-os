@@ -12,16 +12,20 @@
                         <tr>
                             <th>Job Order Number</th>
                             <th>Inventory Code</th>
-                            <th>Iventory Name</th>
+                            <th>Inventory Name</th>
                             <th>Expiration Date</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="product in products">
-                            <td>{{product.jobOrderNo}}</td>
-                            <td>{{product.projectName}}</td>
-                            <td>{{product.itemName}}</td>
-                            <td>{{product.productsOnHand}}</td>
+                        <tr v-for="product in propData.products">
+                            <td>
+                                <span v-for="jobOrder in propData.jobOrders" v-if="product.job_order_id == jobOrder.id">
+                                    {{jobOrder.job_order_no}}
+                                </span>
+                            </td>
+                            <td>{{product.product_code}}</td>
+                            <td>{{product.name}}</td>
+                            <td>{{product.expiration_date}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -36,20 +40,10 @@
     var CreateInventoryModal = require('./modals/CreateInventory.vue');
 
     module.exports = {
-        data: function() {
-            return {
-                products: [
-                    {
-                        jobOrderNo: 2006456435,
-                        projectName: 'Ponds Activations',
-                        itemName: 'Ponds Men',
-                        productsOnHand: '250000'
-                    }
-                ]
-            }
-        },
         components: {
             CreateInventoryModal
-        }
+        },
+        props: ['propData']
     }
+
 </script>

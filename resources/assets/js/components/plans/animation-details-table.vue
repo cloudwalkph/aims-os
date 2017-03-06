@@ -1,8 +1,8 @@
 <template>
     <div>
-        <project-status-filter-bar></project-status-filter-bar>
+        <!--<plan-animation-details-filter-bar></plan-animation-details-filter-bar>-->
         <vuetable ref="vuetable"
-                  api-url="/api/v1/job-order-department-involvements"
+                  api-url="/api/v1/job-order-animation-details"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -35,10 +35,10 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import ProjectStatusFilterBar from './commons/FilterBar'
+    import PlanAnimationDetailsFilterBar from './animation-details/FilterBar'
 
     Vue.use(VueEvents)
-    Vue.component('project-status-filter-bar', ProjectStatusFilterBar)
+    Vue.component('plan-animation-details-filter-bar', PlanAnimationDetailsFilterBar)
 
     export default {
         components: {
@@ -56,35 +56,49 @@
                         dataClass: 'text-right'
                     },
                     {
-                        name: '__checkbox',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
+                        name: 'particular',
+                        sortField: 'particular',
+                        title: 'Particulars'
                     },
                     {
-                        name: 'name',
-                        sortField: 'name',
-                        title: 'Department'
+                        name: 'target_activity',
+                        sortField: 'target_activity',
+                        title: 'Target Activity'
                     },
                     {
-                        name: 'deadline',
-                        sortField: 'deadline',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Deadline'
+                        name: 'target_selling',
+                        sortField: 'target_selling',
+                        title: 'Target Selling'
                     },
                     {
-                        name: 'updated_at',
-                        sortField: 'updated_at',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Last Updated'
+                        name: 'target_flyering',
+                        sortField: 'target_flyering',
+                        title: 'Target Flyering'
                     },
                     {
-                        name: 'status',
-                        sortField: 'status',
-                        title: 'Status'
+                        name: 'target_survey',
+                        sortField: 'target_survey',
+                        title: 'Target Survey'
+                    },
+                    {
+                        name: 'target_experiment',
+                        sortField: 'target_experiment',
+                        title: 'Target Experiential'
+                    },
+                    {
+                        name: 'target_others',
+                        sortField: 'target_others',
+                        title: 'Others'
+                    },
+                    {
+                        name: 'target_duration',
+                        sortField: 'target_duration',
+                        title: 'Target Duration'
+                    },
+                    {
+                        name: 'target_areas',
+                        sortField: 'target_areas',
+                        title: 'Areas'
                     },
                 ],
                 css: {
@@ -108,17 +122,12 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'updated_at', sortField: 'updated_at', direction: 'asc'}
+                    { field: 'particular', sortField: 'particular', direction: 'asc'}
                 ],
                 moreParams: {}
             }
         },
         methods: {
-            formatDate (value, fmt = 'D MMM YYYY') {
-                return (value == null)
-                    ? ''
-                    : moment(value, 'YYYY-MM-DD').format(fmt)
-            },
             onPaginationData (paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)
                 this.$refs.paginationInfo.setPaginationData(paginationData)

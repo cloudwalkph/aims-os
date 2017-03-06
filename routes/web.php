@@ -77,6 +77,8 @@ Route::group(['prefix' => 'inventory'], function () {
 Route::group(['prefix' => 'accounting'], function () {
     Route::get('/', 'Front\Accounting\AccountingController@index');
     Route::post('/check', 'Front\Accounting\AccountingController@check');
+    Route::post('/cono', 'Front\Accounting\AccountingController@cono');
+    Route::post('/transmittal', 'Front\Accounting\AccountingController@transmittal');
 });
 
 Route::group(['prefix' => 'hr'], function () {
@@ -86,7 +88,6 @@ Route::group(['prefix' => 'hr'], function () {
     Route::get('/manpower_pooling', 'Front\HR\PoolingController@index');
     Route::get('/manpower_pooling/view/{jobOrderId}', 'Front\HR\PoolingController@show');
 });
-
 
 Route::group(['prefix' => 'setup'], function () {
     Route::get('/', 'Front\Setup\SetupController@index');
@@ -102,6 +103,7 @@ Route::group(['prefix' => 'operations'], function () {
 
 Route::group(['prefix' => 'validate'], function () {
     Route::get('/', 'Front\Validate\ValidateController@index');
-    Route::get('/create_project', 'Front\Validate\ValidateController@create_project');
+//    Route::get('/create_project', 'Front\Validate\ValidateController@create_project');
+    Route::get('/create_project/{id}', 'Front\Validate\ValidateController@create_project');
     Route::get('/summary_result', 'Front\Validate\ValidateController@summary_result');
 });

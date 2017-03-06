@@ -57,9 +57,13 @@ class JobOrdersController extends Controller {
 
         $query->join('job_order_clients', 'job_order_clients.job_order_id', '=', 'job_orders.id')
             ->join('clients', 'job_order_clients.client_id', '=', 'clients.id')
+            ->join('job_order_animation_details', 'job_order_animation_details.job_order_id', '=', 'job_orders.id')
             ->join('user_profiles', 'user_profiles.user_id', '=', 'job_orders.user_id')
             ->groupBy('job_orders.id', 'user_profiles.last_name', 'user_profiles.first_name')
             ->select('job_orders.*', \DB::raw("GROUP_CONCAT(clients.`company` separator ', ') as company"),
+                \DB::raw("SUM(job_order_animation_details.`target_selling` + job_order_animation_details.`target_flyering`
+                + job_order_animation_details.`target_survey` + job_order_animation_details.`target_experiment`
+                + job_order_animation_details.`target_others`) as total_traffic_count"),
                 \DB::raw("GROUP_CONCAT(job_order_clients.`brands` separator ', ') as brands"),
                 \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as created_by'));
 

@@ -22,12 +22,12 @@ class JobOrder extends Model
     ];
 
     public static $filterable = [
-        'job_order_no',
-        'project_name',
         'created_by',
         'brands',
         'company',
-        'status'
+        'status',
+        'job_order_no',
+        'project_name',
     ];
 
     public function user()

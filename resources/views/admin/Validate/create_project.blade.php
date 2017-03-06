@@ -4,19 +4,19 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <label id="lblJOID" style="width: 100%; text-align: left;" >JO Number:</label>
+                <label id="lblJOID" style="width: 100%; text-align: left;" >JO Number: {{$jos->job_order_no}}</label>
             </div>
             <div class="col-sm-4">
-                <label id="projectName" style="width: 100%; text-align: left;">Project Name:</label>
+                <label id="projectName" style="width: 100%; text-align: left;">Project Name: {{$jos->project_name}}</label>
             </div>
             <div class="col-sm-4">
-                <label id="dCreated" style="width: 100%; text-align: left;">Date Created:</label>
+                <label id="dCreated" style="width: 100%; text-align: left;">Date Created:{{$jos->created_at}}</label>
             </div>
         </div>
         <form id="test" method="post">
             <div class="row" style="margin-top: 15px;">
                 <div class="col-sm-2">
-                    <label id="lblJOID" style="width: 100%">Acivation Date:</label>
+                    <label id="lblJOID" style="width: 100%">Activation Date:</label>
                 </div>
                 <div class="col-sm-2">
                     <input type="date" class="fullwidth dateSelector" name="inp_ActivationsDate" id="inp_ActivationsDate" style="margin-left: -60px;">
@@ -67,9 +67,13 @@
                 </select>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRaterEmp" id="selRaterEmp">
-                    <option value="" disabled selected>Select</option>
-                </select>
+            <select class="fullwidth" name="selRaterEmp" id="selRaterEmp">
+                <option value="" disabled selected>Select</option>
+            </select>
+        </div>
+            <div class="col-sm-3">
+                <label class="control-label">JO Order Number</label>
+                <v-select :on-change="roleSelected" :options="roleOptions"></v-select>
             </div>
         </div>
 

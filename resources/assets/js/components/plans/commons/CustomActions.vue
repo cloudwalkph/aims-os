@@ -21,17 +21,9 @@
             itemAction (action, data, index) {
                 console.log('custom-actions: ' + action, data.id, index)
 
-                if (action === 'delete-item') {
-                    let url = `/api/v1/job-order-manpowers/${data.id}`;
-                    this.$http.delete(url, data).then(response => {
-                        console.log(response)
-
-                        this.$events.fire('reload-table')
-                    }, error => {
-                        console.log(error)
-                    })
+                if (action === 'view-item') {
+                    location.href = `/cmtuva/plans/${data.job_order_no}`;
                 }
-
             }
         }
     }
