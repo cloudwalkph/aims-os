@@ -71,6 +71,7 @@ require('./components/inventory');
 Vue.component('hraccount', require('./components/HR/hr-account.vue'));
 Vue.component('manpower', require('./components/HR/manpower.vue'));
 Vue.component('manpower-pooling', require('./components/HR/pooling.vue'));
+Vue.component('pooling-content', require('./components/HR/poolingContent.vue')); 
 
 const app = new Vue({
     el: '#app'

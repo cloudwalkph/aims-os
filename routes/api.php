@@ -156,6 +156,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::delete('/{typeId}', 'ManpowerTypesController@delete');
     });
 
+    // HR
     Route::group(['prefix' => 'hr'], function() {
         Route::get('/manpower', 'ManpowerController@index');
         Route::post('/manpower', 'ManpowerController@store');
@@ -164,5 +165,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
         // pooling
         Route::get('/poolingManpower', 'PoolingManpowerController@index');
+        Route::get('/job-order-manpower/{joNumber}', 'PoolingManpowerController@showJobOrderManpower');
+        Route::post('/selected-manpower/{joNumber}','PoolingManpowerController@addSelectedManpower');
+        Route::get('/selected-manpower/{joNumber}','PoolingManpowerController@getSelectedManpower');
     });
 });

@@ -86,6 +86,7 @@ Route::group(['prefix' => 'hr'], function () {
     Route::get('/schedules', 'Front\HR\SchedulerController@index');
     Route::get('/manpower', 'Front\HR\ManpowerController@index');
     Route::get('/manpower_pooling', 'Front\HR\PoolingController@index');
+    Route::get('/manpower_pooling/view/{jobOrderId}', 'Front\HR\PoolingController@show');
 });
 
 Route::group(['prefix' => 'setup'], function () {
@@ -105,4 +106,5 @@ Route::group(['prefix' => 'validate'], function () {
 //    Route::get('/create_project', 'Front\Validate\ValidateController@create_project');
     Route::get('/create_project/{id}', 'Front\Validate\ValidateController@create_project');
     Route::get('/summary_result', 'Front\Validate\ValidateController@summary_result');
+    Route::get('/create_project/{id}/summary_view', 'Front\Validate\ValidateController@summary_view');
 });
