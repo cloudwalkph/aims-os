@@ -166,5 +166,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         // pooling
         Route::get('/poolingManpower', 'PoolingManpowerController@index');
         Route::get('/job-order-manpower/{joNumber}', 'PoolingManpowerController@showJobOrderManpower');
+        Route::post('/selected-manpower/{joNumber}','PoolingManpowerController@addSelectedManpower');
+        Route::get('/selected-manpower/{joNumber}','PoolingManpowerController@getSelectedManpower');
     });
 });

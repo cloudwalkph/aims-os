@@ -24,8 +24,10 @@
         </div>
 
         <div class="clearfix"></div>
+        
         <hr style="border-color: #000;margin: 50px 0;" />
-
+        
+        <h3>Manpower</h3>
        	<vuetable ref="vuetable_manpower"
         			api-url="/api/v1/hr/manpower"
         			:fields="fields"
@@ -39,21 +41,32 @@
               <tr>
                 <td>Full Name</td>
                 <td>Manpower Type</td>
+                <td>Assigned Venue</td>
                 <td>Action</td>
               </tr>
             </thead>
             <tbody>
               <tr v-for="selected in selectedManpower">
-                <td>{{selected.name}}</td>
+                <td>{{selected.first_name + ' ' + selected.middle_name + ' ' + selected.last_name}}</td>
                 <td>{{selected.manpower_type.name}}</td>
+                <td>
+                  <select @change="onAssignVenue($event, selected.id)">
+                    <option value=""></option>
+                    <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
+                  </select>
+                </td>
                 <td>
                   <button class="btn btn-sm btn-danger" @click="handleRemoveManpower(selected.id)"><i class="glyphicon glyphicon-trash"></i></button>
                 </td>
               </tr>
             </tbody>
           </table>
-          <button class="btn btn-primary pull-right">Save</button>
+          <button class="btn btn-primary pull-right" @click="handleAddManpower">Save</button>
         </div>
+
+        <div class="clearfix"></div>
+        <hr style="border-color: #000;margin: 50px 0;" />
+
 
 
 	</div>
@@ -75,6 +88,8 @@
         },
 		mounted() {
 			this.getJobOrderManpower();
+      this.getSelectedManpower();
+      this.getVenues();
 		},
 		data() {
 			return {
@@ -139,7 +154,8 @@
     					}
         		],
 				joManpowerList : [],
-        selectedManpower : []
+        selectedManpower : [],
+        venueList : []
 			}
 		},
 		props: [ 
@@ -164,17 +180,54 @@
             },
 			getJobOrderManpower() {
 				let url = '/api/v1/hr/job-order-manpower/' + this.data;
-                this.$http.get(url).then(response => {
-                    this.joManpowerList = response.data.data;
-                    console.log(response.data)
-                }, error => {
-                    console.log(error)
-                });
+        this.$http.get(url).then(response => {
+            this.joManpowerList = response.data.data;
+        }, error => {
+            console.log(error)
+        });
 			},
+      getSelectedManpower(joNumber) {
+        let url = '/api/v1/hr/selected-manpower/' + this.data;
+        this.$http.get(url).then(response => {
+          for(let man in response.data)
+          {
+            this.selectedManpower = this.selectedManpower.concat([response.data[man]['manpower']]);
+          }
+        }, error => {
+            console.log(error)
+        });
+      },
+      getVenues() {
+        let url = '/api/v1/venues/all';
+        this.$http.get(url).then(response => {
+            this.venueList = response.data;
+        }, error => {
+            console.log(error)
+        });
+      },
       handleRemoveManpower(id) {
         let index = this.selectedManpower.findIndex((item) => item.id == id);
+        console.log(index);
         this.selectedManpower.splice(index, 1);
         $('#button-' + id).show();
+      },
+      handleAddManpower() {
+        let url = '/api/v1/hr/selected-manpower/' + this.data;
+        let dataArray = {
+          'manpower' : this.selectedManpower
+        };
+        
+        this.$http.post(url, dataArray).then(response => {
+          console.log(response.data)
+        }, error => {
+          console.log(error)
+        })
+
+      },
+      onAssignVenue(event, manpowerId) {
+        let index = this.selectedManpower.findIndex((item) => item.id == manpowerId);
+        this.selectedManpower[index].venue_id = event.target.value;
+
       }
 		},
 		events: {
