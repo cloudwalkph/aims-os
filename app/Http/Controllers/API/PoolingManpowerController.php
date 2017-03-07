@@ -50,7 +50,7 @@ class PoolingManpowerController extends Controller
     {
         $jo = JobOrder::where('job_order_no', $joNumber)->first();
 
-        $joSelectedManpower = JobOrderSelectedManpower::with('jobOrder')->with('manpower.manpowerType')->where('job_order_id', $jo->id)->get();
+        $joSelectedManpower = JobOrderSelectedManpower::with('jobOrder')->with('venue')->with('manpower.manpowerType')->where('job_order_id', $jo->id)->get();
 
         return response()->json($joSelectedManpower, 200);
     }

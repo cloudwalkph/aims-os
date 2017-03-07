@@ -52,7 +52,7 @@
                 <td>
                   <select @change="onAssignVenue($event, selected.id)">
                     <option value=""></option>
-                    <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
+                    <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == selected.venue_id">{{venue.venue}}</option>
                   </select>
                 </td>
                 <td>
@@ -67,7 +67,80 @@
         <div class="clearfix"></div>
         <hr style="border-color: #000;margin: 50px 0;" />
 
+        <div class="col-md-12">
+          <div class="col-md-4"><h4 class="text-center">Manpower Briefing Schedule:</h4></div>
+          <div class="col-md-8">
+            
+            <div class="row" style="margin-bottom: 20px;" v-for="briefing in briefingSched">
+              <div class="col-md-5"><label class="control-label">Date Time</label><input type="datetime-local" class="form-control" :value="briefing.created_date_time" /></div>
+              <div class="col-md-5">
+                <label class="control-label">Venue</label>
+                <select class="form-control">
+                  <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == briefing.venue_id">{{venue.venue}}</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-sm btn-danger" style="margin-top: 26px;">
+                  <i class="glyphicon glyphicon-trash" style="font-size: 21px;"></i>
+                </button>
+              </div>
+            </div>
 
+            <div class="row">
+              <div class="col-md-5"><input type="datetime-local" class="form-control" /></div>
+              <div class="col-md-5">
+                <select class="form-control">
+                  <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-sm btn-danger">
+                  <i class="glyphicon glyphicon-plus-sign" style="font-size: 21px;"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <hr style="border-color: #000;margin: 50px 0;" />
+
+        <div class="col-md-12">
+          <div class="col-md-3"><h4 class="text-center">Manpower Training and Simulation Schedule:</h4></div>
+          <div class="col-md-9">
+            
+            <div class="row" style="margin-bottom: 20px;" v-for="briefing in briefingSched">
+              <div class="col-md-3"><label class="control-label">Batch</label><input type="text" class="form-control"  /></div>
+              <div class="col-md-4"><label class="control-label">Date Time</label><input type="datetime-local" class="form-control" :value="briefing.created_date_time" /></div>
+              <div class="col-md-3">
+                <label class="control-label">Venue</label>
+                <select class="form-control">
+                  <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == briefing.venue_id">{{venue.venue}}</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-sm btn-danger" style="margin-top: 26px;">
+                  <i class="glyphicon glyphicon-trash" style="font-size: 21px;"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3"><input type="text" class="form-control"  /></div>
+              <div class="col-md-4"><input type="datetime-local" class="form-control" /></div>
+              <div class="col-md-3">
+                <select class="form-control">
+                  <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-sm btn-danger">
+                  <i class="glyphicon glyphicon-plus-sign" style="font-size: 21px;"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
 	</div>
 </template>
@@ -155,7 +228,8 @@
         		],
 				joManpowerList : [],
         selectedManpower : [],
-        venueList : []
+        venueList : [],
+        briefingSched : [{'job_order_id':'1','created_date_time':'2017-03-07T18:33:55','venue_id': '2'}]
 			}
 		},
 		props: [ 
@@ -189,8 +263,11 @@
       getSelectedManpower(joNumber) {
         let url = '/api/v1/hr/selected-manpower/' + this.data;
         this.$http.get(url).then(response => {
+          
           for(let man in response.data)
           {
+            let dataList = response.data[man]['manpower'];
+            dataList.venue_id = response.data[man]['venue_id'];
             this.selectedManpower = this.selectedManpower.concat([response.data[man]['manpower']]);
           }
         }, error => {
