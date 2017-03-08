@@ -155,7 +155,33 @@
           
           </div>
           <div role="tabpanel" class="tab-pane" id="final_deployment">
-            asd
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6" v-for="(briefing, key) in deploymentManpower.briefing">
+                  <h4 class="text-center">Briefing Schedule</h4>
+                  <table class="table table-striped">
+                    <caption>Team : {{key}}</caption>
+                    <thead>
+                      <tr>
+                        <th>Full Name</th>
+                        <th>Manpower Type</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="manpowerList in briefing">
+                        <td>{{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}</td>
+                        <td>{{manpowerList.manpower.manpower_type.name}}</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-6">
+                  <h4 class="text-center">Training and simulation Schedule</h4>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 	</div>
@@ -249,6 +275,7 @@
         venueList : [],
         briefingSched : [],
         simulationSched : [],
+        deploymentManpower : [],
 
         briefingDate : '',
         briefingTime : '',
@@ -410,7 +437,8 @@
       manpowerDeployment() {
         let url = '/api/v1/hr/manpower-deployment/' + this.data;
         this.$http.get(url).then(response => {
-          console.log(response.data);
+          this.deploymentManpower = response.data;
+          console.log(response.data)
         }, error => {
           console.log(error);
         })
