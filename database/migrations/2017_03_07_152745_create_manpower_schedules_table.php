@@ -18,7 +18,8 @@ class CreateManpowerSchedulesTable extends Migration
             $table->integer('job_order_id');
             $table->integer('venue_id');
             $table->string('type');
-            $table->timestamps('created_datetime');
+            $table->string('batch')->nullable();
+            $table->datetime('created_datetime');
             $table->timestamps();
             $table->softDeletes();
         });

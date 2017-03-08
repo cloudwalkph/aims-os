@@ -10,7 +10,7 @@ class ManpowerSchedules extends Model
     use SoftDeletes;
 
     protected $table = 'manpower_schedules';
-    protected $fillable = ['job_order_id', 'venue_id', 'type', 'created_datetime'];
+    protected $fillable = ['job_order_id', 'venue_id', 'type', 'created_datetime', 'batch'];
 
     public function venue()
     {
