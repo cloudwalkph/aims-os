@@ -2,8 +2,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JobOrders\AddAeRequest;
 use App\Http\Requests\JobOrders\CreateJobOrderRequest;
 use App\Models\JobOrder;
+use App\Models\JobOrderAddUser;
 use App\Models\JobOrderClient;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Traits\FilterTrait;
@@ -154,5 +156,18 @@ class JobOrdersController extends Controller {
         }
 
         return response()->json($jo, 200);
+    }
+
+    public function addAe(AddAeRequest $request)
+    {
+        $input = $request->all();
+
+        $jo = null;
+        // Create the client
+        \DB::transaction(function() use ($input, &$jo) {
+            $jo = JobOrderAddUser::create($input);
+        });
+
+        return response()->json($jo, 201);
     }
 }
