@@ -74,7 +74,7 @@ class User extends Authenticatable
 
     public function jobOrders()
     {
-        return $this->hasMany(JobOrder::class);
+        return $this->hasMany(JobOrder::class, 'user_id');
     }
 
     public function events()
