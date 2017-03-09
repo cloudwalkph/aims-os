@@ -166,5 +166,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         // pooling
         Route::get('/poolingManpower', 'PoolingManpowerController@index');
         Route::get('/job-order-manpower/{joNumber}', 'PoolingManpowerController@showJobOrderManpower');
+        Route::post('/selected-manpower/{joNumber}','PoolingManpowerController@addSelectedManpower');
+        Route::get('/selected-manpower/{joNumber}','PoolingManpowerController@getSelectedManpower');
+        Route::post('/manpower-schedule/{joNumber}','PoolingManpowerController@addManpowerSchedule');
+        Route::get('/manpower-schedule/{joNumber}','PoolingManpowerController@getManpowerSchedule');
+        Route::delete('/manpower-schedule/{id}','PoolingManpowerController@deteteManpowerSchedule');
+        Route::get('/manpower-deployment/{JoNumber}','PoolingManpowerController@manpowerDeployment');
     });
 });
