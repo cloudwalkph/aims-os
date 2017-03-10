@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="width: 100%;">
         <div class="row">
             <div class="col-sm-4">
                 <label id="lblJOID" style="width: 100%; text-align: left;" >JO Number: {{$jos->job_order_no}}</label>
@@ -50,7 +50,7 @@
                 <label>Rater:</label>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRater" id="selRater" alt="rater">
+                <select class="fullwidth" name="selRater" id="selRater" alt="rater" style="width: 100%;">
                     <option value="" disabled selected>Department</option>
 
                     @foreach( $departments as $department)
@@ -62,14 +62,10 @@
                 </select>
             </div>
             <div class="col-sm-3">
-            <select class="fullwidth" name="selRaterEmp" id="selRaterEmp">
+            <select class="fullwidth" name="selRaterEmp" id="selRaterEmp" style="width: 100%;">
                 <option value="" disabled selected>Select</option>
             </select>
         </div>
-            <div class="col-sm-3">
-                <label class="control-label">JO Order Number</label>
-                <v-select :on-change="roleSelected" :options="roleOptions"></v-select>
-            </div>
         </div>
 
         <div class="row" style="margin-top: 10px;">
@@ -77,7 +73,7 @@
                 <label>Ratee:</label>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRatee" id="selRatee" alt="ratee">
+                <select class="fullwidth" name="selRatee" id="selRatee" alt="ratee" style="width: 100%;">
                     <option value="" disabled selected>Department</option>
 
                     @foreach( $departments as $department)
@@ -88,7 +84,7 @@
                 </select>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRateeEmp" id="selRateeEmp">
+                <select class="fullwidth" name="selRateeEmp" id="selRateeEmp" style="width: 100%;">
                     <option value="" disabled selected>Select</option>
                 </select>
             </div>
@@ -98,11 +94,9 @@
             <table class="table table-striped" role="grid">
                 <thead>
                 <tr>
-                    <th width="850">Question List</th>
-                    <th>Add Question
-                        <select>
-                            <option value="" disabled selected>Select Question</option>
-                        </select>
+                    <th width="920">Question List</th>
+                    <th>
+                        <a class="btn btn-primary" href="/validate/create_project/{{$jos->job_order_no}}/summary_view">Add Question</a>
                     </th>
                 </tr>
                 </thead>
