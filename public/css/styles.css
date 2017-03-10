@@ -475,6 +475,12 @@ table tbody tr {
     background-color: #f67d22 !important;
     border-color: #f67d22 !important;
 }
+
+.btn-warning{
+    color: #fff !important;
+    background-color: #f67d22 !important;
+    border-color: #f67d22 !important;
+}
 /*validate result button end*/
 
 
