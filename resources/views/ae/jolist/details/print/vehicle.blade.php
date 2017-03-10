@@ -32,11 +32,11 @@
 
 <div class="col-md-12 col-xs-12 col-sm-12">
     <div style="text-align: center">
-        <img src="/images/aims-logo.png" alt="aims logo" style="height: 200px"/>
+        <img src="/img/aai-logo.png" alt="aims logo" style="height: 100px"/>
     </div>
 
     {{--jo number and date end--}}
-    <div class="row">
+    <div class="row" style="padding-top: 50px">
         <div class="col-md-6 col-sm-6 col-xs-6">
             <h5>
                 <b>JOB ORDER NO.:</b> {{ $jo->job_order_no }}
