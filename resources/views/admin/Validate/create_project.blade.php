@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="width: 100%;">
         <div class="row">
             <div class="col-sm-4">
                 <label id="lblJOID" style="width: 100%; text-align: left;" >JO Number: {{$jos->job_order_no}}</label>
@@ -67,10 +67,6 @@
                 <option value="" disabled selected>Select</option>
             </select>
         </div>
-            <div class="col-sm-3">
-                <label class="control-label">JO Order Number</label>
-                <v-select :on-change="roleSelected" :options="roleOptions"></v-select>
-            </div>
         </div>
 
         <div class="row" style="margin-top: 10px;">
