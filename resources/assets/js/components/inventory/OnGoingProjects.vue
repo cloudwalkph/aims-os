@@ -19,7 +19,7 @@
                     </thead>
                     <tbody>
 
-                        <tr v-for="job in propData.jobs">
+                        <tr v-for="job in jobs">
                             <td>
                                 <span v-for="jobOrder in propData.jobOrders" v-if="job.job_order_id == jobOrder.id">
                                     {{jobOrder.job_order_no}}
@@ -33,10 +33,7 @@
                             <td>{{job.description}}</td>
                             <td>{{convertDate(job.deadline)}}</td>
                             <td>
-                                <span 
-                                    v-for="assigned_person in propData.assignedPeople" 
-                                    v-if="assigned_person.inventory_job_id == job.id"
-                                >
+                                <span v-for="assigned_person in assignedPeople" v-if="assigned_person.inventory_job_id == job.id">
                                     <span v-for="user in propData.users" v-if="assigned_person.user_id == user.id">
                                         {{user.profile.first_name}}
                                     </span>
@@ -52,8 +49,6 @@
         </component>
     </div>
 
-
-
 </template>
 
 <script>
@@ -63,11 +58,42 @@
         components: {
             CreateJobModal
         },
+        mounted: function () {
+            this.getJob();
+        },
+        data: function () {
+            return {
+                jobs: this.propData.jobs,
+                assignedPeople: this.propData.assignedPeople
+            }
+        },
         methods: {
             convertDate: function (dateVal) {
                 var milliseconds = Date.parse(dateVal);
                 var d = new Date(milliseconds);
                 return d.toDateString();
+            },
+            getJob: function () {
+                this.$http.get('/api/v1/inventory/job')
+                    .then(function (response) {
+                        this.jobs = [];
+                        this.assignedPeople = [];
+                        for (let r of response.data.data) {
+                            this.jobs.push({
+                                id: r.id,
+                                job_order_id: r.job_order_id,
+                                description: r.description,
+                                deadline: r.deadline
+                            });
+                            this.assignedPeople.push({
+                                inventory_job_id: r.id,
+                                user_id: r.user_id
+                            });
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log('error jobs', e);
+                    });
             }
         },
         props: ['propData']

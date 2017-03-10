@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +10,14 @@ class InventoryJob extends Model
     use SoftDeletes;
 
     protected $table = 'inventory_jobs';
-    protected $fillable = ['job_order_no', 'description', 'deadline'];
+    protected $fillable = ['job_order_id', 'description', 'deadline'];
+
+    public static $rules = [
+        'job_order_id'     => 'required',
+        'description'      => 'required',
+        'deadline'         => 'required',
+        'user_id'          => 'required',
+    ];
 
     public function jobOrders()
     {
