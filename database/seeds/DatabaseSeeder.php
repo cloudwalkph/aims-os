@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ManpowerTypesTableSeeder::class);
         $this->call(MealTypesTableSeeder::class);
         $this->call(VehicleTypesTableSeeder::class);
+        $this->call(JobOrderTempSeeder::class);
     }
 }
