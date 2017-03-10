@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\Front\Validate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ValidateQuestions;
 
-class ValidateQuestions extends Controller
+class ValidateQuestionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -47,6 +48,13 @@ class ValidateQuestions extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function showQuestions(Request $request)
+    {
+        $questions = ValidateQuestions::where('qdept', $request->deptID)->get();
+//        foreach ($questions)
+        dd($questions);
     }
 
     /**

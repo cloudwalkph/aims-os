@@ -51,19 +51,15 @@
                 <label>Rater:</label>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRater" id="selRater">
+                <select class="fullwidth" name="selRater" id="selRater" alt="rater">
                     <option value="" disabled selected>Department</option>
-                    <option value="Accounts">Accounts</option>
-                    <option value="Activations">Activations</option>
-                    <option value="Accounting">Accounting</option>
-                    <option value="CMTUVA">CMTUVA</option>
-                    <option value="Human Resources">HR</option>
-                    <option value="Inventory">Inventory</option>
-                    <option value="Production">Production</option>
-                    <option value="Setup">Setup</option>
-                    <option value="Setup">Setup Leader</option>
-                    <option value="Negotiator">Negotiator</option>
-                    <option value="Team Leader">Team Leader</option>
+
+                    @foreach( $departments as $department)
+
+                        <option value="{{ $department->slug }}">{{ $department->name }}</option>
+
+                    @endforeach
+
                 </select>
             </div>
             <div class="col-sm-3">
@@ -82,23 +78,18 @@
                 <label>Ratee:</label>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRater" id="selRater">
+                <select class="fullwidth" name="selRatee" id="selRatee" alt="ratee">
                     <option value="" disabled selected>Department</option>
-                    <option value="Accounts">Accounts</option>
-                    <option value="Activations">Activations</option>
-                    <option value="Accounting">Accounting</option>
-                    <option value="CMTUVA">CMTUVA</option>
-                    <option value="Human Resources">HR</option>
-                    <option value="Inventory">Inventory</option>
-                    <option value="Production">Production</option>
-                    <option value="Setup">Setup</option>
-                    <option value="Setup">Setup Leader</option>
-                    <option value="Negotiator">Negotiator</option>
-                    <option value="Team Leader">Team Leader</option>
+
+                    @foreach( $departments as $department)
+
+                        <option value="{{ $department->slug }}">{{ $department->name }}</option>
+
+                    @endforeach
                 </select>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRaterEmp" id="selRaterEmp">
+                <select class="fullwidth" name="selRateeEmp" id="selRateeEmp">
                     <option value="" disabled selected>Select</option>
                 </select>
             </div>
@@ -112,18 +103,23 @@
                     <th>Add Question
                         <select>
                             <option value="" disabled selected>Select Question</option>
-                        </select></th>
+                        </select>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
+
                 @foreach($questions as $question)
+
                     <tr id="eventRow{{$question -> _id}}">
                         <td>{{$question -> qname}}</td>
                         <td>
-                            <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{$question -> _id}}"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                            <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{$question -> _id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
+
                 @endforeach
+
                 </tbody>
             </table>
             <div class="button-group">
@@ -133,4 +129,60 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('c3scripts')
+    <script !src="">
+
+        function loadQuestions( deptID ) {
+            axios.get('{{ URL::to('/questions/getquestions') }}', {
+                params: {
+                    deptID: deptID,
+                }
+            })
+            .then(function (response) {
+                console.log(response);
+//                    $('#selRateeEmp').empty();
+//                    $('select#selRateeEmp').append(response.data);
+//
+//                    loadQuestions();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        $('#selRatee').on('change', function () {
+            var deptName = $(this).val();
+            axios.get('{{ URL::to('/users/getusers') }}', {
+                params: {
+                    dept: deptName,
+                }
+            })
+            .then(function (response) {
+                $('#selRateeEmp').empty();
+                $('select#selRateeEmp').append(response.data.optionList);
+
+                loadQuestions( response.data.department );
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        });
+
+        $('#selRater').on('change', function () {
+            axios.get('{{ URL::to('/users/getusers') }}', {
+                params: {
+                    dept: $(this).val()
+                }
+            })
+            .then(function (response) {
+                $('#selRaterEmp').empty();
+                $('select#selRaterEmp').append(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        });
+    </script>
 @endsection
