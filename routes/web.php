@@ -108,3 +108,11 @@ Route::group(['prefix' => 'validate'], function () {
     Route::get('/summary_result', 'Front\Validate\ValidateController@summary_result');
     Route::get('/create_project/{id}/summary_view', 'Front\Validate\ValidateController@summary_view');
 });
+
+Route::group(['prefix' => 'users'], function () {
+    Route::get('/getusers', 'Front\User\UsersController@showUsers');
+});
+
+Route::group(['prefix' => 'questions'], function () {
+    Route::get('/getquestions', 'Front\Validate\ValidateQuestionsController@showQuestions');
+});

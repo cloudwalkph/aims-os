@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\Front\Department;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ValidateQuestions extends Controller
+class DepartmentsController extends Controller
 {
     /**
      * Display a listing of the resource.

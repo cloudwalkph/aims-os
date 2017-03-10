@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Front\Validate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\JobOrder;
-use App\Models\JobOrderManpower;
+use App\Models\ValidateQuestions;
 
-class PoolingManpowerController extends Controller
+class ValidateQuestionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,17 @@ class PoolingManpowerController extends Controller
      */
     public function index()
     {
-        $jobOrder = JobOrder::with('joManpower.manpowerType')->paginate();
-        return response()->json($jobOrder, 200);
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -37,12 +45,16 @@ class PoolingManpowerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showJobOrderManpower($joNumber)
+    public function show($id)
     {
-        $jo = JobOrder::where('job_order_no', $joNumber)->first();
+        //
+    }
 
-        $joManpower = JobOrderManpower::with('manpowerType')->where('job_order_id', $jo->id)->paginate();
-        return response()->json($joManpower, 200);
+    public function showQuestions(Request $request)
+    {
+        $questions = ValidateQuestions::where('qdept', $request->deptID)->get();
+//        foreach ($questions)
+        dd($questions);
     }
 
     /**
