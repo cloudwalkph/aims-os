@@ -44334,11 +44334,9 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_select__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_select__);
-//
-//
 //
 //
 //
@@ -44371,6 +44369,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             this.user_id = '';
         },
         userSelected: function userSelected(val) {
+            console.log(val);
             this.user_id = val.value;
         },
         getUsers: function getUsers() {
@@ -44410,11 +44409,14 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
         saveProject: function saveProject(e) {
             var _this2 = this;
 
+            var jobOrderId = $('#jobOrderId').val();
             var data = {
+                job_order_id: jobOrderId,
                 user_id: this.user_id
             };
+            console.log(data);
 
-            var url = '/api/v1/';
+            var url = '/api/v1/job-orders/add-ae';
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
@@ -44425,6 +44427,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
         }
     }
 };
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
 /* 205 */
@@ -91022,14 +91025,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('button', {
     staticClass: "btn btn-primary",
     attrs: {
-      "type": "button"
+      "type": "submit"
     },
     on: {
-      "onclick": _vm.saveProject
+      "click": _vm.saveProject
     }
-  }, [_c('i', {
-    staticClass: "fa fa-plus"
-  }), _vm._v(" Add AE\n        ")])])])
+  }, [_vm._v("Add AE")])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
