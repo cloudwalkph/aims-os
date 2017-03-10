@@ -96,6 +96,9 @@
                     </div>
                     <div class="added-ae" style="margin-top: 20px">
                         <p>{{ $jo->user->profile->full_name }}</p>
+                        @foreach($aes as $ae)
+                            <p>{{ $ae->user->profile->getFullNameAttribute() }}</p>
+                        @endforeach
                     </div>
                     <hr/>
                     <div class="update-history" style="display: none">

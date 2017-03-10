@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\CMTUVA;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\ImportVenueFromExcel;
+use App\Models\JobOrderDepartmentInvolved;
 use App\Models\Venue;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,15 @@ class CmtuvaController extends Controller
     {
         config(['app.name' => 'CMTUVA | AIMS']);
 
-        return view('cmtuva.main');
+        $user = \Auth::user();
+        $jos = JobOrderDepartmentInvolved::with('jobOrder.user.profile')
+            ->where('department_id', $user->department_id)
+            ->get();
+
+//        print_r($jos->toArray());exit;
+
+        return view('cmtuva.main')
+            ->with('jos', $jos->toArray());
     }
 
     public function schedules()

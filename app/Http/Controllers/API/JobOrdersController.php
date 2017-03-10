@@ -2,8 +2,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JobOrders\AddAeRequest;
 use App\Http\Requests\JobOrders\CreateJobOrderRequest;
 use App\Models\JobOrder;
+use App\Models\JobOrderAddUser;
 use App\Models\JobOrderClient;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Traits\FilterTrait;
@@ -57,8 +59,8 @@ class JobOrdersController extends Controller {
 
         $query->join('job_order_clients', 'job_order_clients.job_order_id', '=', 'job_orders.id')
             ->join('clients', 'job_order_clients.client_id', '=', 'clients.id')
-            ->join('job_order_animation_details', 'job_order_animation_details.job_order_id', '=', 'job_orders.id')
             ->join('user_profiles', 'user_profiles.user_id', '=', 'job_orders.user_id')
+            ->leftJoin('job_order_animation_details', 'job_order_animation_details.job_order_id', '=', 'job_orders.id')
             ->groupBy('job_orders.id', 'user_profiles.last_name', 'user_profiles.first_name')
             ->select('job_orders.*', \DB::raw("GROUP_CONCAT(clients.`company` separator ', ') as company"),
                 \DB::raw("SUM(job_order_animation_details.`target_selling` + job_order_animation_details.`target_flyering`
@@ -154,5 +156,18 @@ class JobOrdersController extends Controller {
         }
 
         return response()->json($jo, 200);
+    }
+
+    public function addAe(AddAeRequest $request)
+    {
+        $input = $request->all();
+
+        $jo = null;
+        // Create the client
+        \DB::transaction(function() use ($input, &$jo) {
+            $jo = JobOrderAddUser::create($input);
+        });
+
+        return response()->json($jo, 201);
     }
 }

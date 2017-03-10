@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front\AE;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\JobOrder;
+use App\Models\JobOrderAddUser;
 use App\Models\JobOrderAnimationDetail;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Models\JobOrderDetail;
@@ -77,6 +78,8 @@ class JobOrderController extends Controller
             }
         }
 
+        $aes = JobOrderAddUser::where('job_order_id', $jo->id)->get();
+
         $mealTypes = MealType::all();
 
         $manpowerTypes = ManpowerType::all();
@@ -99,6 +102,7 @@ class JobOrderController extends Controller
             ->with('jo', $jo)
             ->with('brands', $brands)
             ->with('mom', $mom)
+            ->with('aes', $aes)
             ->with('detail', $detail)
             ->with('departmentLists', $departmentLists)
             ->with('animations', $animations)

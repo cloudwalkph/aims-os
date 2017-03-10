@@ -50,6 +50,11 @@ window.toastr = require('toastr');
 window.datetimepicker = require('../lib/datetimepicker/js/bootstrap-datetimepicker.min');
 
 /**
+ * Slick
+ */
+window.slick = require('slick-carousel');
+
+/**
  * Toastr Config
  *
  */

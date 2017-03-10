@@ -476,3 +476,31 @@ table tbody tr {
     border-color: #f67d22 !important;
 }
 /*validate result button end*/
+
+
+/*JO Item*/
+.assigned-jo {
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.jo-item {
+    cursor: pointer;
+    width: 100%;
+    padding: 0;
+    background-color: #f6f6f6;
+    margin-bottom: 15px;
+}
+
+.jo-item > .project-name {
+    background-color: #474749;
+    color: #fff;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 1em;
+}
+
+.jo-item > .project-body {
+    padding: 10px 20px 10px 20px;
+}

@@ -66,6 +66,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/', 'JobOrdersController@index');
         Route::get('/{jobOrderId}', 'JobOrdersController@show');
         Route::post('/', 'JobOrdersController@store');
+        Route::post('/add-ae', 'JobOrdersController@addAe');
         Route::put('/{jobOrderId}', 'JobOrdersController@update');
         Route::delete('/{jobOrderId}', 'JobOrdersController@delete');
 
