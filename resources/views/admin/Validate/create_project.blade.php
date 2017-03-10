@@ -31,13 +31,12 @@
                 <div class="col-sm-2">
                     <select class="btn-warning fullwidth" name="eventType" id="eventType">
                         <option value="" disabled selected>Select Event Type</option>
-                        <option value="pre">Small Event</option>
-                        <option value="eprop">Medium Proper</option>
-                        <option value="post">Big Event</option>
+                        <option value="S">Small Event</option>
+                        <option value="M">Medium Proper</option>
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <select class="btn-warning fullwidth" name="eventType" id="eventType">
+                    <select class="btn-warning fullwidth" name="qcat" id="qcat">
                         <option value="" disabled selected>Select Event</option>
                         <option value="pre">Pre-Event</option>
                         <option value="eprop">Event Proper</option>
@@ -107,7 +106,7 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="questions_tb">
 
                 @foreach($questions as $question)
 
@@ -129,23 +128,49 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalAlertSelection" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Alert</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('c3scripts')
     <script !src="">
 
         function loadQuestions( deptID ) {
+            var category = $('#qcat').val();
+            var eventType = $('#eventType').val();
+
+            if( category == null && eventType == null ){
+                $('#selRatee').val('');
+                $('.modal-body').text('Please select the event type and the category.');
+                $('#modalAlertSelection').modal('show');
+                return false;
+            }
+
             axios.get('{{ URL::to('/questions/getquestions') }}', {
                 params: {
                     deptID: deptID,
+                    cat: category,
+                    etype: eventType
                 }
             })
             .then(function (response) {
-                console.log(response);
-//                    $('#selRateeEmp').empty();
-//                    $('select#selRateeEmp').append(response.data);
-//
-//                    loadQuestions();
+                $('#questions_tb').empty();
+                $('#questions_tb').append(response.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -178,7 +203,7 @@
             })
             .then(function (response) {
                 $('#selRaterEmp').empty();
-                $('select#selRaterEmp').append(response.data);
+                $('select#selRaterEmp').append(response.data.optionList);
             })
             .catch(function (error) {
                 console.log(error);
