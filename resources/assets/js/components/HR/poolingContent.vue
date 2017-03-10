@@ -3,7 +3,10 @@
 		<div class="container-fluid" style="padding-top: 10px;padding-bottom: 10px">
 			<span>Job Order Number : </span><span><strong>{{data}}</strong></span>
 		</div>
-		
+		  <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#plan" aria-controls="plan" role="tab" data-toggle="tab">Plan</a></li>
+        <li role="presentation"><a href="#final_deployment" aria-controls="final_deployment" role="tab" data-toggle="tab">Final Deployment</a></li>
+      </ul>
         <div class="col-md-8 col-md-offset-2">
          	<table class="table table-striped">
          		<thead>
@@ -24,38 +27,180 @@
         </div>
 
         <div class="clearfix"></div>
+        
         <hr style="border-color: #000;margin: 50px 0;" />
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="plan">
+            
+            <h3>Manpower</h3>
+           	<vuetable ref="vuetable_manpower"
+            			api-url="/api/v1/hr/manpower"
+            			:fields="fields"
+                  :multi-sort="true"
+           	></vuetable>
 
-       	<vuetable ref="vuetable_manpower"
-        			api-url="/api/v1/hr/manpower"
-        			:fields="fields"
-              :multi-sort="true"
-       	></vuetable>
+            <div class="col-md-8">
+              <h3>Selected Manpower</h3>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <td>Full Name</td>
+                    <td>Manpower Type</td>
+                    <td>Assigned Venue</td>
+                    <td>Action</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="selected in selectedManpower">
+                    <td>{{selected.first_name + ' ' + selected.middle_name + ' ' + selected.last_name}}</td>
+                    <td>{{selected.manpower_type.name}}</td>
+                    <td>
+                      <select @change="onAssignVenue($event, selected.id)">
+                        <option value=""></option>
+                        <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == selected.venue_id">{{venue.venue}}</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-danger" @click="handleRemoveManpower(selected.id)"><i class="glyphicon glyphicon-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn btn-primary pull-right" @click="handleAddManpower">Save</button>
+            </div>
 
-        <div class="col-md-8">
-          <h3>Selected Manpower</h3>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <td>Full Name</td>
-                <td>Manpower Type</td>
-                <td>Action</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="selected in selectedManpower">
-                <td>{{selected.name}}</td>
-                <td>{{selected.manpower_type.name}}</td>
-                <td>
-                  <button class="btn btn-sm btn-danger" @click="handleRemoveManpower(selected.id)"><i class="glyphicon glyphicon-trash"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="btn btn-primary pull-right">Save</button>
+            <div class="clearfix"></div>
+            <hr style="border-color: #000;margin: 50px 0;" />
+
+            <div class="col-md-12">
+              <div class="col-md-2"><h4 class="text-center">Manpower Briefing Schedule:</h4></div>
+              <div class="col-md-10">
+                
+                <div class="row" style="margin-bottom: 20px;" v-for="briefing in briefingSched">
+                  <div class="col-md-4"><input type="date" class="form-control" disabled :value="briefing.date"/></div>
+                  <div class="col-md-4"><input type="time" class="form-control" disabled :value="briefing.time"/></div>
+                  <div class="col-md-3">
+                    <select class="form-control" disabled>
+                      <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == briefing.venue_id">{{venue.venue}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-1">
+                    <button class="btn btn-sm btn-danger">
+                      <i class="glyphicon glyphicon-trash" @click="deleteManpowerSchedule(briefing.id, 'briefingSched')" style="font-size: 21px;"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4"><label class="control-label">Date</label><input type="date" class="form-control" :value="briefingDate" @input="inputChange" id="briefingDate" /></div>
+                  <div class="col-md-4"><label class="control-label">Time</label><input type="time" class="form-control" :value="briefingTime" @input="inputChange" id="briefingTime" /></div>
+                  <div class="col-md-3">
+                    <label class="control-label">Venue</label>
+                    <select class="form-control" @change="onChangeEvents" id="briefingVenue">
+                      <option value=""></option>
+                      <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-1">
+                    <button class="btn btn-sm btn-danger" @click="addManpowerSchedule('briefingSched')" style="margin-top: 26px;">
+                      <i class="glyphicon glyphicon-plus-sign" style="font-size: 21px;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <hr style="border-color: #000;margin: 50px 0;" />
+
+            <div class="col-md-12">
+              <div class="col-md-2"><h4 class="text-center">Manpower Training and Simulation Schedule:</h4></div>
+              <div class="col-md-10">
+                
+                <div class="row" style="margin-bottom: 20px;" v-for="simulation in simulationSched">
+                  <div class="col-md-2"><input type="text" class="form-control" disabled :value="simulation.batch" /></div>
+                  <div class="col-md-3"><input type="date" class="form-control" disabled :value="simulation.date" /></div>
+                  <div class="col-md-3"><input type="time" class="form-control" disabled :value="simulation.time" /></div>
+                  <div class="col-md-2">
+                    <select class="form-control" disabled>
+                      <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == simulation.venue_id">{{venue.venue}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-1">
+                    <button class="btn btn-sm btn-danger">
+                      <i class="glyphicon glyphicon-trash" @click="deleteManpowerSchedule(briefing.id, 'simulationSched')" style="font-size: 21px;"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2"><label class="control-label">Batch</label><input type="text" class="form-control" :value="batch" @input="inputChange" id="batch" /></div>
+                  <div class="col-md-3"><label class="control-label">Date</label><input type="date" class="form-control" :value="simulationDate" @input="inputChange" id="simulationDate" /></div>
+                  <div class="col-md-3"><label class="control-label">Time</label><input type="time" class="form-control" :value="simulationTime" @input="inputChange" id="simulationTime" /></div>
+                  <div class="col-md-2">
+                    <label class="control-label">Venue</label>
+                    <select class="form-control" @change="onChangeEvents" id="simulationVenue">
+                      <option value=""></option>
+                      <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-1">
+                    <button class="btn btn-sm btn-danger" @click="addManpowerSchedule('simulationSched')" style="margin-top: 26px;">
+                      <i class="glyphicon glyphicon-plus-sign" style="font-size: 21px;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+          </div>
+          <div role="tabpanel" class="tab-pane" id="final_deployment">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <h4 class="text-center">Briefing Schedule</h4>
+                  <div v-for="(briefing, key) in deploymentManpower.briefing">
+                    <table class="table table-striped">
+                      <caption>Team : {{key}}</caption>
+                      <thead>
+                        <tr>
+                          <th>Full Name</th>
+                          <th>Manpower Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="manpowerList in briefing">
+                          <td>{{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}</td>
+                          <td>{{manpowerList.manpower.manpower_type.name}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h4 class="text-center">Training and simulation Schedule</h4>
+                  <div v-for="(simulation, key) in deploymentManpower.simulation">
+                    <table class="table table-striped">
+                      <caption>Team : {{key}}</caption>
+                      <thead>
+                        <tr>
+                          <th>Full Name</th>
+                          <th>Manpower Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="manpowerList in simulation">
+                          <td>{{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}</td>
+                          <td>{{manpowerList.manpower.manpower_type.name}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-
 	</div>
 </template>
 
@@ -75,6 +220,10 @@
         },
 		mounted() {
 			this.getJobOrderManpower();
+      this.getSelectedManpower();
+      this.getVenues();
+      this.getManpowerSchedule();
+      this.manpowerDeployment();
 		},
 		data() {
 			return {
@@ -139,7 +288,20 @@
     					}
         		],
 				joManpowerList : [],
-        selectedManpower : []
+        selectedManpower : [],
+        venueList : [],
+        briefingSched : [],
+        simulationSched : [],
+        deploymentManpower : [],
+
+        briefingDate : '',
+        briefingTime : '',
+        briefingVenue: '',
+
+        batch : '',
+        simulationDate : '',
+        simulationTime : '',
+        simulationVenue : ''
 			}
 		},
 		props: [ 
@@ -152,6 +314,12 @@
 			}
 		},
 		methods : {
+      inputChange(e) {
+        this[e.target.id] = e.target.value;
+      },
+      onChangeEvents(e) {
+        this[e.target.id] = e.target.value;
+      },
 			getAge(value) {
         		return moment().month(0).from(moment(value).month(0));
         	},
@@ -164,17 +332,133 @@
             },
 			getJobOrderManpower() {
 				let url = '/api/v1/hr/job-order-manpower/' + this.data;
-                this.$http.get(url).then(response => {
-                    this.joManpowerList = response.data.data;
-                    console.log(response.data)
-                }, error => {
-                    console.log(error)
-                });
+        this.$http.get(url).then(response => {
+            this.joManpowerList = response.data.data;
+        }, error => {
+            console.log(error)
+        });
 			},
+      getSelectedManpower(joNumber) {
+        let url = '/api/v1/hr/selected-manpower/' + this.data;
+        this.$http.get(url).then(response => {
+          
+          for(let man in response.data)
+          {
+            let dataList = response.data[man]['manpower'];
+            dataList.venue_id = response.data[man]['venue_id'];
+            this.selectedManpower = this.selectedManpower.concat([response.data[man]['manpower']]);
+          }
+        }, error => {
+            console.log(error)
+        });
+      },
+      getVenues() {
+        let url = '/api/v1/venues/all';
+        this.$http.get(url).then(response => {
+            this.venueList = response.data;
+        }, error => {
+            console.log(error)
+        });
+      },
       handleRemoveManpower(id) {
         let index = this.selectedManpower.findIndex((item) => item.id == id);
+        console.log(index);
         this.selectedManpower.splice(index, 1);
         $('#button-' + id).show();
+      },
+      handleAddManpower() {
+        let url = '/api/v1/hr/selected-manpower/' + this.data;
+        let dataArray = {
+          'manpower' : this.selectedManpower
+        };
+        
+        this.$http.post(url, dataArray).then(response => {
+          console.log(response.data)
+        }, error => {
+          console.log(error)
+        })
+
+      },
+      onAssignVenue(event, manpowerId) {
+        let index = this.selectedManpower.findIndex((item) => item.id == manpowerId);
+        this.selectedManpower[index].venue_id = event.target.value;
+
+      },
+      addManpowerSchedule(type) {
+        let data = {
+          date: this.briefingDate,
+          time: this.briefingTime,
+          venue_id: this.briefingVenue,
+          type: type
+        };
+
+        if(type == 'simulationSched')
+        {
+          data = {
+            date: this.simulationDate,
+            time: this.simulationTime,
+            venue_id: this.simulationVenue,
+            batch: this.batch,
+            type: type
+          }
+        }
+        
+        let url = '/api/v1/hr/manpower-schedule/' + this.data;
+        this.$http.post(url, data).then(response => {
+          
+          let data = this.parseDateTime(response.data);
+          this[type] = this[type].concat([data]);
+
+        }, error => {
+          console.log(error)
+        });
+      },
+      parseDateTime(obj) {
+        obj.time = moment(obj.created_datetime).format('HH:mm:ss');
+        obj.date = moment(obj.created_datetime).format('YYYY-MM-DD');
+        return obj;
+      },
+      getManpowerSchedule() {
+        let url = '/api/v1/hr/manpower-schedule/' + this.data;
+        this.$http.get(url).then(response => {
+          
+          for(let res of response.data)
+          {
+            let data = this.parseDateTime(res);
+            
+            if(data.type == 'briefingSched')
+            {
+              this.briefingSched = this.briefingSched.concat([data]);
+              
+            }else{
+              this.simulationSched = this.simulationSched.concat([data]);
+              
+            }
+            
+          }
+          
+
+        }, error => {
+          console.log(error);
+        });
+      },
+      deleteManpowerSchedule(id, type) {
+        let url = '/api/v1/hr/manpower-schedule/' + id;
+        this.$http.delete(url).then(response => {
+          let index = this[type].findIndex((item) => item.id == id);
+          this[type].splice(index, 1);
+        }, error => {
+          console.log(error);
+        });
+      },
+      manpowerDeployment() {
+        let url = '/api/v1/hr/manpower-deployment/' + this.data;
+        this.$http.get(url).then(response => {
+          this.deploymentManpower = response.data;
+          console.log(response.data)
+        }, error => {
+          console.log(error);
+        })
       }
 		},
 		events: {

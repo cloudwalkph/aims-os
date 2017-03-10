@@ -4,9 +4,7 @@
             <v-select :on-change="userSelected" :options="userOptions"></v-select>
         </div>
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary" @onclick="saveProject" >
-                <i class="fa fa-plus"></i> Add AE
-            </button>
+            <button type="submit" class="btn btn-primary" @click="saveProject">Add AE</button>
         </div>
     </div>
 </template>
@@ -31,6 +29,7 @@
                 this.user_id = ''
             },
             userSelected(val) {
+                console.log(val)
                 this.user_id = val.value
             },
             getUsers() {
@@ -45,12 +44,14 @@
                 });
             },
             saveProject(e) {
-
+                let jobOrderId = $('#jobOrderId').val();
                 let data = {
+                    job_order_id: jobOrderId,
                     user_id: this.user_id
                 }
+                console.log(data)
 
-                let url = `/api/v1/`;
+                let url = `/api/v1/job-orders/add-ae`;
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
