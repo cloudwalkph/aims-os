@@ -9,6 +9,7 @@ use App\Models\JobOrderClient;
 use App\Models\UserProfile;
 use App\Models\Client;
 use App\Models\ValidateQuestions;
+use App\Models\Department;
 
 class ValidateController extends Controller
 {
@@ -86,89 +87,18 @@ class ValidateController extends Controller
 
     public function create_project( $id ){
 
-//        echo 'hello';
         $jos = JobOrder::where('job_order_no',$id)->first();
         $questions = ValidateQuestions::where('qdept','2')->get();
-//        $questions = ValidateQuestions::all();
-
-//        dd($questions);
-        return view('admin/Validate/create_project', compact('jos', 'questions'));
+        $departments = Department::all();
+        return view('admin/Validate/create_project', compact('jos', 'questions', 'departments'));
     }
 
     public function summary_result(){
-//        echo 'hello';
         return view('admin/Validate/summary_result');
     }
 
     public function summary_view($pn){
-//        echo 'hello';
         $jos = JobOrder::where('job_order_no',$pn)->first();
         return view('admin/Validate/summary_view', compact('jos'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
