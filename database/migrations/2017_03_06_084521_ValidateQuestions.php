@@ -19,7 +19,7 @@ class ValidateQuestions extends Migration
             $table->text('qdept');
             $table->text('qcat');
             $table->text('qtype');
-            $table->text('qsub');
+            $table->text('qsub')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
