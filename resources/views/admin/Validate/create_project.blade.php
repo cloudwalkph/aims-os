@@ -13,20 +13,20 @@
                 <label id="dCreated" style="width: 100%; text-align: left;">Date Created:{{$jos->created_at}}</label>
             </div>
         </div>
-        <form id="test" method="post">
+        <form id="validate_form" method="post">
             <div class="row" style="margin-top: 15px;">
                 <div class="col-sm-2">
                     <label id="lblJOID" style="width: 100%">Activation Date:</label>
                 </div>
                 <div class="col-sm-2">
-                    <input type="date" class="fullwidth dateSelector" name="inp_ActivationsDate" id="inp_ActivationsDate" style="margin-left: -60px;">
+                    <input type="date" class="fullwidth dateSelector" name="ActivationsDate" id="inp_ActivationsDate" style="margin-left: -60px;">
                 </div>
 
                 <div class="col-sm-2">
                     <label id="projectName" style="width: 100%">End Date:</label>
                 </div>
                 <div class="col-sm-2">
-                    <input type="date" class="fullwidth dateSelector" name="inp_ActivationsDate" id="inp_ActivationsDate" style="margin-left: -93px;">
+                    <input type="date" class="fullwidth dateSelector" name="EndDate" id="inp_ActivationsDate" style="margin-left: -93px;">
                 </div>
                 <div class="col-sm-2">
                     <select class="btn-warning fullwidth" name="eventType" id="eventType">
@@ -62,10 +62,10 @@
                 </select>
             </div>
             <div class="col-sm-3">
-            <select class="fullwidth" name="selRaterEmp" id="selRaterEmp" style="width: 100%;">
-                <option value="" disabled selected>Select</option>
-            </select>
-        </div>
+                <select class="fullwidth" name="selRaterEmp" id="selRaterEmp" style="width: 100%;">
+                    <option value="" disabled selected>Select</option>
+                </select>
+            </div>
         </div>
 
         <div class="row" style="margin-top: 10px;">
@@ -90,6 +90,8 @@
             </div>
         </div>
 
+        <input type="hidden" name="question_ids">
+        
         <div class="row">
             <table class="table table-striped" role="grid">
                 <thead>
@@ -143,6 +145,7 @@
 
 @section('c3scripts')
     <script !src="">
+        var question_ids = null;
 
         function loadQuestions( deptID ) {
             var category = $('#qcat').val();
@@ -159,12 +162,14 @@
                 params: {
                     deptID: deptID,
                     cat: category,
-                    etype: eventType
+                    etype: eventType,
+                    qids: question_ids
                 }
             })
             .then(function (response) {
+                question_ids = response.data.question_id;
                 $('#questions_tb').empty();
-                $('#questions_tb').append(response.data);
+                $('#questions_tb').append(response.data.question_string);
             })
             .catch(function (error) {
                 console.log(error);
