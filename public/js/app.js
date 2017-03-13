@@ -24307,7 +24307,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/Vuetable.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\node_modules\\vuetable-2\\src\\components\\Vuetable.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Vuetable.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -24760,7 +24760,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePagination.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\node_modules\\vuetable-2\\src\\components\\VuetablePagination.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetablePagination.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -24794,7 +24794,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfo.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\node_modules\\vuetable-2\\src\\components\\VuetablePaginationInfo.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetablePaginationInfo.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -36033,7 +36033,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/CalendarScheduler.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\CalendarScheduler.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CalendarScheduler.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -36067,7 +36067,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\clients\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -43446,17 +43446,62 @@ var WorkDetails = __webpack_require__(343);
 var InventoryList = __webpack_require__(339);
 
 module.exports = {
-    created: function created() {
+    beforeMount: function beforeMount() {
         this.$http.get('/api/v1/job-orders/department').then(function (response) {
-            this.inventoryData.jobOrders = response.data;
-        }).catch(function (e) {
-            console.log(e);
-        });
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
 
-        this.$http.get('/api/v1/users/5').then(function (response) {
-            this.inventoryData.users = response.data;
+            try {
+                for (var _iterator = response.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var jo = _step.value;
+
+                    this.inventoryData.jobOrders.push(jo);
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
         }).catch(function (e) {
-            console.log(e);
+            console.log('error department', e);
+        });
+        this.$http.get('/api/v1/users/5').then(function (response) {
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+                for (var _iterator2 = response.data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var user = _step2.value;
+
+                    this.inventoryData.users.push(user);
+                }
+            } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
+                    }
+                } finally {
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
+                    }
+                }
+            }
+        }).catch(function (e) {
+            console.log('error users', e);
         });
     },
     data: function data() {
@@ -43469,30 +43514,8 @@ module.exports = {
             }],
             joID: null,
             inventoryData: {
-                jobOrders: [{
-                    contract_no: null,
-                    created_at: "2017-02-27 03:11:36",
-                    deleted_at: null,
-                    do_contract_no: null,
-                    id: 2,
-                    job_order_no: "QWERTY1234",
-                    project_name: "Sample Project Name",
-                    project_types: [{
-                        name: "Sampling"
-                    }],
-                    status: "pending",
-                    user_id: 5
-                }],
-                users: [{
-                    id: 5,
-                    department_id: 5,
-                    user_role_id: 1,
-                    profile: {
-                        first_name: 'Juan',
-                        middle_name: '',
-                        last_name: 'Dela Cruz'
-                    }
-                }],
+                jobOrders: [],
+                users: [],
                 products: [{
                     id: 1,
                     job_order_id: 2,
@@ -43508,12 +43531,7 @@ module.exports = {
                     quantity: 2000000,
                     expiration_date: '2017-02-27'
                 }],
-                jobs: [{
-                    id: 1,
-                    job_order_id: 2,
-                    description: 'description',
-                    deadline: '2017-02-17'
-                }],
+                jobs: [],
                 assignedPeople: [{
                     inventory_job_id: 1,
                     user_id: 5
@@ -43612,6 +43630,9 @@ module.exports = {
                 });
             }
         }
+    },
+    mounted: function mounted() {
+        // console.log(this.inventoryData);
     }
 };
 
@@ -43825,11 +43846,6 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
 
 var CreateJobModal = __webpack_require__(346);
 
@@ -43837,11 +43853,61 @@ module.exports = {
     components: {
         CreateJobModal: CreateJobModal
     },
+    mounted: function mounted() {
+        this.getJob();
+    },
+    data: function data() {
+        return {
+            jobs: this.propData.jobs,
+            assignedPeople: this.propData.assignedPeople
+        };
+    },
     methods: {
         convertDate: function convertDate(dateVal) {
             var milliseconds = Date.parse(dateVal);
             var d = new Date(milliseconds);
             return d.toDateString();
+        },
+        getJob: function getJob() {
+            this.$http.get('/api/v1/inventory/job').then(function (response) {
+                this.jobs = [];
+                this.assignedPeople = [];
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
+
+                try {
+                    for (var _iterator = response.data.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var r = _step.value;
+
+                        this.jobs.push({
+                            id: r.id,
+                            job_order_id: r.job_order_id,
+                            description: r.description,
+                            deadline: r.deadline
+                        });
+                        this.assignedPeople.push({
+                            inventory_job_id: r.id,
+                            user_id: r.user_id
+                        });
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+            }).catch(function (e) {
+                console.log('error jobs', e);
+            });
         }
     },
     props: ['propData']
@@ -44229,75 +44295,98 @@ module.exports = {
 //
 //
 //
+//
+//
+//
 
 module.exports = {
-    computed: {
-        joOptions: function joOptions() {
-            var joOptions = [];
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = this.propData.jobOrders[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var jo = _step.value;
-
-                    joOptions.push({ label: jo.job_order_no + ' : ' + jo.project_name, value: jo.id });
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-
-            return joOptions;
-        },
-        userOptions: function userOptions() {
-            var userOptions = [];
-            var _iteratorNormalCompletion2 = true;
-            var _didIteratorError2 = false;
-            var _iteratorError2 = undefined;
-
-            try {
-                for (var _iterator2 = this.propData.users[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                    var user = _step2.value;
-
-                    userOptions.push({ label: user.profile.first_name + ' ' + user.profile.last_name, value: user.id });
-                }
-            } catch (err) {
-                _didIteratorError2 = true;
-                _iteratorError2 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                        _iterator2.return();
-                    }
-                } finally {
-                    if (_didIteratorError2) {
-                        throw _iteratorError2;
-                    }
-                }
-            }
-
-            return userOptions;
-        }
+    created: function created() {
+        this.getJo();
+        this.getUser();
     },
+    computed: {},
     data: function data() {
         return {
+            joOptions: [],
+            userOptions: [],
             selected_job_order: null,
             selected_user: null
         };
     },
     methods: {
+        getJo: function getJo() {
+            var joData = [];
+            this.$http.get('/api/v1/job-orders/department').then(function (response) {
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
+
+                try {
+                    for (var _iterator = response.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var jo = _step.value;
+
+                        this.joOptions.push({
+                            label: jo.job_order_no + ' : ' + jo.project_name,
+                            value: jo.id
+                        });
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+            }).catch(function (e) {
+                console.log('error department', e);
+            });
+        },
+        getUser: function getUser() {
+            var userOptions = [];
+            this.$http.get('/api/v1/users/5').then(function (response) {
+                var _iteratorNormalCompletion2 = true;
+                var _didIteratorError2 = false;
+                var _iteratorError2 = undefined;
+
+                try {
+                    for (var _iterator2 = response.data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                        var user = _step2.value;
+
+                        this.userOptions.push({
+                            label: user.profile.first_name + ' ' + user.profile.last_name,
+                            value: user.id
+                        });
+                    }
+                } catch (err) {
+                    _didIteratorError2 = true;
+                    _iteratorError2 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                            _iterator2.return();
+                        }
+                    } finally {
+                        if (_didIteratorError2) {
+                            throw _iteratorError2;
+                        }
+                    }
+                }
+            }).catch(function (e) {
+                console.log('error users', e);
+            });
+        },
+        convertDate: function convertDate(dateString) {
+            var milliseconds = Date.parse(dateString);
+            var d = new Date(milliseconds);
+            return d;
+        },
         handleSubmit: function handleSubmit(e) {
             var form = $(e.target)[0];
             console.log(form);
@@ -44306,20 +44395,55 @@ module.exports = {
             // }
             var created_job_id = this.propData.jobOrders.length + 1;
 
-            this.propData.jobs.push({
-                id: created_job_id,
+            var postData = {
                 job_order_id: this.selected_job_order,
                 description: form.description.value,
-                deadline: form.deadline.value
-            });
-            this.propData.assignedPeople.push({
-                inventory_job_id: created_job_id,
+                deadline: this.convertDate(form.deadline.value),
                 user_id: this.selected_user
+            };
+
+            this.$http.post('/api/v1/inventory/job', postData).then(function (response) {
+                this.propData.jobs.push({
+                    id: created_job_id,
+                    job_order_id: this.selected_job_order,
+                    description: form.description.value,
+                    deadline: form.deadline.value
+                });
+                this.propData.assignedPeople.push({
+                    inventory_job_id: created_job_id,
+                    user_id: this.selected_user
+                });
+            }).catch(function (e) {
+                console.log(e);
             });
         },
         inputChange: function inputChange(e) {},
         joSelected: function joSelected(e) {
             this.selected_job_order = e.value;
+            var _iteratorNormalCompletion3 = true;
+            var _didIteratorError3 = false;
+            var _iteratorError3 = undefined;
+
+            try {
+                for (var _iterator3 = this.propData.assignedPeople[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                    var user = _step3.value;
+
+                    console.log(user.user_id);
+                }
+            } catch (err) {
+                _didIteratorError3 = true;
+                _iteratorError3 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                        _iterator3.return();
+                    }
+                } finally {
+                    if (_didIteratorError3) {
+                        throw _iteratorError3;
+                    }
+                }
+            }
         },
         userSelected: function userSelected(e) {
             this.selected_user = e.value;
@@ -87696,7 +87820,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfoMixin.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\node_modules\\vuetable-2\\src\\components\\VuetablePaginationInfoMixin.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -87729,7 +87853,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationMixin.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\node_modules\\vuetable-2\\src\\components\\VuetablePaginationMixin.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -87762,7 +87886,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/AdminCalendarScheduler.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\AdminCalendarScheduler.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AdminCalendarScheduler.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -87796,7 +87920,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/Example.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\Example.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -87834,7 +87958,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\HR\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -87872,7 +87996,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/commons/CustomAddAction.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\HR\\commons\\CustomAddAction.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomAddAction.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -87910,7 +88034,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/commons/CustomSingleAction.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\HR\\commons\\CustomSingleAction.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomSingleAction.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -87944,7 +88068,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/hr-account.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\HR\\hr-account.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] hr-account.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -87982,7 +88106,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/manpower.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\HR\\manpower.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] manpower.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88016,7 +88140,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/pooling.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\HR\\pooling.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] pooling.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88050,7 +88174,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/poolingContent.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\HR\\poolingContent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] poolingContent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88088,7 +88212,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/agencies-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\agencies\\agencies-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] agencies-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88126,7 +88250,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\agencies\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88164,7 +88288,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\agencies\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88198,7 +88322,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\agencies\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88236,7 +88360,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\manpowerType\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88274,7 +88398,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\manpowerType\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88308,7 +88432,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\manpowerType\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88346,7 +88470,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/manpower-type-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\manpowerType\\manpower-type-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] manpower-type-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88384,7 +88508,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\users\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88422,7 +88546,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\users\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88456,7 +88580,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\users\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88494,7 +88618,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/users-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\admin\\users\\users-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] users-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88532,7 +88656,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/clients-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\clients\\clients-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] clients-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88570,7 +88694,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\clients\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88604,7 +88728,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/DetailRow.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\clients\\commons\\DetailRow.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DetailRow.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88642,7 +88766,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\clients\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88680,7 +88804,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\creatives\\ongoing\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88718,7 +88842,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\creatives\\ongoing\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88752,7 +88876,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\creatives\\ongoing\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88790,7 +88914,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/ongoing-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\creatives\\ongoing\\ongoing-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ongoing-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88828,7 +88952,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\creatives\\work-in-progress\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88866,7 +88990,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\creatives\\work-in-progress\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88904,7 +89028,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/work-in-progress/work-in-progress-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\creatives\\work-in-progress\\work-in-progress-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] work-in-progress-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88938,7 +89062,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/DeliveryTracking.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\DeliveryTracking.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DeliveryTracking.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -88972,7 +89096,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/Index.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\Index.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Index.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89006,7 +89130,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/InternalInventory.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\InternalInventory.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] InternalInventory.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89040,7 +89164,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/Inventory.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\Inventory.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Inventory.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89074,7 +89198,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/InventoryList.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\InventoryList.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] InventoryList.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89108,7 +89232,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/OnGoingProjects.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\OnGoingProjects.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] OnGoingProjects.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89142,7 +89266,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/Products.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\Products.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Products.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89176,7 +89300,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/ReleaseTracking.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\ReleaseTracking.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ReleaseTracking.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89210,7 +89334,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/WorkDetails.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\WorkDetails.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] WorkDetails.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89244,7 +89368,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/WorkInProgress.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\WorkInProgress.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] WorkInProgress.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89278,7 +89402,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/modals/CreateInventory.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\modals\\CreateInventory.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CreateInventory.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89312,7 +89436,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/modals/CreateJob.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\inventory\\modals\\CreateJob.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CreateJob.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89346,7 +89470,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/add-ae.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\add-ae.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] add-ae.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89384,7 +89508,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/animation-details-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\animation-details\\animation-details-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animation-details-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89422,7 +89546,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\animation-details\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89460,7 +89584,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\animation-details\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89494,7 +89618,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\animation-details\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89532,7 +89656,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89566,7 +89690,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/commons/DetailRow.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\commons\\DetailRow.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DetailRow.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89604,7 +89728,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89638,7 +89762,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/create-job-order.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\create-job-order.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] create-job-order.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89676,7 +89800,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\involvement\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89714,7 +89838,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\involvement\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89748,7 +89872,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\involvement\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89786,7 +89910,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/involvement-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\involvement\\involvement-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] involvement-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89824,7 +89948,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/jo-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\jo-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] jo-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89862,7 +89986,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-status/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\project-status\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89900,7 +90024,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-status/project-status-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\project-status\\project-status-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] project-status-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89938,7 +90062,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\manpower\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89976,7 +90100,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\manpower\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90010,7 +90134,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\manpower\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90048,7 +90172,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/manpower-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\manpower\\manpower-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] manpower-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90086,7 +90210,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\meal\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90124,7 +90248,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\meal\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90158,7 +90282,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\meal\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90196,7 +90320,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/meal-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\meal\\meal-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] meal-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90234,7 +90358,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\vehicle\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90272,7 +90396,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\vehicle\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90306,7 +90430,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\vehicle\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90344,7 +90468,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/vehicle-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\vehicle\\vehicle-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] vehicle-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90382,7 +90506,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/animation-details-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\plans\\animation-details-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animation-details-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90420,7 +90544,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/animation-details/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\plans\\animation-details\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90458,7 +90582,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\plans\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90496,7 +90620,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\plans\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90534,7 +90658,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/plans-jo-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\plans\\plans-jo-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] plans-jo-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90572,7 +90696,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/commons/CustomActions.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\venues\\commons\\CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90610,7 +90734,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/commons/FilterBar.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\venues\\commons\\FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90644,7 +90768,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/commons/form.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\venues\\commons\\form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90682,7 +90806,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/venues-table.vue"
+Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\venues\\venues-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] venues-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -97196,12 +97320,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "projectList"
     }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.propData.jobs), function(job) {
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.jobs), function(job) {
     return _c('tr', [_c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
       return (job.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                " + _vm._s(jobOrder.job_order_no) + "\n                            ")]) : _vm._e()
     })), _vm._v(" "), _c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
       return (job.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                " + _vm._s(jobOrder.project_name) + "\n                            ")]) : _vm._e()
-    })), _vm._v(" "), _c('td', [_vm._v(_vm._s(job.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.convertDate(job.deadline)))]), _vm._v(" "), _c('td', _vm._l((_vm.propData.assignedPeople), function(assigned_person) {
+    })), _vm._v(" "), _c('td', [_vm._v(_vm._s(job.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.convertDate(job.deadline)))]), _vm._v(" "), _c('td', _vm._l((_vm.assignedPeople), function(assigned_person) {
       return (assigned_person.inventory_job_id == job.id) ? _c('span', _vm._l((_vm.propData.users), function(user) {
         return (assigned_person.user_id == user.id) ? _c('span', [_vm._v("\n                                    " + _vm._s(user.profile.first_name) + "\n                                ")]) : _vm._e()
       })) : _vm._e()
