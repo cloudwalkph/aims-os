@@ -108,7 +108,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // animation details
     Route::group(['prefix' => 'job-order-animation-details'], function() {
-        Route::get('/', 'AnimationDetailsController@index');
+        Route::get('/{Id}', 'AnimationDetailsController@index');
         Route::post('/', 'AnimationDetailsController@store');
         Route::delete('/{Id}', 'AnimationDetailsController@delete');
     });

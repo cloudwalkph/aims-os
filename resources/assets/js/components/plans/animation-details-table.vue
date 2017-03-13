@@ -2,7 +2,7 @@
     <div>
         <!--<plan-animation-details-filter-bar></plan-animation-details-filter-bar>-->
         <vuetable ref="vuetable"
-                  api-url="/api/v1/job-order-animation-details"
+                  :api-url="apiUrl"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -48,6 +48,7 @@
         },
         data() {
             return {
+                apiUrl: `/api/v1/job-order-animation-details/${$('#jobOrderId').val()}`,
                 fields: [
                     {
                         name: '__sequence',
