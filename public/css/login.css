@@ -3,6 +3,8 @@
     background-image: url('../images/bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    align-items: center;
 }
 
 .login-inner-wrapper {
@@ -10,11 +12,9 @@
 }
 
 .login-box {
-    margin-top: 80px;
-    padding: 0px 20px;
+    padding: 0px 20px 40px;
     background-color: #fff;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    padding-bottom: 40px;
 }

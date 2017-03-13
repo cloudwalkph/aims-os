@@ -4,7 +4,9 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     <h4 class="modal-title" id="myModalLabel">Add Creatives Job</h4>
                 </div>
                 <div class="modal-body">
@@ -20,7 +22,8 @@
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Description</label>
-                                <input type="text" name="description" @input="inputChange" id="description" placeholder="Description" class="form-control" />
+                                <input type="text" name="description" @input="inputChange" id="description" placeholder="Description" class="form-control"
+                                />
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Deadline</label>
@@ -47,29 +50,57 @@
 
 <script>
     module.exports = {
-        computed: {
-            joOptions: function () {
-                var joOptions = [];
-                for (let jo of this.propData.jobOrders) {
-                    joOptions.push({label: `${jo.job_order_no} : ${jo.project_name}`, value: jo.id});
-                }
-                return joOptions;
-            },
-            userOptions: function () {
-                var userOptions = [];
-                for (let user of this.propData.users) {
-                    userOptions.push({label: `${user.profile.first_name} ${user.profile.last_name}`, value: user.id});
-                }
-                return userOptions;
-            }
+        created: function () {
+            this.getJo();
+            this.getUser();
         },
+        computed: {},
         data: function () {
             return {
+                joOptions: [],
+                userOptions: [],
                 selected_job_order: null,
-                selected_user: null
+                selected_user: null,
             }
         },
         methods: {
+            getJo: function () {
+                var joData = [];
+                this.$http.get('/api/v1/job-orders/department')
+                    .then(function (response) {
+                        for (let jo of response.data) {
+                            this.joOptions.push({
+                                label: `${jo.job_order_no} : ${jo.project_name}`,
+                                value: jo.id
+                            });
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log('error department', e);
+                    });
+            },
+            getUser: function () {
+                var userOptions = [];
+                this.$http.get('/api/v1/users/5')
+                    .then(function (response) {
+                        for (let user of response.data) {
+                            this.userOptions.push(
+                                {
+                                    label: `${user.profile.first_name} ${user.profile.last_name}`,
+                                    value: user.id
+                                }
+                            );
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log('error users', e);
+                    });
+            },
+            convertDate: function (dateString) {
+                var milliseconds = Date.parse(dateString);
+                var d = new Date(milliseconds);
+                return d;
+            },
             handleSubmit: function (e) {
                 var form = $(e.target)[0];
                 console.log(form);
@@ -78,26 +109,43 @@
                 // }
                 var created_job_id = this.propData.jobOrders.length + 1;
 
-                this.propData.jobs.push(
-                    {
-                        id: created_job_id,
-                        job_order_id: this.selected_job_order,
-                        description: form.description.value,
-                        deadline: form.deadline.value
-                    }
-                );
-                this.propData.assignedPeople.push(
-                    {
-                        inventory_job_id: created_job_id,
-                        user_id: this.selected_user
-                    }
-                )
+                var postData = {
+                    job_order_id: this.selected_job_order,
+                    description: form.description.value,
+                    deadline: this.convertDate(form.deadline.value),
+                    user_id: this.selected_user
+                }
+
+                this.$http.post('/api/v1/inventory/job', postData)
+                    .then(function (response) {
+                        this.propData.jobs.push(
+                            {
+                                id: created_job_id,
+                                job_order_id: this.selected_job_order,
+                                description: form.description.value,
+                                deadline: form.deadline.value
+                            }
+                        );
+                        this.propData.assignedPeople.push(
+                            {
+                                inventory_job_id: created_job_id,
+                                user_id: this.selected_user
+                            }
+                        )
+                    })
+                    .catch(function (e) {
+                        console.log(e);
+                    });
+
             },
             inputChange: function (e) {
-                
+
             },
             joSelected: function (e) {
                 this.selected_job_order = e.value;
+                for(let user of this.propData.assignedPeople) {
+                    console.log(user.user_id);
+                }
             },
             userSelected: function (e) {
                 this.selected_user = e.value;

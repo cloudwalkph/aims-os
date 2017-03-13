@@ -47,22 +47,25 @@
     var InventoryList = require('./InventoryList.vue');
 
     module.exports = {
-        created: function () {
+        beforeMount: function () {
             this.$http.get('/api/v1/job-orders/department')
                 .then(function (response) {
-                    this.inventoryData.jobOrders = response.data;
+                    for (let jo of response.data) {
+                        this.inventoryData.jobOrders.push(jo);
+                    }
                 })
                 .catch(function (e) {
-                    console.log(e);
-                })
-
+                    console.log('error department', e);
+                });
             this.$http.get('/api/v1/users/5')
                 .then(function (response) {
-                    this.inventoryData.users = response.data;
+                    for (let user of response.data) {
+                        this.inventoryData.users.push(user);
+                    }
                 })
                 .catch(function (e) {
-                    console.log(e);
-                })
+                    console.log('error users', e);
+                });
 
         },
         data: function () {
@@ -78,34 +81,10 @@
                 joID: null,
                 inventoryData: {
                     jobOrders: [
-                        {
-                            contract_no: null,
-                            created_at: "2017-02-27 03:11:36",
-                            deleted_at: null,
-                            do_contract_no: null,
-                            id: 2,
-                            job_order_no: "QWERTY1234",
-                            project_name: "Sample Project Name",
-                            project_types: [
-                                {
-                                    name: "Sampling"
-                                }
-                            ],
-                            status: "pending",
-                            user_id: 5
-                        }
+
                     ],
                     users: [
-                        {
-                            id: 5,
-                            department_id: 5,
-                            user_role_id: 1,
-                            profile: {
-                                first_name: 'Juan',
-                                middle_name: '',
-                                last_name: 'Dela Cruz',
-                            },
-                        }
+
                     ],
                     products: [
                         {
@@ -126,12 +105,7 @@
                         },
                     ],
                     jobs: [
-                        {
-                            id: 1,
-                            job_order_id: 2,
-                            description: 'description',
-                            deadline: '2017-02-17',
-                        }
+                        
                     ],
                     assignedPeople: [
                         {
@@ -180,7 +154,7 @@
                                             disposed: 50000,
                                             returned: 0,
                                             status: 'Approved',
-                                        },{
+                                        }, {
                                             date: '2016-12-24',
                                             productsOnHand: 150000,
                                             disposed: 0,
@@ -254,6 +228,9 @@
                     });
                 }
             }
+        },
+        mounted: function () {
+            // console.log(this.inventoryData);
         }
     }
 
