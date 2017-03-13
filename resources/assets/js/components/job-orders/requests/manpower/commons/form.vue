@@ -78,7 +78,7 @@
             },
             getManpowerTypes() {
                 this.$http.get('/api/v1/manpower-types/all').then(response => {
-                    let manpower_types = response.data.data;
+                    let manpower_types = response.data;
 
                     for (let manpower_type of manpower_types) {
                         this.manpowerOptions.push({label: `${manpower_type.name}`, value: manpower_type.id});

@@ -90,7 +90,7 @@
                 this.vehicle_type_id = val.value
             },
             getVehicleTypes() {
-                this.$http.get('/api/v1/vehicle-types').then(response => {
+                this.$http.get('/api/v1/vehicle-types/all').then(response => {
                     let vehicle_types = response.data;
 
                     for (let vehicle_type of vehicle_types) {

@@ -135,7 +135,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // vehicle Types
     Route::group(['prefix' => 'vehicle-types'], function() {
+        Route::get('/all', 'VehicleTypesController@all');
         Route::get('/', 'VehicleTypesController@index');
+        Route::post('/', 'VehicleTypesController@store');
+        Route::delete('/{typeId}', 'VehicleTypesController@delete');
     });
 
     // User roles
@@ -157,7 +160,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // manpower types
     Route::group(['prefix' => 'manpower-types'], function() {
-        Route::get('/all', 'ManpowerTypesController@index');
+        Route::get('/all', 'ManpowerTypesController@all');
         Route::get('/', 'ManpowerTypesController@index');
         Route::post('/', 'ManpowerTypesController@store');
         Route::delete('/{typeId}', 'ManpowerTypesController@delete');
