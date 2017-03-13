@@ -24,7 +24,6 @@ class CreateJobOrderAnimationDetailsTable extends Migration
             $table->integer('target_flyering');
             $table->integer('target_survey');
             $table->integer('target_experiment');
-            $table->integer('target_sampling');
             $table->integer('target_others');
             $table->enum('status', ['active', 'revision']);
             $table->timestamps();
