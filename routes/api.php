@@ -101,7 +101,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // department involvement
     Route::group(['prefix' => 'job-order-department-involvements'], function() {
-        Route::get('/', 'DepartmentInvolvementController@index');
+        Route::get('/{Id}', 'DepartmentInvolvementController@index');
         Route::post('/', 'DepartmentInvolvementController@store');
         Route::delete('/{Id}', 'DepartmentInvolvementController@delete');
     });
