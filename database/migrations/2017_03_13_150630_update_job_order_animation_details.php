@@ -6,6 +6,12 @@ use Illuminate\Database\Migrations\Migration;
 
 class UpdateJobOrderAnimationDetails extends Migration
 {
+
+    public function __construct()
+    {
+        DB::getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+    }
+
     /**
      * Run the migrations.
      *
@@ -14,11 +20,11 @@ class UpdateJobOrderAnimationDetails extends Migration
     public function up()
     {
         Schema::table('job_order_animation_details', function (Blueprint $table) {
-            $table->integer('target_selling')->nullable();
-            $table->integer('target_flyering')->nullable();
-            $table->integer('target_survey')->nullable();
-            $table->integer('target_experiment')->nullable();
-            $table->integer('target_others')->nullable();
+            $table->integer('target_selling')->nullable()->change();
+            $table->integer('target_flyering')->nullable()->change();
+            $table->integer('target_survey')->nullable()->change();
+            $table->integer('target_experiment')->nullable()->change();
+            $table->integer('target_others')->nullable()->change();
             $table->integer('target_sampling')->nullable();
         });
     }
