@@ -15,17 +15,9 @@
 
                 <tbody>
 
-                    <tr v-for="(product, index) in propData.products">
-                        <td>
-                            <span v-for="jobOrder in propData.jobOrders" v-if="product.job_order_id == jobOrder.id">
-                                {{jobOrder.job_order_no}}
-                            </span>
-                        </td>
-                        <td>
-                            <span v-for="jobOrder in propData.jobOrders" v-if="product.job_order_id == jobOrder.id">
-                                {{jobOrder.project_name}}
-                            </span>
-                        </td>
+                    <tr v-for="(product, index) in products">
+                        <td>{{product.job_order_no}}</td>
+                        <td>{{product.project_name}}</td>
                         <td>{{product.itemName}}</td>
                         <td>{{product.productsOnHand}}</td>
                     </tr>
@@ -39,6 +31,39 @@
 
 <script>
     module.exports = {
+        data: function () {
+            return {
+                products: this.propData.products
+            }
+        },
+        methods: {
+            convertDate: function (dateVal) {
+                var milliseconds = Date.parse(dateVal);
+                var d = new Date(milliseconds);
+                return d.toDateString();
+            },
+            getInventory: function () {
+                this.$http.get('/api/v1/inventory')
+                    .then(function (response) {
+                        this.products = [];
+                        for(product of response.data.data) {
+                            this.products.push({
+                                job_order_no: product.job_order_no,
+                                project_name: product.project_name,
+                                itemName: product.name,
+                                productsOnHand: 1000000
+                            })
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log('error inventory', e);
+                    });
+            }
+        },
+        mounted: function () {
+            console.log(this.propData.products);
+            this.getInventory();
+        },
         props: ['propData']
     }
 

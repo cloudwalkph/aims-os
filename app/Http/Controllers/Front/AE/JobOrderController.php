@@ -38,6 +38,7 @@ class JobOrderController extends Controller
      */
     public function index()
     {
+        set_time_limit(0);
         config(['app.name' => 'Accounts Executive | AIMS']);
 
         return view('ae.jolist.index');

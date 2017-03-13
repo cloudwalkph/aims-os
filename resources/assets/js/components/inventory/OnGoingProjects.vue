@@ -58,9 +58,6 @@
         components: {
             CreateJobModal
         },
-        mounted: function () {
-            this.getJob();
-        },
         data: function () {
             return {
                 jobs: this.propData.jobs,
@@ -95,6 +92,9 @@
                         console.log('error jobs', e);
                     });
             }
+        },
+        mounted: function () {
+            this.getJob();
         },
         props: ['propData']
     }
