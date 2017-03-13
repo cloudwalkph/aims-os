@@ -21,8 +21,8 @@ class CreateValidateDetailsTable extends Migration
             $table->date('end_date');
             $table->string('event_type');
             $table->string('event_category');
-            $table->integer('rater_id');
-            $table->integer('ratee_id');
+            $table->integer('rater_id')->unsigned();
+            $table->integer('ratee_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
@@ -33,12 +33,12 @@ class CreateValidateDetailsTable extends Migration
 
             $table->foreign('rater_id')
                 ->references('id')
-                ->on('job_orders')
+                ->on('users')
                 ->onDelete('cascade');
 
             $table->foreign('ratee_id')
                 ->references('id')
-                ->on('job_orders')
+                ->on('users')
                 ->onDelete('cascade');
         });
     }
