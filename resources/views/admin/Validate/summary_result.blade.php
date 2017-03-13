@@ -37,7 +37,6 @@
         </div>
 
         <div id="chart"></div>
-
         <div class="row">
             <select class="fullwidth" name="selRatee" id="selRatee">
                 <option value="" disabled selected>Department</option>

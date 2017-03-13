@@ -31,12 +31,13 @@
                 <div class="col-sm-2">
                     <select class="btn-warning fullwidth" name="eventType" id="eventType">
                         <option value="" disabled selected>Select Event Type</option>
-                        <option value="S">Small Event</option>
-                        <option value="M">Medium Proper</option>
+                        <option value="pre">Small Event</option>
+                        <option value="eprop">Medium Proper</option>
+                        <option value="post">Big Event</option>
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <select class="btn-warning fullwidth" name="qcat" id="qcat">
+                    <select class="btn-warning fullwidth" name="eventType" id="eventType">
                         <option value="" disabled selected>Select Event</option>
                         <option value="pre">Pre-Event</option>
                         <option value="eprop">Event Proper</option>
@@ -96,11 +97,11 @@
                 <tr>
                     <th width="920">Question List</th>
                     <th>
-                        <a class="btn btn-primary" href="/validate/create_project/{{$jos->job_order_no}}/summary_view">Add Question</a>
+                        <a class="btn btn-primary glyphicon glyphicon-plus"  data-toggle="modal" data-target="#myModal"> Add Question</a>
                     </th>
                 </tr>
                 </thead>
-                <tbody id="questions_tb">
+                <tbody>
 
                 @foreach($questions as $question)
 
@@ -113,6 +114,8 @@
 
                 @endforeach
 
+
+
                 </tbody>
             </table>
             <div class="button-group">
@@ -123,48 +126,56 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalAlertSelection" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document" style="width: 1000px;;">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Alert</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Question</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
+                        <table class="table table-striped table-curved td" role="grid">
+                            <tbody>
+                            @foreach($load_questions as $load_question)
+                                <tr id="eventRow{{$load_question -> _id}}">
+                                    <td >
+                                        <input type="checkbox">
+                                    </td>
+                                    <td>{{$load_question -> qname}}</td>
+                                </tr>
 
+                            @endforeach
+                            </tbody>
+                        </table>
+                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('c3scripts')
     <script !src="">
 
         function loadQuestions( deptID ) {
-            var category = $('#qcat').val();
-            var eventType = $('#eventType').val();
-
-            if( category == null && eventType == null ){
-                $('#selRatee').val('');
-                $('.modal-body').text('Please select the event type and the category.');
-                $('#modalAlertSelection').modal('show');
-                return false;
-            }
-
             axios.get('{{ URL::to('/questions/getquestions') }}', {
                 params: {
                     deptID: deptID,
-                    cat: category,
-                    etype: eventType
                 }
             })
             .then(function (response) {
-                $('#questions_tb').empty();
-                $('#questions_tb').append(response.data);
+                console.log(response);
+//                    $('#selRateeEmp').empty();
+//                    $('select#selRateeEmp').append(response.data);
+//
+//                    loadQuestions();
             })
             .catch(function (error) {
                 console.log(error);
@@ -197,7 +208,7 @@
             })
             .then(function (response) {
                 $('#selRaterEmp').empty();
-                $('select#selRaterEmp').append(response.data.optionList);
+                $('select#selRaterEmp').append(response.data);
             })
             .catch(function (error) {
                 console.log(error);
