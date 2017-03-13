@@ -88,17 +88,17 @@ class ValidateController extends Controller
     public function create_project( $id ){
 
         $jos = JobOrder::where('job_order_no',$id)->first();
-//        $questions = ValidateQuestions::where('tqdept','2')->get();
         $questions = ValidateQuestions::all();
+        $load_questions = ValidateQuestions::all();
         $departments = Department::all();
-        return view('admin/Validate/create_project', compact('jos', 'questions', 'departments'));
+        return view('admin/Validate/create_project', compact('jos', 'questions', 'departments', 'load_questions'));
     }
 
     public function summary_result(){
         $questions = ValidateQuestions::where('qdept','2')->get();
         $departments = Department::all();
         $employees = UserProfile::all();
-        return view('admin/Validate/summary_result', compact('jos', 'questions', 'departments', 'employees'));
+        return view('admin/Validate/summary_result', compact('jos', 'questions', 'departments', 'load_questions', 'employees'));
     }
 
     public function summary_view($pn){
