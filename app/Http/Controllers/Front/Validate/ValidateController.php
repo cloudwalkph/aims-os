@@ -95,7 +95,10 @@ class ValidateController extends Controller
     }
 
     public function summary_result(){
-        return view('admin/Validate/summary_result');
+        $questions = ValidateQuestions::where('qdept','2')->get();
+        $departments = Department::all();
+        $employees = UserProfile::all();
+        return view('admin/Validate/summary_result', compact('jos', 'questions', 'departments', 'load_questions', 'employees'));
     }
 
     public function summary_view($pn){

@@ -12,7 +12,7 @@
         </div>
         <div class="row" style="margin-left: 84%;">
             <div class="col-sm-6">
-                <a class="btn btn-info">Done</a>
+                <a class="btn btn-info" href="/validate">Done</a>
             </div>
             <div class="col-sm-6">
                 <a class="btn btn-primary" href="/validate/create_project/{{$jos->job_order_no}}">Back</a>
