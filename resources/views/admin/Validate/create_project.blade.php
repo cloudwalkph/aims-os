@@ -13,20 +13,20 @@
                 <label id="dCreated" style="width: 100%; text-align: left;">Date Created:{{$jos->created_at}}</label>
             </div>
         </div>
-        <form id="test" method="post">
+        <form id="validate_form" method="post">
             <div class="row" style="margin-top: 15px;">
                 <div class="col-sm-2">
                     <label id="lblJOID" style="width: 100%">Activation Date:</label>
                 </div>
                 <div class="col-sm-2">
-                    <input type="date" class="fullwidth dateSelector" name="inp_ActivationsDate" id="inp_ActivationsDate" style="margin-left: -60px;">
+                    <input type="date" class="fullwidth dateSelector" name="ActivationsDate" id="inp_ActivationsDate" style="margin-left: -60px;">
                 </div>
 
                 <div class="col-sm-2">
                     <label id="projectName" style="width: 100%">End Date:</label>
                 </div>
                 <div class="col-sm-2">
-                    <input type="date" class="fullwidth dateSelector" name="inp_ActivationsDate" id="inp_ActivationsDate" style="margin-left: -93px;">
+                    <input type="date" class="fullwidth dateSelector" name="EndDate" id="inp_ActivationsDate" style="margin-left: -93px;">
                 </div>
                 <div class="col-sm-2">
                     <select class="btn-warning fullwidth" name="eventType" id="eventType">
@@ -63,10 +63,10 @@
                 </select>
             </div>
             <div class="col-sm-3">
-            <select class="fullwidth" name="selRaterEmp" id="selRaterEmp" style="width: 100%;">
-                <option value="" disabled selected>Select</option>
-            </select>
-        </div>
+                <select class="fullwidth" name="selRaterEmp" id="selRaterEmp" style="width: 100%;">
+                    <option value="" disabled selected>Select</option>
+                </select>
+            </div>
         </div>
 
         <div class="row" style="margin-top: 10px;">
@@ -90,6 +90,8 @@
                 </select>
             </div>
         </div>
+
+        <input type="hidden" name="question_ids">
 
         <div class="row">
             <table class="table table-striped" role="grid">
@@ -158,23 +160,56 @@
         </div>
     </div>
 
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document" style="width: 1000px;;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Question</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <table class="table table-striped table-curved td" role="grid">
+                            <tbody>
+                            @foreach($load_questions as $load_question)
+                                <tr id="eventRow{{$load_question -> _id}}">
+                                    <td >
+                                        <input type="checkbox">
+                                    </td>
+                                    <td>{{$load_question -> qname}}</td>
+                                </tr>
+
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('c3scripts')
     <script !src="">
+        var question_ids = null;
 
         function loadQuestions( deptID ) {
             axios.get('{{ URL::to('/questions/getquestions') }}', {
                 params: {
                     deptID: deptID,
+                    cat: category,
+                    etype: eventType,
+                    qids: question_ids
                 }
             })
             .then(function (response) {
-                console.log(response);
-//                    $('#selRateeEmp').empty();
-//                    $('select#selRateeEmp').append(response.data);
-//
-//                    loadQuestions();
+                question_ids = response.data.question_id;
+                $('#questions_tb').empty();
+                $('#questions_tb').append(response.data.question_string);
             })
             .catch(function (error) {
                 console.log(error);
