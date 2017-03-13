@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="width: 100%;">
         <div class="row">
             <div class="col-sm-4">
                 <label id="projectName" style="width: 100% text-align: left;">Project Name: {{$jos->project_name}}</label>

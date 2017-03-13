@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="width: 100%;">
         <div class="row">
             <div class="col-sm-4">
                 <label id="lblJOID" style="width: 100%; text-align: left;" >JO Number: {{$jos->job_order_no}}</label>
@@ -31,13 +31,12 @@
                 <div class="col-sm-2">
                     <select class="btn-warning fullwidth" name="eventType" id="eventType">
                         <option value="" disabled selected>Select Event Type</option>
-                        <option value="pre">Small Event</option>
-                        <option value="eprop">Medium Proper</option>
-                        <option value="post">Big Event</option>
+                        <option value="S">Small Event</option>
+                        <option value="M">Medium Proper</option>
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <select class="btn-warning fullwidth" name="eventType" id="eventType">
+                    <select class="btn-warning fullwidth" name="qcat" id="qcat">
                         <option value="" disabled selected>Select Event</option>
                         <option value="pre">Pre-Event</option>
                         <option value="eprop">Event Proper</option>
@@ -51,7 +50,7 @@
                 <label>Rater:</label>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRater" id="selRater" alt="rater">
+                <select class="fullwidth" name="selRater" id="selRater" alt="rater" style="width: 100%;">
                     <option value="" disabled selected>Department</option>
 
                     @foreach( $departments as $department)
@@ -63,14 +62,10 @@
                 </select>
             </div>
             <div class="col-sm-3">
-            <select class="fullwidth" name="selRaterEmp" id="selRaterEmp">
+            <select class="fullwidth" name="selRaterEmp" id="selRaterEmp" style="width: 100%;">
                 <option value="" disabled selected>Select</option>
             </select>
         </div>
-            <div class="col-sm-3">
-                <label class="control-label">JO Order Number</label>
-                <v-select :on-change="roleSelected" :options="roleOptions"></v-select>
-            </div>
         </div>
 
         <div class="row" style="margin-top: 10px;">
@@ -78,7 +73,7 @@
                 <label>Ratee:</label>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRatee" id="selRatee" alt="ratee">
+                <select class="fullwidth" name="selRatee" id="selRatee" alt="ratee" style="width: 100%;">
                     <option value="" disabled selected>Department</option>
 
                     @foreach( $departments as $department)
@@ -89,7 +84,7 @@
                 </select>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRateeEmp" id="selRateeEmp">
+                <select class="fullwidth" name="selRateeEmp" id="selRateeEmp" style="width: 100%;">
                     <option value="" disabled selected>Select</option>
                 </select>
             </div>
@@ -99,15 +94,13 @@
             <table class="table table-striped" role="grid">
                 <thead>
                 <tr>
-                    <th width="850">Question List</th>
-                    <th>Add Question
-                        <select>
-                            <option value="" disabled selected>Select Question</option>
-                        </select>
+                    <th width="920">Question List</th>
+                    <th>
+                        <a class="btn btn-primary" href="/validate/create_project/{{$jos->job_order_no}}/summary_view">Add Question</a>
                     </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="questions_tb">
 
                 @foreach($questions as $question)
 
@@ -129,23 +122,49 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalAlertSelection" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Alert</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('c3scripts')
     <script !src="">
 
         function loadQuestions( deptID ) {
+            var category = $('#qcat').val();
+            var eventType = $('#eventType').val();
+
+            if( category == null && eventType == null ){
+                $('#selRatee').val('');
+                $('.modal-body').text('Please select the event type and the category.');
+                $('#modalAlertSelection').modal('show');
+                return false;
+            }
+
             axios.get('{{ URL::to('/questions/getquestions') }}', {
                 params: {
                     deptID: deptID,
+                    cat: category,
+                    etype: eventType
                 }
             })
             .then(function (response) {
-                console.log(response);
-//                    $('#selRateeEmp').empty();
-//                    $('select#selRateeEmp').append(response.data);
-//
-//                    loadQuestions();
+                $('#questions_tb').empty();
+                $('#questions_tb').append(response.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -178,7 +197,7 @@
             })
             .then(function (response) {
                 $('#selRaterEmp').empty();
-                $('select#selRaterEmp').append(response.data);
+                $('select#selRaterEmp').append(response.data.optionList);
             })
             .catch(function (error) {
                 console.log(error);

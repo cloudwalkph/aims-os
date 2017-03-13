@@ -41,13 +41,19 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::delete('/{eventId}', 'EventsController@delete');
     });
 
-    // Clients
+    // Creatives
     Route::group(['prefix' => 'clients'], function() {
         Route::get('/', 'ClientsController@index');
         Route::get('/{clientId}', 'ClientsController@show');
         Route::post('/', 'ClientsController@store');
         Route::put('/{clientId}', 'ClientsController@update');
         Route::delete('/{clientId}', 'ClientsController@delete');
+    });
+
+    // Inventory
+    Route::group(['prefix' => 'inventory'], function() {
+        Route::resource('job', 'InventoryJobController');
+        Route::resource('user', 'InventoryAssignedPersonController');
     });
 
     // Clients
