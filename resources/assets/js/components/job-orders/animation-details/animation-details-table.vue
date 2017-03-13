@@ -97,6 +97,11 @@
                         title: 'Target Experiential'
                     },
                     {
+                        name: 'target_sampling',
+                        sortField: 'target_sampling',
+                        title: 'Target Sampling'
+                    },
+                    {
                         name: 'target_others',
                         sortField: 'target_others',
                         title: 'Others'

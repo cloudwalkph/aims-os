@@ -48,10 +48,17 @@
                             </div>
 
                             <div class="col-md-4 form-group text-input-container">
-                                <label class="control-label" for="target_experiment">Experiment</label>
+                                <label class="control-label" for="target_experiment">Experiential</label>
                                 <input type="number" name="target_experiment" required id="target_experiment"
                                        @input="inputChange" v-bind:value="target_experiment"
-                                       placeholder="Experiment" class="form-control" />
+                                       placeholder="Experiential" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4 form-group text-input-container">
+                                <label class="control-label" for="target_experiment">Sampling</label>
+                                <input type="number" name="target_sampling" required id="target_sampling"
+                                       @input="inputChange" v-bind:value="target_sampling"
+                                       placeholder="Sampling" class="form-control" />
                             </div>
 
                             <div class="col-md-4 form-group text-input-container">
@@ -103,6 +110,7 @@
                 target_flyering: '',
                 target_survey: '',
                 target_experiment: '',
+                target_sampling: '',
                 target_others: '',
                 target_duration: '',
                 target_areas: ''
@@ -119,6 +127,7 @@
                 this.target_flyering = ''
                 this.target_survey = ''
                 this.target_experiment = ''
+                this.target_sampling= ''
                 this.target_others = ''
                 this.target_duration = ''
                 this.target_areas = ''
@@ -148,6 +157,7 @@
                     target_survey: this.target_survey,
                     target_experiment: this.target_experiment,
                     target_others: this.target_others,
+                    target_sampling: this.target_sampling,
                     target_duration: this.target_duration,
                     target_areas: this.target_areas
                 }
