@@ -106,12 +106,12 @@
                 departments: [],
                 particular: '',
                 target_activity: '',
-                target_selling: '',
-                target_flyering: '',
-                target_survey: '',
-                target_experiment: '',
-                target_sampling: '',
-                target_others: '',
+                target_selling: 0,
+                target_flyering: 0,
+                target_survey: 0,
+                target_experiment: 0,
+                target_sampling: 0,
+                target_others: 0,
                 target_duration: '',
                 target_areas: ''
             }
@@ -123,12 +123,12 @@
             resetForm() {
                 this.particular = ''
                 this.target_activity = ''
-                this.target_selling = ''
-                this.target_flyering = ''
-                this.target_survey = ''
-                this.target_experiment = ''
-                this.target_sampling= ''
-                this.target_others = ''
+                this.target_selling = 0
+                this.target_flyering = 0
+                this.target_survey = 0
+                this.target_experiment = 0
+                this.target_sampling= 0
+                this.target_others = 0
                 this.target_duration = ''
                 this.target_areas = ''
             },
