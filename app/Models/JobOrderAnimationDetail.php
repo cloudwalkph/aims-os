@@ -18,11 +18,6 @@ class JobOrderAnimationDetail extends Model
         'target_activity'   => 'required',
         'target_duration'   => 'required',
         'target_areas'      => 'required',
-        'target_selling'    => 'required',
-        'target_flyering'   => 'required',
-        'target_survey'     => 'required',
-        'target_experiment' => 'required',
-        'target_others'     => 'required',
     ];
 
     public static $filterable = [

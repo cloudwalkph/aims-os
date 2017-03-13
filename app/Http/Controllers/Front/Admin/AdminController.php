@@ -64,4 +64,16 @@ class AdminController extends Controller
 
         return view('admin.manpowerType');
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function vehicleTypes()
+    {
+        config(['app.name' => 'Admin Dashboard | AIMS']);
+
+        return view('admin.vehicleType');
+    }
 }

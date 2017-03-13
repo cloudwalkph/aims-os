@@ -12,6 +12,15 @@ class VehicleType extends Model
     protected $table = 'vehicle_types';
     protected $fillable = ['name', 'slug'];
 
+    public static $rules = [
+        'name' => 'required',
+    ];
+
+    public static $filterable = [
+        'name',
+        'slug'
+    ];
+
     public function joVehicle()
     {
         return $this->hasMany('App\Models\JobOrderVehicle');

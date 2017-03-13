@@ -25,6 +25,7 @@
         </div>
 
         <create-client-form-modal></create-client-form-modal>
+        <client-update-modal ref="updateClient"></client-update-modal>
     </div>
 </template>
 
@@ -40,12 +41,14 @@
     import DetailRow from './commons/DetailRow'
     import FilterBar from './commons/FilterBar'
     import CreateClientModal from './commons/form.vue'
+    import EditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
     Vue.component('client-custom-actions', CustomActions)
     Vue.component('client-detail-row', DetailRow)
     Vue.component('client-filter-bar', FilterBar)
     Vue.component('create-client-form-modal', CreateClientModal)
+    Vue.component('client-update-modal', EditModal)
 
     export default {
         components: {
@@ -190,6 +193,11 @@
             'filter-reset' () {
                 this.moreParams = {}
                 Vue.nextTick( () => this.$refs.vuetable.refresh() )
+            },
+            'update-client-show' (data) {
+                Vue.nextTick(() => {
+                    this.$refs.updateClient.populateData(data)
+                })
             }
         }
     }

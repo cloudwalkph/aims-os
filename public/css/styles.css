@@ -481,6 +481,10 @@ table tbody tr {
     background-color: #f67d22 !important;
     border-color: #f67d22 !important;
 }
+.table-curved td, .table-curved th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
 /*validate result button end*/
 
 

@@ -12,7 +12,7 @@ class DepartmentInvolvementController extends Controller {
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, $joId)
     {
         // user
         $user = $request->user();
@@ -27,6 +27,7 @@ class DepartmentInvolvementController extends Controller {
 
         $query->join('job_orders', 'job_orders.id', '=', 'job_order_department_involved.job_order_id')
             ->join('departments', 'departments.id', '=', 'job_order_department_involved.department_id')
+            ->where('job_order_department_involved.job_order_id', '=', $joId)
             ->select('job_order_department_involved.*', 'job_orders.project_name',
                 'job_orders.job_order_no', 'departments.name');
 

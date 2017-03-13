@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="createClient" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="editClient" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -84,6 +84,7 @@
         },
         data() {
             return {
+                clientId: '',
                 company: '',
                 contact_person: '',
                 contact_number: '',
@@ -93,7 +94,17 @@
             }
         },
         methods: {
+            populateData(data) {
+                this.clientId = data.id
+                this.company = data.company
+                this.contact_person = data.contact_person
+                this.contact_number = data.contact_number
+                this.email = data.email
+                this.birthdate = data.birthdate
+                this.brands = JSON.parse(data.brands)
+            },
             resetForm() {
+                this.clientId = ''
                 this.company = ''
                 this.contact_person = ''
                 this.contact_number = ''
@@ -140,17 +151,16 @@
                     contact_person: this.contact_person,
                     contact_number: this.contact_number,
                     email: this.email,
-                    birthdate: '',
                     brands: newBrands
                 }
 
-                let url = `/api/v1/clients`;
-                this.$http.post(url, data).then(response => {
+                let url = `/api/v1/clients/${this.clientId}`;
+                this.$http.put(url, data).then(response => {
                     console.log(response)
 
                     this.$events.fire('reload-table')
                     this.resetForm()
-                    $('#createClient').modal('hide')
+                    $('#editClient').modal('hide')
                 }, error => {
                     console.log(error)
                 })

@@ -48,10 +48,17 @@
                             </div>
 
                             <div class="col-md-4 form-group text-input-container">
-                                <label class="control-label" for="target_experiment">Experiment</label>
+                                <label class="control-label" for="target_experiment">Experiential</label>
                                 <input type="number" name="target_experiment" required id="target_experiment"
                                        @input="inputChange" v-bind:value="target_experiment"
-                                       placeholder="Experiment" class="form-control" />
+                                       placeholder="Experiential" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4 form-group text-input-container">
+                                <label class="control-label" for="target_experiment">Sampling</label>
+                                <input type="number" name="target_sampling" required id="target_sampling"
+                                       @input="inputChange" v-bind:value="target_sampling"
+                                       placeholder="Sampling" class="form-control" />
                             </div>
 
                             <div class="col-md-4 form-group text-input-container">
@@ -99,11 +106,12 @@
                 departments: [],
                 particular: '',
                 target_activity: '',
-                target_selling: '',
-                target_flyering: '',
-                target_survey: '',
-                target_experiment: '',
-                target_others: '',
+                target_selling: 0,
+                target_flyering: 0,
+                target_survey: 0,
+                target_experiment: 0,
+                target_sampling: 0,
+                target_others: 0,
                 target_duration: '',
                 target_areas: ''
             }
@@ -115,11 +123,12 @@
             resetForm() {
                 this.particular = ''
                 this.target_activity = ''
-                this.target_selling = ''
-                this.target_flyering = ''
-                this.target_survey = ''
-                this.target_experiment = ''
-                this.target_others = ''
+                this.target_selling = 0
+                this.target_flyering = 0
+                this.target_survey = 0
+                this.target_experiment = 0
+                this.target_sampling= 0
+                this.target_others = 0
                 this.target_duration = ''
                 this.target_areas = ''
             },
@@ -148,6 +157,7 @@
                     target_survey: this.target_survey,
                     target_experiment: this.target_experiment,
                     target_others: this.target_others,
+                    target_sampling: this.target_sampling,
                     target_duration: this.target_duration,
                     target_areas: this.target_areas
                 }
