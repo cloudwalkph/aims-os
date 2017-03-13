@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\CMTUVA;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\ImportVenueFromExcel;
+use App\Models\JobOrder;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Models\Venue;
 use Illuminate\Http\Request;
@@ -121,10 +122,12 @@ class CmtuvaController extends Controller
         return view('cmtuva.plans.index');
     }
 
-    public function planDetails()
+    public function planDetails($joNumber)
     {
         config(['app.name' => 'CMTUVA PLANS DETAILS | AIMS']);
 
-        return view('cmtuva.plans.details');
+        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+
+        return view('cmtuva.plans.details', compact('jo'));
     }
 }

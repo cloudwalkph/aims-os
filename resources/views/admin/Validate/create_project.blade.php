@@ -32,8 +32,8 @@
                     <select class="btn-warning fullwidth" name="eventType" id="eventType">
                         <option value="" disabled selected>Select Event Type</option>
                         <option value="pre">Small Event</option>
-                        <option value="eprop">Medium Proper</option>
-                        <option value="post">Big Event</option>
+                        <option value="eprop">Medium Event</option>
+                        {{--<option value="post">Big Event</option>--}}
                     </select>
                 </div>
                 <div class="col-sm-2">
@@ -121,7 +121,6 @@
             <div class="button-group">
                 <a class="btn btn-primary" href="/validate/create_project/{{$jos->job_order_no}}/summary_view">View Summary</a>
                 <a class="btn btn-success" style="margin-left: 823px;">Save</a>
-                <a class="btn btn-info">Done</a>
             </div>
         </div>
     </div>

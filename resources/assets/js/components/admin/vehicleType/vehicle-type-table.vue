@@ -1,8 +1,8 @@
 <template>
     <div>
-        <project-status-filter-bar></project-status-filter-bar>
+        <filter-bar></filter-bar>
         <vuetable ref="vuetable"
-                  :api-url="apiUrl"
+                  api-url="/api/v1/vehicle-types/"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -23,6 +23,7 @@
             ></vuetable-pagination>
         </div>
 
+        <vehicle-type-modal></vehicle-type-modal>
     </div>
 </template>
 
@@ -35,10 +36,14 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import ProjectStatusFilterBar from './commons/FilterBar'
+    import CustomActions from './commons/CustomActions'
+    import FilterBar from './commons/FilterBar'
+    import TypeModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('project-status-filter-bar', ProjectStatusFilterBar)
+    Vue.component('vehicle-type-custom-actions', CustomActions)
+    Vue.component('filter-bar', FilterBar)
+    Vue.component('vehicle-type-modal', TypeModal)
 
     export default {
         components: {
@@ -48,7 +53,6 @@
         },
         data() {
             return {
-                apiUrl: `/api/v1/job-order-department-involvements/${$('#jobOrderId').val()}`,
                 fields: [
                     {
                         name: '__sequence',
@@ -64,29 +68,27 @@
                     {
                         name: 'name',
                         sortField: 'name',
-                        title: 'Department'
+                        title: 'Agency Name'
                     },
                     {
-                        name: 'deadline',
-                        sortField: 'deadline',
+                        name: 'slug',
+                        sortField: 'slug',
+                        title: 'Slug',
+                    },
+                    {
+                        name: 'created_at',
+                        sortField: 'created_at',
                         titleClass: 'text-center',
                         dataClass: 'text-center',
                         callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Deadline'
+                        title: 'Created Date'
                     },
                     {
-                        name: 'updated_at',
-                        sortField: 'updated_at',
+                        name: '__component:vehicle-type-custom-actions',
+                        title: 'Actions',
                         titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Last Updated'
-                    },
-                    {
-                        name: 'status',
-                        sortField: 'status',
-                        title: 'Status'
-                    },
+                        dataClass: 'text-center'
+                    }
                 ],
                 css: {
                     table: {
@@ -109,12 +111,15 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'updated_at', sortField: 'updated_at', direction: 'asc'}
+                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
                 ],
                 moreParams: {}
             }
         },
         methods: {
+            allcap (value) {
+                return value.toUpperCase()
+            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''

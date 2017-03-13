@@ -35,6 +35,8 @@ Vue.component('admin-agencies-table', require('./components/admin/agencies/agenc
 
 Vue.component('admin-manpower-types-table', require('./components/admin/manpowerType/manpower-type-table.vue'));
 
+Vue.component('admin-vehicle-types-table', require('./components/admin/vehicleType/vehicle-type-table.vue'));
+
 Vue.component('work-in-progress-table', require('./components/creatives/work-in-progress/work-in-progress-table.vue'));
 
 Vue.component('venues-table', require('./components/venues/venues-table.vue'));

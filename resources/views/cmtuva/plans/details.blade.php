@@ -26,6 +26,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <input type="hidden" name="job_order_id" id="jobOrderId" value="{{ $jo->id }}">
                         <h5>Job Order Number: 2016345646</h5>
                         <h5>Project Name: Ponds Men Activations</h5>
                     </div>

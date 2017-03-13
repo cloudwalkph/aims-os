@@ -21,7 +21,7 @@
             <div class="col-md-4 form-group text-input-container">
                 <label class="control-label col-sm-12">Serving Time</label>
                 <div class="col-md-12">
-                    <input type="text" name="serving_time"
+                    <input type="time" name="serving_time"
                            @input="inputChange" v-bind:value="serving_time" id="serving_time"
                            placeholder="Serving Time" class="form-control" />
                 </div>

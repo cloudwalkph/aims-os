@@ -12,7 +12,7 @@ class AnimationDetailsController extends Controller {
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, $joId)
     {
         // user
         $user = $request->user();
@@ -26,6 +26,7 @@ class AnimationDetailsController extends Controller {
         }
 
         $query->join('job_orders', 'job_orders.id', '=', 'job_order_animation_details.job_order_id')
+            ->where('job_order_animation_details.job_order_id', '=', $joId)
             ->select('job_order_animation_details.*');
 
         // Filter
