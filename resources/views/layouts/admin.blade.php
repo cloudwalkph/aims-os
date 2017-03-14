@@ -80,6 +80,9 @@
                     <li id="manpower-types">
                         <a href="/admin/manpower-types"><i class="fa fa-fw fa-wrench"></i> Manpower Types</a>
                     </li>
+                    <li id="vehicle-types">
+                        <a href="/admin/vehicle-types"><i class="fa fa-fw fa-truck"></i> Vehicle Types</a>
+                    </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo">
                             <i class="fa fa-fw fa-check-square-o"></i> Validate <i class="fa fa-fw fa-caret-down"></i>

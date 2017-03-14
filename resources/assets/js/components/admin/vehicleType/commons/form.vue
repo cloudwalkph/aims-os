@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add New Manpower Type</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add New Vehicle Type</h4>
                 </div>
                 <div class="modal-body">
                     <form id="clientForm">
@@ -51,7 +51,7 @@
                     name: this.name,
                 }
 
-                let url = `/api/v1/manpower-types`;
+                let url = `/api/v1/vehicle-types`;
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 

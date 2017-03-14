@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front\Validate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ValidateQuestions;
+use App\Models\ValidateAssignedQuestions;
 
 class ValidateQuestionsController extends Controller
 {
@@ -18,54 +19,32 @@ class ValidateQuestionsController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
     public function showQuestions(Request $request)
     {
+
+        $resultsToReturn = [];
+
         $strQuestions = '';
-//        $questions = ValidateQuestions::all();
+
+        $arrQuestionsID = array();
+
+        if( $request->qids != null ){
+            $arrQuestionsID = json_decode( $request->qids );
+        }
+
         $questions = ValidateQuestions::where([
-            ['qdept', '=', $request->deptID],
+            ['tqdept', '=', $request->deptID],
             ['qcat', '=', $request->cat],
             ['qtype', '=', $request->etype]
         ])->get();
 
         foreach ($questions as $question ){
 
-//            dd($question->qname);
+            array_push( $arrQuestionsID, $question->_id );
+
             $strQuestions .= '
-                <tr id="eventRow'.$question -> _id.'">
-                    <td>'.$question -> qname.'</td>
+                <tr id="eventRow'.$question->_id.'">
+                    <td>'.$question->qname.'</td>
                     <td>
                         <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="'.$question -> _id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     </td>
@@ -74,40 +53,58 @@ class ValidateQuestionsController extends Controller
 
         }
 
-        return $strQuestions;
+        $resultsToReturn['question_id'] = json_encode($arrQuestionsID);
+        $resultsToReturn['question_string'] = $strQuestions;
+        return json_encode($resultsToReturn);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    function store_questions( $jsonValue ){
+
+        $storeQuestions = new ValidateAssignedQuestions();
+
+        $storeQuestions->questions = $jsonValue;
+
+        if( $storeQuestions->save() ){
+            return $storeQuestions->id;
+        }else{
+            return false;
+        }
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    function update_questions( $id, $jsonValue ){
+        $questions = ValidateAssignedQuestions::where('id', $id)->first();
+        $questions->questions = $jsonValue;
+
+        if( $questions->save() ){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    function showResults(Request $request){
+        $resultsToReturn = [];
+
+        $strQuestions = '';
+
+        $questions = ValidateQuestions::where([
+            ['tqdept', '=', $request->deptID]
+        ])->get();
+
+        foreach ($questions as $question ){
+
+            $strQuestions .= '
+                <tr id="eventRow'.$question->_id.'">
+                    <td>'.$question->qname.'</td>
+                    <td>
+                        '.rand(60, 100).'%
+                    </td>
+                </tr>
+            ';
+
+        }
+        $resultsToReturn['question_string'] = $strQuestions;
+        return json_encode($resultsToReturn);
     }
 }

@@ -68,6 +68,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/users', 'Front\Admin\AdminController@users');
     Route::get('/agencies', 'Front\Admin\AdminController@agencies');
     Route::get('/manpower-types', 'Front\Admin\AdminController@manpowerTypes');
+    Route::get('/vehicle-types', 'Front\Admin\AdminController@vehicleTypes');
 });
 
 Route::group(['prefix' => 'inventory'], function () {
@@ -115,4 +116,5 @@ Route::group(['prefix' => 'users'], function () {
 
 Route::group(['prefix' => 'questions'], function () {
     Route::get('/getquestions', 'Front\Validate\ValidateQuestionsController@showQuestions');
+    Route::get('/getquestionswithresult', 'Front\Validate\ValidateQuestionsController@showResults');
 });
