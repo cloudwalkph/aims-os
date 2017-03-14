@@ -21,6 +21,7 @@ class ValidateQuestionsController extends Controller
 
     public function showQuestions(Request $request)
     {
+
         $resultsToReturn = [];
 
         $strQuestions = '';
@@ -83,5 +84,30 @@ class ValidateQuestionsController extends Controller
         }else{
             return false;
         }
+    }
+
+    function showResults(Request $request){
+        $resultsToReturn = [];
+
+        $strQuestions = '';
+
+        $questions = ValidateQuestions::where([
+            ['tqdept', '=', $request->deptID]
+        ])->get();
+
+        foreach ($questions as $question ){
+
+            $strQuestions .= '
+                <tr id="eventRow'.$question->id.'">
+                    <td>'.$question->qname.'</td>
+                    <td>
+                        '.rand(60, 100).'%
+                    </td>
+                </tr>
+            ';
+
+        }
+        $resultsToReturn['question_string'] = $strQuestions;
+        return json_encode($resultsToReturn);
     }
 }
