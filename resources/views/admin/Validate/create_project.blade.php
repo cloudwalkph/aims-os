@@ -32,11 +32,12 @@
                     <select class="btn-warning fullwidth" name="eventType" id="eventType">
                         <option value="" disabled selected>Select Event Type</option>
                         <option value="S">Small Event</option>
-                        <option value="M">Medium Proper</option>
+                        <option value="M">Medium Event</option>
+                        {{--<option value="post">Big Event</option>--}}
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <select class="btn-warning fullwidth" name="qcat" id="qcat">
+                    <select class="btn-warning fullwidth" name="eventCategory" id="eventCategory">
                         <option value="" disabled selected>Select Event</option>
                         <option value="pre">Pre-Event</option>
                         <option value="eprop">Event Proper</option>
@@ -103,29 +104,28 @@
                 </tr>
                 </thead>
                 <tbody id="questions_tb">
+<<<<<<< HEAD
+=======
+
+                {{--@foreach($questions as $question)--}}
+
+                    {{--<tr id="eventRow{{$question -> _id}}">--}}
+                        {{--<td>{{$question -> qname}}</td>--}}
+                        {{--<td>--}}
+                            {{--<a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{$question -> _id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>--}}
+                        {{--</td>--}}
+                    {{--</tr>--}}
+
+                {{--@endforeach--}}
+
+
+
+>>>>>>> master
                 </tbody>
             </table>
             <div class="button-group">
                 <a class="btn btn-primary" href="/validate/create_project/{{$jos->job_order_no}}/summary_view">View Summary</a>
                 <a class="btn btn-success" style="margin-left: 823px;">Save</a>
-                <a class="btn btn-info">Done</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modalAlertSelection" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Alert</h4>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
             </div>
         </div>
     </div>
@@ -153,11 +153,11 @@
                             @endforeach
                             </tbody>
                         </table>
-                    </div>
+                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
                 </div>
             </div>
         </div>
@@ -168,8 +168,8 @@
     <script !src="">
 
         function loadQuestions( deptID ) {
-            var category = $('#qcat').val();
             var eventType = $('#eventType').val();
+<<<<<<< HEAD
             var qids = null;
             qids = $('input[name=question_ids]').val();
 
@@ -179,6 +179,9 @@
                 $('#modalAlertSelection').modal('show');
                 return false;
             }
+=======
+            var category = $('#eventCategory').val();
+>>>>>>> master
 
             axios.get('{{ URL::to('/questions/getquestions') }}', {
                 params: {

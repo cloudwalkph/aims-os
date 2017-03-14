@@ -21,6 +21,7 @@ class ValidateQuestionsController extends Controller
 
     public function showQuestions(Request $request)
     {
+
         $resultsToReturn = [];
 
         $strQuestions = '';
