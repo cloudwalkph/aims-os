@@ -116,4 +116,5 @@ Route::group(['prefix' => 'users'], function () {
 
 Route::group(['prefix' => 'questions'], function () {
     Route::get('/getquestions', 'Front\Validate\ValidateQuestionsController@showQuestions');
+    Route::get('/getquestionswithresult', 'Front\Validate\ValidateQuestionsController@showResults');
 });

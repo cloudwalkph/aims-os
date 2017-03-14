@@ -1,27 +1,5 @@
 @extends('layouts.admin')
 
-@section('c3scripts')
-    <script src="{{ asset('js/d3/d3.min.js') }}"></script>
-    <script src="{{ asset('js/c3js-chart/c3.min.js') }}"></script>
-    <script src="{{ asset('js/charts-c3.js') }}"></script>
-    <script>
-        var chart = c3.generate({
-            bindto: '#chart',
-            data: {
-                columns: [
-                    ['data1', 1030, 1200, 1100, 1400, 1150, 1250],
-                    ['data2', 2130, 2100, 2140, 2200, 2150, 1850]
-                ],
-                type: 'bar',
-            },
-            bar: {
-                zerobased: false
-            }
-        });
-    </script>
-
-@endsection
-
 @section('content')
 
     <link href="{{ asset('css/c3.css') }}" rel="stylesheet" type="text/css" style="width: 100%">
@@ -67,17 +45,18 @@
                     <th width="920">Employee Rate</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="summaryTbody">
 
-                @foreach($questions as $question)
+                {{--@foreach($questions as $question)--}}
 
-                    <tr id="eventRow{{$question -> _id}}">
-                        <td>{{$question -> qname}}</td>
-                        <td>
-                            <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{$question -> _id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        </td>
-                    </tr>
-                @endforeach
+                    {{--<tr id="eventRow{{$question -> _id}}">--}}
+                        {{--<td>{{$question -> qname}}</td>--}}
+                        {{--<td>--}}
+                            {{--{{ rand(60, 100).'%' }}--}}
+                        {{--</td>--}}
+                    {{--</tr>--}}
+
+                {{--@endforeach--}}
 
                 </tbody>
             </table>
@@ -86,38 +65,51 @@
     </div>
 @endsection
 @section('c3scripts')
+
+    <script src="{{ asset('js/d3/d3.min.js') }}"></script>
+    <script src="{{ asset('js/c3js-chart/c3.min.js') }}"></script>
+    <script src="{{ asset('js/charts-c3.js') }}"></script>
+    <script>
+        var chart = c3.generate({
+            bindto: '#chart',
+            data: {
+                columns: [
+                    ['Pre-event', 30, 20, 100, 100, 15, 50],
+                    ['Event Proper', 30, 100, 40, 20, 50, 15],
+                    ['Post-event', 50, 80, 90, 75, 99, 95]
+                ],
+                type: 'bar',
+            },
+            bar: {
+                zerobased: false
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: ['Account Executives', 'Accounting', 'Creatives', 'CMTUVA', 'Setup', 'Operations', 'HR']
+                }
+            }
+        });
+    </script>
     <script !src="">
         function loadQuestions( deptID ) {
-            var category = $('#qcat').val();
-            var eventType = $('#eventType').val();
 
-            if( category == null && eventType == null ){
-                $('#selRatee').val('');
-                $('.modal-body').text('Please select the event type and the category.');
-                $('#modalAlertSelection').modal('show');
-                return false;
-            }
-
-            axios.get('{{ URL::to('/questions/getquestions') }}', {
+            axios.get('{{ URL::to('/questions/getquestionswithresult') }}', {
                 params: {
                     deptID: deptID,
-                    cat: category,
-                    etype: eventType,
-                    qids: question_ids
                 }
             })
                 .then(function (response) {
-                    question_ids = response.data.question_id;
-                    $('#questions_tb').empty();
-                    $('#questions_tb').append(response.data.question_string);
+                    $('#summaryTbody').empty();
+                    $('#summaryTbody').append(response.data.question_string);
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
+
         }
 
         $('#selRateeSummary').on('change', function () {
-            alert('hello');
             var deptName = $(this).val();
             axios.get('{{ URL::to('/users/getusers') }}', {
                 params: {
@@ -128,6 +120,21 @@
                     $('#selRateeEmp').empty();
                     $('select#selRateeEmp').append(response.data.optionList);
 
+//                    loadQuestions( response.data.department );
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        });
+
+        $('#selRateeEmp').on('change', function () {
+            var deptName = $('#selRateeSummary').val();
+            axios.get('{{ URL::to('/users/getusers') }}', {
+                params: {
+                    dept: deptName,
+                }
+            })
+                .then(function (response) {
                     loadQuestions( response.data.department );
                 })
                 .catch(function (error) {

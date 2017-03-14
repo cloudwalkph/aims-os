@@ -104,16 +104,16 @@
                 </thead>
                 <tbody id="questions_tb">
 
-                @foreach($questions as $question)
+                {{--@foreach($questions as $question)--}}
 
-                    <tr id="eventRow{{$question -> _id}}">
-                        <td>{{$question -> qname}}</td>
-                        <td>
-                            <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{$question -> _id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        </td>
-                    </tr>
+                    {{--<tr id="eventRow{{$question -> _id}}">--}}
+                        {{--<td>{{$question -> qname}}</td>--}}
+                        {{--<td>--}}
+                            {{--<a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{$question -> _id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>--}}
+                        {{--</td>--}}
+                    {{--</tr>--}}
 
-                @endforeach
+                {{--@endforeach--}}
 
                 </tbody>
             </table>
