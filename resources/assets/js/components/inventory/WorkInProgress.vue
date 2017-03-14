@@ -14,27 +14,20 @@
                     </thead>
                     <tbody>
 
-                        <tr v-for="job in propData.jobs">
+                        <tr v-for="job in jobs">
                             <td>
-                                <span v-for="jobOrder in propData.jobOrders" v-if="job.job_order_id == jobOrder.id">
-                                    <a href="#" pageID="work-details" :joID="job.id" @click.prevent="openPage">
-                                        {{jobOrder.job_order_no}}
-                                    </a>
+                                <a href="#" pageID="work-details" :iJobId="job.id" @click.prevent="openPage">
+                                    {{job.job_order_no}}
+                                </a>
+                            </td>
+                            <td>
+                                <span>
+                                    {{job.project_name}}
                                 </span>
                             </td>
                             <td>
-                                <span v-for="jobOrder in propData.jobOrders" v-if="job.job_order_id == jobOrder.id">
-                                    {{jobOrder.project_name}}
-                                </span>
-                            </td>
-                            <td>
-                                <span 
-                                    v-for="assigned_person in propData.assignedPeople" 
-                                    v-if="job.id == assigned_person.inventory_job_id"
-                                >
-                                    <span v-for="user in propData.users" v-if="assigned_person.user_id == user.id">
-                                        {{user.profile.first_name}}
-                                    </span>
+                                <span>
+                                    {{job.first_name}}
                                 </span>
                             </td>
                         </tr>
@@ -49,6 +42,17 @@
 
 <script>
     module.exports = {
+        data: function () {
+            return {
+                jobs: this.propData.jobs
+            }
+        },
+        methods: {
+
+        },
+        mounted: function () {
+
+        },
         props: ['openPage','propData']
     }
 </script>

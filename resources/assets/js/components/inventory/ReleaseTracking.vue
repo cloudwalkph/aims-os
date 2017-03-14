@@ -9,8 +9,8 @@
         </div>
         <div class="col-sm-12" style="margin-top: 20px;" v-for="(release, index) in releases">
             <label htmlFor="itemname" class="col-sm-4 control-label">
-                <span v-for="product in products" v-if="release.productID == product.productID">
-                    Item Name: {{product.itemName}}
+                <span v-for="product in products" v-if="release.product_id == product.id">
+                    Item Name: {{product.name}}
                 </span>
             </label>
             <label htmlFor="quantity" class="col-sm-4 control-label">
@@ -32,11 +32,11 @@
 
                 <tbody>
 
-                    <tr v-for="r in release.data">
+                    <tr v-for="(r, indexD) in release.data">
                         <td>{{convertDate(r.date)}}</td>
-                        <td>{{r.productsOnHand}}</td>
+                        <td>{{r.delivered}}</td>
                         <td>{{r.disposed}}</td>
-                        <td>{{r.returned}}</td>
+                        <td>{{returned(r)}}</td>
                         <td>{{r.status}}</td>
                         <td class="text-center">
                             <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
@@ -46,10 +46,15 @@
 
                     <tr>
                         <td>{{dateToday}}</td>
+                        <td>0</td>
                         <td><input type="text" class="form-control" /></td>
                         <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
+                        <td>
+                            <select class="form-control">
+                                <option>Approved</option>
+                                <option>Pending</option>
+                            </select>
+                        </td>
                         <td class="text-center">
 
                         </td>
@@ -70,14 +75,22 @@
                 return d.toDateString();
             }
         },
+        data: function () {
+            return {
+                releases: this.workDetail.deliveries
+            }
+        },
         methods: {
             convertDate: function (dateValue) {
                 var milliseconds = Date.parse(dateValue);
                 var d = new Date(milliseconds);
                 return d.toDateString();
             },
+            returned: function (r) {
+                return r.delivered - r.disposed;
+            }
         },
-        props: ['products', 'releases']
+        props: ['workDetail', 'products']
     }
 
 </script>
