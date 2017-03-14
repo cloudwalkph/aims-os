@@ -3,16 +3,22 @@
 @section('content')
     <div class="container" style="width: 100%;">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <label id="projectName" style="width: 100% text-align: left;">Project Name: {{$jos->project_name}}</label>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <label id="lblJOID" style="width: 100% text-align: left;" >JO Numbers: {{$jos->job_order_no}}</label>
             </div>
-            <div class="col-sm-4">
-                <a class="btn btn-primary" style="margin-left: 300px;" href="/validate/create_project/{{$jos->job_order_no}}">Back</a>
-                <!--                <Button id="backbtn" type="button" class="btn btn-info" style="margin-left: 300px;">Back</Button>-->
+        </div>
+        <div class="row" style="margin-left: 84%;">
+            <div class="col-sm-6">
+                <a class="btn btn-info" href="/validate">Done</a>
             </div>
+            <div class="col-sm-6">
+                <a class="btn btn-primary" href="/validate/create_project/{{$jos->job_order_no}}">Back</a>
+                <!-- <Button id="backbtn" type="button" class="btn btn-info" style="margin-left: 300px;">Back</Button>-->
+            </div>
+
         </div>
 
         <!--        //start form //-->
