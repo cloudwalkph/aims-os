@@ -31,13 +31,13 @@
                 <div class="col-sm-2">
                     <select class="btn-warning fullwidth" name="eventType" id="eventType">
                         <option value="" disabled selected>Select Event Type</option>
-                        <option value="pre">Small Event</option>
-                        <option value="eprop">Medium Event</option>
+                        <option value="S">Small Event</option>
+                        <option value="M">Medium Event</option>
                         {{--<option value="post">Big Event</option>--}}
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <select class="btn-warning fullwidth" name="eventType" id="eventType">
+                    <select class="btn-warning fullwidth" name="eventCategory" id="eventCategory">
                         <option value="" disabled selected>Select Event</option>
                         <option value="pre">Pre-Event</option>
                         <option value="eprop">Event Proper</option>
@@ -103,7 +103,7 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="questions_tb">
 
                 {{--@foreach($questions as $question)--}}
 
@@ -166,6 +166,9 @@
         var question_ids = null;
 
         function loadQuestions( deptID ) {
+            var eventType = $('#eventType').val();
+            var category = $('#eventCategory').val();
+
             axios.get('{{ URL::to('/questions/getquestions') }}', {
                 params: {
                     deptID: deptID,
