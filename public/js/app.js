@@ -44878,6 +44878,10 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('animation-details-modal',
                 sortField: 'target_experiment',
                 title: 'Target Experiential'
             }, {
+                name: 'target_sampling',
+                sortField: 'target_sampling',
+                title: 'Target Sampling'
+            }, {
                 name: 'target_others',
                 sortField: 'target_others',
                 title: 'Others'
@@ -45153,6 +45157,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -45167,6 +45178,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             target_flyering: '',
             target_survey: '',
             target_experiment: '',
+            target_sampling: '',
             target_others: '',
             target_duration: '',
             target_areas: ''
@@ -45182,6 +45194,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             this.target_flyering = '';
             this.target_survey = '';
             this.target_experiment = '';
+            this.target_sampling = '';
             this.target_others = '';
             this.target_duration = '';
             this.target_areas = '';
@@ -45236,6 +45249,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
                 target_survey: this.target_survey,
                 target_experiment: this.target_experiment,
                 target_others: this.target_others,
+                target_sampling: this.target_sampling,
                 target_duration: this.target_duration,
                 target_areas: this.target_areas
             };
@@ -48021,6 +48035,10 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('plan-animation-details-fi
                 name: 'target_experiment',
                 sortField: 'target_experiment',
                 title: 'Target Experiential'
+            }, {
+                name: 'target_sampling',
+                sortField: 'target_sampling',
+                title: 'Target Sampling'
             }, {
                 name: 'target_others',
                 sortField: 'target_others',
@@ -91244,17 +91262,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "target_experiment"
     }
-  }, [_vm._v("Experiment")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("Experiential")]), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
       "type": "number",
       "name": "target_experiment",
       "required": "",
       "id": "target_experiment",
-      "placeholder": "Experiment"
+      "placeholder": "Experiential"
     },
     domProps: {
       "value": _vm.target_experiment
+    },
+    on: {
+      "input": _vm.inputChange
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "target_experiment"
+    }
+  }, [_vm._v("Sampling")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "number",
+      "name": "target_sampling",
+      "required": "",
+      "id": "target_sampling",
+      "placeholder": "Sampling"
+    },
+    domProps: {
+      "value": _vm.target_sampling
     },
     on: {
       "input": _vm.inputChange
