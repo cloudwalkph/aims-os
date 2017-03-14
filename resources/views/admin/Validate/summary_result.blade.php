@@ -43,7 +43,7 @@
                 <label>Ratee:</label>
             </div>
             <div class="col-sm-3">
-                <select class="fullwidth" name="selRatee" id="selRatee" alt="ratee" style="width: 100%;">
+                <select class="fullwidth" name="selRateeSummary" id="selRateeSummary" alt="ratee" style="width: 100%;">
                     <option value="" disabled selected>Department</option>
 
                     @foreach( $departments as $department)
@@ -84,4 +84,55 @@
         </div>
 
     </div>
+@endsection
+@section('c3scripts')
+    <script !src="">
+        function loadQuestions( deptID ) {
+            var category = $('#qcat').val();
+            var eventType = $('#eventType').val();
+
+            if( category == null && eventType == null ){
+                $('#selRatee').val('');
+                $('.modal-body').text('Please select the event type and the category.');
+                $('#modalAlertSelection').modal('show');
+                return false;
+            }
+
+            axios.get('{{ URL::to('/questions/getquestions') }}', {
+                params: {
+                    deptID: deptID,
+                    cat: category,
+                    etype: eventType,
+                    qids: question_ids
+                }
+            })
+                .then(function (response) {
+                    question_ids = response.data.question_id;
+                    $('#questions_tb').empty();
+                    $('#questions_tb').append(response.data.question_string);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        $('#selRateeSummary').on('change', function () {
+            alert('hello');
+            var deptName = $(this).val();
+            axios.get('{{ URL::to('/users/getusers') }}', {
+                params: {
+                    dept: deptName,
+                }
+            })
+                .then(function (response) {
+                    $('#selRateeEmp').empty();
+                    $('select#selRateeEmp').append(response.data.optionList);
+
+                    loadQuestions( response.data.department );
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        });
+    </script>
 @endsection
