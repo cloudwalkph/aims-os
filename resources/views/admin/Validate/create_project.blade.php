@@ -104,23 +104,6 @@
                 </tr>
                 </thead>
                 <tbody id="questions_tb">
-<<<<<<< HEAD
-=======
-
-                {{--@foreach($questions as $question)--}}
-
-                    {{--<tr id="eventRow{{$question -> _id}}">--}}
-                        {{--<td>{{$question -> qname}}</td>--}}
-                        {{--<td>--}}
-                            {{--<a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{$question -> _id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-
-                {{--@endforeach--}}
-
-
-
->>>>>>> master
                 </tbody>
             </table>
             <div class="button-group">
@@ -169,7 +152,7 @@
 
         function loadQuestions( deptID ) {
             var eventType = $('#eventType').val();
-<<<<<<< HEAD
+            var category = $('#eventCategory').val();
             var qids = null;
             qids = $('input[name=question_ids]').val();
 
@@ -179,9 +162,6 @@
                 $('#modalAlertSelection').modal('show');
                 return false;
             }
-=======
-            var category = $('#eventCategory').val();
->>>>>>> master
 
             axios.get('{{ URL::to('/questions/getquestions') }}', {
                 params: {
