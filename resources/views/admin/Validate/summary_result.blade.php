@@ -39,10 +39,11 @@
         </div>
 
         <div class="row">
-            <table class="table table-striped" role="grid">
+            <table class="vuetable table table-bordered table-striped table-hover" role="grid" style="margin-top: 30px;">
                 <thead>
                 <tr>
-                    <th width="920">Employee Rate</th>
+                    <th width="920">Questions</th>
+                    <th>Rate</th>
                 </tr>
                 </thead>
                 <tbody id="summaryTbody">

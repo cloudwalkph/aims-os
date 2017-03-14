@@ -4,24 +4,24 @@
 
     <div class="container-fluid dashboard">
         <div class="row">
-            <main class="col-sm-11 offset-sm-1 col-md-11 offset-md-1 pt-3">
+            <main class="col-md-12">
                 <h1>Dashboard</h1>
                 <form class="form-inline mt-2 mt-md-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search">
                     {{--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
                 </form>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="vuetable table table-bordered table-striped table-hover" style="margin-top: 15px;">
                         <thead>
                         <tr>
-                            <th>JO Order Number</th>
-                            <th>Project Name</th>
-                            <th>Project Type</th>
-                            <th>Client Name</th>
-                            <th>Brand</th>
-                            <th>Status</th>
-                            <th>Assignment</th>
-                            <th>Action</th>
+                            <th class="vuetable-th-slug sortable">JO Order Number</th>
+                            <th class="vuetable-th-slug sortable">Project Name</th>
+                            <th class="vuetable-th-slug sortable">Project Type</th>
+                            <th class="vuetable-th-slug sortable">Client Name</th>
+                            <th class="vuetable-th-slug sortable">Brand</th>
+                            <th class="vuetable-th-slug sortable">Status</th>
+                            <th class="vuetable-th-slug sortable">Assignment</th>
+                            <th class="vuetable-th-slug sortable">Action</th>
                         </tr>
                         </thead>
                         <tbody>
