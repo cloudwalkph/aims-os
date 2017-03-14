@@ -154,39 +154,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-        <div class="modal-dialog modal-lg" role="document" style="width: 1000px;;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add Question</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <table class="table table-striped table-curved td" role="grid">
-                            <tbody>
-                            @foreach($load_questions as $load_question)
-                                <tr id="eventRow{{$load_question -> _id}}">
-                                    <td >
-                                        <input type="checkbox">
-                                    </td>
-                                    <td>{{$load_question -> qname}}</td>
-                                </tr>
-
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
                 </div>
             </div>
         </div>
