@@ -99,25 +99,13 @@
                 <tr>
                     <th width="920">Question List</th>
                     <th>
+
                         <a class="btn btn-primary pull-right btn-create" type="button"  data-toggle="modal" data-target="#myModal"> <i class="fa fa-plus fa-lg"></i> Add Question</a>
+
                     </th>
                 </tr>
                 </thead>
                 <tbody id="questions_tb">
-
-                {{--@foreach($questions as $question)--}}
-
-                    {{--<tr id="eventRow{{$question -> _id}}">--}}
-                        {{--<td>{{$question -> qname}}</td>--}}
-                        {{--<td>--}}
-                            {{--<a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{$question -> _id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-
-                {{--@endforeach--}}
-
-
-
                 </tbody>
             </table>
             <div class="button-group">
@@ -142,7 +130,7 @@
                             @foreach($load_questions as $load_question)
                                 <tr id="eventRow{{$load_question -> _id}}">
                                     <td >
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="questions_selection" value="{{$load_question -> _id}}">
                                     </td>
                                     <td>{{$load_question -> qname}}</td>
                                 </tr>
@@ -163,24 +151,34 @@
 
 @section('c3scripts')
     <script !src="">
-        var question_ids = null;
 
         function loadQuestions( deptID ) {
             var eventType = $('#eventType').val();
             var category = $('#eventCategory').val();
+            var qids = null;
+            qids = $('input[name=question_ids]').val();
+
+            if( category == null && eventType == null ){
+                $('#selRatee').val('');
+                $('.modal-body').text('Please select the event type and the category.');
+                $('#modalAlertSelection').modal('show');
+                return false;
+            }
 
             axios.get('{{ URL::to('/questions/getquestions') }}', {
                 params: {
                     deptID: deptID,
                     cat: category,
                     etype: eventType,
-                    qids: question_ids
+                    qids: qids
                 }
             })
             .then(function (response) {
-                question_ids = response.data.question_id;
                 $('#questions_tb').empty();
                 $('#questions_tb').append(response.data.question_string);
+                $('input[name=question_ids]').val(response.data.question_id);
+
+                reloader();
             })
             .catch(function (error) {
                 console.log(error);
@@ -198,13 +196,13 @@
                 $('#selRateeEmp').empty();
                 $('select#selRateeEmp').append(response.data.optionList);
 
-                loadQuestions( response.data.department );
+//                loadQuestions( response.data.department );
             })
             .catch(function (error) {
                 console.log(error);
             });
         });
-
+        
         $('#selRater').on('change', function () {
             axios.get('{{ URL::to('/users/getusers') }}', {
                 params: {
@@ -219,5 +217,35 @@
                 console.log(error);
             });
         });
+        
+        $('#selRateeEmp').on('change', function () {
+
+            var deptName = $('#selRatee').val();
+            axios.get('{{ URL::to('/users/getusers') }}', {
+                params: {
+                    dept: deptName,
+                }
+            })
+                .then(function (response) {
+                    $('input[name=question_ids]').val('');
+                    loadQuestions( response.data.department );
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            
+        });
+
+        function reloader() {
+
+            $('.deleteButtonEvent').on('click', function () {
+                var itemList = JSON.parse($('input[name=question_ids]').val());
+                var removeItem = $(this).attr('alt');
+                itemList.splice( $.inArray(removeItem, itemList), 1 );
+//                console.log( itemList );
+                $('tr#eventRow'+removeItem).remove();
+            });
+
+        }
     </script>
 @endsection

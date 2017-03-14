@@ -25,10 +25,13 @@ class ValidateQuestionsController extends Controller
         $resultsToReturn = [];
 
         $strQuestions = '';
-        $temporary_storage_id = '';
 
         $arrQuestionsID = array();
-//        $questions = ValidateQuestions::all();
+
+        if( $request->qids != null ){
+            $arrQuestionsID = json_decode( $request->qids );
+        }
+
         $questions = ValidateQuestions::where([
             ['tqdept', '=', $request->deptID],
             ['qcat', '=', $request->cat],
@@ -40,7 +43,7 @@ class ValidateQuestionsController extends Controller
             array_push( $arrQuestionsID, $question->_id );
 
             $strQuestions .= '
-                <tr id="eventRow'.$question->id.'">
+                <tr id="eventRow'.$question->_id.'">
                     <td>'.$question->qname.'</td>
                     <td>
                         <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="'.$question -> _id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>
@@ -49,12 +52,6 @@ class ValidateQuestionsController extends Controller
             ';
 
         }
-
-//        if( $temporary_storage_id <= 0 ){
-//            $temporary_storage_id = $this->store_questions( json_encode( $arrQuestionsID ) );
-//        }else{
-//            $this->update_questions($temporary_storage_id, $arrQuestionsID);
-//        }
 
         $resultsToReturn['question_id'] = json_encode($arrQuestionsID);
         $resultsToReturn['question_string'] = $strQuestions;
@@ -98,7 +95,7 @@ class ValidateQuestionsController extends Controller
         foreach ($questions as $question ){
 
             $strQuestions .= '
-                <tr id="eventRow'.$question->id.'">
+                <tr id="eventRow'.$question->_id.'">
                     <td>'.$question->qname.'</td>
                     <td>
                         '.rand(60, 100).'%
