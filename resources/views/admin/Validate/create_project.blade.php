@@ -242,7 +242,7 @@
             })
             .then(function (response) {
                 $('#selRaterEmp').empty();
-                $('select#selRaterEmp').append(response.data);
+                $('select#selRaterEmp').append(response.data.optionList);
             })
             .catch(function (error) {
                 console.log(error);
