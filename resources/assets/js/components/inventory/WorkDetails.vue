@@ -4,7 +4,7 @@
         <div class="col-sm-12">
             <div class="row" v-for="workDetail in workDetails" v-if="workDetail.inventory_job_id == propIJobId">
                 <div class="col-sm-12">
-                    <div class="row" v-for="job in propData.jobs" v-if="workDetail.inventory_job_id = job.id">
+                    <div class="row" v-for="job in jobs" v-if="workDetail.inventory_job_id == job.id">
                         <div class="col-md-8">
                             <label htmlFor="joNumber" class="control-label">
                                 Job Order Number : {{job.job_order_no}}
@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-md-4 text-right">
                             <label htmlFor="assigned" class="control-label">
-                                Assigned Persons : {{job.first_name}}
+                                Assigned Persons : {{assignedPersons(job)}}
                             </label>
                         </div>
                         <div class="col-md-8">
@@ -56,16 +56,25 @@
         },
         data: function () {
             return {
-                jobs: this.propData.jobs,
+                jobs: this.propData.inventoryJobs,
                 products: this.propData.products,
                 workDetails: this.propData.workDetails
             }
         },
         methods: {
-
+            assignedPersons: function(job) {
+                var users = [];
+                // for(job_user of job.user_id) {
+                    for(user of this.propData.users) {
+                        if(user.id == job.user_id) {
+                            users.push(user.profile.first_name);
+                        }
+                    }
+                // }
+                return users.join(', ');
+            }
         },
         mounted: function () {
-            console.log(this.propIJobId);
         },
         props: ['propData', 'propIJobId']
     }
