@@ -43912,20 +43912,20 @@ module.exports = {
     },
     data: function data() {
         return {
-            deliveries: this.workDetail.deliveries
+            items: this.workDetail.items
         };
     },
     methods: {
         balance: function balance(indexTrace, indexD) {
-            var product_id = this.deliveries[indexTrace].product_id;
+            var product_code = this.items[indexTrace].product_code;
             var qty = 0;
             for (var p = 0; p < this.products.length; p++) {
-                if (this.products[p].id == product_id) {
+                if (this.products[p].product_code == product_code) {
                     qty = this.products[p].quantity;
                 }
             }
             for (var d = 0; d <= indexD; d++) {
-                qty = qty - this.deliveries[indexTrace].data[d].delivered;
+                qty = qty - this.items[indexTrace].deliveries[d].delivered;
             }
             return qty;
         },
@@ -43937,14 +43937,14 @@ module.exports = {
         handleSubmit: function handleSubmit(e) {
             var workIndex = e.target.getAttribute('workIndex');
             var deliveryVal = e.target.value;
-            this.deliveries[workIndex].data.push({
+            this.items[workIndex].deliveries.push({
                 date: this.dateToday,
                 delivered: deliveryVal,
                 disposed: 0
             });
         },
         removeDelivery: function removeDelivery(indexTrace, indexDelivery) {
-            this.deliveries[indexTrace].data.splice(indexDelivery, 1);
+            this.items[indexTrace].deliveries.splice(indexDelivery, 1);
         }
     },
     props: ['workDetail', 'products']
@@ -44003,64 +44003,7 @@ var WorkDetails = __webpack_require__(356);
 var InventoryList = __webpack_require__(352);
 
 module.exports = {
-    beforeMount: function beforeMount() {
-        this.$http.get('/api/v1/job-orders/department').then(function (response) {
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = response.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var jo = _step.value;
-
-                    this.inventoryData.jobOrders.push(jo);
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-        }).catch(function (e) {
-            console.log('error department', e);
-        });
-        this.$http.get('/api/v1/users/5').then(function (response) {
-            var _iteratorNormalCompletion2 = true;
-            var _didIteratorError2 = false;
-            var _iteratorError2 = undefined;
-
-            try {
-                for (var _iterator2 = response.data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                    var user = _step2.value;
-
-                    this.inventoryData.users.push(user);
-                }
-            } catch (err) {
-                _didIteratorError2 = true;
-                _iteratorError2 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                        _iterator2.return();
-                    }
-                } finally {
-                    if (_didIteratorError2) {
-                        throw _iteratorError2;
-                    }
-                }
-            }
-        }).catch(function (e) {
-            console.log('error users', e);
-        });
-    },
+    beforeMount: function beforeMount() {},
     data: function data() {
         return {
             currentView: Home,
@@ -44071,52 +44014,65 @@ module.exports = {
             }],
             iJobId: null,
             inventoryData: {
-                jobOrders: [],
-                users: [],
+                jobOrders: [{
+                    id: 0,
+                    job_order_no: 'J0SAMPLE',
+                    project_name: 'Sample Job Order',
+                    user_id: 0
+                }],
+                users: [{
+                    id: 0,
+                    profile: {
+                        first_name: 'First',
+                        last_name: 'Last'
+                    }
+                }, {
+                    id: 100,
+                    profile: {
+                        first_name: 'Juan',
+                        last_name: 'Dela Cruz'
+                    }
+                }],
                 products: [{
                     id: 1,
-                    job_order_no: '5FDSART6',
-                    project_name: 'Unilever',
-                    product_code: 'PONDS-MEN',
-                    name: 'Product 1',
+                    job_order_no: 'J0SAMPLE',
+                    project_name: 'Sample Job Order',
+                    product_code: 'SAMPLE-1PROD',
+                    name: 'Sample Product 1',
                     quantity: 1000000,
                     expiration_date: '2017-02-27'
                 }, {
                     id: 2,
-                    job_order_no: '5FDSART6',
-                    project_name: 'Unilever',
-                    product_code: 'PONDS-WOMEN',
-                    name: 'Product 2',
+                    job_order_no: 'J0SAMPLE',
+                    project_name: 'Sample Job Order',
+                    product_code: 'SAMPLE-2PROD',
+                    name: 'Sample Product 2',
                     quantity: 2000000,
                     expiration_date: '2017-02-27'
                 }],
-                jobs: [],
+                inventoryJobs: [{
+                    id: 0,
+                    description: 'sample description',
+                    deadline: '2017-03-31',
+
+                    job_order_id: 0,
+                    job_order_no: 'J0SAMPLE',
+                    project_name: 'Sample Job Order',
+
+                    user_id: 0
+                }],
                 workDetails: [{
-                    inventory_job_id: 1,
-                    deliveries: [{
-                        product_id: 1,
-                        data: [{
+                    inventory_job_id: 0,
+                    items: [{
+                        product_code: 'SAMPLE-1PROD',
+                        deliveries: [{
                             date: '2016-12-22',
-                            delivered: 500000,
-                            disposed: 2000,
-                            status: 'Approved'
-                        }, {
-                            date: '2016-12-23',
-                            delivered: 250000,
-                            disposed: 2000,
-                            status: 'Pending'
-                        }, {
-                            date: '2016-12-24',
-                            delivered: 100000,
-                            disposed: 2000,
-                            status: 'Approved'
-                        }]
-                    }, {
-                        product_id: 2,
-                        data: [{
+                            delivered: 2000
+                        }],
+                        releases: [{
                             date: '2016-12-22',
-                            delivered: 200000,
-                            disposed: 2000,
+                            disposed: 1000,
+                            returned: 300,
                             status: 'Approved'
                         }]
                     }]
@@ -44179,14 +44135,14 @@ module.exports = {
         },
         getInventory: function getInventory() {
             this.$http.get('/api/v1/inventory').then(function (response) {
-                this.inventoryData.products = [];
-                var _iteratorNormalCompletion3 = true;
-                var _didIteratorError3 = false;
-                var _iteratorError3 = undefined;
+                // this.inventoryData.products = [];
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
 
                 try {
-                    for (var _iterator3 = response.data.data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                        product = _step3.value;
+                    for (var _iterator = response.data.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        product = _step.value;
 
                         this.inventoryData.products.push({
                             id: product.id,
@@ -44195,6 +44151,68 @@ module.exports = {
                             name: product.name,
                             quantity: 1000000
                         });
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+            }).catch(function (e) {
+                console.log('error inventory', e);
+            });
+        },
+        getJob: function getJob() {
+            this.$http.get('/api/v1/inventory/job').then(function (response) {
+                // this.inventoryData.inventoryJobs = [];
+                var _iteratorNormalCompletion2 = true;
+                var _didIteratorError2 = false;
+                var _iteratorError2 = undefined;
+
+                try {
+                    for (var _iterator2 = response.data.data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                        var r = _step2.value;
+
+                        this.inventoryData.inventoryJobs.push(r);
+                    }
+                } catch (err) {
+                    _didIteratorError2 = true;
+                    _iteratorError2 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                            _iterator2.return();
+                        }
+                    } finally {
+                        if (_didIteratorError2) {
+                            throw _iteratorError2;
+                        }
+                    }
+                }
+            }).catch(function (e) {
+                console.log('error jobs', e);
+            });
+        },
+        getUsers: function getUsers() {
+            this.$http.get('/api/v1/users/5').then(function (response) {
+                // this.inventoryData.users = [];
+                var _iteratorNormalCompletion3 = true;
+                var _didIteratorError3 = false;
+                var _iteratorError3 = undefined;
+
+                try {
+                    for (var _iterator3 = response.data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                        var r = _step3.value;
+
+                        this.inventoryData.users.push(r);
                     }
                 } catch (err) {
                     _didIteratorError3 = true;
@@ -44211,44 +44229,14 @@ module.exports = {
                     }
                 }
             }).catch(function (e) {
-                console.log('error inventory', e);
-            });
-        },
-        getJob: function getJob() {
-            this.$http.get('/api/v1/inventory/job').then(function (response) {
-                this.inventoryData.jobs = [];
-                var _iteratorNormalCompletion4 = true;
-                var _didIteratorError4 = false;
-                var _iteratorError4 = undefined;
-
-                try {
-                    for (var _iterator4 = response.data.data[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-                        var r = _step4.value;
-
-                        this.inventoryData.jobs.push(r);
-                    }
-                } catch (err) {
-                    _didIteratorError4 = true;
-                    _iteratorError4 = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion4 && _iterator4.return) {
-                            _iterator4.return();
-                        }
-                    } finally {
-                        if (_didIteratorError4) {
-                            throw _iteratorError4;
-                        }
-                    }
-                }
-            }).catch(function (e) {
                 console.log('error jobs', e);
             });
         }
     },
     mounted: function mounted() {
-        // this.getInventory();
+        this.getInventory();
         this.getJob();
+        this.getUsers();
     }
 };
 
@@ -44393,8 +44381,6 @@ module.exports = {
 //
 //
 //
-//
-//
 
 var CreateInventoryModal = __webpack_require__(358);
 
@@ -44463,10 +44449,43 @@ module.exports = {
     },
     data: function data() {
         return {
-            jobs: this.propData.jobs
+            jobs: this.propData.inventoryJobs
         };
     },
     methods: {
+        assignedPersons: function assignedPersons(job) {
+            var users = [];
+            // for(job_user of job.user_id) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.propData.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    user = _step.value;
+
+                    if (user.id == job.user_id) {
+                        users.push(user.profile.first_name);
+                    }
+                }
+                // }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return users.join(', ');
+        },
         convertDate: function convertDate(dateVal) {
             var milliseconds = Date.parse(dateVal);
             var d = new Date(milliseconds);
@@ -44615,7 +44634,7 @@ module.exports = {
     },
     data: function data() {
         return {
-            releases: this.workDetail.deliveries
+            items: this.workDetail.items
         };
     },
     methods: {
@@ -44624,10 +44643,37 @@ module.exports = {
             var d = new Date(milliseconds);
             return d.toDateString();
         },
+        productsOnHand: function productsOnHand(index) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.items[index].deliveries[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    delivery = _step.value;
+
+                    console.log(delivery);
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+        },
         returned: function returned(r) {
             return r.delivered - r.disposed;
         }
     },
+    mounted: function mounted() {},
     props: ['workDetail', 'products']
 };
 
@@ -44693,15 +44739,47 @@ module.exports = {
     },
     data: function data() {
         return {
-            jobs: this.propData.jobs,
+            jobs: this.propData.inventoryJobs,
             products: this.propData.products,
             workDetails: this.propData.workDetails
         };
     },
-    methods: {},
-    mounted: function mounted() {
-        console.log(this.propIJobId);
+    methods: {
+        assignedPersons: function assignedPersons(job) {
+            var users = [];
+            // for(job_user of job.user_id) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.propData.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    user = _step.value;
+
+                    if (user.id == job.user_id) {
+                        users.push(user.profile.first_name);
+                    }
+                }
+                // }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return users.join(', ');
+        }
     },
+    mounted: function mounted() {},
     props: ['propData', 'propIJobId']
 };
 
@@ -44753,12 +44831,47 @@ module.exports = {
 //
 
 module.exports = {
+    computed: {},
     data: function data() {
         return {
-            jobs: this.propData.jobs
+            jobs: this.propData.inventoryJobs
         };
     },
-    methods: {},
+    methods: {
+        assignedPersons: function assignedPersons(job) {
+            var users = [];
+            // for(job_user of job.user_id) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.propData.users[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    user = _step.value;
+
+                    if (user.id == job.user_id) {
+                        users.push(user.profile.first_name);
+                    }
+                }
+                // }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return users.join(', ');
+        }
+    },
     mounted: function mounted() {},
     props: ['openPage', 'propData']
 };
@@ -44885,11 +44998,6 @@ module.exports = {
 //
 
 module.exports = {
-    created: function created() {
-        this.getJo();
-        this.getUser();
-    },
-    computed: {},
     data: function data() {
         return {
             joOptions: [],
@@ -44974,7 +45082,6 @@ module.exports = {
         },
         handleSubmit: function handleSubmit(e) {
             var form = $(e.target)[0];
-            console.log(form);
             // if(d.getHours() == 0) {
             //     d.setHours(8);
             // }
@@ -44988,15 +45095,12 @@ module.exports = {
             };
 
             this.$http.post('/api/v1/inventory/job', postData).then(function (response) {
-                this.propData.jobs.push({
+                this.propData.inventoryJobs.push({
                     id: created_job_id,
                     job_order_id: this.selected_job_order,
                     description: form.description.value,
-                    deadline: form.deadline.value
-                });
-                this.propData.assignedPeople.push({
-                    inventory_job_id: created_job_id,
-                    user_id: this.selected_user
+                    deadline: form.deadline.value,
+                    user_id: [this.selected_user]
                 });
                 $('#modalCreateJob').modal('hide');
             }).catch(function (e) {
@@ -45006,34 +45110,14 @@ module.exports = {
         inputChange: function inputChange(e) {},
         joSelected: function joSelected(e) {
             this.selected_job_order = e.value;
-            var _iteratorNormalCompletion3 = true;
-            var _didIteratorError3 = false;
-            var _iteratorError3 = undefined;
-
-            try {
-                for (var _iterator3 = this.propData.assignedPeople[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                    var user = _step3.value;
-
-                    console.log(user.user_id);
-                }
-            } catch (err) {
-                _didIteratorError3 = true;
-                _iteratorError3 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                        _iterator3.return();
-                    }
-                } finally {
-                    if (_didIteratorError3) {
-                        throw _iteratorError3;
-                    }
-                }
-            }
         },
         userSelected: function userSelected(e) {
             this.selected_user = e.value;
         }
+    },
+    mounted: function mounted() {
+        this.getJo();
+        this.getUser();
     },
     props: ['propData']
 };
@@ -92027,7 +92111,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
-  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.releases), function(release, index) {
+  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.items), function(item, index) {
     return _c('div', {
       staticClass: "col-sm-12",
       staticStyle: {
@@ -92039,19 +92123,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "htmlFor": "itemname"
       }
     }, _vm._l((_vm.products), function(product) {
-      return (release.product_id == product.id) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.name) + "\n            ")]) : _vm._e()
+      return (item.product_id == product.id) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.name) + "\n            ")]) : _vm._e()
     })), _vm._v(" "), _c('label', {
       staticClass: "col-sm-4 control-label",
       attrs: {
         "htmlFor": "quantity"
       }
     }, _vm._l((_vm.products), function(product) {
-      return (release.product_id == product.id) ? _c('span', [_vm._v("\n                Expected Quantity: " + _vm._s(product.quantity) + "\n            ")]) : _vm._e()
+      return (item.product_id == product.id) ? _c('span', [_vm._v("\n                Expected Quantity: " + _vm._s(product.quantity) + "\n            ")]) : _vm._e()
     })), _vm._v(" "), _c('table', {
       staticClass: "table table-striped table-bordered"
-    }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((release.data), function(r, indexD) {
+    }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((item.releases), function(r, indexD) {
       return _c('tr', [_c('td', [_vm._v(_vm._s(_vm.convertDate(r.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.delivered))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.disposed))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.returned(r)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.status))]), _vm._v(" "), _vm._m(2, true)])
-    }), _vm._v(" "), _c('tr', [_c('td', [_vm._v(_vm._s(_vm.dateToday))]), _vm._v(" "), _c('td', [_vm._v("0")]), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('td', {
+    }), _vm._v(" "), _c('tr', [_c('td', [_vm._v(_vm._s(_vm.dateToday))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.productsOnHand(index)))]), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('td', {
       staticClass: "text-center"
     })])], 2)])])
   })], 2)
@@ -92379,7 +92463,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
-  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.deliveries), function(delivery, indexTrace) {
+  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.items), function(item, indexTrace) {
     return _c('div', {
       staticClass: "col-sm-12",
       staticStyle: {
@@ -92391,17 +92475,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "htmlFor": "itemname"
       }
     }, _vm._l((_vm.products), function(product) {
-      return (delivery.product_id == product.id) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.name) + "\n            ")]) : _vm._e()
+      return (item.product_code == product.product_code) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.name) + "\n            ")]) : _vm._e()
     })), _vm._v(" "), _c('label', {
       staticClass: "col-sm-4 control-label",
       attrs: {
         "htmlFor": "quantity"
       }
     }, _vm._l((_vm.products), function(product) {
-      return (delivery.product_id == product.id) ? _c('span', [_vm._v("\n                Expected Quantity: " + _vm._s(product.quantity) + "\n            ")]) : _vm._e()
+      return (item.product_code == product.product_code) ? _c('span', [_vm._v("\n                Expected Quantity: " + _vm._s(product.quantity) + "\n            ")]) : _vm._e()
     })), _vm._v(" "), _c('table', {
       staticClass: "table table-striped table-bordered"
-    }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((delivery.data), function(d, indexD) {
+    }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((item.deliveries), function(d, indexD) {
       return _c('tr', [_c('td', [_vm._v(_vm._s(_vm.convertDate(d.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(d.delivered))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.balance(indexTrace, indexD)))]), _vm._v(" "), _c('td', {
         staticClass: "text-center"
       }, [_c('i', {
@@ -92555,8 +92639,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col-sm-12"
-    }, _vm._l((_vm.propData.jobs), function(job) {
-      return (workDetail.inventory_job_id = job.id) ? _c('div', {
+    }, _vm._l((_vm.jobs), function(job) {
+      return (workDetail.inventory_job_id == job.id) ? _c('div', {
         staticClass: "row"
       }, [_c('div', {
         staticClass: "col-md-8"
@@ -92572,7 +92656,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         attrs: {
           "htmlFor": "assigned"
         }
-      }, [_vm._v("\n                            Assigned Persons : " + _vm._s(job.first_name) + "\n                        ")])]), _vm._v(" "), _c('div', {
+      }, [_vm._v("\n                            Assigned Persons : " + _vm._s(_vm.assignedPersons(job)) + "\n                        ")])]), _vm._v(" "), _c('div', {
         staticClass: "col-md-8"
       }, [_c('label', {
         staticClass: "control-label",
@@ -97723,9 +97807,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "inventoryList"
     }
   }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.propData.products), function(product) {
-    return _c('tr', [_c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
-      return (product.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                " + _vm._s(jobOrder.job_order_no) + "\n                            ")]) : _vm._e()
-    })), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.product_code))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.expiration_date))])])
+    return _c('tr', [_c('td', [_vm._v("\n                            " + _vm._s(product.job_order_no) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.product_code))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.expiration_date))])])
   }))])])]), _vm._v(" "), _c('CreateInventoryModal')], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
@@ -97950,7 +98032,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.openPage($event)
         }
       }
-    }, [_vm._v("\n                                " + _vm._s(job.job_order_no) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(job.project_name) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(job.first_name) + "\n                            ")])])])
+    }, [_vm._v("\n                                " + _vm._s(job.job_order_no) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(job.project_name) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(_vm.assignedPersons(job)) + "\n                            ")])])])
   }))])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Job Order Number")]), _vm._v(" "), _c('th', [_vm._v("Project Name")]), _vm._v(" "), _c('th', [_vm._v("Assigned Persons")])])])
@@ -98615,7 +98697,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "projectList"
     }
   }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.jobs), function(job) {
-    return _c('tr', [_c('td', [_vm._v("\n                            " + _vm._s(job.job_order_no) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(job.project_name) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(job.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.convertDate(job.deadline)))]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(job.first_name) + "\n                        ")])])
+    return _c('tr', [_c('td', [_vm._v("\n                            " + _vm._s(job.job_order_no) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(job.project_name) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(job.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.convertDate(job.deadline)))]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(_vm.assignedPersons(job)) + "\n                        ")])])
   }))])])]), _vm._v(" "), _c("create-job-modal", {
     tag: "component",
     attrs: {
