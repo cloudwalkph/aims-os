@@ -50,11 +50,6 @@
 
 <script>
     module.exports = {
-        created: function () {
-            this.getJo();
-            this.getUser();
-        },
-        computed: {},
         data: function () {
             return {
                 joOptions: [],
@@ -103,7 +98,6 @@
             },
             handleSubmit: function (e) {
                 var form = $(e.target)[0];
-                console.log(form);
                 // if(d.getHours() == 0) {
                 //     d.setHours(8);
                 // }
@@ -118,20 +112,15 @@
 
                 this.$http.post('/api/v1/inventory/job', postData)
                     .then(function (response) {
-                        this.propData.jobs.push(
+                        this.propData.inventoryJobs.push(
                             {
                                 id: created_job_id,
                                 job_order_id: this.selected_job_order,
                                 description: form.description.value,
-                                deadline: form.deadline.value
+                                deadline: form.deadline.value,
+                                user_id: [this.selected_user],
                             }
                         );
-                        this.propData.assignedPeople.push(
-                            {
-                                inventory_job_id: created_job_id,
-                                user_id: this.selected_user
-                            }
-                        )
                         $('#modalCreateJob').modal('hide');
                     })
                     .catch(function (e) {
@@ -144,13 +133,14 @@
             },
             joSelected: function (e) {
                 this.selected_job_order = e.value;
-                for(let user of this.propData.assignedPeople) {
-                    console.log(user.user_id);
-                }
             },
             userSelected: function (e) {
                 this.selected_user = e.value;
             }
+        },
+        mounted: function () {
+            this.getJo();
+            this.getUser();
         },
         props: ['propData']
     }

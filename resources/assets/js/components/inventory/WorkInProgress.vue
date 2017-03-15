@@ -27,7 +27,7 @@
                             </td>
                             <td>
                                 <span>
-                                    {{job.first_name}}
+                                    {{assignedPersons(job)}}
                                 </span>
                             </td>
                         </tr>
@@ -42,13 +42,26 @@
 
 <script>
     module.exports = {
+        computed: {
+            
+        },
         data: function () {
             return {
-                jobs: this.propData.jobs
+                jobs: this.propData.inventoryJobs
             }
         },
         methods: {
-
+            assignedPersons: function(job) {
+                var users = [];
+                // for(job_user of job.user_id) {
+                    for(user of this.propData.users) {
+                        if(user.id == job.user_id) {
+                            users.push(user.profile.first_name);
+                        }
+                    }
+                // }
+                return users.join(', ');
+            }
         },
         mounted: function () {
 

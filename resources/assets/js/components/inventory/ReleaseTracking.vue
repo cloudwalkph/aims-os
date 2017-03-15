@@ -7,14 +7,14 @@
                 <i class="fa fa-print fa-lg pull-right" />
             </h3>
         </div>
-        <div class="col-sm-12" style="margin-top: 20px;" v-for="(release, index) in releases">
+        <div class="col-sm-12" style="margin-top: 20px;" v-for="(item, index) in items">
             <label htmlFor="itemname" class="col-sm-4 control-label">
-                <span v-for="product in products" v-if="release.product_id == product.id">
+                <span v-for="product in products" v-if="item.product_id == product.id">
                     Item Name: {{product.name}}
                 </span>
             </label>
             <label htmlFor="quantity" class="col-sm-4 control-label">
-                <span v-for="product in products" v-if="release.product_id == product.id">
+                <span v-for="product in products" v-if="item.product_id == product.id">
                     Expected Quantity: {{product.quantity}}
                 </span>
             </label>
@@ -32,7 +32,7 @@
 
                 <tbody>
 
-                    <tr v-for="(r, indexD) in release.data">
+                    <tr v-for="(r, indexD) in item.releases">
                         <td>{{convertDate(r.date)}}</td>
                         <td>{{r.delivered}}</td>
                         <td>{{r.disposed}}</td>
@@ -46,7 +46,7 @@
 
                     <tr>
                         <td>{{dateToday}}</td>
-                        <td>0</td>
+                        <td>{{productsOnHand(index)}}</td>
                         <td><input type="text" class="form-control" /></td>
                         <td><input type="text" class="form-control" /></td>
                         <td>
@@ -77,7 +77,7 @@
         },
         data: function () {
             return {
-                releases: this.workDetail.deliveries
+                items: this.workDetail.items
             }
         },
         methods: {
@@ -86,9 +86,16 @@
                 var d = new Date(milliseconds);
                 return d.toDateString();
             },
+            productsOnHand: function (index) {
+                for(delivery of this.items[index].deliveries) {
+                    console.log(delivery);
+                }
+            },
             returned: function (r) {
                 return r.delivered - r.disposed;
             }
+        },
+        mounted: function () {
         },
         props: ['workDetail', 'products']
     }
