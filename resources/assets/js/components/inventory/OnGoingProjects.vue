@@ -21,15 +21,21 @@
 
                         <tr v-for="job in jobs">
                             <td>
-                                {{job.job_order_no}}
+                                <span>
+                                    {{jobOrderNo(job)}}
+                                </span>
                             </td>
                             <td>
-                                {{job.project_name}}
+                                <span>
+                                    {{projectName(job)}}
+                                </span>
                             </td>
                             <td>{{job.description}}</td>
                             <td>{{convertDate(job.deadline)}}</td>
                             <td>
-                                {{assignedPersons(job)}}
+                                <span>
+                                    {{assignedPersons(job)}}
+                                </span>
                             </td>
                         </tr>
 
@@ -56,11 +62,11 @@
             }
         },
         methods: {
-            assignedPersons: function(job) {
+            assignedPersons: function (job) {
                 var users = [];
                 // for(job_user of job.user_id) {
-                    for(user of this.propData.users) {
-                        if(user.id == job.user_id) {
+                    for (user of this.propData.users) {
+                        if (user.id == job.user_id) {
                             users.push(user.profile.first_name);
                         }
                     }
@@ -71,6 +77,20 @@
                 var milliseconds = Date.parse(dateVal);
                 var d = new Date(milliseconds);
                 return d.toDateString();
+            },
+            jobOrderNo: function (job) {
+                for (jo of this.propData.jobOrders) {
+                    if (jo.id == job.job_order_id) {
+                        return jo.job_order_no;
+                    }
+                }
+            },
+            projectName: function (job) {
+                for (jo of this.propData.jobOrders) {
+                    if (jo.id == job.job_order_id) {
+                        return jo.project_name;
+                    }
+                }
             }
         },
         mounted: function () {

@@ -12,6 +12,11 @@
                     <span v-if="breadcrumbs.length == index + 1">
                         {{breadcrumb.page}}
                     </span>
+                    <span v-else-if="breadcrumb.page_id === 'work-in-progress'">
+                        <a href="" pageID="work-in-progress" @click.prevent="openPage">
+                            {{breadcrumb.page}}
+                        </a>
+                    </span>
                     <span v-else>
                         <a href="" pageID="home" @click.prevent="openPage">
                             {{breadcrumb.page}}
@@ -65,8 +70,12 @@
                         {
                             id: 0,
                             job_order_no: 'J0SAMPLE',
+                            user_id: 0,
+                            contract_no: 0,
+                            do_contract_no: 0,
                             project_name: 'Sample Job Order',
-                            user_id: 0
+                            project_types: null,
+                            status: null,
                         }
                     ],
                     users: [
@@ -195,7 +204,8 @@
                     this.currentView = WorkDetails;
                     this.breadcrumbs.push({
                         icon: 'fa-dashboard',
-                        page: 'Inventory List'
+                        page: 'Work In Progress',
+                        page_id: 'work-in-progress'
                     });
                     this.breadcrumbs.push({
                         icon: 'fa-dashboard',
@@ -208,18 +218,34 @@
                 this.$http.get('/api/v1/inventory')
                     .then(function (response) {
                         // this.inventoryData.products = [];
-                        for(product of response.data.data) {
+                        for (product of response.data.data) {
+                            console.log(response.data.data);
                             this.inventoryData.products.push({
                                 id: product.id,
+                                job_order_id: product.job_order_id,
                                 job_order_no: product.job_order_no,
                                 project_name: product.project_name,
                                 name: product.name,
+                                product_code: product.product_code,
+                                expiration_date: product.expiration_date,
                                 quantity: 1000000
                             })
                         }
                     })
                     .catch(function (e) {
                         console.log('error inventory', e);
+                    });
+            },
+            getJobOrders: function () {
+                this.$http.get('/api/v1/job-orders/department')
+                    .then(function (response) {
+                        // this.inventoryData.inventoryJobs = [];
+                        for (let r of response.data) {
+                            this.inventoryData.jobOrders.push(r);
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log('error jobs', e);
                     });
             },
             getJob: function () {
@@ -250,6 +276,7 @@
         mounted: function () {
             this.getInventory();
             this.getJob();
+            this.getJobOrders();
             this.getUsers();
         }
     }

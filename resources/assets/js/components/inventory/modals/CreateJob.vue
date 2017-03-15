@@ -60,7 +60,6 @@
         },
         methods: {
             getJo: function () {
-                var joData = [];
                 this.$http.get('/api/v1/inventory/job/create')
                     .then(function (response) {
                         for (let jo of response.data) {
@@ -75,7 +74,6 @@
                     });
             },
             getUser: function () {
-                var userOptions = [];
                 this.$http.get('/api/v1/inventory/user/create')
                     .then(function (response) {
                         for (let user of response.data) {
@@ -91,10 +89,10 @@
                         console.log('error users', e);
                     });
             },
-            convertDate: function (dateString) {
-                var milliseconds = Date.parse(dateString);
+            convertDate: function (dateVal) {
+                var milliseconds = Date.parse(dateVal);
                 var d = new Date(milliseconds);
-                return d;
+                return d.toDateString();
             },
             handleSubmit: function (e) {
                 var form = $(e.target)[0];
@@ -122,11 +120,11 @@
                             }
                         );
                         $('#modalCreateJob').modal('hide');
+                        form.reset();
                     })
                     .catch(function (e) {
                         console.log(e);
                     });
-
             },
             inputChange: function (e) {
 
