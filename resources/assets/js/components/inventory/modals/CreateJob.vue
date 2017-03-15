@@ -10,7 +10,7 @@
                     <h4 class="modal-title" id="myModalLabel">Add Creatives Job</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger hide">
                         This is an alert message
                     </div>
 
@@ -66,7 +66,7 @@
         methods: {
             getJo: function () {
                 var joData = [];
-                this.$http.get('/api/v1/job-orders/department')
+                this.$http.get('/api/v1/inventory/job/create')
                     .then(function (response) {
                         for (let jo of response.data) {
                             this.joOptions.push({
@@ -81,7 +81,7 @@
             },
             getUser: function () {
                 var userOptions = [];
-                this.$http.get('/api/v1/users/5')
+                this.$http.get('/api/v1/inventory/user/create')
                     .then(function (response) {
                         for (let user of response.data) {
                             this.userOptions.push(
@@ -132,6 +132,7 @@
                                 user_id: this.selected_user
                             }
                         )
+                        $('#modalCreateJob').modal('hide');
                     })
                     .catch(function (e) {
                         console.log(e);

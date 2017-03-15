@@ -8,7 +8,7 @@
         <div class="col-sm-12" style="margin-top: 20px;" v-for="(delivery, indexTrace) in deliveries">
             <label htmlFor="itemname" class="col-sm-4 control-label">
                 <span v-for="product in products" v-if="delivery.product_id == product.id">
-                    Item Name: {{product.id}}
+                    Item Name: {{product.name}}
                 </span>
             </label>
             <label htmlFor="quantity" class="col-sm-4 control-label">
@@ -63,6 +63,11 @@
                 return d.toDateString();
             }
         },
+        data: function () {
+            return {
+                deliveries: this.workDetail.deliveries
+            }
+        },
         methods: {
             balance: function (indexTrace, indexD) {
                 var product_id = this.deliveries[indexTrace].product_id;
@@ -87,14 +92,15 @@
                 var deliveryVal = e.target.value;
                 this.deliveries[workIndex].data.push({
                     date: this.dateToday,
-                    delivered: deliveryVal
+                    delivered: deliveryVal,
+                    disposed: 0
                 });
             },
             removeDelivery: function (indexTrace, indexDelivery) {
                 this.deliveries[indexTrace].data.splice(indexDelivery, 1);
             },
         },
-        props: ['products', 'deliveries']
+        props: ['workDetail', 'products']
     }
 
 </script>

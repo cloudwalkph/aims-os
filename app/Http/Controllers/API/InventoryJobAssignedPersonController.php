@@ -5,6 +5,10 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\User;
+
+use App\Models\InventoryJobAssignedPerson;
+
 class InventoryJobAssignedPersonController extends Controller
 {
     /**
@@ -22,9 +26,17 @@ class InventoryJobAssignedPersonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $user = $request->user();
+        $users = User::with('profile', 'department', 'role')->where('department_id', $user['department_id'])
+            ->whereNotIn(
+                'id', 
+                array_column(InventoryJobAssignedPerson::select('user_id')->get()->toArray(), 'user_id')
+            )
+            ->get();
+
+        return response()->json($users, 200);
     }
 
     /**

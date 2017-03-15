@@ -22,7 +22,7 @@
         </div>
 
         <div class="col-lg-12">
-            <component :is="currentView" :openPage="openPage" :propData="inventoryData" :propJobOrderID="joID">
+            <component :is="currentView" :openPage="openPage" :propData="inventoryData" :propIJobId="iJobId">
                 <!-- component changes when vm.currentView changes! -->
             </component>
         </div>
@@ -78,7 +78,7 @@
                         page: 'Inventory Department'
                     }
                 ],
-                joID: null,
+                iJobId: null,
                 inventoryData: {
                     jobOrders: [
 
@@ -89,7 +89,8 @@
                     products: [
                         {
                             id: 1,
-                            job_order_id: 2,
+                            job_order_no: '5FDSART6',
+                            project_name: 'Unilever',
                             product_code: 'PONDS-MEN',
                             name: 'Product 1',
                             quantity: 1000000,
@@ -97,7 +98,8 @@
                         },
                         {
                             id: 2,
-                            job_order_id: 2,
+                            job_order_no: '5FDSART6',
+                            project_name: 'Unilever',
                             product_code: 'PONDS-WOMEN',
                             name: 'Product 2',
                             quantity: 2000000,
@@ -106,12 +108,6 @@
                     ],
                     jobs: [
                         
-                    ],
-                    assignedPeople: [
-                        {
-                            inventory_job_id: 1,
-                            user_id: 5
-                        }
                     ],
                     workDetails: [
                         {
@@ -123,14 +119,20 @@
                                         {
                                             date: '2016-12-22',
                                             delivered: 500000,
+                                            disposed: 2000,
+                                            status: 'Approved'
                                         },
                                         {
                                             date: '2016-12-23',
                                             delivered: 250000,
+                                            disposed: 2000,
+                                            status: 'Pending'
                                         },
                                         {
                                             date: '2016-12-24',
                                             delivered: 100000,
+                                            disposed: 2000,
+                                            status: 'Approved'
                                         },
                                     ]
                                 },
@@ -140,27 +142,9 @@
                                         {
                                             date: '2016-12-22',
                                             delivered: 200000,
+                                            disposed: 2000,
+                                            status: 'Approved'
                                         },
-                                    ]
-                                }
-                            ],
-                            releases: [
-                                {
-                                    product_id: 1,
-                                    data: [
-                                        {
-                                            date: '2016-12-23',
-                                            productsOnHand: 100000,
-                                            disposed: 50000,
-                                            returned: 0,
-                                            status: 'Approved',
-                                        }, {
-                                            date: '2016-12-24',
-                                            productsOnHand: 150000,
-                                            disposed: 0,
-                                            returned: 0,
-                                            status: 'Pending',
-                                        }
                                     ]
                                 }
                             ]
@@ -215,7 +199,7 @@
                     });
                 }
                 else if (pageID == 'work-details') {
-                    this.joID = event.target.getAttribute('joID');
+                    this.iJobId = event.target.getAttribute('iJobId');
                     this.currentView = WorkDetails;
                     this.breadcrumbs.push({
                         icon: 'fa-dashboard',
@@ -227,10 +211,41 @@
                         active: true
                     });
                 }
+            },
+            getInventory: function () {
+                this.$http.get('/api/v1/inventory')
+                    .then(function (response) {
+                        this.inventoryData.products = [];
+                        for(product of response.data.data) {
+                            this.inventoryData.products.push({
+                                id: product.id,
+                                job_order_no: product.job_order_no,
+                                project_name: product.project_name,
+                                name: product.name,
+                                quantity: 1000000
+                            })
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log('error inventory', e);
+                    });
+            },
+            getJob: function () {
+                this.$http.get('/api/v1/inventory/job')
+                    .then(function (response) {
+                        this.inventoryData.jobs = [];
+                        for (let r of response.data.data) {
+                            this.inventoryData.jobs.push(r);
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log('error jobs', e);
+                    });
             }
         },
         mounted: function () {
-            // console.log(this.inventoryData);
+            // this.getInventory();
+            this.getJob();
         }
     }
 
