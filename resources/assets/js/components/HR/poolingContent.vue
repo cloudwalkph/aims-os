@@ -113,7 +113,7 @@
             <div class="clearfix"></div>
             <hr style="border-color: #000;margin: 50px 0;" />
 
-            <div class="col-md-12">
+            <div class="col-md-12" style="padding-bottom: 30px;">
               <div class="col-md-2"><h4 class="text-center">Manpower Training and Simulation Schedule:</h4></div>
               <div class="col-md-10">
                 
@@ -374,6 +374,7 @@
         
         this.$http.post(url, dataArray).then(response => {
           console.log(response.data)
+          alert('Succesfully Saved!');
         }, error => {
           console.log(error)
         })

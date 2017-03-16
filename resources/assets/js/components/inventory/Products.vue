@@ -18,8 +18,8 @@
                     <tr v-for="(product, index) in products">
                         <td>{{product.job_order_no}}</td>
                         <td>{{product.project_name}}</td>
-                        <td>{{product.itemName}}</td>
-                        <td>{{product.productsOnHand}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.quantity}}</td>
                     </tr>
 
                 </tbody>
@@ -42,27 +42,9 @@
                 var d = new Date(milliseconds);
                 return d.toDateString();
             },
-            getInventory: function () {
-                this.$http.get('/api/v1/inventory')
-                    .then(function (response) {
-                        this.products = [];
-                        for(product of response.data.data) {
-                            this.products.push({
-                                job_order_no: product.job_order_no,
-                                project_name: product.project_name,
-                                itemName: product.name,
-                                productsOnHand: 1000000
-                            })
-                        }
-                    })
-                    .catch(function (e) {
-                        console.log('error inventory', e);
-                    });
-            }
         },
         mounted: function () {
             console.log(this.propData.products);
-            this.getInventory();
         },
         props: ['propData']
     }

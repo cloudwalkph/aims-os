@@ -7,10 +7,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Add Creatives Job</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Inventory Job</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger hide">
                         This is an alert message
                     </div>
 
@@ -50,11 +50,6 @@
 
 <script>
     module.exports = {
-        created: function () {
-            this.getJo();
-            this.getUser();
-        },
-        computed: {},
         data: function () {
             return {
                 joOptions: [],
@@ -66,7 +61,7 @@
         methods: {
             getJo: function () {
                 var joData = [];
-                this.$http.get('/api/v1/job-orders/department')
+                this.$http.get('/api/v1/inventory/job/create')
                     .then(function (response) {
                         for (let jo of response.data) {
                             this.joOptions.push({
@@ -81,7 +76,7 @@
             },
             getUser: function () {
                 var userOptions = [];
-                this.$http.get('/api/v1/users/5')
+                this.$http.get('/api/v1/inventory/user/create')
                     .then(function (response) {
                         for (let user of response.data) {
                             this.userOptions.push(
@@ -103,7 +98,6 @@
             },
             handleSubmit: function (e) {
                 var form = $(e.target)[0];
-                console.log(form);
                 // if(d.getHours() == 0) {
                 //     d.setHours(8);
                 // }
@@ -118,20 +112,16 @@
 
                 this.$http.post('/api/v1/inventory/job', postData)
                     .then(function (response) {
-                        this.propData.jobs.push(
+                        this.propData.inventoryJobs.push(
                             {
                                 id: created_job_id,
                                 job_order_id: this.selected_job_order,
                                 description: form.description.value,
-                                deadline: form.deadline.value
+                                deadline: form.deadline.value,
+                                user_id: [this.selected_user],
                             }
                         );
-                        this.propData.assignedPeople.push(
-                            {
-                                inventory_job_id: created_job_id,
-                                user_id: this.selected_user
-                            }
-                        )
+                        $('#modalCreateJob').modal('hide');
                     })
                     .catch(function (e) {
                         console.log(e);
@@ -143,13 +133,14 @@
             },
             joSelected: function (e) {
                 this.selected_job_order = e.value;
-                for(let user of this.propData.assignedPeople) {
-                    console.log(user.user_id);
-                }
             },
             userSelected: function (e) {
                 this.selected_user = e.value;
             }
+        },
+        mounted: function () {
+            this.getJo();
+            this.getUser();
         },
         props: ['propData']
     }
