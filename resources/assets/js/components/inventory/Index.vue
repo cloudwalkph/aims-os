@@ -219,7 +219,6 @@
                     .then(function (response) {
                         // this.inventoryData.products = [];
                         for (product of response.data.data) {
-                            console.log(response.data.data);
                             this.inventoryData.products.push({
                                 id: product.id,
                                 job_order_id: product.job_order_id,
@@ -233,19 +232,22 @@
                         }
                     })
                     .catch(function (e) {
-                        console.log('error inventory', e);
+                        console.log('error inventories', e);
                     });
             },
             getJobOrders: function () {
                 this.$http.get('/api/v1/job-orders/department')
                     .then(function (response) {
+                        console.log(response);
                         // this.inventoryData.inventoryJobs = [];
                         for (let r of response.data) {
-                            this.inventoryData.jobOrders.push(r);
+                            if(r) {
+                                this.inventoryData.jobOrders.push(r);
+                            }
                         }
                     })
                     .catch(function (e) {
-                        console.log('error jobs', e);
+                        console.log('error jobs department', e);
                     });
             },
             getJob: function () {
@@ -257,7 +259,7 @@
                         }
                     })
                     .catch(function (e) {
-                        console.log('error jobs', e);
+                        console.log('error inventory jobs', e);
                     });
             },
             getUsers: function () {
@@ -269,7 +271,7 @@
                         }
                     })
                     .catch(function (e) {
-                        console.log('error jobs', e);
+                        console.log('error users department', e);
                     });
             }
         },

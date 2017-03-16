@@ -63,14 +63,16 @@
                 this.$http.get('/api/v1/inventory/job/create')
                     .then(function (response) {
                         for (let jo of response.data) {
-                            this.joOptions.push({
-                                label: `${jo.job_order_no} : ${jo.project_name}`,
-                                value: jo.id
-                            });
+                            if(jo) {
+                                this.joOptions.push({
+                                    label: `${jo.job_order_no} : ${jo.project_name}`,
+                                    value: jo.id
+                                });
+                            }
                         }
                     })
                     .catch(function (e) {
-                        console.log('error department', e);
+                        console.log('error jobs filter', e);
                     });
             },
             getUser: function () {
@@ -86,7 +88,7 @@
                         }
                     })
                     .catch(function (e) {
-                        console.log('error users', e);
+                        console.log('error users filter', e);
                     });
             },
             convertDate: function (dateVal) {
@@ -123,7 +125,7 @@
                         form.reset();
                     })
                     .catch(function (e) {
-                        console.log(e);
+                        console.log('error post jobs', e);
                     });
             },
             inputChange: function (e) {
