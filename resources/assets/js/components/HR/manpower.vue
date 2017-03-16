@@ -287,10 +287,10 @@
             getManpowerType() {
                 let url = '/api/v1/manpower-types/all';
                 this.$http.get(url).then(response => {
-                    this.manpowerTypeList = response.data.data;
-                    
+                    this.manpowerTypeList = response.data;
+                    // console.log(response);
                 }, error => {
-                    console.log(error)
+                    console.log(error) 
                     
                 });
             },
