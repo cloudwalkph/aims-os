@@ -43910,6 +43910,11 @@ module.exports = {
             return d.toDateString();
         }
     },
+    data: function data() {
+        return {
+            deliveries: this.workDetail.deliveries
+        };
+    },
     methods: {
         balance: function balance(indexTrace, indexD) {
             var product_id = this.deliveries[indexTrace].product_id;
@@ -43934,14 +43939,15 @@ module.exports = {
             var deliveryVal = e.target.value;
             this.deliveries[workIndex].data.push({
                 date: this.dateToday,
-                delivered: deliveryVal
+                delivered: deliveryVal,
+                disposed: 0
             });
         },
         removeDelivery: function removeDelivery(indexTrace, indexDelivery) {
             this.deliveries[indexTrace].data.splice(indexDelivery, 1);
         }
     },
-    props: ['products', 'deliveries']
+    props: ['workDetail', 'products']
 };
 
 /***/ }),
@@ -44063,65 +44069,55 @@ module.exports = {
                 icon: 'fa-dashboard',
                 page: 'Inventory Department'
             }],
-            joID: null,
+            iJobId: null,
             inventoryData: {
                 jobOrders: [],
                 users: [],
                 products: [{
                     id: 1,
-                    job_order_id: 2,
+                    job_order_no: '5FDSART6',
+                    project_name: 'Unilever',
                     product_code: 'PONDS-MEN',
                     name: 'Product 1',
                     quantity: 1000000,
                     expiration_date: '2017-02-27'
                 }, {
                     id: 2,
-                    job_order_id: 2,
+                    job_order_no: '5FDSART6',
+                    project_name: 'Unilever',
                     product_code: 'PONDS-WOMEN',
                     name: 'Product 2',
                     quantity: 2000000,
                     expiration_date: '2017-02-27'
                 }],
                 jobs: [],
-                assignedPeople: [{
-                    inventory_job_id: 1,
-                    user_id: 5
-                }],
                 workDetails: [{
                     inventory_job_id: 1,
                     deliveries: [{
                         product_id: 1,
                         data: [{
                             date: '2016-12-22',
-                            delivered: 500000
+                            delivered: 500000,
+                            disposed: 2000,
+                            status: 'Approved'
                         }, {
                             date: '2016-12-23',
-                            delivered: 250000
+                            delivered: 250000,
+                            disposed: 2000,
+                            status: 'Pending'
                         }, {
                             date: '2016-12-24',
-                            delivered: 100000
+                            delivered: 100000,
+                            disposed: 2000,
+                            status: 'Approved'
                         }]
                     }, {
                         product_id: 2,
                         data: [{
                             date: '2016-12-22',
-                            delivered: 200000
-                        }]
-                    }],
-                    releases: [{
-                        product_id: 1,
-                        data: [{
-                            date: '2016-12-23',
-                            productsOnHand: 100000,
-                            disposed: 50000,
-                            returned: 0,
+                            delivered: 200000,
+                            disposed: 2000,
                             status: 'Approved'
-                        }, {
-                            date: '2016-12-24',
-                            productsOnHand: 150000,
-                            disposed: 0,
-                            returned: 0,
-                            status: 'Pending'
                         }]
                     }]
                 }]
@@ -44168,7 +44164,7 @@ module.exports = {
                     page: 'Inventory List'
                 });
             } else if (pageID == 'work-details') {
-                this.joID = event.target.getAttribute('joID');
+                this.iJobId = event.target.getAttribute('iJobId');
                 this.currentView = WorkDetails;
                 this.breadcrumbs.push({
                     icon: 'fa-dashboard',
@@ -44180,10 +44176,79 @@ module.exports = {
                     active: true
                 });
             }
+        },
+        getInventory: function getInventory() {
+            this.$http.get('/api/v1/inventory').then(function (response) {
+                this.inventoryData.products = [];
+                var _iteratorNormalCompletion3 = true;
+                var _didIteratorError3 = false;
+                var _iteratorError3 = undefined;
+
+                try {
+                    for (var _iterator3 = response.data.data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                        product = _step3.value;
+
+                        this.inventoryData.products.push({
+                            id: product.id,
+                            job_order_no: product.job_order_no,
+                            project_name: product.project_name,
+                            name: product.name,
+                            quantity: 1000000
+                        });
+                    }
+                } catch (err) {
+                    _didIteratorError3 = true;
+                    _iteratorError3 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                            _iterator3.return();
+                        }
+                    } finally {
+                        if (_didIteratorError3) {
+                            throw _iteratorError3;
+                        }
+                    }
+                }
+            }).catch(function (e) {
+                console.log('error inventory', e);
+            });
+        },
+        getJob: function getJob() {
+            this.$http.get('/api/v1/inventory/job').then(function (response) {
+                this.inventoryData.jobs = [];
+                var _iteratorNormalCompletion4 = true;
+                var _didIteratorError4 = false;
+                var _iteratorError4 = undefined;
+
+                try {
+                    for (var _iterator4 = response.data.data[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                        var r = _step4.value;
+
+                        this.inventoryData.jobs.push(r);
+                    }
+                } catch (err) {
+                    _didIteratorError4 = true;
+                    _iteratorError4 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                            _iterator4.return();
+                        }
+                    } finally {
+                        if (_didIteratorError4) {
+                            throw _iteratorError4;
+                        }
+                    }
+                }
+            }).catch(function (e) {
+                console.log('error jobs', e);
+            });
         }
     },
     mounted: function mounted() {
-        // console.log(this.inventoryData);
+        // this.getInventory();
+        this.getJob();
     }
 };
 
@@ -44389,14 +44454,6 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 var CreateJobModal = __webpack_require__(359);
 
@@ -44406,8 +44463,7 @@ module.exports = {
     },
     data: function data() {
         return {
-            jobs: this.propData.jobs,
-            assignedPeople: this.propData.assignedPeople
+            jobs: this.propData.jobs
         };
     },
     methods: {
@@ -44415,52 +44471,9 @@ module.exports = {
             var milliseconds = Date.parse(dateVal);
             var d = new Date(milliseconds);
             return d.toDateString();
-        },
-        getJob: function getJob() {
-            this.$http.get('/api/v1/inventory/job').then(function (response) {
-                this.jobs = [];
-                this.assignedPeople = [];
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
-
-                try {
-                    for (var _iterator = response.data.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var r = _step.value;
-
-                        this.jobs.push({
-                            id: r.id,
-                            job_order_id: r.job_order_id,
-                            description: r.description,
-                            deadline: r.deadline
-                        });
-                        this.assignedPeople.push({
-                            inventory_job_id: r.id,
-                            user_id: r.user_id
-                        });
-                    }
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
-                        }
-                    } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
-                        }
-                    }
-                }
-            }).catch(function (e) {
-                console.log('error jobs', e);
-            });
         }
     },
-    mounted: function mounted() {
-        this.getJob();
-    },
+    mounted: function mounted() {},
     props: ['propData']
 };
 
@@ -44511,47 +44524,10 @@ module.exports = {
             var milliseconds = Date.parse(dateVal);
             var d = new Date(milliseconds);
             return d.toDateString();
-        },
-        getInventory: function getInventory() {
-            this.$http.get('/api/v1/inventory').then(function (response) {
-                this.products = [];
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
-
-                try {
-                    for (var _iterator = response.data.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        product = _step.value;
-
-                        this.products.push({
-                            job_order_no: product.job_order_no,
-                            project_name: product.project_name,
-                            itemName: product.name,
-                            productsOnHand: 1000000
-                        });
-                    }
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
-                        }
-                    } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
-                        }
-                    }
-                }
-            }).catch(function (e) {
-                console.log('error inventory', e);
-            });
         }
     },
     mounted: function mounted() {
         console.log(this.propData.products);
-        this.getInventory();
     },
     props: ['propData']
 };
@@ -44624,6 +44600,11 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
 
 module.exports = {
     computed: {
@@ -44632,30 +44613,28 @@ module.exports = {
             return d.toDateString();
         }
     },
+    data: function data() {
+        return {
+            releases: this.workDetail.deliveries
+        };
+    },
     methods: {
         convertDate: function convertDate(dateValue) {
             var milliseconds = Date.parse(dateValue);
             var d = new Date(milliseconds);
             return d.toDateString();
+        },
+        returned: function returned(r) {
+            return r.delivered - r.disposed;
         }
     },
-    props: ['products', 'releases']
+    props: ['workDetail', 'products']
 };
 
 /***/ }),
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -44712,7 +44691,18 @@ module.exports = {
         DeliveryTracking: DeliveryTracking,
         ReleaseTracking: ReleaseTracking
     },
-    props: ['propData', 'propJobOrderID']
+    data: function data() {
+        return {
+            jobs: this.propData.jobs,
+            products: this.propData.products,
+            workDetails: this.propData.workDetails
+        };
+    },
+    methods: {},
+    mounted: function mounted() {
+        console.log(this.propIJobId);
+    },
+    props: ['propData', 'propIJobId']
 };
 
 /***/ }),
@@ -44761,15 +44751,15 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 module.exports = {
+    data: function data() {
+        return {
+            jobs: this.propData.jobs
+        };
+    },
+    methods: {},
+    mounted: function mounted() {},
     props: ['openPage', 'propData']
 };
 
@@ -44911,7 +44901,7 @@ module.exports = {
     methods: {
         getJo: function getJo() {
             var joData = [];
-            this.$http.get('/api/v1/job-orders/department').then(function (response) {
+            this.$http.get('/api/v1/inventory/job/create').then(function (response) {
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
                 var _iteratorError = undefined;
@@ -44945,7 +44935,7 @@ module.exports = {
         },
         getUser: function getUser() {
             var userOptions = [];
-            this.$http.get('/api/v1/users/5').then(function (response) {
+            this.$http.get('/api/v1/inventory/user/create').then(function (response) {
                 var _iteratorNormalCompletion2 = true;
                 var _didIteratorError2 = false;
                 var _iteratorError2 = undefined;
@@ -45008,6 +44998,7 @@ module.exports = {
                     inventory_job_id: created_job_id,
                     user_id: this.selected_user
                 });
+                $('#modalCreateJob').modal('hide');
             }).catch(function (e) {
                 console.log(e);
             });
@@ -92048,7 +92039,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "htmlFor": "itemname"
       }
     }, _vm._l((_vm.products), function(product) {
-      return (release.productID == product.productID) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.itemName) + "\n            ")]) : _vm._e()
+      return (release.product_id == product.id) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.name) + "\n            ")]) : _vm._e()
     })), _vm._v(" "), _c('label', {
       staticClass: "col-sm-4 control-label",
       attrs: {
@@ -92058,9 +92049,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       return (release.product_id == product.id) ? _c('span', [_vm._v("\n                Expected Quantity: " + _vm._s(product.quantity) + "\n            ")]) : _vm._e()
     })), _vm._v(" "), _c('table', {
       staticClass: "table table-striped table-bordered"
-    }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((release.data), function(r) {
-      return _c('tr', [_c('td', [_vm._v(_vm._s(_vm.convertDate(r.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.productsOnHand))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.disposed))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.returned))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.status))]), _vm._v(" "), _vm._m(2, true)])
-    }), _vm._v(" "), _c('tr', [_c('td', [_vm._v(_vm._s(_vm.dateToday))]), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('td', {
+    }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((release.data), function(r, indexD) {
+      return _c('tr', [_c('td', [_vm._v(_vm._s(_vm.convertDate(r.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.delivered))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.disposed))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.returned(r)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.status))]), _vm._v(" "), _vm._m(2, true)])
+    }), _vm._v(" "), _c('tr', [_c('td', [_vm._v(_vm._s(_vm.dateToday))]), _vm._v(" "), _c('td', [_vm._v("0")]), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('td', {
       staticClass: "text-center"
     })])], 2)])])
   })], 2)
@@ -92095,19 +92086,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', [_c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text"
-    }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', [_c('input', {
-    staticClass: "form-control",
-    attrs: {
-      "type": "text"
-    }
-  })])
+  return _c('td', [_c('select', {
+    staticClass: "form-control"
+  }, [_c('option', [_vm._v("Approved")]), _vm._v(" "), _c('option', [_vm._v("Pending")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -92410,7 +92391,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "htmlFor": "itemname"
       }
     }, _vm._l((_vm.products), function(product) {
-      return (delivery.product_id == product.id) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.id) + "\n            ")]) : _vm._e()
+      return (delivery.product_id == product.id) ? _c('span', [_vm._v("\n                Item Name: " + _vm._s(product.name) + "\n            ")]) : _vm._e()
     })), _vm._v(" "), _c('label', {
       staticClass: "col-sm-4 control-label",
       attrs: {
@@ -92569,8 +92550,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
-  }, _vm._l((_vm.propData.workDetails), function(workDetail) {
-    return (workDetail.inventory_job_id == _vm.propJobOrderID) ? _c('div', {
+  }, _vm._l((_vm.workDetails), function(workDetail) {
+    return (workDetail.inventory_job_id == _vm.propIJobId) ? _c('div', {
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col-sm-12"
@@ -92584,49 +92565,41 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         attrs: {
           "htmlFor": "joNumber"
         }
-      }, _vm._l((_vm.propData.jobOrders), function(jobOrder) {
-        return (job.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                Job Order Number : " + _vm._s(jobOrder.job_order_no) + "\n                            ")]) : _vm._e()
-      }))]), _vm._v(" "), _c('div', {
+      }, [_vm._v("\n                            Job Order Number : " + _vm._s(job.job_order_no) + "\n                        ")])]), _vm._v(" "), _c('div', {
         staticClass: "col-md-4 text-right"
       }, [_c('label', {
         staticClass: "control-label",
         attrs: {
           "htmlFor": "assigned"
         }
-      }, _vm._l((_vm.propData.assignedPeople), function(assigned_person) {
-        return (job.id == assigned_person.inventory_job_id) ? _c('span', _vm._l((_vm.propData.users), function(user) {
-          return (assigned_person.user_id == user.id) ? _c('span', [_vm._v("\n                                    Assigned Persons : " + _vm._s(user.profile.first_name) + "\n                                ")]) : _vm._e()
-        })) : _vm._e()
-      }))]), _vm._v(" "), _c('div', {
+      }, [_vm._v("\n                            Assigned Persons : " + _vm._s(job.first_name) + "\n                        ")])]), _vm._v(" "), _c('div', {
         staticClass: "col-md-8"
       }, [_c('label', {
         staticClass: "control-label",
         attrs: {
           "htmlFor": "projectName"
         }
-      }, _vm._l((_vm.propData.jobOrders), function(jobOrder) {
-        return (job.job_order_id = jobOrder.id) ? _c('span', [_vm._v("\n                                Project Name : " + _vm._s(jobOrder.project_name) + "\n                            ")]) : _vm._e()
-      }))]), _vm._v(" "), _c('div', {
+      }, [_vm._v("\n                            Project Name : " + _vm._s(job.project_name) + "\n                        ")])]), _vm._v(" "), _c('div', {
         staticClass: "col-md-4 text-right"
       }, [_c('label', {
         staticClass: "control-label",
         attrs: {
           "htmlFor": "description"
         }
-      }, [_vm._v("\n                                Description : " + _vm._s(job.description) + "\n                            ")])])]) : _vm._e()
+      }, [_vm._v("\n                            Description : " + _vm._s(job.description) + "\n                        ")])])]) : _vm._e()
     })), _vm._v(" "), _c('div', {
       staticClass: "col-sm-12"
     }, [_c('delivery-tracking', {
       attrs: {
-        "deliveries": workDetail.deliveries,
-        "products": _vm.propData.products
+        "workDetail": workDetail,
+        "products": _vm.products
       }
     })], 1), _vm._v(" "), _vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "col-sm-12"
     }, [_c('release-tracking', {
       attrs: {
-        "releases": workDetail.releases,
-        "products": _vm.propData.products
+        "workDetail": workDetail,
+        "products": _vm.products
       }
     })], 1)]) : _vm._e()
   }))])
@@ -94502,7 +94475,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "openPage": _vm.openPage,
       "propData": _vm.inventoryData,
-      "propJobOrderID": _vm.joID
+      "propIJobId": _vm.iJobId
     }
   })], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -97964,28 +97937,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "josList"
     }
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.propData.jobs), function(job) {
-    return _c('tr', [_c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
-      return (job.job_order_id == jobOrder.id) ? _c('span', [_c('a', {
-        attrs: {
-          "href": "#",
-          "pageID": "work-details",
-          "joID": job.id
-        },
-        on: {
-          "click": function($event) {
-            $event.preventDefault();
-            _vm.openPage($event)
-          }
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.jobs), function(job) {
+    return _c('tr', [_c('td', [_c('a', {
+      attrs: {
+        "href": "#",
+        "pageID": "work-details",
+        "iJobId": job.id
+      },
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.openPage($event)
         }
-      }, [_vm._v("\n                                    " + _vm._s(jobOrder.job_order_no) + "\n                                ")])]) : _vm._e()
-    })), _vm._v(" "), _c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
-      return (job.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                " + _vm._s(jobOrder.project_name) + "\n                            ")]) : _vm._e()
-    })), _vm._v(" "), _c('td', _vm._l((_vm.propData.assignedPeople), function(assigned_person) {
-      return (job.id == assigned_person.inventory_job_id) ? _c('span', _vm._l((_vm.propData.users), function(user) {
-        return (assigned_person.user_id == user.id) ? _c('span', [_vm._v("\n                                    " + _vm._s(user.profile.first_name) + "\n                                ")]) : _vm._e()
-      })) : _vm._e()
-    }))])
+      }
+    }, [_vm._v("\n                                " + _vm._s(job.job_order_no) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(job.project_name) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(job.first_name) + "\n                            ")])])])
   }))])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Job Order Number")]), _vm._v(" "), _c('th', [_vm._v("Project Name")]), _vm._v(" "), _c('th', [_vm._v("Assigned Persons")])])])
@@ -98091,7 +98056,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "productsList"
     }
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.products), function(product, index) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(product.job_order_no))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.project_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.itemName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.productsOnHand))])])
+    return _c('tr', [_c('td', [_vm._v(_vm._s(product.job_order_no))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.project_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.quantity))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Job Order Number")]), _vm._v(" "), _c('th', [_vm._v("Project Name")]), _vm._v(" "), _c('th', [_vm._v("Item Name")]), _vm._v(" "), _c('th', [_vm._v("Products on Hand")])])])
@@ -98520,7 +98485,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
   }, [_c('div', {
-    staticClass: "alert alert-danger"
+    staticClass: "alert alert-danger hide"
   }, [_vm._v("\n                    This is an alert message\n                ")]), _vm._v(" "), _c('form', {
     attrs: {
       "id": "createJobForm"
@@ -98650,15 +98615,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "projectList"
     }
   }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.jobs), function(job) {
-    return _c('tr', [_c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
-      return (job.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                " + _vm._s(jobOrder.job_order_no) + "\n                            ")]) : _vm._e()
-    })), _vm._v(" "), _c('td', _vm._l((_vm.propData.jobOrders), function(jobOrder) {
-      return (job.job_order_id == jobOrder.id) ? _c('span', [_vm._v("\n                                " + _vm._s(jobOrder.project_name) + "\n                            ")]) : _vm._e()
-    })), _vm._v(" "), _c('td', [_vm._v(_vm._s(job.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.convertDate(job.deadline)))]), _vm._v(" "), _c('td', _vm._l((_vm.assignedPeople), function(assigned_person) {
-      return (assigned_person.inventory_job_id == job.id) ? _c('span', _vm._l((_vm.propData.users), function(user) {
-        return (assigned_person.user_id == user.id) ? _c('span', [_vm._v("\n                                    " + _vm._s(user.profile.first_name) + "\n                                ")]) : _vm._e()
-      })) : _vm._e()
-    }))])
+    return _c('tr', [_c('td', [_vm._v("\n                            " + _vm._s(job.job_order_no) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(job.project_name) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(job.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.convertDate(job.deadline)))]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(job.first_name) + "\n                        ")])])
   }))])])]), _vm._v(" "), _c("create-job-modal", {
     tag: "component",
     attrs: {
