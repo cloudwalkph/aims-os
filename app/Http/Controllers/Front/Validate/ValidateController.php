@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\JobOrder;
 use App\Models\JobOrderClient;
+use App\Models\JobOrderDepartmentInvolved;
+use App\Models\InventoryJobAssignedPerson;
 use App\Models\UserProfile;
 use App\Models\Client;
 use App\Models\ValidateQuestions;
@@ -84,6 +86,13 @@ class ValidateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function validate_results( $id ){
+
+        $jos = JobOrder::where('job_order_no',$id)->with('')->first();
+        $jos1 = $jos->inventoryinvolved;
+        return view('admin/Validate/validate_results', compact('$jos1'));
+    }
 
     public function create_project( $id ){
 

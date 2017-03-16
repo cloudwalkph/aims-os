@@ -14,39 +14,72 @@
             {{--</div>--}}
         {{--</div>--}}
 
-        <div id="chart"></div>
-
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-sm-offset-2 col-sm-1" style="margin-left: 187px;">
-                <label>Ratee:</label>
-            </div>
-            <div class="col-sm-3">
-                <select class="fullwidth" name="selRateeSummary" id="selRateeSummary" alt="ratee" style="width: 100%;">
-                    <option value="" disabled selected>Department</option>
-
-                    @foreach( $departments as $department)
-
-                        <option value="{{ $department->slug }}">{{ $department->name }}</option>
-
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-sm-3">
-                <select class="fullwidth" name="selRateeEmp" id="selRateeEmp" style="width: 100%;">
-                    <option value="" disabled selected>Select</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row">
-            <table class="vuetable table table-bordered table-striped table-hover" role="grid" style="margin-top: 30px;">
+        <div class="row" >
+            <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th width="920">Questions</th>
-                    <th>Rate</th>
+                    <th >PRE-EVENT</th>
                 </tr>
                 </thead>
-                <tbody id="summaryTbody">
+                <tbody id="chart1">
+                </tbody>
+            </table>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th >EVENT PROPER</th>
+                </tr>
+                </thead>
+                <tbody id="chart2">
+                </tbody>
+            </table>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th >POST EVENT</th>
+                </tr>
+                </thead>
+                <tbody id="chart3">
+                </tbody>
+            </table>
+                {{--<div id="chart1"></div>--}}
+                {{--<div id="chart2"></div>--}}
+                {{--<div id="chart3"></div>--}}
+
+        </div>
+        {{--<div class="row" style="margin-top: 10px;">--}}
+            {{--<div class="col-sm-offset-2 col-sm-1" style="margin-left: 187px;">--}}
+                {{--<label>Ratee:</label>--}}
+            {{--</div>--}}
+            {{--<div class="col-sm-3">--}}
+                {{--<select class="fullwidth" name="selRateeSummary" id="selRateeSummary" alt="ratee" style="width: 100%;">--}}
+                    {{--<option value="" disabled selected>Department</option>--}}
+
+                    {{--@foreach( $departments as $department)--}}
+
+                        {{--<option value="{{ $department->slug }}">{{ $department->name }}</option>--}}
+
+                    {{--@endforeach--}}
+                {{--</select>--}}
+            {{--</div>--}}
+            {{--<div class="col-sm-3">--}}
+                {{--<select class="fullwidth" name="selRateeEmp" id="selRateeEmp" style="width: 100%;">--}}
+                    {{--<option value="" disabled selected>Select</option>--}}
+                {{--</select>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
+        {{--<div class="row">--}}
+            {{--<table class="vuetable table table-bordered table-striped table-hover" role="grid" style="margin-top: 30px;">--}}
+                {{--<thead>--}}
+                {{--<tr>--}}
+                    {{--<th width="920">Questions</th>--}}
+                    {{--<th>Rate</th>--}}
+                {{--</tr>--}}
+                {{--</thead>--}}
+                {{--<tbody id="summaryTbody">--}}
 
                 {{--@foreach($questions as $question)--}}
 
@@ -59,9 +92,9 @@
 
                 {{--@endforeach--}}
 
-                </tbody>
-            </table>
-        </div>
+                {{--</tbody>--}}
+            {{--</table>--}}
+        {{--</div>--}}
 
     </div>
 @endsection
@@ -72,16 +105,16 @@
     <script src="{{ asset('js/charts-c3.js') }}"></script>
     <script>
         var chart = c3.generate({
-            bindto: '#chart',
+            bindto: '#chart1',
             data: {
                 columns: [
                     ['Pre-event', 30, 20, 100, 100, 15, 50],
-                    ['Event Proper', 30, 100, 40, 20, 50, 15],
-                    ['Post-event', 50, 80, 90, 75, 99, 95]
+//                    ['Event Proper', 30, 100, 40, 20, 50, 15],
+//                    ['Post-event', 50, 80, 90, 75, 99, 95]
                 ],
-                type: 'bar',
+                type: 'line',
             },
-            bar: {
+            line: {
                 zerobased: false
             },
             axis: {
@@ -92,55 +125,104 @@
             }
         });
     </script>
-    <script !src="">
-        function loadQuestions( deptID ) {
 
-            axios.get('{{ URL::to('/questions/getquestionswithresult') }}', {
-                params: {
-                    deptID: deptID,
+    <script>
+        var chart = c3.generate({
+            bindto: '#chart2',
+            data: {
+                columns: [
+//                    ['Pre-event', 30, 20, 100, 100, 15, 50],
+                    ['Event Proper', 30, 100, 40, 20, 50, 15],
+//                    ['Post-event', 50, 80, 90, 75, 99, 95]
+                ],
+                type: 'line',
+            },
+            line: {
+                zerobased: false
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: ['Account Executives', 'Accounting', 'Creatives', 'CMTUVA', 'Setup', 'Operations', 'HR']
                 }
-            })
-                .then(function (response) {
-                    $('#summaryTbody').empty();
-                    $('#summaryTbody').append(response.data.question_string);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        }
-
-        $('#selRateeSummary').on('change', function () {
-            var deptName = $(this).val();
-            axios.get('{{ URL::to('/users/getusers') }}', {
-                params: {
-                    dept: deptName,
-                }
-            })
-                .then(function (response) {
-                    $('#selRateeEmp').empty();
-                    $('select#selRateeEmp').append(response.data.optionList);
-
-//                    loadQuestions( response.data.department );
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        });
-
-        $('#selRateeEmp').on('change', function () {
-            var deptName = $('#selRateeSummary').val();
-            axios.get('{{ URL::to('/users/getusers') }}', {
-                params: {
-                    dept: deptName,
-                }
-            })
-                .then(function (response) {
-                    loadQuestions( response.data.department );
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            }
         });
     </script>
+
+    <script>
+        var chart = c3.generate({
+            bindto: '#chart3',
+            data: {
+                columns: [
+//                    ['Pre-event', 30, 20, 100, 100, 15, 50],
+//                    ['Event Proper', 30, 100, 40, 20, 50, 15],
+                    ['Post-event', 50, 80, 90, 75, 99, 95,88,20,30]
+                ],
+                type: 'line',
+            },
+            line: {
+                zerobased: false
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: ['Account Executives', 'Accounting', 'Creatives', 'CMTUVA', 'Setup', 'Operations', 'HR', 'Productions', 'Inventory',]
+                }
+            }
+        });
+    </script>
+
+    {{--<script !src="">--}}
+        {{--function loadQuestions( deptID ) {--}}
+
+            {{--axios.get('{{ URL::to('/questions/getquestionswithresult') }}', {--}}
+                {{--params: {--}}
+                    {{--deptID: deptID,--}}
+                {{--}--}}
+            {{--})--}}
+                {{--.then(function (response) {--}}
+                    {{--$('#summaryTbody').empty();--}}
+                    {{--$('#summaryTbody').append(response.data.question_string);--}}
+                {{--})--}}
+                {{--.catch(function (error) {--}}
+                    {{--console.log(error);--}}
+                {{--});--}}
+
+        {{--}--}}
+
+        {{--$('#selRateeSummary').on('change', function () {--}}
+            {{--var deptName = $(this).val();--}}
+            {{--axios.get('{{ URL::to('/users/getusers') }}', {--}}
+                {{--params: {--}}
+                    {{--dept: deptName,--}}
+                {{--}--}}
+            {{--})--}}
+                {{--.then(function (response) {--}}
+                    {{--$('#selRateeEmp').empty();--}}
+                    {{--$('select#selRateeEmp').append(response.data.optionList);--}}
+
+{{--//                    loadQuestions( response.data.department );--}}
+                {{--})--}}
+                {{--.catch(function (error) {--}}
+                    {{--console.log(error);--}}
+                {{--});--}}
+        {{--});--}}
+
+        {{--$('#selRateeEmp').on('change', function () {--}}
+            {{--var deptName = $('#selRateeSummary').val();--}}
+            {{--axios.get('{{ URL::to('/users/getusers') }}', {--}}
+                {{--params: {--}}
+                    {{--dept: deptName,--}}
+                {{--}--}}
+            {{--})--}}
+                {{--.then(function (response) {--}}
+                    {{--loadQuestions( response.data.department );--}}
+                {{--})--}}
+                {{--.catch(function (error) {--}}
+                    {{--console.log(error);--}}
+                {{--});--}}
+        {{--});--}}
+    {{--</script>--}}
 @endsection
+
+
