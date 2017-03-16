@@ -48,25 +48,6 @@
 
     module.exports = {
         beforeMount: function () {
-            this.$http.get('/api/v1/job-orders/department')
-                .then(function (response) {
-                    for (let jo of response.data) {
-                        this.inventoryData.jobOrders.push(jo);
-                    }
-                })
-                .catch(function (e) {
-                    console.log('error department', e);
-                });
-            this.$http.get('/api/v1/users/5')
-                .then(function (response) {
-                    for (let user of response.data) {
-                        this.inventoryData.users.push(user);
-                    }
-                })
-                .catch(function (e) {
-                    console.log('error users', e);
-                });
-
         },
         data: function () {
             return {
@@ -81,70 +62,81 @@
                 iJobId: null,
                 inventoryData: {
                     jobOrders: [
-
+                        {
+                            id: 0,
+                            job_order_no: 'J0SAMPLE',
+                            project_name: 'Sample Job Order',
+                            user_id: 0
+                        }
                     ],
                     users: [
-
+                        {
+                            id: 0,
+                            profile: {
+                                first_name: 'First',
+                                last_name: 'Last'
+                            }
+                        },
+                        {
+                            id: 100,
+                            profile: {
+                                first_name: 'Juan',
+                                last_name: 'Dela Cruz'
+                            }
+                        }
                     ],
                     products: [
                         {
                             id: 1,
-                            job_order_no: '5FDSART6',
-                            project_name: 'Unilever',
-                            product_code: 'PONDS-MEN',
-                            name: 'Product 1',
+                            job_order_no: 'J0SAMPLE',
+                            project_name: 'Sample Job Order',
+                            product_code: 'SAMPLE-1PROD',
+                            name: 'Sample Product 1',
                             quantity: 1000000,
                             expiration_date: '2017-02-27',
                         },
                         {
                             id: 2,
-                            job_order_no: '5FDSART6',
-                            project_name: 'Unilever',
-                            product_code: 'PONDS-WOMEN',
-                            name: 'Product 2',
+                            job_order_no: 'J0SAMPLE',
+                            project_name: 'Sample Job Order',
+                            product_code: 'SAMPLE-2PROD',
+                            name: 'Sample Product 2',
                             quantity: 2000000,
                             expiration_date: '2017-02-27',
                         },
                     ],
-                    jobs: [
-                        
+                    inventoryJobs: [
+                        {
+                            id: 0,
+                            description: 'sample description',
+                            deadline: '2017-03-31',
+
+                            job_order_id: 0,
+                            job_order_no: 'J0SAMPLE',
+                            project_name: 'Sample Job Order',
+
+                            user_id: 0
+                        }
                     ],
                     workDetails: [
                         {
-                            inventory_job_id: 1,
-                            deliveries: [
+                            inventory_job_id: 0,
+                            items: [
                                 {
-                                    product_id: 1,
-                                    data: [
+                                    product_code: 'SAMPLE-1PROD',
+                                    deliveries: [
                                         {
                                             date: '2016-12-22',
-                                            delivered: 500000,
-                                            disposed: 2000,
-                                            status: 'Approved'
-                                        },
-                                        {
-                                            date: '2016-12-23',
-                                            delivered: 250000,
-                                            disposed: 2000,
-                                            status: 'Pending'
-                                        },
-                                        {
-                                            date: '2016-12-24',
-                                            delivered: 100000,
-                                            disposed: 2000,
-                                            status: 'Approved'
-                                        },
-                                    ]
-                                },
-                                {
-                                    product_id: 2,
-                                    data: [
+                                            delivered: 2000,
+                                        }
+                                    ],
+                                    releases: [
                                         {
                                             date: '2016-12-22',
-                                            delivered: 200000,
-                                            disposed: 2000,
-                                            status: 'Approved'
-                                        },
+                                            disposed: 1000,
+                                            returned: 300,
+                                            status: 'Approved',
+                                        }
                                     ]
                                 }
                             ]
@@ -215,7 +207,7 @@
             getInventory: function () {
                 this.$http.get('/api/v1/inventory')
                     .then(function (response) {
-                        this.inventoryData.products = [];
+                        // this.inventoryData.products = [];
                         for(product of response.data.data) {
                             this.inventoryData.products.push({
                                 id: product.id,
@@ -233,9 +225,21 @@
             getJob: function () {
                 this.$http.get('/api/v1/inventory/job')
                     .then(function (response) {
-                        this.inventoryData.jobs = [];
+                        // this.inventoryData.inventoryJobs = [];
                         for (let r of response.data.data) {
-                            this.inventoryData.jobs.push(r);
+                            this.inventoryData.inventoryJobs.push(r);
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log('error jobs', e);
+                    });
+            },
+            getUsers: function () {
+                this.$http.get('/api/v1/users/5')
+                    .then(function (response) {
+                        // this.inventoryData.users = [];
+                        for (let r of response.data) {
+                            this.inventoryData.users.push(r);
                         }
                     })
                     .catch(function (e) {
@@ -244,8 +248,9 @@
             }
         },
         mounted: function () {
-            // this.getInventory();
+            this.getInventory();
             this.getJob();
+            this.getUsers();
         }
     }
 

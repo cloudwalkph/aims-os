@@ -5,14 +5,14 @@
             <h3>Delivery Tracking</h3>
         </div>
 
-        <div class="col-sm-12" style="margin-top: 20px;" v-for="(delivery, indexTrace) in deliveries">
+        <div class="col-sm-12" style="margin-top: 20px;" v-for="(item, indexTrace) in items">
             <label htmlFor="itemname" class="col-sm-4 control-label">
-                <span v-for="product in products" v-if="delivery.product_id == product.id">
+                <span v-for="product in products" v-if="item.product_code == product.product_code">
                     Item Name: {{product.name}}
                 </span>
             </label>
             <label htmlFor="quantity" class="col-sm-4 control-label">
-                <span v-for="product in products" v-if="delivery.product_id == product.id">
+                <span v-for="product in products" v-if="item.product_code == product.product_code">
                     Expected Quantity: {{product.quantity}}
                 </span>
             </label>
@@ -28,7 +28,7 @@
 
                 <tbody>
 
-                    <tr v-for="(d, indexD) in delivery.data">
+                    <tr v-for="(d, indexD) in item.deliveries">
                         <td>{{convertDate(d.date)}}</td>
                         <td>{{d.delivered}}</td>
                         <td>{{balance(indexTrace, indexD)}}</td>
@@ -65,20 +65,20 @@
         },
         data: function () {
             return {
-                deliveries: this.workDetail.deliveries
+                items: this.workDetail.items
             }
         },
         methods: {
             balance: function (indexTrace, indexD) {
-                var product_id = this.deliveries[indexTrace].product_id;
+                var product_code = this.items[indexTrace].product_code;
                 var qty = 0;
                 for (var p = 0; p < this.products.length; p++) {
-                    if (this.products[p].id == product_id) {
+                    if (this.products[p].product_code == product_code) {
                         qty = this.products[p].quantity
                     }
                 }
                 for (var d = 0; d <= indexD; d++) {
-                    qty = qty - this.deliveries[indexTrace].data[d].delivered;
+                    qty = qty - this.items[indexTrace].deliveries[d].delivered;
                 }
                 return qty;
             },
@@ -90,14 +90,14 @@
             handleSubmit: function (e) {
                 var workIndex = e.target.getAttribute('workIndex');
                 var deliveryVal = e.target.value;
-                this.deliveries[workIndex].data.push({
+                this.items[workIndex].deliveries.push({
                     date: this.dateToday,
                     delivered: deliveryVal,
                     disposed: 0
                 });
             },
             removeDelivery: function (indexTrace, indexDelivery) {
-                this.deliveries[indexTrace].data.splice(indexDelivery, 1);
+                this.items[indexTrace].deliveries.splice(indexDelivery, 1);
             },
         },
         props: ['workDetail', 'products']

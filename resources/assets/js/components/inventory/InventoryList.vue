@@ -19,9 +19,7 @@
                     <tbody>
                         <tr v-for="product in propData.products">
                             <td>
-                                <span v-for="jobOrder in propData.jobOrders" v-if="product.job_order_id == jobOrder.id">
-                                    {{jobOrder.job_order_no}}
-                                </span>
+                                {{product.job_order_no}}
                             </td>
                             <td>{{product.product_code}}</td>
                             <td>{{product.name}}</td>

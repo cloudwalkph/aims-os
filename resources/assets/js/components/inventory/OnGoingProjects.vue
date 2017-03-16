@@ -29,7 +29,7 @@
                             <td>{{job.description}}</td>
                             <td>{{convertDate(job.deadline)}}</td>
                             <td>
-                                {{job.first_name}}
+                                {{assignedPersons(job)}}
                             </td>
                         </tr>
 
@@ -52,10 +52,21 @@
         },
         data: function () {
             return {
-                jobs: this.propData.jobs
+                jobs: this.propData.inventoryJobs
             }
         },
         methods: {
+            assignedPersons: function(job) {
+                var users = [];
+                // for(job_user of job.user_id) {
+                    for(user of this.propData.users) {
+                        if(user.id == job.user_id) {
+                            users.push(user.profile.first_name);
+                        }
+                    }
+                // }
+                return users.join(', ');
+            },
             convertDate: function (dateVal) {
                 var milliseconds = Date.parse(dateVal);
                 var d = new Date(milliseconds);
