@@ -1,6 +1,5 @@
 <template>
     <div>
-        <project-status-filter-bar></project-status-filter-bar>
         <vuetable ref="vuetable"
                   :api-url="apiUrl"
                   :fields="fields"
@@ -22,6 +21,7 @@
                                  @vuetable-pagination:change-page="onChangePage"
             ></vuetable-pagination>
         </div>
+        <project-attachments-modal></project-attachments-modal>
 
     </div>
 </template>
@@ -35,10 +35,12 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import ProjectStatusFilterBar from './commons/FilterBar'
+    import ProjectAttachmentCustomActions from './commons/CustomActions'
+    import ProjectAttachmentModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('project-status-filter-bar', ProjectStatusFilterBar)
+    Vue.component('project-attachments-actions', ProjectAttachmentCustomActions)
+    Vue.component('project-attachments-modal', ProjectAttachmentModal)
 
     export default {
         components: {
@@ -48,7 +50,7 @@
         },
         data() {
             return {
-                apiUrl: `/api/v1/job-order-department-involvements/${$('#jobOrderId').val()}`,
+                apiUrl: `/api/v1/job-order-project-attachments/${$('#jobOrderId').val()}`,
                 fields: [
                     {
                         name: '__sequence',
@@ -62,41 +64,29 @@
                         dataClass: 'text-center',
                     },
                     {
-                        name: 'name',
-                        sortField: 'name',
-                        title: 'Department'
+                        name: 'reference_for',
+                        sortField: 'reference_for',
+                        title: 'Reference For'
                     },
                     {
-                        name: 'deliverables',
-                        sortField: 'deliverables',
-                        title: 'Deliverables'
+                        name: 'file_name',
+                        sortField: 'file_name',
+                        title: 'File Name'
                     },
                     {
-                        name: 'name',
-                        sortField: 'name',
-                        title: 'Assigned Person'
-                    },
-                    {
-                        name: 'deadline',
-                        sortField: 'deadline',
+                        name: 'created_at',
+                        sortField: 'created_at',
                         titleClass: 'text-center',
                         dataClass: 'text-center',
                         callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Deadline'
+                        title: 'Date Uploaded'
                     },
                     {
-                        name: 'updated_at',
-                        sortField: 'updated_at',
+                        name: '__component:project-attachments-actions',
+                        title: 'Actions',
                         titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Last Updated'
-                    },
-                    {
-                        name: 'status',
-                        sortField: 'status',
-                        title: 'Status'
-                    },
+                        dataClass: 'text-center'
+                    }
                 ],
                 css: {
                     table: {
@@ -119,7 +109,7 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'updated_at', sortField: 'updated_at', direction: 'asc'}
+                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
                 ],
                 moreParams: {}
             }
