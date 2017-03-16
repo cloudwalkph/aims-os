@@ -99,7 +99,9 @@
                 <tr>
                     <th width="920">Question List</th>
                     <th>
-                        <a class="btn btn-primary glyphicon-plus" data-toggle="modal" data-target="#myModal"> Add Question</a>
+
+                        <a class="btn btn-primary pull-right btn-create" type="button"  data-toggle="modal" data-target="#myModal"> <i class="fa fa-plus fa-lg"></i> Add Question</a>
+
                     </th>
                 </tr>
                 </thead>
