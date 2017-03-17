@@ -14,27 +14,20 @@
                     </thead>
                     <tbody>
 
-                        <tr v-for="job in propData.jobs">
+                        <tr v-for="job in jobs">
                             <td>
-                                <span v-for="jobOrder in propData.jobOrders" v-if="job.job_order_id == jobOrder.id">
-                                    <a href="#" pageID="work-details" :joID="job.id" @click.prevent="openPage">
-                                        {{jobOrder.job_order_no}}
-                                    </a>
+                                <a href="#" pageID="work-details" :iJobId="job.id" @click.prevent="openPage">
+                                    {{jobOrderNo(job)}}
+                                </a>
+                            </td>
+                            <td>
+                                <span>
+                                    {{projectName(job)}}
                                 </span>
                             </td>
                             <td>
-                                <span v-for="jobOrder in propData.jobOrders" v-if="job.job_order_id == jobOrder.id">
-                                    {{jobOrder.project_name}}
-                                </span>
-                            </td>
-                            <td>
-                                <span 
-                                    v-for="assigned_person in propData.assignedPeople" 
-                                    v-if="job.id == assigned_person.inventory_job_id"
-                                >
-                                    <span v-for="user in propData.users" v-if="assigned_person.user_id == user.id">
-                                        {{user.profile.first_name}}
-                                    </span>
+                                <span>
+                                    {{assignedPersons(job)}}
                                 </span>
                             </td>
                         </tr>
@@ -49,6 +42,44 @@
 
 <script>
     module.exports = {
+        computed: {
+            
+        },
+        data: function () {
+            return {
+                jobs: this.propData.inventoryJobs
+            }
+        },
+        methods: {
+            assignedPersons: function(job) {
+                var users = [];
+                // for(job_user of job.user_id) {
+                    for(user of this.propData.users) {
+                        if(user.id == job.user_id) {
+                            users.push(user.profile.first_name);
+                        }
+                    }
+                // }
+                return users.join(', ');
+            },
+            jobOrderNo: function (job) {
+                for (jo of this.propData.jobOrders) {
+                    if (jo.id == job.job_order_id) {
+                        return jo.job_order_no;
+                    }
+                }
+            },
+            projectName: function (job) {
+                for (jo of this.propData.jobOrders) {
+                    if (jo.id == job.job_order_id) {
+                        return jo.project_name;
+                    }
+                }
+            }
+        },
+        mounted: function () {
+
+        },
         props: ['openPage','propData']
     }
 </script>

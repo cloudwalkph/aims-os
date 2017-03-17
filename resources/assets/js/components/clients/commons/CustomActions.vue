@@ -1,6 +1,5 @@
 <template>
     <div class="custom-actions">
-        <button class="btn btn-sm" @click="itemAction('view-item', rowData, rowIndex)"><i class="glyphicon glyphicon-zoom-in"></i></button>
         <button class="btn btn-sm" @click="itemAction('edit-item', rowData, rowIndex)"><i class="glyphicon glyphicon-pencil"></i></button>
         <button class="btn btn-sm btn-danger" @click="itemAction('delete-item', rowData, rowIndex)"><i class="glyphicon glyphicon-trash"></i></button>
     </div>
@@ -30,6 +29,14 @@
                     }, error => {
                         console.log(error)
                     })
+                } else if (action === 'edit-item') {
+//                    $('#editClient #company').val(data.company)
+//                    $('#editClient #contact_person').val(data.contact_person)
+//                    $('#editClient #contact_number').val(data.contact_number)
+//                    $('#editClient #email').val(data.email)
+
+                    this.$events.fire('update-client-show', data)
+                    $('#editClient').modal('show')
                 }
 
             }

@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\InventoryJobRequest;
 
 use App\Models\InventoryJob;
+use App\Models\InventoryJobAssignedPerson;
+use App\Models\JobOrderDepartmentInvolved;
 
 use App\Traits\FilterTrait;
 
@@ -54,7 +56,7 @@ class InventoryJobController extends Controller
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
 
         // Get the data
-        $jos = $query->where('user_profiles.user_id', $user['id'])->paginate($perPage);
+        $jos = $query->paginate($perPage);
 
         return response()->json($jos, 200);
     }
@@ -64,9 +66,23 @@ class InventoryJobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $user = $request->user();
+        $jos = JobOrderDepartmentInvolved::with('jobOrder')->where('department_id', $user['department_id'])
+            ->whereNotIn(
+                'job_order_id', 
+                array_column(InventoryJob::select('job_order_id')->get()->toArray(), 'job_order_id')
+            )
+            ->get();
+
+        $result = [];
+
+        foreach ($jos as $jo) {
+            $result[] = $jo->jobOrder;
+        }
+
+        return response()->json($result, 200);
     }
 
     /**

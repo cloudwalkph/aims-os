@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\Creatives;
 
 use App\Http\Controllers\Controller;
 use App\Models\CreativesJob;
+use App\Models\JobOrderDepartmentInvolved;
 use Illuminate\Http\Request;
 
 class CreativesController extends Controller
@@ -27,7 +28,13 @@ class CreativesController extends Controller
     {
         config(['app.name' => 'Creatives | AIMS']);
 
-        return view('creatives.index');
+        $user = \Auth::user();
+        $jos = JobOrderDepartmentInvolved::with('jobOrder.user.profile')
+            ->where('department_id', $user->department_id)
+            ->get();
+
+        return view('creatives.index')
+            ->with('jos', $jos->toArray());
     }
 
     public function schedules()

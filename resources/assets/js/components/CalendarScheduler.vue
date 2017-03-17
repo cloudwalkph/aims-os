@@ -135,7 +135,7 @@
                         });
                     }
 
-                    $calendar.fullCalendar('renderEvents', events);
+                    $calendar.fullCalendar('renderEvents', events, true);
                 }, error => {
                     console.log(error)
                 })

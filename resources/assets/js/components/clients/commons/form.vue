@@ -21,17 +21,24 @@
                                        @input="inputChange" v-bind:value="contact_person" id="contact_person"
                                        placeholder="Enter contact person" class="form-control" />
                             </div>
-                            <div class="col-md-6 form-group text-input-container">
+                            <div class="col-md-4 form-group text-input-container">
                                 <label class="control-label">Contact Number</label>
                                 <input type="text" name="contact_number"
                                        @input="inputChange" v-bind:value="contact_number" id="contact_number"
                                        placeholder="Enter contact number" class="form-control" />
                             </div>
-                            <div class="col-md-6 form-group text-input-container">
+                            <div class="col-md-4 form-group text-input-container">
                                 <label class="control-label">Email Address</label>
                                 <input type="email" name="email"
                                        @input="inputChange" v-bind:value="email" id="email"
                                        placeholder="Enter email address" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4 form-group text-input-container">
+                                <label class="control-label">Birthdate</label>
+                                <input type="date" name="birthdate"
+                                       @input="inputChange" v-bind:value="birthdate" id="birthdate"
+                                       class="form-control" />
                             </div>
 
                             <div class="col-md-12 col-xs-12">
@@ -81,6 +88,7 @@
                 contact_person: '',
                 contact_number: '',
                 email: '',
+                birthdate: '',
                 brands: [{name: ''}]
             }
         },
@@ -90,6 +98,7 @@
                 this.contact_person = ''
                 this.contact_number = ''
                 this.email = ''
+                this.birthdate = ''
                 this.brands = [{name: ''}]
             },
             getBrand(key, e) {
@@ -131,6 +140,7 @@
                     contact_person: this.contact_person,
                     contact_number: this.contact_number,
                     email: this.email,
+                    birthdate: '',
                     brands: newBrands
                 }
 

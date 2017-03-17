@@ -77,6 +77,8 @@ class ClientsController extends Controller {
         $client = null;
         // Create the client
         \DB::transaction(function() use ($input, $clientId, &$client) {
+            $input['brands'] = json_encode($input['brands']);
+
             $client = Client::where('id', $clientId)->update($input);
         });
 

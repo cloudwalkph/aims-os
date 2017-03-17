@@ -57,7 +57,7 @@
 
                     this.$events.fire('reload-table')
                     this.resetForm()
-                    $('#agencyModal').modal('hide')
+                    $('#typeModal').modal('hide')
                 }, error => {
                     console.log(error)
                 })

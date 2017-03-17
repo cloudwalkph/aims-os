@@ -35,6 +35,8 @@ Vue.component('admin-agencies-table', require('./components/admin/agencies/agenc
 
 Vue.component('admin-manpower-types-table', require('./components/admin/manpowerType/manpower-type-table.vue'));
 
+Vue.component('admin-vehicle-types-table', require('./components/admin/vehicleType/vehicle-type-table.vue'));
+
 Vue.component('work-in-progress-table', require('./components/creatives/work-in-progress/work-in-progress-table.vue'));
 
 Vue.component('venues-table', require('./components/venues/venues-table.vue'));
@@ -60,6 +62,8 @@ Vue.component('department-involvement-form', require('./components/job-orders/in
 Vue.component('project-status-table', require('./components/job-orders/project-status/project-status-table.vue'));
 
 Vue.component('animation-details-table', require('./components/job-orders/animation-details/animation-details-table.vue'));
+
+Vue.component('project-attachments-table', require('./components/job-orders/project-attachments/project-attachments-table.vue'));
 
 Vue.component('plan-jo-table', require('./components/plans/plans-jo-table.vue'));
 

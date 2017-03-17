@@ -52,8 +52,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // Inventory
     Route::group(['prefix' => 'inventory'], function() {
+        Route::resource('/', 'InventoryController');
         Route::resource('job', 'InventoryJobController');
-        Route::resource('user', 'InventoryAssignedPersonController');
+        Route::resource('user', 'InventoryJobAssignedPersonController');
     });
 
     // Clients
@@ -101,14 +102,22 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // department involvement
     Route::group(['prefix' => 'job-order-department-involvements'], function() {
-        Route::get('/', 'DepartmentInvolvementController@index');
+        Route::get('/{Id}', 'DepartmentInvolvementController@index');
         Route::post('/', 'DepartmentInvolvementController@store');
         Route::delete('/{Id}', 'DepartmentInvolvementController@delete');
     });
 
+    // project attachments
+    Route::group(['prefix' => 'job-order-project-attachments'], function() {
+        Route::get('/{Id}', 'ProjectAttachmentController@index');
+        Route::get('/{Id}/download', 'ProjectAttachmentController@download');
+        Route::post('/', 'ProjectAttachmentController@store');
+        Route::delete('/{Id}', 'ProjectAttachmentController@delete');
+    });
+
     // animation details
     Route::group(['prefix' => 'job-order-animation-details'], function() {
-        Route::get('/', 'AnimationDetailsController@index');
+        Route::get('/{Id}', 'AnimationDetailsController@index');
         Route::post('/', 'AnimationDetailsController@store');
         Route::delete('/{Id}', 'AnimationDetailsController@delete');
     });
@@ -135,7 +144,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // vehicle Types
     Route::group(['prefix' => 'vehicle-types'], function() {
+        Route::get('/all', 'VehicleTypesController@all');
         Route::get('/', 'VehicleTypesController@index');
+        Route::post('/', 'VehicleTypesController@store');
+        Route::delete('/{typeId}', 'VehicleTypesController@delete');
     });
 
     // User roles
@@ -157,7 +169,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // manpower types
     Route::group(['prefix' => 'manpower-types'], function() {
-        Route::get('/all', 'ManpowerTypesController@index');
+        Route::get('/all', 'ManpowerTypesController@all');
         Route::get('/', 'ManpowerTypesController@index');
         Route::post('/', 'ManpowerTypesController@store');
         Route::delete('/{typeId}', 'ManpowerTypesController@delete');

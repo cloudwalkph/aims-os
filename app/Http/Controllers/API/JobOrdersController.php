@@ -65,7 +65,7 @@ class JobOrdersController extends Controller {
             ->select('job_orders.*', \DB::raw("GROUP_CONCAT(clients.`company` separator ', ') as company"),
                 \DB::raw("SUM(job_order_animation_details.`target_selling` + job_order_animation_details.`target_flyering`
                 + job_order_animation_details.`target_survey` + job_order_animation_details.`target_experiment`
-                + job_order_animation_details.`target_others`) as total_traffic_count"),
+                + job_order_animation_details.`target_others`+ job_order_animation_details.`target_sampling`) as total_traffic_count"),
                 \DB::raw("GROUP_CONCAT(job_order_clients.`brands` separator ', ') as brands"),
                 \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as created_by'));
 
