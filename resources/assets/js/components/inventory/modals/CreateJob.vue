@@ -60,22 +60,22 @@
         },
         methods: {
             getJo: function () {
-                var joData = [];
                 this.$http.get('/api/v1/inventory/job/create')
                     .then(function (response) {
                         for (let jo of response.data) {
-                            this.joOptions.push({
-                                label: `${jo.job_order_no} : ${jo.project_name}`,
-                                value: jo.id
-                            });
+                            if(jo) {
+                                this.joOptions.push({
+                                    label: `${jo.job_order_no} : ${jo.project_name}`,
+                                    value: jo.id
+                                });
+                            }
                         }
                     })
                     .catch(function (e) {
-                        console.log('error department', e);
+                        console.log('error jobs filter', e);
                     });
             },
             getUser: function () {
-                var userOptions = [];
                 this.$http.get('/api/v1/inventory/user/create')
                     .then(function (response) {
                         for (let user of response.data) {
@@ -88,13 +88,13 @@
                         }
                     })
                     .catch(function (e) {
-                        console.log('error users', e);
+                        console.log('error users filter', e);
                     });
             },
-            convertDate: function (dateString) {
-                var milliseconds = Date.parse(dateString);
+            convertDate: function (dateVal) {
+                var milliseconds = Date.parse(dateVal);
                 var d = new Date(milliseconds);
-                return d;
+                return d.toDateString();
             },
             handleSubmit: function (e) {
                 var form = $(e.target)[0];
@@ -122,11 +122,11 @@
                             }
                         );
                         $('#modalCreateJob').modal('hide');
+                        form.reset();
                     })
                     .catch(function (e) {
-                        console.log(e);
+                        console.log('error post jobs', e);
                     });
-
             },
             inputChange: function (e) {
 
