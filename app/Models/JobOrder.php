@@ -60,6 +60,11 @@ class JobOrder extends Model
         return $this->hasMany(CreativesJob::class, 'id', 'job_order_id');
     }
 
+    public function inventoryinvolved()
+    {
+        return $this->hasMany(JobOrderDepartmentInvolved::class, 'id', 'job_order_id');
+    }
+
     /**
      * Local Scopes
      * ======================================================================================================
