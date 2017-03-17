@@ -84,17 +84,9 @@
                         <a href="/admin/vehicle-types"><i class="fa fa-fw fa-truck"></i> Vehicle Types</a>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo">
-                            <i class="fa fa-fw fa-check-square-o"></i> Validate <i class="fa fa-fw fa-caret-down"></i>
+                        <a href="/validate">
+                            <i class="fa fa-fw fa-check-square-o"></i> Validate
                         </a>
-                        <ul id="demo" class="collapse" aria-expanded="true">
-                            <li>
-                                <a href="/validate">Evaluations</a>
-                            </li>
-                            <li>
-                                <a href="#">Reports</a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </div>
