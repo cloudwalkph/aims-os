@@ -17,12 +17,12 @@
                         <tr v-for="job in jobs">
                             <td>
                                 <a href="#" pageID="work-details" :iJobId="job.id" @click.prevent="openPage">
-                                    {{job.job_order_no}}
+                                    {{jobOrderNo(job)}}
                                 </a>
                             </td>
                             <td>
                                 <span>
-                                    {{job.project_name}}
+                                    {{projectName(job)}}
                                 </span>
                             </td>
                             <td>
@@ -61,6 +61,20 @@
                     }
                 // }
                 return users.join(', ');
+            },
+            jobOrderNo: function (job) {
+                for (jo of this.propData.jobOrders) {
+                    if (jo.id == job.job_order_id) {
+                        return jo.job_order_no;
+                    }
+                }
+            },
+            projectName: function (job) {
+                for (jo of this.propData.jobOrders) {
+                    if (jo.id == job.job_order_id) {
+                        return jo.project_name;
+                    }
+                }
             }
         },
         mounted: function () {

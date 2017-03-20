@@ -107,6 +107,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::delete('/{Id}', 'DepartmentInvolvementController@delete');
     });
 
+    // project attachments
+    Route::group(['prefix' => 'job-order-project-attachments'], function() {
+        Route::get('/{Id}', 'ProjectAttachmentController@index');
+        Route::get('/{Id}/download', 'ProjectAttachmentController@download');
+        Route::post('/', 'ProjectAttachmentController@store');
+        Route::delete('/{Id}', 'ProjectAttachmentController@delete');
+    });
+
     // animation details
     Route::group(['prefix' => 'job-order-animation-details'], function() {
         Route::get('/{Id}', 'AnimationDetailsController@index');
@@ -156,6 +164,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     Route::group(['prefix' => 'agencies'], function() {
         Route::get('/', 'AgenciesController@index');
         Route::post('/', 'AgenciesController@store');
+        Route::put('/{agencyId}', 'AgenciesController@update');
         Route::delete('/{agencyId}', 'AgenciesController@delete');
     });
 

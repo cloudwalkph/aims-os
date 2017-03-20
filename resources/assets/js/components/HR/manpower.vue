@@ -67,9 +67,10 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Birth Date</label>
                                     <input type="date" name="birthdate"
+                                            max="2010-01-01"
                                            id="birthdate"
                                            class="form-control" 
-                                           v-bind:value="rowData.birthdate" />
+                                           :value="rowData.birthdate" />
                                 </div>
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">City</label>
@@ -287,10 +288,10 @@
             getManpowerType() {
                 let url = '/api/v1/manpower-types/all';
                 this.$http.get(url).then(response => {
-                    this.manpowerTypeList = response.data.data;
-                    
+                    this.manpowerTypeList = response.data;
+                    // console.log(response);
                 }, error => {
-                    console.log(error)
+                    console.log(error) 
                     
                 });
             },
@@ -316,7 +317,8 @@
                 Vue.nextTick( () => this.$refs.Vuetable_manpower.reload() )
             },
             'edit-table' (data) {
-                
+                data.birthdate = moment(data.birthdate).format('YYYY-MM-DD');
+                data.hired_date = moment(data.hired_date).format('YYYY-MM-DD');
                 Vue.nextTick( 
                     () => {
                         this.rowData = data

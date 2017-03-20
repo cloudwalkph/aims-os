@@ -67,6 +67,16 @@
                         title: 'Department'
                     },
                     {
+                        name: 'deliverables',
+                        sortField: 'deliverables',
+                        title: 'Deliverables'
+                    },
+                    {
+                        name: 'name',
+                        sortField: 'name',
+                        title: 'Assigned Person'
+                    },
+                    {
                         name: 'deadline',
                         sortField: 'deadline',
                         titleClass: 'text-center',

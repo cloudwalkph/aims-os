@@ -1,8 +1,7 @@
 <template>
     <div>
-        <agency-filter-bar></agency-filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/agencies/"
+                  :api-url="apiUrl"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -22,9 +21,8 @@
                                  @vuetable-pagination:change-page="onChangePage"
             ></vuetable-pagination>
         </div>
+        <project-attachments-modal></project-attachments-modal>
 
-        <agency-modal></agency-modal>
-        <agencies-update-modal ref="updateAgency"></agencies-update-modal>
     </div>
 </template>
 
@@ -37,16 +35,12 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import CustomActions from './commons/CustomActions'
-    import AgencyFilterBar from './commons/FilterBar'
-    import AgenciesModal from './commons/form.vue'
-    import AgencyEditModal from './commons/edit-form.vue'
+    import ProjectAttachmentCustomActions from './commons/CustomActions'
+    import ProjectAttachmentModal from './commons/form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('agency-custom-actions', CustomActions)
-    Vue.component('agency-filter-bar', AgencyFilterBar)
-    Vue.component('agency-modal', AgenciesModal)
-    Vue.component('agencies-update-modal', AgencyEditModal)
+    Vue.component('project-attachments-actions', ProjectAttachmentCustomActions)
+    Vue.component('project-attachments-modal', ProjectAttachmentModal)
 
     export default {
         components: {
@@ -56,6 +50,7 @@
         },
         data() {
             return {
+                apiUrl: `/api/v1/job-order-project-attachments/${$('#jobOrderId').val()}`,
                 fields: [
                     {
                         name: '__sequence',
@@ -69,14 +64,14 @@
                         dataClass: 'text-center',
                     },
                     {
-                        name: 'name',
-                        sortField: 'name',
-                        title: 'Agency Name'
+                        name: 'reference_for',
+                        sortField: 'reference_for',
+                        title: 'Reference For'
                     },
                     {
-                        name: 'slug',
-                        sortField: 'slug',
-                        title: 'Slug',
+                        name: 'file_name',
+                        sortField: 'file_name',
+                        title: 'File Name'
                     },
                     {
                         name: 'created_at',
@@ -84,10 +79,10 @@
                         titleClass: 'text-center',
                         dataClass: 'text-center',
                         callback: 'formatDate|DD-MM-YYYY',
-                        title: 'Created Date'
+                        title: 'Date Uploaded'
                     },
                     {
-                        name: '__component:agency-custom-actions',
+                        name: '__component:project-attachments-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'
@@ -120,9 +115,6 @@
             }
         },
         methods: {
-            allcap (value) {
-                return value.toUpperCase()
-            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
@@ -149,11 +141,6 @@
             'filter-reset' () {
                 this.moreParams = {}
                 Vue.nextTick( () => this.$refs.vuetable.refresh() )
-            },
-            'update-agency-show' (data) {
-                Vue.nextTick(() => {
-                    this.$refs.updateAgency.populateData(data)
-                })
             }
         }
     }

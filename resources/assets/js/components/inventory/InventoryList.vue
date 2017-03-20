@@ -23,7 +23,7 @@
                             </td>
                             <td>{{product.product_code}}</td>
                             <td>{{product.name}}</td>
-                            <td>{{product.expiration_date}}</td>
+                            <td>{{convertDate(product.expiration_date)}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -40,6 +40,13 @@
     module.exports = {
         components: {
             CreateInventoryModal
+        },
+        methods: {
+            convertDate: function (dateVal) {
+                var milliseconds = Date.parse(dateVal);
+                var d = new Date(milliseconds);
+                return d.toDateString();
+            },
         },
         props: ['propData']
     }
