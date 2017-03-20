@@ -122,5 +122,6 @@ Route::group(['prefix' => 'questions'], function () {
 
 Route::group(['prefix' => 'evaluate'], function () {
     Route::get('/', 'Front\Validate\Questions@index');
-    Route::get('/{id}', 'Front\Validate\Questions@showratees');
+    Route::get('/{jid}', 'Front\Validate\Questions@choosecategory');
+    Route::get('/{jid}/{category}', 'Front\Validate\Questions@chooseemployee');
 });

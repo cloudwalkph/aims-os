@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Front\Validate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Assignment;
+
 class Questions extends Controller
 {
     /**
@@ -49,10 +51,15 @@ class Questions extends Controller
         //
     }
 
-    public function showRatees($id)
+    public function choosecategory($jid)
     {
+        return view('admin/validate/evaluate', compact('jid'));
+    }
 
-        return view('admin/validate/evaluate', compact('id'));
+    public function chooseemployee($jid, $category)
+    {
+        dd(Assignment::loadRatees($jid));
+        return view('admin/validate/rateeList', compact('jid','category'));
     }
 
     /**

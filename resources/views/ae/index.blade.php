@@ -103,7 +103,7 @@
                 </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <a href="/ae/references">
+                <a href="/validate">
                     <div class="button-menu">
                         <div class="hero-widget well well-sm">
                             <div class="icon">
