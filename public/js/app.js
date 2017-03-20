@@ -39526,6 +39526,7 @@ exports.default = {
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted: function mounted() {
@@ -39632,6 +39633,22 @@ exports.default = {
         },
         inputChange: function inputChange(e) {
             this[e.target.id] = e.target.value;
+        },
+        deleteEvent: function deleteEvent(id) {
+            var _this4 = this;
+
+            var url = '/api/v1/events/' + id;
+
+            console.log(id);
+            this.$http.delete(url).then(function (response) {
+
+                var index = _this4.currentEvents.findIndex(function (item) {
+                    return item.id === id;
+                });
+                _this4.currentEvents.splice(index, 1);
+            }, function (error) {
+                console.log(error);
+            });
         }
     }
 };
@@ -97978,7 +97995,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.currentEvents), function(event) {
     return _c('div', [_c('div', {
       staticClass: "col-md-12 col-sm-12 col-xs-12 event"
-    }, [_c('h1', {
+    }, [_c('span', {
+      staticClass: "pull-right",
+      on: {
+        "click": function($event) {
+          _vm.deleteEvent(event.id)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-times fa-2x"
+    })]), _vm._v(" "), _c('h1', {
       staticClass: "event-title"
     }, [_vm._v(_vm._s(event.title))]), _vm._v(" "), _c('p', {
       staticClass: "event-date"
