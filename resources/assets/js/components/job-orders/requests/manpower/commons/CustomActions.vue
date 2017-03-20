@@ -25,9 +25,10 @@
                     let url = `/api/v1/job-order-manpowers/${data.id}`;
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
-
+                        toastr.success('Successfully deleted manpower request', 'Success')
                         this.$events.fire('reload-table')
                     }, error => {
+                        toastr.success('Failed in deleting manpower request', 'Error')
                         console.log(error)
                     })
                 }

@@ -104,10 +104,11 @@
                 var created_job_id = this.propData.jobOrders.length + 1;
 
                 var postData = {
-                    job_order_id: this.selected_job_order,
-                    description: form.description.value,
+                    job_order_id: 1,
+                    user_id: this.selected_user,
+                    department_id: 5,
                     deadline: this.convertDate(form.deadline.value),
-                    user_id: this.selected_user
+                    remarks: form.description.value,
                 }
 
                 this.$http.post('/api/v1/inventory/job', postData)
@@ -115,10 +116,10 @@
                         this.propData.inventoryJobs.push(
                             {
                                 id: created_job_id,
-                                job_order_id: this.selected_job_order,
-                                description: form.description.value,
-                                deadline: form.deadline.value,
-                                user_id: [this.selected_user],
+                                job_order_id: postData.job_order_id,
+                                remarks: postData.remarks,
+                                deadline: postData.deadline,
+                                user_id: postData.user_id,
                             }
                         );
                         $('#modalCreateJob').modal('hide');

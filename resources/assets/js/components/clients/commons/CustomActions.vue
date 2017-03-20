@@ -25,8 +25,10 @@
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
 
+                        toastr.success('Successfully deleted client', 'Success')
                         this.$events.fire('reload-table')
                     }, error => {
+                        toastr.error('Failed in deleting client', 'Error')
                         console.log(error)
                     })
                 } else if (action === 'edit-item') {

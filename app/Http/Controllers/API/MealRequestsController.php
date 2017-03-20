@@ -12,7 +12,7 @@ class MealRequestsController extends Controller {
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, $joId)
     {
         // user
         $user = $request->user();
@@ -27,6 +27,7 @@ class MealRequestsController extends Controller {
 
         $query->join('job_orders', 'job_orders.id', '=', 'job_order_meals.job_order_id')
             ->join('meal_types', 'meal_types.id', '=', 'job_order_meals.meal_type_id')
+            ->where('job_order_meals.job_order_id', '=', $joId)
             ->select('job_order_meals.*', 'job_orders.job_order_no', 'meal_types.name');
 
         // Filter

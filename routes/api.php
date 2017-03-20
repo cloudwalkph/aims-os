@@ -81,21 +81,21 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // manpower requests
     Route::group(['prefix' => 'job-order-manpowers'], function() {
-        Route::get('/', 'ManpowerRequestsController@index');
+        Route::get('/{Id}', 'ManpowerRequestsController@index');
         Route::post('/', 'ManpowerRequestsController@store');
         Route::delete('/{manpowerId}', 'ManpowerRequestsController@delete');
     });
 
     // meal requests
     Route::group(['prefix' => 'job-order-meals'], function() {
-        Route::get('/', 'MealRequestsController@index');
+        Route::get('/{Id}', 'MealRequestsController@index');
         Route::post('/', 'MealRequestsController@store');
         Route::delete('/{mealId}', 'MealRequestsController@delete');
     });
 
     // vehicle requests
     Route::group(['prefix' => 'job-order-vehicles'], function() {
-        Route::get('/', 'VehicleRequestsController@index');
+        Route::get('/{Id}', 'VehicleRequestsController@index');
         Route::post('/', 'VehicleRequestsController@store');
         Route::delete('/{vehicleId}', 'VehicleRequestsController@delete');
     });

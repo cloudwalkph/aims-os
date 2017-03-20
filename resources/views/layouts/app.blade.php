@@ -15,6 +15,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery.steps.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/toastr/build/toastr.min.css') }}" rel="stylesheet"/>
 
     <!-- Scripts -->
     <script>
@@ -32,7 +33,7 @@
 <body>
     @yield('styles')
     <div id="app">
-        <nav class="navbar navbar-default navbar-fixed-top topbar" role="navigation">
+        <nav class="navbar navbar-default topbar" role="navigation">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/" >A.I.M.S.</a>
             </div>
@@ -110,7 +111,7 @@
             </ul>
         </nav>
 
-        <div class="container-fluid" style="margin-top: 60px">
+        <div class="container-fluid">
             @yield('content')
         </div>
     </div>
@@ -120,6 +121,25 @@
     <script src="{{ asset('js/jquery-3.2.0.min.js') }}"></script>
     <script src="{{ asset('js/jquery.steps.js') }}"></script>
 
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
     @yield('scripts')
 </body>
 </html>

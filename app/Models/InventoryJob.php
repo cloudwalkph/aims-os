@@ -16,7 +16,6 @@ class InventoryJob extends Model
         'job_order_id'     => 'required',
         'description'      => 'required',
         'deadline'         => 'required',
-        'user_id'          => 'required',
     ];
 
     public function jobOrders()

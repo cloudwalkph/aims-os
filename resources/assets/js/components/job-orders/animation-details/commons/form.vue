@@ -167,8 +167,10 @@
 
                     this.$events.fire('reload-table')
                     this.resetForm()
+                    toastr.success('Successfully added animation details', 'Success')
                     $('#createAnimationDetails').modal('hide')
                 }, error => {
+                    toastr.success('Failed in adding animation details', 'Error')
                     console.log(error)
                 })
             }

@@ -111,9 +111,11 @@
                     console.log(response)
 
                     $('#createSchedule').modal('hide')
+                    toastr.success('Successfully created calendar event', 'Success')
                     this.getEvents()
                 }, error => {
                     console.log(error)
+                    toastr.error('Failed in creating calendar event', 'Error')
                 })
             },
             getEvents() {
@@ -152,9 +154,12 @@
 
                     let index = this.currentEvents.findIndex((item) => { return item.id === id });
                     this.currentEvents.splice(index, 1)
+                    toastr.success('Successfully deleted calendar event', 'Success')
+                    this.getEvents()
 
                 }, error => {
                     console.log(error)
+                    toastr.error('Failed in deleting calendar event', 'Error')
                 })
 
             }

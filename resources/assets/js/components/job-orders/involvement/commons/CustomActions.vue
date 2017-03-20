@@ -26,8 +26,10 @@
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
 
+                        toastr.success('Successfully deleted department involvement', 'Success')
                         this.$events.fire('reload-table')
                     }, error => {
+                        toastr.success('Failed in deleting department involvement', 'Error')
                         console.log(error)
                     })
                 }

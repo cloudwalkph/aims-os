@@ -12,7 +12,7 @@ class VehicleRequestsController extends Controller {
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, $joId)
     {
         // user
         $user = $request->user();
@@ -28,6 +28,7 @@ class VehicleRequestsController extends Controller {
         $query->join('job_orders', 'job_orders.id', '=', 'job_order_vehicles.job_order_id')
             ->join('vehicle_types', 'vehicle_types.id', '=', 'job_order_vehicles.vehicle_type_id')
             ->join('venues', 'venues.id', '=', 'job_order_vehicles.venue_id')
+            ->where('job_order_vehicles.job_order_id', '=', $joId)
             ->select('job_order_vehicles.*', 'job_orders.job_order_no', 'vehicle_types.name', 'venues.venue');
 
         // Filter
