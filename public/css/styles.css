@@ -5,6 +5,10 @@ body {
     background-color: #ffffff;
 }
 
+#toast-container{
+    margin-top: 50px;
+}
+
 .navbar .nav .notifications-menu>a>.label{
     position:absolute;
     top:9px;

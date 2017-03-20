@@ -39579,9 +39579,11 @@ exports.default = {
                 console.log(response);
 
                 $('#createSchedule').modal('hide');
+                toastr.success('Successfully created calendar event', 'Success');
                 _this2.getEvents();
             }, function (error) {
                 console.log(error);
+                toastr.error('Failed in creating calendar event', 'Error');
             });
         },
         getEvents: function getEvents() {
@@ -39646,8 +39648,11 @@ exports.default = {
                     return item.id === id;
                 });
                 _this4.currentEvents.splice(index, 1);
+                toastr.success('Successfully deleted calendar event', 'Success');
+                _this4.getEvents();
             }, function (error) {
                 console.log(error);
+                toastr.error('Failed in deleting calendar event', 'Error');
             });
         }
     }
@@ -42779,8 +42784,10 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('client-update-modal', __W
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
+                    toastr.success('Successfully deleted client', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting client', 'Error');
                     console.log(error);
                 });
             } else if (action === 'edit-item') {
@@ -43052,10 +43059,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.put(url, data).then(function (response) {
                 console.log(response);
 
+                toastr.success('Successfully edited client', 'Success');
                 _this.$events.fire('reload-table');
                 _this.resetForm();
                 $('#editClient').modal('hide');
             }, function (error) {
+                toastr.error('Failed editing client', 'Error');
                 console.log(error);
             });
         }
@@ -43221,10 +43230,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
+                toastr.success('Successfully added new client', 'Success');
                 _this.$events.fire('reload-table');
                 _this.resetForm();
                 $('#createClient').modal('hide');
             }, function (error) {
+                toastr.error('Failed in creating new client', 'Error');
                 console.log(error);
             });
         }
@@ -43268,8 +43279,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
+                    toastr.success('Successfully deleted user assignment in JO', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting user assignment in JO', 'Error');
                     console.log(error);
                 });
             }
@@ -43492,10 +43505,12 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
+                toastr.success('Successfully assigned user to JO', 'Success');
                 _this3.$events.fire('reload-table');
                 _this3.resetForm();
                 $('#ongoingModal').modal('hide');
             }, function (error) {
+                toastr.error('Failed in assigning user to JO', 'Error');
                 console.log(error);
             });
         }
@@ -45495,8 +45510,6 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             });
         },
         saveProject: function saveProject(e) {
-            var _this2 = this;
-
             var jobOrderId = $('#jobOrderId').val();
             var data = {
                 job_order_id: jobOrderId,
@@ -45509,7 +45522,6 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
                 console.log(response);
 
                 toastr.success('Successfully added AE', 'Success');
-                _this2.resetForm();
             }, function (error) {
                 toastr.error('Failed in adding AE', 'Error');
                 console.log(error);
@@ -49563,8 +49575,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
+                    toastr.success('Successfully deleted venue', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting venue', 'Error');
                     console.log(error);
                 });
             }
@@ -49895,10 +49909,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
+                toastr.success('Successfully added new venue', 'Success');
                 _this.$events.fire('reload-table');
                 _this.resetForm();
                 $('#createVenue').modal('hide');
             }, function (error) {
+                toastr.success('Failed in creating new venue', 'Success');
                 console.log(error);
             });
         }

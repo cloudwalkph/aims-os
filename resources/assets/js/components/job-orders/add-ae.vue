@@ -56,7 +56,6 @@
                     console.log(response)
 
                     toastr.success('Successfully added AE', 'Success')
-                    this.resetForm()
                 }, error => {
                     toastr.error('Failed in adding AE', 'Error')
                     console.log(error)

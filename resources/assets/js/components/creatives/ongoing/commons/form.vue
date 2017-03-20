@@ -114,10 +114,12 @@
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
+                    toastr.success('Successfully assigned user to JO', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                     $('#ongoingModal').modal('hide')
                 }, error => {
+                    toastr.error('Failed in assigning user to JO', 'Error')
                     console.log(error)
                 })
             }

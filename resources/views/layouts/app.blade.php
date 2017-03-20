@@ -32,7 +32,7 @@
 <body>
     @yield('styles')
     <div id="app">
-        <nav class="navbar navbar-default navbar-fixed-top topbar" role="navigation">
+        <nav class="navbar navbar-default topbar" role="navigation">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/" >A.I.M.S.</a>
             </div>
@@ -110,7 +110,7 @@
             </ul>
         </nav>
 
-        <div class="container-fluid" style="margin-top: 60px">
+        <div class="container-fluid">
             @yield('content')
         </div>
     </div>
@@ -124,7 +124,7 @@
             "debug": false,
             "newestOnTop": false,
             "progressBar": false,
-            "positionClass": "toast-top-full-width",
+            "positionClass": "toast-top-right",
             "preventDuplicates": false,
             "onclick": null,
             "showDuration": "300",
