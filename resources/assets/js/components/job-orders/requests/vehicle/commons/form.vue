@@ -129,9 +129,11 @@
                 let url = `/api/v1/job-order-vehicles`;
                 this.$http.post(url, data).then(response => {
 
+                    toastr.success('Successfully added vehicle request', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                 }, error => {
+                    toastr.error('Failed in adding vehicle request', 'Error')
                     console.log(error)
                 })
             }

@@ -86,7 +86,9 @@
 
                     this.$events.fire('reload-table')
                     this.resetForm()
+                    toastr.success('Successfully added department involvement', 'Success')
                 }, error => {
+                    toastr.error('Failed in adding department involvement', 'Error')
                     console.log(error)
                 })
             }

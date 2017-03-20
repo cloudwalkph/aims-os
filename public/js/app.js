@@ -45508,8 +45508,10 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
+                toastr.success('Successfully added AE', 'Success');
                 _this2.resetForm();
             }, function (error) {
+                toastr.error('Failed in adding AE', 'Error');
                 console.log(error);
             });
         }
@@ -45765,9 +45767,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var url = '/api/v1/job-order-animation-details/' + data.id;
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
-
+                    toastr.success('Successfully deleted animation details', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting animation details', 'Error');
                     console.log(error);
                 });
             }
@@ -46014,8 +46017,10 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
 
                 _this2.$events.fire('reload-table');
                 _this2.resetForm();
+                toastr.success('Successfully added animation details', 'Success');
                 $('#createAnimationDetails').modal('hide');
             }, function (error) {
+                toastr.success('Failed in adding animation details', 'Error');
                 console.log(error);
             });
         }
@@ -46517,8 +46522,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
+                    toastr.success('Successfully deleted department involvement', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.success('Failed in deleting department involvement', 'Error');
                     console.log(error);
                 });
             }
@@ -46686,7 +46693,9 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
 
                 _this2.$events.fire('reload-table');
                 _this2.resetForm();
+                toastr.success('Successfully added department involvement', 'Success');
             }, function (error) {
+                toastr.error('Failed in adding department involvement', 'Error');
                 console.log(error);
             });
         }
@@ -47290,10 +47299,12 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             var url = '/api/v1/job-order-project-attachments';
             this.$http.post(url, form).then(function (response) {
 
+                toastr.success('Successfully added project attachments', 'Success');
                 _this.$events.fire('reload-table');
                 _this.resetForm();
                 $('#createProjectAttachments').modal('hide');
             }, function (error) {
+                toastr.error('Failed in adding project attachments', 'Error');
                 console.log(error);
             });
         }
@@ -47732,9 +47743,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var url = '/api/v1/job-order-manpowers/' + data.id;
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
-
+                    toastr.success('Successfully deleted manpower request', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.success('Failed in deleting manpower request', 'Error');
                     console.log(error);
                 });
             }
@@ -47915,10 +47927,11 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
 
             var url = '/api/v1/job-order-manpowers';
             this.$http.post(url, data).then(function (response) {
-
+                toastr.success('Successfully added manpower request', 'Success');
                 _this2.$events.fire('reload-table');
                 _this2.resetForm();
             }, function (error) {
+                toastr.error('Failed in adding manpower request', 'Error');
                 console.log(error);
             });
         }
@@ -48150,8 +48163,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
+                    toastr.success('Successfully deleted meal request', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting meal request', 'Error');
                     console.log(error);
                 });
             }
@@ -48348,9 +48363,11 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             var url = '/api/v1/job-order-meals';
             this.$http.post(url, data).then(function (response) {
 
+                toastr.success('Successfully added meal request', 'Success');
                 _this2.$events.fire('reload-table');
                 _this2.resetForm();
             }, function (error) {
+                toastr.error('Failed in adding meal request', 'Error');
                 console.log(error);
             });
         }
@@ -48586,8 +48603,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
+                    toastr.success('Successfully deleted vehicle request', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting vehicle request', 'Error');
                     console.log(error);
                 });
             }
@@ -48821,9 +48840,11 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             var url = '/api/v1/job-order-vehicles';
             this.$http.post(url, data).then(function (response) {
 
+                toastr.success('Successfully added vehicle request', 'Success');
                 _this3.$events.fire('reload-table');
                 _this3.resetForm();
             }, function (error) {
+                toastr.error('Failed in adding vehicle request', 'Error');
                 console.log(error);
             });
         }

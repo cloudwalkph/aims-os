@@ -71,10 +71,12 @@
                 let url = `/api/v1/job-order-project-attachments`;
                 this.$http.post(url, form).then(response => {
 
+                    toastr.success('Successfully added project attachments', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                     $('#createProjectAttachments').modal('hide')
                 }, error => {
+                    toastr.error('Failed in adding project attachments', 'Error')
                     console.log(error)
                 })
             }

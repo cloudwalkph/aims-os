@@ -115,9 +115,11 @@
                 let url = `/api/v1/job-order-meals`;
                 this.$http.post(url, data).then(response => {
 
+                    toastr.success('Successfully added meal request', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                 }, error => {
+                    toastr.error('Failed in adding meal request', 'Error')
                     console.log(error)
                 })
             }
