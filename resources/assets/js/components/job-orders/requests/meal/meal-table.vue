@@ -2,7 +2,7 @@
     <div>
         <meal-filter-bar></meal-filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/job-order-meals"
+                  :api-url="apiUrl"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -50,6 +50,7 @@
         },
         data() {
             return {
+                apiUrl: `/api/v1/job-order-meals/${$('#jobOrderId').val()}`,
                 fields: [
                     {
                         name: '__sequence',
