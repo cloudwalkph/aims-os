@@ -24307,18 +24307,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/Vuetable.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/node_modules/vuetable-2/src/components/Vuetable.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\node_modules\\vuetable-2\\src\\components\\Vuetable.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/node_modules/vuetable-2/src/components/Vuetable.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Vuetable.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -24771,18 +24760,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePagination.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/node_modules/vuetable-2/src/components/VuetablePagination.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\node_modules\\vuetable-2\\src\\components\\VuetablePagination.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/node_modules/vuetable-2/src/components/VuetablePagination.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetablePagination.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -24816,18 +24794,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfo.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfo.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\node_modules\\vuetable-2\\src\\components\\VuetablePaginationInfo.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfo.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VuetablePaginationInfo.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -36066,18 +36033,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/CalendarScheduler.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/CalendarScheduler.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\CalendarScheduler.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/CalendarScheduler.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CalendarScheduler.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -36111,18 +36067,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\clients\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -40090,6 +40035,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -40275,6 +40221,8 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK
         'edit-table': function editTable(data) {
             var _this7 = this;
 
+            data.birthdate = __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.birthdate).format('YYYY-MM-DD');
+            data.hired_date = __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.hired_date).format('YYYY-MM-DD');
             __WEBPACK_IMPORTED_MODULE_2_vue___default.a.nextTick(function () {
                 _this7.rowData = data;
                 $('#createManpower').modal('show');
@@ -40748,6 +40696,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('CustomAddAction', __WEBPA
 
       this.$http.post(url, dataArray).then(function (response) {
         console.log(response.data);
+        alert('Succesfully Saved!');
       }, function (error) {
         console.log(error);
       });
@@ -44045,6 +43994,11 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
 
 var Home = __webpack_require__(356);
 
@@ -44075,8 +44029,12 @@ module.exports = {
                 jobOrders: [{
                     id: 0,
                     job_order_no: 'J0SAMPLE',
+                    user_id: 0,
+                    contract_no: 0,
+                    do_contract_no: 0,
                     project_name: 'Sample Job Order',
-                    user_id: 0
+                    project_types: null,
+                    status: null
                 }],
                 users: [{
                     id: 0,
@@ -44182,7 +44140,8 @@ module.exports = {
                 this.currentView = WorkDetails;
                 this.breadcrumbs.push({
                     icon: 'fa-dashboard',
-                    page: 'Inventory List'
+                    page: 'Work In Progress',
+                    page_id: 'work-in-progress'
                 });
                 this.breadcrumbs.push({
                     icon: 'fa-dashboard',
@@ -44204,9 +44163,12 @@ module.exports = {
 
                         this.inventoryData.products.push({
                             id: product.id,
+                            job_order_id: product.job_order_id,
                             job_order_no: product.job_order_no,
                             project_name: product.project_name,
                             name: product.name,
+                            product_code: product.product_code,
+                            expiration_date: product.expiration_date,
                             quantity: 1000000
                         });
                     }
@@ -44225,21 +44187,24 @@ module.exports = {
                     }
                 }
             }).catch(function (e) {
-                console.log('error inventory', e);
+                console.log('error inventories', e);
             });
         },
-        getJob: function getJob() {
-            this.$http.get('/api/v1/inventory/job').then(function (response) {
+        getJobOrders: function getJobOrders() {
+            this.$http.get('/api/v1/job-orders/department').then(function (response) {
+                console.log(response);
                 // this.inventoryData.inventoryJobs = [];
                 var _iteratorNormalCompletion2 = true;
                 var _didIteratorError2 = false;
                 var _iteratorError2 = undefined;
 
                 try {
-                    for (var _iterator2 = response.data.data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    for (var _iterator2 = response.data[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                         var r = _step2.value;
 
-                        this.inventoryData.inventoryJobs.push(r);
+                        if (r) {
+                            this.inventoryData.jobOrders.push(r);
+                        }
                     }
                 } catch (err) {
                     _didIteratorError2 = true;
@@ -44256,21 +44221,21 @@ module.exports = {
                     }
                 }
             }).catch(function (e) {
-                console.log('error jobs', e);
+                console.log('error jobs department', e);
             });
         },
-        getUsers: function getUsers() {
-            this.$http.get('/api/v1/users/5').then(function (response) {
-                // this.inventoryData.users = [];
+        getJob: function getJob() {
+            this.$http.get('/api/v1/inventory/job').then(function (response) {
+                // this.inventoryData.inventoryJobs = [];
                 var _iteratorNormalCompletion3 = true;
                 var _didIteratorError3 = false;
                 var _iteratorError3 = undefined;
 
                 try {
-                    for (var _iterator3 = response.data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                    for (var _iterator3 = response.data.data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
                         var r = _step3.value;
 
-                        this.inventoryData.users.push(r);
+                        this.inventoryData.inventoryJobs.push(r);
                     }
                 } catch (err) {
                     _didIteratorError3 = true;
@@ -44287,13 +44252,45 @@ module.exports = {
                     }
                 }
             }).catch(function (e) {
-                console.log('error jobs', e);
+                console.log('error inventory jobs', e);
+            });
+        },
+        getUsers: function getUsers() {
+            this.$http.get('/api/v1/users/5').then(function (response) {
+                // this.inventoryData.users = [];
+                var _iteratorNormalCompletion4 = true;
+                var _didIteratorError4 = false;
+                var _iteratorError4 = undefined;
+
+                try {
+                    for (var _iterator4 = response.data[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                        var r = _step4.value;
+
+                        this.inventoryData.users.push(r);
+                    }
+                } catch (err) {
+                    _didIteratorError4 = true;
+                    _iteratorError4 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                            _iterator4.return();
+                        }
+                    } finally {
+                        if (_didIteratorError4) {
+                            throw _iteratorError4;
+                        }
+                    }
+                }
+            }).catch(function (e) {
+                console.log('error users department', e);
             });
         }
     },
     mounted: function mounted() {
         this.getInventory();
         this.getJob();
+        this.getJobOrders();
         this.getUsers();
     }
 };
@@ -44446,6 +44443,13 @@ module.exports = {
     components: {
         CreateInventoryModal: CreateInventoryModal
     },
+    methods: {
+        convertDate: function convertDate(dateVal) {
+            var milliseconds = Date.parse(dateVal);
+            var d = new Date(milliseconds);
+            return d.toDateString();
+        }
+    },
     props: ['propData']
 };
 
@@ -44453,6 +44457,12 @@ module.exports = {
 /* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -44548,6 +44558,62 @@ module.exports = {
             var milliseconds = Date.parse(dateVal);
             var d = new Date(milliseconds);
             return d.toDateString();
+        },
+        jobOrderNo: function jobOrderNo(job) {
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+                for (var _iterator2 = this.propData.jobOrders[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    jo = _step2.value;
+
+                    if (jo.id == job.job_order_id) {
+                        return jo.job_order_no;
+                    }
+                }
+            } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
+                    }
+                } finally {
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
+                    }
+                }
+            }
+        },
+        projectName: function projectName(job) {
+            var _iteratorNormalCompletion3 = true;
+            var _didIteratorError3 = false;
+            var _iteratorError3 = undefined;
+
+            try {
+                for (var _iterator3 = this.propData.jobOrders[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                    jo = _step3.value;
+
+                    if (jo.id == job.job_order_id) {
+                        return jo.project_name;
+                    }
+                }
+            } catch (err) {
+                _didIteratorError3 = true;
+                _iteratorError3 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                        _iterator3.return();
+                    }
+                } finally {
+                    if (_didIteratorError3) {
+                        throw _iteratorError3;
+                    }
+                }
+            }
         }
     },
     mounted: function mounted() {},
@@ -44603,9 +44669,7 @@ module.exports = {
             return d.toDateString();
         }
     },
-    mounted: function mounted() {
-        console.log(this.propData.products);
-    },
+    mounted: function mounted() {},
     props: ['propData']
 };
 
@@ -44928,6 +44992,62 @@ module.exports = {
             }
 
             return users.join(', ');
+        },
+        jobOrderNo: function jobOrderNo(job) {
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+                for (var _iterator2 = this.propData.jobOrders[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    jo = _step2.value;
+
+                    if (jo.id == job.job_order_id) {
+                        return jo.job_order_no;
+                    }
+                }
+            } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
+                    }
+                } finally {
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
+                    }
+                }
+            }
+        },
+        projectName: function projectName(job) {
+            var _iteratorNormalCompletion3 = true;
+            var _didIteratorError3 = false;
+            var _iteratorError3 = undefined;
+
+            try {
+                for (var _iterator3 = this.propData.jobOrders[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                    jo = _step3.value;
+
+                    if (jo.id == job.job_order_id) {
+                        return jo.project_name;
+                    }
+                }
+            } catch (err) {
+                _didIteratorError3 = true;
+                _iteratorError3 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                        _iterator3.return();
+                    }
+                } finally {
+                    if (_didIteratorError3) {
+                        throw _iteratorError3;
+                    }
+                }
+            }
         }
     },
     mounted: function mounted() {},
@@ -45066,7 +45186,6 @@ module.exports = {
     },
     methods: {
         getJo: function getJo() {
-            var joData = [];
             this.$http.get('/api/v1/inventory/job/create').then(function (response) {
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
@@ -45076,10 +45195,12 @@ module.exports = {
                     for (var _iterator = response.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                         var jo = _step.value;
 
-                        this.joOptions.push({
-                            label: jo.job_order_no + ' : ' + jo.project_name,
-                            value: jo.id
-                        });
+                        if (jo) {
+                            this.joOptions.push({
+                                label: jo.job_order_no + ' : ' + jo.project_name,
+                                value: jo.id
+                            });
+                        }
                     }
                 } catch (err) {
                     _didIteratorError = true;
@@ -45096,11 +45217,10 @@ module.exports = {
                     }
                 }
             }).catch(function (e) {
-                console.log('error department', e);
+                console.log('error jobs filter', e);
             });
         },
         getUser: function getUser() {
-            var userOptions = [];
             this.$http.get('/api/v1/inventory/user/create').then(function (response) {
                 var _iteratorNormalCompletion2 = true;
                 var _didIteratorError2 = false;
@@ -45130,13 +45250,13 @@ module.exports = {
                     }
                 }
             }).catch(function (e) {
-                console.log('error users', e);
+                console.log('error users filter', e);
             });
         },
-        convertDate: function convertDate(dateString) {
-            var milliseconds = Date.parse(dateString);
+        convertDate: function convertDate(dateVal) {
+            var milliseconds = Date.parse(dateVal);
             var d = new Date(milliseconds);
-            return d;
+            return d.toDateString();
         },
         handleSubmit: function handleSubmit(e) {
             var form = $(e.target)[0];
@@ -45161,8 +45281,9 @@ module.exports = {
                     user_id: [this.selected_user]
                 });
                 $('#modalCreateJob').modal('hide');
+                form.reset();
             }).catch(function (e) {
-                console.log(e);
+                console.log('error post jobs', e);
             });
         },
         inputChange: function inputChange(e) {},
@@ -47366,16 +47487,20 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('project-status-filter-bar
                 sortField: 'name',
                 title: 'Department'
             }, {
+                name: 'deliverables',
+                sortField: 'deliverables',
+                title: 'Deliverables'
+            }, {
+                name: 'name',
+                sortField: 'name',
+                title: 'Assigned Person'
+            }, {
                 name: 'deadline',
                 sortField: 'deadline',
                 titleClass: 'text-center',
                 dataClass: 'text-center',
                 callback: 'formatDate|DD-MM-YYYY',
                 title: 'Deadline'
-            }, {
-                name: 'name',
-                sortField: 'name',
-                title: 'Assigned Person'
             }, {
                 name: 'updated_at',
                 sortField: 'updated_at',
@@ -88969,18 +89094,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfoMixin.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfoMixin.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\node_modules\\vuetable-2\\src\\components\\VuetablePaginationInfoMixin.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationInfoMixin.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -89013,18 +89127,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationMixin.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationMixin.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\node_modules\\vuetable-2\\src\\components\\VuetablePaginationMixin.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/node_modules/vuetable-2/src/components/VuetablePaginationMixin.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -89057,18 +89160,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/AdminCalendarScheduler.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/AdminCalendarScheduler.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\AdminCalendarScheduler.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/AdminCalendarScheduler.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AdminCalendarScheduler.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89102,18 +89194,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/Example.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/Example.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\Example.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/Example.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89151,18 +89232,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\HR\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89200,18 +89270,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/commons/CustomAddAction.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/commons/CustomAddAction.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\HR\\commons\\CustomAddAction.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/commons/CustomAddAction.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomAddAction.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89249,18 +89308,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/commons/CustomSingleAction.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/commons/CustomSingleAction.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\HR\\commons\\CustomSingleAction.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/commons/CustomSingleAction.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomSingleAction.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89294,18 +89342,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/hr-account.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/hr-account.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\HR\\hr-account.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/hr-account.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] hr-account.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89343,18 +89380,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/manpower.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/manpower.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\HR\\manpower.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/manpower.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] manpower.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89388,18 +89414,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/pooling.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/pooling.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\HR\\pooling.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/pooling.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] pooling.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89433,18 +89448,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/HR/poolingContent.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/poolingContent.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\HR\\poolingContent.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/HR/poolingContent.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] poolingContent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89482,18 +89486,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/agencies-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/agencies/agencies-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\agencies\\agencies-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/agencies/agencies-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] agencies-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89531,18 +89524,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/agencies/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\agencies\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/agencies/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89580,18 +89562,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/agencies/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\agencies\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/agencies/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89625,18 +89596,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/agencies/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/agencies/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\agencies\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/agencies/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89674,18 +89634,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/manpowerType/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\manpowerType\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/manpowerType/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89723,18 +89672,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/manpowerType/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\manpowerType\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/manpowerType/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89768,18 +89706,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/manpowerType/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\manpowerType\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/manpowerType/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89817,18 +89744,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/manpowerType/manpower-type-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/manpowerType/manpower-type-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\manpowerType\\manpower-type-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/manpowerType/manpower-type-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] manpower-type-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89866,18 +89782,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/users/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\users\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/users/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89915,18 +89820,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/users/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\users\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/users/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -89960,18 +89854,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/users/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\users\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/users/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90009,18 +89892,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/users/users-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/users/users-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\users\\users-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/users/users-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] users-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90058,18 +89930,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/vehicleType/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/vehicleType/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\vehicleType\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/vehicleType/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90107,18 +89968,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/vehicleType/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/vehicleType/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\vehicleType\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/vehicleType/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90152,18 +90002,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/vehicleType/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/vehicleType/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\vehicleType\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/vehicleType/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90201,18 +90040,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/admin/vehicleType/vehicle-type-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/vehicleType/vehicle-type-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\admin\\vehicleType\\vehicle-type-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/vehicleType/vehicle-type-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] vehicle-type-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90250,18 +90078,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/clients-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/clients-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\clients\\clients-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/clients-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] clients-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90299,18 +90116,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\clients\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90344,18 +90150,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/DetailRow.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/commons/DetailRow.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\clients\\commons\\DetailRow.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/commons/DetailRow.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DetailRow.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90393,18 +90188,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\clients\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90438,18 +90222,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/clients/commons/edit-form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/commons/edit-form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\clients\\commons\\edit-form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/clients/commons/edit-form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] edit-form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90487,18 +90260,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/ongoing/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\creatives\\ongoing\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/ongoing/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90536,18 +90298,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/ongoing/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\creatives\\ongoing\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/ongoing/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90581,18 +90332,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/ongoing/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\creatives\\ongoing\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/ongoing/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90630,18 +90370,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/ongoing/ongoing-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/ongoing/ongoing-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\creatives\\ongoing\\ongoing-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/ongoing/ongoing-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ongoing-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90679,18 +90408,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\creatives\\work-in-progress\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90728,18 +90446,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\creatives\\work-in-progress\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/work-in-progress/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90777,18 +90484,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/creatives/work-in-progress/work-in-progress-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/work-in-progress/work-in-progress-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\creatives\\work-in-progress\\work-in-progress-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/creatives/work-in-progress/work-in-progress-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] work-in-progress-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90822,18 +90518,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/DeliveryTracking.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/DeliveryTracking.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\DeliveryTracking.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/DeliveryTracking.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DeliveryTracking.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90867,18 +90552,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/Index.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/Index.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\Index.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/Index.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Index.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90912,18 +90586,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/InternalInventory.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/InternalInventory.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\InternalInventory.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/InternalInventory.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] InternalInventory.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -90957,18 +90620,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/Inventory.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/Inventory.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\Inventory.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/Inventory.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Inventory.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91002,18 +90654,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/InventoryList.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/InventoryList.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\InventoryList.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/InventoryList.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] InventoryList.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91047,18 +90688,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/OnGoingProjects.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/OnGoingProjects.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\OnGoingProjects.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/OnGoingProjects.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] OnGoingProjects.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91092,18 +90722,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/Products.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/Products.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\Products.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/Products.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Products.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91137,18 +90756,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/ReleaseTracking.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/ReleaseTracking.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\ReleaseTracking.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/ReleaseTracking.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ReleaseTracking.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91182,18 +90790,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/WorkDetails.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/WorkDetails.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\WorkDetails.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/WorkDetails.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] WorkDetails.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91227,18 +90824,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/WorkInProgress.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/WorkInProgress.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\WorkInProgress.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/WorkInProgress.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] WorkInProgress.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91272,18 +90858,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/modals/CreateInventory.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/modals/CreateInventory.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\modals\\CreateInventory.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/modals/CreateInventory.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CreateInventory.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91317,18 +90892,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/inventory/modals/CreateJob.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/modals/CreateJob.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\inventory\\modals\\CreateJob.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/inventory/modals/CreateJob.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CreateJob.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91362,18 +90926,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/add-ae.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/add-ae.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\add-ae.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/add-ae.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] add-ae.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91411,18 +90964,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/animation-details-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/animation-details/animation-details-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\animation-details\\animation-details-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/animation-details/animation-details-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animation-details-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91460,18 +91002,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/animation-details/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\animation-details\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/animation-details/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91509,18 +91040,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/animation-details/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\animation-details\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/animation-details/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91554,18 +91074,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/animation-details/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/animation-details/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\animation-details\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/animation-details/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91603,18 +91112,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91648,18 +91146,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/commons/DetailRow.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/commons/DetailRow.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\commons\\DetailRow.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/commons/DetailRow.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DetailRow.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91697,18 +91184,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91742,18 +91218,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/create-job-order.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/create-job-order.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\create-job-order.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/create-job-order.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] create-job-order.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91791,18 +91256,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/involvement/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\involvement\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/involvement/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91840,18 +91294,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/involvement/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\involvement\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/involvement/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91885,18 +91328,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/involvement/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\involvement\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/involvement/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91934,18 +91366,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/involvement/involvement-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/involvement/involvement-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\involvement\\involvement-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/involvement/involvement-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] involvement-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -91983,18 +91404,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/jo-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/jo-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\jo-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/jo-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] jo-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92032,7 +91442,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/project-attachments/commons/CustomActions.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-attachments/commons/CustomActions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92066,10 +91476,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-status/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/project-attachments/commons/form.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-attachments/commons/form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92107,10 +91514,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\project-status\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/project-attachments/project-attachments-table.vue"
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-attachments/project-attachments-table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] project-attachments-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92148,12 +91552,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/project-status/commons/FilterBar.vue"
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
+Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-status/commons/FilterBar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92191,18 +91590,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/project-status/project-status-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/project-status/project-status-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\project-status\\project-status-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/project-status/project-status-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] project-status-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92240,18 +91628,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\manpower\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92289,18 +91666,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\manpower\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92334,18 +91700,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\manpower\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/manpower/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92383,18 +91738,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/manpower/manpower-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/manpower/manpower-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\manpower\\manpower-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/manpower/manpower-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] manpower-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92432,18 +91776,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\meal\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92481,18 +91814,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\meal\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92526,18 +91848,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\meal\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/meal/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92575,18 +91886,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/meal/meal-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/meal/meal-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\meal\\meal-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/meal/meal-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] meal-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92624,18 +91924,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\vehicle\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92673,18 +91962,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\vehicle\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92718,18 +91996,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\vehicle\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/vehicle/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92767,18 +92034,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/job-orders/requests/vehicle/vehicle-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/vehicle/vehicle-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\job-orders\\requests\\vehicle\\vehicle-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/job-orders/requests/vehicle/vehicle-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] vehicle-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92816,18 +92072,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/animation-details-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/plans/animation-details-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\plans\\animation-details-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/plans/animation-details-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animation-details-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92865,18 +92110,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/animation-details/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/plans/animation-details/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\plans\\animation-details\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/plans/animation-details/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92914,18 +92148,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/plans/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\plans\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/plans/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -92963,18 +92186,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/plans/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\plans\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/plans/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -93012,18 +92224,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/plans/plans-jo-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/plans/plans-jo-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\plans\\plans-jo-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/plans/plans-jo-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] plans-jo-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -93061,18 +92262,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/commons/CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/venues/commons/CustomActions.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\venues\\commons\\CustomActions.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/venues/commons/CustomActions.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CustomActions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -93110,18 +92300,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/commons/FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/venues/commons/FilterBar.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\venues\\commons\\FilterBar.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/venues/commons/FilterBar.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FilterBar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -93155,18 +92334,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/commons/form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/venues/commons/form.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\venues\\commons\\form.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/venues/commons/form.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -93204,18 +92372,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-<<<<<<< HEAD
-<<<<<<< HEAD
 Component.options.__file = "/Users/cwd/Public/aims-os/resources/assets/js/components/venues/venues-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/venues/venues-table.vue"
->>>>>>> master
-=======
-Component.options.__file = "C:\\xampp\\htdocs\\aims-os\\resources\\assets\\js\\components\\venues\\venues-table.vue"
-=======
-Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/venues/venues-table.vue"
->>>>>>> refs/remotes/origin/master
->>>>>>> feature---Validate
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] venues-table.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -94509,7 +93666,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin": "50px 0"
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
+    staticClass: "col-md-12",
+    staticStyle: {
+      "padding-bottom": "30px"
+    }
   }, [_vm._m(4), _vm._v(" "), _c('div', {
     staticClass: "col-md-10"
   }, [_vm._l((_vm.simulationSched), function(simulation) {
@@ -96099,7 +95259,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('i', {
       staticClass: "fa",
       class: breadcrumb.icon
-    }), _vm._v(" "), (_vm.breadcrumbs.length == index + 1) ? _c('span', [_vm._v("\n                    " + _vm._s(breadcrumb.page) + "\n                ")]) : _c('span', [_c('a', {
+    }), _vm._v(" "), (_vm.breadcrumbs.length == index + 1) ? _c('span', [_vm._v("\n                    " + _vm._s(breadcrumb.page) + "\n                ")]) : (breadcrumb.page_id === 'work-in-progress') ? _c('span', [_c('a', {
+      attrs: {
+        "href": "",
+        "pageID": "work-in-progress"
+      },
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.openPage($event)
+        }
+      }
+    }, [_vm._v("\n                        " + _vm._s(breadcrumb.page) + "\n                    ")])]) : _c('span', [_c('a', {
       attrs: {
         "href": "",
         "pageID": "home"
@@ -96604,6 +95775,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "date",
       "name": "birthdate",
+      "max": "2010-01-01",
       "id": "birthdate"
     },
     domProps: {
@@ -99462,7 +98634,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "inventoryList"
     }
   }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.propData.products), function(product) {
-    return _c('tr', [_c('td', [_vm._v("\n                            " + _vm._s(product.job_order_no) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.product_code))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.expiration_date))])])
+    return _c('tr', [_c('td', [_vm._v("\n                            " + _vm._s(product.job_order_no) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.product_code))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(product.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.convertDate(product.expiration_date)))])])
   }))])])]), _vm._v(" "), _c('CreateInventoryModal')], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
@@ -99687,7 +98859,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.openPage($event)
         }
       }
-    }, [_vm._v("\n                                " + _vm._s(job.job_order_no) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(job.project_name) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(_vm.assignedPersons(job)) + "\n                            ")])])])
+    }, [_vm._v("\n                                " + _vm._s(_vm.jobOrderNo(job)) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(_vm.projectName(job)) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(_vm.assignedPersons(job)) + "\n                            ")])])])
   }))])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Job Order Number")]), _vm._v(" "), _c('th', [_vm._v("Project Name")]), _vm._v(" "), _c('th', [_vm._v("Assigned Persons")])])])
@@ -100352,7 +99524,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "projectList"
     }
   }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.jobs), function(job) {
-    return _c('tr', [_c('td', [_vm._v("\n                            " + _vm._s(job.job_order_no) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(job.project_name) + "\n                        ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(job.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.convertDate(job.deadline)))]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(_vm.assignedPersons(job)) + "\n                        ")])])
+    return _c('tr', [_c('td', [_c('span', [_vm._v("\n                                " + _vm._s(_vm.jobOrderNo(job)) + "\n                            ")])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(_vm.projectName(job)) + "\n                            ")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(job.description))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.convertDate(job.deadline)))]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(_vm.assignedPersons(job)) + "\n                            ")])])])
   }))])])]), _vm._v(" "), _c("create-job-modal", {
     tag: "component",
     attrs: {
