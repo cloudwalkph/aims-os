@@ -59,6 +59,27 @@ class AgenciesController extends Controller {
     }
 
     /**
+     * @param CreateAgencyRequest $request
+     * @param $agencyId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(CreateAgencyRequest $request, $agencyId)
+    {
+        $input = $request->all();
+
+        $agency = null;
+        // Update agency
+        \DB::transaction(function() use ($input, $agencyId, &$agency) {
+            $name = strtolower($input['name']);
+            $input['slug'] = str_replace(' ', '-', $name);
+
+            $agency = Agency::where('id', $agencyId)->update($input);
+        });
+
+        return response()->json($agency, 200);
+    }
+
+    /**
      * @param $userId
      * @return \Illuminate\Http\JsonResponse
      */
