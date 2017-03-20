@@ -12,21 +12,21 @@
                         <div class="col-md-12 form-group text-input-container">
                             <label class="control-label col-sm-2" for="what">What</label>
                             <div class="col-md-10">
-                                <input type="text" value="{{ $detail->what or '' }}" required name="what" placeholder="What" class="form-control dataField" />
+                                <input type="text" value="{{ $detail->what or '' }}" required name="what" placeholder="What" class="form-control eventDataField" />
                             </div>
                         </div>
 
                         <div class="col-md-12 form-group text-input-container">
                             <label class="control-label col-sm-2" for="when">When</label>
                             <div class="col-md-10">
-                                <input type="date" value="{{ isset($detail['when']) ? \Carbon\Carbon::createFromTimestamp(strtotime($detail->when))->toDateString() : '' }}" required name="when" placeholder="When" class="form-control dataField" />
+                                <input type="date" value="{{ isset($detail['when']) ? \Carbon\Carbon::createFromTimestamp(strtotime($detail->when))->toDateString() : '' }}" required name="when" placeholder="When" class="form-control eventDataField" />
                             </div>
                         </div>
 
                         <div class="col-md-12 form-group text-input-container">
                             <label class="control-label col-sm-2" for="where">Where</label>
                             <div class="col-md-10">
-                                <input type="text" value="{{ $detail->where or '' }}" required name="where" placeholder="Where" class="form-control dataField" />
+                                <input type="text" value="{{ $detail->where or '' }}" required name="where" placeholder="Where" class="form-control eventDataField" />
                             </div>
                         </div>
 
@@ -34,14 +34,14 @@
                             <label for="expected_guest" class="control-label col-sm-2">Expected Guest</label>
 
                             <div class="col-md-10">
-                                <input type="text" value="{{ $detail->expected_guest or '' }}" required name="expected_guest" placeholder="Expected Guest" class="form-control dataField" />
+                                <input type="text" value="{{ $detail->expected_guest or '' }}" required name="expected_guest" placeholder="Expected Guest" class="form-control eventDataField" />
                             </div>
                         </div>
 
                         <div class="col-md-12 form-group text-area-container">
                             <label for="event_specifications" class="col-md-12">Event Specifications</label>
                             <div class="col-md-12">
-                                <textarea class="form-control dataField" required name="event_specifications" placeholder="Event Specifications">{{ $detail->event_specifications or '' }}</textarea>
+                                <textarea class="form-control eventDataField" required name="event_specifications" placeholder="Event Specifications">{{ $detail->event_specifications or '' }}</textarea>
                             </div>
                         </div>
 
