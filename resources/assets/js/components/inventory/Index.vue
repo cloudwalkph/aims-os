@@ -117,7 +117,7 @@
                     inventoryJobs: [
                         {
                             id: 0,
-                            description: 'sample description',
+                            remarks: 'sample description',
                             deadline: '2017-03-31',
 
                             job_order_id: 0,
@@ -132,12 +132,20 @@
                             inventory_job_id: 0,
                             items: [
                                 {
-                                    product_code: 'SAMPLE-1PROD',
+                                    product_code: 'SAMPLE-2PROD',
                                     deliveries: [
                                         {
                                             date: '2016-12-22',
                                             delivered: 2000,
-                                        }
+                                        },
+                                        {
+                                            date: '2016-12-23',
+                                            delivered: 2000,
+                                        },
+                                        {
+                                            date: '2016-12-24',
+                                            delivered: 1000,
+                                        },
                                     ],
                                     releases: [
                                         {
@@ -145,8 +153,22 @@
                                             disposed: 1000,
                                             returned: 300,
                                             status: 'Approved',
-                                        }
+                                        },
+                                        {
+                                            date: '2016-12-25',
+                                            disposed: 1000,
+                                            returned: 300,
+                                            status: 'Approved',
+                                        },
                                     ]
+                                }
+                            ]
+                        },
+                        {
+                            inventory_job_id: 3,
+                            items: [
+                                {
+                                    product_code: ''
                                 }
                             ]
                         }
@@ -238,7 +260,6 @@
             getJobOrders: function () {
                 this.$http.get('/api/v1/job-orders/department')
                     .then(function (response) {
-                        console.log(response);
                         // this.inventoryData.inventoryJobs = [];
                         for (let r of response.data) {
                             if(r) {

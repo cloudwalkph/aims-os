@@ -100,6 +100,8 @@
                 this.items[indexTrace].deliveries.splice(indexDelivery, 1);
             },
         },
+        mounted: function () {
+        },
         props: ['workDetail', 'products']
     }
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\Inventory\InventoryJobRequest;
 
+use App\Models\Assignment;
 use App\Models\InventoryJob;
 use App\Models\InventoryJobAssignedPerson;
 use App\Models\JobOrderDepartmentInvolved;
@@ -31,21 +32,23 @@ class InventoryJobController extends Controller
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
-            $query = InventoryJob::orderBy($sortCol, $sortDir);
+            $query = Assignment::orderBy($sortCol, $sortDir);
         } else {
-            $query = InventoryJob::orderBy('id', 'asc');
+            $query = Assignment::orderBy('id', 'asc');
         }
 
-        $query->leftJoin('job_orders', 'job_orders.id', '=', 'inventory_jobs.job_order_id')
-            ->leftJoin('inventory_job_assigned_people', 'inventory_job_assigned_people.inventory_job_id', '=', 'inventory_jobs.id')
-            ->leftJoin('user_profiles', 'user_profiles.user_id', '=', 'inventory_job_assigned_people.user_id')
-            ->select(
-                'inventory_jobs.*',
-                'job_orders.project_name', 'job_orders.job_order_no',
-                'inventory_job_assigned_people.user_id',
-                'user_profiles.first_name', 'user_profiles.last_name',
-                DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as assigned_person')
-            );
+        $query->where('department_id', $user['department_id']);
+
+        // $query->leftJoin('job_orders', 'job_orders.id', '=', 'assignment.job_order_id')
+        //     ->leftJoin('assignments', 'assignments.inventory_job_id', '=', 'inventory_jobs.id')
+        //     ->leftJoin('user_profiles', 'user_profiles.user_id', '=', 'inventory_job_assigned_people.user_id')
+        //     ->select(
+        //         'inventory_jobs.*',
+        //         'job_orders.project_name', 'job_orders.job_order_no',
+        //         'inventory_job_assigned_people.user_id',
+        //         'user_profiles.first_name', 'user_profiles.last_name',
+        //         DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as assigned_person')
+        //     );
 
         // Filter
         if ($request->has('filter')) {
@@ -72,7 +75,10 @@ class InventoryJobController extends Controller
         $jos = JobOrderDepartmentInvolved::with('jobOrder')->where('department_id', $user['department_id'])
             ->whereNotIn(
                 'job_order_id', 
-                array_column(InventoryJob::select('job_order_id')->get()->toArray(), 'job_order_id')
+                array_column(
+                    Assignment::select('job_order_id')->where('department_id', $user['department_id'])->get()->toArray(), 
+                    'job_order_id'
+                )
             )
             ->get();
 
@@ -91,24 +97,18 @@ class InventoryJobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(InventoryJobRequest $request)
+    public function store(Request $request)
     {
+        $user = $request->user();
         $input = $request->all();
         $input['deadline'] = date('Y-m-d H:i:s', strtotime($input['deadline']));
+        $input['department_id'] = $user['department_id'];
 
         $jo = null;
         // Create the jo
         DB::transaction(function() use ($input, &$jo) {
-            $inventory = InventoryJob::create($input);
-
-            $data =[
-                'user_id' => $input['user_id']
-            ];
-
-            $inventory->assignedPerson()->create($data);
-
-            $jo = InventoryJob::where('id', $inventory->id)->with('jobOrders', 'assignedPerson')->first();
-
+            $inventory = Assignment::create($input);
+            $jo = $inventory;
         });
 
         return response()->json($jo, 201);
