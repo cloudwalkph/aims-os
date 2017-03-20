@@ -34,9 +34,9 @@
 
                     <tr v-for="(r, indexD) in item.releases">
                         <td>{{convertDate(r.date)}}</td>
-                        <td>{{r.delivered}}</td>
+                        <td>{{productsOnHand(item, r.date, r.disposed)}}</td>
                         <td>{{r.disposed}}</td>
-                        <td>{{returned(r)}}</td>
+                        <td>{{returned(item, r.date, r.disposed)}}</td>
                         <td>{{r.status}}</td>
                         <td class="text-center">
                             <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
@@ -46,7 +46,7 @@
 
                     <tr>
                         <td>{{dateToday}}</td>
-                        <td>{{productsOnHand(index)}}</td>
+                        <td>{{productsOnHand(item)}}</td>
                         <td><input type="text" class="form-control" /></td>
                         <td><input type="text" class="form-control" /></td>
                         <td>
@@ -86,13 +86,20 @@
                 var d = new Date(milliseconds);
                 return d.toDateString();
             },
-            productsOnHand: function (index) {
-                for(delivery of this.items[index].deliveries) {
-                    console.log(delivery);
+            productsOnHand: function (item, rDate = Date(), iDisposed = 0) {
+                var total = 0;
+                var rDateParsed = Date.parse(rDate);
+                for(delivery of item.deliveries) {
+                    var deliveryDateParsed = Date.parse(delivery.date);
+                    if(deliveryDateParsed <= rDateParsed) {
+                        total = Number(total + delivery.delivered);
+                    }
                 }
+                return total;
             },
-            returned: function (r) {
-                return r.delivered - r.disposed;
+            returned: function (item, rDate, iDisposed) {
+                var products = this.productsOnHand(item, rDate);
+                return products - iDisposed;
             }
         },
         mounted: function () {

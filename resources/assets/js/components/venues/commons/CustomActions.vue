@@ -26,8 +26,10 @@
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
 
+                        toastr.success('Successfully deleted venue', 'Success')
                         this.$events.fire('reload-table')
                     }, error => {
+                        toastr.error('Failed in deleting venue', 'Error')
                         console.log(error)
                     })
                 }

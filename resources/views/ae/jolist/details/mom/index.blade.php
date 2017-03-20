@@ -5,12 +5,12 @@
                 <h3 class="box-title">Minutes of the Meeting</h3>
             </div>
             <div class="box-body">
-                <form action="/ae/jo/{{ $jo->id }}/mom" method="POSt">
+                <form id="momForm">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="agenda" class="col-sm-2 control-label">Agenda</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control dataField"
                                    required
                                    name="agenda" value="{{ $mom->agenda or '' }}"
                                    id="agenda" placeholder="Agenda" />
@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <label for="date_time" class="col-sm-2 control-label">Date and Time</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control"
+                            <input type="date" class="form-control dataField"
                                    required
                                    name="date_and_time" value="{{ isset($mom['date_and_time']) ? \Carbon\Carbon::createFromTimestamp(strtotime($mom->date_and_time))->toDateString() : '' }}"
                                    id="date_time" placeholder="Date and Time" />
@@ -28,7 +28,7 @@
                     <div class="form-group">
                         <label for="location" class="col-sm-2 control-label">Location</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control dataField"
                                    required
                                    name="location" value="{{ $mom->location or '' }}"
                                    id="location" placeholder="Location" />
@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label for="attendees" class="col-sm-2 control-label">Attendees</label>
                         <div class="col-sm-10">
-                        <textarea class="attendees"
+                        <textarea class="attendees dataField"
                                   required
                                   name="attendees" placeholder="Place some text here"
                                   style="width: 100%; height: 100px; font-size: 14px;
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="col-md-4 col-md-offset-8" style="margin-top: 20px">
-                        <button type="submit" class="btn btn-primary btn-block pull-right">Save</button>
+                        <button type="button" onclick="momSave()" class="btn btn-primary btn-block pull-right">Save</button>
                     </div>
                 </form>
             </div>

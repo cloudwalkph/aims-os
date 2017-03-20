@@ -3,6 +3,7 @@
         <div class="col-md-5">
             <div v-for="event in currentEvents">
                 <div class="col-md-12 col-sm-12 col-xs-12 event">
+                    <span class="pull-right" @click="deleteEvent(event.id)"><i class="fa fa-times fa-2x"></i></span>
                     <h1 class="event-title">{{ event.title }}</h1>
                     <p class="event-date">{{ event.event_datetime }}</p>
                     <p class="event-desc">Description: {{ JSON.parse(event.meta).description }}</p>
@@ -110,9 +111,11 @@
                     console.log(response)
 
                     $('#createSchedule').modal('hide')
+                    toastr.success('Successfully created calendar event', 'Success')
                     this.getEvents()
                 }, error => {
                     console.log(error)
+                    toastr.error('Failed in creating calendar event', 'Error')
                 })
             },
             getEvents() {
@@ -142,6 +145,23 @@
             },
             inputChange(e) {
                 this[e.target.id] = e.target.value
+            },
+            deleteEvent (id) {
+                let url = `/api/v1/events/${id}`;
+
+                console.log(id)
+                this.$http.delete(url).then(response => {
+
+                    let index = this.currentEvents.findIndex((item) => { return item.id === id });
+                    this.currentEvents.splice(index, 1)
+                    toastr.success('Successfully deleted calendar event', 'Success')
+                    this.getEvents()
+
+                }, error => {
+                    console.log(error)
+                    toastr.error('Failed in deleting calendar event', 'Error')
+                })
+
             }
         }
     }

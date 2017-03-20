@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filter-bar></filter-bar>
+        <agency-filter-bar></agency-filter-bar>
         <vuetable ref="vuetable"
                   api-url="/api/v1/agencies/"
                   :fields="fields"
@@ -24,6 +24,7 @@
         </div>
 
         <agency-modal></agency-modal>
+        <agencies-update-modal ref="updateAgency"></agencies-update-modal>
     </div>
 </template>
 
@@ -37,13 +38,15 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import FilterBar from './commons/FilterBar'
+    import AgencyFilterBar from './commons/FilterBar'
     import AgenciesModal from './commons/form.vue'
+    import AgencyEditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
     Vue.component('agency-custom-actions', CustomActions)
-    Vue.component('filter-bar', FilterBar)
+    Vue.component('agency-filter-bar', AgencyFilterBar)
     Vue.component('agency-modal', AgenciesModal)
+    Vue.component('agencies-update-modal', AgencyEditModal)
 
     export default {
         components: {
@@ -146,6 +149,11 @@
             'filter-reset' () {
                 this.moreParams = {}
                 Vue.nextTick( () => this.$refs.vuetable.refresh() )
+            },
+            'update-agency-show' (data) {
+                Vue.nextTick(() => {
+                    this.$refs.updateAgency.populateData(data)
+                })
             }
         }
     }

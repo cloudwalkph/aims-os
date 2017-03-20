@@ -55,8 +55,9 @@
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
-                    this.resetForm()
+                    toastr.success('Successfully added AE', 'Success')
                 }, error => {
+                    toastr.error('Failed in adding AE', 'Error')
                     console.log(error)
                 })
             }

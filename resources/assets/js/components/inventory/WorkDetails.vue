@@ -2,12 +2,12 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="row" v-for="workDetail in workDetails" v-if="workDetail.inventory_job_id == propIJobId">
+            <div class="row">
                 <div class="col-sm-12">
-                    <div class="row" v-for="job in jobs" v-if="workDetail.inventory_job_id == job.id">
+                    <div class="row" v-for="job in jobs" v-if="job.id == propIJobId">
                         <div class="col-md-8">
                             <label htmlFor="joNumber" class="control-label">
-                                Job Order Number : {{job.job_order_no}}
+                                Job Order Number : {{jobOrderNo(job)}}
                             </label>
                         </div>
                         <div class="col-md-4 text-right">
@@ -17,27 +17,39 @@
                         </div>
                         <div class="col-md-8">
                             <label htmlFor="projectName" class="control-label">
-                                Project Name : {{job.project_name}}
+                                Project Name : {{projectName(job)}}
                             </label>
                         </div>
                         <div class="col-md-4 text-right">
-                            <label htmlFor="description" class="control-label">
-                                Description : {{job.description}}
+                            <label htmlFor="remarks" class="control-label">
+                                Description : {{job.remarks}}
                             </label>
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="row">
                 <div class="col-sm-12">
-                    <delivery-tracking :workDetail="workDetail" :products="products"></delivery-tracking>
+                    <delivery-tracking 
+                        v-for="workDetail in workDetails"
+                        v-if="workDetail.inventory_job_id == propIJobId" 
+                        :workDetail="workDetail" 
+                        :products="products"
+                    ></delivery-tracking>
                 </div>
 
                 <div class="col-sm-12">
-                    <hr/>
+                    <hr>
                 </div>
 
                 <div class="col-sm-12">
-                    <release-tracking :workDetail="workDetail" :products="products"></release-tracking>
+                    <release-tracking
+                        v-for="workDetail in workDetails"
+                        v-if="workDetail.inventory_job_id == propIJobId" 
+                        :workDetail="workDetail" 
+                        :products="products"
+                    ></release-tracking>
                 </div>
             </div>
         </div>
@@ -72,6 +84,20 @@
                     }
                 // }
                 return users.join(', ');
+            },
+            jobOrderNo: function (job) {
+                for (jo of this.propData.jobOrders) {
+                    if (jo.id == job.job_order_id) {
+                        return jo.job_order_no;
+                    }
+                }
+            },
+            projectName: function (job) {
+                for (jo of this.propData.jobOrders) {
+                    if (jo.id == job.job_order_id) {
+                        return jo.project_name;
+                    }
+                }
             }
         },
         mounted: function () {

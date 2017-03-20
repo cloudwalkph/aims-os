@@ -26,8 +26,10 @@
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
 
+                        toastr.success('Successfully deleted vehicle request', 'Success')
                         this.$events.fire('reload-table')
                     }, error => {
+                        toastr.error('Failed in deleting vehicle request', 'Error')
                         console.log(error)
                     })
                 }

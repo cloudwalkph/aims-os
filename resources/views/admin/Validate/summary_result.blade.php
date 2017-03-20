@@ -44,58 +44,8 @@
                 <tbody id="chart3">
                 </tbody>
             </table>
-                {{--<div id="chart1"></div>--}}
-                {{--<div id="chart2"></div>--}}
-                {{--<div id="chart3"></div>--}}
 
         </div>
-        {{--<div class="row" style="margin-top: 10px;">--}}
-            {{--<div class="col-sm-offset-2 col-sm-1" style="margin-left: 187px;">--}}
-                {{--<label>Ratee:</label>--}}
-            {{--</div>--}}
-            {{--<div class="col-sm-3">--}}
-                {{--<select class="fullwidth" name="selRateeSummary" id="selRateeSummary" alt="ratee" style="width: 100%;">--}}
-                    {{--<option value="" disabled selected>Department</option>--}}
-
-                    {{--@foreach( $departments as $department)--}}
-
-                        {{--<option value="{{ $department->slug }}">{{ $department->name }}</option>--}}
-
-                    {{--@endforeach--}}
-                {{--</select>--}}
-            {{--</div>--}}
-            {{--<div class="col-sm-3">--}}
-                {{--<select class="fullwidth" name="selRateeEmp" id="selRateeEmp" style="width: 100%;">--}}
-                    {{--<option value="" disabled selected>Select</option>--}}
-                {{--</select>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-
-        {{--<div class="row">--}}
-            {{--<table class="vuetable table table-bordered table-striped table-hover" role="grid" style="margin-top: 30px;">--}}
-                {{--<thead>--}}
-                {{--<tr>--}}
-                    {{--<th width="920">Questions</th>--}}
-                    {{--<th>Rate</th>--}}
-                {{--</tr>--}}
-                {{--</thead>--}}
-                {{--<tbody id="summaryTbody">--}}
-
-                {{--@foreach($questions as $question)--}}
-
-                    {{--<tr id="eventRow{{$question -> _id}}">--}}
-                        {{--<td>{{$question -> qname}}</td>--}}
-                        {{--<td>--}}
-                            {{--{{ rand(60, 100).'%' }}--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-
-                {{--@endforeach--}}
-
-                {{--</tbody>--}}
-            {{--</table>--}}
-        {{--</div>--}}
-
     </div>
 @endsection
 @section('c3scripts')
@@ -109,8 +59,6 @@
             data: {
                 columns: [
                     ['Pre-event', 30, 20, 100, 100, 15, 50],
-//                    ['Event Proper', 30, 100, 40, 20, 50, 15],
-//                    ['Post-event', 50, 80, 90, 75, 99, 95]
                 ],
                 type: 'line',
             },
@@ -131,9 +79,7 @@
             bindto: '#chart2',
             data: {
                 columns: [
-//                    ['Pre-event', 30, 20, 100, 100, 15, 50],
                     ['Event Proper', 30, 100, 40, 20, 50, 15],
-//                    ['Post-event', 50, 80, 90, 75, 99, 95]
                 ],
                 type: 'line',
             },
@@ -154,8 +100,6 @@
             bindto: '#chart3',
             data: {
                 columns: [
-//                    ['Pre-event', 30, 20, 100, 100, 15, 50],
-//                    ['Event Proper', 30, 100, 40, 20, 50, 15],
                     ['Post-event', 50, 80, 90, 75, 99, 95,88,20,30]
                 ],
                 type: 'line',
@@ -171,58 +115,6 @@
             }
         });
     </script>
-
-    {{--<script !src="">--}}
-        {{--function loadQuestions( deptID ) {--}}
-
-            {{--axios.get('{{ URL::to('/questions/getquestionswithresult') }}', {--}}
-                {{--params: {--}}
-                    {{--deptID: deptID,--}}
-                {{--}--}}
-            {{--})--}}
-                {{--.then(function (response) {--}}
-                    {{--$('#summaryTbody').empty();--}}
-                    {{--$('#summaryTbody').append(response.data.question_string);--}}
-                {{--})--}}
-                {{--.catch(function (error) {--}}
-                    {{--console.log(error);--}}
-                {{--});--}}
-
-        {{--}--}}
-
-        {{--$('#selRateeSummary').on('change', function () {--}}
-            {{--var deptName = $(this).val();--}}
-            {{--axios.get('{{ URL::to('/users/getusers') }}', {--}}
-                {{--params: {--}}
-                    {{--dept: deptName,--}}
-                {{--}--}}
-            {{--})--}}
-                {{--.then(function (response) {--}}
-                    {{--$('#selRateeEmp').empty();--}}
-                    {{--$('select#selRateeEmp').append(response.data.optionList);--}}
-
-{{--//                    loadQuestions( response.data.department );--}}
-                {{--})--}}
-                {{--.catch(function (error) {--}}
-                    {{--console.log(error);--}}
-                {{--});--}}
-        {{--});--}}
-
-        {{--$('#selRateeEmp').on('change', function () {--}}
-            {{--var deptName = $('#selRateeSummary').val();--}}
-            {{--axios.get('{{ URL::to('/users/getusers') }}', {--}}
-                {{--params: {--}}
-                    {{--dept: deptName,--}}
-                {{--}--}}
-            {{--})--}}
-                {{--.then(function (response) {--}}
-                    {{--loadQuestions( response.data.department );--}}
-                {{--})--}}
-                {{--.catch(function (error) {--}}
-                    {{--console.log(error);--}}
-                {{--});--}}
-        {{--});--}}
-    {{--</script>--}}
 @endsection
 
 

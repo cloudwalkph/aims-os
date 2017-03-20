@@ -158,10 +158,12 @@
                 this.$http.put(url, data).then(response => {
                     console.log(response)
 
+                    toastr.success('Successfully edited client', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                     $('#editClient').modal('hide')
                 }, error => {
+                    toastr.error('Failed editing client', 'Error')
                     console.log(error)
                 })
             }

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
 
@@ -28,19 +28,15 @@
                         @foreach($results as $jo)
 
                             <tr>
-                                <td><a href="/validate/summary_result"> {{ $jo['joId'] }} </a></td>
-{{--                                <td><a href="/validate/create_project/{{ $jo['joId'] }}"> {{ $jo['joId'] }} </a></td>--}}
+                                <td><a href="/evaluate/{{ $jo['joId'] }}"> {{ $jo['joId'] }} </a></td>
                                 <td>{{ $jo['projName'] }}</td>
                                 <td>{{$jo['projecttypes']}}</td>
                                 <td>{{ $jo['contact'] }}</td>
                                 <td>{{ $jo['brands'] }}</td>
-                                {{--<td>sit</td>--}}
                                 <td>{{ $jo['status'] }}</td>
                                 <td>{{ $jo['status'] }}</td>
                                 <td>
-                                    {{--<a href="/validate/summary_result" class="btn btn-success btn-rounded btn-ripple"><i class="fa fa-eye" aria-hidden="true"></i></a>--}}
-                                        {{--<a href="#" class="btn btn-warning btn-rounded btn-ripple editButtonEvent" alt="'.$row->jobID.'" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil" aria-hidden="true"></i></a>--}}
-                                    <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="'.$row->jobID.'"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                    <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="'.$row->jobID.'"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         @endforeach

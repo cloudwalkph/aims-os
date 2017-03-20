@@ -13,7 +13,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/toastr/build/toastr.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.steps.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -84,15 +86,21 @@
                         <a href="/admin/vehicle-types"><i class="fa fa-fw fa-truck"></i> Vehicle Types</a>
                     </li>
                     <li>
-                        <a href="/validate">
-                            <i class="fa fa-fw fa-check-square-o"></i> Validate
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo">
+                            <i class="fa fa-fw fa-check-square-o"></i> Validate <i class="fa fa-fw fa-caret-down"></i>
+                            <ul id="demo" class="collapse" aria-expanded="true">
+                                <li>
+                                    <a href="/validate">Validation List</a>
+                                </li>
+                                <li>
+                                    <a href="/evaluate">Evaluate</a>
+                                </li>
+                            </ul>
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
-
-
 
         <div id="wrapper">
             <div id="page-wrapper" style="min-height: 765px;">
@@ -101,11 +109,14 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <!-- Scripts -->
     @yield('scripts')
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.2.0.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.steps.js') }}"></script>
 </body>
 
 @yield('c3scripts')

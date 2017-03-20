@@ -148,10 +148,12 @@
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
+                    toastr.success('Successfully added new client', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                     $('#createClient').modal('hide')
                 }, error => {
+                    toastr.error('Failed in creating new client', 'Error')
                     console.log(error)
                 })
             }

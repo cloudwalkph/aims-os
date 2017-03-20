@@ -276,10 +276,12 @@
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
+                    toastr.success('Successfully added new venue', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                     $('#createVenue').modal('hide')
                 }, error => {
+                    toastr.success('Failed in creating new venue', 'Success')
                     console.log(error)
                 })
             }

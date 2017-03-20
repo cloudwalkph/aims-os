@@ -30,7 +30,7 @@
                                     {{projectName(job)}}
                                 </span>
                             </td>
-                            <td>{{job.description}}</td>
+                            <td>{{job.remarks}}</td>
                             <td>{{convertDate(job.deadline)}}</td>
                             <td>
                                 <span>

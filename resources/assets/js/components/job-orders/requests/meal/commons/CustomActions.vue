@@ -26,8 +26,10 @@
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
 
+                        toastr.success('Successfully deleted meal request', 'Success')
                         this.$events.fire('reload-table')
                     }, error => {
+                        toastr.error('Failed in deleting meal request', 'Error')
                         console.log(error)
                     })
                 }

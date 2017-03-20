@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Inventory extends Model
 {
-    use Softdeletes;
+    use SoftDeletes;
 
     protected $table = 'inventories';
     protected $guarded = ['id'];

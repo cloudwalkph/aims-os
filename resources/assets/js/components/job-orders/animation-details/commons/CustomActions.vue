@@ -25,9 +25,10 @@
                     let url = `/api/v1/job-order-animation-details/${data.id}`;
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
-
+                        toastr.success('Successfully deleted animation details', 'Success')
                         this.$events.fire('reload-table')
                     }, error => {
+                        toastr.error('Failed in deleting animation details', 'Error')
                         console.log(error)
                     })
                 }

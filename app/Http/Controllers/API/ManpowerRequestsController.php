@@ -12,7 +12,7 @@ class ManpowerRequestsController extends Controller {
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, $joId)
     {
         // user
         $user = $request->user();
@@ -27,6 +27,7 @@ class ManpowerRequestsController extends Controller {
 
         $query->join('job_orders', 'job_orders.id', '=', 'job_order_manpowers.job_order_id')
             ->join('manpower_types', 'manpower_types.id', '=', 'job_order_manpowers.manpower_type_id')
+            ->where('job_order_manpowers.job_order_id', '=', $joId)
             ->select('job_order_manpowers.*', 'job_orders.job_order_no', 'manpower_types.name');
 
         // Filter

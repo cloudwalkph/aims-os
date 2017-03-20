@@ -26,8 +26,10 @@
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
 
+                        toastr.success('Successfully deleted user assignment in JO', 'Success')
                         this.$events.fire('reload-table')
                     }, error => {
+                        toastr.error('Failed in deleting user assignment in JO', 'Error')
                         console.log(error)
                     })
                 }

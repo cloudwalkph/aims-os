@@ -2,7 +2,7 @@
     <div>
         <vehicle-filter-bar></vehicle-filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/job-order-vehicles"
+                  :api-url="apiUrl"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -50,6 +50,7 @@
         },
         data() {
             return {
+                apiUrl: `/api/v1/job-order-vehicles/${$('#jobOrderId').val()}`,
                 fields: [
                     {
                         name: '__sequence',

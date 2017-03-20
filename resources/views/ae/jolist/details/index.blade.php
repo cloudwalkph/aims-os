@@ -2,7 +2,59 @@
 
 @section('scripts')
     <script>
+        //Save or update data
+        function eventSave() {
+            var list = {};
+            var joId = $('#jobOrderId').val();
+            var formData = document.getElementsByClassName('eventDataField');
+            for(var i = 0; i< formData.length;i++){
+                list[formData[i].name]= formData[i].value;
+            }
+            list['_token'] = $('#eventDetails').find('input[name=_token]' ).val();
+            //used to determine the http verb to use [add=POST], [update=PUT]
+            var type = 'POST'; //for creating new resource
+            var url = '/ae/jo/'+joId+'/details/';
+                console.log(list);
 
+            $.ajax({
+                type: type,
+                url: url,
+                data: list,
+                success: function () {
+                    toastr.success('Successfully saved event details', 'Success')
+                },
+                error: function(data) {
+                    toastr.error('Failed in saving event details', 'Error')
+                    console.log('Error:', data);
+                }
+            });
+        }
+        function momSave() {
+            var list = {};
+            var joId = $('#jobOrderId').val();
+            var formData = document.getElementsByClassName('dataField');
+            for(var i = 0; i< formData.length;i++){
+                list[formData[i].name]= formData[i].value;
+            }
+            list['_token'] = $('#momForm').find('input[name=_token]' ).val();
+            //used to determine the http verb to use [add=POST], [update=PUT]
+            var type = 'POST'; //for creating new resource
+            var url = '/ae/jo/'+joId+'/mom/';
+            console.log(list);
+
+            $.ajax({
+                type: type,
+                url: url,
+                data: list,
+                success: function () {
+                    toastr.success('Successfully saved mom details', 'Success')
+                },
+                error: function(data) {
+                    toastr.error('Failed in saving mom details', 'Error')
+                    console.log('Error:', data);
+                }
+            });
+        }
     </script>
 @endsection
 
