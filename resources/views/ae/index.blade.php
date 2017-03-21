@@ -113,7 +113,7 @@
                                 <label class="text-muted">Validate</label>
                             </div>
                             <div class="options">
-                                <a href="/validate" class="btn btn-primary btn-lg">JO Lists</a>
+                                <a href="/validate" class="btn btn-primary btn-lg">View Lists</a>
                             </div>
                         </div>
                     </div>
