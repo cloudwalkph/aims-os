@@ -102,6 +102,10 @@ Route::group(['prefix' => 'operations'], function () {
     Route::get('/', 'Front\Operations\OperationsController@index');
 });
 
+Route::group(['prefix' => 'users'], function () {
+    Route::get('/getusers', 'Front\User\UsersController@showUsers');
+});
+
 Route::group(['prefix' => 'validate'], function () {
     Route::get('/', 'Front\Validate\ValidateController@index');
 //    Route::get('/create_project', 'Front\Validate\ValidateController@create_project');
@@ -109,10 +113,6 @@ Route::group(['prefix' => 'validate'], function () {
 //    Route::get('/create_project/{id}', 'Front\Validate\ValidateController@create_project');
 //    Route::get('/summary_result', 'Front\Validate\ValidateController@summary_result');
 //    Route::get('/create_project/{id}/summary_view', 'Front\Validate\ValidateController@summary_view');
-});
-
-Route::group(['prefix' => 'users'], function () {
-    Route::get('/getusers', 'Front\User\UsersController@showUsers');
 });
 
 Route::group(['prefix' => 'questions'], function () {

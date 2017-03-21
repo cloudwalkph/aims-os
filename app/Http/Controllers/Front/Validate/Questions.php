@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Assignment;
+use App\Models\UserProfile;
 
 class Questions extends Controller
 {
@@ -58,8 +59,15 @@ class Questions extends Controller
 
     public function chooseemployee($jid, $category)
     {
-        dd(Assignment::loadRatees($jid));
-        return view('admin/validate/rateeList', compact('jid','category'));
+        $results = [];
+        $loadEmployees = Assignment::loadRatees($jid);
+        foreach ($loadEmployees as $loadEmployee){
+
+            $results = UserProfile::find($loadEmployee->user_id)->select('first_name', 'middle_name', 'last_name', 'user_id')->get();
+
+        }
+
+        return view('admin/validate/rateeList', compact('results'));
     }
 
     /**

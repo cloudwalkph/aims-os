@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\JobOrder;
-use App\Models\UserProfile;
 
 class Assignment extends Model
 {
@@ -19,19 +18,22 @@ class Assignment extends Model
         $returnArr = [];
 
         $jo_results = JobOrder::where('job_order_no', '=', $jid)->firstOrFail();
+
         $assigned_users = Assignment::where('job_order_id', '=', $jo_results->id)->get();
 
-        foreach ( $assigned_users as $assigned_user){
-            $user_profile = UserProfile::where('user_id', '=', $assigned_user->id)->first();
-
-            if(! $user_profile) {
-                continue;
-            }
-
-            echo $user_profile->user_id;
-//            dd($user_profile->first_name);
-//            $returnArr[$user_profile->user_id] = $user_profile->last_name.', '.$user_profile->first_name;
-        }
+        return $assigned_users;
+//        dd($assigned_users);
+//        foreach ( $assigned_users as $assigned_user){
+//            $user_profile = UserProfile::where('user_id', '=', $assigned_user->id)->hasMany();
+//
+//            if(! $user_profile) {
+//                continue;
+//            }
+//
+//            echo $user_profile->user_id;
+////            dd($user_profile->first_name);
+////            $returnArr[$user_profile->user_id] = $user_profile->last_name.', '.$user_profile->first_name;
+//        }
 //        dd(json_decode($returnArr));
     }
 }
