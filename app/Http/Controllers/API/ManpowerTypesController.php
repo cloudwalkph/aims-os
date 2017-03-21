@@ -66,6 +66,29 @@ class ManpowerTypesController extends Controller {
     }
 
     /**
+     * @param CreateManpowerTypeRequest $request
+     * @param $manpowerTypeId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(CreateManpowerTypeRequest $request, $manpowerTypeId)
+    {
+        $input = $request->all();
+
+        $manpowerType = null;
+        // Update manpower type
+        \DB::transaction(function() use ($input, $manpowerTypeId, &$manpowerType) {
+            $name = strtolower($input['name']);
+            $input['slug'] = str_replace(' ', '-', $name);
+
+            $manpowerType = ManpowerType::where('id', $manpowerTypeId)->first();
+
+            $manpowerType->update($input);
+        });
+
+        return response()->json($manpowerType, 200);
+    }
+
+    /**
      * @param $userId
      * @return \Illuminate\Http\JsonResponse
      */
