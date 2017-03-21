@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front\Validate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\User;
 use App\Models\Assignment;
 use App\Models\UserProfile;
 
@@ -52,6 +53,11 @@ class Questions extends Controller
         //
     }
 
+    public function showQuestions($jid, $category, $deptid, $uid)
+    {
+        echo $jid.$category.$deptid.$uid;
+    }
+
     public function choosecategory($jid)
     {
         return view('admin/validate/evaluate', compact('jid'));
@@ -63,11 +69,20 @@ class Questions extends Controller
         $loadEmployees = Assignment::loadRatees($jid);
         foreach ($loadEmployees as $loadEmployee){
 
-            $results = UserProfile::find($loadEmployee->user_id)->select('first_name', 'middle_name', 'last_name', 'user_id')->get();
+            $user = User::where( 'id', $loadEmployee->user_id )->first();
+            $user_details = array(
+                'userid' => $loadEmployee->user_id,
+                'name' => $user->profile->last_name.', '.$user->profile->first_name,
+                'deptid' => $user->department->id,
+                'department' => $user->department->name
+            );
+            array_push($results , $user_details);
 
         }
 
-        return view('admin/validate/rateeList', compact('results'));
+        $json = json_encode($results);
+
+        return view('admin/validate/rateeList', compact('results','jid','category'));
     }
 
     /**

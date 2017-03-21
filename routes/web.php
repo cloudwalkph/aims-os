@@ -69,6 +69,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/agencies', 'Front\Admin\AdminController@agencies');
     Route::get('/manpower-types', 'Front\Admin\AdminController@manpowerTypes');
     Route::get('/vehicle-types', 'Front\Admin\AdminController@vehicleTypes');
+    Route::get('/vehicle-types', 'Front\Admin\AdminController@vehicleTypes');
+    Route::get('/validate', 'Front\Validate\ValidateController@showJoLists');
+    Route::get('/validations/{jid}', 'Front\Validate\ValidateController@validate_results');
 });
 
 Route::group(['prefix' => 'inventory'], function () {
@@ -124,4 +127,5 @@ Route::group(['prefix' => 'evaluate'], function () {
     Route::get('/', 'Front\Validate\Questions@index');
     Route::get('/{jid}', 'Front\Validate\Questions@choosecategory');
     Route::get('/{jid}/{category}', 'Front\Validate\Questions@chooseemployee');
+    Route::get('/{jid}/{category}/{dptid}/{uid}', 'Front\Validate\Questions@showQuestions');
 });

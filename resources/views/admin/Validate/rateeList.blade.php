@@ -19,11 +19,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($results as $result)
 
+                        <?php
+                        ?>
+                        @foreach( $results as $result)
                             <tr>
-                                <td>{{ $result -> last_name.', '.$result-> first_name.' '.$result -> middle_name }}</td>
-                                <td>{{}}</td>
+                                <td><a href="/evaluate/{{ $jid }}/{{ $category }}/{{ $result['deptid'] }}/{{ $result['userid'] }}">{{ $result['name'] }}</a></td>
+                                <td>{{ $result['department'] }}</td>
                             </tr>
                         @endforeach
                         </tbody>
