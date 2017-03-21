@@ -25,6 +25,42 @@ class ValidateController extends Controller
      */
     public function index()
     {
+        $results = $this->loadJobOrders();
+
+        return view('admin/validate', compact('results'));
+    }
+    
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function validate_results( $id ){
+
+        $jos = JobOrder::where('job_order_no',$id)->first();
+        return view('admin/Validate/summary_result', compact('jos','results'));
+    }
+
+    public function summary_result(){
+        $questions = ValidateQuestions::where('qdept','2')->get();
+        $departments = Department::all();
+        $employees = UserProfile::all();
+        return view('admin/Validate/summary_result', compact('jos', 'questions', 'departments', 'load_questions', 'employees'));
+    }
+
+    public function summary_view($pn){
+        $jos = JobOrder::where('job_order_no',$pn)->first();
+        return view('admin/Validate/summary_view', compact('jos'));
+    }
+
+    public function showJoLists(){
+        $results = $this->loadJobOrders();
+        return view('admin/Validate/evaluateAdmin', compact('results'));
+    }
+
+    public function loadJobOrders(){
         $results = array();
 
         $jos = JobOrder::all();
@@ -77,35 +113,6 @@ class ValidateController extends Controller
             array_push($results, $jobArray);
         }
 
-        return view('admin/validate', compact('results'));
-    }
-    
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function validate_results( $id ){
-
-        $jos = JobOrder::where('job_order_no',$id)->first();
-        return view('admin/Validate/summary_result', compact('jos','results'));
-    }
-
-    public function summary_result(){
-        $questions = ValidateQuestions::where('qdept','2')->get();
-        $departments = Department::all();
-        $employees = UserProfile::all();
-        return view('admin/Validate/summary_result', compact('jos', 'questions', 'departments', 'load_questions', 'employees'));
-    }
-
-    public function summary_view($pn){
-        $jos = JobOrder::where('job_order_no',$pn)->first();
-        return view('admin/Validate/summary_view', compact('jos'));
-    }
-
-    public function questionaires(){
-
+        return $results;
     }
 }

@@ -90,7 +90,7 @@
                             <i class="fa fa-fw fa-check-square-o"></i> Validate <i class="fa fa-fw fa-caret-down"></i>
                             <ul id="demo" class="collapse" aria-expanded="true">
                                 <li>
-                                    <a href="/validate">Validation List</a>
+                                    <a href="/admin/validate">Validation List</a>
                                 </li>
                                 <li>
                                     <a href="/evaluate">Evaluate</a>

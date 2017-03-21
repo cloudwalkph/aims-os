@@ -15,25 +15,11 @@ class Assignment extends Model
 
     static function loadRatees( $jid = null ){
 
-        $returnArr = [];
-
         $jo_results = JobOrder::where('job_order_no', '=', $jid)->firstOrFail();
 
         $assigned_users = Assignment::where('job_order_id', '=', $jo_results->id)->get();
 
         return $assigned_users;
-//        dd($assigned_users);
-//        foreach ( $assigned_users as $assigned_user){
-//            $user_profile = UserProfile::where('user_id', '=', $assigned_user->id)->hasMany();
-//
-//            if(! $user_profile) {
-//                continue;
-//            }
-//
-//            echo $user_profile->user_id;
-////            dd($user_profile->first_name);
-////            $returnArr[$user_profile->user_id] = $user_profile->last_name.', '.$user_profile->first_name;
-//        }
-//        dd(json_decode($returnArr));
+
     }
 }
