@@ -55,10 +55,12 @@
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
+                    toastr.success('Successfully added new agency', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                     $('#agencyModal').modal('hide')
                 }, error => {
+                    toastr.error('Failed in adding new agency', 'Error')
                     console.log(error)
                 })
             }

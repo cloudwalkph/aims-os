@@ -24,6 +24,7 @@
         </div>
 
         <manpower-type-modal></manpower-type-modal>
+        <manpower-type-update-modal ref="updateManpowerType"></manpower-type-update-modal>
     </div>
 </template>
 
@@ -39,11 +40,13 @@
     import CustomActions from './commons/CustomActions'
     import FilterBar from './commons/FilterBar'
     import TypeModal from './commons/form.vue'
+    import ManpowerTypeEditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
     Vue.component('manpower-type-custom-actions', CustomActions)
     Vue.component('filter-bar', FilterBar)
     Vue.component('manpower-type-modal', TypeModal)
+    Vue.component('manpower-type-update-modal', ManpowerTypeEditModal)
 
     export default {
         components: {
@@ -68,7 +71,7 @@
                     {
                         name: 'name',
                         sortField: 'name',
-                        title: 'Agency Name'
+                        title: 'Manpower Type Name'
                     },
                     {
                         name: 'slug',
@@ -146,6 +149,11 @@
             'filter-reset' () {
                 this.moreParams = {}
                 Vue.nextTick( () => this.$refs.vuetable.refresh() )
+            },
+            'update-manpower-type-show' (data) {
+                Vue.nextTick(() => {
+                    this.$refs.updateManpowerType.populateData(data)
+                })
             }
         }
     }

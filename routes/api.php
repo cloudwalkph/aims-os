@@ -173,6 +173,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/all', 'ManpowerTypesController@all');
         Route::get('/', 'ManpowerTypesController@index');
         Route::post('/', 'ManpowerTypesController@store');
+        Route::put('/{typeId}', 'ManpowerTypesController@update');
         Route::delete('/{typeId}', 'ManpowerTypesController@delete');
     });
 

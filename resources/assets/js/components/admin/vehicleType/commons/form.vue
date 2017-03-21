@@ -55,10 +55,12 @@
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
+                    toastr.success('Successfully added new vehicle type', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                     $('#typeModal').modal('hide')
                 }, error => {
+                    toastr.error('Failed in adding new vehicle type', 'Error')
                     console.log(error)
                 })
             }
