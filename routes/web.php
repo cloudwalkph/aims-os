@@ -69,6 +69,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/agencies', 'Front\Admin\AdminController@agencies');
     Route::get('/manpower-types', 'Front\Admin\AdminController@manpowerTypes');
     Route::get('/vehicle-types', 'Front\Admin\AdminController@vehicleTypes');
+    Route::get('/vehicle-types', 'Front\Admin\AdminController@vehicleTypes');
+    Route::get('/validate', 'Front\Validate\ValidateController@showJoLists');
+    Route::get('/validations/{jid}', 'Front\Validate\ValidateController@validate_results');
 });
 
 Route::group(['prefix' => 'inventory'], function () {
@@ -102,19 +105,27 @@ Route::group(['prefix' => 'operations'], function () {
     Route::get('/', 'Front\Operations\OperationsController@index');
 });
 
+Route::group(['prefix' => 'users'], function () {
+    Route::get('/getusers', 'Front\User\UsersController@showUsers');
+});
+
 Route::group(['prefix' => 'validate'], function () {
     Route::get('/', 'Front\Validate\ValidateController@index');
 //    Route::get('/create_project', 'Front\Validate\ValidateController@create_project');
-    Route::get('/create_project/{id}', 'Front\Validate\ValidateController@create_project');
-    Route::get('/summary_result', 'Front\Validate\ValidateController@summary_result');
-    Route::get('/create_project/{id}/summary_view', 'Front\Validate\ValidateController@summary_view');
-});
-
-Route::group(['prefix' => 'users'], function () {
-    Route::get('/getusers', 'Front\User\UsersController@showUsers');
+    Route::get('/results/{id}', 'Front\Validate\ValidateController@validate_results');
+//    Route::get('/create_project/{id}', 'Front\Validate\ValidateController@create_project');
+//    Route::get('/summary_result', 'Front\Validate\ValidateController@summary_result');
+//    Route::get('/create_project/{id}/summary_view', 'Front\Validate\ValidateController@summary_view');
 });
 
 Route::group(['prefix' => 'questions'], function () {
     Route::get('/getquestions', 'Front\Validate\ValidateQuestionsController@showQuestions');
     Route::get('/getquestionswithresult', 'Front\Validate\ValidateQuestionsController@showResults');
+});
+
+Route::group(['prefix' => 'evaluate'], function () {
+    Route::get('/', 'Front\Validate\Questions@index');
+    Route::get('/{jid}', 'Front\Validate\Questions@choosecategory');
+    Route::get('/{jid}/{category}', 'Front\Validate\Questions@chooseemployee');
+    Route::get('/{jid}/{category}/{dptid}/{uid}', 'Front\Validate\Questions@showQuestions');
 });

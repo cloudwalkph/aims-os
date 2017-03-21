@@ -25,6 +25,42 @@ class ValidateController extends Controller
      */
     public function index()
     {
+        $results = $this->loadJobOrders();
+
+        return view('admin/validate', compact('results'));
+    }
+    
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function validate_results( $id ){
+
+        $jos = JobOrder::where('job_order_no',$id)->first();
+        return view('admin/Validate/summary_result', compact('jos','results'));
+    }
+
+    public function summary_result(){
+        $questions = ValidateQuestions::where('qdept','2')->get();
+        $departments = Department::all();
+        $employees = UserProfile::all();
+        return view('admin/Validate/summary_result', compact('jos', 'questions', 'departments', 'load_questions', 'employees'));
+    }
+
+    public function summary_view($pn){
+        $jos = JobOrder::where('job_order_no',$pn)->first();
+        return view('admin/Validate/summary_view', compact('jos'));
+    }
+
+    public function showJoLists(){
+        $results = $this->loadJobOrders();
+        return view('admin/Validate/evaluateAdmin', compact('results'));
+    }
+
+    public function loadJobOrders(){
         $results = array();
 
         $jos = JobOrder::all();
@@ -32,8 +68,12 @@ class ValidateController extends Controller
             $userProfile = UserProfile::where('user_id', $jo->user_id)->first();
             $joc = JobOrderClient::where('job_order_id', $jo->id)->first();
 
-            $client = Client::where('id', $joc->client_id)->first();
+            if(! $joc) {
+                continue;
+            }
 
+            $client = Client::where('id', $joc->client_id)->first();
+//            dd($client->contact_person);
             $strBrands = '';
             $i = 1;
             $t = count($joc->brands);
@@ -72,37 +112,7 @@ class ValidateController extends Controller
             );
             array_push($results, $jobArray);
         }
-//            dd($results);
-//        $joc = JobOrderClient::all();
-//        dd($jos);
-        return view('admin/validate', compact('results'));
-    }
-    
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function create_project( $id ){
-
-        $jos = JobOrder::where('job_order_no',$id)->first();
-        $questions = ValidateQuestions::all();
-        $load_questions = ValidateQuestions::all();
-        $departments = Department::all();
-        return view('admin/Validate/create_project', compact('jos', 'questions', 'departments', 'load_questions'));
-    }
-
-    public function summary_result(){
-        $questions = ValidateQuestions::where('qdept','2')->get();
-        $departments = Department::all();
-        $employees = UserProfile::all();
-        return view('admin/Validate/summary_result', compact('jos', 'questions', 'departments', 'load_questions', 'employees'));
-    }
-
-    public function summary_view($pn){
-        $jos = JobOrder::where('job_order_no',$pn)->first();
-        return view('admin/Validate/summary_view', compact('jos'));
+        return $results;
     }
 }
