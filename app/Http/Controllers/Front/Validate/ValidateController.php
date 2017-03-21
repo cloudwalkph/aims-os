@@ -32,8 +32,12 @@ class ValidateController extends Controller
             $userProfile = UserProfile::where('user_id', $jo->user_id)->first();
             $joc = JobOrderClient::where('job_order_id', $jo->id)->first();
 
-            $client = Client::where('id', $joc->client_id)->first();
+            if(! $joc) {
+                continue;
+            }
 
+            $client = Client::where('id', $joc->client_id)->first();
+//            dd($client->contact_person);
             $strBrands = '';
             $i = 1;
             $t = count($joc->brands);
