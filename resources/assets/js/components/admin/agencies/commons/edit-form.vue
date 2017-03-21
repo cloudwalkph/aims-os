@@ -62,10 +62,12 @@
                 this.$http.put(url, data).then(response => {
                     console.log(response)
 
+                    toastr.success('Successfully editted agency', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                     $('#editAgency').modal('hide')
                 }, error => {
+                    toastr.error('Failed in editing agency', 'Error')
                     console.log(error)
                 })
             }
