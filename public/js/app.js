@@ -96035,15 +96035,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "btn btn-sm",
     on: {
       "click": function($event) {
-        _vm.itemAction('view-item', _vm.rowData, _vm.rowIndex)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-zoom-in"
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-sm",
-    on: {
-      "click": function($event) {
         _vm.itemAction('edit-item', _vm.rowData, _vm.rowIndex)
       }
     }
