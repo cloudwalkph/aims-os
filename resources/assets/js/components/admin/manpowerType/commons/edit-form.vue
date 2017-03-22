@@ -1,10 +1,10 @@
 <template>
-    <div class="modal fade" id="typeModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="editTypeModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add New Manpower Type</h4>
+                    <h4 class="modal-title" id="myModalLabel">Update Manpower Type</h4>
                 </div>
                 <div class="modal-body">
                     <form id="clientForm">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="saveProject">Save</button>
+                    <button type="button" class="btn btn-primary" @click="saveManpowerType">Save</button>
                 </div>
             </div>
         </div>
@@ -31,36 +31,42 @@
 
 <script>
     export default {
+        mounted() {
+            console.log('Component mounted.')
+        },
         data() {
             return {
-                name: '',
+                manpowerTypeId: '',
+                name: ''
             }
         },
-        mounted() {
-        },
         methods: {
+            populateData(data) {
+                this.name = data.name
+                this.manpowerTypeId = data.id
+            },
             resetForm() {
                 this.name = ''
+                this.manpowerTypeId = ''
             },
             inputChange(e) {
                 this[e.target.id] = e.target.value
             },
-            saveProject(e) {
+            saveManpowerType(e) {
 
                 let data = {
-                    name: this.name,
+                    name: this.name
                 }
 
-                let url = `/api/v1/manpower-types`;
-                this.$http.post(url, data).then(response => {
+                let url = `/api/v1/manpower-types/${this.manpowerTypeId}`;
+                this.$http.put(url, data).then(response => {
                     console.log(response)
 
-                    toastr.success('Successfully added new manpower type', 'Success')
+                    toastr.success('Successfully edited manpower type', 'Success')
                     this.$events.fire('reload-table')
-                    this.resetForm()
-                    $('#typeModal').modal('hide')
+                    $('#editTypeModal').modal('hide')
                 }, error => {
-                    toastr.error('Failed in adding new manpower type', 'Error')
+                    toastr.error('Failed in editing manpower type', 'Error')
                     console.log(error)
                 })
             }

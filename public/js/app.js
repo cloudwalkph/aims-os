@@ -41070,8 +41070,10 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('agencies-update-modal', _
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
+                    toastr.success('Successfully deleted agency', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting agency', 'Error');
                     console.log(error);
                 });
             } else if (action === 'edit-item') {
@@ -41193,10 +41195,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.put(url, data).then(function (response) {
                 console.log(response);
 
+                toastr.success('Successfully editted agency', 'Success');
                 _this.$events.fire('reload-table');
                 _this.resetForm();
                 $('#editAgency').modal('hide');
             }, function (error) {
+                toastr.error('Failed in editing agency', 'Error');
                 console.log(error);
             });
         }
@@ -41268,10 +41272,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
+                toastr.success('Successfully added new agency', 'Success');
                 _this.$events.fire('reload-table');
                 _this.resetForm();
                 $('#agencyModal').modal('hide');
             }, function (error) {
+                toastr.error('Failed in adding new agency', 'Error');
                 console.log(error);
             });
         }
@@ -41284,7 +41290,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
@@ -41315,14 +41321,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
+                    toastr.success('Successfully deleted manpower type', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting manpower type', 'Error');
                     console.log(error);
                 });
+            } else if (action === 'edit-item') {
+                this.$events.fire('update-manpower-type-show', data);
+                $('#editTypeModal').modal('show');
             }
         }
     }
 };
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
 /* 174 */
@@ -41426,10 +41438,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
+                toastr.success('Successfully added new manpower type', 'Success');
                 _this.$events.fire('reload-table');
                 _this.resetForm();
                 $('#typeModal').modal('hide');
             }, function (error) {
+                toastr.error('Failed in adding new manpower type', 'Error');
                 console.log(error);
             });
         }
@@ -41463,6 +41477,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__commons_FilterBar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__commons_FilterBar__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__commons_form_vue__ = __webpack_require__(333);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__commons_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__commons_form_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__commons_edit_form_vue__ = __webpack_require__(571);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__commons_edit_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__commons_edit_form_vue__);
 //
 //
 //
@@ -41493,6 +41509,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -41509,6 +41527,7 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IMPORTED_MODULE_8__commons_FilterBar___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-modal', __WEBPACK_IMPORTED_MODULE_9__commons_form_vue___default.a);
+__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-update-modal', __WEBPACK_IMPORTED_MODULE_10__commons_edit_form_vue___default.a);
 
 /* harmony default export */ __webpack_exports__["default"] = {
     components: {
@@ -41530,7 +41549,7 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-modal', __W
             }, {
                 name: 'name',
                 sortField: 'name',
-                title: 'Agency Name'
+                title: 'Manpower Type Name'
             }, {
                 name: 'slug',
                 sortField: 'slug',
@@ -41615,6 +41634,13 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-modal', __W
             __WEBPACK_IMPORTED_MODULE_5_vue___default.a.nextTick(function () {
                 return _this3.$refs.vuetable.refresh();
             });
+        },
+        'update-manpower-type-show': function updateManpowerTypeShow(data) {
+            var _this4 = this;
+
+            __WEBPACK_IMPORTED_MODULE_5_vue___default.a.nextTick(function () {
+                _this4.$refs.updateManpowerType.populateData(data);
+            });
         }
     }
 };
@@ -41655,8 +41681,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
+                    toastr.success('Successfully deleted user', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting user', 'Error');
                     console.log(error);
                 });
             }
@@ -41962,10 +41990,12 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
+                toastr.success('Successfully added new user', 'Success');
                 _this3.$events.fire('reload-table');
                 _this3.resetForm();
                 $('#userModal').modal('hide');
             }, function (error) {
+                toastr.error('Failed in adding new user', 'Error');
                 console.log(error);
             });
         }
@@ -42206,8 +42236,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
 
+                    toastr.success('Successfully deleted vehicle type', 'Success');
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting vehicle type', 'Error');
                     console.log(error);
                 });
             }
@@ -42317,10 +42349,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
+                toastr.success('Successfully added new vehicle type', 'Success');
                 _this.$events.fire('reload-table');
                 _this.resetForm();
                 $('#typeModal').modal('hide');
             }, function (error) {
+                toastr.error('Failed in adding new vehicle type', 'Error');
                 console.log(error);
             });
         }
@@ -96413,15 +96447,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "btn btn-sm",
     on: {
       "click": function($event) {
-        _vm.itemAction('view-item', _vm.rowData, _vm.rowIndex)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-zoom-in"
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-sm",
-    on: {
-      "click": function($event) {
         _vm.itemAction('edit-item', _vm.rowData, _vm.rowIndex)
       }
     }
@@ -97881,15 +97906,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "btn btn-sm",
     on: {
       "click": function($event) {
-        _vm.itemAction('view-item', _vm.rowData, _vm.rowIndex)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-zoom-in"
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-sm",
-    on: {
-      "click": function($event) {
         _vm.itemAction('edit-item', _vm.rowData, _vm.rowIndex)
       }
     }
@@ -98459,7 +98475,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "vuetable-pagination:change-page": _vm.onChangePage
     }
-  })], 1), _vm._v(" "), _c('manpower-type-modal')], 1)
+  })], 1), _vm._v(" "), _c('manpower-type-modal'), _vm._v(" "), _c('manpower-type-update-modal', {
+    ref: "updateManpowerType"
+  })], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -100098,15 +100116,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "btn btn-sm",
     on: {
       "click": function($event) {
-        _vm.itemAction('view-item', _vm.rowData, _vm.rowIndex)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-zoom-in"
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-sm",
-    on: {
-      "click": function($event) {
         _vm.itemAction('edit-item', _vm.rowData, _vm.rowIndex)
       }
     }
@@ -101688,6 +101697,224 @@ module.exports = function() {
 __webpack_require__(133);
 module.exports = __webpack_require__(134);
 
+
+/***/ }),
+/* 562 */,
+/* 563 */,
+/* 564 */,
+/* 565 */,
+/* 566 */,
+/* 567 */,
+/* 568 */,
+/* 569 */,
+/* 570 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    },
+    data: function data() {
+        return {
+            manpowerTypeId: '',
+            name: ''
+        };
+    },
+
+    methods: {
+        populateData: function populateData(data) {
+            this.name = data.name;
+            this.manpowerTypeId = data.id;
+        },
+        resetForm: function resetForm() {
+            this.name = '';
+            this.manpowerTypeId = '';
+        },
+        inputChange: function inputChange(e) {
+            this[e.target.id] = e.target.value;
+        },
+        saveManpowerType: function saveManpowerType(e) {
+            var _this = this;
+
+            var data = {
+                name: this.name
+            };
+
+            var url = '/api/v1/manpower-types/' + this.manpowerTypeId;
+            this.$http.put(url, data).then(function (response) {
+                console.log(response);
+
+                toastr.success('Successfully edited manpower type', 'Success');
+                _this.$events.fire('reload-table');
+                $('#editTypeModal').modal('hide');
+            }, function (error) {
+                toastr.error('Failed in editing manpower type', 'Error');
+                console.log(error);
+            });
+        }
+    }
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
+
+/***/ }),
+/* 571 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(570),
+  /* template */
+  __webpack_require__(572),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/nkmcheng/Public/projects/cloudwalk/aims-os/resources/assets/js/components/admin/manpowerType/commons/edit-form.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] edit-form.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-032737fe", Component.options)
+  } else {
+    hotAPI.reload("data-v-032737fe", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 572 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "editTypeModal",
+      "tabIndex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-lg",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('form', {
+    attrs: {
+      "id": "clientForm"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Name")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "name",
+      "id": "name",
+      "placeholder": "Name"
+    },
+    domProps: {
+      "value": _vm.name
+    },
+    on: {
+      "input": _vm.inputChange
+    }
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.saveManpowerType
+    }
+  }, [_vm._v("Save")])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Update Manpower Type")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-032737fe", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
