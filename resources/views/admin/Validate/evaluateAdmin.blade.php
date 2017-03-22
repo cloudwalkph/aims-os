@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
@@ -28,7 +28,7 @@
                         @foreach($results as $jo)
 
                             <tr>
-                                <td><a href="/evaluate/{{ $jo['joId'] }}"> {{ $jo['joId'] }} </a></td>
+                                <td><a href="/admin/validations/{{ $jo['joId'] }}"> {{ $jo['joId'] }} </a></td>
                                 <td>{{ $jo['projName'] }}</td>
                                 <td>{{$jo['projecttypes']}}</td>
                                 <td>{{ $jo['contact'] }}</td>
@@ -43,7 +43,7 @@
                         </tbody>
                     </table>
                 </div>
-            </main> 
+            </main>
         </div>
     </div>
 @endsection

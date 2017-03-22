@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateValidateAssignedQuestionsTable extends Migration
+class CreateValidateAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateValidateAssignedQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('validate_assigned_questions', function (Blueprint $table) {
+        Schema::create('validate_answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->json('questions');
+            $table->string('answers');
+            $table->integer('questions_id');
+            $table->integer('score');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateValidateAssignedQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('validate_assigned_questions');
+        Schema::dropIfExists('validate_answers');
     }
 }

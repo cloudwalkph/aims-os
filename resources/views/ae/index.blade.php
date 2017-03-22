@@ -102,6 +102,23 @@
                     </div>
                 </a>
             </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <a href="/validate">
+                    <div class="button-menu">
+                        <div class="hero-widget well well-sm">
+                            <div class="icon">
+                                <i class="fa fa-clipboard"></i>
+                            </div>
+                            <div class="text">
+                                <label class="text-muted">Validate</label>
+                            </div>
+                            <div class="options">
+                                <a href="/validate" class="btn btn-primary btn-lg">View Lists</a>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
 
 
         </div>

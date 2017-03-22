@@ -14,6 +14,7 @@
     <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/toastr/build/toastr.min.css') }}" rel="stylesheet"/>
 
     <!-- Scripts -->
@@ -117,6 +118,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.2.0.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.steps.js') }}"></script>
 
     <script>
         toastr.options = {
