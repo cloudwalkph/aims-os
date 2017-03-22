@@ -45747,6 +45747,8 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             this.$http.post(url, data).then(function (response) {
                 console.log(response);
 
+                $('.added-ae').append('<p>' + response.body.user.profile.first_name + ' ' + response.body.user.profile.last_name + '</p>');
+
                 toastr.success('Successfully added AE', 'Success');
             }, function (error) {
                 toastr.error('Failed in adding AE', 'Error');
@@ -93184,7 +93186,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('button', {
-    staticClass: "btn btn-primary",
+    staticClass: "btn btn-primary btn-block",
     attrs: {
       "type": "submit"
     },
