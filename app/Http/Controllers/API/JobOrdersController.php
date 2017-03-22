@@ -165,8 +165,40 @@ class JobOrdersController extends Controller {
         $jo = null;
         // Create the client
         \DB::transaction(function() use ($input, &$jo) {
+            $checkUser = JobOrderAddUser::where('job_order_id', $input['job_order_id'])
+                ->where('user_id', $input['user_id'])
+                ->first();
+
+            // Check if user already in this jo
+            if ($checkUser) {
+                $jo = null;
+
+                return;
+//                throw new \Exception('AE already exists');
+//                return response()->json(['error' => 'AE Already exists'], 400);
+            }
+
+            // Check if user is the owner of the jo
+            $checkOwner = JobOrder::where('user_id', $input['user_id'])
+                ->where('id', $input['job_order_id'])
+                ->first();
+
+            if ($checkOwner) {
+                $jo = null;
+
+                return;
+            }
+
             $jo = JobOrderAddUser::create($input);
         });
+
+        if ($jo) {
+            $jo = JobOrderAddUser::with('user.profile')
+                ->where('user_id', $jo->user_id)
+                ->first();
+        } else {
+            return response()->json(['error' => 'AE Already exists'], 400);
+        }
 
         return response()->json($jo, 201);
     }
