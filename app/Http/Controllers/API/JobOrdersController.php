@@ -178,6 +178,17 @@ class JobOrdersController extends Controller {
 //                return response()->json(['error' => 'AE Already exists'], 400);
             }
 
+            // Check if user is the owner of the jo
+            $checkOwner = JobOrder::where('user_id', $input['user_id'])
+                ->where('id', $input['job_order_id'])
+                ->first();
+
+            if ($checkOwner) {
+                $jo = null;
+
+                return;
+            }
+
             $jo = JobOrderAddUser::create($input);
         });
 
