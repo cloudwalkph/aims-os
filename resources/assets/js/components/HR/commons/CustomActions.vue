@@ -24,10 +24,12 @@
                 if (action === 'delete-item') {
                     let url = `/api/v1/hr/manpower/${data.id}`;
                     this.$http.delete(url, data).then(response => {
+                        toastr.success('Successfully deleted manpower', 'Success')
                         console.log(response)
 
                         this.$events.fire('reload-table')
                     }, error => {
+                        toastr.error('Failed in deleting manpower', 'Error')
                         console.log(error)
                     })
                 }
