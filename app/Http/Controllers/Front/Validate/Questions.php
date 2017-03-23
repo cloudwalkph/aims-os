@@ -46,10 +46,16 @@ class Questions extends Controller
 
     public function submitresult(Request $request)
     {
-        //
-//        dd($request->input());
+        $checkResults = ValidateResults::where( 'job_order_no', '=', $request['jno'] )
+            ->where('department_id', '=', $request['deptid'])
+            ->where('user_id', '=', $request['ratee'])
+            ->count();
 
-//        dd($request['q']);
+        if ( $checkResults > 0 ) {
+
+            return false;
+            
+        }
 
         foreach ( $request['q'] as $key => $score ){
 
