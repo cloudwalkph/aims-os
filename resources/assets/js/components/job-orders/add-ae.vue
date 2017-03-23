@@ -44,7 +44,7 @@
                 });
             },
             saveProject(e) {
-                $(e.target).props('disabled', true);
+                $(e.target).prop('disabled', true);
 
                 let jobOrderId = $('#jobOrderId').val();
                 let data = {
@@ -59,11 +59,11 @@
                     $('.added-ae').append('<p>' + response.body.user.profile.first_name + ' ' + response.body.user.profile.last_name +'</p>');
 
                     toastr.success('Successfully added AE', 'Success')
-                    $(e.target).props('disabled', false);
+                    $(e.target).prop('disabled', false);
                 }, error => {
                     toastr.error('Failed in adding AE', 'Error')
                     console.log(error)
-                    $(e.target).props('disabled', false);
+                    $(e.target).prop('disabled', false);
                 })
             }
         }
