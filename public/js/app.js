@@ -45746,12 +45746,13 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             });
         },
         saveProject: function saveProject(e) {
+            $(e.target).props('disabled', true);
+
             var jobOrderId = $('#jobOrderId').val();
             var data = {
                 job_order_id: jobOrderId,
                 user_id: this.user_id
             };
-            console.log(data);
 
             var url = '/api/v1/job-orders/add-ae';
             this.$http.post(url, data).then(function (response) {
@@ -45760,9 +45761,11 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
                 $('.added-ae').append('<p>' + response.body.user.profile.first_name + ' ' + response.body.user.profile.last_name + '</p>');
 
                 toastr.success('Successfully added AE', 'Success');
+                $(e.target).props('disabled', false);
             }, function (error) {
                 toastr.error('Failed in adding AE', 'Error');
                 console.log(error);
+                $(e.target).props('disabled', false);
             });
         }
     }
