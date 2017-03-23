@@ -40567,6 +40567,16 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('CustomSingleAction', __WE
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -94001,35 +94011,46 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "padding-top": "10px",
       "padding-bottom": "10px"
     }
-  }, [_c('span', [_vm._v("Job Order Number : ")]), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.data))])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('span', [_vm._v("Job Order Number : ")]), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.data))])])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
+    staticClass: "container-fluid"
+  }, [_c('div', {
     staticClass: "col-md-8 col-md-offset-2"
   }, [_c('table', {
     staticClass: "table table-striped"
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.joManpowerList), function(man) {
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.joManpowerList), function(man) {
     return _c('tr', [_c('td', [_vm._v(_vm._s(man.manpower_type.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(man.manpower_needed))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(man.rate))])])
-  }))])]), _vm._v(" "), _c('div', {
+  }))])])]), _vm._v(" "), _c('div', {
     staticClass: "clearfix"
   }), _vm._v(" "), _c('hr', {
     staticStyle: {
       "border-color": "#000",
       "margin": "50px 0"
     }
-  }), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "tab-content"
   }, [_c('div', {
     staticClass: "tab-pane active",
+    staticStyle: {
+      "padding-top": "30px"
+    },
     attrs: {
       "role": "tabpanel",
       "id": "plan"
     }
-  }, [_c('h3', [_vm._v("Manpower")]), _vm._v(" "), _c('vuetable', {
+  }, [_c('h3', [_vm._v("Manpower")]), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive",
+    staticStyle: {
+      "height": "300px",
+      "overflow-y": "auto"
+    }
+  }, [_c('vuetable', {
     ref: "vuetable_manpower",
     attrs: {
       "api-url": "/api/v1/hr/manpower",
       "fields": _vm.fields,
       "multi-sort": true
     }
-  }), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "col-md-8"
   }, [_c('h3', [_vm._v("Selected Manpower")]), _vm._v(" "), _c('table', {
     staticClass: "table table-striped"
@@ -94378,8 +94399,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "21px"
     }
-  })])])])], 2)])], 1), _vm._v(" "), _c('div', {
+  })])])])], 2)])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane",
+    staticStyle: {
+      "padding-top": "30px"
+    },
     attrs: {
       "role": "tabpanel",
       "id": "final_deployment"
@@ -94410,7 +94434,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }))])])
   })], 2)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
+  return _c('thead', [_c('tr', [_c('td', [_vm._v("Manpower")]), _vm._v(" "), _c('td', [_vm._v("Manpower Needed")]), _vm._v(" "), _c('td', [_vm._v("Rate")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container-fluid"
+  }, [_c('div', {
+    staticClass: "col-md-4 col-md-offset-4"
+  }, [_c('ul', {
     staticClass: "nav nav-tabs",
     attrs: {
       "role": "tablist"
@@ -94438,9 +94468,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "tab",
       "data-toggle": "tab"
     }
-  }, [_vm._v("Final Deployment")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('td', [_vm._v("Manpower")]), _vm._v(" "), _c('td', [_vm._v("Manpower Needed")]), _vm._v(" "), _c('td', [_vm._v("Rate")])])])
+  }, [_vm._v("Final Deployment")])])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('td', [_vm._v("Full Name")]), _vm._v(" "), _c('td', [_vm._v("Manpower Type")]), _vm._v(" "), _c('td', [_vm._v("Assigned Venue")]), _vm._v(" "), _c('td', [_vm._v("Action")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
