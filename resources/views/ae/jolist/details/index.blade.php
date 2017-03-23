@@ -14,7 +14,7 @@
             //used to determine the http verb to use [add=POST], [update=PUT]
             var type = 'POST'; //for creating new resource
 
-            let url = `/ae/jo/${joId}/details/`;
+            let url = `/api/v1/job-orders/${joId}/details/`;
             axios.post(url, list).then(function(res) {
                 toastr.success('Successfully saved event details', 'Success')
             }).catch(function(error) {
@@ -33,7 +33,7 @@
 //            list['_token'] = $('#momForm').find('input[name=_token]' ).val();
             //used to determine the http verb to use [add=POST], [update=PUT]
 
-            let url = `/ae/jo/${joId}/mom/`;
+            let url = `/api/v1/job-orders/${joId}/mom/`;
             axios.post(url, list).then(function(res) {
                 toastr.success('Successfully saved mom details', 'Success');
             }).catch(function(error) {
