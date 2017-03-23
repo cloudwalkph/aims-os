@@ -76,6 +76,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('/add-ae', 'JobOrdersController@addAe');
         Route::put('/{jobOrderId}', 'JobOrdersController@update');
         Route::delete('/{jobOrderId}', 'JobOrdersController@delete');
+        Route::post('/{joId}/mom', 'JobOrdersController@saveJobOrderMOM');
+        Route::post('/{joId}/details', 'JobOrdersController@saveEventDetails');
 
     });
 

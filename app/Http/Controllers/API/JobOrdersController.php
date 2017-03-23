@@ -8,6 +8,8 @@ use App\Models\JobOrder;
 use App\Models\JobOrderAddUser;
 use App\Models\JobOrderClient;
 use App\Models\JobOrderDepartmentInvolved;
+use App\Models\JobOrderDetail;
+use App\Models\JobOrderMom;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
 
@@ -201,5 +203,23 @@ class JobOrdersController extends Controller {
         }
 
         return response()->json($jo, 201);
+    }
+
+    public function saveJobOrderMOM(Request $request, $joId)
+    {
+        $input = $request->all();
+        $input['job_order_id'] = $joId;
+        $mom = JobOrderMom::create($input);
+
+        return response()->json($mom, 200);
+    }
+
+    public function saveEventDetails(Request $request, $joId)
+    {
+        $input = $request->all();
+        $input['job_order_id'] = $joId;
+        $detail = JobOrderDetail::create($input);
+
+        return response()->json($detail, 200);
     }
 }
