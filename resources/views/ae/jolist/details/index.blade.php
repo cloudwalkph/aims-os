@@ -18,7 +18,7 @@
 
             $.ajax({
                 type: type,
-                url: url,
+                url: '/ae/jo/'+joId+'/details/',
                 data: list,
                 success: function () {
                     toastr.success('Successfully saved event details', 'Success')
@@ -44,7 +44,7 @@
 
             $.ajax({
                 type: type,
-                url: url,
+                url: '/ae/jo/'+joId+'/mom/',
                 data: list,
                 success: function () {
                     toastr.success('Successfully saved mom details', 'Success')
