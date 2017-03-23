@@ -61,5 +61,20 @@ class DepartmentsTableSeeder extends Seeder
             'slug'  => 'operations',
             'name'  => 'Operations'
         ]);
+
+        Department::create([
+            'slug'  => 'activations',
+            'name'  => 'Activations'
+        ]);
+
+        Department::create([
+            'slug'  => 'negotiators',
+            'name'  => 'Negotiators'
+        ]);
+
+        Department::create([
+            'slug'  => 'tl',
+            'name'  => 'Team Leader'
+        ]);
     }
 }

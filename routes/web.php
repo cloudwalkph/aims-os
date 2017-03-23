@@ -121,11 +121,12 @@ Route::group(['prefix' => 'validate'], function () {
 Route::group(['prefix' => 'questions'], function () {
     Route::get('/getquestions', 'Front\Validate\ValidateQuestionsController@showQuestions');
     Route::get('/getquestionswithresult', 'Front\Validate\ValidateQuestionsController@showResults');
+    Route::post('/submitresults', 'Front\Validate\Questions@submitresult');
 });
 
 Route::group(['prefix' => 'evaluate'], function () {
     Route::get('/', 'Front\Validate\Questions@index');
-    Route::get('/{jid}', 'Front\Validate\Questions@choosecategory');
-    Route::get('/{jid}/{category}', 'Front\Validate\Questions@chooseemployee');
-    Route::get('/{jid}/{category}/{dptid}/{uid}', 'Front\Validate\Questions@showQuestions');
+    Route::get('/{jno}', 'Front\Validate\Questions@choosecategory');
+    Route::get('/{jid}/{eventCategory}', 'Front\Validate\Questions@chooseemployee');
+    Route::get('/{jno}/{eventCategory}/{dptid}/{rateeId}', 'Front\Validate\Questions@showQuestions');
 });
