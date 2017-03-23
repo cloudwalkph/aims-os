@@ -24,7 +24,7 @@
                         ?>
                         @foreach( $results as $result)
                             <tr>
-                                <td><a href="/evaluate/{{ $jid }}/{{ $category }}/{{ $result['deptid'] }}/{{ $result['userid'] }}">{{ $result['name'] }}</a></td>
+                                <td><a href="/evaluate/{{ $jno }}/{{ $category }}/{{ $result['deptid'] }}/{{ $result['userid'] }}">{{ $result['name'] }}</a></td>
                                 <td>{{ $result['department'] }}</td>
                             </tr>
                         @endforeach
