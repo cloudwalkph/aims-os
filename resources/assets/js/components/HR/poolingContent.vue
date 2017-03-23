@@ -3,204 +3,214 @@
 		<div class="container-fluid" style="padding-top: 10px;padding-bottom: 10px">
 			<span>Job Order Number : </span><span><strong>{{data}}</strong></span>
 		</div>
-		  <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#plan" aria-controls="plan" role="tab" data-toggle="tab">Plan</a></li>
-        <li role="presentation"><a href="#final_deployment" aria-controls="final_deployment" role="tab" data-toggle="tab">Final Deployment</a></li>
-      </ul>
-        <div class="col-md-8 col-md-offset-2">
-         	<table class="table table-striped">
-         		<thead>
-         			<tr>
-         				<td>Manpower</td>
-         				<td>Manpower Needed</td>
-         				<td>Rate</td>
-         			</tr>
-         		</thead>
-         		<tbody>
-         			<tr v-for="man in joManpowerList">
-         				<td>{{man.manpower_type.name}}</td>
-         				<td>{{man.manpower_needed}}</td>
-         				<td>{{man.rate}}</td>
-         			</tr>
-         		</tbody>
-         	</table>
+    <br/>
+    <br/>
+    <div class="container-fluid">
+      <div class="col-md-8 col-md-offset-2">
+       	<table class="table table-striped">
+       		<thead>
+       			<tr>
+       				<td>Manpower</td>
+       				<td>Manpower Needed</td>
+       				<td>Rate</td>
+       			</tr>
+       		</thead>
+       		<tbody>
+       			<tr v-for="man in joManpowerList">
+       				<td>{{man.manpower_type.name}}</td>
+       				<td>{{man.manpower_needed}}</td>
+       				<td>{{man.rate}}</td>
+       			</tr>
+       		</tbody>
+       	</table>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+        
+    <hr style="border-color: #000;margin: 50px 0;" />
+
+    <div class="container-fluid">
+      <div class="col-md-4 col-md-offset-4">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#plan" aria-controls="plan" role="tab" data-toggle="tab">Plan</a></li>
+          <li role="presentation"><a href="#final_deployment" aria-controls="final_deployment" role="tab" data-toggle="tab">Final Deployment</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="plan" style="padding-top: 30px;">
+        
+        <h3>Manpower</h3>
+        <div class="table-responsive" style="height: 300px;overflow-y: auto;">
+         	<vuetable ref="vuetable_manpower"
+          			api-url="/api/v1/hr/manpower"
+          			:fields="fields"
+                :multi-sort="true"
+         	></vuetable>
+        </div>
+
+        <div class="col-md-8">
+          <h3>Selected Manpower</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Full Name</td>
+                <td>Manpower Type</td>
+                <td>Assigned Venue</td>
+                <td>Action</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="selected in selectedManpower">
+                <td>{{selected.first_name + ' ' + selected.middle_name + ' ' + selected.last_name}}</td>
+                <td>{{selected.manpower_type.name}}</td>
+                <td>
+                  <select @change="onAssignVenue($event, selected.id)">
+                    <option value=""></option>
+                    <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == selected.venue_id">{{venue.venue}}</option>
+                  </select>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-danger" @click="handleRemoveManpower(selected.id)"><i class="glyphicon glyphicon-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-primary pull-right" @click="handleAddManpower">Save</button>
         </div>
 
         <div class="clearfix"></div>
-        
         <hr style="border-color: #000;margin: 50px 0;" />
-        <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="plan">
+
+        <div class="col-md-12">
+          <div class="col-md-2"><h4 class="text-center">Manpower Briefing Schedule:</h4></div>
+          <div class="col-md-10">
             
-            <h3>Manpower</h3>
-           	<vuetable ref="vuetable_manpower"
-            			api-url="/api/v1/hr/manpower"
-            			:fields="fields"
-                  :multi-sort="true"
-           	></vuetable>
-
-            <div class="col-md-8">
-              <h3>Selected Manpower</h3>
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <td>Full Name</td>
-                    <td>Manpower Type</td>
-                    <td>Assigned Venue</td>
-                    <td>Action</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="selected in selectedManpower">
-                    <td>{{selected.first_name + ' ' + selected.middle_name + ' ' + selected.last_name}}</td>
-                    <td>{{selected.manpower_type.name}}</td>
-                    <td>
-                      <select @change="onAssignVenue($event, selected.id)">
-                        <option value=""></option>
-                        <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == selected.venue_id">{{venue.venue}}</option>
-                      </select>
-                    </td>
-                    <td>
-                      <button class="btn btn-sm btn-danger" @click="handleRemoveManpower(selected.id)"><i class="glyphicon glyphicon-trash"></i></button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <button class="btn btn-primary pull-right" @click="handleAddManpower">Save</button>
-            </div>
-
-            <div class="clearfix"></div>
-            <hr style="border-color: #000;margin: 50px 0;" />
-
-            <div class="col-md-12">
-              <div class="col-md-2"><h4 class="text-center">Manpower Briefing Schedule:</h4></div>
-              <div class="col-md-10">
-                
-                <div class="row" style="margin-bottom: 20px;" v-for="briefing in briefingSched">
-                  <div class="col-md-4"><input type="date" class="form-control" disabled :value="briefing.date"/></div>
-                  <div class="col-md-4"><input type="time" class="form-control" disabled :value="briefing.time"/></div>
-                  <div class="col-md-3">
-                    <select class="form-control" disabled>
-                      <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == briefing.venue_id">{{venue.venue}}</option>
-                    </select>
-                  </div>
-                  <div class="col-md-1">
-                    <button class="btn btn-sm btn-danger">
-                      <i class="glyphicon glyphicon-trash" @click="deleteManpowerSchedule(briefing.id, 'briefingSched')" style="font-size: 21px;"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-4"><label class="control-label">Date</label><input type="date" class="form-control" :value="briefingDate" @input="inputChange" id="briefingDate" /></div>
-                  <div class="col-md-4"><label class="control-label">Time</label><input type="time" class="form-control" :value="briefingTime" @input="inputChange" id="briefingTime" /></div>
-                  <div class="col-md-3">
-                    <label class="control-label">Venue</label>
-                    <select class="form-control" @change="onChangeEvents" id="briefingVenue">
-                      <option value=""></option>
-                      <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
-                    </select>
-                  </div>
-                  <div class="col-md-1">
-                    <button class="btn btn-sm btn-danger" @click="addManpowerSchedule('briefingSched')" style="margin-top: 26px;">
-                      <i class="glyphicon glyphicon-plus-sign" style="font-size: 21px;"></i>
-                    </button>
-                  </div>
-                </div>
+            <div class="row" style="margin-bottom: 20px;" v-for="briefing in briefingSched">
+              <div class="col-md-4"><input type="date" class="form-control" disabled :value="briefing.date"/></div>
+              <div class="col-md-4"><input type="time" class="form-control" disabled :value="briefing.time"/></div>
+              <div class="col-md-3">
+                <select class="form-control" disabled>
+                  <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == briefing.venue_id">{{venue.venue}}</option>
+                </select>
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-sm btn-danger">
+                  <i class="glyphicon glyphicon-trash" @click="deleteManpowerSchedule(briefing.id, 'briefingSched')" style="font-size: 21px;"></i>
+                </button>
               </div>
             </div>
 
-            <div class="clearfix"></div>
-            <hr style="border-color: #000;margin: 50px 0;" />
-
-            <div class="col-md-12" style="padding-bottom: 30px;">
-              <div class="col-md-2"><h4 class="text-center">Manpower Training and Simulation Schedule:</h4></div>
-              <div class="col-md-10">
-                
-                <div class="row" style="margin-bottom: 20px;" v-for="simulation in simulationSched">
-                  <div class="col-md-2"><input type="text" class="form-control" disabled :value="simulation.batch" /></div>
-                  <div class="col-md-3"><input type="date" class="form-control" disabled :value="simulation.date" /></div>
-                  <div class="col-md-3"><input type="time" class="form-control" disabled :value="simulation.time" /></div>
-                  <div class="col-md-2">
-                    <select class="form-control" disabled>
-                      <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == simulation.venue_id">{{venue.venue}}</option>
-                    </select>
-                  </div>
-                  <div class="col-md-1">
-                    <button class="btn btn-sm btn-danger">
-                      <i class="glyphicon glyphicon-trash" @click="deleteManpowerSchedule(briefing.id, 'simulationSched')" style="font-size: 21px;"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-2"><label class="control-label">Batch</label><input type="text" class="form-control" :value="batch" @input="inputChange" id="batch" /></div>
-                  <div class="col-md-3"><label class="control-label">Date</label><input type="date" class="form-control" :value="simulationDate" @input="inputChange" id="simulationDate" /></div>
-                  <div class="col-md-3"><label class="control-label">Time</label><input type="time" class="form-control" :value="simulationTime" @input="inputChange" id="simulationTime" /></div>
-                  <div class="col-md-2">
-                    <label class="control-label">Venue</label>
-                    <select class="form-control" @change="onChangeEvents" id="simulationVenue">
-                      <option value=""></option>
-                      <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
-                    </select>
-                  </div>
-                  <div class="col-md-1">
-                    <button class="btn btn-sm btn-danger" @click="addManpowerSchedule('simulationSched')" style="margin-top: 26px;">
-                      <i class="glyphicon glyphicon-plus-sign" style="font-size: 21px;"></i>
-                    </button>
-                  </div>
-                </div>
+            <div class="row">
+              <div class="col-md-4"><label class="control-label">Date</label><input type="date" class="form-control" :value="briefingDate" @input="inputChange" id="briefingDate" /></div>
+              <div class="col-md-4"><label class="control-label">Time</label><input type="time" class="form-control" :value="briefingTime" @input="inputChange" id="briefingTime" /></div>
+              <div class="col-md-3">
+                <label class="control-label">Venue</label>
+                <select class="form-control" @change="onChangeEvents" id="briefingVenue">
+                  <option value=""></option>
+                  <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
+                </select>
               </div>
-            </div>
-          
-          </div>
-          <div role="tabpanel" class="tab-pane" id="final_deployment">
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-6">
-                  <h4 class="text-center">Briefing Schedule</h4>
-                  <div v-for="(briefing, key) in deploymentManpower.briefing">
-                    <table class="table table-striped">
-                      <caption>Team : {{key}}</caption>
-                      <thead>
-                        <tr>
-                          <th>Full Name</th>
-                          <th>Manpower Type</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="manpowerList in briefing">
-                          <td>{{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}</td>
-                          <td>{{manpowerList.manpower.manpower_type.name}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <h4 class="text-center">Training and simulation Schedule</h4>
-                  <div v-for="(simulation, key) in deploymentManpower.simulation">
-                    <table class="table table-striped">
-                      <caption>Team : {{key}}</caption>
-                      <thead>
-                        <tr>
-                          <th>Full Name</th>
-                          <th>Manpower Type</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="manpowerList in simulation">
-                          <td>{{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}</td>
-                          <td>{{manpowerList.manpower.manpower_type.name}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+              <div class="col-md-1">
+                <button class="btn btn-sm btn-danger" @click="addManpowerSchedule('briefingSched')" style="margin-top: 26px;">
+                  <i class="glyphicon glyphicon-plus-sign" style="font-size: 21px;"></i>
+                </button>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="clearfix"></div>
+        <hr style="border-color: #000;margin: 50px 0;" />
+
+        <div class="col-md-12" style="padding-bottom: 30px;">
+          <div class="col-md-2"><h4 class="text-center">Manpower Training and Simulation Schedule:</h4></div>
+          <div class="col-md-10">
+            
+            <div class="row" style="margin-bottom: 20px;" v-for="simulation in simulationSched">
+              <div class="col-md-2"><input type="text" class="form-control" disabled :value="simulation.batch" /></div>
+              <div class="col-md-3"><input type="date" class="form-control" disabled :value="simulation.date" /></div>
+              <div class="col-md-3"><input type="time" class="form-control" disabled :value="simulation.time" /></div>
+              <div class="col-md-2">
+                <select class="form-control" disabled>
+                  <option v-for="venue in venueList" :value="venue.id" :selected="venue.id == simulation.venue_id">{{venue.venue}}</option>
+                </select>
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-sm btn-danger">
+                  <i class="glyphicon glyphicon-trash" @click="deleteManpowerSchedule(briefing.id, 'simulationSched')" style="font-size: 21px;"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2"><label class="control-label">Batch</label><input type="text" class="form-control" :value="batch" @input="inputChange" id="batch" /></div>
+              <div class="col-md-3"><label class="control-label">Date</label><input type="date" class="form-control" :value="simulationDate" @input="inputChange" id="simulationDate" /></div>
+              <div class="col-md-3"><label class="control-label">Time</label><input type="time" class="form-control" :value="simulationTime" @input="inputChange" id="simulationTime" /></div>
+              <div class="col-md-2">
+                <label class="control-label">Venue</label>
+                <select class="form-control" @change="onChangeEvents" id="simulationVenue">
+                  <option value=""></option>
+                  <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
+                </select>
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-sm btn-danger" @click="addManpowerSchedule('simulationSched')" style="margin-top: 26px;">
+                  <i class="glyphicon glyphicon-plus-sign" style="font-size: 21px;"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+      <div role="tabpanel" class="tab-pane" id="final_deployment" style="padding-top: 30px;">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <h4 class="text-center">Briefing Schedule</h4>
+              <div v-for="(briefing, key) in deploymentManpower.briefing">
+                <table class="table table-striped">
+                  <caption>Team : {{key}}</caption>
+                  <thead>
+                    <tr>
+                      <th>Full Name</th>
+                      <th>Manpower Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="manpowerList in briefing">
+                      <td>{{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}</td>
+                      <td>{{manpowerList.manpower.manpower_type.name}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h4 class="text-center">Training and simulation Schedule</h4>
+              <div v-for="(simulation, key) in deploymentManpower.simulation">
+                <table class="table table-striped">
+                  <caption>Team : {{key}}</caption>
+                  <thead>
+                    <tr>
+                      <th>Full Name</th>
+                      <th>Manpower Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="manpowerList in simulation">
+                      <td>{{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}</td>
+                      <td>{{manpowerList.manpower.manpower_type.name}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 	</div>
 </template>
 
