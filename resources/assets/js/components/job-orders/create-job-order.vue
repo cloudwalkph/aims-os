@@ -128,7 +128,7 @@
                 </table>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-12" style="margin-bottom: 20px">
                 <button type="button"
                         @click="createJobOrder"
                         class="btn btn-primary btn-lg btn-block">Create Job Order</button>

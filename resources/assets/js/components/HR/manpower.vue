@@ -182,10 +182,12 @@
                         dataClass : 'middleAlign'
         			},
         			{
-        				name: 'birthdate',
-        				title: 'Age',
-        				callback: 'getAge',
-                        dataClass : 'middleAlign'
+                        name: 'birthdate',
+                        sortField: 'birthdate',
+                        titleClass: 'text-center',
+                        dataClass: 'text-center',
+                        callback: 'formatDate|DD-MM-YYYY',
+                        title: 'Birthdate'
         			},
         			{
         				name: 'email',
@@ -198,10 +200,12 @@
                         dataClass : 'middleAlign'
         			},
         			{
-        				name: 'updated_at',
-        				title: 'Last Updated',
-        				callback: 'parseDate',
-                        dataClass : 'middleAlign'
+                        name: 'updated_at',
+                        sortField: 'updated_at',
+                        titleClass: 'text-center',
+                        dataClass: 'text-center',
+                        callback: 'formatDate|DD-MM-YYYY',
+                        title: 'Last Updated'
         			},
 					{
 						name: '__handle',   // <----
@@ -225,9 +229,11 @@
         	}
         },
         methods: {
-        	getAge(value) {
-        		return moment().month(0).from(moment(value).month(0));
-        	},
+            formatDate (value, fmt = 'D MMM YYYY') {
+                return (value == null)
+                    ? ''
+                    : moment(value, 'YYYY-MM-DD').format(fmt)
+            },
         	parseDate(value) {
         		return moment(value).format('MMM DD YYYY');
         	},
@@ -247,6 +253,7 @@
                 {
                     let url = '/api/v1/hr/manpower/' + this.rowData.id;
                     this.$http.post(url,form).then(response => {
+                        toastr.success('Successfully editted manpower', 'Success')
                         console.log(response);
                         this.isFetching = {
                             disabled: false,
@@ -256,6 +263,7 @@
                         $('#createManpower').modal('hide');
                         this.$refs.Vuetable_manpower.reload(); // refresh vuetable
                     }, error => {
+                        toastr.error('Failed in editing manpower', 'Error')
                         console.log(error)
                         this.isFetching = {
                             disabled: false,
@@ -268,6 +276,7 @@
 
                 let url = '/api/v1/hr/manpower';
                 this.$http.post(url,form).then(response => {
+                    toastr.success('Successfully added new manpower', 'Success')
                     console.log(response);
                     this.isFetching = {
                         disabled: false,
@@ -277,6 +286,7 @@
                     $('#createManpower').modal('hide');
                     this.$refs.Vuetable_manpower.refresh(); // refresh vuetable
                 }, error => {
+                    toastr.error('Failed in adding new manpower', 'Error')
                     console.log(error)
                     this.isFetching = {
                         disabled: false,

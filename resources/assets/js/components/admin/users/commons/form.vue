@@ -202,10 +202,12 @@
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
+                    toastr.success('Successfully added new user', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()
                     $('#userModal').modal('hide')
                 }, error => {
+                    toastr.error('Failed in adding new user', 'Error')
                     console.log(error)
                 })
             }

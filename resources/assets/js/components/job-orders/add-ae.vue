@@ -4,7 +4,7 @@
             <v-select :on-change="userSelected" :options="userOptions"></v-select>
         </div>
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary" @click="saveProject">Add AE</button>
+            <button type="submit" class="btn btn-primary btn-block" @click="saveProject">Add AE</button>
         </div>
     </div>
 </template>
@@ -44,21 +44,26 @@
                 });
             },
             saveProject(e) {
+                $(e.target).prop('disabled', true);
+
                 let jobOrderId = $('#jobOrderId').val();
                 let data = {
                     job_order_id: jobOrderId,
                     user_id: this.user_id
                 }
-                console.log(data)
 
                 let url = `/api/v1/job-orders/add-ae`;
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
+                    $('.added-ae').append('<p>' + response.body.user.profile.first_name + ' ' + response.body.user.profile.last_name +'</p>');
+
                     toastr.success('Successfully added AE', 'Success')
+                    $(e.target).prop('disabled', false);
                 }, error => {
                     toastr.error('Failed in adding AE', 'Error')
                     console.log(error)
+                    $(e.target).prop('disabled', false);
                 })
             }
         }
