@@ -11,7 +11,7 @@
                         <h1>Dashboard</h1>
                     </div>
                     <div class="col-md-2 col-md-offset-4 text-right">
-                        <a href="/evaluate/{{ $jno }}" class="btn btn-success">Categories</a>
+                        <a href="/evaluate/{{ $jno }}" class="btn btn-success"><i class="glyphicon glyphicon-chevron-left"></i>Events</a>
                     </div>
                 </div>
                 <form class="form-inline mt-2 mt-md-0">
