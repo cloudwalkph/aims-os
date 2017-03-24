@@ -39902,6 +39902,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted: function mounted() {
@@ -98969,7 +98987,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/hr/manpower_pooling"
     }
-  }, [_vm._v("Add Manpower to JO")])])])])])])
+  }, [_vm._v("Add Manpower to JO")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-4 col-md-4 col-sm-12 col-xs-12"
+  }, [_c('a', {
+    attrs: {
+      "href": "/validate"
+    }
+  }, [_c('div', {
+    staticClass: "button-menu"
+  }, [_c('div', {
+    staticClass: "hero-widget well well-sm"
+  }, [_c('div', {
+    staticClass: "icon"
+  }, [_c('i', {
+    staticClass: "fa fa-clipboard"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "text"
+  }, [_c('label', {
+    staticClass: "text-muted"
+  }, [_vm._v("Validate")])]), _vm._v(" "), _c('div', {
+    staticClass: "options"
+  }, [_c('a', {
+    staticClass: "btn btn-primary btn-lg",
+    attrs: {
+      "href": "/validate"
+    }
+  }, [_vm._v("View Lists")])])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

@@ -139,6 +139,7 @@
     </script>
 </body>
 
-@yield('c3scripts')
+<!--@yield('c3scripts');-->
+@yield('google_charts');
 
 </html>

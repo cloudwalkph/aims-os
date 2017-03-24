@@ -8,4 +8,11 @@ class ValidateResults extends Model
 {
     protected $table = 'validate_results';
     protected $guarded = ['id'];
+
+    
+
+    public function department()
+    {
+        return $this->has(Department::class);
+    }
 }
