@@ -82,7 +82,8 @@ class ValidateController extends Controller
                         'v' => $score->name
                     ),
                     array(
-                        'v' => $score->avg_score
+                        'v' => ($score->avg_score / 100),
+                        'f' => round($score->avg_score, 2)
                     )
                 )
             );
