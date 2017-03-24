@@ -47,11 +47,12 @@ class Questions extends Controller
     public function submitresult(Request $request)
     {
         $checkResults = ValidateResults::where( 'job_order_no', '=', $request['jno'] )
+            ->where('category', '=', $request['category'])
             ->where('department_id', '=', $request['deptid'])
             ->where('user_id', '=', $request['ratee'])
-            ->count();
+            ->get();
 
-        if ( $checkResults > 0 ) {
+        if( count($checkResults) > 0 ){
 
             return false;
             
@@ -62,6 +63,7 @@ class Questions extends Controller
             $storeResult = new ValidateResults();
 
             $storeResult->job_order_no = $request['jno'];
+            $storeResult->category = $request['category'];
             $storeResult->department_id = $request['deptid'];
             $storeResult->user_id = $request['ratee'];
 
@@ -171,6 +173,7 @@ class Questions extends Controller
         $loadEmployees = Assignment::loadRatees($jno, $category, $user->department_id);
 
         foreach ($loadEmployees as $loadEmployee){
+            $checkResults = 0;
 
             $user = User::where( 'id', $loadEmployee->user_id )->first();
             $user_details = array(
@@ -179,11 +182,18 @@ class Questions extends Controller
                 'deptid' => $user->department->id,
                 'department' => $user->department->name
             );
-            array_push($results , $user_details);
+
+            $checkResults = ValidateResults::where( 'job_order_no', '=', $jno )
+                ->where('category', '=', 'pre')
+                ->where('department_id', '=', $user->department_id)
+                ->where('user_id', '=', $loadEmployee->user_id)
+                ->get();
+
+            if( count($checkResults) <= 0 ||     $category != 'pre'){
+                array_push($results , $user_details);
+            }
 
         }
-
-        $json = json_encode($results);
 
         return view('admin/validate/rateeList', compact('results','jno','category'));
     }

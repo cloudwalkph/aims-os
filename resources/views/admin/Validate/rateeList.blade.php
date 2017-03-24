@@ -5,7 +5,15 @@
     <div class="container-fluid dashboard">
         <div class="row">
             <main class="col-md-12">
-                <h1>Dashboard</h1>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1>Dashboard</h1>
+                    </div>
+                    <div class="col-md-2 col-md-offset-4 text-right">
+                        <a href="/evaluate/{{ $jno }}" class="btn btn-success">Categories</a>
+                    </div>
+                </div>
                 <form class="form-inline mt-2 mt-md-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search">
                     {{--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
