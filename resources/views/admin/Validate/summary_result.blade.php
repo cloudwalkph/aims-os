@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-
     <link href="{{ asset('css/c3.css') }}" rel="stylesheet" type="text/css" style="width: 100%">
 
     <div class="container" style="width: 100%">
@@ -48,6 +47,7 @@
         </div>
     </div>
 @endsection
+
 @section('c3scripts')
 
     <script src="{{ asset('js/d3/d3.min.js') }}"></script>
@@ -114,6 +114,85 @@
                 }
             }
         });
+    </script>
+@endsection
+
+@section('google_charts')
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        google.charts.load('current', {'packages':['line', 'corechart']});
+        google.charts.setOnLoadCallback(preEventChart);
+        google.charts.setOnLoadCallback(eventProperChart);
+        google.charts.setOnLoadCallback(postEventChart);
+
+        var preEventData = JSON.parse('<?php echo $jsonPreEvent; ?>');
+        var actualEventData = JSON.parse('<?php echo $jsonActualEvent; ?>');
+        var postEventData = JSON.parse('<?php echo $jsonPostEvent; ?>');
+
+        console.log(preEventData);
+
+        var options = {
+            hAxis: {
+                textStyle: {
+                    fontName: 'Raleway',
+                },
+                title: 'Departments',
+                titleTextStyle: {
+                    fontName: 'Raleway',
+                },
+            },
+            height: 500,
+            legend: {
+                textStyle: {
+                    fontName: 'Raleway',
+                }
+            },
+            pointSize: 5,
+            title: 'Company Performance',
+            titleTextStyle: {
+                fontName: 'Raleway',
+            },
+            vAxis: {
+                textStyle: {
+                    fontName: 'Raleway',
+                },
+                title: 'Scores',
+            }
+        };
+
+        function preEventChart() {
+            var jsonData = $.ajax({
+                url: "",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+            var data = new google.visualization.DataTable(preEventData);
+
+            // var chart = new google.charts.Line(document.getElementById('chart1'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart1'));
+
+            chart.draw(data, options);
+        }
+
+        function eventProperChart() {
+            var data = new google.visualization.DataTable(actualEventData);
+
+            // var chart = new google.charts.Line(document.getElementById('chart2'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart2'));
+
+            chart.draw(data, options);
+        }
+
+        function postEventChart() {
+            var data = new google.visualization.DataTable(postEventData);
+
+            // var chart = new google.charts.Line(document.getElementById('chart3'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart3'));
+
+            chart.draw(data, options);
+        }
     </script>
 @endsection
 
