@@ -11,6 +11,7 @@
         <input type="hidden" name="jno" value="{{ $jno }}">
         <input type="hidden" name="deptid" value="{{ $deptid }}">
         <input type="hidden" name="ratee" value="{{ $rateeId }}">
+        <input type="hidden" name="category" value="{{ $eventCategory }}">
 
         <div id="questionList">
             @foreach( $returnQuestions as $returnQuestion)
@@ -40,7 +41,7 @@
                     type: 'post',
                     data: formdata,
                     success: function () {
-
+                        location.href = '/evaluate/{{ $jno }}/{{ $eventCategory }}';
                     }
                 });
             }
