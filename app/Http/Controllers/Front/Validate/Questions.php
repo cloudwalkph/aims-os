@@ -48,13 +48,13 @@ class Questions extends Controller
     {
         $user = $request->user();
         $checkResults = ValidateResults::where( 'job_order_no', '=', $request['jno'] )
-            ->where('category', '=', $request['category'])
+            ->where('category', '=', 'pre')
             ->where('department_id', '=', $request['deptid'])
             ->where('user_id', '=', $request['ratee'])
             ->where('rater_id', '=', $user->id)
             ->get();
 
-        if( count($checkResults) > 0 ){
+        if( count($checkResults) > 0 && $request['category'] == 'pre' ){
 
             return false;
             
