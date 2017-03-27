@@ -14,6 +14,14 @@
         <input type="hidden" name="category" value="{{ $eventCategory }}">
 
         <div id="questionList">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 style="padding: 26px;">{{$categoryName}}</h1>
+                </div>
+            </div>
+            <?php
+
+            ?>
             @foreach( $returnQuestions as $returnQuestion)
                 <h3> </h3>
                 <section>
