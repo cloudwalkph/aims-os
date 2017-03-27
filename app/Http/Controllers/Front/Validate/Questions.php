@@ -126,9 +126,11 @@ class Questions extends Controller
             ->where('qtype','=','S')
             ->get();
 
+        $questionCount = 1;
+        $count = count($questions);
         foreach ($questions as $question){
 
-            $strQuestions = '';
+            $strQuestions = '<label>Question '.$questionCount.' of '.$count.'</label> <br>';
             if( in_array( $question->id, array(38, 62, 120, 141, 166, 188) ) ){
 
                 foreach( $productions as $key => $production ){
@@ -141,25 +143,34 @@ class Questions extends Controller
 
             }else{
 
-                $strQuestions = $question->qname.'</b><br>';
+                $strQuestions .= $question->qname.'</b><br>';
                 $answers = ValidateAnswers::where('questions_id','=',$question->id)
                     ->get();
                 foreach( $answers as $answer ){
 
                     $strQuestions .= '
-                        <div class="input-group">
+                       <!--<div class="input-group">
                           <span class="input-group-addon">
                             <input type="radio" value="'.$answer->score.'" name="q['.$question->id.']">
                           </span>
                           <span class="input-group-addon">'.$answer->answers.'</span>
+                        </div>-->
+                        
+                        <div class="radio-btn" style="margin-top: 20px;">
+                            <div class="col-md-1">
+                            <input style="height: 25px;" type="radio" value="'.$answer->score.'" name="q['.$question->id.']">
+                            </div>
+                            <div class="col-md-11">
+                            <label onclick>'.$answer->answers.'</label>
+                            </div>
                         </div>
+                        
                     ';
                 }
-
             }
 
             array_push($returnQuestions, $strQuestions);
-
+            $questionCount++;
         }
 
         $categoryName = '';
@@ -172,7 +183,7 @@ class Questions extends Controller
             $categoryName = 'Post Event';
         }
 
-        return view('questions.question', compact('returnQuestions', 'eventCategory', 'deptid', 'rateeId', 'jno', 'categoryName'));
+        return view('questions.question', compact('returnQuestions', 'eventCategory', 'deptid', 'rateeId', 'jno', 'categoryName', 'count'));
     }
 
     public function choosecategory($jid)
