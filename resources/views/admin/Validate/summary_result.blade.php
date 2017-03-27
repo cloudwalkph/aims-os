@@ -18,7 +18,6 @@
                 <thead>
                 <tr>
                     <th>PRE-EVENT
-                        <img onClick="preEventChart(this.alt)" id="chart_pie" src="https://google-developers.appspot.com/chart/interactive/images/chart_pie.png" alt="pie">
                         <img onClick="preEventChart(this.alt)" id="chart_line" src="https://google-developers.appspot.com/chart/interactive/images/chart_line.png" alt="line">
                         <img onClick="preEventChart(this.alt)" id="chart_column" src="https://google-developers.appspot.com/chart/interactive/images/chart_column.png" alt="column">
                         <img onClick="preEventChart(this.alt)" id="chart_area" src="https://google-developers.appspot.com/chart/interactive/images/chart_area.png" alt="area">
@@ -192,9 +191,7 @@
             var container = document.getElementById('chart1');
             var data = new google.visualization.DataTable(preEventData);
 
-            if(chartType == 'pie') {
-                chart = new google.visualization.PieChart(container);
-            } else if(chartType == 'line') {
+            if(chartType == 'line') {
                 chart = new google.visualization.LineChart(container);
             } else if(chartType == 'column') {
                 chart = new google.visualization.ColumnChart(container);

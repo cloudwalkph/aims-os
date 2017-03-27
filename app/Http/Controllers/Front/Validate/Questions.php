@@ -161,7 +161,18 @@ class Questions extends Controller
             array_push($returnQuestions, $strQuestions);
 
         }
-        return view('questions.question', compact('returnQuestions', 'eventCategory', 'deptid', 'rateeId', 'jno'));
+
+        $categoryName = '';
+
+        if( $eventCategory == 'pre' ){
+            $categoryName = 'Pre-event';
+        } elseif ( $eventCategory == 'eprop' ){
+            $categoryName = 'Event Proper';
+        } elseif ( $eventCategory == 'post' ){
+            $categoryName = 'Post Event';
+        }
+
+        return view('questions.question', compact('returnQuestions', 'eventCategory', 'deptid', 'rateeId', 'jno', 'categoryName'));
     }
 
     public function choosecategory($jid)
@@ -171,6 +182,11 @@ class Questions extends Controller
 
     public function chooseemployee($jno, $category, Request $request)
     {
+
+        if( !$request->user()->id ){
+            return redirect()->to('/login');
+        }
+
         $userLogged = $request->user();
         $results = [];
         $loadEmployees = Assignment::loadRatees($jno, $category, $userLogged->department_id);
