@@ -20,7 +20,7 @@
                             <th class="vuetable-th-slug sortable">Client Name</th>
                             <th class="vuetable-th-slug sortable">Brand</th>
                             <th class="vuetable-th-slug sortable">Status</th>
-                            <th class="vuetable-th-slug sortable">Assignment</th>
+                            {{--<th class="vuetable-th-slug sortable">Assignment</th>--}}
                         </tr>
                         </thead>
                         <tbody>
@@ -33,7 +33,7 @@
                                 <td>{{ $jo['contact'] }}</td>
                                 <td>{{ $jo['brands'] }}</td>
                                 <td>{{ $jo['status'] }}</td>
-                                <td>{{ $jo['status'] }}</td>
+                                {{--<td>{{ $jo['status'] }}</td>--}}
                         @endforeach
                         </tbody>
                     </table>
