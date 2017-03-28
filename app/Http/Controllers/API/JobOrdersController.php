@@ -9,7 +9,10 @@ use App\Models\JobOrderAddUser;
 use App\Models\JobOrderClient;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Models\JobOrderDetail;
+use App\Models\JobOrderManpower;
+use App\Models\JobOrderMeal;
 use App\Models\JobOrderMom;
+use App\Models\JobOrderVehicle;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
 
@@ -151,6 +154,11 @@ class JobOrdersController extends Controller {
      */
     public function delete($joId)
     {
+        $departments = JobOrderDepartmentInvolved::where('job_order_id', $joId)->delete();
+        $manpowers = JobOrderManpower::where('job_order_id', $joId)->delete();
+        $meals = JobOrderMeal::where('job_order_id', $joId)->delete();
+        $vehicles = JobOrderVehicle::where('job_order_id', $joId)->delete();
+
         $jo = JobOrder::where('id', $joId)->delete();
 
         if (! $jo) {
