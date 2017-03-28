@@ -31,9 +31,26 @@
         </div>
 
     </form>
+
+    <div class="modal fade" id="questions-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Notification</h4>
+                </div>
+                <div class="modal-body">
+                    Please
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="{{ URL::to('/js/bootstrap.min.js') }}"></script>
     <script>
         $("#questionList").steps({
             headerTag: "h3",
@@ -48,17 +65,20 @@
                     url:'/questions/submitresults',
                     type: 'post',
                     data: formdata,
-                    success: function () {
-                        location.href = '/evaluate/{{ $jno }}/{{ $eventCategory }}';
+
+                    success: function ( data ) {
+                        if( data == 501 ){
+                            $('#questions-modal, .modal-body').text('Completely answer the questions.');
+                        }else{
+                            $('#questions-modal, .modal-body').text('Success');
+                            {{--setTimeout(function () {--}}
+                                {{--location.href = '/evaluate/{{ $jno }}/{{ $eventCategory }}';--}}
+                            {{--}, 4000);--}}
+                        }
+                        $('#questions-modal').modal('show');
                     }
                 });
             }
         });
-
-
-
-//        $("#questionList").steps("finish", function (){
-//            alert('hello');
-//        });
     </script>
 @endsection

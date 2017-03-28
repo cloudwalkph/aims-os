@@ -24,6 +24,7 @@
                         <tr>
                             <th class="vuetable-th-slug sortable">Employee Name</th>
                             <th class="vuetable-th-slug sortable">Departments</th>
+                            <th class="vuetable-th-slug sortable">Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,8 +33,22 @@
                         ?>
                         @foreach( $results as $result)
                             <tr>
-                                <td><a href="/evaluate/{{ $jno }}/{{ $category }}/{{ $result['deptid'] }}/{{ $result['userid'] }}">{{ $result['name'] }}</a></td>
-                                <td>{{ $result['department'] }}</td>
+                                    @if( $result['exist'] == 0 )
+
+                                        <td>
+                                            <a href="/evaluate/{{ $jno }}/{{ $category }}/{{ $result['deptid'] }}/{{ $result['userid'] }}">{{ $result['name'] }}</a>
+                                        </td>
+                                        <td>{{ $result['department'] }}</td>
+                                        <td>Pending</td>
+
+                                    @elseif( $result['exist'] == 1 )
+                                        <td>
+                                            {{ $result['name'] }}
+                                        </td>
+                                        <td>{{ $result['department'] }}</td>
+                                        <td>Done</td>
+
+                                    @endif
                             </tr>
                         @endforeach
                         </tbody>
