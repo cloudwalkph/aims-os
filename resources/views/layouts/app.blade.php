@@ -17,6 +17,22 @@
     <link href="{{ asset('css/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/toastr/build/toastr.min.css') }}" rel="stylesheet"/>
 
+    <style>
+        .wizard ul, .tabcontrol ul{
+            display: none;
+        }
+        .wizard.vertical > .content{
+            margin-left: 169px;
+            width: 76%;
+        }
+        .wizard.vertical > .actions {
+            text-align: center;
+        }
+        .wizard > .content > .body{
+            font-size: 17px;
+        }
+    </style>
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -40,7 +56,7 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="dropdown notifications-menu">
+                <li class="dropdown notifications-menu hide">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
                         <span class="label label-danger">10</span>
