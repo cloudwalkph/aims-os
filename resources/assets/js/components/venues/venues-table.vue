@@ -24,6 +24,7 @@
         </div>
 
         <venues-modal></venues-modal>
+        <venues-update-modal ref="updateVenues"></venues-update-modal>
     </div>
 </template>
 
@@ -39,11 +40,13 @@
     import CustomActions from './commons/CustomActions'
     import FilterBar from './commons/FilterBar'
     import VenueModal from './commons/form.vue'
+    import VenueEditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
     Vue.component('venues-custom-actions', CustomActions)
     Vue.component('filter-bar', FilterBar)
     Vue.component('venues-modal', VenueModal)
+    Vue.component('venues-update-modal', VenueEditModal)
 
     export default {
         components: {
@@ -228,6 +231,11 @@
             'filter-reset' () {
                 this.moreParams = {}
                 Vue.nextTick( () => this.$refs.vuetable.refresh() )
+            },
+            'update-venues-show' (data) {
+                Vue.nextTick(() => {
+                    this.$refs.updateVenues.populateData(data)
+                })
             }
         }
     }

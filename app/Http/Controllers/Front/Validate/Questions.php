@@ -46,10 +46,12 @@ class Questions extends Controller
 
     public function submitresult(Request $request)
     {
+        $user = $request->user();
         $checkResults = ValidateResults::where( 'job_order_no', '=', $request['jno'] )
             ->where('category', '=', $request['category'])
             ->where('department_id', '=', $request['deptid'])
             ->where('user_id', '=', $request['ratee'])
+            ->where('rater_id', '=', $user->id)
             ->get();
 
         if( count($checkResults) > 0 ){
@@ -66,6 +68,7 @@ class Questions extends Controller
             $storeResult->category = $request['category'];
             $storeResult->department_id = $request['deptid'];
             $storeResult->user_id = $request['ratee'];
+            $storeResult->rater_id = $user->id;
 
             $scoreTemp = 0;
 
@@ -168,9 +171,9 @@ class Questions extends Controller
 
     public function chooseemployee($jno, $category, Request $request)
     {
-        $user = $request->user();
+        $userLogged = $request->user();
         $results = [];
-        $loadEmployees = Assignment::loadRatees($jno, $category, $user->department_id);
+        $loadEmployees = Assignment::loadRatees($jno, $category, $userLogged->department_id);
 
         foreach ($loadEmployees as $loadEmployee){
             $checkResults = 0;
@@ -187,9 +190,12 @@ class Questions extends Controller
                 ->where('category', '=', 'pre')
                 ->where('department_id', '=', $user->department_id)
                 ->where('user_id', '=', $loadEmployee->user_id)
+                ->where('rater_id', '=', $userLogged->id)
                 ->get();
 
-            if( count($checkResults) <= 0 ||     $category != 'pre'){
+//            dd($jno.' '.$user->department_id.' '.$loadEmployee->user_id.' '.$userLogged->id);
+
+            if( count($checkResults) <= 0 || $category != 'pre'){
                 array_push($results , $user_details);
             }
 

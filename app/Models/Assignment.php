@@ -13,7 +13,7 @@ class Assignment extends Model
     protected $table = 'assignments';
     protected $guarded = ['id'];
 
-    static function loadRatees( $jno = null, $category, $deptid = null ){
+    static function loadRatees( $jno = null, $category = null, $deptid = null ){
 
 //'1','productions'
 //'2','creatives'

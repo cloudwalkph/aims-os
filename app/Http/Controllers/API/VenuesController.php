@@ -67,6 +67,24 @@ class VenuesController extends Controller {
     }
 
     /**
+     * @param CreateVenuesRequest $request
+     * @param $venueId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(CreateVenuesRequest $request, $venueId)
+    {
+        $input = $request->all();
+
+        $venue = null;
+        // Update venue
+        \DB::transaction(function() use ($input, $venueId, &$venue) {
+            $venue = Venue::where('id', $venueId)->update($input);
+        });
+
+        return response()->json($venue, 200);
+    }
+
+    /**
      * @param $venueId
      * @return \Illuminate\Http\JsonResponse
      */
