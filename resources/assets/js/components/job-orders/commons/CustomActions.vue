@@ -24,9 +24,11 @@
                     let url = `/api/v1/job-orders/${data.id}`;
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
+                        toastr.success('Successfully deleted job order', 'Success')
 
                         this.$events.fire('reload-table')
                     }, error => {
+                        toastr.error('Failed in deleting job order', 'Error')
                         console.log(error)
                     })
                 }
