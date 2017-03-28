@@ -17,6 +17,22 @@
     <link href="{{ asset('css/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/toastr/build/toastr.min.css') }}" rel="stylesheet"/>
 
+    <style>
+        .wizard ul, .tabcontrol ul{
+            display: none;
+        }
+        .wizard.vertical > .content{
+            margin-left: 169px;
+            width: 76%;
+        }
+        .wizard.vertical > .actions {
+            text-align: center;
+        }
+        .wizard > .content > .body{
+            font-size: 17px;
+        }
+    </style>
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
