@@ -40,7 +40,7 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="dropdown notifications-menu">
+                <li class="dropdown notifications-menu hide">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
                         <span class="label label-danger">10</span>

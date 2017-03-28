@@ -46351,9 +46351,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var url = '/api/v1/job-orders/' + data.id;
                 this.$http.delete(url, data).then(function (response) {
                     console.log(response);
+                    toastr.success('Successfully deleted job order', 'Success');
 
                     _this.$events.fire('reload-table');
                 }, function (error) {
+                    toastr.error('Failed in deleting job order', 'Error');
                     console.log(error);
                 });
             }
