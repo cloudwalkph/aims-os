@@ -48,47 +48,51 @@ class Questions extends Controller
     {
         $user = $request->user();
         $checkResults = ValidateResults::where( 'job_order_no', '=', $request['jno'] )
-            ->where('category', '=', $request['category'])
+            ->where('category', '=', 'pre')
             ->where('department_id', '=', $request['deptid'])
             ->where('user_id', '=', $request['ratee'])
             ->where('rater_id', '=', $user->id)
             ->get();
 
-        if( count($checkResults) > 0 ){
+        if( count($checkResults) > 0 && $request['category'] == 'pre' ){
 
-            return false;
+            return 501;
             
         }
 
-        foreach ( $request['q'] as $key => $score ){
+        if( isset($request['q']) ){
 
-            $storeResult = new ValidateResults();
+            foreach ( $request['q'] as $key => $score ){
 
-            $storeResult->job_order_no = $request['jno'];
-            $storeResult->category = $request['category'];
-            $storeResult->department_id = $request['deptid'];
-            $storeResult->user_id = $request['ratee'];
-            $storeResult->rater_id = $user->id;
+                $storeResult = new ValidateResults();
 
-            $scoreTemp = 0;
+                $storeResult->job_order_no = $request['jno'];
+                $storeResult->category = $request['category'];
+                $storeResult->department_id = $request['deptid'];
+                $storeResult->user_id = $request['ratee'];
+                $storeResult->rater_id = $user->id;
 
-            $storeResult->question_id = $key;
+                $scoreTemp = 0;
 
-            if( is_array($score) ){
-                if( count($score) > 5){
-                    $scoreTemp = 100;
-                }elseif( count($score) > 3 ){
-                    $scoreTemp = 50;
+                $storeResult->question_id = $key;
+
+                if( is_array($score) ){
+                    if( count($score) > 5){
+                        $scoreTemp = 100;
+                    }elseif( count($score) > 3 ){
+                        $scoreTemp = 50;
+                    }else{
+                        $scoreTemp = 0;
+                    }
                 }else{
-                    $scoreTemp = 0;
+                    $scoreTemp = $score;
                 }
-            }else{
-                $scoreTemp = $score;
+
+                $storeResult->score = $scoreTemp;
+
+                $storeResult->save();
             }
-
-            $storeResult->score = $scoreTemp;
-
-            $storeResult->save();
+            return 201;
         }
     }
 
@@ -126,9 +130,11 @@ class Questions extends Controller
             ->where('qtype','=','S')
             ->get();
 
+        $questionCount = 1;
+        $count = count($questions);
         foreach ($questions as $question){
 
-            $strQuestions = '';
+            $strQuestions = '<label>Question '.$questionCount.' of '.$count.'</label> <br>';
             if( in_array( $question->id, array(38, 62, 120, 141, 166, 188) ) ){
 
                 foreach( $productions as $key => $production ){
@@ -141,36 +147,61 @@ class Questions extends Controller
 
             }else{
 
-                $strQuestions = $question->qname.'</b><br>';
+                $strQuestions .= $question->qname.'</b><br>';
                 $answers = ValidateAnswers::where('questions_id','=',$question->id)
                     ->get();
                 foreach( $answers as $answer ){
 
                     $strQuestions .= '
-                        <div class="input-group">
+                       <!--<div class="input-group">
                           <span class="input-group-addon">
                             <input type="radio" value="'.$answer->score.'" name="q['.$question->id.']">
                           </span>
                           <span class="input-group-addon">'.$answer->answers.'</span>
+                        </div>-->
+                        
+                        <div class="radio-btn" style="margin-top: 20px;">
+                            <div class="col-md-1">
+                            <input style="height: 25px;" type="radio" value="'.$answer->score.'" name="q['.$question->id.']">
+                            </div>
+                            <div class="col-md-11">
+                            <label onclick>'.$answer->answers.'</label>
+                            </div>
                         </div>
+                        
                     ';
                 }
-
             }
 
             array_push($returnQuestions, $strQuestions);
-
+            $questionCount++;
         }
-        return view('questions.question', compact('returnQuestions', 'eventCategory', 'deptid', 'rateeId', 'jno'));
+
+        $categoryName = '';
+
+        if( $eventCategory == 'pre' ){
+            $categoryName = 'Pre-event';
+        } elseif ( $eventCategory == 'eprop' ){
+            $categoryName = 'Event Proper';
+        } elseif ( $eventCategory == 'post' ){
+            $categoryName = 'Post Event';
+        }
+
+        return view('questions.question', compact('returnQuestions', 'eventCategory', 'deptid', 'rateeId', 'jno', 'categoryName', 'count'));
     }
 
-    public function choosecategory($jid)
+    public function choosecategory($jno)
     {
-        return view('admin/validate/evaluate', compact('jid'));
+        return view('admin/validate/evaluate', compact('jno'));
     }
 
     public function chooseemployee($jno, $category, Request $request)
     {
+
+        if( !$request->user()->id ){
+            return redirect()->to('/login');
+        }
+
         $userLogged = $request->user();
         $results = [];
         $loadEmployees = Assignment::loadRatees($jno, $category, $userLogged->department_id);
@@ -183,7 +214,8 @@ class Questions extends Controller
                 'userid' => $loadEmployee->user_id,
                 'name' => $user->profile->last_name.', '.$user->profile->first_name,
                 'deptid' => $user->department->id,
-                'department' => $user->department->name
+                'department' => $user->department->name,
+                'exist' => 0
             );
 
             $checkResults = ValidateResults::where( 'job_order_no', '=', $jno )
@@ -196,6 +228,9 @@ class Questions extends Controller
 //            dd($jno.' '.$user->department_id.' '.$loadEmployee->user_id.' '.$userLogged->id);
 
             if( count($checkResults) <= 0 || $category != 'pre'){
+                array_push($results , $user_details);
+            }else{
+                $user_details['exist'] = 1;
                 array_push($results , $user_details);
             }
 
