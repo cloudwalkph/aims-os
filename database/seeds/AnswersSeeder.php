@@ -12,6 +12,3678 @@ class AnswersSeeder extends Seeder
      */
     public function run()
     {
-        ValidateAnswers::select( ValidateAnswers::raw("INSERT INTO `validate_answers` (`id`, `answers`, `questions_id`, `score`, `created_at`, `updated_at`) VALUES (1,'Within the given deadline',1,100,NULL,NULL),(2,'late',1,0,NULL,NULL),(3,'Yes',3,100,NULL,NULL),(4,'No',3,0,NULL,NULL),(5,'Upon the issuance of Job Order',4,60,NULL,NULL),(6,'1-2 days after the issuance of JO',4,40,NULL,NULL),(7,'Late advise',4,0,NULL,NULL),(8,'Yes',5,100,NULL,NULL),(9,'No',5,0,NULL,NULL),(10,'Yes',6,100,NULL,NULL),(11,'No',6,0,NULL,NULL),(12,'Within the day (after receiving the JO)',8,100,NULL,NULL),(13,'Days after alignment',8,0,NULL,NULL),(14,'Always',9,80,NULL,NULL),(15,'Sometimes',9,20,NULL,NULL),(16,'Always',10,80,NULL,NULL),(17,'Sometimes',10,20,NULL,NULL),(18,'Always',11,80,NULL,NULL),(19,'Sometimes',11,20,NULL,NULL),(20,'Yes',12,100,NULL,NULL),(21,'No',12,0,NULL,NULL),(22,'Yes',13,100,NULL,NULL),(23,'No',13,0,NULL,NULL),(24,'Yes',14,100,NULL,NULL),(25,'No',14,0,NULL,NULL),(26,'Yes',16,100,NULL,NULL),(27,'No',16,0,NULL,NULL),(28,'Yes',17,100,NULL,NULL),(29,'No',17,0,NULL,NULL),(30,'Yes',18,100,NULL,NULL),(31,'No',18,0,NULL,NULL),(32,'Yes',19,100,NULL,NULL),(33,'No',19,0,NULL,NULL),(34,'Yes',20,100,NULL,NULL),(35,'No',20,0,NULL,NULL),(36,'Yes',21,100,NULL,NULL),(37,'No',21,0,NULL,NULL),(38,'Yes',22,100,NULL,NULL),(39,'No',22,0,NULL,NULL),(40,'Yes',23,100,NULL,NULL),(41,'No',23,0,NULL,NULL),(42,'Yes',24,100,NULL,NULL),(43,'No',24,0,NULL,NULL),(44,'Yes',25,100,NULL,NULL),(45,'No',25,0,NULL,NULL),(46,'Yes',26,100,NULL,NULL),(47,'No',26,0,NULL,NULL),(48,'Yes',27,100,NULL,NULL),(49,'No',27,0,NULL,NULL),(50,'Yes',28,100,NULL,NULL),(51,'No',28,0,NULL,NULL),(52,'Yes',29,100,NULL,NULL),(53,'No',29,0,NULL,NULL),(54,'Yes',30,100,NULL,NULL),(55,'No',30,0,NULL,NULL),(56,'Yes',31,100,NULL,NULL),(57,'No',31,0,NULL,NULL),(58,'Yes',32,100,NULL,NULL),(59,'No',32,0,NULL,NULL),(60,'2-3 days after the event',33,100,NULL,NULL),(61,'Late',33,0,NULL,NULL),(62,'Yes ',34,100,NULL,NULL),(63,'No',34,0,NULL,NULL),(64,'2-3 days after the completion',35,100,NULL,NULL),(65,'Late',35,0,NULL,NULL),(66,'Yes',36,100,NULL,NULL),(67,'No',36,0,NULL,NULL),(68,'Yes',37,100,NULL,NULL),(69,'No',37,0,NULL,NULL),(70,'Yes',46,100,NULL,NULL),(71,'No',46,0,NULL,NULL),(72,'During alignment meeting',47,40,NULL,NULL),(73,'The same day of alignment meeting',47,40,NULL,NULL),(74,'1-2 days after alignment meeting',47,20,NULL,NULL),(75,'Yes',48,100,NULL,NULL),(76,'No',48,0,NULL,NULL),(77,'Upon submission',49,100,NULL,NULL),(78,'2-3 days',49,0,NULL,NULL),(79,'Within the day (after receiving the JO)',50,100,NULL,NULL),(80,'Days after alignment',50,0,NULL,NULL),(81,'Always',51,80,NULL,NULL),(82,'Sometimes',51,20,NULL,NULL),(83,'Yes',52,100,NULL,NULL),(84,'No',52,0,NULL,NULL),(85,'Yes',53,100,NULL,NULL),(86,'No',53,0,NULL,NULL),(87,'Yes',54,100,NULL,NULL),(88,'No',54,0,NULL,NULL),(89,'Yes',55,100,NULL,NULL),(90,'No',55,0,NULL,NULL),(91,'Yes',56,100,NULL,NULL),(92,'No',56,0,NULL,NULL),(93,'Yes',57,100,NULL,NULL),(94,'No',57,0,NULL,NULL),(95,'Yes',58,100,NULL,NULL),(96,'No',58,0,NULL,NULL),(97,'on target',59,90,NULL,NULL),(98,'below target',59,10,NULL,NULL),(99,'3 days before the cut-off',60,60,NULL,NULL),(100,'2 days before the cut-off',60,40,NULL,NULL),(101,'late',60,0,NULL,NULL),(102,'on time',61,100,NULL,NULL),(103,'late',61,0,NULL,NULL),(104,'Yes',70,100,NULL,NULL),(105,'No',70,0,NULL,NULL),(106,'During alignment meeting',71,40,NULL,NULL),(107,'The same day of alignment meeting',71,40,NULL,NULL),(108,'1-2 days after alignment meeting',71,20,NULL,NULL),(109,'Yes',72,100,NULL,NULL),(110,'No',72,0,NULL,NULL),(111,'Yes',73,100,NULL,NULL),(112,'No',73,0,NULL,NULL),(113,'Yes',74,100,NULL,NULL),(114,'No',74,0,NULL,NULL),(115,'Upon submission',75,100,NULL,NULL),(116,'2-3 days',75,0,NULL,NULL),(117,'Upon submission',76,100,NULL,NULL),(118,'2-3 days',76,0,NULL,NULL),(119,'Yes',77,100,NULL,NULL),(120,'No',77,0,NULL,NULL),(121,'Yes',78,100,NULL,NULL),(122,'No',78,0,NULL,NULL),(123,'Upon the issuance of Job Order',79,60,NULL,NULL),(124,'1-2 days after the issuance of JO',79,40,NULL,NULL),(125,'Late advise',79,0,NULL,NULL),(126,'Always',80,80,NULL,NULL),(127,'Sometimes',80,20,NULL,NULL),(128,'Yes',81,100,NULL,NULL),(129,'No',81,0,NULL,NULL),(130,'Yes',82,100,NULL,NULL),(131,'No',82,0,NULL,NULL),(132,'Yes',83,100,NULL,NULL),(133,'No',83,0,NULL,NULL),(134,'before the event day',84,100,NULL,NULL),(135,'late',84,0,NULL,NULL),(136,'Yes',85,100,NULL,NULL),(137,'No',85,0,NULL,NULL),(138,'Always',86,80,NULL,NULL),(139,'Sometimes',86,20,NULL,NULL),(140,'Yes',87,100,NULL,NULL),(141,'No',87,0,NULL,NULL),(142,'Yes',88,100,NULL,NULL),(143,'No',88,0,NULL,NULL),(144,'Always',89,80,NULL,NULL),(145,'Sometimes',89,20,NULL,NULL),(146,'Yes',90,100,NULL,NULL),(147,'No',90,0,NULL,NULL),(148,'Yes',91,100,NULL,NULL),(149,'No',91,0,NULL,NULL),(150,'Yes',92,100,NULL,NULL),(151,'No',92,0,NULL,NULL),(152,'Yes',93,100,NULL,NULL),(153,'No',93,0,NULL,NULL),(154,'Yes',94,100,NULL,NULL),(155,'No',94,0,NULL,NULL),(156,'Yes',95,100,NULL,NULL),(157,'No',95,0,NULL,NULL),(158,'Yes',96,100,NULL,NULL),(159,'No',96,0,NULL,NULL),(160,'Yes',97,100,NULL,NULL),(161,'No',97,0,NULL,NULL),(162,'Yes',98,100,NULL,NULL),(163,'No',98,0,NULL,NULL),(164,'Yes',99,100,NULL,NULL),(165,'No',99,0,NULL,NULL),(166,'Yes',100,100,NULL,NULL),(167,'No',100,0,NULL,NULL),(168,'Yes',101,100,NULL,NULL),(169,'No',101,0,NULL,NULL),(170,'Yes',102,100,NULL,NULL),(171,'No',102,0,NULL,NULL),(172,'Yes',103,100,NULL,NULL),(173,'No',103,0,NULL,NULL),(174,'Yes',104,100,NULL,NULL),(175,'No',104,0,NULL,NULL),(176,'Yes',105,100,NULL,NULL),(177,'No',105,0,NULL,NULL),(178,'Excellent',106,100,NULL,NULL),(179,'Good',106,60,NULL,NULL),(180,'Fair',106,40,NULL,NULL),(181,'Yes',107,100,NULL,NULL),(182,'No',107,0,NULL,NULL),(183,'Yes',108,100,NULL,NULL),(184,'No',108,0,NULL,NULL),(185,'Yes',109,100,NULL,NULL),(186,'No',109,0,NULL,NULL),(187,'Yes',110,100,NULL,NULL),(188,'No',110,0,NULL,NULL),(189,'Yes',111,100,NULL,NULL),(190,'No',111,0,NULL,NULL),(191,'Yes',112,100,NULL,NULL),(192,'No',112,0,NULL,NULL),(193,'Yes',113,100,NULL,NULL),(194,'No',113,0,NULL,NULL),(195,'Yes',114,100,NULL,NULL),(196,'No',114,0,NULL,NULL),(197,'Yes',115,100,NULL,NULL),(198,'No',115,0,NULL,NULL),(199,'Yes',116,100,NULL,NULL),(200,'No',116,0,NULL,NULL),(201,'3 days before the cut-off',118,60,NULL,NULL),(202,'2 days before the cut-off',118,40,NULL,NULL),(203,'late',118,0,NULL,NULL),(204,'on time',119,100,NULL,NULL),(205,'late',119,0,NULL,NULL),(206,'Yes',128,100,NULL,NULL),(207,'No',128,0,NULL,NULL),(208,'During alignment meeting',129,40,NULL,NULL),(209,'The same day of alignment meeting',129,40,NULL,NULL),(210,'1-2 days after alignment meeting',129,20,NULL,NULL),(211,'Yes',130,100,NULL,NULL),(212,'No',130,0,NULL,NULL),(213,'Upon submission',131,100,NULL,NULL),(214,'2-3 days',131,0,NULL,NULL),(215,'Within the day (after receiving the JO)',132,100,NULL,NULL),(216,'Days after alignment',132,0,NULL,NULL),(217,'Always',133,80,NULL,NULL),(218,'Sometimes',133,20,NULL,NULL),(219,'Yes',134,100,NULL,NULL),(220,'No',134,0,NULL,NULL),(221,'Yes',135,100,NULL,NULL),(222,'No',135,0,NULL,NULL),(223,'3 days before the cut-off',136,60,NULL,NULL),(224,'2 days before the cut-off',136,40,NULL,NULL),(225,'late',136,0,NULL,NULL),(226,'Yes',137,100,NULL,NULL),(227,'No',137,0,NULL,NULL),(228,'Yes',138,100,NULL,NULL),(229,'No',138,0,NULL,NULL),(230,'3 days before the cut-off',139,60,NULL,NULL),(231,'2 days before the cut-off',139,40,NULL,NULL),(232,'late',139,0,NULL,NULL),(233,'Yes',140,100,NULL,NULL),(234,'No',140,0,NULL,NULL),(235,'Yes',149,100,NULL,NULL),(236,'No',149,0,NULL,NULL),(237,'During alignment meeting',150,40,NULL,NULL),(238,'The same day of alignment meeting',150,40,NULL,NULL),(239,'1-2 days after alignment meeting',150,20,NULL,NULL),(240,'Yes',151,100,NULL,NULL),(241,'No',151,0,NULL,NULL),(242,'Upon submission',152,100,NULL,NULL),(243,'2-3 days',152,0,NULL,NULL),(244,'Within the day (after receiving the JO)',153,100,NULL,NULL),(245,'Days after alignment',153,0,NULL,NULL),(246,'Always',154,80,NULL,NULL),(247,'Sometimes',154,20,NULL,NULL),(248,'Yes',155,100,NULL,NULL),(249,'No',155,0,NULL,NULL),(250,'Yes',156,100,NULL,NULL),(251,'No',156,0,NULL,NULL),(252,'Yes',157,100,NULL,NULL),(253,'No',157,0,NULL,NULL),(254,'Always',158,80,NULL,NULL),(255,'Sometimes',158,20,NULL,NULL),(256,'Yes',159,100,NULL,NULL),(257,'No',159,0,NULL,NULL),(258,'Yes',160,100,NULL,NULL),(259,'No',160,0,NULL,NULL),(260,'Yes',161,100,NULL,NULL),(261,'No',161,0,NULL,NULL),(262,'Yes',162,100,NULL,NULL),(263,'No',162,0,NULL,NULL),(264,'Yes',163,100,NULL,NULL),(265,'No',163,0,NULL,NULL),(266,'Excellent',164,100,NULL,NULL),(267,'Good',164,60,NULL,NULL),(268,'Fair',164,40,NULL,NULL),(269,'Yes',165,100,NULL,NULL),(270,'No',165,0,NULL,NULL),(271,'Yes',174,100,NULL,NULL),(272,'No',174,0,NULL,NULL),(273,'During alignment meeting',175,40,NULL,NULL),(274,'The same day of alignment meeting',175,40,NULL,NULL),(275,'1-2 days after alignment meeting',175,20,NULL,NULL),(276,'Yes',176,100,NULL,NULL),(277,'No',176,0,NULL,NULL),(278,'Upon submission',177,100,NULL,NULL),(279,'2-3 days',177,0,NULL,NULL),(280,'Yes',178,100,NULL,NULL),(281,'No',178,0,NULL,NULL),(282,'Within the day (after receiving the JO)',179,100,NULL,NULL),(283,'Days after alignment',179,0,NULL,NULL),(284,'Always',180,80,NULL,NULL),(285,'Sometimes',180,20,NULL,NULL),(286,'Yes',181,100,NULL,NULL),(287,'No',181,0,NULL,NULL),(288,'Yes',182,100,NULL,NULL),(289,'No',182,0,NULL,NULL),(290,'Always',183,80,NULL,NULL),(291,'Sometimes',183,20,NULL,NULL),(292,'Yes',184,100,NULL,NULL),(293,'No',184,0,NULL,NULL),(294,'Yes',185,100,NULL,NULL),(295,'No',185,0,NULL,NULL),(296,'Yes',186,100,NULL,NULL),(297,'No',186,0,NULL,NULL),(298,'Yes',187,100,NULL,NULL),(299,'No',187,0,NULL,NULL),(300,'Yes',196,100,NULL,NULL),(301,'No',196,0,NULL,NULL),(302,'During alignment meeting',197,40,NULL,NULL),(303,'The same day of alignment meeting',197,40,NULL,NULL),(304,'1-2 days after alignment meeting',197,20,NULL,NULL),(305,'Yes',198,100,NULL,NULL),(306,'No',198,0,NULL,NULL),(307,'Upon submission',199,100,NULL,NULL),(308,'2-3 days',199,0,NULL,NULL),(309,'Always',200,80,NULL,NULL),(310,'Sometimes',200,20,NULL,NULL),(311,'Yes',201,100,NULL,NULL),(312,'No',201,0,NULL,NULL),(313,'Yes',202,100,NULL,NULL),(314,'No',202,0,NULL,NULL),(315,'before the event day',203,100,NULL,NULL),(316,'late',203,0,NULL,NULL),(317,'Within the day (after receiving the JO)',204,100,NULL,NULL),(318,'Days after alignment',204,0,NULL,NULL),(319,'Always',205,80,NULL,NULL),(320,'Sometimes',205,20,NULL,NULL),(321,'Yes',206,100,NULL,NULL),(322,'No',206,0,NULL,NULL),(323,'Yes',207,100,NULL,NULL),(324,'No',207,0,NULL,NULL),(325,'Yes',208,100,NULL,NULL),(326,'No',208,0,NULL,NULL),(327,'Yes',209,100,NULL,NULL),(328,'No',209,0,NULL,NULL),(329,'Yes',210,100,NULL,NULL),(330,'No',210,0,NULL,NULL),(331,'Yes',211,100,NULL,NULL),(332,'No',211,0,NULL,NULL),(333,'Yes',212,100,NULL,NULL),(334,'No',212,0,NULL,NULL);") );
+        Validateanswer::create( [
+            'id'=>1,
+            'answers'=>'Within the given deadline',
+            'questions_id'=>1,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>2,
+            'answers'=>'late',
+            'questions_id'=>1,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>3,
+            'answers'=>'Yes',
+            'questions_id'=>3,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>4,
+            'answers'=>'No',
+            'questions_id'=>3,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>5,
+            'answers'=>'Upon the issuance of Job Order',
+            'questions_id'=>4,
+            'score'=>60,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>6,
+            'answers'=>'1-2 days after the issuance of JO',
+            'questions_id'=>4,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>7,
+            'answers'=>'Late advise',
+            'questions_id'=>4,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>8,
+            'answers'=>'Yes',
+            'questions_id'=>5,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>9,
+            'answers'=>'No',
+            'questions_id'=>5,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>10,
+            'answers'=>'Yes',
+            'questions_id'=>6,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>11,
+            'answers'=>'No',
+            'questions_id'=>6,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>12,
+            'answers'=>'Within the day (after receiving the JO)',
+            'questions_id'=>8,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>13,
+            'answers'=>'Days after alignment',
+            'questions_id'=>8,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>14,
+            'answers'=>'Always',
+            'questions_id'=>9,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>15,
+            'answers'=>'Sometimes',
+            'questions_id'=>9,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>16,
+            'answers'=>'Always',
+            'questions_id'=>10,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>17,
+            'answers'=>'Sometimes',
+            'questions_id'=>10,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>18,
+            'answers'=>'Always',
+            'questions_id'=>11,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>19,
+            'answers'=>'Sometimes',
+            'questions_id'=>11,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>20,
+            'answers'=>'Yes',
+            'questions_id'=>12,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>21,
+            'answers'=>'No',
+            'questions_id'=>12,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>22,
+            'answers'=>'Yes',
+            'questions_id'=>13,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>23,
+            'answers'=>'No',
+            'questions_id'=>13,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>24,
+            'answers'=>'Yes',
+            'questions_id'=>14,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>25,
+            'answers'=>'No',
+            'questions_id'=>14,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>26,
+            'answers'=>'Yes',
+            'questions_id'=>16,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>27,
+            'answers'=>'No',
+            'questions_id'=>16,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>28,
+            'answers'=>'Yes',
+            'questions_id'=>17,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>29,
+            'answers'=>'No',
+            'questions_id'=>17,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>30,
+            'answers'=>'Yes',
+            'questions_id'=>18,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>31,
+            'answers'=>'No',
+            'questions_id'=>18,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>32,
+            'answers'=>'Yes',
+            'questions_id'=>19,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>33,
+            'answers'=>'No',
+            'questions_id'=>19,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>34,
+            'answers'=>'Yes',
+            'questions_id'=>20,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>35,
+            'answers'=>'No',
+            'questions_id'=>20,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>36,
+            'answers'=>'Yes',
+            'questions_id'=>21,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>37,
+            'answers'=>'No',
+            'questions_id'=>21,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>38,
+            'answers'=>'Yes',
+            'questions_id'=>22,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>39,
+            'answers'=>'No',
+            'questions_id'=>22,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>40,
+            'answers'=>'Yes',
+            'questions_id'=>23,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>41,
+            'answers'=>'No',
+            'questions_id'=>23,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>42,
+            'answers'=>'Yes',
+            'questions_id'=>24,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>43,
+            'answers'=>'No',
+            'questions_id'=>24,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>44,
+            'answers'=>'Yes',
+            'questions_id'=>25,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>45,
+            'answers'=>'No',
+            'questions_id'=>25,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>46,
+            'answers'=>'Yes',
+            'questions_id'=>26,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>47,
+            'answers'=>'No',
+            'questions_id'=>26,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>48,
+            'answers'=>'Yes',
+            'questions_id'=>27,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>49,
+            'answers'=>'No',
+            'questions_id'=>27,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>50,
+            'answers'=>'Yes',
+            'questions_id'=>28,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>51,
+            'answers'=>'No',
+            'questions_id'=>28,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>52,
+            'answers'=>'Yes',
+            'questions_id'=>29,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>53,
+            'answers'=>'No',
+            'questions_id'=>29,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>54,
+            'answers'=>'Yes',
+            'questions_id'=>30,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>55,
+            'answers'=>'No',
+            'questions_id'=>30,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>56,
+            'answers'=>'Yes',
+            'questions_id'=>31,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>57,
+            'answers'=>'No',
+            'questions_id'=>31,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>58,
+            'answers'=>'Yes',
+            'questions_id'=>32,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>59,
+            'answers'=>'No',
+            'questions_id'=>32,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>60,
+            'answers'=>'2-3 days after the event',
+            'questions_id'=>33,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>61,
+            'answers'=>'Late',
+            'questions_id'=>33,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>62,
+            'answers'=>'Yes ',
+            'questions_id'=>34,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>63,
+            'answers'=>'No',
+            'questions_id'=>34,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>64,
+            'answers'=>'2-3 days after the completion',
+            'questions_id'=>35,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>65,
+            'answers'=>'Late',
+            'questions_id'=>35,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>66,
+            'answers'=>'Yes',
+            'questions_id'=>36,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>67,
+            'answers'=>'No',
+            'questions_id'=>36,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>68,
+            'answers'=>'Yes',
+            'questions_id'=>37,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>69,
+            'answers'=>'No',
+            'questions_id'=>37,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>70,
+            'answers'=>'Yes',
+            'questions_id'=>46,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>71,
+            'answers'=>'No',
+            'questions_id'=>46,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>72,
+            'answers'=>'During alignment meeting',
+            'questions_id'=>47,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>73,
+            'answers'=>'The same day of alignment meeting',
+            'questions_id'=>47,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>74,
+            'answers'=>'1-2 days after alignment meeting',
+            'questions_id'=>47,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>75,
+            'answers'=>'Yes',
+            'questions_id'=>48,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>76,
+            'answers'=>'No',
+            'questions_id'=>48,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>77,
+            'answers'=>'Upon submission',
+            'questions_id'=>49,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>78,
+            'answers'=>'2-3 days',
+            'questions_id'=>49,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>79,
+            'answers'=>'Within the day (after receiving the JO)',
+            'questions_id'=>50,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>80,
+            'answers'=>'Days after alignment',
+            'questions_id'=>50,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>81,
+            'answers'=>'Always',
+            'questions_id'=>51,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>82,
+            'answers'=>'Sometimes',
+            'questions_id'=>51,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>83,
+            'answers'=>'Yes',
+            'questions_id'=>52,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>84,
+            'answers'=>'No',
+            'questions_id'=>52,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>85,
+            'answers'=>'Yes',
+            'questions_id'=>53,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>86,
+            'answers'=>'No',
+            'questions_id'=>53,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>87,
+            'answers'=>'Yes',
+            'questions_id'=>54,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>88,
+            'answers'=>'No',
+            'questions_id'=>54,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>89,
+            'answers'=>'Yes',
+            'questions_id'=>55,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>90,
+            'answers'=>'No',
+            'questions_id'=>55,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>91,
+            'answers'=>'Yes',
+            'questions_id'=>56,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>92,
+            'answers'=>'No',
+            'questions_id'=>56,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>93,
+            'answers'=>'Yes',
+            'questions_id'=>57,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>94,
+            'answers'=>'No',
+            'questions_id'=>57,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>95,
+            'answers'=>'Yes',
+            'questions_id'=>58,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>96,
+            'answers'=>'No',
+            'questions_id'=>58,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>97,
+            'answers'=>'on target',
+            'questions_id'=>59,
+            'score'=>90,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>98,
+            'answers'=>'below target',
+            'questions_id'=>59,
+            'score'=>10,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>99,
+            'answers'=>'3 days before the cut-off',
+            'questions_id'=>60,
+            'score'=>60,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>100,
+            'answers'=>'2 days before the cut-off',
+            'questions_id'=>60,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>101,
+            'answers'=>'late',
+            'questions_id'=>60,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>102,
+            'answers'=>'on time',
+            'questions_id'=>61,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>103,
+            'answers'=>'late',
+            'questions_id'=>61,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>104,
+            'answers'=>'Yes',
+            'questions_id'=>70,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>105,
+            'answers'=>'No',
+            'questions_id'=>70,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>106,
+            'answers'=>'During alignment meeting',
+            'questions_id'=>71,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>107,
+            'answers'=>'The same day of alignment meeting',
+            'questions_id'=>71,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>108,
+            'answers'=>'1-2 days after alignment meeting',
+            'questions_id'=>71,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>109,
+            'answers'=>'Yes',
+            'questions_id'=>72,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>110,
+            'answers'=>'No',
+            'questions_id'=>72,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>111,
+            'answers'=>'Yes',
+            'questions_id'=>73,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>112,
+            'answers'=>'No',
+            'questions_id'=>73,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>113,
+            'answers'=>'Yes',
+            'questions_id'=>74,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>114,
+            'answers'=>'No',
+            'questions_id'=>74,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>115,
+            'answers'=>'Upon submission',
+            'questions_id'=>75,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>116,
+            'answers'=>'2-3 days',
+            'questions_id'=>75,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>117,
+            'answers'=>'Upon submission',
+            'questions_id'=>76,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>118,
+            'answers'=>'2-3 days',
+            'questions_id'=>76,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>119,
+            'answers'=>'Yes',
+            'questions_id'=>77,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>120,
+            'answers'=>'No',
+            'questions_id'=>77,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>121,
+            'answers'=>'Yes',
+            'questions_id'=>78,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>122,
+            'answers'=>'No',
+            'questions_id'=>78,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>123,
+            'answers'=>'Upon the issuance of Job Order',
+            'questions_id'=>79,
+            'score'=>60,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>124,
+            'answers'=>'1-2 days after the issuance of JO',
+            'questions_id'=>79,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>125,
+            'answers'=>'Late advise',
+            'questions_id'=>79,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>126,
+            'answers'=>'Always',
+            'questions_id'=>80,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>127,
+            'answers'=>'Sometimes',
+            'questions_id'=>80,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>128,
+            'answers'=>'Yes',
+            'questions_id'=>81,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>129,
+            'answers'=>'No',
+            'questions_id'=>81,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>130,
+            'answers'=>'Yes',
+            'questions_id'=>82,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>131,
+            'answers'=>'No',
+            'questions_id'=>82,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>132,
+            'answers'=>'Yes',
+            'questions_id'=>83,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>133,
+            'answers'=>'No',
+            'questions_id'=>83,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>134,
+            'answers'=>'before the event day',
+            'questions_id'=>84,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>135,
+            'answers'=>'late',
+            'questions_id'=>84,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>136,
+            'answers'=>'Yes',
+            'questions_id'=>85,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>137,
+            'answers'=>'No',
+            'questions_id'=>85,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>138,
+            'answers'=>'Always',
+            'questions_id'=>86,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>139,
+            'answers'=>'Sometimes',
+            'questions_id'=>86,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>140,
+            'answers'=>'Yes',
+            'questions_id'=>87,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>141,
+            'answers'=>'No',
+            'questions_id'=>87,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>142,
+            'answers'=>'Yes',
+            'questions_id'=>88,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>143,
+            'answers'=>'No',
+            'questions_id'=>88,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>144,
+            'answers'=>'Always',
+            'questions_id'=>89,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>145,
+            'answers'=>'Sometimes',
+            'questions_id'=>89,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>146,
+            'answers'=>'Yes',
+            'questions_id'=>90,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>147,
+            'answers'=>'No',
+            'questions_id'=>90,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>148,
+            'answers'=>'Yes',
+            'questions_id'=>91,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>149,
+            'answers'=>'No',
+            'questions_id'=>91,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>150,
+            'answers'=>'Yes',
+            'questions_id'=>92,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>151,
+            'answers'=>'No',
+            'questions_id'=>92,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>152,
+            'answers'=>'Yes',
+            'questions_id'=>93,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>153,
+            'answers'=>'No',
+            'questions_id'=>93,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>154,
+            'answers'=>'Yes',
+            'questions_id'=>94,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>155,
+            'answers'=>'No',
+            'questions_id'=>94,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>156,
+            'answers'=>'Yes',
+            'questions_id'=>95,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>157,
+            'answers'=>'No',
+            'questions_id'=>95,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>158,
+            'answers'=>'Yes',
+            'questions_id'=>96,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>159,
+            'answers'=>'No',
+            'questions_id'=>96,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>160,
+            'answers'=>'Yes',
+            'questions_id'=>97,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>161,
+            'answers'=>'No',
+            'questions_id'=>97,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>162,
+            'answers'=>'Yes',
+            'questions_id'=>98,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>163,
+            'answers'=>'No',
+            'questions_id'=>98,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>164,
+            'answers'=>'Yes',
+            'questions_id'=>99,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>165,
+            'answers'=>'No',
+            'questions_id'=>99,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>166,
+            'answers'=>'Yes',
+            'questions_id'=>100,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>167,
+            'answers'=>'No',
+            'questions_id'=>100,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>168,
+            'answers'=>'Yes',
+            'questions_id'=>101,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>169,
+            'answers'=>'No',
+            'questions_id'=>101,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>170,
+            'answers'=>'Yes',
+            'questions_id'=>102,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>171,
+            'answers'=>'No',
+            'questions_id'=>102,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>172,
+            'answers'=>'Yes',
+            'questions_id'=>103,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>173,
+            'answers'=>'No',
+            'questions_id'=>103,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>174,
+            'answers'=>'Yes',
+            'questions_id'=>104,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>175,
+            'answers'=>'No',
+            'questions_id'=>104,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>176,
+            'answers'=>'Yes',
+            'questions_id'=>105,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>177,
+            'answers'=>'No',
+            'questions_id'=>105,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>178,
+            'answers'=>'Excellent',
+            'questions_id'=>106,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>179,
+            'answers'=>'Good',
+            'questions_id'=>106,
+            'score'=>60,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>180,
+            'answers'=>'Fair',
+            'questions_id'=>106,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>181,
+            'answers'=>'Yes',
+            'questions_id'=>107,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>182,
+            'answers'=>'No',
+            'questions_id'=>107,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>183,
+            'answers'=>'Yes',
+            'questions_id'=>108,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>184,
+            'answers'=>'No',
+            'questions_id'=>108,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>185,
+            'answers'=>'Yes',
+            'questions_id'=>109,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>186,
+            'answers'=>'No',
+            'questions_id'=>109,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>187,
+            'answers'=>'Yes',
+            'questions_id'=>110,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>188,
+            'answers'=>'No',
+            'questions_id'=>110,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>189,
+            'answers'=>'Yes',
+            'questions_id'=>111,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>190,
+            'answers'=>'No',
+            'questions_id'=>111,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>191,
+            'answers'=>'Yes',
+            'questions_id'=>112,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>192,
+            'answers'=>'No',
+            'questions_id'=>112,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>193,
+            'answers'=>'Yes',
+            'questions_id'=>113,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>194,
+            'answers'=>'No',
+            'questions_id'=>113,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>195,
+            'answers'=>'Yes',
+            'questions_id'=>114,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>196,
+            'answers'=>'No',
+            'questions_id'=>114,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>197,
+            'answers'=>'Yes',
+            'questions_id'=>115,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>198,
+            'answers'=>'No',
+            'questions_id'=>115,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>199,
+            'answers'=>'Yes',
+            'questions_id'=>116,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>200,
+            'answers'=>'No',
+            'questions_id'=>116,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>201,
+            'answers'=>'3 days before the cut-off',
+            'questions_id'=>118,
+            'score'=>60,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>202,
+            'answers'=>'2 days before the cut-off',
+            'questions_id'=>118,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>203,
+            'answers'=>'late',
+            'questions_id'=>118,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>204,
+            'answers'=>'on time',
+            'questions_id'=>119,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>205,
+            'answers'=>'late',
+            'questions_id'=>119,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>206,
+            'answers'=>'Yes',
+            'questions_id'=>128,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>207,
+            'answers'=>'No',
+            'questions_id'=>128,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>208,
+            'answers'=>'During alignment meeting',
+            'questions_id'=>129,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>209,
+            'answers'=>'The same day of alignment meeting',
+            'questions_id'=>129,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>210,
+            'answers'=>'1-2 days after alignment meeting',
+            'questions_id'=>129,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>211,
+            'answers'=>'Yes',
+            'questions_id'=>130,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>212,
+            'answers'=>'No',
+            'questions_id'=>130,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>213,
+            'answers'=>'Upon submission',
+            'questions_id'=>131,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>214,
+            'answers'=>'2-3 days',
+            'questions_id'=>131,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>215,
+            'answers'=>'Within the day (after receiving the JO)',
+            'questions_id'=>132,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>216,
+            'answers'=>'Days after alignment',
+            'questions_id'=>132,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>217,
+            'answers'=>'Always',
+            'questions_id'=>133,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>218,
+            'answers'=>'Sometimes',
+            'questions_id'=>133,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>219,
+            'answers'=>'Yes',
+            'questions_id'=>134,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>220,
+            'answers'=>'No',
+            'questions_id'=>134,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>221,
+            'answers'=>'Yes',
+            'questions_id'=>135,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>222,
+            'answers'=>'No',
+            'questions_id'=>135,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>223,
+            'answers'=>'3 days before the cut-off',
+            'questions_id'=>136,
+            'score'=>60,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>224,
+            'answers'=>'2 days before the cut-off',
+            'questions_id'=>136,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>225,
+            'answers'=>'late',
+            'questions_id'=>136,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>226,
+            'answers'=>'Yes',
+            'questions_id'=>137,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>227,
+            'answers'=>'No',
+            'questions_id'=>137,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>228,
+            'answers'=>'Yes',
+            'questions_id'=>138,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>229,
+            'answers'=>'No',
+            'questions_id'=>138,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>230,
+            'answers'=>'3 days before the cut-off',
+            'questions_id'=>139,
+            'score'=>60,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>231,
+            'answers'=>'2 days before the cut-off',
+            'questions_id'=>139,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>232,
+            'answers'=>'late',
+            'questions_id'=>139,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>233,
+            'answers'=>'Yes',
+            'questions_id'=>140,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>234,
+            'answers'=>'No',
+            'questions_id'=>140,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>235,
+            'answers'=>'Yes',
+            'questions_id'=>149,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>236,
+            'answers'=>'No',
+            'questions_id'=>149,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>237,
+            'answers'=>'During alignment meeting',
+            'questions_id'=>150,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>238,
+            'answers'=>'The same day of alignment meeting',
+            'questions_id'=>150,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>239,
+            'answers'=>'1-2 days after alignment meeting',
+            'questions_id'=>150,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>240,
+            'answers'=>'Yes',
+            'questions_id'=>151,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>241,
+            'answers'=>'No',
+            'questions_id'=>151,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>242,
+            'answers'=>'Upon submission',
+            'questions_id'=>152,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>243,
+            'answers'=>'2-3 days',
+            'questions_id'=>152,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>244,
+            'answers'=>'Within the day (after receiving the JO)',
+            'questions_id'=>153,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>245,
+            'answers'=>'Days after alignment',
+            'questions_id'=>153,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>246,
+            'answers'=>'Always',
+            'questions_id'=>154,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>247,
+            'answers'=>'Sometimes',
+            'questions_id'=>154,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>248,
+            'answers'=>'Yes',
+            'questions_id'=>155,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>249,
+            'answers'=>'No',
+            'questions_id'=>155,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>250,
+            'answers'=>'Yes',
+            'questions_id'=>156,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>251,
+            'answers'=>'No',
+            'questions_id'=>156,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>252,
+            'answers'=>'Yes',
+            'questions_id'=>157,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>253,
+            'answers'=>'No',
+            'questions_id'=>157,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>254,
+            'answers'=>'Always',
+            'questions_id'=>158,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>255,
+            'answers'=>'Sometimes',
+            'questions_id'=>158,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>256,
+            'answers'=>'Yes',
+            'questions_id'=>159,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>257,
+            'answers'=>'No',
+            'questions_id'=>159,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>258,
+            'answers'=>'Yes',
+            'questions_id'=>160,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>259,
+            'answers'=>'No',
+            'questions_id'=>160,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>260,
+            'answers'=>'Yes',
+            'questions_id'=>161,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>261,
+            'answers'=>'No',
+            'questions_id'=>161,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>262,
+            'answers'=>'Yes',
+            'questions_id'=>162,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>263,
+            'answers'=>'No',
+            'questions_id'=>162,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>264,
+            'answers'=>'Yes',
+            'questions_id'=>163,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>265,
+            'answers'=>'No',
+            'questions_id'=>163,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>266,
+            'answers'=>'Excellent',
+            'questions_id'=>164,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>267,
+            'answers'=>'Good',
+            'questions_id'=>164,
+            'score'=>60,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>268,
+            'answers'=>'Fair',
+            'questions_id'=>164,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>269,
+            'answers'=>'Yes',
+            'questions_id'=>165,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>270,
+            'answers'=>'No',
+            'questions_id'=>165,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>271,
+            'answers'=>'Yes',
+            'questions_id'=>174,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>272,
+            'answers'=>'No',
+            'questions_id'=>174,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>273,
+            'answers'=>'During alignment meeting',
+            'questions_id'=>175,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>274,
+            'answers'=>'The same day of alignment meeting',
+            'questions_id'=>175,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>275,
+            'answers'=>'1-2 days after alignment meeting',
+            'questions_id'=>175,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>276,
+            'answers'=>'Yes',
+            'questions_id'=>176,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>277,
+            'answers'=>'No',
+            'questions_id'=>176,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>278,
+            'answers'=>'Upon submission',
+            'questions_id'=>177,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>279,
+            'answers'=>'2-3 days',
+            'questions_id'=>177,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>280,
+            'answers'=>'Yes',
+            'questions_id'=>178,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>281,
+            'answers'=>'No',
+            'questions_id'=>178,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>282,
+            'answers'=>'Within the day (after receiving the JO)',
+            'questions_id'=>179,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>283,
+            'answers'=>'Days after alignment',
+            'questions_id'=>179,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>284,
+            'answers'=>'Always',
+            'questions_id'=>180,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>285,
+            'answers'=>'Sometimes',
+            'questions_id'=>180,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>286,
+            'answers'=>'Yes',
+            'questions_id'=>181,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>287,
+            'answers'=>'No',
+            'questions_id'=>181,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>288,
+            'answers'=>'Yes',
+            'questions_id'=>182,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>289,
+            'answers'=>'No',
+            'questions_id'=>182,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>290,
+            'answers'=>'Always',
+            'questions_id'=>183,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>291,
+            'answers'=>'Sometimes',
+            'questions_id'=>183,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>292,
+            'answers'=>'Yes',
+            'questions_id'=>184,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>293,
+            'answers'=>'No',
+            'questions_id'=>184,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>294,
+            'answers'=>'Yes',
+            'questions_id'=>185,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>295,
+            'answers'=>'No',
+            'questions_id'=>185,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>296,
+            'answers'=>'Yes',
+            'questions_id'=>186,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>297,
+            'answers'=>'No',
+            'questions_id'=>186,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>298,
+            'answers'=>'Yes',
+            'questions_id'=>187,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>299,
+            'answers'=>'No',
+            'questions_id'=>187,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>300,
+            'answers'=>'Yes',
+            'questions_id'=>196,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>301,
+            'answers'=>'No',
+            'questions_id'=>196,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>302,
+            'answers'=>'During alignment meeting',
+            'questions_id'=>197,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>303,
+            'answers'=>'The same day of alignment meeting',
+            'questions_id'=>197,
+            'score'=>40,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>304,
+            'answers'=>'1-2 days after alignment meeting',
+            'questions_id'=>197,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>305,
+            'answers'=>'Yes',
+            'questions_id'=>198,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>306,
+            'answers'=>'No',
+            'questions_id'=>198,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>307,
+            'answers'=>'Upon submission',
+            'questions_id'=>199,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>308,
+            'answers'=>'2-3 days',
+            'questions_id'=>199,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>309,
+            'answers'=>'Always',
+            'questions_id'=>200,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>310,
+            'answers'=>'Sometimes',
+            'questions_id'=>200,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>311,
+            'answers'=>'Yes',
+            'questions_id'=>201,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>312,
+            'answers'=>'No',
+            'questions_id'=>201,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>313,
+            'answers'=>'Yes',
+            'questions_id'=>202,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>314,
+            'answers'=>'No',
+            'questions_id'=>202,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>315,
+            'answers'=>'before the event day',
+            'questions_id'=>203,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>316,
+            'answers'=>'late',
+            'questions_id'=>203,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>317,
+            'answers'=>'Within the day (after receiving the JO)',
+            'questions_id'=>204,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>318,
+            'answers'=>'Days after alignment',
+            'questions_id'=>204,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>319,
+            'answers'=>'Always',
+            'questions_id'=>205,
+            'score'=>80,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>320,
+            'answers'=>'Sometimes',
+            'questions_id'=>205,
+            'score'=>20,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>321,
+            'answers'=>'Yes',
+            'questions_id'=>206,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>322,
+            'answers'=>'No',
+            'questions_id'=>206,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>323,
+            'answers'=>'Yes',
+            'questions_id'=>207,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>324,
+            'answers'=>'No',
+            'questions_id'=>207,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>325,
+            'answers'=>'Yes',
+            'questions_id'=>208,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>326,
+            'answers'=>'No',
+            'questions_id'=>208,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>327,
+            'answers'=>'Yes',
+            'questions_id'=>209,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>328,
+            'answers'=>'No',
+            'questions_id'=>209,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>329,
+            'answers'=>'Yes',
+            'questions_id'=>210,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>330,
+            'answers'=>'No',
+            'questions_id'=>210,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>331,
+            'answers'=>'Yes',
+            'questions_id'=>211,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>332,
+            'answers'=>'No',
+            'questions_id'=>211,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>333,
+            'answers'=>'Yes',
+            'questions_id'=>212,
+            'score'=>100,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
+
+        Validateanswer::create( [
+            'id'=>334,
+            'answers'=>'No',
+            'questions_id'=>212,
+            'score'=>0,
+            'created_at'=>NULL,
+            'updated_at'=>NULL
+        ] );
+
+
     }
 }
