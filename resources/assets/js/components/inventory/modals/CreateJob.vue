@@ -101,10 +101,9 @@
                 // if(d.getHours() == 0) {
                 //     d.setHours(8);
                 // }
-                var created_job_id = this.propData.jobOrders.length + 1;
 
                 var postData = {
-                    job_order_id: 1,
+                    job_order_id: this.selected_job_order,
                     user_id: this.selected_user,
                     department_id: 5,
                     deadline: this.convertDate(form.deadline.value),
@@ -115,7 +114,6 @@
                     .then(function (response) {
                         this.propData.inventoryJobs.push(
                             {
-                                id: created_job_id,
                                 job_order_id: postData.job_order_id,
                                 remarks: postData.remarks,
                                 deadline: postData.deadline,
