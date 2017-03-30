@@ -240,7 +240,7 @@
                 this.$http.get('/api/v1/inventory')
                     .then(function (response) {
                         // this.inventoryData.products = [];
-                        for (product of response.data.data) {
+                        for (product of response.data) {
                             this.inventoryData.products.push({
                                 id: product.id,
                                 job_order_id: product.job_order_id,
