@@ -37,7 +37,7 @@ class JobOrder extends Model
 
     function user_profile()
     {
-        return $this->hasOne(userProfile::class, 'user_id', 'user_id');
+        return $this->hasOne(UserProfile::class, 'user_id', 'user_id');
     }
 
     public function clients()
