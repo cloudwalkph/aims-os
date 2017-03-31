@@ -8,10 +8,10 @@
                     <h4 class="modal-title" id="myModalLabel">{{jo.job_order.project_name}} | {{jo.job_order.job_order_no}} </h4>
                 </div>
                 <div class="modal-body">
-                    <div>Deadline: {{jo.deadline}}</div>
+                    <div>Deadline: {{convertDate(jo.deadline)}}</div>
                     <div class="deliverables">
                         <h5><strong>Deliverables</strong></h5>
-                        {{convertDate(jo.deliverables)}}
+                        {{jo.deliverables}}
                     </div>
                 </div>
                 <div class="modal-footer">
