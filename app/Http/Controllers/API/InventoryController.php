@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Inventory;
+use App\Models\JobOrderDepartmentInvolved;
 
 use DB;
 
@@ -113,5 +114,20 @@ class InventoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getByDepartmentInvolvement(Request $request)
+    {
+        $user = $request->user();
+        $jos = JobOrderDepartmentInvolved::with('jobOrder.user.profile')
+            ->where('department_id', $user['department_id'])
+            ->get();
+
+        $result = [];
+        if($jos->count() > 0) {
+            $result = $jos->toArray();
+        }
+
+        return response()->json($result, 200);
     }
 }

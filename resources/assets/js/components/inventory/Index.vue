@@ -66,6 +66,9 @@
                 ],
                 iJobId: null,
                 inventoryData: {
+                    assignedJobs: [
+
+                    ],
                     jobOrders: [
                         {
                             id: 0,
@@ -236,11 +239,25 @@
                     });
                 }
             },
+            getAssignedJob: function () {
+                this.$http.get('/api/v1/inventory/department')
+                    .then(function (response) {
+                        // this.inventoryData.assignedJobs = [];
+                        for (let r of response.data) {
+                            if (r) {
+                                this.inventoryData.assignedJobs.push(r);
+                            }
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log('error jobs assigned', e);
+                    });
+            },
             getInventory: function () {
                 this.$http.get('/api/v1/inventory')
                     .then(function (response) {
                         // this.inventoryData.products = [];
-                        for (product of response.data) {
+                        for (product of response.data.data) {
                             this.inventoryData.products.push({
                                 id: product.id,
                                 job_order_id: product.job_order_id,
@@ -260,9 +277,9 @@
             getJobOrders: function () {
                 this.$http.get('/api/v1/job-orders/department')
                     .then(function (response) {
-                        // this.inventoryData.inventoryJobs = [];
+                        // this.inventoryData.jobOrders = [];
                         for (let r of response.data) {
-                            if(r) {
+                            if (r) {
                                 this.inventoryData.jobOrders.push(r);
                             }
                         }
@@ -297,6 +314,7 @@
             }
         },
         mounted: function () {
+            this.getAssignedJob();
             this.getInventory();
             this.getJob();
             this.getJobOrders();

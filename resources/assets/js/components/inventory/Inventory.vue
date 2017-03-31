@@ -1,46 +1,58 @@
 <template>
 
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" v-for="item in items">
-                <div class="button-menu">
-                    <div class="hero-widget well well-sm">
-                        <div class="icon">
-                            <i class="fa" v-bind:class="item.icon"></i>
-                        </div>
-                        <div class="text">
-                            <label class="text-muted">{{item.label}}</label>
-                        </div>
-                        <div class="options">
-                            <a href="#" :pageID="item.id" class="btn btn-primary btn-lg" @click.prevent="openPage">{{item.buttonLabel}}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <a href="/validate">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" v-for="item in items">
                     <div class="button-menu">
                         <div class="hero-widget well well-sm">
                             <div class="icon">
-                                <i class="fa fa-clipboard"></i>
+                                <i class="fa" v-bind:class="item.icon"></i>
                             </div>
                             <div class="text">
-                                <label class="text-muted">Validate</label>
+                                <label class="text-muted">{{item.label}}</label>
                             </div>
                             <div class="options">
-                                <a href="/validate" class="btn btn-primary btn-lg">View Lists</a>
+                                <a href="#" :pageID="item.id" class="btn btn-primary btn-lg" @click.prevent="openPage">{{item.buttonLabel}}</a>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <a href="/validate">
+                        <div class="button-menu">
+                            <div class="hero-widget well well-sm">
+                                <div class="icon">
+                                    <i class="fa fa-clipboard"></i>
+                                </div>
+                                <div class="text">
+                                    <label class="text-muted">Validate</label>
+                                </div>
+                                <div class="options">
+                                    <a href="/validate" class="btn btn-primary btn-lg">View Lists</a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
+        <div class="col-lg-3">
+            <AssignedJobList :propData="propData"></AssignedJobList>
+        </div>
+    </div>
 
 </template>
 
 <script>
+    var AssignedJobList = require('../commons/AssignedJobList.vue');
+
     module.exports = {
-        data: function() {
+        components: {
+            AssignedJobList
+        },
+        data: function () {
             return {
                 items: [
                     {
@@ -76,6 +88,12 @@
                 ]
             }
         },
-        props: ['openPage']
+        mounted: function () {
+        },
+        props: [
+            'openPage',
+            'propData'
+        ]
     }
+
 </script>
