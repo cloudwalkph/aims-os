@@ -8,7 +8,6 @@
                   :css="css.table"
                   :sort-order="sortOrder"
                   :multi-sort="true"
-                  detail-row-component="client-detail-row"
                   :append-params="moreParams"
                   @vuetable:cell-clicked="onCellClicked"
                   @vuetable:pagination-data="onPaginationData"
@@ -38,14 +37,12 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import DetailRow from './commons/DetailRow'
     import FilterBar from './commons/FilterBar'
     import CreateClientModal from './commons/form.vue'
     import EditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
     Vue.component('client-custom-actions', CustomActions)
-    Vue.component('client-detail-row', DetailRow)
     Vue.component('client-filter-bar', FilterBar)
     Vue.component('create-client-form-modal', CreateClientModal)
     Vue.component('client-update-modal', EditModal)
@@ -97,7 +94,7 @@
                         name: 'email',
                         sortField: 'email',
                         title: 'Email',
-                        callback: 'allcap'
+                        callback: 'lowercap'
                     },
                     {
                         name: 'brands',
@@ -149,8 +146,8 @@
             }
         },
         methods: {
-            allcap (value) {
-                return value.toUpperCase()
+            lowercap (value) {
+                return value.toLowerCase()
             },
             brandsDisseminate (value) {
                 return JSON.parse(value).map(elem => { return elem.name }).join(', ')

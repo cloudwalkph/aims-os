@@ -106,9 +106,6 @@
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="col-md-12 col-xs-12">
-                                    <h5> <strong>Contract Number:</strong> {{ isset($jo->contract_number) ? $jo->contract_number : 'N/A' }}</h5>
-                                </div>
-                                <div class="col-md-12 col-xs-12">
                                     <h5><strong>D.O. Number:</strong>{{ isset($jo->do_contract_no) ? $jo->do_contract_no : 'N/A' }}</h5>
                                 </div>
                             </div>
