@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filter-bar></filter-bar>
+        <vehicle-type-filter-bar></vehicle-type-filter-bar>
         <vuetable ref="vuetable"
                   api-url="/api/v1/vehicle-types/"
                   :fields="fields"
@@ -37,12 +37,12 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import FilterBar from './commons/FilterBar'
+    import VehicleTypeFilterBar from './commons/FilterBar'
     import TypeModal from './commons/form.vue'
 
     Vue.use(VueEvents)
     Vue.component('vehicle-type-custom-actions', CustomActions)
-    Vue.component('filter-bar', FilterBar)
+    Vue.component('vehicle-type-filter-bar', VehicleTypeFilterBar)
     Vue.component('vehicle-type-modal', TypeModal)
 
     export default {
@@ -69,11 +69,6 @@
                         name: 'name',
                         sortField: 'name',
                         title: 'Agency Name'
-                    },
-                    {
-                        name: 'slug',
-                        sortField: 'slug',
-                        title: 'Slug',
                     },
                     {
                         name: 'created_at',

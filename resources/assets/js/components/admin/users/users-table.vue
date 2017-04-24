@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filter-bar></filter-bar>
+        <user-filter-bar></user-filter-bar>
         <vuetable ref="vuetable"
                   api-url="/api/v1/users/"
                   :fields="fields"
@@ -38,13 +38,13 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import FilterBar from './commons/FilterBar'
+    import UserFilterBar from './commons/FilterBar'
     import UserModal from './commons/form.vue'
     import UserEditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
     Vue.component('user-custom-actions', CustomActions)
-    Vue.component('filter-bar', FilterBar)
+    Vue.component('user-filter-bar', UserFilterBar)
     Vue.component('user-modal', UserModal)
     Vue.component('user-update-modal', UserEditModal)
 

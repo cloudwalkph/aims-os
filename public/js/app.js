@@ -40981,10 +40981,6 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('agencies-update-modal', _
                 sortField: 'name',
                 title: 'Agency Name'
             }, {
-                name: 'slug',
-                sortField: 'slug',
-                title: 'Slug'
-            }, {
                 name: 'created_at',
                 sortField: 'created_at',
                 titleClass: 'text-center',
@@ -41649,7 +41645,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_events___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
-__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IMPORTED_MODULE_8__commons_FilterBar___default.a);
+__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-filter-bar', __WEBPACK_IMPORTED_MODULE_8__commons_FilterBar___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-modal', __WEBPACK_IMPORTED_MODULE_9__commons_form_vue___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-update-modal', __WEBPACK_IMPORTED_MODULE_10__commons_edit_form_vue___default.a);
 
@@ -41674,10 +41670,6 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-update-moda
                 name: 'name',
                 sortField: 'name',
                 title: 'Manpower Type Name'
-            }, {
-                name: 'slug',
-                sortField: 'slug',
-                title: 'Slug'
             }, {
                 name: 'created_at',
                 sortField: 'created_at',
@@ -42487,7 +42479,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_events___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('user-custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
-__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IMPORTED_MODULE_8__commons_FilterBar___default.a);
+__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('user-filter-bar', __WEBPACK_IMPORTED_MODULE_8__commons_FilterBar___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('user-modal', __WEBPACK_IMPORTED_MODULE_9__commons_form_vue___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('user-update-modal', __WEBPACK_IMPORTED_MODULE_10__commons_edit_form_vue___default.a);
 
@@ -42854,7 +42846,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_events___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('vehicle-type-custom-actions', __WEBPACK_IMPORTED_MODULE_7__commons_CustomActions___default.a);
-__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IMPORTED_MODULE_8__commons_FilterBar___default.a);
+__WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('vehicle-type-filter-bar', __WEBPACK_IMPORTED_MODULE_8__commons_FilterBar___default.a);
 __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('vehicle-type-modal', __WEBPACK_IMPORTED_MODULE_9__commons_form_vue___default.a);
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -42878,10 +42870,6 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('vehicle-type-modal', __WE
                 name: 'name',
                 sortField: 'name',
                 title: 'Agency Name'
-            }, {
-                name: 'slug',
-                sortField: 'slug',
-                title: 'Slug'
             }, {
                 name: 'created_at',
                 sortField: 'created_at',
@@ -96723,7 +96711,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "text",
-      "placeholder": "name, email"
+      "placeholder": "Manpower type"
     },
     domProps: {
       "value": (_vm.filterText)
@@ -96920,7 +96908,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "text",
-      "placeholder": "name, email"
+      "placeholder": "Vehicle Type"
     },
     domProps: {
       "value": (_vm.filterText)
@@ -97260,7 +97248,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('filter-bar'), _vm._v(" "), _c('vuetable', {
+  return _c('div', [_c('vehicle-type-filter-bar'), _vm._v(" "), _c('vuetable', {
     ref: "vuetable",
     attrs: {
       "api-url": "/api/v1/vehicle-types/",
@@ -98220,7 +98208,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "text",
-      "placeholder": "agency name"
+      "placeholder": "Agency name"
     },
     domProps: {
       "value": (_vm.filterText)
@@ -98452,7 +98440,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('filter-bar'), _vm._v(" "), _c('vuetable', {
+  return _c('div', [_c('user-filter-bar'), _vm._v(" "), _c('vuetable', {
     ref: "vuetable",
     attrs: {
       "api-url": "/api/v1/users/",
@@ -100274,7 +100262,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('filter-bar'), _vm._v(" "), _c('vuetable', {
+  return _c('div', [_c('manpower-type-filter-bar'), _vm._v(" "), _c('vuetable', {
     ref: "vuetable",
     attrs: {
       "api-url": "/api/v1/manpower-types/",
