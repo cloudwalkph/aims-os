@@ -24,6 +24,7 @@
         </div>
 
         <user-modal></user-modal>
+        <user-update-modal ref="updateUser"></user-update-modal>
     </div>
 </template>
 
@@ -39,11 +40,13 @@
     import CustomActions from './commons/CustomActions'
     import FilterBar from './commons/FilterBar'
     import UserModal from './commons/form.vue'
+    import UserEditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
     Vue.component('user-custom-actions', CustomActions)
     Vue.component('filter-bar', FilterBar)
     Vue.component('user-modal', UserModal)
+    Vue.component('user-update-modal', UserEditModal)
 
     export default {
         components: {
@@ -74,7 +77,7 @@
                         name: 'email',
                         sortField: 'email',
                         title: 'E-Mail Address',
-                        callback: 'allcap'
+                        callback: 'lowercap'
                     },
                     {
                         name: 'department',
@@ -135,8 +138,8 @@
             }
         },
         methods: {
-            allcap (value) {
-                return value.toUpperCase()
+            lowercap (value) {
+                return value.toLowerCase()
             },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
@@ -164,6 +167,11 @@
             'filter-reset' () {
                 this.moreParams = {}
                 Vue.nextTick( () => this.$refs.vuetable.refresh() )
+            },
+            'update-user-show' (data) {
+                Vue.nextTick(() => {
+                    this.$refs.updateUser.populateData(data)
+                })
             }
         }
     }

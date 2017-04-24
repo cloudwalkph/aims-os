@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/', 'UsersController@index');
         Route::get('/{departmentId}', 'UsersController@getByDepartment');
         Route::post('/', 'UsersController@store');
+        Route::put('/{userId}', 'UsersController@update');
         Route::delete('/{userId}', 'UsersController@delete');
     });
 
