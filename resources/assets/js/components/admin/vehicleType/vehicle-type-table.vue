@@ -24,6 +24,7 @@
         </div>
 
         <vehicle-type-modal></vehicle-type-modal>
+        <vehicle-type-update-modal ref="updateVehicleType"></vehicle-type-update-modal>
     </div>
 </template>
 
@@ -39,11 +40,13 @@
     import CustomActions from './commons/CustomActions'
     import VehicleTypeFilterBar from './commons/FilterBar'
     import TypeModal from './commons/form.vue'
+    import VehicleTypeEditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
     Vue.component('vehicle-type-custom-actions', CustomActions)
     Vue.component('vehicle-type-filter-bar', VehicleTypeFilterBar)
     Vue.component('vehicle-type-modal', TypeModal)
+    Vue.component('vehicle-type-update-modal', VehicleTypeEditModal)
 
     export default {
         components: {
@@ -141,6 +144,11 @@
             'filter-reset' () {
                 this.moreParams = {}
                 Vue.nextTick( () => this.$refs.vuetable.refresh() )
+            },
+            'update-vehicle-type-show' (data) {
+                Vue.nextTick(() => {
+                    this.$refs.updateVehicleType.populateData(data)
+                })
             }
         }
     }

@@ -151,6 +151,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/all', 'VehicleTypesController@all');
         Route::get('/', 'VehicleTypesController@index');
         Route::post('/', 'VehicleTypesController@store');
+        Route::put('/{typeId}', 'VehicleTypesController@update');
         Route::delete('/{typeId}', 'VehicleTypesController@delete');
     });
 

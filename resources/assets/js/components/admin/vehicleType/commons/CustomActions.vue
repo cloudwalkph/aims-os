@@ -32,6 +32,9 @@
                         toastr.error('Failed in deleting vehicle type', 'Error')
                         console.log(error)
                     })
+                } else if (action === 'edit-item') {
+                    this.$events.fire('update-vehicle-type-show', data)
+                    $('#editTypeModal').modal('show')
                 }
 
             }
