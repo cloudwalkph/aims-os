@@ -47881,9 +47881,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             reference_for: ''
         };
     },
-    mounted: function mounted() {
-        this.getReference();
-    },
+    mounted: function mounted() {},
 
     methods: {
         resetForm: function resetForm() {

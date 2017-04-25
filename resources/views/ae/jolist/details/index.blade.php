@@ -72,7 +72,7 @@
                     <div class="panel-heading">
 
                             <span class="pull-right">
-                                <button class="btn btn-default" onclick="frames['frame'].print()">
+                                <button class="btn btn-default" onclick="$('iframe').attr('src','/ae/jo/details/{{ $jo->job_order_no }}/preview'); frames['frame'].print();">
                                     <i class="fa fa-print fa-lg"></i> Print
                                 </button> &nbsp;
                                 <button class="btn btn-primary">

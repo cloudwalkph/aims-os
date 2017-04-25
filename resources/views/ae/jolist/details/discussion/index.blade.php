@@ -17,7 +17,7 @@
 
                 <hr/>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="comments-container">
                         <ul id="comments-list" class="comments-list">
                             <li>
@@ -62,7 +62,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </form>

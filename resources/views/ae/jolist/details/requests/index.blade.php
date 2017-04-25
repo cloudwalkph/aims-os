@@ -10,7 +10,9 @@
             <div id="collapseManpower" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="manpowerForm">
                 <div class="panel-body">
                     <div class="col-md-12">
-                        <button class="btn btn-default pull-right" onclick="frames['frameManpower'].print()">
+                        <button class="btn btn-default pull-right" onclick="
+                            $('iframe').attr('src','/ae/jo/details/{{ $jo->job_order_no }}/manpower');
+                            frames['frameManpower'].print()">
                             <i class="fa fa-print fa-lg"></i> Print Manpower Requests
                         </button>
                     </div>
@@ -33,7 +35,9 @@
                 <div class="panel-body">
 
                     <div class="col-md-12">
-                        <button class="btn btn-default pull-right" onclick="frames['frameVehicle'].print()">
+                        <button class="btn btn-default pull-right" onclick="
+                            $('iframe').attr('src','/ae/jo/details/{{ $jo->job_order_no }}/vehicle');
+                            frames['frameVehicle'].print()">
                             <i class="fa fa-print fa-lg"></i> Print Vehicle Requests
                         </button>
                     </div>
@@ -56,7 +60,9 @@
                 <div class="panel-body">
 
                     <div class="col-md-12">
-                        <button class="btn btn-default pull-right" onclick="frames['frameMeal'].print()">
+                        <button class="btn btn-default pull-right" onclick="
+                            $('iframe').attr('src','/ae/jo/details/{{ $jo->job_order_no }}/meal');
+                            frames['frameMeal'].print()">
                             <i class="fa fa-print fa-lg"></i> Print Meal Requests
                         </button>
                     </div>

@@ -43,7 +43,7 @@
             }
         },
         mounted() {
-            this.getReference()
+        
         },
         methods: {
             resetForm() {
