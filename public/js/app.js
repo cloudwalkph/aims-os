@@ -47135,6 +47135,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             var url = '/api/v1/job-order-animation-details';
             this.$http.post(url, data).then(function (response) {
 
+                $('#joFrame').attr('src', '/ae/jo/details/' + jobOrderId + '/preview');
                 _this2.$events.fire('reload-table');
                 _this2.resetForm();
                 toastr.success('Successfully added animation details', 'Success');
@@ -47785,6 +47786,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             var url = '/api/v1/job-order-department-involvements';
             this.$http.post(url, data).then(function (response) {
 
+                $('#joFrame').attr('src', '/ae/jo/details/' + jobOrderId + '/preview');
                 _this2.$events.fire('reload-table');
                 _this2.resetForm();
                 toastr.success('Successfully added department involvement', 'Success');
@@ -48386,6 +48388,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             var url = '/api/v1/job-order-project-attachments';
             this.$http.post(url, form).then(function (response) {
 
+                $('#joFrame').attr('src', '/ae/jo/details/' + jobOrderId + '/preview');
                 toastr.success('Successfully added project attachments', 'Success');
                 _this.$events.fire('reload-table');
                 _this.resetForm();
@@ -49014,6 +49017,8 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
 
             var url = '/api/v1/job-order-manpowers';
             this.$http.post(url, data).then(function (response) {
+
+                $('#manpowerFrame').attr('src', '/ae/jo/details/' + jobOrderId + '/manpower');
                 toastr.success('Successfully added manpower request', 'Success');
                 _this2.$events.fire('reload-table');
                 _this2.resetForm();
@@ -49451,6 +49456,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             this.$http.post(url, data).then(function (response) {
 
                 toastr.success('Successfully added meal request', 'Success');
+                $('#mealFrame').attr('src', '/ae/jo/details/' + jobOrderId + '/meal');
                 _this2.$events.fire('reload-table');
                 _this2.resetForm();
             }, function (error) {
@@ -49928,6 +49934,7 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             this.$http.post(url, data).then(function (response) {
 
                 toastr.success('Successfully added vehicle request', 'Success');
+                $('#vehicleFrame').attr('src', '/ae/jo/details/' + jobOrderId + '/vehicle');
                 _this3.$events.fire('reload-table');
                 _this3.resetForm();
             }, function (error) {
