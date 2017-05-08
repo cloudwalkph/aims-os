@@ -16,7 +16,8 @@ class ClientsController extends Controller {
     {
         if ($request->has('all')) {
             if ($request->get('all')) {
-                return response()->json(Client::all(), 200);
+                $allClients = Client::all();
+                return response()->json($allClients->toArray(), 200);
             }
         }
 
