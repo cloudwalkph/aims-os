@@ -230,7 +230,7 @@
             },
             getClients() {
                 this.$http.get('/api/v1/clients?all=1').then(response => {
-                    this.clients = response.data.data;
+                    this.clients = response.data;
 
                     // clear options
                     this.clientOptions = []
