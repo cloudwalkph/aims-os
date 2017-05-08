@@ -120,7 +120,7 @@ class JobOrderController extends Controller
     {
         config(['app.name' => 'Accounts Executive | AIMS']);
 
-        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+        $jo = JobOrder::with('clients', 'user')->where('id', $joNumber)->first();
 
         $mom = JobOrderMom::where('status', 'active')
             ->where('job_order_id', $jo->id)
@@ -159,8 +159,8 @@ class JobOrderController extends Controller
     public function previewManpower($joNumber)
     {
 
-        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
-
+        $jo = JobOrder::with('clients', 'user')->where('id', $joNumber)->first();
+        
         $manpower_request = JobOrderManpower::where('job_order_id', $jo->id)
             ->with('manpowerType')->get();
 
@@ -178,7 +178,7 @@ class JobOrderController extends Controller
     public function previewMeal($joNumber)
     {
 
-        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+        $jo = JobOrder::with('clients', 'user')->where('id', $joNumber)->first();
 
         $meal_request = JobOrderMeal::where('job_order_id', $jo->id)
             ->with('mealType')->get();
@@ -197,7 +197,7 @@ class JobOrderController extends Controller
     public function previewVehicle($joNumber)
     {
 
-        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+        $jo = JobOrder::with('clients', 'user')->where('id', $joNumber)->first();
 
         $vehicle_request = JobOrderVehicle::where('job_order_id', $jo->id)
             ->with('vehicleType')->get();

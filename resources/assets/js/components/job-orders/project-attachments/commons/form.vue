@@ -68,6 +68,7 @@
                 let url = `/api/v1/job-order-project-attachments`;
                 this.$http.post(url, form).then(response => {
 
+                    $('#joFrame').attr('src','/ae/jo/details/'+jobOrderId+'/preview'); 
                     toastr.success('Successfully added project attachments', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()

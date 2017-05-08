@@ -16,6 +16,7 @@
 
             let url = `/api/v1/job-orders/${joId}/details`;
             axios.post(url, list).then(function(res) {
+                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`); 
                 toastr.success('Successfully saved event details', 'Success')
             }).catch(function(error) {
                 toastr.error('Failed in saving event details', 'Error')
@@ -35,6 +36,7 @@
 
             let url = `/api/v1/job-orders/${joId}/mom`;
             axios.post(url, list).then(function(res) {
+                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`); 
                 toastr.success('Successfully saved mom details', 'Success');
             }).catch(function(error) {
                 toastr.error('Failed in saving mom details', 'Error');
@@ -72,7 +74,7 @@
                     <div class="panel-heading">
 
                             <span class="pull-right">
-                                <button class="btn btn-default" onclick="$('iframe').attr('src','/ae/jo/details/{{ $jo->job_order_no }}/preview'); frames['frame'].print();">
+                                <button class="btn btn-default" onclick="frames['frame'].print();">
                                     <i class="fa fa-print fa-lg"></i> Print
                                 </button> &nbsp;
                                 <button class="btn btn-primary">
@@ -170,9 +172,9 @@
 
         </div>
 
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/meal" name="frameMeal" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/preview" name="frame" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/manpower" name="frameManpower" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/vehicle" name="frameVehicle" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->id }}/meal" name="frameMeal" id="mealFrame" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->id }}/preview" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->id }}/manpower" name="frameManpower" id="manpowerFrame" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->id }}/vehicle" name="frameVehicle" id="vehicleFrame" style="width: 0; height: 0"></iframe>
     </div>
 @endsection

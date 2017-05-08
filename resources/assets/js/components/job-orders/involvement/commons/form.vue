@@ -84,6 +84,7 @@
                 let url = `/api/v1/job-order-department-involvements`;
                 this.$http.post(url, data).then(response => {
 
+                    $('#joFrame').attr('src','/ae/jo/details/'+jobOrderId+'/preview'); 
                     this.$events.fire('reload-table')
                     this.resetForm()
                     toastr.success('Successfully added department involvement', 'Success')
