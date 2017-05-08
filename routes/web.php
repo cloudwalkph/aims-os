@@ -63,7 +63,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/agencies', 'Front\Admin\AdminController@agencies');
     Route::get('/manpower-types', 'Front\Admin\AdminController@manpowerTypes');
     Route::get('/vehicle-types', 'Front\Admin\AdminController@vehicleTypes');
-    Route::get('/vehicle-types', 'Front\Admin\AdminController@vehicleTypes');
+    Route::get('/job-orders', 'Front\Admin\AdminController@joborders');
     Route::get('/validate', 'Front\Validate\ValidateController@showJoLists');
     Route::get('/validations/{jid}', 'Front\Validate\ValidateController@validate_results');
 });

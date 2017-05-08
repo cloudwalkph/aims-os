@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateUserRequest;
 use App\Traits\FilterTrait;
 use App\User;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller {
@@ -96,6 +97,47 @@ class UsersController extends Controller {
 
 
         return response()->json($result, 201);
+    }
+
+    /**
+     * @param CreateUserRequest $request
+     * @param $agencyId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(CreateUserRequest $request, $userId)
+    {
+        $input = $request->all();
+
+        $user = null;
+        // Update user
+        \DB::transaction(function() use ($input, $userId, &$user) {
+            $userData = [
+                'email'         => $input['email'],
+                'user_role_id'  => $input['user_role_id'],
+                'department_id' => $input['department_id'],
+                'password'      => \Hash::make('password'),
+                'api_token'     => str_random(60)
+            ];
+
+            $user = User::where('id', $userId)->update($userData);
+
+            $userProfileData = [
+                'user_id'       => $userId,
+                'first_name'    => $input['first_name'],
+                'middle_name'   => $input['middle_name'],
+                'last_name'     => $input['last_name'],
+                'birthdate'     => $input['birth_date'],
+                'gender'        => $input['gender'],
+                'street'        => $input['street'],
+                'barangay'      => $input['barangay'],
+                'city'          => $input['city'],
+                'province'      => $input['province']
+            ];
+
+            UserProfile::where('user_id', $userId)->update($userProfileData);
+        });
+
+        return response()->json($user, 200);
     }
 
     /**

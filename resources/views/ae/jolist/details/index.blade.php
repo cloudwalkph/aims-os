@@ -72,7 +72,7 @@
                     <div class="panel-heading">
 
                             <span class="pull-right">
-                                <button class="btn btn-default" onclick="frames['frame'].print()">
+                                <button class="btn btn-default" onclick="$('iframe').attr('src','/ae/jo/details/{{ $jo->job_order_no }}/preview'); frames['frame'].print();">
                                     <i class="fa fa-print fa-lg"></i> Print
                                 </button> &nbsp;
                                 <button class="btn btn-primary">
@@ -105,9 +105,6 @@
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
-                                <div class="col-md-12 col-xs-12">
-                                    <h5> <strong>Contract Number:</strong> {{ isset($jo->contract_number) ? $jo->contract_number : 'N/A' }}</h5>
-                                </div>
                                 <div class="col-md-12 col-xs-12">
                                     <h5><strong>D.O. Number:</strong>{{ isset($jo->do_contract_no) ? $jo->do_contract_no : 'N/A' }}</h5>
                                 </div>

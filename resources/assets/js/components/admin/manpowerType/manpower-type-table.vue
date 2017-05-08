@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filter-bar></filter-bar>
+        <manpower-type-filter-bar></manpower-type-filter-bar>
         <vuetable ref="vuetable"
                   api-url="/api/v1/manpower-types/"
                   :fields="fields"
@@ -38,13 +38,13 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import FilterBar from './commons/FilterBar'
+    import ManpowerTypeFilterBar from './commons/FilterBar'
     import TypeModal from './commons/form.vue'
     import ManpowerTypeEditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
     Vue.component('manpower-type-custom-actions', CustomActions)
-    Vue.component('filter-bar', FilterBar)
+    Vue.component('manpower-type-filter-bar', ManpowerTypeFilterBar)
     Vue.component('manpower-type-modal', TypeModal)
     Vue.component('manpower-type-update-modal', ManpowerTypeEditModal)
 
@@ -72,11 +72,6 @@
                         name: 'name',
                         sortField: 'name',
                         title: 'Manpower Type Name'
-                    },
-                    {
-                        name: 'slug',
-                        sortField: 'slug',
-                        title: 'Slug',
                     },
                     {
                         name: 'created_at',

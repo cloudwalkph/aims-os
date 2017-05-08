@@ -31,10 +31,10 @@
                         </div>
 
                         <div class="col-md-12 form-group text-input-container">
-                            <label for="expected_guest" class="control-label col-sm-2">Expected Guest</label>
+                            <label for="expected_guest" class="control-label col-sm-2">Expected Attendees</label>
 
                             <div class="col-md-10">
-                                <input type="text" value="{{ $detail->expected_guest or '' }}" required name="expected_guest" placeholder="Expected Guest" class="form-control eventDataField" />
+                                <input type="text" value="{{ $detail->expected_guest or '' }}" required name="expected_guest" placeholder="Attendees Profile" class="form-control eventDataField" />
                             </div>
                         </div>
 

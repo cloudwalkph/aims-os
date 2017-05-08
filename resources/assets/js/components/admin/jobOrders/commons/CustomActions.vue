@@ -1,7 +1,6 @@
 <template>
     <div class="custom-actions">
-        <!--<button class="btn btn-sm" @click="itemAction('view-item', rowData, rowIndex)"><i class="glyphicon glyphicon-zoom-in"></i></button>-->
-        <button class="btn btn-sm" @click="itemAction('edit-item', rowData, rowIndex)"><i class="glyphicon glyphicon-pencil"></i></button>
+        <button class="btn btn-sm" @click="itemAction('view-item', rowData, rowIndex)"><i class="glyphicon glyphicon-zoom-in"></i></button>
         <button class="btn btn-sm btn-danger" @click="itemAction('delete-item', rowData, rowIndex)"><i class="glyphicon glyphicon-trash"></i></button>
     </div>
 </template>
@@ -22,21 +21,21 @@
                 console.log('custom-actions: ' + action, data.id, index)
 
                 if (action === 'delete-item') {
-                    let url = `/api/v1/vehicle-types/${data.id}`;
+                    let url = `/api/v1/job-orders/${data.id}`;
                     this.$http.delete(url, data).then(response => {
                         console.log(response)
+                        toastr.success('Successfully deleted job order', 'Success')
 
-                        toastr.success('Successfully deleted vehicle type', 'Success')
                         this.$events.fire('reload-table')
                     }, error => {
-                        toastr.error('Failed in deleting vehicle type', 'Error')
+                        toastr.error('Failed in deleting job order', 'Error')
                         console.log(error)
                     })
-                } else if (action === 'edit-item') {
-                    this.$events.fire('update-vehicle-type-show', data)
-                    $('#editTypeModal').modal('show')
                 }
 
+                if (action === 'view-item') {
+                    location.href = `/ae/jo/details/${data.job_order_no}`;
+                }
             }
         }
     }

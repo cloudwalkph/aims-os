@@ -85,6 +85,9 @@
                     <li id="vehicle-types">
                         <a href="/admin/vehicle-types"><i class="fa fa-fw fa-truck"></i> Vehicle Types</a>
                     </li>
+                    <li id="vehicle-types">
+                        <a href="/admin/job-orders"><i class="fa fa-fw fa-book"></i> Job Orders</a>
+                    </li>
 
                     <li id="vehicle-types">
                         <a href="/admin/validate"><i class="fa fa-fw fa-check-square-o"></i>Validate</a>

@@ -1,15 +1,15 @@
 <template>
     <div>
-        <user-filter-bar></user-filter-bar>
+        <filter-bar></filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/users/"
+                  api-url="/api/v1/job-orders"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
                   :sort-order="sortOrder"
                   :multi-sort="true"
-                  detail-row-component="my-detail-row"
                   :append-params="moreParams"
+                  @vuetable:cell-clicked="onCellClicked"
                   @vuetable:pagination-data="onPaginationData"
         ></vuetable>
         <div class="vuetable-pagination">
@@ -22,12 +22,8 @@
                                  @vuetable-pagination:change-page="onChangePage"
             ></vuetable-pagination>
         </div>
-
-        <user-modal></user-modal>
-        <user-update-modal ref="updateUser"></user-update-modal>
     </div>
 </template>
-
 
 <script>
     import accounting from 'accounting'
@@ -38,15 +34,11 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import UserFilterBar from './commons/FilterBar'
-    import UserModal from './commons/form.vue'
-    import UserEditModal from './commons/edit-form.vue'
+    import FilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
-    Vue.component('user-custom-actions', CustomActions)
-    Vue.component('user-filter-bar', UserFilterBar)
-    Vue.component('user-modal', UserModal)
-    Vue.component('user-update-modal', UserEditModal)
+    Vue.component('jo-custom-actions', CustomActions)
+    Vue.component('filter-bar', FilterBar)
 
     export default {
         components: {
@@ -54,7 +46,7 @@
             VuetablePagination,
             VuetablePaginationInfo,
         },
-        data() {
+        data () {
             return {
                 fields: [
                     {
@@ -69,32 +61,45 @@
                         dataClass: 'text-center',
                     },
                     {
-                        name: 'full_name',
-                        sortField: 'full_name',
-                        title: 'Full Name'
+                        name: 'job_order_no',
+                        sortField: 'job_order_no',
+                        title: 'Job Order #'
                     },
                     {
-                        name: 'email',
-                        sortField: 'email',
-                        title: 'E-Mail Address',
+                        name: 'company',
+                        sortField: 'company',
+                        title: 'Company',
                         callback: 'lowercap'
                     },
                     {
-                        name: 'department',
-                        sortField: 'department',
-                        title: 'Department'
+                        name: 'brands',
+                        sortField: 'brands',
+                        title: 'Brands',
+                        callback: 'brandsDisseminate'
                     },
                     {
-                        name: 'user_role',
-                        sortField: 'user_role',
-                        title: 'User Role'
+                        name: 'created_by',
+                        sortField: 'created_by',
+                        title: 'Created By',
+                        dataClass: 'text-capitalize',
+                        callback: 'lowercap'
                     },
                     {
-                        name: 'gender',
-                        sortField: 'gender',
-                        title: 'Gender',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center'
+                        name: 'project_name',
+                        sortField: 'project_name',
+                        title: 'Project Name'
+                    },
+                    {
+                        name: 'project_types',
+                        sortField: 'project_types',
+                        title: 'Project Types',
+                        callback: 'projectTypeDisseminate'
+                    },
+                    {
+                        name: 'status',
+                        sortField: 'status',
+                        title: 'Status',
+                        callback: 'lowercap'
                     },
                     {
                         name: 'created_at',
@@ -104,12 +109,7 @@
                         callback: 'formatDate|DD-MM-YYYY',
                         title: 'Created Date'
                     },
-                    {
-                        name: '__component:user-custom-actions',
-                        title: 'Actions',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center'
-                    }
+                    
                 ],
                 css: {
                     table: {
@@ -141,6 +141,27 @@
             lowercap (value) {
                 return value.toLowerCase()
             },
+            brandsDisseminate (value) {
+                let brands = []
+
+                for (let brand of value) {
+                    let tmpBrands = null;
+                    try {
+                        tmpBrands = JSON.parse(brand)
+
+                        for (let tmp of tmpBrands) {
+                            brands.push(tmp['name'])
+                        }
+                    } catch(e) {
+                        continue;
+                    }
+                }
+                console.log(brands.join(', '));
+                return brands.join(', ')
+            },
+            projectTypeDisseminate (value) {
+                return JSON.parse(value).map(elem => { return elem.name }).join(', ')
+            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
@@ -152,6 +173,10 @@
             },
             onChangePage (page) {
                 this.$refs.vuetable.changePage(page)
+            },
+            onCellClicked (data, field, event) {
+                console.log('cellClicked: ', field.name)
+                this.$refs.vuetable.toggleDetailRow(data.id)
             },
         },
         events: {
@@ -167,11 +192,6 @@
             'filter-reset' () {
                 this.moreParams = {}
                 Vue.nextTick( () => this.$refs.vuetable.refresh() )
-            },
-            'update-user-show' (data) {
-                Vue.nextTick(() => {
-                    this.$refs.updateUser.populateData(data)
-                })
             }
         }
     }
