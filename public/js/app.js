@@ -100047,7 +100047,36 @@ if (false) {
 /* 488 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function(){},staticRenderFns:[]}
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('h3', [_vm._v("Assigned Job Orders")]), _vm._v(" "), _c('div', {
+    staticClass: "row assigned-jo"
+  }, [_vm._l((_vm.jos), function(jo, index) {
+    return _c('div', {
+      staticClass: "col-md-12 jo-item",
+      on: {
+        "click": function($event) {
+          _vm.showModal(jo.job_order.job_order_no)
+        }
+      }
+    }, [_c('div', {
+      staticClass: "project-name"
+    }, [_vm._v(_vm._s(jo.job_order.project_name))]), _vm._v(" "), _c('div', {
+      staticClass: "project-body"
+    }, [_c('strong', [_vm._v("Job Order #:")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(jo.job_order.job_order_no))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('strong', [_vm._v("Deadline:")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.convertDate(jo.deadline)))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('strong', [_vm._v("AE:")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(jo.job_order.user.profile.first_name) + " " + _vm._s(jo.job_order.user.profile.last_name) + " ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('strong', [_vm._v("Status:")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(jo.job_order.status))])])])
+  }), _vm._v(" "), _vm._l((_vm.jos), function(jo) {
+    return _c('AssignedJobDetails', {
+      attrs: {
+        "id": jo.job_order.job_order_no,
+        "jo": jo
+      }
+    })
+  })], 2)])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
