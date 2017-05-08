@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\JobOrder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class JobOrderProducts extends Model
+class JobOrderProduct extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'job_order_products';
     protected $guarded = ['id'];
 
