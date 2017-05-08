@@ -18,6 +18,7 @@ class CreateCreativesTasksTable extends Migration
             $table->integer('creative_job_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->text('message');
+            $table->string('file');
             $table->timestamps();
             $table->softDeletes();
         });
