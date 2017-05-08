@@ -25,8 +25,6 @@ class AddColumnRateridValidateResults extends Migration
      */
     public function down()
     {
-        Schema::table('validate_results', function(Blueprint $table) {
-            $table->integer('rater_id')->after('category');
-        });
+//        Schema::dropIfExists('validate_results');
     }
 }
