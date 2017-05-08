@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\JobOrderProducts;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -63,6 +64,11 @@ class JobOrder extends Model
     public function creativesJob()
     {
         return $this->hasMany(CreativesJob::class, 'id', 'job_order_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(JobOrderProducts::class);
     }
 
     /**
