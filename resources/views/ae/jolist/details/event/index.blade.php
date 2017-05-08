@@ -91,41 +91,22 @@
             </div>
         </div>
 
-        <div class="box box-info hide">
+        <div class="box box-info">
             <div class="box-header">
                 <h3 class="box-title">Inventory</h3>
             </div>
 
-            <div class="inventory">
-                <div class="col-sm-12">
-                    <button class="btn btn-default pull-right" type="button"
-                            data-toggle="modal" data-target="#createItemInventory">
-                        <i class="fa fa-plus"></i> Add Item
-                    </button>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <jo-inventory-form></jo-inventory-form>
+                    <jo-inventory-table></jo-inventory-table>
                 </div>
-
-                @include('ae.jolist.details.event.modals.items')
-
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Item Name</th>
-                        <th>Expected Quantity</th>
-                        <th>Total Delivered</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <td>itemName</td>
-                        <td>quantity</td>
-                        <td>delivered</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="col-md-12">
+                    <hr>
+                </div>
             </div>
 
-            <div class="release-schedules">
+            <div class="release-schedules hide">
                 <div class="col-sm-2">
                     <label for="release_schedules" class="col-sm-12 control-label">Release Schedules</label>
                 </div>

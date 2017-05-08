@@ -61,6 +61,10 @@ Vue.component('department-involvement-table', require('./components/job-orders/i
 
 Vue.component('department-involvement-form', require('./components/job-orders/involvement/commons/form.vue'));
 
+Vue.component('jo-inventory-table', require('./components/job-orders/inventory/inventory-table.vue'));
+
+Vue.component('jo-inventory-form', require('./components/job-orders/inventory/commons/form.vue'));
+
 Vue.component('project-status-table', require('./components/job-orders/project-status/project-status-table.vue'));
 
 Vue.component('animation-details-table', require('./components/job-orders/animation-details/animation-details-table.vue'));

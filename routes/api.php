@@ -111,6 +111,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::delete('/{Id}', 'DepartmentInvolvementController@delete');
     });
 
+    // ae job order inventory
+    Route::group(['prefix' => 'job-order-inventory'], function() {
+        Route::get('/{Id}', 'JobOrderProductController@index');
+        Route::post('/', 'JobOrderProductController@store');
+        Route::delete('/{Id}', 'JobOrderProductController@delete');
+    });
+
     // project attachments
     Route::group(['prefix' => 'job-order-project-attachments'], function() {
         Route::get('/{Id}', 'ProjectAttachmentController@index');

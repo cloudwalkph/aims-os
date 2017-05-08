@@ -12,6 +12,17 @@ class JobOrderProduct extends Model
     protected $table = 'job_order_products';
     protected $guarded = ['id'];
 
+    public static $rules = [
+        'job_order_id'      => 'required',
+        'item_name'      	=> 'required',
+        'expected_quantity' => 'required',
+    ];
+
+    public static $filterable = [
+        'item_name',
+        'expected_quantity',
+    ];
+
     public function jobOrder()
     {
         return $this->belongsTo(JobOrder::class);
