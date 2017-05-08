@@ -14,6 +14,12 @@ class ClientsController extends Controller {
      */
     public function index(Request $request)
     {
+        if ($request->has('all')) {
+            if ($request->get('all')) {
+                return response()->json(Client::all(), 200);
+            }
+        }
+
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));

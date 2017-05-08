@@ -229,7 +229,7 @@
                 });
             },
             getClients() {
-                this.$http.get('/api/v1/clients').then(response => {
+                this.$http.get('/api/v1/clients?all=1').then(response => {
                     this.clients = response.data.data;
 
                     // clear options
