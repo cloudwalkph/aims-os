@@ -18,7 +18,7 @@
                 <AssignedJobDetails v-for="jo in jos" :id="jo.job_order.job_order_no" :jo="jo"></AssignedJobDetails>
             </div>
         </div>
-
+    </div>
 </template>
 
 <script>
