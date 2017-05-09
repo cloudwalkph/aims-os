@@ -9,6 +9,7 @@ use App\Models\JobOrderAddUser;
 use App\Models\JobOrderAnimationDetail;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Models\JobOrderDetail;
+use App\Models\JobOrderProduct;
 use App\Models\JobOrderManpower;
 use App\Models\JobOrderMeal;
 use App\Models\JobOrderMom;
@@ -120,7 +121,7 @@ class JobOrderController extends Controller
     {
         config(['app.name' => 'Accounts Executive | AIMS']);
 
-        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+        $jo = JobOrder::with('clients', 'user')->where('id', $joNumber)->first();
 
         $mom = JobOrderMom::where('status', 'active')
             ->where('job_order_id', $jo->id)
@@ -130,6 +131,9 @@ class JobOrderController extends Controller
             ->orderBy('id', 'desc')->first();
 
         $animations = JobOrderAnimationDetail::where('job_order_id', $jo->id)
+            ->get();
+
+        $products = JobOrderProduct::where('job_order_id', $jo->id)
             ->get();
 
         $brands = [];
@@ -153,14 +157,15 @@ class JobOrderController extends Controller
             ->with('mom', $mom)
             ->with('attachments', $attachments)
             ->with('departments', $departments)
+            ->with('products', $products)
             ->with('animations', $animations);
     }
 
     public function previewManpower($joNumber)
     {
 
-        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
-
+        $jo = JobOrder::with('clients', 'user')->where('id', $joNumber)->first();
+        
         $manpower_request = JobOrderManpower::where('job_order_id', $jo->id)
             ->with('manpowerType')->get();
 
@@ -178,7 +183,7 @@ class JobOrderController extends Controller
     public function previewMeal($joNumber)
     {
 
-        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+        $jo = JobOrder::with('clients', 'user')->where('id', $joNumber)->first();
 
         $meal_request = JobOrderMeal::where('job_order_id', $jo->id)
             ->with('mealType')->get();
@@ -197,7 +202,7 @@ class JobOrderController extends Controller
     public function previewVehicle($joNumber)
     {
 
-        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
+        $jo = JobOrder::with('clients', 'user')->where('id', $joNumber)->first();
 
         $vehicle_request = JobOrderVehicle::where('job_order_id', $jo->id)
             ->with('vehicleType')->get();
@@ -212,75 +217,4 @@ class JobOrderController extends Controller
             ->with('brands', $brands)
             ->with('vehicles', $vehicle_request);
     }
-
-    public function saveJobOrderMOM(Request $request, $joId)
-    {
-        $input = $request->all();
-        $input['job_order_id'] = $joId;
-        $mom = JobOrderMom::create($input);
-
-        return redirect()->back();
-    }
-
-    public function saveEventDetails(Request $request, $joId)
-    {
-        $input = $request->all();
-        $input['job_order_id'] = $joId;
-        $detail = JobOrderDetail::create($input);
-
-        return redirect()->back();
-    }
-
-    public function saveAnimationDetails(Request $request, $joId)
-    {
-        $detail = null;
-        \DB::transaction(function() use ($request, &$detail, $joId) {
-            // Get all the input
-            $input = $request->all();
-            $input['job_order_id'] = $joId;
-
-            // Create new jo animation details
-            $detail = JobOrderAnimationDetail::create($input);
-        });
-
-        return redirect()->back();
-    }
-
-    public function uploadProjectAttachments(Request $request, $joId)
-    {
-        if (! $request->hasFile('file')) {
-            return redirect()->back();
-        }
-
-        $jo = JobOrder::where('id', $joId)->first();
-
-        $file = $request->file('file');
-        $filename = $jo->job_order_no.'-'.$file->getFilename().'.'.$file->extension();
-
-        // Move to storage
-        $path = $file->storeAs('project-attachments', $filename);
-
-        // Attachment data
-        $data = [
-            'job_order_id'      => $joId,
-            'file_name'         => $filename,
-            'reference_for'     => $request->get('reference_for')
-        ];
-
-        JobOrderProjectAttachment::create($data);
-
-        return redirect()->back();
-    }
-
-    public function downloadAttachment($attachmentId)
-    {
-        $attachment = JobOrderProjectAttachment::where('id', $attachmentId)->first();
-
-        $filename = 'app/project-attachments/'.$attachment->file_name;
-
-        $file = storage_path($filename);
-
-        return response()->download($file, $attachment->file_name);
-    }
-
 }

@@ -99,6 +99,8 @@
 
                 let url = `/api/v1/job-order-manpowers`;
                 this.$http.post(url, data).then(response => {
+
+                    $('#manpowerFrame').attr('src','/ae/jo/details/'+jobOrderId+'/manpower'); 
                     toastr.success('Successfully added manpower request', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()

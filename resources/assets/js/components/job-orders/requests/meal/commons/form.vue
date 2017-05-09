@@ -116,6 +116,7 @@
                 this.$http.post(url, data).then(response => {
 
                     toastr.success('Successfully added meal request', 'Success')
+                    $('#mealFrame').attr('src','/ae/jo/details/'+jobOrderId+'/meal'); 
                     this.$events.fire('reload-table')
                     this.resetForm()
                 }, error => {

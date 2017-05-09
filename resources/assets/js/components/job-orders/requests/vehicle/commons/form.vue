@@ -130,6 +130,7 @@
                 this.$http.post(url, data).then(response => {
 
                     toastr.success('Successfully added vehicle request', 'Success')
+                    $('#vehicleFrame').attr('src','/ae/jo/details/'+jobOrderId+'/vehicle'); 
                     this.$events.fire('reload-table')
                     this.resetForm()
                 }, error => {

@@ -85,19 +85,26 @@
                     <li id="vehicle-types">
                         <a href="/admin/vehicle-types"><i class="fa fa-fw fa-truck"></i> Vehicle Types</a>
                     </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo">
-                            <i class="fa fa-fw fa-check-square-o"></i> Validate <i class="fa fa-fw fa-caret-down"></i>
-                            <ul id="demo" class="collapse" aria-expanded="true">
-                                <li>
-                                    <a href="/admin/validate">Validation List</a>
-                                </li>
-                                <li>
-                                    <a href="/evaluate">Evaluate</a>
-                                </li>
-                            </ul>
-                        </a>
+                    <li id="vehicle-types">
+                        <a href="/admin/job-orders"><i class="fa fa-fw fa-book"></i> Job Orders</a>
                     </li>
+
+                    <li id="vehicle-types">
+                        <a href="/admin/validate"><i class="fa fa-fw fa-check-square-o"></i>Validate</a>
+                    </li>
+                    {{--<li>--}}
+                        {{--<a href="javascript:;" data-toggle="collapse" data-target="#demo">--}}
+                            {{--<i class="fa fa-fw fa-check-square-o" href="/admin/validate"></i> Validate <i class="fa fa-fw fa-caret-down"></i>--}}
+                            {{--<ul id="demo" class="collapse" aria-expanded="true">--}}
+                                {{--<li>--}}
+                                    {{--<a href="/admin/validate">Validation List</a>--}}
+                                {{--</li>--}}
+                                {{--<li>--}}
+                                    {{--<a href="/evaluate">Evaluate</a>--}}
+                                {{--</li>--}}
+                            {{--</ul>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
                 </ul>
             </div>
         </nav>
@@ -139,6 +146,7 @@
     </script>
 </body>
 
-@yield('c3scripts')
+<!--@yield('c3scripts');-->
+@yield('google_charts');
 
 </html>

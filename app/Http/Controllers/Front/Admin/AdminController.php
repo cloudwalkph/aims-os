@@ -76,4 +76,16 @@ class AdminController extends Controller
 
         return view('admin.vehicleType');
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function joborders()
+    {
+        config(['app.name' => 'Admin Dashboard | AIMS']);
+
+        return view('admin.jo');
+    }
 }

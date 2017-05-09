@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filter-bar></filter-bar>
+        <vehicle-type-filter-bar></vehicle-type-filter-bar>
         <vuetable ref="vuetable"
                   api-url="/api/v1/vehicle-types/"
                   :fields="fields"
@@ -24,6 +24,7 @@
         </div>
 
         <vehicle-type-modal></vehicle-type-modal>
+        <vehicle-type-update-modal ref="updateVehicleType"></vehicle-type-update-modal>
     </div>
 </template>
 
@@ -37,13 +38,15 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import FilterBar from './commons/FilterBar'
+    import VehicleTypeFilterBar from './commons/FilterBar'
     import TypeModal from './commons/form.vue'
+    import VehicleTypeEditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
     Vue.component('vehicle-type-custom-actions', CustomActions)
-    Vue.component('filter-bar', FilterBar)
+    Vue.component('vehicle-type-filter-bar', VehicleTypeFilterBar)
     Vue.component('vehicle-type-modal', TypeModal)
+    Vue.component('vehicle-type-update-modal', VehicleTypeEditModal)
 
     export default {
         components: {
@@ -69,11 +72,6 @@
                         name: 'name',
                         sortField: 'name',
                         title: 'Agency Name'
-                    },
-                    {
-                        name: 'slug',
-                        sortField: 'slug',
-                        title: 'Slug',
                     },
                     {
                         name: 'created_at',
@@ -146,6 +144,11 @@
             'filter-reset' () {
                 this.moreParams = {}
                 Vue.nextTick( () => this.$refs.vuetable.refresh() )
+            },
+            'update-vehicle-type-show' (data) {
+                Vue.nextTick(() => {
+                    this.$refs.updateVehicleType.populateData(data)
+                })
             }
         }
     }

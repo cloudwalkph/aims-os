@@ -67,6 +67,29 @@ class VehicleTypesController extends Controller {
     }
 
     /**
+     * @param CreateVehicleTypeRequest $request
+     * @param $vehicleTypeId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(CreateVehicleTypeRequest $request, $vehicleTypeId)
+    {
+        $input = $request->all();
+
+        $vehicleType = null;
+        // Update manpower type
+        \DB::transaction(function() use ($input, $vehicleTypeId, &$vehicleType) {
+            $name = strtolower($input['name']);
+            $input['slug'] = str_replace(' ', '-', $name);
+
+            $vehicleType = VehicleType::where('id', $vehicleTypeId)->first();
+
+            $vehicleType->update($input);
+        });
+
+        return response()->json($vehicleType, 200);
+    }
+
+    /**
      * @param $userId
      * @return \Illuminate\Http\JsonResponse
      */

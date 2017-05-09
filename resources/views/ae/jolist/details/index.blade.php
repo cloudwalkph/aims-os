@@ -13,46 +13,33 @@
             list['_token'] = $('#eventDetails').find('input[name=_token]' ).val();
             //used to determine the http verb to use [add=POST], [update=PUT]
             var type = 'POST'; //for creating new resource
-            var url = '/ae/jo/'+joId+'/details/';
-                console.log(list);
 
-            $.ajax({
-                type: type,
-                url: '/ae/jo/'+joId+'/details/',
-                data: list,
-                success: function () {
-                    toastr.success('Successfully saved event details', 'Success')
-                },
-                error: function(data) {
-                    toastr.error('Failed in saving event details', 'Error')
-                    console.log('Error:', data);
-                }
+            let url = `/api/v1/job-orders/${joId}/details`;
+            axios.post(url, list).then(function(res) {
+                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`); 
+                toastr.success('Successfully saved event details', 'Success')
+            }).catch(function(error) {
+                toastr.error('Failed in saving event details', 'Error')
             });
         }
+
         function momSave() {
             var list = {};
             var joId = $('#jobOrderId').val();
             var formData = document.getElementsByClassName('dataField');
+
             for(var i = 0; i< formData.length;i++){
                 list[formData[i].name]= formData[i].value;
             }
-            list['_token'] = $('#momForm').find('input[name=_token]' ).val();
+//            list['_token'] = $('#momForm').find('input[name=_token]' ).val();
             //used to determine the http verb to use [add=POST], [update=PUT]
-            var type = 'POST'; //for creating new resource
-            var url = '/ae/jo/'+joId+'/mom/';
-            console.log(list);
 
-            $.ajax({
-                type: type,
-                url: '/ae/jo/'+joId+'/mom/',
-                data: list,
-                success: function () {
-                    toastr.success('Successfully saved mom details', 'Success')
-                },
-                error: function(data) {
-                    toastr.error('Failed in saving mom details', 'Error')
-                    console.log('Error:', data);
-                }
+            let url = `/api/v1/job-orders/${joId}/mom`;
+            axios.post(url, list).then(function(res) {
+                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`); 
+                toastr.success('Successfully saved mom details', 'Success');
+            }).catch(function(error) {
+                toastr.error('Failed in saving mom details', 'Error');
             });
         }
     </script>
@@ -87,7 +74,7 @@
                     <div class="panel-heading">
 
                             <span class="pull-right">
-                                <button class="btn btn-default" onclick="frames['frame'].print()">
+                                <button class="btn btn-default" onclick="frames['frame'].print();">
                                     <i class="fa fa-print fa-lg"></i> Print
                                 </button> &nbsp;
                                 <button class="btn btn-primary">
@@ -120,9 +107,6 @@
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
-                                <div class="col-md-12 col-xs-12">
-                                    <h5> <strong>Contract Number:</strong> {{ isset($jo->contract_number) ? $jo->contract_number : 'N/A' }}</h5>
-                                </div>
                                 <div class="col-md-12 col-xs-12">
                                     <h5><strong>D.O. Number:</strong>{{ isset($jo->do_contract_no) ? $jo->do_contract_no : 'N/A' }}</h5>
                                 </div>
@@ -167,7 +151,7 @@
                             <li class="active"><a href="#mom" data-toggle="tab">MOM</a></li>
                             <li><a href="#event-details" data-toggle="tab">Event Details</a></li>
                             <li><a href="#project-attachments" data-toggle="tab">Project Attachments</a></li>
-                            <li><a href="#client-attachments" data-toggle="tab">Client Attachments</a></li>
+                            <li class="hide"><a href="#client-attachments" data-toggle="tab">Client Attachments</a></li>
                             <li><a href="#project-status" data-toggle="tab">Project Status</a></li>
                             <li><a href="#request-forms" data-toggle="tab">Request Forms</a></li>
                             <li><a href="#discussions" data-toggle="tab">Discussions</a></li>
@@ -188,9 +172,9 @@
 
         </div>
 
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/meal" name="frameMeal" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/preview" name="frame" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/manpower" name="frameManpower" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->job_order_no }}/vehicle" name="frameVehicle" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->id }}/meal" name="frameMeal" id="mealFrame" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->id }}/preview" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->id }}/manpower" name="frameManpower" id="manpowerFrame" style="width: 0; height: 0"></iframe>
+        <iframe src="/ae/jo/details/{{ $jo->id }}/vehicle" name="frameVehicle" id="vehicleFrame" style="width: 0; height: 0"></iframe>
     </div>
 @endsection

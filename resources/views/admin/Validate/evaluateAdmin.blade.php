@@ -20,8 +20,8 @@
                             <th class="vuetable-th-slug sortable">Client Name</th>
                             <th class="vuetable-th-slug sortable">Brand</th>
                             <th class="vuetable-th-slug sortable">Status</th>
-                            <th class="vuetable-th-slug sortable">Assignment</th>
-                            <th class="vuetable-th-slug sortable">Action</th>
+                            {{--<th class="vuetable-th-slug sortable">Assignment</th>--}}
+                            {{--<th class="vuetable-th-slug sortable">Action</th>--}}
                         </tr>
                         </thead>
                         <tbody>
@@ -34,10 +34,10 @@
                                 <td>{{ $jo['contact'] }}</td>
                                 <td>{{ $jo['brands'] }}</td>
                                 <td>{{ $jo['status'] }}</td>
-                                <td>{{ $jo['status'] }}</td>
-                                <td>
-                                    <a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{ $jo['joId'] }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                </td>
+                                {{--<td>{{ $jo['status'] }}</td>--}}
+                                {{--<td>--}}
+                                    {{--<a href="#" class="btn btn-danger btn-rounded btn-ripple deleteButtonEvent" alt="{{ $jo['joId'] }}"><i class="fa fa-trash" aria-hidden="true"></i></a>--}}
+                                {{--</td>--}}
                             </tr>
                         @endforeach
                         </tbody>

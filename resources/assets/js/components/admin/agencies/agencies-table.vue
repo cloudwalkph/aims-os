@@ -74,11 +74,6 @@
                         title: 'Agency Name'
                     },
                     {
-                        name: 'slug',
-                        sortField: 'slug',
-                        title: 'Slug',
-                    },
-                    {
                         name: 'created_at',
                         sortField: 'created_at',
                         titleClass: 'text-center',

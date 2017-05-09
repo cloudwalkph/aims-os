@@ -32,6 +32,9 @@
                         toastr.error('Failed in deleting user', 'Error')
                         console.log(error)
                     })
+                } else if (action === 'edit-item') {
+                    this.$events.fire('update-user-show', data)
+                    $('#editTypeModal').modal('show')
                 }
 
             }

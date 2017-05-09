@@ -8,7 +8,6 @@
                   :css="css.table"
                   :sort-order="sortOrder"
                   :multi-sort="true"
-                  detail-row-component="my-detail-row"
                   :append-params="moreParams"
                   @vuetable:cell-clicked="onCellClicked"
                   @vuetable:pagination-data="onPaginationData"
@@ -35,12 +34,10 @@
     import Vue from 'vue'
     import VueEvents from 'vue-events'
     import CustomActions from './commons/CustomActions'
-    import DetailRow from './commons/DetailRow'
     import FilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
     Vue.component('jo-custom-actions', CustomActions)
-    Vue.component('my-detail-row', DetailRow)
     Vue.component('filter-bar', FilterBar)
 
     export default {
@@ -72,7 +69,7 @@
                         name: 'company',
                         sortField: 'company',
                         title: 'Company',
-                        callback: 'allcap'
+                        callback: 'lowercap'
                     },
                     {
                         name: 'brands',
@@ -84,7 +81,8 @@
                         name: 'created_by',
                         sortField: 'created_by',
                         title: 'Created By',
-                        callback: 'allcap'
+                        dataClass: 'text-capitalize',
+                        callback: 'lowercap'
                     },
                     {
                         name: 'project_name',
@@ -101,7 +99,7 @@
                         name: 'status',
                         sortField: 'status',
                         title: 'Status',
-                        callback: 'allcap'
+                        callback: 'lowercap'
                     },
                     {
                         name: 'created_at',
@@ -145,8 +143,8 @@
             }
         },
         methods: {
-            allcap (value) {
-                return value.toUpperCase()
+            lowercap (value) {
+                return value.toLowerCase()
             },
             brandsDisseminate (value) {
                 let brands = []

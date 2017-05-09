@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Front\Validate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Client;
+use App\Models\Department;
 use App\Models\JobOrder;
 use App\Models\JobOrderClient;
 use App\Models\UserProfile;
-use App\Models\Client;
 use App\Models\ValidateQuestions;
-use App\Models\Department;
+use App\Models\ValidateResults;
+
+use DB;
 
 class ValidateController extends Controller
 {
@@ -37,10 +40,58 @@ class ValidateController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function validate_results( $id ){
+    public function validate_results($jno)
+    {
+        $jos = JobOrder::where('job_order_no', $jno)->first();
 
-        $jos = JobOrder::where('job_order_no',$id)->first();
-        return view('admin/Validate/summary_result', compact('jos','results'));
+        $jsonPreEvent = $this->getEventScores($jno);
+        $jsonActualEvent = $this->getEventScores($jno, 'eprop');
+        $jsonPostEvent = $this->getEventScores($jno, 'post');
+
+        return view('admin/Validate/summary_result', compact('jos', 'results', 'jsonPreEvent', 'jsonActualEvent', 'jsonPostEvent'));
+    }
+
+    function getEventScores($jno = '', $eventCategory = 'pre')
+    {
+        $preEventScores = ValidateResults::select('name')
+        ->addSelect(DB::raw('AVG(score) as avg_score'))
+        ->join('departments', 'departments.id', '=', 'validate_results.department_id')
+        ->where('job_order_no', '=', $jno)
+        ->where('category', '=', $eventCategory)
+        ->groupBy('department_id')
+        ->get();
+
+        $preEventArray['cols'] = array(
+            array(
+                'id' => 'A',
+                'label' => 'Department',
+                'type' => 'string'
+            ),
+            array(
+                'id' => 'B',
+                'label' => 'Score',
+                'type' => 'number'
+            ),
+        );
+        $preEventArray['rows'] = array();
+
+        foreach($preEventScores as $score) {
+            $collection = array(
+                'c' => array(
+                    array(
+                        'v' => $score->name
+                    ),
+                    array(
+                        'v' => ($score->avg_score / 100),
+                        'f' => round($score->avg_score, 2)
+                    )
+                )
+            );
+            array_push($preEventArray['rows'], $collection);
+        }
+        $jsonPreEvent = json_encode($preEventArray);
+        
+        return $jsonPreEvent;
     }
 
     public function summary_result(){
@@ -60,55 +111,34 @@ class ValidateController extends Controller
         return view('admin/Validate/evaluateAdmin', compact('results'));
     }
 
-    public function loadJobOrders(){
+    public function loadJobOrders()
+    {
         $results = array();
 
-        $jos = JobOrder::all();
-        foreach ($jos as $jo){
-            $userProfile = UserProfile::where('user_id', $jo->user_id)->first();
-            $joc = JobOrderClient::where('job_order_id', $jo->id)->first();
+        $jos = JobOrder::select('*')
+            ->with('user_profile')
+            ->with('clients')
+            ->get();
 
-            if(! $joc) {
-                continue;
-            }
-
-            $client = Client::where('id', $joc->client_id)->first();
-//            dd($client->contact_person);
-            $strBrands = '';
-            $i = 1;
-            $t = count($joc->brands);
-            foreach ($joc->brands as $brand) {
-                if( $i != $t ){
-                    $strBrands .= $brand->name.', ';
-                }else{
-                    $strBrands .= $brand->name;
+        foreach ($jos as $jo) {
+            $contact_array = [];
+            $brands_array = [];
+            
+            foreach($jo->clients->toArray() as $client) {
+                $contact_array[] = $client['client_id'];
+                foreach($client['brands'] as $brand) {
+                    $brands_array[] = $brand->name;
                 }
-                $i++;
-            }
-
-            $arrProjectType = array();
-            $arrProjectType = json_decode($jo->project_types);
-//            dd($arrProjectType);
-            $projecttypes = '';
-            $project = 1;
-            $types = count($arrProjectType);
-            foreach ($arrProjectType as $pr) {
-                if( $project != $types ){
-                    $projecttypes .= $pr->name.', ';
-                }else{
-                    $projecttypes .= $pr->name;
-                }
-                $project++;
             }
 
             $jobArray = array(
                 'joId' => $jo->job_order_no,
-                'assigned' => $userProfile->last_name.', '.$userProfile->first_name,
+                'assigned' => $jo->user_profile->last_name.', '.$jo->user_profile->first_name,
                 'projName' => $jo->project_name,
-                'contact' => $client->contact_person,
-                'brands' => $strBrands,
+                'contact' => implode(', ', $contact_array),
+                'brands' => implode(', ', $brands_array),
                 'status' => $jo->status,
-                'projecttypes' => $projecttypes
+                'projecttypes' => implode(', ', array_column(json_decode($jo->project_types, true), 'name'))
             );
             array_push($results, $jobArray);
         }

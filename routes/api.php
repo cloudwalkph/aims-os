@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/', 'UsersController@index');
         Route::get('/{departmentId}', 'UsersController@getByDepartment');
         Route::post('/', 'UsersController@store');
+        Route::put('/{userId}', 'UsersController@update');
         Route::delete('/{userId}', 'UsersController@delete');
     });
 
@@ -55,6 +56,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::resource('/', 'InventoryController');
         Route::resource('job', 'InventoryJobController');
         Route::resource('user', 'InventoryJobAssignedPersonController');
+        Route::get('department', 'InventoryController@getByDepartmentInvolvement');
     });
 
     // Clients
@@ -76,6 +78,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('/add-ae', 'JobOrdersController@addAe');
         Route::put('/{jobOrderId}', 'JobOrdersController@update');
         Route::delete('/{jobOrderId}', 'JobOrdersController@delete');
+        Route::post('/{joId}/mom', 'JobOrdersController@saveJobOrderMOM');
+        Route::post('/{joId}/details', 'JobOrdersController@saveEventDetails');
 
     });
 
@@ -105,6 +109,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/{Id}', 'DepartmentInvolvementController@index');
         Route::post('/', 'DepartmentInvolvementController@store');
         Route::delete('/{Id}', 'DepartmentInvolvementController@delete');
+    });
+
+    // ae job order inventory
+    Route::group(['prefix' => 'job-order-inventory'], function() {
+        Route::get('/{Id}', 'JobOrderProductController@index');
+        Route::post('/', 'JobOrderProductController@store');
+        Route::delete('/{Id}', 'JobOrderProductController@delete');
     });
 
     // project attachments
@@ -147,6 +158,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/all', 'VehicleTypesController@all');
         Route::get('/', 'VehicleTypesController@index');
         Route::post('/', 'VehicleTypesController@store');
+        Route::put('/{typeId}', 'VehicleTypesController@update');
         Route::delete('/{typeId}', 'VehicleTypesController@delete');
     });
 

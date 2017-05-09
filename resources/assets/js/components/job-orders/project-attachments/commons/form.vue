@@ -10,7 +10,9 @@
                     <div class="row">
                         <div class="col-md-12 form-group text-input-container">
                             <label class="control-label" for="reference_for">Reference For</label>
-                            <v-select :on-change="referenceSelected" :options="referenceOptions"></v-select>
+                            <input type="text" name="reference_for" required id="reference_for"
+                                       @input="inputChange" v-bind:value="reference_for"
+                                       placeholder="Reference" class="form-control" />
                         </div>
 
                         <div class="col-md-12 form-group text-input-container">
@@ -41,24 +43,19 @@
             }
         },
         mounted() {
-            this.getReference()
+        
         },
         methods: {
             resetForm() {
-
+                this.reference_for = ""
+            },
+            inputChange(e) {
+                this[e.target.id] = e.target.value
             },
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;
                 console.log(files[0]);
                 this.file = files[0];
-            },
-            getReference() {
-                this.referenceOptions.push({label: "Working Cost Estimate", value: "Working Cost Estimate"});
-                this.referenceOptions.push({label: "Working Deck", value: "Working Deck"});
-                this.referenceOptions.push({label: "Working Checklist", value: "Working Checklist"});
-            },
-            referenceSelected(val) {
-                this.reference_for = val.value
             },
             saveProject(e) {
                 let jobOrderId = $('#jobOrderId').val();
@@ -71,6 +68,7 @@
                 let url = `/api/v1/job-order-project-attachments`;
                 this.$http.post(url, form).then(response => {
 
+                    $('#joFrame').attr('src','/ae/jo/details/'+jobOrderId+'/preview'); 
                     toastr.success('Successfully added project attachments', 'Success')
                     this.$events.fire('reload-table')
                     this.resetForm()

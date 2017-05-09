@@ -193,6 +193,13 @@
                 let client = this.selectedClient;
                 let data = Object.assign({}, client, { brands });
 
+                if (! brands.length) {
+                    toastr.error('Please select a brand first', 'Error');
+                    return false;
+                }
+
+                console.log(brands);
+
                 this.addedClients.push(data);
             },
             onChangeProjectType(e) {
@@ -229,8 +236,8 @@
                 });
             },
             getClients() {
-                this.$http.get('/api/v1/clients').then(response => {
-                    this.clients = response.data.data;
+                this.$http.get('/api/v1/clients?all=1').then(response => {
+                    this.clients = response.data;
 
                     // clear options
                     this.clientOptions = []
@@ -248,6 +255,21 @@
                     project_types: this.selectedProjectTypes,
                     clients: this.addedClients
                 };
+
+                if (! data.project_name) {
+                    toastr.error('Please input the project title', 'Error');
+                    return;
+                }
+
+                if (! data.project_types.length) {
+                    toastr.error('Please select a project type', 'Error');
+                    return;
+                }
+
+                if (! data.clients.length) {
+                    toastr.error('Please select client/s', 'Error');
+                    return;
+                }
 
                 this.$http.post('/api/v1/job-orders', data).then(response => {
                     let jo = response.data;

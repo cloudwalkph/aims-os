@@ -35,12 +35,6 @@ Route::group(['prefix' => 'ae'], function () {
         Route::get('/details/{joNo}/manpower', 'Front\AE\JobOrderController@previewManpower');
         Route::get('/details/{joNo}/meal', 'Front\AE\JobOrderController@previewMeal');
         Route::get('/details/{joNo}/vehicle', 'Front\AE\JobOrderController@previewVehicle');
-        Route::post('/{joId}/mom', 'Front\AE\JobOrderController@saveJobOrderMOM');
-        Route::post('/{joId}/details', 'Front\AE\JobOrderController@saveEventDetails');
-        Route::post('/{joId}/animation', 'Front\AE\JobOrderController@saveAnimationDetails');
-        Route::post('/{joId}/project-attachments', 'Front\AE\JobOrderController@uploadProjectAttachments');
-        Route::get('/{joId}/project-attachments/{attachmentId}/download', 'Front\AE\JobOrderController@downloadAttachment');
-
     });
 
 });
@@ -69,7 +63,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/agencies', 'Front\Admin\AdminController@agencies');
     Route::get('/manpower-types', 'Front\Admin\AdminController@manpowerTypes');
     Route::get('/vehicle-types', 'Front\Admin\AdminController@vehicleTypes');
-    Route::get('/vehicle-types', 'Front\Admin\AdminController@vehicleTypes');
+    Route::get('/job-orders', 'Front\Admin\AdminController@joborders');
     Route::get('/validate', 'Front\Validate\ValidateController@showJoLists');
     Route::get('/validations/{jid}', 'Front\Validate\ValidateController@validate_results');
 });
@@ -122,11 +116,12 @@ Route::group(['prefix' => 'validate'], function () {
 Route::group(['prefix' => 'questions'], function () {
     Route::get('/getquestions', 'Front\Validate\ValidateQuestionsController@showQuestions');
     Route::get('/getquestionswithresult', 'Front\Validate\ValidateQuestionsController@showResults');
+    Route::post('/submitresults', 'Front\Validate\Questions@submitresult');
 });
 
 Route::group(['prefix' => 'evaluate'], function () {
     Route::get('/', 'Front\Validate\Questions@index');
-    Route::get('/{jid}', 'Front\Validate\Questions@choosecategory');
-    Route::get('/{jid}/{category}', 'Front\Validate\Questions@chooseemployee');
-    Route::get('/{jid}/{category}/{dptid}/{uid}', 'Front\Validate\Questions@showQuestions');
+    Route::get('/{jno}', 'Front\Validate\Questions@choosecategory');
+    Route::get('/{jno}/{eventCategory}', 'Front\Validate\Questions@chooseemployee');
+    Route::get('/{jno}/{eventCategory}/{dptid}/{rateeId}', 'Front\Validate\Questions@showQuestions');
 });
