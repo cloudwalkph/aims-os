@@ -9,6 +9,7 @@ use App\Models\JobOrderAddUser;
 use App\Models\JobOrderAnimationDetail;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Models\JobOrderDetail;
+use App\Models\JobOrderProduct;
 use App\Models\JobOrderManpower;
 use App\Models\JobOrderMeal;
 use App\Models\JobOrderMom;
@@ -132,6 +133,9 @@ class JobOrderController extends Controller
         $animations = JobOrderAnimationDetail::where('job_order_id', $jo->id)
             ->get();
 
+        $products = JobOrderProduct::where('job_order_id', $jo->id)
+            ->get();
+
         $brands = [];
         foreach ($jo->clients as $client) {
             foreach ($client->brands as $b) {
@@ -153,6 +157,7 @@ class JobOrderController extends Controller
             ->with('mom', $mom)
             ->with('attachments', $attachments)
             ->with('departments', $departments)
+            ->with('products', $products)
             ->with('animations', $animations);
     }
 

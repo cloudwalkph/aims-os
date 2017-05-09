@@ -246,6 +246,35 @@
         {{--departments involved deadlines end--}}
         @endif
 
+        @if( count($products) )
+        {{--project products start--}}
+        <div class="row">
+            <div class="col-md-12">
+                <h5><b>INVENTORY REQUESTS:</b></h5>
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ITEM</th>
+                        <th>QUANTITY</th>
+                        <th>DATE</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach($products as $p)
+                            <tr>
+                                <td>{{ $p->item_name }}</td>
+                                <td>{{ $p->expected_quantity }}</td>
+                                <td>{{ $p->created_at->toFormattedDateString() }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{--project products end--}}
+        @endif
+
         @if( count($attachments) )
         {{--project attachment start--}}
         <div class="row">
