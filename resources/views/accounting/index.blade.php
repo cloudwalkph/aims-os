@@ -104,10 +104,11 @@
 
                                 <td class="" align="center" style="text-align: center;">
 
-                                    <form action="/accounting/transmittal" method="post">
+                                    <form action="/accounting/check" method="post">
 
                                         {{ csrf_field() }}
                                         <input type="hidden" name="joID" value="{{$jo['joId']}}">
+                                        <input type="hidden" id="docType" name="docType" value="transmittal">
 
                                         <input type="date" placeholder="Date" name="transmittal" >
 
@@ -147,9 +148,13 @@
 
                             @endif
 
-
                             <td>
                                 <button class="btn btn-primary btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks">Remarks</button>
+
+                                @if( $jo['remarks'] != null )
+                                    <p>{{ $jo['remarks']  }}</p>
+                                @endif
+
                             </td>
                         </tr>
                         @endforeach

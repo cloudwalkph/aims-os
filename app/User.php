@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Department;
 use App\Models\Event;
 use App\Models\JobOrder;
+use App\Models\JobOrderDiscussion;
 use App\Models\UserProfile;
 use App\Models\UserRole;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -79,6 +80,11 @@ class User extends Authenticatable
 
     public function events()
     {
-        return $this-$this->hasMany(Event::class);
+        return $this->hasMany(Event::class);
+    }
+
+    public function discussions()
+    {
+        return $this->hasMany(JobOrderDiscussion::class);
     }
 }

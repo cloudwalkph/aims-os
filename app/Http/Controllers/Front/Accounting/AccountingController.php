@@ -70,6 +70,7 @@ class AccountingController extends Controller
                 $invoiceFile = $accounting->invoiceFile;
                 $paidDate = $accounting->paidDate;
                 $paidFile = $accounting->paidFile;
+                $remarks = $accounting->remarks;
 
             }
 
@@ -111,6 +112,7 @@ class AccountingController extends Controller
                 'invoiceFile' => $invoiceFile,
                 'paidDate' => $paidDate,
                 'paidFile' => $paidFile,
+                'remarks' => $remarks,
             );
 
             array_push( $results, $jobArray );
@@ -158,6 +160,9 @@ class AccountingController extends Controller
             $storeAccounts->paidNumber = $request['doc_number'];
             $storeAccounts->paidFile = $file;
             $storeAccounts->paidDateUpdated = date("Y-m-d H:i:s");
+        } elseif ( $request['docType'] == 'transmittal' ) {
+            $storeAccounts->transmittalDate = $request['transmittal'];
+            $storeAccounts->transmittalDateUpdated = date("Y-m-d H:i:s");
         }
 
         if( $storeAccounts->save() ){
@@ -218,6 +223,9 @@ class AccountingController extends Controller
             $accounting->paidDateUpdated = date("Y-m-d H:i:s");
         } elseif ( $request['docType'] == 'remarks' ) {
             $accounting->remarks = $request['accountingRemarks'];
+        } elseif ( $request['docType'] == 'transmittal' ) {
+            $accounting->transmittalDate = $request['transmittal'];
+            $accounting->transmittalDateUpdated = date("Y-m-d H:i:s");
         }
 
         if( $accounting->save() ){
@@ -279,6 +287,10 @@ class AccountingController extends Controller
 
         $conoArray = array();
 
+        if( !$request->input('cono') ){
+            $redirect->to('/accounting')->send();
+        }
+
         $jo = JobOrder::where('job_order_no', $request->input('joID'))->first();
 
         if ( $jo->contract_no != null ){
@@ -311,10 +323,6 @@ class AccountingController extends Controller
 
         }
 
-    }
-
-    public function transmittal(){
-        
     }
 
 }

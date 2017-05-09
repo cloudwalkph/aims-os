@@ -81,6 +81,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('/{joId}/mom', 'JobOrdersController@saveJobOrderMOM');
         Route::post('/{joId}/details', 'JobOrdersController@saveEventDetails');
 
+        Route::get('/{joId}/discussions', 'JobOrderDiscussionsController@getDiscussions');
+        Route::post('/{joId}/discussions', 'JobOrderDiscussionsController@createDiscussion');
+
     });
 
     // manpower requests

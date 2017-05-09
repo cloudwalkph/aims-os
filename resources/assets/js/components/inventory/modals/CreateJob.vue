@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Deadline</label>
-                                <input type="date" name="deadline" @input="inputChange" id="deadline" placeholder="Deadline" class="form-control" />
+                                <input type="text" name="deadline" @input="inputChange" id="deadline" placeholder="Deadline" class="form-control" />
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="user_id">Users</label>
@@ -106,7 +106,7 @@
                     job_order_id: this.selected_job_order,
                     user_id: this.selected_user,
                     department_id: 5,
-                    deadline: this.convertDate(form.deadline.value),
+                    deadline: moment(this.deadline, "YYYY-MM-DD hh:mm a").format("YYYY-MM-DD HH:mm:ss"),
                     remarks: form.description.value,
                 }
 
@@ -140,6 +140,11 @@
         mounted: function () {
             this.getJo();
             this.getUser();
+
+            $('#deadline').on('dp.change', (newDate, oldDate) => {
+                this.deadline = newDate.date.format("YYYY-MM-DD hh:mm a");
+            });
+            
         },
         props: ['propData']
     }

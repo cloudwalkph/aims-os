@@ -77,6 +77,9 @@ Vue.component('plan-animation-table', require('./components/plans/animation-deta
 
 Vue.component('hr-vehicle-request', require('./components/HR/vehicle_request'));
 
+Vue.component('discussions', require('./components/job-orders/discussion/discussions.vue'));
+
+
 require('./components/inventory');
 
 /* HR */

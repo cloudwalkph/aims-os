@@ -11,6 +11,7 @@
                 list[formData[i].name]= formData[i].value;
             }
             list['_token'] = $('#eventDetails').find('input[name=_token]' ).val();
+            list['when'] = moment(list['when']).format("YYYY-MM-DD HH:mm")
             //used to determine the http verb to use [add=POST], [update=PUT]
             var type = 'POST'; //for creating new resource
 
@@ -31,6 +32,8 @@
             for(var i = 0; i< formData.length;i++){
                 list[formData[i].name]= formData[i].value;
             }
+            list['date_and_time'] = moment(list['date_and_time']).format("YYYY-MM-DD HH:mm")
+            console.log(list)
 //            list['_token'] = $('#momForm').find('input[name=_token]' ).val();
             //used to determine the http verb to use [add=POST], [update=PUT]
 
