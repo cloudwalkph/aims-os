@@ -32,11 +32,13 @@
             <div class="row">
                 <div class="col-sm-12">
                     <delivery-tracking 
-                        v-for="workDetail in workDetails"
-                        v-if="workDetail.inventory_job_id == propIJobId" 
                         :workDetail="workDetail" 
-                        :products="products"
-                    ></delivery-tracking>
+                        :products="products" 
+                        v-for="inventoryJob in propData.inventoryJobs"
+                        v-if="inventoryJob.id == propIJobId"
+                        :inventoryJob="inventoryJob"
+                    >
+                    </delivery-tracking>
                 </div>
 
                 <div class="col-sm-12">
@@ -44,12 +46,14 @@
                 </div>
 
                 <div class="col-sm-12">
-                    <release-tracking
-                        v-for="workDetail in workDetails"
-                        v-if="workDetail.inventory_job_id == propIJobId" 
+                    <release-tracking 
                         :workDetail="workDetail" 
                         :products="products"
-                    ></release-tracking>
+                        v-for="inventoryJob in propData.inventoryJobs"
+                        v-if="inventoryJob.id == propIJobId"
+                        :inventoryJob="inventoryJob"
+                    >
+                    </release-tracking>
                 </div>
             </div>
         </div>
@@ -70,18 +74,18 @@
             return {
                 jobs: this.propData.inventoryJobs,
                 products: this.propData.products,
-                workDetails: this.propData.workDetails
+                workDetail: this.propData.workDetail
             }
         },
         methods: {
-            assignedPersons: function(job) {
+            assignedPersons: function (job) {
                 var users = [];
                 // for(job_user of job.user_id) {
-                    for(user of this.propData.users) {
-                        if(user.id == job.user_id) {
-                            users.push(user.profile.first_name);
-                        }
+                for (user of this.propData.users) {
+                    if (user.id == job.user_id) {
+                        users.push(user.profile.first_name);
                     }
+                }
                 // }
                 return users.join(', ');
             },

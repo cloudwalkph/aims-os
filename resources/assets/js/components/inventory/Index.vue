@@ -99,21 +99,19 @@
                     ],
                     products: [
                         {
-                            id: 1,
-                            job_order_no: 'J0SAMPLE',
-                            project_name: 'Sample Job Order',
+                            id: 100,
+                            job_order_id: 0,
                             product_code: 'SAMPLE-1PROD',
-                            name: 'Sample Product 1',
-                            quantity: 1000000,
+                            name: 'palmolive',
+                            quantity: 1000,
                             expiration_date: '2017-02-27',
                         },
                         {
-                            id: 2,
-                            job_order_no: 'J0SAMPLE',
-                            project_name: 'Sample Job Order',
-                            product_code: 'SAMPLE-2PROD',
-                            name: 'Sample Product 2',
-                            quantity: 2000000,
+                            id: 101,
+                            job_order_id: 0,
+                            product_code: 'SAMPLE-1PROD',
+                            name: 'safeguard',
+                            quantity: 2000,
                             expiration_date: '2017-02-27',
                         },
                     ],
@@ -130,52 +128,48 @@
                             user_id: 0
                         }
                     ],
-                    workDetails: [
+                    workDetail: 
                         {
-                            inventory_job_id: 0,
-                            items: [
+                            deliveries: [
                                 {
-                                    product_code: 'SAMPLE-2PROD',
-                                    deliveries: [
-                                        {
-                                            date: '2016-12-22',
-                                            delivered: 2000,
-                                        },
-                                        {
-                                            date: '2016-12-23',
-                                            delivered: 2000,
-                                        },
-                                        {
-                                            date: '2016-12-24',
-                                            delivered: 1000,
-                                        },
-                                    ],
-                                    releases: [
-                                        {
-                                            date: '2016-12-22',
-                                            disposed: 1000,
-                                            returned: 300,
-                                            status: 'Approved',
-                                        },
-                                        {
-                                            date: '2016-12-25',
-                                            disposed: 1000,
-                                            returned: 300,
-                                            status: 'Approved',
-                                        },
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            inventory_job_id: 3,
-                            items: [
+                                    product_id: 1,
+                                    date: '2016-12-22',
+                                    delivered: 100,
+                                },
                                 {
-                                    product_code: ''
-                                }
+                                    product_id: 2,
+                                    date: '2016-12-23',
+                                    delivered: 200,
+                                },
+                                {
+                                    product_id: 1,
+                                    date: '2016-12-24',
+                                    delivered: 100,
+                                },
+                            ],
+                            releases: [
+                                {
+                                    product_id: 1,
+                                    date: '2016-12-22',
+                                    disposed: 90,
+                                    status: 'Approved',
+                                },
+                                {
+                                    product_id: 1,
+                                    date: '2016-12-24',
+                                    disposed: 100,
+                                    status: 'Approved',
+                                },
+                                {
+                                    product_id: 2,
+                                    date: '2016-12-25',
+                                    disposed: 150,
+                                    status: 'Approved',
+                                },
                             ]
+
                         }
-                    ]
+                    
                 }
             }
         },
@@ -256,17 +250,17 @@
             getInventory: function () {
                 this.$http.get('/api/v1/inventory')
                     .then(function (response) {
-                        // this.inventoryData.products = [];
+                        this.inventoryData.products = [];
                         for (product of response.data.data) {
                             this.inventoryData.products.push({
                                 id: product.id,
                                 job_order_id: product.job_order_id,
                                 job_order_no: product.job_order_no,
                                 project_name: product.project_name,
-                                name: product.name,
+                                name: product.item_name,
                                 product_code: product.product_code,
                                 expiration_date: product.expiration_date,
-                                quantity: 1000000
+                                quantity: product.expected_quantity,
                             })
                         }
                     })
@@ -277,7 +271,7 @@
             getJobOrders: function () {
                 this.$http.get('/api/v1/job-orders/department')
                     .then(function (response) {
-                        // this.inventoryData.jobOrders = [];
+                        this.inventoryData.jobOrders = [];
                         for (let r of response.data) {
                             if (r) {
                                 this.inventoryData.jobOrders.push(r);
@@ -291,7 +285,7 @@
             getJob: function () {
                 this.$http.get('/api/v1/inventory/job')
                     .then(function (response) {
-                        // this.inventoryData.inventoryJobs = [];
+                        this.inventoryData.inventoryJobs = [];
                         for (let r of response.data.data) {
                             this.inventoryData.inventoryJobs.push(r);
                         }

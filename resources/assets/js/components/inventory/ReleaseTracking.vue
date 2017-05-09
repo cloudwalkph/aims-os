@@ -7,16 +7,12 @@
                 <i class="fa fa-print fa-lg pull-right" />
             </h3>
         </div>
-        <div class="col-sm-12" style="margin-top: 20px;" v-for="(item, index) in items">
+        <div class="col-sm-12" style="margin-top: 20px;" v-for="(product, indexTrace) in products" v-if="inventoryJob.job_order_id == product.job_order_id">
             <label htmlFor="itemname" class="col-sm-4 control-label">
-                <span v-for="product in products" v-if="item.product_id == product.id">
-                    Item Name: {{product.name}}
-                </span>
+                Item Name: {{product.name}}
             </label>
             <label htmlFor="quantity" class="col-sm-4 control-label">
-                <span v-for="product in products" v-if="item.product_id == product.id">
-                    Expected Quantity: {{product.quantity}}
-                </span>
+                Expected Quantity: {{product.quantity}}
             </label>
             <table class="table table-striped table-bordered">
                 <thead>
@@ -32,11 +28,11 @@
 
                 <tbody>
 
-                    <tr v-for="(r, indexD) in item.releases">
+                    <tr v-for="(r, indexD) in detail.releases" v-if="r.product_id == product.id">
                         <td>{{convertDate(r.date)}}</td>
-                        <td>{{productsOnHand(item, r.date, r.disposed)}}</td>
+                        <td>{{productsOnHand(detail, product.id, r.date)}}</td>
                         <td>{{r.disposed}}</td>
-                        <td>{{returned(item, r.date, r.disposed)}}</td>
+                        <td>{{returned(detail, product.id, r.date, r.disposed)}}</td>
                         <td>{{r.status}}</td>
                         <td class="text-center">
                             <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
@@ -46,7 +42,7 @@
 
                     <tr>
                         <td>{{dateToday}}</td>
-                        <td>{{productsOnHand(item)}}</td>
+                        <td>{{productsOnHand(detail, product.id, dateToday)}}</td>
                         <td><input type="text" class="form-control" /></td>
                         <td><input type="text" class="form-control" /></td>
                         <td>
@@ -77,7 +73,7 @@
         },
         data: function () {
             return {
-                items: this.workDetail.items
+                detail: this.workDetail,
             }
         },
         methods: {
@@ -86,25 +82,35 @@
                 var d = new Date(milliseconds);
                 return d.toDateString();
             },
-            productsOnHand: function (item, rDate = Date(), iDisposed = 0) {
+            productsOnHand: function (detail, product_id, rDate = Date()) {
                 var total = 0;
                 var rDateParsed = Date.parse(rDate);
-                for(delivery of item.deliveries) {
-                    var deliveryDateParsed = Date.parse(delivery.date);
-                    if(deliveryDateParsed <= rDateParsed) {
-                        total = Number(total + delivery.delivered);
+                for (delivery of detail.deliveries) {
+                    if (delivery.product_id == product_id) {
+                        var deliveryDateParsed = Date.parse(delivery.date);
+                        if (deliveryDateParsed <= rDateParsed) {
+                            total = Number(total) + Number(delivery.delivered);
+                        }
+                    }
+                }
+                for (release of detail.releases) {
+                    if (release.product_id == product_id) {
+                        var releaseDateParsed = Date.parse(release.date);
+                        if(releaseDateParsed < rDateParsed) {
+                            total = Number(total) - Number(release.disposed);
+                        }
                     }
                 }
                 return total;
             },
-            returned: function (item, rDate, iDisposed) {
-                var products = this.productsOnHand(item, rDate);
+            returned: function (detail, product_id, rDate, iDisposed = 0) {
+                var products = this.productsOnHand(detail, product_id, rDate);
                 return products - iDisposed;
             }
         },
         mounted: function () {
         },
-        props: ['workDetail', 'products']
+        props: ['workDetail', 'products', 'propIJobId', 'inventoryJob']
     }
 
 </script>
