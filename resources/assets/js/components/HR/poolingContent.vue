@@ -7,7 +7,7 @@
     <br/>
     <div class="container-fluid">
       <div class="col-md-8 col-md-offset-2">
-       	<table class="table table-striped">
+       	<table class="table table-striped" style="border: 1px solid #ddd;">
        		<thead>
        			<tr>
        				<td>Manpower</td>

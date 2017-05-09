@@ -7,6 +7,8 @@
         <vuetable ref="Vuetable_manpower"
         			api-url="/api/v1/hr/manpower"
         			:fields="fields"
+                    :css="css.table"
+                    :multi-sort="true"
        	></vuetable>
 
         <div class="modal fade" id="createManpower" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"> 
@@ -218,6 +220,11 @@
                         dataClass: 'text-center middleAlign'
                     }
         		],
+                css: {
+                    table: {
+                        tableClass: 'table table-bordered'
+                    }
+                },
                 isFetching : {
                     disabled : false,
                     saveLabel : 'Save'
@@ -248,7 +255,7 @@
                 }
                 
                 let form = new FormData($(e.target)[0]);
-                console.log($(e.target).serialize());return;
+                
                 if(this.rowData) // EDIT
                 {
                     let url = '/api/v1/hr/manpower/' + this.rowData.id;
