@@ -21,7 +21,7 @@
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Deadline</label>
-                                <input type="date" name="deadline"
+                                <input type="text" name="deadline"
                                        @input="inputChange" v-bind:value="deadline" id="deadline"
                                        placeholder="Deadline" class="form-control" />
                             </div>
@@ -55,13 +55,17 @@
                 joOptions: [],
                 job_order_id: '',
                 description: '',
-                deadline: '',
+                deadline: moment().format("YYYY-MM-DD HH:mm"),
                 user_id: ''
             }
         },
         mounted() {
             this.getUsers()
             this.getJobOrders()
+
+            $('#deadline').on('dp.change', (newDate, oldDate) => {
+                this.deadline = newDate.date.format("YYYY-MM-DD hh:mm a");
+            });
         },
         methods: {
             resetForm() {
@@ -106,7 +110,7 @@
                 let data = {
                     job_order_id: this.job_order_id,
                     description: this.description,
-                    deadline: this.deadline,
+                    deadline: moment(this.deadline, "YYYY-MM-DD hh:mm a").format("YYYY-MM-DD HH:mm:ss"),
                     user_id: this.user_id
                 }
 
