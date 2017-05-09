@@ -3,19 +3,7 @@
         <div class="box box-info">
             <div class="box-body" style="padding: 10px 30px">
 
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <textarea class="comments" placeholder="Write a comment..."
-                                  style=" width: 100%; height: 200px; font-size: 14px;
-                                  line-height: 18px; border: 1px solid #dddddd; padding: 10px" >
-                        </textarea>
-                    </div>
-                    <div class="col-sm-12">
-                        <button class="btn btn-default pull-right" type="button">Post</button>
-                    </div>
-                </div>
-
-                <hr/>
+                <discussions></discussions>
 
                 <!-- <div class="row">
                     <div class="comments-container">
