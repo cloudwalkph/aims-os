@@ -11,7 +11,7 @@
         <div class="col-md-6 form-group text-input-container">
             <label class="control-label col-sm-12" for="deadline">Deadline</label>
             <div class="col-md-12">
-                <input type="date" name="deadline" required placeholder="Deadline"
+                <input type="text" name="deadline" required placeholder="Deadline"
                        id="deadline" class="form-control"
                        @input="inputChange" v-bind:value="deadline"/>
             </div>
@@ -42,13 +42,17 @@
                 departments: [],
                 departmentOptions: [],
                 department_id: '',
-                deadline: '',
+                deadline: moment().format("YYYY-MM-DD HH:mm"),
                 deliverables: '',
                 job_order_id: ''
             }
         },
         mounted() {
-            this.getDepartments()
+            this.getDepartments();
+
+            $('#deadline').on('dp.change', (newDate, oldDate) => {
+                this.deadline = newDate.date.format("YYYY-MM-DD hh:mm a");
+            });
         },
         methods: {
             resetForm() {
@@ -76,7 +80,7 @@
                 let jobOrderId = $('#jobOrderId').val();
                 let data = {
                     job_order_id: jobOrderId,
-                    deadline: this.deadline,
+                    deadline: moment(this.deadline, "YYYY-MM-DD hh:mm a").format("YYYY-MM-DD HH:mm:ss"),
                     deliverables: this.deliverables,
                     department_id: this.department_id
                 }
@@ -92,6 +96,7 @@
                     toastr.error('Failed in adding department involvement', 'Error')
                     console.log(error)
                 })
+                
             }
         }
     }

@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <label for="date_time" class="col-sm-2 control-label">Date and Time</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control dataField"
+                            <input type="text" class="form-control dataField"
                                    required
                                    name="date_and_time" value="{{ isset($mom['date_and_time']) ? \Carbon\Carbon::createFromTimestamp(strtotime($mom->date_and_time))->toDateString() : '' }}"
                                    id="date_time" placeholder="Date and Time" />
