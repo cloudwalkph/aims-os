@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="pull-left table-title">Inventory List</h1>
-            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createIventory">
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalCreateInventory">
                 <i class="fa fa-plus" /> Create Inventory
             </button>
             <div class="content">
@@ -17,19 +17,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="product in propData.products">
-                            <td>
-                                {{product.job_order_no}}
+                        <tr v-for="item in propData.internalInventory">
+                            <td v-for="jo in propData.jobOrders" v-if="jo.id == item.job_order_id">
+                                {{jo.job_order_no}}
                             </td>
-                            <td>{{product.product_code}}</td>
-                            <td>{{product.name}}</td>
-                            <td>{{convertDate(product.expiration_date)}}</td>
+                            <td>{{item.product_code}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{convertDate(item.expiration_date)}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <CreateInventoryModal></CreateInventoryModal>
+        <CreateInventoryModal :propData="propData"></CreateInventoryModal>
     </div>
 
 </template>

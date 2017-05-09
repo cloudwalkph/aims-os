@@ -8,8 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 use App\Models\JobOrderDepartmentInvolved;
 
-use App\Models\JobOrderProduct;
-
 use DB;
 
 class InventoryController extends Controller
@@ -24,17 +22,17 @@ class InventoryController extends Controller
         // user
         $user = $request->user();
 
-        $query = JobOrderProduct::select('job_order_products.*');
+        $query = Inventory::select('inventories.*');
 
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
             $query->orderBy($sortCol, $sortDir);
         } else {
-            $query->orderBy('job_order_products.id', 'asc');
+            $query->orderBy('inventories.id', 'asc');
         }
 
-        $query->join('job_orders', 'job_orders.id', '=', 'job_order_products.job_order_id')
+        $query->join('job_orders', 'job_orders.id', '=', 'inventories.job_order_id')
             ->addSelect('job_orders.project_name', 'job_orders.job_order_no');
 
         // Filter
@@ -70,7 +68,19 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $jo = null;
+        // Create the jo inventory
+        \DB::transaction(function() use ($input, &$jo) {
+
+            $jo = Inventory::create($input);
+
+            $jo = Inventory::where('id', $jo->id)
+                ->with('jobOrder')->first();
+        });
+
+        return response()->json($jo, 201);
     }
 
     /**
