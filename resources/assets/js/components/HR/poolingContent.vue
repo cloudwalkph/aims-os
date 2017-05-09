@@ -466,7 +466,7 @@
         let url = '/api/v1/hr/manpower-deployment/' + this.data;
         this.$http.get(url).then(response => {
           this.deploymentManpower = response.data;
-          console.log(response.data)
+          // console.log(response.data)
         }, error => {
           console.log(error);
         })

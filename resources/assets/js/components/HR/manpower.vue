@@ -248,7 +248,7 @@
                 }
                 
                 let form = new FormData($(e.target)[0]);
-
+                console.log($(e.target).serialize());return;
                 if(this.rowData) // EDIT
                 {
                     let url = '/api/v1/hr/manpower/' + this.rowData.id;
@@ -327,8 +327,8 @@
                 Vue.nextTick( () => this.$refs.Vuetable_manpower.reload() )
             },
             'edit-table' (data) {
-                data.birthdate = moment(data.birthdate).format('YYYY-MM-DD');
-                data.hired_date = moment(data.hired_date).format('YYYY-MM-DD');
+                data.birthdate = data.birthdate ? moment(data.birthdate).format('YYYY-MM-DD') : null;
+                data.hired_date = data.hired_date ? moment(data.hired_date).format('YYYY-MM-DD') : null;
                 Vue.nextTick( 
                     () => {
                         this.rowData = data

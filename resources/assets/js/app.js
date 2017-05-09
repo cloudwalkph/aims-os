@@ -69,6 +69,8 @@ Vue.component('plan-jo-table', require('./components/plans/plans-jo-table.vue'))
 
 Vue.component('plan-animation-table', require('./components/plans/animation-details-table.vue'));
 
+Vue.component('hr-vehicle-request', require('./components/HR/vehicle_request'));
+
 require('./components/inventory');
 
 /* HR */

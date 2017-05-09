@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="button-menu">
                 <div class="hero-widget well well-sm">
                     <div class="icon">
@@ -65,12 +65,12 @@
                         <label class="text-muted">Vehicle Request List</label>
                     </div>
                     <div class="options">
-                        <a href="#" class="btn btn-primary btn-lg">Vehicle request</a>
+                        <a href="/hr/vehicle_request" class="btn btn-primary btn-lg">Vehicle request</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="button-menu">
                 <div class="hero-widget well well-sm">
                     <div class="icon">
