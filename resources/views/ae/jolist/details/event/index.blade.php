@@ -19,7 +19,7 @@
                         <div class="col-md-12 form-group text-input-container">
                             <label class="control-label col-sm-2" for="when">When</label>
                             <div class="col-md-10">
-                                <input type="date" value="{{ isset($detail['when']) ? \Carbon\Carbon::createFromTimestamp(strtotime($detail->when))->toDateString() : '' }}" required name="when" placeholder="When" class="form-control eventDataField" />
+                                <input type="text" id="event_when" value="{{ isset($detail['when']) ? \Carbon\Carbon::createFromTimestamp(strtotime($detail->when))->toDateString() : '' }}" required name="when" placeholder="When" class="form-control eventDataField" />
                             </div>
                         </div>
 

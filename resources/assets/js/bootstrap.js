@@ -76,6 +76,12 @@ toastr.options = {
     "hideMethod": "fadeOut"
 };
 
+$(function () {
+    $('#date_time').datetimepicker();
+    $('#deadline').datetimepicker();
+    $('#event_when').datetimepicker();
+});
+
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Laravel.csrfToken,
     'X-Requested-With': 'XMLHttpRequest',
