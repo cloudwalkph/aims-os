@@ -70,6 +70,11 @@ class JobOrder extends Model
         return $this->hasMany(JobOrderProduct::class);
     }
 
+    public function discussions()
+    {
+        return $this->hasMany(JobOrderDiscussion::class);
+    }
+
     /**
      * Local Scopes
      * ======================================================================================================
