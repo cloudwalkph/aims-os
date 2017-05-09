@@ -8,7 +8,7 @@ use App\Models\JobOrderDiscussion;
 class JobOrderDiscussionsController extends Controller {
     public function getDiscussions($jobOrderId)
     {
-        $discussions = JobOrderDiscussion::where('job_order_id', $jobOrderId)
+        $discussions = JobOrderDiscussion::with('user.profile')->where('job_order_id', $jobOrderId)
             ->get();
 
         return response()->json($discussions, 200);
@@ -26,6 +26,10 @@ class JobOrderDiscussionsController extends Controller {
         if (! $discussion) {
             return response()->json(['creating a discussion failed'], 400);
         }
+
+        $discussion = JobOrderDiscussion::with('user.profile')
+            ->where('id', $discussion->id)
+            ->first();
 
         return response()->json($discussion, 201);
     }
