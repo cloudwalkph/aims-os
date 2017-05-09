@@ -7,7 +7,8 @@
     <br/>
     <div class="container-fluid">
       <div class="col-md-8 col-md-offset-2">
-       	<table class="table table-striped" style="border: 1px solid #ddd;">
+        <h3>Manpower Pooling</h3>
+       	<table class="table table-bordered">
        		<thead>
        			<tr>
        				<td>Manpower</td>
@@ -46,6 +47,7 @@
           			api-url="/api/v1/hr/manpower"
           			:fields="fields"
                 :multi-sort="true"
+                :css="css.table"
          	></vuetable>
         </div>
 
@@ -297,6 +299,11 @@
     						dataClass: 'center aligned'
     					}
         		],
+            css: {
+              table: {
+                tableClass: 'table table-bordered'
+              }
+            },
 				joManpowerList : [],
         selectedManpower : [],
         venueList : [],
