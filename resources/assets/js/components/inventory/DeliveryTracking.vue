@@ -5,16 +5,12 @@
             <h3>Delivery Tracking</h3>
         </div>
 
-        <div class="col-sm-12" style="margin-top: 20px;" v-for="(item, indexTrace) in items">
+        <div class="col-sm-12" style="margin-top: 20px;" v-for="(product, indexTrace) in products" v-if="inventoryJob.job_order_id == product.job_order_id">
             <label htmlFor="itemname" class="col-sm-4 control-label">
-                <span v-for="product in products" v-if="item.product_code == product.product_code">
-                    Item Name: {{product.name}}
-                </span>
+                Item Name: {{product.name}}
             </label>
             <label htmlFor="quantity" class="col-sm-4 control-label">
-                <span v-for="product in products" v-if="item.product_code == product.product_code">
-                    Expected Quantity: {{product.quantity}}
-                </span>
+                Expected Quantity: {{product.quantity}}
             </label>
             <table class="table table-striped table-bordered">
                 <thead>
@@ -28,10 +24,10 @@
 
                 <tbody>
 
-                    <tr v-for="(d, indexD) in item.deliveries">
+                    <tr v-for="(d, indexD) in detail.deliveries" v-if="d.product_id == product.id">
                         <td>{{convertDate(d.date)}}</td>
                         <td>{{d.delivered}}</td>
-                        <td>{{balance(indexTrace, indexD)}}</td>
+                        <td>{{balance(product.id, indexD)}}</td>
                         <td class="text-center">
                             <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
                             <i class="fa fa-times-circle-o fa-2x text-danger" @click="removeDelivery(indexTrace, indexD)" />
@@ -41,7 +37,7 @@
                     <tr>
                         <td>{{dateToday}}</td>
                         <td>
-                            <input type="text" class="form-control" :workIndex="indexTrace" @keyup.enter="handleSubmit" />
+                            <input type="text" class="form-control" :workIndex="indexTrace" :productId="product.id" @keyup.enter="handleSubmit" />
                         </td>
                         <td><span></span></td>
                         <td class="text-center">
@@ -65,20 +61,21 @@
         },
         data: function () {
             return {
-                items: this.workDetail.items
+                detail: this.workDetail
             }
         },
         methods: {
-            balance: function (indexTrace, indexD) {
-                var product_code = this.items[indexTrace].product_code;
+            balance: function (product_id, indexD) {
                 var qty = 0;
                 for (var p = 0; p < this.products.length; p++) {
-                    if (this.products[p].product_code == product_code) {
+                    if (this.products[p].id == product_id) {
                         qty = this.products[p].quantity
                     }
                 }
                 for (var d = 0; d <= indexD; d++) {
-                    qty = qty - this.items[indexTrace].deliveries[d].delivered;
+                    if (this.detail.deliveries[d].product_id == product_id) {
+                        qty = qty - this.detail.deliveries[d].delivered;
+                    }
                 }
                 return qty;
             },
@@ -89,20 +86,22 @@
             },
             handleSubmit: function (e) {
                 var workIndex = e.target.getAttribute('workIndex');
+                var productId = e.target.getAttribute('productId');
                 var deliveryVal = e.target.value;
-                this.items[workIndex].deliveries.push({
+                this.detail.deliveries.push({
+                    product_id: productId,
                     date: this.dateToday,
-                    delivered: deliveryVal,
-                    disposed: 0
+                    delivered: deliveryVal
                 });
+                e.target.value = 0;
             },
             removeDelivery: function (indexTrace, indexDelivery) {
-                this.items[indexTrace].deliveries.splice(indexDelivery, 1);
+                this.detail.deliveries.splice(indexDelivery, 1);
             },
         },
         mounted: function () {
         },
-        props: ['workDetail', 'products']
+        props: ['workDetail', 'products', 'propIJobId', 'inventoryJob']
     }
 
 </script>
