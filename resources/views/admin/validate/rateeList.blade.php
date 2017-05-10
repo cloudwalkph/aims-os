@@ -8,7 +8,7 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <h1>Dashboard</h1>
+                        <h1>Validate - Ratee's List</h1>
                     </div>
                     <div class="col-md-2 col-md-offset-4 text-right">
                         <a href="/evaluate/{{ $jno }}" class="btn btn-success"><i class="glyphicon glyphicon-chevron-left"></i>Events</a>
