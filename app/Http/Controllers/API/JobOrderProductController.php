@@ -74,4 +74,33 @@ class JobOrderProductController extends Controller {
 
         return response()->json($jo, 200);
     }
+
+    function all(Request $request)
+    {
+        $query = JobOrderProduct::select('job_order_products.*');
+
+        // Sort
+        if ($request->has('sort')) {
+            list($sortCol, $sortDir) = explode('|', $request->get('sort'));
+            $query->orderBy($sortCol, $sortDir);
+        } else {
+            $query->orderBy('job_order_products.id', 'asc');
+        }
+
+        $query->join('job_orders', 'job_orders.id', '=', 'job_order_products.job_order_id');
+        $query->addSelect('job_orders.project_name', 'job_orders.job_order_no');
+
+        // Filter
+        if ($request->has('filter')) {
+            $this->filter($query, $request, $query->$filterable);
+        }
+
+        // Count per page
+        $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
+
+        // Get the data
+        $result = $query->paginate($perPage);
+
+        return response()->json($result, 200);
+    }
 }

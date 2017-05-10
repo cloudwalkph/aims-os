@@ -119,7 +119,7 @@ Route::group(['prefix' => 'questions'], function () {
     Route::post('/submitresults', 'Front\Validate\Questions@submitresult');
 });
 
-Route::group(['prefix' => 'evaluate'], function () {
+    Route::group(['prefix' => 'evaluate'], function () {
     Route::get('/', 'Front\Validate\Questions@index');
     Route::get('/{jno}', 'Front\Validate\Questions@choosecategory');
     Route::get('/{jno}/{eventCategory}', 'Front\Validate\Questions@chooseemployee');

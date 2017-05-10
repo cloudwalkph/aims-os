@@ -104,7 +104,7 @@
                             product_code: 'SAMPLE-1PROD',
                             name: 'palmolive',
                             quantity: 1000,
-                            expiration_date: '2017-02-27',
+                            created_date: '2017-02-27',
                         },
                         {
                             id: 101,
@@ -112,7 +112,7 @@
                             product_code: 'SAMPLE-1PROD',
                             name: 'safeguard',
                             quantity: 2000,
-                            expiration_date: '2017-02-27',
+                            created_date: '2017-02-27',
                         },
                     ],
                     inventoryJobs: [
@@ -128,48 +128,54 @@
                             user_id: 0
                         }
                     ],
-                    workDetail: 
+                    workDetail: {
+                        deliveries: [
+                            {
+                                product_id: 1,
+                                date: '2016-12-22',
+                                delivered: 100,
+                            },
+                            {
+                                product_id: 2,
+                                date: '2016-12-23',
+                                delivered: 200,
+                            },
+                            {
+                                product_id: 1,
+                                date: '2016-12-24',
+                                delivered: 100,
+                            },
+                        ],
+                        releases: [
+                            {
+                                product_id: 1,
+                                date: '2016-12-22',
+                                disposed: 90,
+                                status: 'Approved',
+                            },
+                            {
+                                product_id: 1,
+                                date: '2016-12-24',
+                                disposed: 100,
+                                status: 'Approved',
+                            },
+                            {
+                                product_id: 2,
+                                date: '2016-12-25',
+                                disposed: 150,
+                                status: 'Approved',
+                            },
+                        ]
+                    },
+                    internalInventory: [
                         {
-                            deliveries: [
-                                {
-                                    product_id: 1,
-                                    date: '2016-12-22',
-                                    delivered: 100,
-                                },
-                                {
-                                    product_id: 2,
-                                    date: '2016-12-23',
-                                    delivered: 200,
-                                },
-                                {
-                                    product_id: 1,
-                                    date: '2016-12-24',
-                                    delivered: 100,
-                                },
-                            ],
-                            releases: [
-                                {
-                                    product_id: 1,
-                                    date: '2016-12-22',
-                                    disposed: 90,
-                                    status: 'Approved',
-                                },
-                                {
-                                    product_id: 1,
-                                    date: '2016-12-24',
-                                    disposed: 100,
-                                    status: 'Approved',
-                                },
-                                {
-                                    product_id: 2,
-                                    date: '2016-12-25',
-                                    disposed: 150,
-                                    status: 'Approved',
-                                },
-                            ]
-
-                        }
-                    
+                            id: 0,
+                            job_order_id: 0,
+                            product_code: 'product_code',
+                            name: 'Product Name',
+                            expiration_date: '2017-05-25'
+                        },
+                    ]
                 }
             }
         },
@@ -247,8 +253,8 @@
                         console.log('error jobs assigned', e);
                     });
             },
-            getInventory: function () {
-                this.$http.get('/api/v1/inventory')
+            getJOInventory: function () {
+                this.$http.get('/api/v1/job-order-inventory/all')
                     .then(function (response) {
                         this.inventoryData.products = [];
                         for (product of response.data.data) {
@@ -259,8 +265,26 @@
                                 project_name: product.project_name,
                                 name: product.item_name,
                                 product_code: product.product_code,
-                                expiration_date: product.expiration_date,
+                                created_date: product.created_at,
                                 quantity: product.expected_quantity,
+                            })
+                        }
+                    })
+                    .catch(function (e) {
+                        console.log('error joinventories', e);
+                    });
+            },
+            getInventory: function () {
+                this.$http.get('/api/v1/inventory')
+                    .then(function (response) {
+                        this.inventoryData.internalInventory = [];
+                        for (product of response.data.data) {
+                            this.inventoryData.internalInventory.push({
+                                id: product.id,
+                                job_order_id: product.job_order_id,
+                                product_code: product.product_code,
+                                name: product.name,
+                                expiration_date: product.expiration_date
                             })
                         }
                     })
@@ -271,7 +295,7 @@
             getJobOrders: function () {
                 this.$http.get('/api/v1/job-orders/department')
                     .then(function (response) {
-                        this.inventoryData.jobOrders = [];
+                        // this.inventoryData.jobOrders = [];
                         for (let r of response.data) {
                             if (r) {
                                 this.inventoryData.jobOrders.push(r);
@@ -312,6 +336,7 @@
             this.getInventory();
             this.getJob();
             this.getJobOrders();
+            this.getJOInventory();
             this.getUsers();
         }
     }

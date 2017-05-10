@@ -116,6 +116,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // ae job order inventory
     Route::group(['prefix' => 'job-order-inventory'], function() {
+        Route::get('/all', 'JobOrderProductController@all');
         Route::get('/{Id}', 'JobOrderProductController@index');
         Route::post('/', 'JobOrderProductController@store');
         Route::delete('/{Id}', 'JobOrderProductController@delete');

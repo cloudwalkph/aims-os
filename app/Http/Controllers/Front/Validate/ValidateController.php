@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front\Validate;
 
+use App\Models\Assignment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
@@ -26,10 +27,11 @@ class ValidateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $results = $this->loadJobOrders();
 
+        $data = $request->user()->id;
+        $results = $this->loadJobOrders( $data );
         return view('admin/validate', compact('results'));
     }
     
@@ -111,13 +113,26 @@ class ValidateController extends Controller
         return view('admin/Validate/evaluateAdmin', compact('results'));
     }
 
-    public function loadJobOrders()
+    public function loadJobOrders( $uid = null )
     {
         $results = array();
 
-        $jos = JobOrder::select('*')
-            ->with('user_profile')
-            ->with('clients')
+        $joArrays = array();
+
+        $assignments = Assignment::where('user_id', $uid)
+            ->get();
+
+        foreach ($assignments as $assignment){
+
+            array_push($joArrays, $assignment->job_order_id);
+
+        }
+
+//        $jos = JobOrder::select('*')
+//            ->with('user_profile')
+//            ->get();
+
+        $jos = JobOrder::whereIn( 'id', $joArrays )
             ->get();
 
         foreach ($jos as $jo) {
@@ -135,7 +150,7 @@ class ValidateController extends Controller
                 'joId' => $jo->job_order_no,
                 'assigned' => $jo->user_profile->last_name.', '.$jo->user_profile->first_name,
                 'projName' => $jo->project_name,
-                'contact' => implode(', ', $contact_array),
+//                'contact' => implode(', ', $contact_array),
                 'brands' => implode(', ', $brands_array),
                 'status' => $jo->status,
                 'projecttypes' => implode(', ', array_column(json_decode($jo->project_types, true), 'name'))
