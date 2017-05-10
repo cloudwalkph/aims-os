@@ -17,7 +17,7 @@
                             <th class="vuetable-th-slug sortable">JO Order Number</th>
                             <th class="vuetable-th-slug sortable">Project Name</th>
                             <th class="vuetable-th-slug sortable">Project Type</th>
-                            <th class="vuetable-th-slug sortable">Client Name</th>
+                            {{--<th class="vuetable-th-slug sortable">Client Name</th>--}}
                             <th class="vuetable-th-slug sortable">Brand</th>
                             <th class="vuetable-th-slug sortable">Status</th>
                             {{--<th class="vuetable-th-slug sortable">Assignment</th>--}}
@@ -30,7 +30,6 @@
                                 <td><a href="/evaluate/{{ $jo['joId'] }}"> {{ $jo['joId'] }} </a></td>
                                 <td>{{ $jo['projName'] }}</td>
                                 <td>{{$jo['projecttypes']}}</td>
-                                <td>{{ $jo['contact'] }}</td>
                                 <td>{{ $jo['brands'] }}</td>
                                 <td>{{ $jo['status'] }}</td>
                                 {{--<td>{{ $jo['status'] }}</td>--}}

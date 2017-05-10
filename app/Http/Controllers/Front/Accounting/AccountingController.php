@@ -58,6 +58,7 @@ class AccountingController extends Controller
             $invoiceFile = '';
             $paidDate = '';
             $paidFile = '';
+            $remarks = '';
 
             if( $accounting ){
 
