@@ -14,6 +14,10 @@ class Manpower extends Model
         'first_name', 'middle_name', 'last_name', 'manpower_type_id', 'agency_id',
         'birthdate', 'hired_date', 'city', 'email', 'contact_number', 'fb_link', 'violations'];
 
+    public static $filterable = [
+        'first_name', 'last_name'
+    ];
+
     public function files()
     {
         return $this->hasMany('App\Models\ManpowerFile');
