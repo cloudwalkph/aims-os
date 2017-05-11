@@ -8,19 +8,34 @@ use App\Models\Manpower;
 use App\Models\ManpowerFile;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Carbon\Carbon;
+use App\Traits\FilterTrait;
 use Image;
 
 class ManpowerController extends Controller
 {
+    use FilterTrait;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $manpower = Manpower::with('manpowerType')->with('agency')->paginate();
-        $data = $this->parseData($manpower);
+        if($request->has('sort')) {
+            list($sortCol, $sortDir) = explode('|', $request->get('sort'));
+            \Log::info($sortCol);
+            $manpower = Manpower::with('manpowerType')->with('agency')->orderBy($sortCol, $sortDir);
+        }else
+        {
+            $manpower = Manpower::with('manpowerType')->with('agency');
+        }
+
+        // Filter
+        if ($request->has('filter')) {
+            $this->filter($manpower, $request, Manpower::$filterable);
+        }
+
+        $data = $this->parseData($manpower->paginate());
         return response()->json($data, 200);
     }
 

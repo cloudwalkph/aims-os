@@ -16,7 +16,7 @@
        				<td>Rate</td>
        			</tr>
        		</thead>
-       		<tbody  v-if="joManpowerList.length > 0">
+       		<tbody v-if="joManpowerList.length > 0">
        			<tr v-for="man in joManpowerList">
        				<td>{{man.manpower_type.name}}</td>
        				<td>{{man.manpower_needed}}</td>
@@ -47,13 +47,29 @@
       <div role="tabpanel" class="tab-pane active" id="plan" style="padding-top: 30px;">
         
         <h3>Manpower</h3>
+        <filter-bar></filter-bar>
         <div class="table-responsive" style="height: 300px;overflow-y: auto;">
          	<vuetable ref="vuetable_manpower"
           			api-url="/api/v1/hr/manpower"
           			:fields="fields"
+                pagination-path=""
                 :multi-sort="true"
                 :css="css.table"
+                :sort-order="sortOrder"
+                :append-params="moreParams"
+                @vuetable:cell-clicked="onCellClicked"
+                @vuetable:pagination-data="onPaginationData"
          	></vuetable>
+          <div class="vuetable-pagination">
+            <vuetable-pagination-info ref="paginationInfo"
+                                      info-class="pagination-info"
+            ></vuetable-pagination-info>
+            <vuetable-pagination ref="pagination"
+                                 :css="css.pagination"
+                                 :icons="css.icons"
+                                 @vuetable-pagination:change-page="onChangePage"
+            ></vuetable-pagination>
+        </div>
         </div>
 
         <div class="col-md-8">
@@ -225,15 +241,21 @@
 	import vuetable from 'vuetable-2/src/components/Vuetable'; 
 	import Vue from 'vue';
 	import VueEvents from 'vue-events';
+  import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+  import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 	import moment from 'moment';
   import CustomAddAction from '../HR/commons/CustomAddAction';
+  import FilterBar from '../HR/commons/FilterBar';
 
 	Vue.use(VueEvents);
   Vue.component('CustomAddAction', CustomAddAction);
+  Vue.component('filter-bar', FilterBar);
 
 	export default {
 		components: {
-            vuetable
+            vuetable,
+            VuetablePagination,
+            VuetablePaginationInfo
         },
 		mounted() {
 			this.getJobOrderManpower();
@@ -245,10 +267,11 @@
 		data() {
 			return {
 				fields : [
-					    {
-                  name: '__checkbox:id',
-                  titleClass: 'text-center',
-                  dataClass: 'text-center',
+              {
+                  name: '__sequence',
+                  title: '#',
+                  titleClass: 'text-right',
+                  dataClass: 'text-right'
               },
               {
                   name: 'profile_picture',
@@ -257,38 +280,51 @@
                   dataClass : 'customWith10'
               },
         			{
-        				name: 'name',
-        				title: 'Full Name',
-                        dataClass : 'middleAlign'
+                name: 'first_name',
+                sortField: 'first_name',
+                title: 'First Name',
+                dataClass : 'middleAlign'
+              },
+              {
+        				name: 'last_name',
+                sortField: 'last_name',
+        				title: 'Last Name',
+                dataClass : 'middleAlign'
         			},
         			{
         				name: 'manpower_type.name',
+                sortField: 'manpower_type.name',
         				title: 'Manpower Type',
-                        dataClass : 'middleAlign'
+                dataClass : 'middleAlign'
         			},
         			{
         				name: 'agency.name',
+                sortField: 'agency.name',
         				title: 'Agency',
                         dataClass : 'middleAlign'
         			},
         			{
         				name: 'birthdate',
+                sortField: 'birthdate',
         				title: 'Age',
         				callback: 'getAge',
                         dataClass : 'middleAlign'
         			},
         			{
         				name: 'email',
+                sortField: 'email',
         				title: 'Email',
                         dataClass : 'middleAlign'
         			},
         			{
         				name: 'contact_number',
+                sortField: 'contact_number',
         				title: 'Contact #',
                         dataClass : 'middleAlign'
         			},
         			{
-        				name: 'updated_at',
+                name: 'updated_at',
+        				sortField: 'updated_at',
         				title: 'Last Updated',
         				callback: 'parseDate',
                         dataClass : 'middleAlign'
@@ -306,9 +342,28 @@
         		],
             css: {
               table: {
-                tableClass: 'table table-bordered'
-              }
+                tableClass: 'table table-bordered',
+                ascendingIcon: 'glyphicon glyphicon-chevron-up',
+                descendingIcon: 'glyphicon glyphicon-chevron-down'
+              },
+              pagination: {
+                  wrapperClass: 'pagination',
+                  activeClass: 'active',
+                  disabledClass: 'disabled',
+                  pageClass: 'page',
+                  linkClass: 'link',
+              },
+              icons: {
+                  first: 'glyphicon glyphicon-step-backward',
+                  prev: 'glyphicon glyphicon-chevron-left',
+                  next: 'glyphicon glyphicon-chevron-right',
+                  last: 'glyphicon glyphicon-step-forward',
+              },
             },
+            sortOrder: [
+              { field: 'first_name', sortField: 'first_name', direction: 'DESC'}
+            ],
+            moreParams: {},
 				joManpowerList : [],
         selectedManpower : [],
         venueList : [],
@@ -482,6 +537,19 @@
         }, error => {
           console.log(error);
         })
+      },
+
+      onCellClicked (data, field, event) {
+          console.log('cellClicked: ', field.name)
+          this.$refs.vuetable.toggleDetailRow(data.id)
+      },
+
+      onPaginationData (paginationData) {
+          this.$refs.pagination.setPaginationData(paginationData)
+          this.$refs.paginationInfo.setPaginationData(paginationData)
+      },
+      onChangePage (page) {
+          this.$refs.vuetable.changePage(page)
       }
 		},
 		events: {
@@ -493,7 +561,18 @@
                     $('#button-' + data.id).hide();
                 }
             )
-        }   
+        },
+        'filter-set' (filterText) {
+            this.moreParams = {
+                filter: filterText
+            }
+            
+            Vue.nextTick( () => this.$refs.vuetable_manpower.refresh() )
+        },   
+        'filter-reset' () {
+            this.moreParams = {}
+            Vue.nextTick( () => this.$refs.vuetable_manpower.refresh() )
+        }
 	  }
   }
 </script>
