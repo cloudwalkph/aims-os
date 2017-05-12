@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Manpower;
 use App\Models\ManpowerFile;
+use App\Models\JobOrder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Carbon\Carbon;
 use App\Traits\FilterTrait;
@@ -19,15 +20,42 @@ class ManpowerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($joNumber, Request $request)
     {
+        // $jo = JobOrder::where('job_order_no', $joNumber)->first();
+
         if($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
             \Log::info($sortCol);
-            $manpower = Manpower::with('manpowerType')->with('agency')->orderBy($sortCol, $sortDir);
+            $manpower = Manpower::with('manpowerType')
+                ->with('agency')
+                ->whereNotIn('id', function($q) {
+                    
+                    $q->select('manpower_id')
+                    ->whereIn('job_order_id', function($j) {
+                        $j->select('job_order_id')
+                        ->whereDate('when','>=',Carbon::today()->toDateString())
+                        ->from('job_order_details');
+                    })
+
+                    ->from('job_order_selected_manpowers');
+                })
+                ->orderBy($sortCol, $sortDir);
         }else
         {
-            $manpower = Manpower::with('manpowerType')->with('agency');
+            $manpower = Manpower::with('manpowerType')
+                ->with('agency')
+                ->whereNotIn('id', function($q) {
+                    
+                    $q->select('manpower_id')
+                    ->whereIn('job_order_id', function($j) {
+                        $j->select('job_order_id')
+                        ->whereDate('when','>=',Carbon::today()->toDateString())
+                        ->from('job_order_details');
+                    })
+
+                    ->from('job_order_selected_manpowers');
+                });
         }
 
         // Filter

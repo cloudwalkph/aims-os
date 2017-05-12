@@ -50,12 +50,13 @@
         <filter-bar></filter-bar>
         <div class="table-responsive" style="height: 300px;overflow-y: auto;">
          	<vuetable ref="vuetable_manpower"
-          			api-url="/api/v1/hr/manpower"
+          			:api-url="apiUrl"
           			:fields="fields"
                 pagination-path=""
                 :multi-sort="true"
                 :css="css.table"
                 :sort-order="sortOrder"
+                detail-row-component="my-detail-row"
                 :append-params="moreParams"
                 @vuetable:cell-clicked="onCellClicked"
                 @vuetable:pagination-data="onPaginationData"
@@ -270,6 +271,7 @@
 		},
 		data() {
 			return {
+        apiUrl: `/api/v1/hr/manpower/${$('#jobOrderNumberElement').val()}`,
 				fields : [
               {
                   name: '__sequence',
@@ -340,9 +342,9 @@
                   dataClass: 'text-center middleAlign'
               },
     					{
-    						name: '__handle',   // <----
-    						dataClass: 'center aligned'
-    					}
+                name: '__handle',   // <----
+                dataClass: 'center aligned'
+              }
         		],
             css: {
               table: {
@@ -388,12 +390,6 @@
 		props: [ 
 			'data'
 		],
-		computed: {
-			apiUrl : () => {
-
-				return '/api/v1/hr/job-order-manpower/'+ $('#jobOrderNumberElement').val();
-			}
-		},
 		methods : {
       inputChange(e) {
         this[e.target.id] = e.target.value;
@@ -578,6 +574,7 @@
                 () => {
                   this.selectedManpower = this.selectedManpower.concat([data]);
                     $('#button-' + data.id).hide();
+                    this.$refs.vuetable_manpower.refresh();
                 }
             )
         },
