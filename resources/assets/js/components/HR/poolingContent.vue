@@ -454,7 +454,7 @@
       },
       handleRemoveManpower(id) {
         let index = this.selectedManpower.findIndex((item) => item.id == id);
-        console.log(index);
+        console.log(id);
         this.selectedManpower.splice(index, 1);
         $('#button-' + id).show();
       },
