@@ -4,43 +4,31 @@
         <div class="col-md-12">
             <h1 class="pull-left table-title">Ongoing Project</h1>
             <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalCreateJob">
-                <i class="fa fa-plus"></i> Create Job 
+                <i class="fa fa-plus"></i> Create Job
             </button>
             <div class="content">
-                <table class="table table-striped" id="projectList">
-                    <thead>
-                        <tr>
-                            <th>Job Order Number</th>
-                            <th>Project Name</th>
-                            <th>Description</th>
-                            <th>Deadline</th>
-                            <th>Assigned Persons</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr v-for="job in jobs">
-                            <td>
-                                <span>
-                                    {{jobOrderNo(job)}}
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    {{projectName(job)}}
-                                </span>
-                            </td>
-                            <td>{{job.remarks}}</td>
-                            <td>{{convertDate(job.deadline)}}</td>
-                            <td>
-                                <span>
-                                    {{assignedPersons(job)}}
-                                </span>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
+              <filter-bar></filter-bar>
+              <vuetable ref="vuetable"
+                api-url="/api/v1/inventory/job"
+                :fields="fields"
+                pagination-path=""
+                :css="css.table"
+                :sort-order="sortOrder"
+                :multi-sort="true"
+                detail-row-component="my-detail-row"
+                :append-params="moreParams"
+                @vuetable:cell-clicked="onCellClicked"
+                @vuetable:pagination-data="onPaginationData"
+              ></vuetable>
+              <div class="vuetable-pagination">
+              <vuetable-pagination-info ref="paginationInfo"
+                info-class="pagination-info"
+              ></vuetable-pagination-info>
+              <vuetable-pagination ref="pagination"
+                :css="css.pagination"
+                :icons="css.icons"
+                @vuetable-pagination:change-page="onChangePage"
+              ></vuetable-pagination>
             </div>
         </div>
         <component is="create-job-modal" :propData="propData">
@@ -50,48 +38,110 @@
 </template>
 
 <script>
-    var CreateJobModal = require('./modals/CreateJob.vue');
+  var CreateJobModal = require('./modals/CreateJob');
+
+  var Vuetable = require('vuetable-2/src/components/Vuetable');
+  var VuetablePagination = require('vuetable-2/src/components/VuetablePagination');
+  var VuetablePaginationInfo = require('vuetable-2/src/components/VuetablePaginationInfo');
+
+  var DetailRow = require('../commons/DetailRow');
+  var FilterBar = require('../commons/FilterBar');
+
+  Vue.component('my-detail-row', DetailRow);
 
     module.exports = {
         components: {
-            CreateJobModal
+          Vuetable,
+          VuetablePagination,
+          VuetablePaginationInfo,
+          CreateJobModal,
+          FilterBar,
         },
         data: function () {
             return {
+              fields: [
+                {
+                  name: 'job_order_no',
+                  title: 'Job Order Number',
+                  sortField: 'job_order_no',
+                },
+                {
+                  name: 'project_name',
+                  title: 'Project Name',
+                  sortField: 'project_name',
+                },
+                {
+                  name: 'remarks',
+                  title: 'Description',
+                },
+                {
+                  name: 'deadline',
+                  title: 'Deadline',
+                  sortField: 'deadline',
+                  callback: 'convertDate'
+                },
+                {
+                  name: 'first_name',
+                  title: 'Assigned Persons',
+                  sortField: 'first_name',
+                },
+              ],
+              css: {
+                table: {
+                  tableClass: 'table table-bordered table-striped table-hover',
+                  ascendingIcon: 'glyphicon glyphicon-chevron-up',
+                  descendingIcon: 'glyphicon glyphicon-chevron-down'
+                },
+                pagination: {
+                  wrapperClass: 'pagination',
+                  activeClass: 'active',
+                  disabledClass: 'disabled',
+                  pageClass: 'page',
+                  linkClass: 'link',
+                },
+                icons: {
+                  first: 'glyphicon glyphicon-step-backward',
+                  prev: 'glyphicon glyphicon-chevron-left',
+                  next: 'glyphicon glyphicon-chevron-right',
+                  last: 'glyphicon glyphicon-step-forward',
+                },
+              },
+              sortOrder: [
+                { field: 'id', direction: 'asc'}
+              ],
+              moreParams: {},
                 jobs: this.propData.inventoryJobs
             }
         },
-        methods: {
-            assignedPersons: function (job) {
-                var users = [];
-                // for(job_user of job.user_id) {
-                    for (user of this.propData.users) {
-                        if (user.id == job.user_id) {
-                            users.push(user.profile.first_name);
-                        }
-                    }
-                // }
-                return users.join(', ');
+        events: {
+          'filter-set' (filterText) {
+            this.moreParams = {
+              filter: filterText
             },
+            Vue.nextTick( () => this.$refs.vuetable.refresh() )
+          },
+          'filter-reset' () {
+            this.moreParams = {},
+            Vue.nextTick( () => this.$refs.vuetable.refresh() )
+          }
+        },
+        methods: {
+          onCellClicked (data, field, event) {
+            console.log('cellClicked: ', field.name)
+            this.$refs.vuetable.toggleDetailRow(data.id)
+          },
+          onChangePage (page) {
+            this.$refs.vuetable.changePage(page);
+          },
+          onPaginationData (paginationData) {
+            this.$refs.pagination.setPaginationData(paginationData);
+            this.$refs.paginationInfo.setPaginationData(paginationData);
+          },
             convertDate: function (dateVal) {
                 var milliseconds = Date.parse(dateVal);
                 var d = new Date(milliseconds);
                 return d.toDateString();
             },
-            jobOrderNo: function (job) {
-                for (jo of this.propData.jobOrders) {
-                    if (jo.id == job.job_order_id) {
-                        return jo.job_order_no;
-                    }
-                }
-            },
-            projectName: function (job) {
-                for (jo of this.propData.jobOrders) {
-                    if (jo.id == job.job_order_id) {
-                        return jo.project_name;
-                    }
-                }
-            }
         },
         mounted: function () {
         },

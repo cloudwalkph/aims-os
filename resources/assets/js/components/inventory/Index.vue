@@ -13,12 +13,12 @@
                         {{breadcrumb.page}}
                     </span>
                     <span v-else-if="breadcrumb.page_id === 'work-in-progress'">
-                        <a href="" pageID="work-in-progress" @click.prevent="openPage">
+                        <a href="" @click.prevent="openPage(breadcrumb.page_id)">
                             {{breadcrumb.page}}
                         </a>
                     </span>
                     <span v-else>
-                        <a href="" pageID="home" @click.prevent="openPage">
+                        <a href="" @click.prevent="openPage()">
                             {{breadcrumb.page}}
                         </a>
                     </span>
@@ -180,8 +180,7 @@
             }
         },
         methods: {
-            openPage: function (event) {
-                var pageID = event.target.getAttribute('pageID');
+            openPage: function (pageID = 'home', iJobId) {
                 this.breadcrumbs = [{
                     icon: 'fa-dashboard',
                     page: 'Inventory Department'
@@ -225,7 +224,8 @@
                     });
                 }
                 else if (pageID == 'work-details') {
-                    this.iJobId = event.target.getAttribute('iJobId');
+                  console.log(iJobId);
+                    this.iJobId = iJobId;
                     this.currentView = WorkDetails;
                     this.breadcrumbs.push({
                         icon: 'fa-dashboard',
@@ -242,7 +242,6 @@
             getAssignedJob: function () {
                 this.$http.get('/api/v1/inventory/department')
                     .then(function (response) {
-                        // this.inventoryData.assignedJobs = [];
                         for (let r of response.data) {
                             if (r) {
                                 this.inventoryData.assignedJobs.push(r);
@@ -256,7 +255,6 @@
             getJOInventory: function () {
                 this.$http.get('/api/v1/job-order-inventory/all')
                     .then(function (response) {
-                        this.inventoryData.products = [];
                         for (product of response.data.data) {
                             this.inventoryData.products.push({
                                 id: product.id,
@@ -277,7 +275,6 @@
             getInventory: function () {
                 this.$http.get('/api/v1/inventory')
                     .then(function (response) {
-                        this.inventoryData.internalInventory = [];
                         for (product of response.data.data) {
                             this.inventoryData.internalInventory.push({
                                 id: product.id,
@@ -295,7 +292,6 @@
             getJobOrders: function () {
                 this.$http.get('/api/v1/job-orders/department')
                     .then(function (response) {
-                        // this.inventoryData.jobOrders = [];
                         for (let r of response.data) {
                             if (r) {
                                 this.inventoryData.jobOrders.push(r);
@@ -309,7 +305,6 @@
             getJob: function () {
                 this.$http.get('/api/v1/inventory/job')
                     .then(function (response) {
-                        this.inventoryData.inventoryJobs = [];
                         for (let r of response.data.data) {
                             this.inventoryData.inventoryJobs.push(r);
                         }
@@ -321,7 +316,6 @@
             getUsers: function () {
                 this.$http.get('/api/v1/users/5')
                     .then(function (response) {
-                        // this.inventoryData.users = [];
                         for (let r of response.data) {
                             this.inventoryData.users.push(r);
                         }
@@ -332,12 +326,18 @@
             }
         },
         mounted: function () {
-            this.getAssignedJob();
-            this.getInventory();
-            this.getJob();
-            this.getJobOrders();
-            this.getJOInventory();
-            this.getUsers();
+          // this.inventoryData.assignedJobs = [];
+          this.getAssignedJob();
+          // this.inventoryData.products = [];
+          this.getInventory();
+          // this.inventoryData.internalInventory = [];
+          this.getJob();
+          // this.inventoryData.jobOrders = [];
+          this.getJobOrders();
+          // this.inventoryData.inventoryJobs = [];
+          this.getJOInventory();
+          // this.inventoryData.users = [];
+          this.getUsers();
         }
     }
 

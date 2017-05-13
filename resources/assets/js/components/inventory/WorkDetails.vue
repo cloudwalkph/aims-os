@@ -31,9 +31,9 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <delivery-tracking 
-                        :workDetail="workDetail" 
-                        :products="products" 
+                    <delivery-tracking
+                        :workDetail="workDetail"
+                        :products="products"
                         v-for="inventoryJob in propData.inventoryJobs"
                         v-if="inventoryJob.id == propIJobId"
                         :inventoryJob="inventoryJob"
@@ -46,8 +46,8 @@
                 </div>
 
                 <div class="col-sm-12">
-                    <release-tracking 
-                        :workDetail="workDetail" 
+                    <release-tracking
+                        :workDetail="workDetail"
                         :products="products"
                         v-for="inventoryJob in propData.inventoryJobs"
                         v-if="inventoryJob.id == propIJobId"

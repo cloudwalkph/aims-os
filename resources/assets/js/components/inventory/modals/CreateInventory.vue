@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Expiration Date</label>
-                                <input type="text" name="expiration_date" placeholder="Title" class="form-control" />
+                                <input type="text" name="expiration_date" placeholder="Title" class="expiration_date form-control" />
                             </div>
                         </div>
                     </form>
@@ -87,6 +87,7 @@
             },
         },
         mounted: function () {
+            $('.expiration_date').datetimepicker();
             for (let jo of this.propData.jobOrders) {
                 if (jo) {
                     this.joOptions.push({
