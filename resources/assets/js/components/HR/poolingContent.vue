@@ -194,6 +194,11 @@
       </div>
       <div role="tabpanel" class="tab-pane" id="final_deployment" style="padding-top: 30px;">
         <div class="col-md-12">
+            <button class="btn btn-default pull-right" onclick="frames['finalDeploymentFrame'].print()">
+                <i class="fa fa-print fa-lg"></i> Print Final deployment
+            </button>
+        </div>
+        <div class="col-md-12">
           <div class="row">
             <div class="col-md-6">
               <h4 class="text-center">Briefing Schedule</h4>
@@ -275,7 +280,7 @@
 				fields : [
               {
                   name: '__sequence',
-                  title: '#',
+                  titleClass: '#',
                   titleClass: 'text-right',
                   dataClass: 'text-right'
               },
