@@ -7,7 +7,13 @@
                 <i class="fa fa-print fa-lg pull-right" />
             </h3>
         </div>
-        <div class="col-sm-12" style="margin-top: 20px;" v-for="(product, indexTrace) in products" v-if="inventoryJob.job_order_id == product.job_order_id">
+        <div
+          class="col-sm-12"
+          style="margin-top: 20px;"
+          v-for="(product, indexTrace) in products"
+          :key="product.id"
+          v-if="inventoryJob.job_order_id == product.job_order_id"
+        >
             <label htmlFor="itemname" class="col-sm-4 control-label">
                 Item Name: {{product.name}}
             </label>
@@ -28,7 +34,11 @@
 
                 <tbody>
 
-                    <tr v-for="(r, indexD) in detail.releases" v-if="r.product_id == product.id">
+                    <tr
+                      v-for="(r, indexD) in detail.releases"
+                      :key="indexD"
+                      v-if="r.product_id == product.id"
+                    >
                         <td>{{convertDate(r.date)}}</td>
                         <td>{{productsOnHand(detail, product.id, r.date)}}</td>
                         <td>{{r.disposed}}</td>

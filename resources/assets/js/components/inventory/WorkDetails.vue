@@ -4,7 +4,12 @@
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="row" v-for="job in jobs" v-if="job.id == propIJobId">
+                    <div
+                      class="row"
+                      v-for="job in jobs"
+                      :key="job.id"
+                      v-if="job.id == propIJobId"
+                    >
                         <div class="col-md-8">
                             <label htmlFor="joNumber" class="control-label">
                                 Job Order Number : {{jobOrderNo(job)}}
@@ -35,6 +40,7 @@
                         :workDetail="workDetail"
                         :products="products"
                         v-for="inventoryJob in propData.inventoryJobs"
+                        :key="inventoryJob.id"
                         v-if="inventoryJob.id == propIJobId"
                         :inventoryJob="inventoryJob"
                     >
@@ -50,6 +56,7 @@
                         :workDetail="workDetail"
                         :products="products"
                         v-for="inventoryJob in propData.inventoryJobs"
+                        :key="inventoryJob.id"
                         v-if="inventoryJob.id == propIJobId"
                         :inventoryJob="inventoryJob"
                     >

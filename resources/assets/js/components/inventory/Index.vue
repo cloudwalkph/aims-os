@@ -7,7 +7,11 @@
                 Inventory<small> Department</small>
             </h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item" v-for="(breadcrumb, index) in breadcrumbs">
+                <li
+                  class="breadcrumb-item"
+                  v-for="(breadcrumb, index) in breadcrumbs"
+                  :key="breadcrumb.page"
+                >
                     <i class="fa" :class="breadcrumb.icon"></i>
                     <span v-if="breadcrumbs.length == index + 1">
                         {{breadcrumb.page}}

@@ -15,7 +15,10 @@
 
                         <tbody>
 
-                            <tr v-for="product in products">
+                            <tr
+                              v-for="product in products"
+                              :key="product.id"
+                            >
                                 <td>{{product.itemName}}</td>
                                 <td>{{product.productsOnHand}}</td>
                             </tr>
