@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <h3>Assigned Job Orders</h3>
             <div class="row assigned-jo">
-                <div class="col-md-12 jo-item" v-for="(jo, index) in jos" v-on:click="showModal(jo.job_order.job_order_no)">
+                <div class="col-md-12 jo-item" v-for="(jo, index) in jos" :key="jo.id" v-on:click="showModal(jo.job_order.job_order_no)">
                     <div class="project-name">{{jo.job_order.project_name}}</div>
 
                     <div class="project-body">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
 
-                <AssignedJobDetails v-for="jo in jos" :id="jo.job_order.job_order_no" :jo="jo"></AssignedJobDetails>
+                <AssignedJobDetails v-for="jo in jos" :key="jo.id" :id="jo.job_order.job_order_no" :jo="jo"></AssignedJobDetails>
             </div>
         </div>
     </div>
