@@ -55,19 +55,20 @@
             return {
               fields: [
                 {
-                  name: 'job_order_no',
+                  name: 'job_order.job_order_no',
                   title: 'Job Order Number',
                   sortField: 'job_order_no',
                 },
                 {
-                  name: 'project_name',
+                  name: 'job_order.project_name',
                   title: 'Project Name',
                   sortField: 'project_name',
                 },
                 {
-                  name: 'first_name',
+                  name: 'assigned_person',
                   title: 'Assigned Persons',
                   sortField: 'first_name',
+                  callback: 'getAssignedPerson',
                 },
               ],
               css: {
@@ -122,6 +123,13 @@
           onPaginationData (paginationData) {
             this.$refs.pagination.setPaginationData(paginationData);
             this.$refs.paginationInfo.setPaginationData(paginationData);
+          },
+          getAssignedPerson (val) {
+            var person = [];
+            val.map(function(value, index) {
+              person.push(value.user.profile.first_name + ' ' + value.user.profile.last_name);
+            });
+            return person.join(', ');
           },
         },
         mounted: function () {},

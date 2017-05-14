@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-4 text-right">
                             <label htmlFor="remarks" class="control-label">
-                                Description : {{job.remarks}}
+                                Description : {{job.description}}
                             </label>
                         </div>
                     </div>
@@ -86,15 +86,11 @@
         },
         methods: {
             assignedPersons: function (job) {
-                var users = [];
-                // for(job_user of job.user_id) {
-                for (user of this.propData.users) {
-                    if (user.id == job.user_id) {
-                        users.push(user.profile.first_name);
-                    }
-                }
-                // }
-                return users.join(', ');
+              var person = [];
+              for (value of job.assigned_person) {
+                person.push(value.user.profile.first_name + ' ' + value.user.profile.last_name);
+              }
+              return person.join(', ');
             },
             jobOrderNo: function (job) {
                 for (jo of this.propData.jobOrders) {
