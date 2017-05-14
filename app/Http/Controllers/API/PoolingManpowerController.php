@@ -91,6 +91,18 @@ class PoolingManpowerController extends Controller
         return response()->json($return, 200);
     }
 
+    public function deleteSelectedManpower($id)
+    {
+        $return = JobOrderSelectedManpower::where('id', $id)->delete();
+        
+        if(!$return)
+        {
+            return response()->json([], 400);
+        }
+
+        return response()->json($return, 200);
+    }
+
     public function addManpowerSchedule(Request $request, $joNumber)
     {
         $input = $request->all();
