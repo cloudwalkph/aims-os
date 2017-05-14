@@ -459,9 +459,17 @@
       },
       handleRemoveManpower(id) {
         let index = this.selectedManpower.findIndex((item) => item.id == id);
-        console.log(id);
-        this.selectedManpower.splice(index, 1);
-        $('#button-' + id).show();
+        let url = '/api/v1/hr/selected-manpower/' + index;
+        
+
+        this.$http.delete(url).then(response => {
+          this.selectedManpower.splice(index, 1);
+          $('#button-' + id).show();
+          
+        }, error => {
+          console.log(error)
+        })
+        
       },
       handleAddManpower() {
         let url = '/api/v1/hr/selected-manpower/' + this.data;
