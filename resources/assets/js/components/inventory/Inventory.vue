@@ -13,7 +13,7 @@
                                 <label class="text-muted">{{item.label}}</label>
                             </div>
                             <div class="options">
-                                <a href="#" :pageID="item.id" class="btn btn-primary btn-lg" @click.prevent="openPage">{{item.buttonLabel}}</a>
+                                <a href="#" class="btn btn-primary btn-lg" @click.prevent="openPage(item.id)">{{item.buttonLabel}}</a>
                             </div>
                         </div>
                     </div>

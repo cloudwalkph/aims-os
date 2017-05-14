@@ -8,10 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 use App\Models\JobOrderDepartmentInvolved;
 
+use App\Traits\FilterTrait;
+
 use DB;
 
 class InventoryController extends Controller
 {
+  use FilterTrait;
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +40,12 @@ class InventoryController extends Controller
 
         // Filter
         if ($request->has('filter')) {
-            $this->filter($query, $request, $query->$filterable);
+          $filterables = [
+            'job_order_no',
+            'product_code',
+            'name',
+          ];
+            $this->filter($query, $request, $filterables);
         }
 
         // Count per page

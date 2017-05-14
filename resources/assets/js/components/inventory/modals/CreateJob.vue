@@ -141,6 +141,7 @@
             this.getJo();
             this.getUser();
 
+            $('#deadline').datetimepicker();
             $('#deadline').on('dp.change', (newDate, oldDate) => {
                 this.deadline = newDate.date.format("YYYY-MM-DD hh:mm a");
             });

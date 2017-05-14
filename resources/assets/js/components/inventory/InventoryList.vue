@@ -7,26 +7,28 @@
                 <i class="fa fa-plus" /> Create Inventory
             </button>
             <div class="content">
-                <table id="inventoryList" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Job Order Number</th>
-                            <th>Inventory Code</th>
-                            <th>Inventory Name</th>
-                            <th>Expiration Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in propData.internalInventory">
-                            <td v-for="jo in propData.jobOrders" v-if="jo.id == item.job_order_id">
-                                {{jo.job_order_no}}
-                            </td>
-                            <td>{{item.product_code}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{convertDate(item.expiration_date)}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+              <filter-bar></filter-bar>
+              <vuetable ref="vuetable"
+                api-url="/api/v1/inventory"
+                :fields="fields"
+                pagination-path=""
+                :css="css.table"
+                :sort-order="sortOrder"
+                :multi-sort="true"
+                detail-row-component="my-detail-row"
+                :append-params="moreParams"
+                @vuetable:cell-clicked="onCellClicked"
+                @vuetable:pagination-data="onPaginationData"
+              ></vuetable>
+              <div class="vuetable-pagination">
+              <vuetable-pagination-info ref="paginationInfo"
+                info-class="pagination-info"
+              ></vuetable-pagination-info>
+              <vuetable-pagination ref="pagination"
+                :css="css.pagination"
+                :icons="css.icons"
+                @vuetable-pagination:change-page="onChangePage"
+              ></vuetable-pagination>
             </div>
         </div>
         <CreateInventoryModal :propData="propData"></CreateInventoryModal>
@@ -37,11 +39,95 @@
 <script>
     var CreateInventoryModal = require('./modals/CreateInventory.vue');
 
+    var Vuetable = require('vuetable-2/src/components/Vuetable');
+    var VuetablePagination = require('vuetable-2/src/components/VuetablePagination');
+    var VuetablePaginationInfo = require('vuetable-2/src/components/VuetablePaginationInfo');
+
+    var DetailRow = require('../commons/DetailRow');
+    var FilterBar = require('../commons/FilterBar');
+
     module.exports = {
         components: {
-            CreateInventoryModal
+          Vuetable,
+          VuetablePagination,
+          VuetablePaginationInfo,
+          FilterBar,
+            CreateInventoryModal,
+        },
+        data: function () {
+            return {
+              fields: [
+                {
+                  name: 'job_order_no',
+                  title: 'Job Order Number',
+                  sortField: 'job_order_no',
+                },
+                {
+                  name: 'product_code',
+                  title: 'Inventory Code',
+                  sortField: 'product_code',
+                },
+                {
+                  name: 'name',
+                  title: 'Inventory Name',
+                  sortField: 'name',
+                },
+                {
+                  name: 'expiration_date',
+                  title: 'Expiration Date',
+                  callback: 'convertDate',
+                  sortField: 'expiration_date',
+                },
+              ],
+              css: {
+                table: {
+                  tableClass: 'table table-bordered table-striped table-hover',
+                  ascendingIcon: 'glyphicon glyphicon-chevron-up',
+                  descendingIcon: 'glyphicon glyphicon-chevron-down'
+                },
+                pagination: {
+                  wrapperClass: 'pagination',
+                  activeClass: 'active',
+                  disabledClass: 'disabled',
+                  pageClass: 'page',
+                  linkClass: 'link',
+                },
+                icons: {
+                  first: 'glyphicon glyphicon-step-backward',
+                  prev: 'glyphicon glyphicon-chevron-left',
+                  next: 'glyphicon glyphicon-chevron-right',
+                  last: 'glyphicon glyphicon-step-forward',
+                },
+              },
+              sortOrder: [
+                { field: 'id', direction: 'asc'}
+              ],
+              moreParams: {},
+            }
+        },
+        events: {
+          'filter-set' (filterText) {
+            this.moreParams = {
+              filter: filterText
+            },
+            Vue.nextTick( () => this.$refs.vuetable.refresh() )
+          },
+          'filter-reset' () {
+            this.moreParams = {},
+            Vue.nextTick( () => this.$refs.vuetable.refresh() )
+          },
         },
         methods: {
+          onCellClicked (data, field, event) {
+            // this.$refs.vuetable.toggleDetailRow(data.id)
+          },
+          onChangePage (page) {
+            this.$refs.vuetable.changePage(page);
+          },
+          onPaginationData (paginationData) {
+            this.$refs.pagination.setPaginationData(paginationData);
+            this.$refs.paginationInfo.setPaginationData(paginationData);
+          },
             convertDate: function (dateVal) {
                 var milliseconds = Date.parse(dateVal);
                 var d = new Date(milliseconds);

@@ -92,7 +92,7 @@ class JobOrderProductController extends Controller {
 
         // Filter
         if ($request->has('filter')) {
-            $this->filter($query, $request, $query->$filterable);
+            $this->filter($query, $request, array('project_name', 'job_order_no', 'item_name'));
         }
 
         // Count per page

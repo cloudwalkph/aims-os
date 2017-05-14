@@ -39,20 +39,25 @@ class InventoryJobController extends Controller
 
         $query->where('department_id', $user['department_id']);
 
-        // $query->leftJoin('job_orders', 'job_orders.id', '=', 'assignment.job_order_id')
-        //     ->leftJoin('assignments', 'assignments.inventory_job_id', '=', 'inventory_jobs.id')
-        //     ->leftJoin('user_profiles', 'user_profiles.user_id', '=', 'inventory_job_assigned_people.user_id')
-        //     ->select(
-        //         'inventory_jobs.*',
-        //         'job_orders.project_name', 'job_orders.job_order_no',
-        //         'inventory_job_assigned_people.user_id',
-        //         'user_profiles.first_name', 'user_profiles.last_name',
-        //         DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as assigned_person')
-        //     );
+        $query->join('job_orders', 'job_orders.id', '=', 'assignments.job_order_id')
+            ->join('user_profiles', 'user_profiles.user_id', '=', 'assignments.user_id')
+            ->select(
+                'assignments.*',
+                'job_orders.project_name', 'job_orders.job_order_no',
+                'user_profiles.user_id', 'assignments.remarks',
+                'user_profiles.first_name', 'user_profiles.last_name',
+                DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as assigned_person')
+            );
 
         // Filter
         if ($request->has('filter')) {
-            $this->filter($query, $request, InventoryJob::$filterable);
+          $filterables = [
+            'job_order_no',
+            'project_name',
+            'remarks',
+            'first_name'
+          ];
+            $this->filter($query, $request, $filterables);
         }
 
         // Count per page
@@ -74,9 +79,9 @@ class InventoryJobController extends Controller
         $user = $request->user();
         $jos = JobOrderDepartmentInvolved::with('jobOrder')->where('department_id', $user['department_id'])
             ->whereNotIn(
-                'job_order_id', 
+                'job_order_id',
                 array_column(
-                    Assignment::select('job_order_id')->where('department_id', $user['department_id'])->get()->toArray(), 
+                    Assignment::select('job_order_id')->where('department_id', $user['department_id'])->get()->toArray(),
                     'job_order_id'
                 )
             )
