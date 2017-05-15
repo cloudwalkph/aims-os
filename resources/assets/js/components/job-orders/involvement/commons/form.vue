@@ -1,19 +1,28 @@
 <template>
     <div class="row">
 
-        <div class="col-md-6 form-group text-input-container">
+        <div class="col-md-4 form-group text-input-container">
             <label class="control-label col-sm-12" for="department_id">Departments</label>
             <div class="col-md-12">
                 <v-select :on-change="departmentSelected" :options="departmentOptions"></v-select>
             </div>
         </div>
 
-        <div class="col-md-6 form-group text-input-container">
+        <div class="col-md-4 form-group text-input-container">
             <label class="control-label col-sm-12" for="deadline">Deadline</label>
             <div class="col-md-12">
                 <input type="text" name="deadline" required placeholder="Deadline"
                        id="deadline" class="form-control"
                        @input="inputChange" v-bind:value="deadline"/>
+            </div>
+        </div>
+
+        <div class="col-md-4 form-group text-input-container">
+            <label class="control-label col-sm-12" for="department_file">File</label>
+            <div class="col-md-12">
+                <input type="file" name="department_file" required placeholder="Input file"
+                       id="department_file" class="form-control"
+                       @input="inputChange" v-bind:value="department_file"/>
             </div>
         </div>
 
@@ -42,6 +51,7 @@
                 departments: [],
                 departmentOptions: [],
                 department_id: '',
+                department_file: '',
                 deadline: moment().format("YYYY-MM-DD HH:mm"),
                 deliverables: '',
                 job_order_id: ''
@@ -58,6 +68,7 @@
             resetForm() {
                 this.deadline = ''
                 this.deliverables = ''
+                this.department_file = ''
             },
             inputChange(e) {
                 this[e.target.id] = e.target.value
@@ -81,6 +92,7 @@
                 let data = {
                     job_order_id: jobOrderId,
                     deadline: moment(this.deadline, "YYYY-MM-DD hh:mm a").format("YYYY-MM-DD HH:mm:ss"),
+                    department_file: this.department_file,
                     deliverables: this.deliverables,
                     department_id: this.department_id
                 }

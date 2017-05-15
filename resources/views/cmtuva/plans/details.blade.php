@@ -27,8 +27,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <input type="hidden" name="job_order_id" id="jobOrderId" value="{{ $jo->id }}">
-                        <h5>Job Order Number: 2016345646</h5>
-                        <h5>Project Name: Ponds Men Activations</h5>
+                        <h5>Job Order Number: {{ $jo->job_order_no }}</h5>
+                        <h5>Project Name: {{ $jo->project_name }}</h5>
                     </div>
                 </div>
             </div>
@@ -103,5 +103,7 @@
 
         </div>
     </div>
+
+    <iframe src="/cmtuva/plans/{{$jo->id}}/preview" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
 
 @endsection

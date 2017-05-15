@@ -145,6 +145,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('/', 'VenuesController@store');
         Route::put('/{venueId}', 'VenuesController@update');
         Route::delete('/{venueId}', 'VenuesController@delete');
+
+        Route::get('plans/job-order/{jobOrderId}', 'VenuesController@getSelectedVenues');
+        Route::post('plans/job-order/{jobOrderId}', 'VenuesController@createSelectedVenues');
     });
 
     // Project Types
@@ -195,6 +198,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // HR
     Route::group(['prefix' => 'hr'], function() {
+        Route::get('/manpower', 'ManpowerController@getManpower');
         Route::get('/manpower/{joNumber}', 'ManpowerController@index');
         Route::post('/manpower', 'ManpowerController@store');
         Route::delete('/manpower/{manpowerId}', 'ManpowerController@delete');
