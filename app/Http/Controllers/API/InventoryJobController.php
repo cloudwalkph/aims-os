@@ -32,30 +32,19 @@ class InventoryJobController extends Controller
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
-            $query = Assignment::orderBy($sortCol, $sortDir);
+            $query = InventoryJob::orderBy($sortCol, $sortDir);
         } else {
-            $query = Assignment::orderBy('id', 'asc');
+            $query = InventoryJob::orderBy('id', 'asc');
         }
 
-        $query->where('department_id', $user['department_id']);
-
-        $query->join('job_orders', 'job_orders.id', '=', 'assignments.job_order_id')
-            ->join('user_profiles', 'user_profiles.user_id', '=', 'assignments.user_id')
-            ->select(
-                'assignments.*',
-                'job_orders.project_name', 'job_orders.job_order_no',
-                'user_profiles.user_id', 'assignments.remarks',
-                'user_profiles.first_name', 'user_profiles.last_name',
-                DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as assigned_person')
-            );
+        $query->with('jobOrder', 'assignedPerson');
 
         // Filter
         if ($request->has('filter')) {
           $filterables = [
             'job_order_no',
             'project_name',
-            'remarks',
-            'first_name'
+            'description',
           ];
             $this->filter($query, $request, $filterables);
         }
@@ -81,7 +70,7 @@ class InventoryJobController extends Controller
             ->whereNotIn(
                 'job_order_id',
                 array_column(
-                    Assignment::select('job_order_id')->where('department_id', $user['department_id'])->get()->toArray(),
+                    InventoryJob::select('job_order_id')->get()->toArray(),
                     'job_order_id'
                 )
             )
@@ -104,19 +93,49 @@ class InventoryJobController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $request->user();
-        $input = $request->all();
-        $input['deadline'] = date('Y-m-d H:i:s', strtotime($input['deadline']));
-        $input['department_id'] = $user['department_id'];
+      $jo = '';
+      $input = $request->all();
+      $user = $request->user();
+      DB::transaction(function() use($input, $user) {
+        $job_order = json_decode($input['job_order']);
+        $job_users = json_decode($input['users']);
 
-        $jo = null;
-        // Create the jo
-        DB::transaction(function() use ($input, &$jo) {
-            $inventory = Assignment::create($input);
-            $jo = $inventory;
-        });
+        /* Create Inventory Job */
+        $inventory_jobs_data = [
+          'job_order_id' => $job_order->value,
+          'description' => $input['description'],
+          'deadline' => date('Y-m-d H:i:s', strtotime($input['deadline'])),
+        ];
+        $created_inventory_job = InventoryJob::create($inventory_jobs_data);
 
-        return response()->json($jo, 201);
+        /* Create Inventory Job Assigned People */
+        if(count($job_users) > 0) {
+          foreach($job_users as $job_user) {
+            $users_data = [
+              'inventory_job_id' => $created_inventory_job->id,
+              'user_id' => $job_user->value
+            ];
+            InventoryJobAssignedPerson::create($users_data);
+          }
+        }
+
+        foreach($job_users as $job_user) {
+          $assignment_data['job_order_id'] = $job_order->value;
+          $assignment_data['user_id'] = $job_user->value;
+          $assignment_data['department_id'] = $user['department_id'];
+          $assignment_data['remarks'] = $input['description'];
+          $assignment_data['deadline'] = date('Y-m-d', strtotime($input['deadline']));
+
+          /* create the inventory job */
+          $created_inventory_job = Assignment::create($assignment_data);
+        }
+      });
+
+      $jo = [
+        'message' => 'Inventory Job Created'
+      ];
+
+      return response()->json($jo, 201);
     }
 
     /**

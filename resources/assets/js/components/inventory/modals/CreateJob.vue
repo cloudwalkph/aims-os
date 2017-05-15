@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="user_id">Users</label>
-                                <v-select :on-change="userSelected" :options="userOptions"></v-select>
+                                <v-select :on-change="userSelected" multiple :options="userOptions"></v-select>
                             </div>
 
                         </div>
@@ -55,7 +55,7 @@
                 joOptions: [],
                 userOptions: [],
                 selected_job_order: null,
-                selected_user: null,
+                selected_users: null,
             }
         },
         methods: {
@@ -103,23 +103,15 @@
                 // }
 
                 var postData = {
-                    job_order_id: this.selected_job_order,
-                    user_id: this.selected_user,
+                    job_order: this.selected_job_order,
+                    users: this.selected_users,
                     department_id: 5,
-                    deadline: moment(this.deadline, "YYYY-MM-DD hh:mm a").format("YYYY-MM-DD HH:mm:ss"),
-                    remarks: form.description.value,
+                    deadline: form.deadline.value,
+                    description: form.description.value,
                 }
 
                 this.$http.post('/api/v1/inventory/job', postData)
                     .then(function (response) {
-                        this.propData.inventoryJobs.push(
-                            {
-                                job_order_id: postData.job_order_id,
-                                remarks: postData.remarks,
-                                deadline: postData.deadline,
-                                user_id: postData.user_id,
-                            }
-                        );
                         $('#modalCreateJob').modal('hide');
                         form.reset();
                     })
@@ -130,11 +122,11 @@
             inputChange: function (e) {
 
             },
-            joSelected: function (e) {
-                this.selected_job_order = e.value;
+            joSelected: function (val) {
+                this.selected_job_order = JSON.stringify(val);
             },
-            userSelected: function (e) {
-                this.selected_user = e.value;
+            userSelected: function (val) {
+                this.selected_users = JSON.stringify(val);
             }
         },
         mounted: function () {
@@ -145,7 +137,7 @@
             $('#deadline').on('dp.change', (newDate, oldDate) => {
                 this.deadline = newDate.date.format("YYYY-MM-DD hh:mm a");
             });
-            
+
         },
         props: ['propData']
     }

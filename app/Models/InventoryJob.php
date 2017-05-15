@@ -18,13 +18,13 @@ class InventoryJob extends Model
         'deadline'         => 'required',
     ];
 
-    public function jobOrders()
+    public function jobOrder()
     {
         return $this->belongsTo('App\Models\JobOrder');
     }
 
     public function assignedPerson()
     {
-        return $this->hasMany('App\Models\InventoryJobAssignedPerson');
+        return $this->hasMany('App\Models\InventoryJobAssignedPerson')->with('user');
     }
 }
