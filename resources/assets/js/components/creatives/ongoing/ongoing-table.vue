@@ -76,9 +76,9 @@
                         title: 'Project Name'
                     },
                     {
-                        name: 'description',
-                        sortField: 'description',
-                        title: 'Description'
+                        name: 'remarks',
+                        sortField: 'remarks',
+                        title: 'Remarks'
                     },
                     {
                         name: 'deadline',

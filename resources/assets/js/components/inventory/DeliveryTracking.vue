@@ -5,8 +5,11 @@
             <h3>Delivery Tracking</h3>
         </div>
 
+      <div
+        class="col-sm-12"
+        v-if="detail.deliveries > 0"
+      >
         <div
-          class="col-sm-12"
           style="margin-top: 20px;"
           v-for="(product, indexTrace) in products"
           :key="product.id"
@@ -57,6 +60,11 @@
                 </tbody>
             </table>
         </div>
+      </div>
+      <div
+        class="col-sm-12"
+        v-else
+      >No Products to show</div>
     </div>
 
 </template>

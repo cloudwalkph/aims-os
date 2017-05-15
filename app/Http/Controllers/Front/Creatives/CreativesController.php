@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Front\Creatives;
 
 use App\Http\Controllers\Controller;
+use App\Models\Assignment;
 use App\Models\CreativesJob;
+use App\Models\CreativesTask;
+use App\Models\CreativesTasks;
 use App\Models\JobOrderDepartmentInvolved;
 use Illuminate\Http\Request;
 
@@ -62,9 +65,40 @@ class CreativesController extends Controller
     {
         config(['app.name' => 'Creatives Work in Progress Details | AIMS']);
 
-        $jo = CreativesJob::where('id', $id)->where('job_order_id', $joId)
-            ->with('jo', 'assigned')->first();
+        $jo = Assignment::with('jobOrder', 'assignedUser.profile', 'tasks')
+            ->where('id', $id)
+            ->where('job_order_id', $joId)
+            ->first();
 
         return view('creatives.work-in-progress.details')->with('jo', $jo);
+    }
+
+    public function addTask(Request $request, $id, $joId)
+    {
+        $user = $request->user();
+        $input = $request->all();
+        
+        $filename = '';
+        if ($request->hasFile('file')) {
+            $filename = uniqid() . '.png';
+
+            $request->file('file')->storeAs('creatives', $filename);
+        }
+
+        $task = CreativesTask::create([
+            'assignment_id' => $id,
+            'user_id'       => $user->id,
+            'message'       => $input['message'],
+            'file'          => $filename,
+            'is_final'      => isset($input['is_final']) ? $input['is_final'] : 0
+        ]);
+
+        if (! $task) {
+            $request->session()->flash('error', 'Failed in posting a task');
+            return redirect()->back();
+        }
+
+        $request->session()->flash('success', 'Posted task successfully');
+        return redirect()->back();
     }
 }

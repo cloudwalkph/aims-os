@@ -60,11 +60,6 @@ class JobOrder extends Model
         return $this->hasMany(JobOrderProjectAttachment::class);
     }
 
-    public function creativesJob()
-    {
-        return $this->hasMany(CreativesJob::class, 'id', 'job_order_id');
-    }
-
     public function products()
     {
         return $this->hasMany(JobOrderProduct::class);
@@ -73,6 +68,11 @@ class JobOrder extends Model
     public function discussions()
     {
         return $this->hasMany(JobOrderDiscussion::class);
+    }
+
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class);
     }
 
     /**

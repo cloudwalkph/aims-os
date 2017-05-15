@@ -9,11 +9,14 @@
         </div>
         <div
           class="col-sm-12"
-          style="margin-top: 20px;"
-          v-for="(product, indexTrace) in products"
-          :key="product.id"
-          v-if="inventoryJob.job_order_id == product.job_order_id"
+          v-if="detail.releases > 0"
         >
+          <div
+            style="margin-top: 20px;"
+            v-for="(product, indexTrace) in products"
+            :key="product.id"
+            v-if="inventoryJob.job_order_id == product.job_order_id"
+          >
             <label htmlFor="itemname" class="col-sm-4 control-label">
                 Item Name: {{product.name}}
             </label>
@@ -68,7 +71,12 @@
 
                 </tbody>
             </table>
+          </div>
         </div>
+        <div
+          class="col-sm-12"
+          v-else
+        >No Products to Show</div>
     </div>
 
 </template>

@@ -228,7 +228,6 @@
                     });
                 }
                 else if (pageID == 'work-details') {
-                  console.log(iJobId);
                     this.iJobId = iJobId;
                     this.currentView = WorkDetails;
                     this.breadcrumbs.push({
