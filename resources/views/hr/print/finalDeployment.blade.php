@@ -28,7 +28,7 @@
     </script>
 </head>
 <body>
-    <div class="col-md-12">
+    <div class="col-md-12 col-sm-12">
         <div style="text-align: center">
             <img src="/img/aai-logo.png" alt="aims logo" style="height: 100px"/>
         </div>
@@ -48,7 +48,7 @@
         {{--jo number and date end--}}
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-6 col-xs-6">
               <h4 class="text-center">Briefing Schedule</h4>
               @if(isset($data['briefing']))
                 @foreach($data['briefing'] as $key=>$briefing)
@@ -71,7 +71,7 @@
                 </table>
                 @endforeach
             @endif
-            </div><div class="col-md-6">
+            </div><div class="col-md-6 col-sm-6 col-xs-6">
               <h4 class="text-center">Simulation Schedule</h4>
               @if(isset($data['simulation']))
                 @foreach($data['simulation'] as $key=>$simulation)
