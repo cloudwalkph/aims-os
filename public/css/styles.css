@@ -518,3 +518,15 @@ table tbody tr {
 .jo-item > .project-body {
     padding: 10px 20px 10px 20px;
 }
+
+.venue-filter {
+    width: 100%;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 15px;
+    margin-top: 8px;
+}
+
+.venue-filter:nth-child(1) {
+    margin-left: 0;
+}

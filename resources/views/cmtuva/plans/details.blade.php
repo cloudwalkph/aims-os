@@ -96,41 +96,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 venues" style="margin-top: 20px">
-                        <venues-table></venues-table>
-                    </div>
 
-                    <div class="col-md-12">
-                        <h4>
-                            Selected Venues
-                            <i class="fa fa-print fa-lg pull-right" ></i>
-                        </h4>
-                    </div>
-
-                    <div class="col-md-12">
-                        <table class="table table-striped table-bordered" id="selectedVenueTable">
-                            <thead>
-                            <tr>
-                                <th>Venue</th>
-                                <th>Estimated Foot Traffic</th>
-                                <th>Actual Hits</th>
-                                <th>Rate</th>
-                                <th>Remarks</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h5 class="pull-right">Total Traffic Count: 10000</h5>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-primary pull-right" > Save</button>
-                    </div>
-
+                    <venues-selection-table></venues-selection-table>
                 </div>
             </div>
 
