@@ -123,7 +123,7 @@ class Questions extends Controller
         ];
 
         $user = $request->user();
-//        echo $eventCategory.'>'.$deptid.'>'.$user->department_id;
+
         $questions = ValidateQuestions::where('qrater','=',$user->department_id)
             ->where('qcat','=',$eventCategory)
             ->where('qdept','=',$deptid)
@@ -153,12 +153,6 @@ class Questions extends Controller
                 foreach( $answers as $answer ){
 
                     $strQuestions .= '
-                       <!--<div class="input-group">
-                          <span class="input-group-addon">
-                            <input type="radio" value="'.$answer->score.'" name="q['.$question->id.']">
-                          </span>
-                          <span class="input-group-addon">'.$answer->answers.'</span>
-                        </div>-->
                         
                         <div class="radio-btn" style="margin-top: 20px;">
                             <div class="col-md-1">
