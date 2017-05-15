@@ -43,6 +43,8 @@ Vue.component('work-in-progress-table', require('./components/creatives/work-in-
 
 Vue.component('venues-table', require('./components/venues/venues-table.vue'));
 
+Vue.component('venues-selection-table', require('./components/venues/venue-selection-table.vue'));
+
 Vue.component('add-ae-job-order', require('./components/job-orders/add-ae.vue'));
 
 Vue.component('manpower-request-table', require('./components/job-orders/requests/manpower/manpower-table.vue'));

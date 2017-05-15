@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 venues" style="margin-top: 20px">
-                        <venues-table></venues-table>
+                        <venues-selection-table></venues-selection-table>
                     </div>
 
                     <div class="col-md-12">
