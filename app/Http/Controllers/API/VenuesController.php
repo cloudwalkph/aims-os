@@ -12,7 +12,7 @@ class VenuesController extends Controller {
 
     public function all()
     {
-        $venues = Venue::all();
+        $venues = Venue::limit(20)->get();
 
         return response()->json($venues, 200);
     }
