@@ -26,20 +26,22 @@
             <div class="col-sm-12">
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading" style="min-height: 80px;">
+                        <div class="panel-heading" style="min-height: 100px;">
                             <div class="col-md-6">
-                                <h5>Job Order Number : {{ $jo->jobOrder->job_order_no }}</h5>
-                                <h5>Project Name : {{ $jo->jobOrder->project_name }}</h5>
+                                <h5><strong>Job Order Number</strong> : {{ $jo->jobOrder->job_order_no }}</h5>
+                                <h5><strong>Project Name</strong> : {{ $jo->jobOrder->project_name }}</h5>
+                                <h5><strong>Remarks</strong>: {{ $jo->remarks }}</h5>
                             </div>
                             <div class="col-md-6">
-                                <h5>Deadline : {{ \Carbon\Carbon::createFromTimestamp(strtotime($jo->deadline))->toFormattedDateString() }}</h5>
-                                <h5>Assigned Persons : {{ $jo->assignedUser->profile->first_name }} {{ $jo->assignedUser->profile->last_name }} </h5>
+                                <h5><strong>Deadline</strong> : {{ \Carbon\Carbon::createFromTimestamp(strtotime($jo->deadline))->toFormattedDateString() }}</h5>
+                                <h5><strong>Assigned Persons</strong> : {{ $jo->assignedUser->profile->first_name }} {{ $jo->assignedUser->profile->last_name }} </h5>
                             </div>
                         </div>
                     </div>
                 </div>
 
 
+                {{--Production Template--}}
                 <div class="col-md-12 hide">
                     <h4>Productions Template</h4>
                     <table class="table">
@@ -67,75 +69,69 @@
                     <hr/>
                 </div>
 
+                {{--Creatives Tasks--}}
                 <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-8">Write a comment...</div>
-                        <div class="col-md-4"><input type="file" name="uploadFile" id="uploadFile" /></div>
-                    </div>
-                    <textarea class="comments" placeholder="Write a comment..."
-                              style="width: 100%; height: 200px; font-size: 14px;
-                              line-height: 18px; border:1px solid #dddddd; padding: 10px; ">
-                    </textarea>
-                    <div class="row">
-                        <div class="col-md-3 col-md-offset-7">
-                            <input type="checkbox" name="checkArtwork" id="checkArtwork" />
-                            <label for="checkArtwork">&nbsp; Final Artwork</label>
+                    <form method="POST">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-md-8">Write a comment...</div>
                         </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary pull-right">Post</button>
+
+                        <textarea class="comments" name="message" placeholder="Write a comment..."
+                                  style="width: 100%; height: 200px; font-size: 14px;
+                              line-height: 18px; border:1px solid #dddddd; padding: 10px; " required>
+                        </textarea>
+
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-6">
+                                <input type="file" name="file" id="uploadFile" />
+                            </div>
+                            <div class="col-md-2">
+                                <div class="pull-right">
+                                    <input type="checkbox" name="is_final" value="1" id="checkArtwork" />
+                                    <label for="checkArtwork">&nbsp; Final Artwork</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-block btn-primary pull-right">Post</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 <hr />
+                <h3>Task Updates</h3>
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="comments-container">
-                            <ul id="comments-list" class="comments-list">
-                                <li>
-                                    <div class="comment-main-level">
-                                        <div class="comment-box">
-                                            <div class="comment-head">
-                                                <h6 class="comment-name">Alleo Indong</h6>
-                                                <h6 class="comment-date">February 20, 2017</h6>
+                        @if (! count($jo->tasks))
+                            <div class="comments-container">
+                                <p>No Updates Yet</p>
+                            </div>
+                        @endif
+
+                        @foreach ($jo->tasks as $task)
+                            <div class="comments-container">
+                                <ul id="comments-list" class="comments-list">
+                                    <li>
+                                        <div class="comment-main-level">
+                                            <div class="comment-box">
+                                                <div class="comment-head">
+                                                    <h6 class="comment-name">{{ $jo->assignedUser->profile->first_name }} {{ $jo->assignedUser->profile->last_name }}</h6>
+                                                    <h6 class="comment-date">{{ $task->created_at->toFormattedDateString() }}</h6>
+                                                </div>
+
+                                                {{--<img src="https://www.gstatic.com/webp/gallery3/1.png" class="img-responsive" alt="">--}}
+
+                                                <p class="comment-content" style="min-height: 150px">
+                                                    {{ $task->message }}
+                                                </p>
+
                                             </div>
-
-                                            <img src="https://www.gstatic.com/webp/gallery3/1.png" class="img-responsive" alt="">
-
-                                            <p class="comment-content" style="min-height: 150px">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto cumque,
-                                                dignissimos eligendi eveniet ex exercitationem fuga illum in necessitatibus,
-                                                officia, officiis perferendis quas qui reiciendis sequi similique
-                                                sint vitae voluptatem.
-                                            </p>
-
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="comments-container">
-                            <ul id="comments-list" class="comments-list">
-                                <li>
-                                    <div class="comment-main-level">
-                                        <div class="comment-box">
-                                            <div class="comment-head">
-                                                <h6 class="comment-name">Alleo Indong</h6>
-                                                <h6 class="comment-date">February 18, 2017</h6>
-                                            </div>
-
-                                            <p class="comment-content">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto cumque,
-                                                dignissimos eligendi eveniet ex exercitationem fuga illum in necessitatibus,
-                                                officia, officiis perferendis quas qui reiciendis sequi similique
-                                                sint vitae voluptatem.
-                                            </p>
-
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 

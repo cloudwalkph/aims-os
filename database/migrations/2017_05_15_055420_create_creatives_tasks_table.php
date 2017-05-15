@@ -19,6 +19,7 @@ class CreateCreativesTasksTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->text('message');
             $table->string('file');
+            $table->tinyInteger('is_final')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
