@@ -518,3 +518,17 @@ table tbody tr {
 .jo-item > .project-body {
     padding: 10px 20px 10px 20px;
 }
+
+@font-face {
+    font-family: 'Montserrat Light';
+    src: url(/fonts/montserrat-light.eot?f4769f9bdb7466be65088239c12046d1);
+    src: url(/fonts/montserrat-light.eot?f4769f9bdb7466be65088239c12046d1?#iefix) format("embedded-opentype"),
+         url(/fonts/montserrat-light.woff2?448c34a56d699c29117adc64c43affeb) format("woff2"),
+         url(/fonts/montserrat-light.woff?fa2772327f55d8198301fdb8bcfc8158) format("woff"),
+         url(/fonts/montserrat-light.ttf?e18bbf611f2a2e43afc071aa2f4e1512) format("truetype"),
+         url(/fonts/montserrat-light.svg?89889688147bd7575d6327160d64e760#montserrat_light) format("svg");
+}
+
+.montserrat-light {
+    font-family: 'Montserrat Light';
+}

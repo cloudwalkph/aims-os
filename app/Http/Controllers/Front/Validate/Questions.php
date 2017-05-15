@@ -10,6 +10,8 @@ use App\Models\Assignment;
 use App\Models\ValidateQuestions;
 use App\Models\ValidateAnswers;
 use App\Models\ValidateResults;
+use App\Models\JobOrder;
+use App\Models\Department;
 
 class Questions extends Controller
 {
@@ -109,6 +111,16 @@ class Questions extends Controller
 
     public function showQuestions( $jno, $eventCategory, $deptid, $rateeId, Request $request)
     {
+
+        $jo_name = '';
+        $dept_name = '';
+        $jos = JobOrder::where('job_order_no', $jno)->first();
+        $jo_name = $jos->project_name;
+
+
+        $dpt = Department::where('id', $deptid)->first();
+        $dept_name = $dpt->name;
+
         $returnQuestions = [];
         $productions = [
             'Provided Job Orders with the following attachments attachments:',
@@ -155,10 +167,10 @@ class Questions extends Controller
                     $strQuestions .= '
                         
                         <div class="radio-btn" style="margin-top: 20px;">
-                            <div class="col-md-1">
+                            <div class="col-xs-1">
                             <input style="height: 25px;" type="radio" value="'.$answer->score.'" name="q['.$question->id.']">
                             </div>
-                            <div class="col-md-11">
+                            <div class="col-xs-11">
                             <label onclick>'.$answer->answers.'</label>
                             </div>
                         </div>
@@ -181,7 +193,7 @@ class Questions extends Controller
             $categoryName = 'Post Event';
         }
 
-        return view('questions.question', compact('returnQuestions', 'eventCategory', 'deptid', 'rateeId', 'jno', 'categoryName', 'count'));
+        return view('questions.question', compact('returnQuestions', 'eventCategory', 'deptid', 'rateeId', 'jno', 'categoryName', 'count', 'jo_name', 'dept_name'));
     }
 
     public function choosecategory($jno)
