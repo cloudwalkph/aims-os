@@ -82,6 +82,8 @@ class InventoryController extends Controller
         // Create the jo inventory
         \DB::transaction(function() use ($input, &$jo) {
 
+            $input['expiration_date'] = date('Y-m-d H:i:s', strtotime($input['expiration_date']));
+
             $jo = Inventory::create($input);
 
             $jo = Inventory::where('id', $jo->id)
