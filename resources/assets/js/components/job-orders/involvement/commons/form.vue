@@ -52,17 +52,13 @@
                 departmentOptions: [],
                 department_id: '',
                 department_file: '',
-                deadline: moment().format("YYYY-MM-DD HH:mm"),
+                deadline: '',
                 deliverables: '',
                 job_order_id: ''
             }
         },
         mounted() {
             this.getDepartments();
-
-            $('#deadline').on('dp.change', (newDate, oldDate) => {
-                this.deadline = newDate.date.format("YYYY-MM-DD hh:mm a");
-            });
         },
         methods: {
             resetForm() {
