@@ -3,11 +3,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Venues\CreateVenuesRequest;
+use App\Models\JobOrderSelectedVenue;
 use App\Models\Venue;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
 
-class VenuesController extends Controller {
+class VenuesController extends Controller
+{
     use FilterTrait;
 
     public function all()
@@ -38,7 +40,7 @@ class VenuesController extends Controller {
         }
 
         // Count per page
-        $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
+        $perPage = $request->has('per_page') ? (int)$request->get('per_page') : null;
         \Log::info($query->toSql());
         // Get the data
         $venues = $query->paginate($perPage);
@@ -56,7 +58,7 @@ class VenuesController extends Controller {
 
         $venue = null;
         // Create the venue
-        \DB::transaction(function() use ($input, &$venue) {
+        \DB::transaction(function () use ($input, &$venue) {
             $venue = Venue::create($input);
 
             $venue = Venue::where('id', $venue->id)->first();
@@ -77,7 +79,7 @@ class VenuesController extends Controller {
 
         $venue = null;
         // Update venue
-        \DB::transaction(function() use ($input, $venueId, &$venue) {
+        \DB::transaction(function () use ($input, $venueId, &$venue) {
             $venue = Venue::where('id', $venueId)->update($input);
         });
 
@@ -92,10 +94,41 @@ class VenuesController extends Controller {
     {
         $venue = Venue::where('id', $venueId)->delete();
 
-        if (! $venue) {
+        if (!$venue) {
             return response()->json([], 400);
         }
 
         return response()->json($venue, 200);
+    }
+
+    public function getSelectedVenues($jobOrderId)
+    {
+        $selectedVenues = JobOrderSelectedVenue::where('job_order_id', $jobOrderId)->get();
+
+        $ids = [];
+        foreach ($selectedVenues as $venue) {
+            $ids[] = $venue->id;
+        }
+
+        $venues = Venue::whereIn('id', $ids)->get();
+
+        return response()->json($venues, 200);
+    }
+
+    public function createSelectedVenues(Request $request, $jobOrderId)
+    {
+        if (! $request->has('selectedVenues')) {
+            return response()->json(['bad request'], 400);
+        }
+
+        $result = [];
+        foreach ($request->get('selectedVenues') as $venue) {
+            $result[] = JobOrderSelectedVenue::create([
+                'job_order_id'  => $jobOrderId,
+                'venue_id'      => $venue['id']
+            ]);
+        }
+
+        return response()->json($result, 201);
     }
 }

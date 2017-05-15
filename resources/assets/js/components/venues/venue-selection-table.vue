@@ -65,11 +65,11 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-md-offset-2">
             <h5 class="pull-right">Total Traffic Count: {{ selectedVenueCount }}</h5>
         </div>
-        <div class="col-md-6">
-            <button type="button" class="btn btn-primary pull-right" > Save</button>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary pull-right btn-block" @click="saveSelectedVenues"> Save Selected Venues</button>
         </div>
     </div>
 
@@ -249,6 +249,9 @@
                 moreParams: {}
             }
         },
+        mounted() {
+            this.getSelectedVenues();
+        },
         methods: {
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
@@ -280,6 +283,46 @@
                 }
 
                 this.countTrafficOnSelectedVenues();
+            },
+            getSelectedVenues() {
+                let jobOrderId = $('#jobOrderId').val();
+
+                if (! jobOrderId) {
+                    toastr.error('No jo number found', 'Error');
+
+                    return;
+                }
+
+                let url = `/api/v1/venues/plans/job-order/${jobOrderId}`;
+                this.$http.get(url).then(response => {
+                    console.log(response)
+                    this.selectedVenues = response;
+                }, error => {
+                    console.log(error)
+                })
+            },
+            saveSelectedVenues() {
+                let jobOrderId = $('#jobOrderId').val();
+
+                if (! jobOrderId) {
+                    toastr.error('No jo number found', 'Error');
+
+                    return;
+                }
+
+                let data = {
+                    selectedVenues: this.selectedVenues
+                };
+
+                let url = `/api/v1/venues/plans/job-order/${jobOrderId}`;
+                this.$http.post(url, data).then(response => {
+                    console.log(response)
+
+                    toastr.success('Successfully created a plan', 'Success')
+                }, error => {
+                    toastr.error('Failed in creating a plan', 'Error')
+                    console.log(error)
+                })
             }
         },
         events: {
