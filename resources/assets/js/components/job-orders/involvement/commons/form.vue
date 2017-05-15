@@ -22,7 +22,7 @@
             <div class="col-md-12">
                 <input type="file" name="department_file" required placeholder="Input file"
                        id="department_file" class="form-control"
-                       @input="inputChange" v-bind:value="department_file"/>
+                       @change="onFileChange" v-bind:value="department_file"/>
             </div>
         </div>
 
@@ -73,6 +73,11 @@
             inputChange(e) {
                 this[e.target.id] = e.target.value
             },
+            onFileChange(e) {
+                var files = e.target.files || e.dataTransfer.files;
+                console.log(files[0]);
+                this.department_file = files[0];
+            },
             departmentSelected(val) {
                 this.department_id = val.value
             },
@@ -89,13 +94,14 @@
             },
             saveProject(e) {
                 let jobOrderId = $('#jobOrderId').val();
-                let data = {
-                    job_order_id: jobOrderId,
-                    deadline: moment(this.deadline, "YYYY-MM-DD hh:mm a").format("YYYY-MM-DD HH:mm:ss"),
-                    department_file: this.department_file,
-                    deliverables: this.deliverables,
-                    department_id: this.department_id
-                }
+
+                let data = new FormData();
+                data.append('job_order_id', jobOrderId);
+                data.append('deadline', moment(this.deadline, "YYYY-MM-DD hh:mm a").format("YYYY-MM-DD HH:mm:ss"));
+                data.append('department_file', this.department_file);
+                data.append('deliverables', this.deliverables);
+                data.append('department_id', this.department_id);
+
 
                 let url = `/api/v1/job-order-department-involvements`;
                 this.$http.post(url, data).then(response => {

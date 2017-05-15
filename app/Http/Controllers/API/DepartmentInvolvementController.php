@@ -51,7 +51,16 @@ class DepartmentInvolvementController extends Controller {
 
         $jo = null;
         // Create the jo department involvement
-        \DB::transaction(function() use ($input, &$jo) {
+        \DB::transaction(function() use ($input, $request, &$jo) {
+            $filename = '';
+            if ($request->hasFile('department_file')) {
+                $filename = uniqid() . '.'. $request->file('department_file')->extension();
+                $request->file('department_file')->storeAs('jo', $filename);
+            }
+
+            $input['file'] = $filename;
+
+            unset($input['department_file']);
 
             $jo = JobOrderDepartmentInvolved::create($input);
 
