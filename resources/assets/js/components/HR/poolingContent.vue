@@ -8,27 +8,29 @@
     <div class="container-fluid">
       <div class="col-md-8 col-md-offset-2">
         <h3>Manpower Pooling</h3>
-       	<table class="table table-bordered">
-       		<thead>
-       			<tr>
-       				<td>Manpower</td>
-       				<td>Manpower Needed</td>
-       				<td>Rate</td>
-       			</tr>
-       		</thead>
-       		<tbody v-if="joManpowerList.length > 0">
-       			<tr v-for="man in joManpowerList">
-       				<td>{{man.manpower_type.name}}</td>
-       				<td>{{man.manpower_needed}}</td>
-       				<td>{{man.rate}}</td>
-       			</tr>
-       		</tbody>
-          <tbody v-else>
-            <tr>
-              <td colspan="3" class="text-center">No Data</td>
-            </tr>
-          </tbody>
-       	</table>
+        <div class="table-responsive" style="max-height: 300px;overflow-y: auto;">
+         	<table class="table table-bordered">
+         		<thead>
+         			<tr>
+         				<td>Manpower</td>
+         				<td>Manpower Needed</td>
+         				<td>Rate</td>
+         			</tr>
+         		</thead>
+         		<tbody v-if="joManpowerList.length > 0">
+         			<tr v-for="man in joManpowerList">
+         				<td>{{man.manpower_type.name}}</td>
+         				<td>{{man.manpower_needed}}</td>
+         				<td>{{man.rate}}</td>
+         			</tr>
+         		</tbody>
+            <tbody v-else>
+              <tr>
+                <td colspan="3" class="text-center">No Data</td>
+              </tr>
+            </tbody>
+         	</table>
+        </div>
       </div>
     </div>
     <div class="clearfix"></div>
