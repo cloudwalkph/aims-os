@@ -77,11 +77,11 @@ class Assignment extends Model
         /*ae*/
         if ( $deptid == 7 ){
             if( $category == 'pre' ) {
-                $departmentArray = [ 3, 11, 9, 1, 4, 5 ];
+                $departmentArray = [ 3, 11, 9, 1, 4, 5, 2 ];
             }elseif( $category == 'eprop' ) {
-                $departmentArray = [ 11, 5 ];
+                $departmentArray = [ 11, 5, 2 ];
             }elseif( $category == 'post' ) {
-                $departmentArray = [ 3, 11, 5 ];
+                $departmentArray = [ 3, 11, 5, 2 ];
             }
         }
         /*setup and logistics*/
