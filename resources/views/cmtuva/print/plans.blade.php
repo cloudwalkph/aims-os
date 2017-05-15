@@ -41,6 +41,9 @@
                 <h5>
                     <b>JOB ORDER NO.:</b> {{ $jo->job_order_no }}
                 </h5>
+                <h5>
+                    <b>PROJECT NAME.:</b> {{ $jo->project_name }}
+                </h5>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                 <h5>
@@ -62,19 +65,16 @@
                 <table class="table table-striped table-bordered animation-details" style="font-size: 11px">
                     <thead>
                     <tr>
-                        <th rowSpan="2">Particulars</th>
-                        <th rowSpan="2">Target Activity</th>
-                        <th colSpan="5">Target Hits</th>
-                        <th rowSpan="2">Target Duration</th>
-                        <th rowSpan="2">Areas</th>
-                    </tr>
-
-                    <tr>
-                        <th> Selling </th>
-                        <th> Flyering</th>
-                        <th> Survey</th>
-                        <th> Experiment</th>
-                        <th> Other</th>
+                        <th>Particulars</th>
+                        <th>Target Activity</th>
+                        <th>Target Selling</th>
+                        <th>Target Flyering</th>
+                        <th>Target Survey</th>
+                        <th>Target Experiential</th>
+                        <th>Target Sampling</th>
+                        <th>Target Others</th>
+                        <th>Target Duration</th>
+                        <th>Areas</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -86,6 +86,7 @@
                                 <td>{{ $animation->target_flyering }}</td>
                                 <td>{{ $animation->target_survey }}</td>
                                 <td>{{ $animation->target_experiment }}</td>
+                                <td>{{ $animation->target_sampling }}</td>
                                 <td>{{ $animation->target_others }}</td>
                                 <td>{{ $animation->target_duration }}</td>
                                 <td>{{ $animation->target_areas }}</td>
@@ -98,11 +99,11 @@
         {{--animation details end--}}
         @endif
 
-        @if( count($venues) )
+        
         {{--selected venues start--}}
         <div class="row">
             <div class="col-md-12">
-                <h5><b>REQUIREMENTS:</b></h5>
+                <h5><b>SELECTED VENUES:</b></h5>
                 <table class="table table-condensed table-bordered">
                     <thead>
                     <tr>
@@ -115,11 +116,18 @@
                     </thead>
 
                     <tbody>
-                        @foreach($venues as $v)
+                        @if(count($selectedVenues) == 0)
                             <tr>
-                                <td>{{ $v->department->name }}</td>
-                                <td>{{ $v->deliverables }}</td>
-                                <td>{{ $v->deadline }}</td>
+                                <td colspan="5">No selected venues</td>
+                            </tr>
+                        @endif
+                        @foreach($selectedVenues as $v)
+                            <tr>
+                                <td>{{ $v->venue->venue }}</td>
+                                <td>{{ $v->venue->eft }}</td>
+                                <td>{{ $v->venue->actual_hits }}</td>
+                                <td>{{ $v->venue->rate }}</td>
+                                <td>{{ $v->venue->remarks }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -127,7 +135,6 @@
             </div>
         </div>
         {{--selected venues end--}}
-        @endif
 
         {{--received by start--}}
         <div class="row">
