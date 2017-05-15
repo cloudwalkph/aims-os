@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobOrders\AddAeRequest;
 use App\Http\Requests\JobOrders\CreateJobOrderRequest;
+use App\Models\Assignment;
 use App\Models\JobOrder;
 use App\Models\JobOrderAddUser;
 use App\Models\JobOrderClient;
@@ -14,6 +15,7 @@ use App\Models\JobOrderMeal;
 use App\Models\JobOrderMom;
 use App\Models\JobOrderVehicle;
 use App\Traits\FilterTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class JobOrdersController extends Controller {
@@ -116,6 +118,16 @@ class JobOrdersController extends Controller {
             unset($input['clients']);
 
             $jo = JobOrder::create($input);
+
+            // Save ae to assignments table
+            Assignment::create([
+                'department_id'  => 8,
+                'user_id'        => $input['user_id'],
+                'job_order_id'   => $jo->id,
+                'remarks'        => '',
+                'deadline'       => Carbon::today()->addDays(10)->toDateString()
+            ]);
+
             foreach ($clients as $client) {
                 $clientData = [
                     'job_order_id'  => $jo->id,
