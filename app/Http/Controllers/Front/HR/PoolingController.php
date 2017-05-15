@@ -36,10 +36,11 @@ class PoolingController extends Controller
 
     public function show($joNumber)
     {
-        // $jobOrder = jobOrder::with('joManpower.manpowerType.manpower')->where('job_order_no',$joNumber)->first();
+        $jobOrder = jobOrder::with('joManpower.manpowerType.manpower')->where('job_order_no',$joNumber)->first();
         
         return view('hr.Department.poolingDetailView')
-                ->with('jobOrder', $joNumber);
+                ->with('jobOrder', $joNumber)
+                ->with('joId', $jobOrder->id);
     }
 
     public function previewFinalDeployment($joNumber) {
