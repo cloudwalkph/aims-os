@@ -65,6 +65,12 @@ class ManpowerController extends Controller
         return response()->json($data, 200);
     }
 
+    public function getManpower() {
+        $manpower = Manpower::with('manpowerType')->with('agency')->paginate();
+        $data = $this->parseData($manpower);
+        return response()->json($data, 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
