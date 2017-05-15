@@ -54,6 +54,7 @@ Route::group(['prefix' => 'creatives'], function () {
     Route::get('ongoing-projects', 'Front\Creatives\CreativesController@ongoing');
     Route::get('work-in-progress', 'Front\Creatives\CreativesController@workInProgress');
     Route::get('work-in-progress/{creativesId}/{joId}', 'Front\Creatives\CreativesController@workDetails');
+    Route::post('work-in-progress/{creativesId}/{joId}', 'Front\Creatives\CreativesController@addTask');
 
 });
 
