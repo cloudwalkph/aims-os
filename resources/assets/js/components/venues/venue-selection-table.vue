@@ -1,31 +1,79 @@
 <template>
     <div>
-        <venue-selection-filter-bar></venue-selection-filter-bar>
-        <vuetable ref="vuetable"
-                  api-url="/api/v1/venues"
-                  :fields="fields"
-                  pagination-path=""
-                  :css="css.table"
-                  :sort-order="sortOrder"
-                  :multi-sort="true"
-                  detail-row-component="my-detail-row"
-                  :append-params="moreParams"
-                  @vuetable:pagination-data="onPaginationData"
-        ></vuetable>
-        <div class="vuetable-pagination">
-            <vuetable-pagination-info ref="paginationInfo"
-                                      info-class="pagination-info"
-            ></vuetable-pagination-info>
-            <vuetable-pagination ref="pagination"
-                                 :css="css.pagination"
-                                 :icons="css.icons"
-                                 @vuetable-pagination:change-page="onChangePage"
-            ></vuetable-pagination>
+        <div class="col-md-12 venues" style="margin-top: 20px">
+            <venue-selection-filter-bar></venue-selection-filter-bar>
+            <vuetable ref="vuetable"
+                      api-url="/api/v1/venues"
+                      :fields="fields"
+                      pagination-path=""
+                      :css="css.table"
+                      :sort-order="sortOrder"
+                      :multi-sort="true"
+                      detail-row-component="my-detail-row"
+                      :append-params="moreParams"
+                      @vuetable:pagination-data="onPaginationData"
+            ></vuetable>
+            <div class="vuetable-pagination">
+                <vuetable-pagination-info ref="paginationInfo"
+                                          info-class="pagination-info"
+                ></vuetable-pagination-info>
+                <vuetable-pagination ref="pagination"
+                                     :css="css.pagination"
+                                     :icons="css.icons"
+                                     @vuetable-pagination:change-page="onChangePage"
+                ></vuetable-pagination>
+            </div>
+
+            <venues-modal></venues-modal>
+            <venues-update-modal ref="updateVenues"></venues-update-modal>
         </div>
 
-        <venues-modal></venues-modal>
-        <venues-update-modal ref="updateVenues"></venues-update-modal>
+        <hr/>
+
+        <div class="col-md-12" style="margin-top: 50px">
+            <h4>
+                Selected Venues
+                <i class="fa fa-print fa-lg pull-right" ></i>
+            </h4>
+        </div>
+
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered" id="selectedVenueTable">
+                <thead>
+                <tr>
+                    <th>Venue</th>
+                    <th>Estimated Foot Traffic</th>
+                    <th>Actual Hits</th>
+                    <th>Rate</th>
+                    <th>Remarks</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr v-show="selectedVenues.length <= 0">
+                        <td colspan="6"><span style="text-align: center">No Selected Venue/s Yet</span></td>
+                    </tr>
+
+                    <tr v-for="(venue, index) in selectedVenues">
+                        <td>{{ venue.venue  }}</td>
+                        <td>{{ venue.eft  }}</td>
+                        <td>{{ venue.actual_hits }}</td>
+                        <td>{{ venue.rate }}</td>
+                        <td>{{ venue.remarks }}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h5 class="pull-right">Total Traffic Count: {{ selectedVenueCount }}</h5>
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-primary pull-right" > Save</button>
+        </div>
     </div>
+
+
 </template>
 
 
@@ -37,13 +85,13 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
-    import CustomActions from './commons/CustomActions'
+    import VenueSelector from './commons/VenueSelector'
     import SelectionFilterBar from './commons/SelectionFilterBar'
     import VenueModal from './commons/form.vue'
     import VenueEditModal from './commons/edit-form.vue'
 
     Vue.use(VueEvents)
-    Vue.component('venues-custom-actions', CustomActions)
+    Vue.component('venues-selector', VenueSelector)
     Vue.component('venue-selection-filter-bar', SelectionFilterBar)
     Vue.component('venues-modal', VenueModal)
     Vue.component('venues-update-modal', VenueEditModal)
@@ -56,6 +104,9 @@
         },
         data() {
             return {
+                selectedVenues: [],
+                selectedVenueCount: 0,
+                selectedVenueIds: [],
                 fields: [
                     {
                         name: '__sequence',
@@ -64,7 +115,7 @@
                         dataClass: 'text-right'
                     },
                     {
-                        name: '__checkbox',
+                        name: '__component:venues-selector',
                         titleClass: 'text-center',
                         dataClass: 'text-center',
                     },
@@ -170,12 +221,6 @@
                         dataClass: 'text-center',
                         callback: 'formatDate|DD-MM-YYYY',
                         title: 'Created Date'
-                    },
-                    {
-                        name: '__component:venues-custom-actions',
-                        title: 'Actions',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center'
                     }
                 ],
                 css: {
@@ -217,8 +262,30 @@
             onChangePage (page) {
                 this.$refs.vuetable.changePage(page)
             },
+            countTrafficOnSelectedVenues() {
+                this.selectedVenueIds = [];
+
+                for (let venue of this.selectedVenues) {
+                    this.selectedVenueCount = parseInt(this.selectedVenueCount) + parseInt(venue.eft);
+                    this.selectedVenueIds.push(venue.id);
+                }
+            },
+            addOrDeleteSelectedVenue(data) {
+                let found = this.selectedVenues.findIndex((venue) => venue.id === data.id);
+
+                if (found >= 0) {
+                    this.selectedVenues.splice(found, 1);
+                } else {
+                    this.selectedVenues.push(data);
+                }
+
+                this.countTrafficOnSelectedVenues();
+            }
         },
         events: {
+            'selected-venue' (data) {
+                Vue.nextTick( () => this.addOrDeleteSelectedVenue(data) )
+            },
             'filter-set' (filterText) {
                 this.moreParams = {
                     filter: filterText
