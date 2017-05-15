@@ -122,6 +122,6 @@ class Assignment extends Model
 
     public function assignedUser()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

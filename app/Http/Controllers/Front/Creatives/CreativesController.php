@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front\Creatives;
 
 use App\Http\Controllers\Controller;
+use App\Models\Assignment;
 use App\Models\CreativesJob;
 use App\Models\JobOrderDepartmentInvolved;
 use Illuminate\Http\Request;
@@ -62,8 +63,10 @@ class CreativesController extends Controller
     {
         config(['app.name' => 'Creatives Work in Progress Details | AIMS']);
 
-        $jo = CreativesJob::where('id', $id)->where('job_order_id', $joId)
-            ->with('jo', 'assigned')->first();
+        $jo = Assignment::with('jobOrder', 'assignedUser.profile')
+            ->where('id', $id)
+            ->where('job_order_id', $joId)
+            ->first();
 
         return view('creatives.work-in-progress.details')->with('jo', $jo);
     }

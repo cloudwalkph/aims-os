@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Assignment;
 use App\Models\Department;
 use App\Models\Event;
 use App\Models\JobOrder;
@@ -86,5 +87,10 @@ class User extends Authenticatable
     public function discussions()
     {
         return $this->hasMany(JobOrderDiscussion::class);
+    }
+
+    public function assignedJobs()
+    {
+        return $this->hasMany(Assignment::class);
     }
 }
