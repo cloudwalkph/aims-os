@@ -19,6 +19,7 @@ class CreateJobOrderDepartmentInvolvedTable extends Migration
             $table->integer('department_id');
             $table->string('deliverables')->nullable();
             $table->timestamp('deadline');
+            $table->string('file')->nullable();
             $table->enum('status', ['active', 'revision']);
             $table->timestamps();
             $table->softDeletes();
