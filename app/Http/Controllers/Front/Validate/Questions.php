@@ -146,7 +146,7 @@ class Questions extends Controller
         $count = count($questions);
         foreach ($questions as $question){
 
-            $strQuestions = '<label>Question '.$questionCount.' of '.$count.'</label> <br>';
+            $strQuestions = '<label style="margin-left: 18%;">Question '.$questionCount.' of '.$count.'</label> <br>';
             if( in_array( $question->id, array(38, 62, 120, 141, 166, 188) ) ){
 
                 foreach( $productions as $key => $production ){
@@ -168,10 +168,10 @@ class Questions extends Controller
                         
                         <div class="radio-btn" style="margin-top: 20px;">
                             <div class="col-xs-1">
-                            <input style="height: 25px;" type="radio" value="'.$answer->score.'" name="q['.$question->id.']">
+                                <input style="height: 25px;" type="radio" value="'.$answer->score.'" name="q['.$question->id.']">
                             </div>
                             <div class="col-xs-11">
-                            <label onclick>'.$answer->answers.'</label>
+                                <label onclick>'.$answer->answers.'</label>
                             </div>
                         </div>
                         

@@ -18,14 +18,14 @@
                             <h3 style="padding: 5px; font-weight: bold; color: #ffffff;">{{$dept_name}}</h3>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-right: 15%;">
                         <div class="col-xs-4 col-xs-offset-4 text-center">
                             <h1 style="padding: 5px;">{{$categoryName}}</h1>
                         </div>
                     </div>
                     @foreach( $returnQuestions as $returnQuestion)
                         <h3> </h3>
-                        <section>
+                        <section class="col-md-offset-4 col-md-4">
                             <?=$returnQuestion?>
                         </section>
                     @endforeach
@@ -74,11 +74,11 @@
                             $('#questions-modal, .modal-body').text('Completely answer the questions.');
                         }else{
                             $('#questions-modal, .modal-body').text('Success');
-                            {{--setTimeout(function () {--}}
-                                {{--location.href = '/evaluate/{{ $jno }}/{{ $eventCategory }}';--}}
-                            {{--}, 4000);--}}
+                            setTimeout(function () {
+                                location.href = '/evaluate/{{ $jno }}/{{ $eventCategory }}';
+                            }, 4000);
                         }
-                        $('#questions-modal').modal('show');
+//                        $('#questions-modal').modal('show');
                     }
                 });
             }
