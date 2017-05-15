@@ -15,12 +15,22 @@ class CreateCreativesTasksTable extends Migration
     {
         Schema::create('creatives_tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('creative_job_id')->unsigned();
+            $table->integer('assignment_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->text('message');
             $table->string('file');
             $table->timestamps();
             $table->softDeletes();
+
+
+            /** Foreign Keys */
+            $table->foreign('assignment_id')
+                ->references('id')->on('assignments')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 
