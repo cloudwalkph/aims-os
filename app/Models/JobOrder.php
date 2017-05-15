@@ -75,6 +75,11 @@ class JobOrder extends Model
         return $this->hasMany(Assignment::class);
     }
 
+    public function selectedVenues()
+    {
+        return $this->hasMany(JobOrderSelectedVenue::class);
+    }
+
     /**
      * Local Scopes
      * ======================================================================================================

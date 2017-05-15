@@ -3,68 +3,73 @@
     <div class="row">
         <div class="col-sm-12">
             <h3>Delivery Tracking</h3>
+            <button class="btn btn-default pull-right" onclick="frames['inventoryDeliveryFrame'].print()">
+                <i class="fa fa-print fa-lg"></i> Print Inventory Deliveries
+            </button>
         </div>
 
-      <div
-        class="col-sm-12"
-        v-if="detail.deliveries > 0"
-      >
         <div
-          style="margin-top: 20px;"
-          v-for="(product, indexTrace) in products"
-          :key="product.id"
-          v-if="inventoryJob.job_order_id == product.job_order_id"
+            class="col-sm-12"
+            v-if="products.length > 0"
         >
-            <label htmlFor="itemname" class="col-sm-4 control-label">
-                Item Name: {{product.name}}
-            </label>
-            <label htmlFor="quantity" class="col-sm-4 control-label">
-                Expected Quantity: {{product.quantity}}
-            </label>
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>Delivery Date</th>
-                        <th>Delivered</th>
-                        <th>Balance Needed</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
+            <div
+            style="margin-top: 20px;"
+            v-for="(product, indexTrace) in products"
+            :key="product.id"
+            v-if="inventoryJob.job_order_id == product.job_order_id"
+            >
+                <label htmlFor="itemname" class="col-sm-4 control-label">
+                    Item Name: {{product.name}}
+                </label>
+                <label htmlFor="quantity" class="col-sm-4 control-label">
+                    Expected Quantity: {{product.quantity}}
+                </label>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Delivery Date</th>
+                            <th>Delivered</th>
+                            <th>Balance Needed</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
+                    <tbody>
 
-                    <tr
-                      v-for="(d, indexD) in detail.deliveries"
-                      :key="indexD"
-                      v-if="d.product_id == product.id"
-                    >
-                        <td>{{convertDate(d.date)}}</td>
-                        <td>{{d.delivered}}</td>
-                        <td>{{balance(product.id, indexD)}}</td>
-                        <td class="text-center">
-                            <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
-                            <i class="fa fa-times-circle-o fa-2x text-danger" @click="removeDelivery(indexTrace, indexD)" />
-                        </td>
-                    </tr>
+                        <tr
+                        v-for="(d, indexD) in detail.deliveries"
+                        :key="indexD"
+                        v-if="d.product_id == product.id"
+                        >
+                            <td>{{convertDate(d.date)}}</td>
+                            <td>{{d.delivered}}</td>
+                            <td>{{balance(product.id, indexD)}}</td>
+                            <td class="text-center">
+                                <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
+                                <i class="fa fa-times-circle-o fa-2x text-danger" @click="removeDelivery(indexTrace, indexD)" />
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>{{dateToday}}</td>
-                        <td>
-                            <input type="text" class="form-control" :workIndex="indexTrace" :productId="product.id" @keyup.enter="handleSubmit" />
-                        </td>
-                        <td><span></span></td>
-                        <td class="text-center">
+                        <tr>
+                            <td>{{dateToday}}</td>
+                            <td>
+                                <input type="text" class="form-control" :workIndex="indexTrace" :productId="product.id" @keyup.enter="handleSubmit" />
+                            </td>
+                            <td><span></span></td>
+                            <td class="text-center">
 
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
-      <div
-        class="col-sm-12"
-        v-else
-      >No Products to show</div>
+        <div
+            class="col-sm-12"
+            v-else
+        >No Products to show</div>
+
+        <iframe name="inventoryDeliveryFrame" :src="frameSrc" style="width:0; height:0"></iframe>
     </div>
 
 </template>
@@ -79,7 +84,8 @@
         },
         data: function () {
             return {
-                detail: this.workDetail
+                detail: this.workDetail,
+                frameSrc: '/inventory/print/delivery/' + this.inventoryJob.id,
             }
         },
         methods: {

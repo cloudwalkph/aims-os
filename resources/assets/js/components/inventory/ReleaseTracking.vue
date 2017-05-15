@@ -4,12 +4,14 @@
         <div class="col-sm-12">
             <h3>
                 Release Tracking
-                <i class="fa fa-print fa-lg pull-right" />
+                <button class="btn btn-default pull-right" onclick="frames['inventoryReleaseFrame'].print()">
+                    <i class="fa fa-print fa-lg"></i> Print Inventory Releases
+                </button>
             </h3>
         </div>
         <div
           class="col-sm-12"
-          v-if="detail.releases > 0"
+          v-if="products.length > 0"
         >
           <div
             style="margin-top: 20px;"
@@ -77,6 +79,8 @@
           class="col-sm-12"
           v-else
         >No Products to Show</div>
+
+        <iframe name="inventoryReleaseFrame" :src="frameSrc" style="width:0; height:0"></iframe>
     </div>
 
 </template>
@@ -92,6 +96,7 @@
         data: function () {
             return {
                 detail: this.workDetail,
+                frameSrc: '/inventory/print/release/' + this.inventoryJob.id,
             }
         },
         methods: {

@@ -46,6 +46,7 @@ Route::group(['prefix' => 'cmtuva'], function () {
     Route::post('venues/import', 'Front\CMTUVA\CmtuvaController@importVenues');
     Route::get('plans', 'Front\CMTUVA\CmtuvaController@plans');
     Route::get('plans/{joNo}', 'Front\CMTUVA\CmtuvaController@planDetails');
+    Route::get('plans/{joNo}/preview', 'Front\CMTUVA\CmtuvaController@preview');
 });
 
 Route::group(['prefix' => 'creatives'], function () {
@@ -71,6 +72,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::group(['prefix' => 'inventory'], function () {
     Route::get('/', 'Front\Inventory\InventoryController@index');
+    Route::get('/print/delivery/{joID}', 'Front\Inventory\InventoryController@print_delivery');
+    Route::get('/print/release/{joID}', 'Front\Inventory\InventoryController@print_release');
 });
 
 Route::group(['prefix' => 'accounting'], function () {
