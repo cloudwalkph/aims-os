@@ -72,6 +72,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::group(['prefix' => 'inventory'], function () {
     Route::get('/', 'Front\Inventory\InventoryController@index');
+    Route::get('/print/delivery/{joID}', 'Front\Inventory\InventoryController@print_delivery');
+    Route::get('/print/release/{joID}', 'Front\Inventory\InventoryController@print_release');
 });
 
 Route::group(['prefix' => 'accounting'], function () {
