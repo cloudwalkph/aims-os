@@ -101,7 +101,7 @@
                   <button class="btn btn-sm btn-danger" @click="handleRemoveManpower(selected.id)"><i class="glyphicon glyphicon-trash"></i></button>
                 </td>
                 <td v-if="selected.surpassing" class="text-center" style="background: grey;color: #fff;">
-                  Extra
+                  Buffer
                 </td>
               </tr>
             </tbody>
@@ -453,9 +453,11 @@
         });
       },
       getVenues() {
-        let url = '/api/v1/venues/plans/job-order/' + this.joId;
+        let url = `/api/v1/venues/plans/job-order/${$('#jobOrderIdNumber').val()}`;
         this.$http.get(url).then(response => {
             this.venueList = response.data;
+            console.log($('#jobOrderIdNumber').val())
+            console.log(response.data)
         }, error => {
             console.log(error)
         });

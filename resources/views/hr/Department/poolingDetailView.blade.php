@@ -4,6 +4,7 @@
     <div class="container-fluid">
     	<div class="row" >
     		<input id="jobOrderNumberElement" value="{{$jobOrder}}" type="hidden"/>
+    		<input id="jobOrderIdNumber" value="{{$joId}}" type="hidden"/>
     		<pooling-content data="{{$jobOrder}}" joId="{{$joId}}"></pooling-content>
     	</div>
     </div>
