@@ -53549,8 +53549,9 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('venues-update-modal', __W
 
             var url = '/api/v1/venues/plans/job-order/' + jobOrderId;
             this.$http.get(url).then(function (response) {
-                console.log(response);
-                _this.selectedVenues = response;
+                console.log(response.data);
+                _this.selectedVenues = response.data;
+                _this.countTrafficOnSelectedVenues();
             }, function (error) {
                 console.log(error);
             });

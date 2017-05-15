@@ -295,8 +295,11 @@
 
                 let url = `/api/v1/venues/plans/job-order/${jobOrderId}`;
                 this.$http.get(url).then(response => {
-                    console.log(response)
-                    this.selectedVenues = response;
+                    console.log(response.data)
+                    this.selectedVenues = response.data;
+                    this.countTrafficOnSelectedVenues();
+
+
                 }, error => {
                     console.log(error)
                 })
