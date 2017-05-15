@@ -40,7 +40,7 @@
                 </div>
 
 
-                <div class="col-md-12">
+                <div class="col-md-12 hide">
                     <h4>Productions Template</h4>
                     <table class="table">
                         <thead>

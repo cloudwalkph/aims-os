@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\JobOrder;
@@ -12,6 +13,14 @@ class Assignment extends Model
 
     protected $table = 'assignments';
     protected $guarded = ['id'];
+
+    public static $filterable = [
+        'deadline',
+        'project_name',
+        'job_order_no',
+        'first_name',
+        'last_name'
+    ];
 
     static function loadRatees( $jno = null, $category = null, $deptid = null ){
 
@@ -104,5 +113,15 @@ class Assignment extends Model
 
         return $assigned_users;
 
+    }
+
+    public function jobOrder()
+    {
+        return $this->belongsTo(JobOrder::class);
+    }
+
+    public function assignedUser()
+    {
+        return $this->belongsTo(User::class);
     }
 }

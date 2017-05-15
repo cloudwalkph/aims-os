@@ -3,6 +3,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreativesJo\CreateCreativesJoRequest;
+use App\Models\Assignment;
 use App\Models\CreativesJob;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
@@ -20,28 +21,27 @@ class CreativesOngoingController extends Controller {
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
-            $query = CreativesJob::orderBy($sortCol, $sortDir);
+            $query = Assignment::orderBy($sortCol, $sortDir);
         } else {
-            $query = CreativesJob::orderBy('id', 'asc');
+            $query = Assignment::orderBy('id', 'asc');
         }
 
-        $query->join('job_orders', 'job_orders.id', '=', 'creatives_jobs.job_order_id')
-            ->join('creatives_job_assigned_people', 'creatives_job_assigned_people.creatives_job_id', '=', 'creatives_jobs.id')
-            ->join('user_profiles', 'user_profiles.user_id', '=', 'creatives_job_assigned_people.user_id')
-            ->select('creatives_jobs.*', 'job_orders.project_name', 'job_orders.job_order_no',
+        $query->join('job_orders', 'job_orders.id', '=', 'assignments.job_order_id')
+            ->join('user_profiles', 'user_profiles.user_id', '=', 'assignments.user_id')
+            ->select('assignments.*', 'job_orders.project_name', 'job_orders.job_order_no',
                 'user_profiles.first_name', 'user_profiles.last_name',
                 \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as assigned_person'));
 
         // Filter
         if ($request->has('filter')) {
-            $this->filter($query, $request, CreativesJob::$filterable);
+            $this->filter($query, $request, Assignment::$filterable);
         }
 
         // Count per page
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
 //        \Log::info($query->toSql());
         // Get the data
-        $jos = $query->paginate($perPage);
+        $jos = $query->where('assignments.department_id', 2)->paginate($perPage);
 
         return response()->json($jos, 200);
     }
@@ -57,16 +57,26 @@ class CreativesOngoingController extends Controller {
         $jo = null;
         // Create the jo
         \DB::transaction(function() use ($input, &$jo) {
-            $creative = CreativesJob::create($input);
+            $creative = Assignment::create([
+                'job_order_id' => $input['job_order_id'],
+                'user_id'      => $input['user_id'],
+                'department_id' => 2,
+                'deadline'      => $input['deadline'],
+                'remarks'       => $input['description']
+            ]);
 
-            $data =[
-                'user_id' => $input['user_id'],
-                'creatives_job_id' => $creative->id
-            ];
+//            $creative = CreativesJob::create($input);
 
-            $creative->assigned()->create(['user_id' => $input['user_id']]);
+//            $data =[
+//                'user_id' => $input['user_id'],
+//                'creatives_job_id' => $creative->id
+//            ];
+//
+//            $creative->assigned()->create(['user_id' => $input['user_id']]);
 
-            $jo = CreativesJob::where('id', $creative->id)->with('assigned', 'jo')->first();
+//            $jo = CreativesJob::where('id', $creative->id)->with('assigned', 'jo')->first();
+
+            $jo = Assignment::with('jobOrder', 'assignedUser')->where('id', $creative->id)->first();
 
         });
 
@@ -77,9 +87,9 @@ class CreativesOngoingController extends Controller {
      * @param $joId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function delete($joId)
+    public function delete($assignmentId)
     {
-        $jo = CreativesJob::where('id', $joId)->delete();
+        $jo = Assignment::where('id', $assignmentId)->delete();
 
         if (! $jo) {
             return response()->json([], 400);

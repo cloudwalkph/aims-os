@@ -24,7 +24,7 @@
 
                 <button type="button" class="btn btn-primary btn-create"
                         data-toggle="modal" data-target="#ongoingModal">
-                    <i class="fa fa-plus"></i> Assign to JO
+                    <i class="fa fa-plus"></i> Create JOB
                 </button>
 
                 <ongoing-table></ongoing-table>

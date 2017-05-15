@@ -14,7 +14,7 @@
                                 <v-select :on-change="joSelected" :options="joOptions"></v-select>
                             </div>
                             <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label">Description</label>
+                                <label class="control-label">Remarks</label>
                                 <input type="text" name="description"
                                        @input="inputChange" v-bind:value="description" id="description"
                                        placeholder="Description" class="form-control" />
