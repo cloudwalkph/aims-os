@@ -33,7 +33,7 @@
         <div class="col-md-12" style="margin-top: 50px">
             <h4>
                 Selected Venues
-                <i class="fa fa-print fa-lg pull-right" ></i>
+                <i class="fa fa-print fa-lg pull-right" onclick="frames['frame'].print();"></i>
             </h4>
         </div>
 
@@ -46,7 +46,6 @@
                     <th>Actual Hits</th>
                     <th>Rate</th>
                     <th>Remarks</th>
-                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -60,7 +59,6 @@
                         <td>{{ venue.actual_hits }}</td>
                         <td>{{ venue.rate }}</td>
                         <td>{{ venue.remarks }}</td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -72,7 +70,6 @@
             <button type="button" class="btn btn-primary pull-right btn-block" @click="saveSelectedVenues"> Save Selected Venues</button>
         </div>
     </div>
-
 
 </template>
 
@@ -321,6 +318,7 @@
                 this.$http.post(url, data).then(response => {
                     console.log(response)
 
+                    $('#joFrame').attr('src',`/cmtuva/plans/${jobOrderId}/preview`); 
                     toastr.success('Successfully created a plan', 'Success')
                 }, error => {
                     toastr.error('Failed in creating a plan', 'Error')
