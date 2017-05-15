@@ -36,6 +36,14 @@
                         <option value=""></option>
                     </select>
                 </div>
+
+                <div class="form-group col-md-2">
+                    <button class="btn btn-primary btn-block"
+                            type="button">
+
+                        Apply Filter
+                    </button>
+                </div>
             </div>
 
             <!--<div class="form-group">-->
