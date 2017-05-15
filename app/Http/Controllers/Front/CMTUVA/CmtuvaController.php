@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Jobs\ImportVenueFromExcel;
 use App\Models\JobOrder;
 use App\Models\JobOrderDepartmentInvolved;
+use App\Models\JobOrderSelectedVenue;
+use App\Models\JobOrderAnimationDetail;
 use App\Models\Venue;
 use Illuminate\Http\Request;
 
@@ -129,5 +131,16 @@ class CmtuvaController extends Controller
         $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
 
         return view('cmtuva.plans.details', compact('jo'));
+    }
+
+    public function preview($joNumber)
+    {
+        config(['app.name' => 'CMTUVA PLANS DETAILS | AIMS']);
+
+        $jo = JobOrder::with('clients', 'user')->where('id', $joNumber)->first();
+        $animations = JobOrderAnimationDetail::where('job_order_id', $joNumber)->get();
+        $selectedVenues = JobOrderSelectedVenue::where('job_order_id', $joNumber)->get();
+
+        return view('cmtuva.print.plans', compact('jo', 'selectedVenues', 'animations'));
     }
 }

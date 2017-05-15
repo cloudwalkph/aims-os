@@ -46,6 +46,7 @@ Route::group(['prefix' => 'cmtuva'], function () {
     Route::post('venues/import', 'Front\CMTUVA\CmtuvaController@importVenues');
     Route::get('plans', 'Front\CMTUVA\CmtuvaController@plans');
     Route::get('plans/{joNo}', 'Front\CMTUVA\CmtuvaController@planDetails');
+    Route::get('plans/{joNo}/preview', 'Front\CMTUVA\CmtuvaController@preview');
 });
 
 Route::group(['prefix' => 'creatives'], function () {
