@@ -5,7 +5,6 @@ namespace App\Models;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\JobOrder;
 
 class Assignment extends Model
 {
@@ -123,5 +122,10 @@ class Assignment extends Model
     public function assignedUser()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(CreativesTask::class);
     }
 }
