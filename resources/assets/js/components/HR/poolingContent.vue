@@ -395,7 +395,8 @@
 			}
 		},
 		props: [ 
-			'data'
+			'data',
+      'joId'
 		],
 		methods : {
       inputChange(e) {
@@ -452,7 +453,7 @@
         });
       },
       getVenues() {
-        let url = '/api/v1/venues/all';
+        let url = '/api/v1/venues/plans/job-order/' + this.joId;
         this.$http.get(url).then(response => {
             this.venueList = response.data;
         }, error => {

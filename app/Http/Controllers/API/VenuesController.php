@@ -123,6 +123,14 @@ class VenuesController extends Controller
 
         $result = [];
         foreach ($request->get('selectedVenues') as $venue) {
+            $check = JobOrderSelectedVenue::where('job_order_id', $jobOrderId)
+                ->where('venue_id', $venue['id'])
+                ->first();
+
+            if ($check) {
+                continue;
+            }
+
             $result[] = JobOrderSelectedVenue::create([
                 'job_order_id'  => $jobOrderId,
                 'venue_id'      => $venue['id']
