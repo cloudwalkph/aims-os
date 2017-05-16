@@ -52082,6 +52082,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -100037,9 +100041,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Filter Area")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": ""
+      "value": "Quezon City"
     }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Quezon City")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Mandaluyong City"
+    }
+  }, [_vm._v("Mandaluyong City")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Caloocan City"
+    }
+  }, [_vm._v("Caloocan City")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "San Juan City"
+    }
+  }, [_vm._v("San Juan City")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Pasig City"
+    }
+  }, [_vm._v("Pasig City")])])]), _vm._v(" "), _c('div', {
     staticClass: "form-group col-xs-12 col-sm-12 col-md-2"
   }, [_c('select', {
     staticClass: "venue-filter",

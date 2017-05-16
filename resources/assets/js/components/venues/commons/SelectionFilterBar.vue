@@ -12,7 +12,11 @@
                 <div class="form-group col-xs-12 col-sm-12 col-md-2">
                     <select name="area" id="area" class="venue-filter">
                         <option value="" disabled selected>Filter Area</option>
-                        <option value=""></option>
+                        <option value="Quezon City">Quezon City</option>
+                        <option value="Mandaluyong City">Mandaluyong City</option>
+                        <option value="Caloocan City">Caloocan City</option>
+                        <option value="San Juan City">San Juan City</option>
+                        <option value="Pasig City">Pasig City</option>
                     </select>
                 </div>
 
