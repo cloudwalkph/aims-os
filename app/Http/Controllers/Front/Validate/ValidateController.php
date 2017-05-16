@@ -71,7 +71,67 @@ class ValidateController extends Controller
             ),
             array(
                 'id' => 'B',
-                'label' => 'Score',
+                'label' => 'Accounting',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'C',
+                'label' => 'Accounts',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'D',
+                'label' => 'Productions',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'E',
+                'label' => 'CMTUVA',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'F',
+                'label' => 'HR',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'G',
+                'label' => 'Inventory',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'H',
+                'label' => 'Setup',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'I',
+                'label' => 'Operations',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'J',
+                'label' => 'Activations',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'K',
+                'label' => 'Admin',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'L',
+                'label' => 'Creatives',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'D',
+                'label' => 'Megotiators',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'D',
+                'label' => 'Team Leader',
                 'type' => 'number'
             ),
         );
@@ -81,7 +141,7 @@ class ValidateController extends Controller
             $collection = array(
                 'c' => array(
                     array(
-                        'v' => $score->name
+                        'v' => $score->name,
                     ),
                     array(
                         'v' => ($score->avg_score / 100),
