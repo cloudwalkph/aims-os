@@ -113,7 +113,7 @@
                                 <label class="text-muted">Validate</label>
                             </div>
                             <div class="options">
-                                <a href="/validate" class="btn btn-primary btn-lg">View Lists</a>
+                                <a href="/validate" style="color: #fff;background-color: #2579a9;border-color: #1f648b;" class="btn btn-lg">View Lists</a>
                             </div>
                         </div>
                     </div>

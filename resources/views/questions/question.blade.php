@@ -18,14 +18,14 @@
                             <h3 style="padding: 5px; font-weight: bold; color: #ffffff;">{{$dept_name}}</h3>
                         </div>
                     </div>
-                    <div class="row" style="margin-right: 15%;">
-                        <div class="col-xs-4 col-xs-offset-4 text-center">
+                    <div class="row" style="">
+                        <div class="col-xs-6 col-xs-offset-3 text-center">
                             <h1 style="padding: 5px;">{{$categoryName}}</h1>
                         </div>
                     </div>
                     @foreach( $returnQuestions as $returnQuestion)
                         <h3> </h3>
-                        <section class="col-md-offset-4 col-md-4">
+                        <section class="col-md-offset-3 col-md-6">
                             <?=$returnQuestion?>
                         </section>
                     @endforeach

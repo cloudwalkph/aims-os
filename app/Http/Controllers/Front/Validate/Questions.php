@@ -146,7 +146,7 @@ class Questions extends Controller
         $count = count($questions);
         foreach ($questions as $question){
 
-            $strQuestions = '<label style="margin-left: 18%;">Question '.$questionCount.' of '.$count.'</label> <br>';
+            $strQuestions = '<label style="float: right;">Question '.$questionCount.' of '.$count.'</label> <br>';
             if( in_array( $question->id, array(38, 62, 120, 141, 166, 188) ) ){
 
                 foreach( $productions as $key => $production ){
