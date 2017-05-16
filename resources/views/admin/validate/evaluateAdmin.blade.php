@@ -30,7 +30,7 @@
                             <tr>
                                 <td><a href="/admin/validations/{{ $jo['joId'] }}"> {{ $jo['joId'] }} </a></td>
                                 <td>{{ $jo['projName'] }}</td>
-                                <td>{{$jo['projecttypes']}}</td>
+                                <td>{{ $jo['projecttypes'] }}</td>
                                 <td>{{ $jo['contact'] }}</td>
                                 <td>{{ $jo['brands'] }}</td>
                                 <td>{{ $jo['status'] }}</td>

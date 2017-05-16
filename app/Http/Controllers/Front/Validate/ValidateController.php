@@ -119,12 +119,24 @@ class ValidateController extends Controller
 
         $joArrays = array();
 
-        $assignments = Assignment::where('user_id', $uid)
-            ->get();
+        if( $uid != null ){
+            $assignments = Assignment::where('user_id', $uid)
+                ->get();
 
-        foreach ($assignments as $assignment){
 
-            array_push($joArrays, $assignment->job_order_id);
+            foreach ($assignments as $assignment){
+
+                array_push($joArrays, $assignment->job_order_id);
+
+            }
+        }else{
+
+            $assignments = Assignment::get();
+            foreach ($assignments as $assignment){
+
+                array_push($joArrays, $assignment->job_order_id);
+
+            }
 
         }
 
@@ -150,7 +162,7 @@ class ValidateController extends Controller
                 'joId' => $jo->job_order_no,
                 'assigned' => $jo->user_profile->last_name.', '.$jo->user_profile->first_name,
                 'projName' => $jo->project_name,
-//                'contact' => implode(', ', $contact_array),
+                'contact' => implode(', ', $contact_array),
                 'brands' => implode(', ', $brands_array),
                 'status' => $jo->status,
                 'projecttypes' => implode(', ', array_column(json_decode($jo->project_types, true), 'name'))
