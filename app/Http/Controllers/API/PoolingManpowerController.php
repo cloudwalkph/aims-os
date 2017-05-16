@@ -85,6 +85,9 @@ class PoolingManpowerController extends Controller
             if(!$selectedManpower)
             {
                 $return[] = JobOrderSelectedManpower::create($data);
+            }else
+            {
+                $return[] = JobOrderSelectedManpower::where('manpower_id',$data['manpower_id'])->update($data);
             }
 
         }

@@ -447,6 +447,7 @@
               
             }
           }
+          console.log(this.selectedManpower)
 
         }, error => {
             console.log(error)
@@ -456,7 +457,6 @@
         let url = `/api/v1/venues/plans/job-order/${$('#jobOrderIdNumber').val()}`;
         this.$http.get(url).then(response => {
             this.venueList = response.data;
-            console.log($('#jobOrderIdNumber').val())
             console.log(response.data)
         }, error => {
             console.log(error)
@@ -493,6 +493,7 @@
       onAssignVenue(event, manpowerId) {
         let index = this.selectedManpower.findIndex((item) => item.id == manpowerId);
         this.selectedManpower[index].venue_id = event.target.value;
+        console.log(this.selectedManpower);
 
       },
       addManpowerSchedule(type) {
