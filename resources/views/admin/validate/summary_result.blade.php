@@ -27,27 +27,6 @@
                 <tbody id="chart1">
                 </tbody>
             </table>
-
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th >EVENT PROPER</th>
-                </tr>
-                </thead>
-                <tbody id="chart2">
-                </tbody>
-            </table>
-
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th >POST EVENT</th>
-                </tr>
-                </thead>
-                <tbody id="chart3">
-                </tbody>
-            </table>
-
         </div>
     </div>
 @endsection
@@ -58,13 +37,7 @@
 
     <script>
         google.charts.load('current', {'packages':['corechart', 'line']});
-        google.charts.setOnLoadCallback(preEventChart);
-        google.charts.setOnLoadCallback(eventProperChart);
-        google.charts.setOnLoadCallback(postEventChart);
-
-        var preEventData = JSON.parse('<?php echo $jsonPreEvent; ?>');
-        var actualEventData = JSON.parse('<?php echo $jsonActualEvent; ?>');
-        var postEventData = JSON.parse('<?php echo $jsonPostEvent; ?>');
+        google.charts.setOnLoadCallback(eventChart);
 
         var options = {
             animation: {
@@ -112,16 +85,16 @@
             }
         };
 
-        function preEventChart(chartType = 'line') {
+        function eventChart(chartType = 'line') {
             var jsonData = $.ajax({
-                url: "",
+                url: "/validate/getData/<?php echo $jno; ?>/all",
                 dataType: "json",
                 async: false
             }).responseText;
 
             var chart;
             var container = document.getElementById('chart1');
-            var data = new google.visualization.DataTable(preEventData);
+            var data = new google.visualization.DataTable(jsonData);
 
             if(chartType == 'line') {
                 chart = new google.visualization.LineChart(container);
@@ -133,21 +106,5 @@
 
             chart.draw(data, options);
         }
-
-        function eventProperChart() {
-            var data = new google.visualization.DataTable(actualEventData);
-            var chart = new google.visualization.LineChart(document.getElementById('chart2'));
-
-            chart.draw(data, options);
-        }
-
-        function postEventChart() {
-            var data = new google.visualization.DataTable(postEventData);
-            var chart = new google.visualization.LineChart(document.getElementById('chart3'));
-
-            chart.draw(data, options);
-        }
     </script>
 @endsection
-
-

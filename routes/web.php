@@ -112,6 +112,7 @@ Route::group(['prefix' => 'users'], function () {
 Route::group(['prefix' => 'validate'], function () {
     Route::get('/', 'Front\Validate\ValidateController@index');
     Route::get('/results/{id}', 'Front\Validate\ValidateController@validate_results');
+    Route::get('/getData/{jNo}/{eventCategory}', 'Front\Validate\ValidateController@getEventScores');
     Route::get('/{uniq}', 'Front\Validate\EmailValidationController@index');
 //    Route::get('/create_project', 'Front\Validate\ValidateController@create_project');
 //    Route::get('/create_project/{id}', 'Front\Validate\ValidateController@create_project');

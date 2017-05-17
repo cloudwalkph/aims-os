@@ -34,7 +34,7 @@ class ValidateController extends Controller
         $results = $this->loadJobOrders( $data );
         return view('admin/validate', compact('results'));
     }
-    
+
 
     /**
      * Display a listing of the resource.
@@ -45,115 +45,104 @@ class ValidateController extends Controller
     public function validate_results($jno)
     {
         $jos = JobOrder::where('job_order_no', $jno)->first();
-
-        $jsonPreEvent = $this->getEventScores($jno);
-        $jsonActualEvent = $this->getEventScores($jno, 'eprop');
-        $jsonPostEvent = $this->getEventScores($jno, 'post');
-
-        return view('admin/Validate/summary_result', compact('jos', 'results', 'jsonPreEvent', 'jsonActualEvent', 'jsonPostEvent'));
+        return view('admin/Validate/summary_result', compact('jno', 'jos'));
     }
 
-    function getEventScores($jno = '', $eventCategory = 'pre')
+    function getEventScores($jno = '', $eventCategory = 'all')
     {
-        $preEventScores = ValidateResults::select('name')
-        ->addSelect(DB::raw('AVG(score) as avg_score'))
-        ->join('departments', 'departments.id', '=', 'validate_results.department_id')
-        ->where('job_order_no', '=', $jno)
-        ->where('category', '=', $eventCategory)
-        ->groupBy('department_id')
-        ->get();
+      $query = Department::select('departments.id as dept_id', 'slug', 'name')
+        ->leftJoin(DB::raw('(SELECT job_order_no, category, department_id, AVG(score) AS avg_score FROM validate_results WHERE category = "pre" AND job_order_no = "'.$jno.'" GROUP BY job_order_no, category, department_id) AS preEvent'),
+          function($q){
+            $q->on('departments.id', '=', 'preEvent.department_id');
+          })
+        ->addSelect(DB::raw('IFNULL(preEvent.avg_score, 0) AS pre_avg_score'))
+        ->leftJoin(DB::raw('(SELECT job_order_no, category, department_id, AVG(score) AS avg_score FROM validate_results WHERE category = "prop" AND job_order_no = "'.$jno.'" GROUP BY job_order_no, category, department_id) AS propEvent'),
+          function($q){
+            $q->on('departments.id', '=', 'propEvent.department_id');
+          })
+        ->addSelect(DB::raw('IFNULL(propEvent.avg_score, 0) AS prop_avg_score'))
+        ->leftJoin(DB::raw('(SELECT job_order_no, category, department_id, AVG(score) AS avg_score FROM validate_results WHERE category = "post" AND job_order_no = "'.$jno.'" GROUP BY job_order_no, category, department_id) AS postEvent'),
+          function($q){
+            $q->on('departments.id', '=', 'postEvent.department_id');
+          })
+        ->addSelect(DB::raw('IFNULL(postEvent.avg_score, 0) AS post_avg_score'))
+        ->orderBy('dept_id');
+      $eventData = $query->get();
 
-        $preEventArray['cols'] = array(
+        $eventArray['cols'] = array(
             array(
-                'id' => 'A',
-                'label' => 'Department',
-                'type' => 'string'
-            ),
-            array(
-                'id' => 'B',
-                'label' => 'Accounting',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'C',
-                'label' => 'Accounts',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'D',
-                'label' => 'Productions',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'E',
-                'label' => 'CMTUVA',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'F',
-                'label' => 'HR',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'G',
-                'label' => 'Inventory',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'H',
-                'label' => 'Setup',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'I',
-                'label' => 'Operations',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'J',
-                'label' => 'Activations',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'K',
-                'label' => 'Admin',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'L',
-                'label' => 'Creatives',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'D',
-                'label' => 'Megotiators',
-                'type' => 'number'
-            ),
-            array(
-                'id' => 'D',
-                'label' => 'Team Leader',
-                'type' => 'number'
+                'id' => 'events',
+                'label' => 'Events',
+                'type' => 'string',
             ),
         );
-        $preEventArray['rows'] = array();
 
-        foreach($preEventScores as $score) {
-            $collection = array(
-                'c' => array(
-                    array(
-                        'v' => $score->name,
-                    ),
-                    array(
-                        'v' => ($score->avg_score / 100),
-                        'f' => round($score->avg_score, 2)
-                    )
-                )
+            // $zero['c'] = array(
+            //     array(
+            //         'v' => 'Start'
+            //     )
+            // );
+            if($eventCategory == 'all' || $eventCategory == 'pre') {
+              $preEvent['c'] = array(
+                  array(
+                      'v' => 'Pre-Event',
+                  )
+              );
+            }
+            if($eventCategory == 'all' || $eventCategory == 'prop') {
+              $propEvent['c'] = array(
+                  array(
+                      'v' => 'Event Proper',
+                  )
+              );
+            }
+            if($eventCategory == 'all' || $eventCategory == 'post') {
+              $postEvent['c'] = array(
+                  array(
+                      'v' => 'Post-Event',
+                  )
+              );
+            }
+
+        foreach($eventData as $data) {
+            $eventArray['cols'][$data['dept_id']] = array(
+                'id' => $data['dept_id'],
+                'label' => $data['name'],
+                'type' => 'number',
             );
-            array_push($preEventArray['rows'], $collection);
+
+            // $zero['c'][$data['dept_id']] = array(
+            //     'v' => 0,
+            //     'f' => 0,
+            // );
+            $preEvent['c'][$data['dept_id']] = array(
+              'v' => ($data['pre_avg_score'] / 100),
+              'f' => round($data['pre_avg_score'], 2),
+            );
+            $propEvent['c'][$data['dept_id']] = array(
+              'v' => ($data['prop_avg_score'] / 100),
+              'f' => round($data['prop_avg_score'], 2),
+            );
+            $postEvent['c'][$data['dept_id']] = array(
+              'v' => ($data['post_avg_score'] / 100),
+              'f' => round($data['post_avg_score'], 2),
+            );
         }
-        $jsonPreEvent = json_encode($preEventArray);
-        
-        return $jsonPreEvent;
+
+        // $eventArray['rows'][] = $zero;
+        if($eventCategory == 'all' || $eventCategory == 'pre') {
+          $eventArray['rows'][] = $preEvent;
+        }
+        if($eventCategory == 'all' || $eventCategory == 'prop') {
+          $eventArray['rows'][] = $propEvent;
+        }
+        if($eventCategory == 'all' || $eventCategory == 'post') {
+          $eventArray['rows'][] = $postEvent;
+        }
+
+        $jsonPreEvent = json_encode($eventArray);
+
+        echo $jsonPreEvent;
     }
 
     public function summary_result(){
@@ -210,7 +199,7 @@ class ValidateController extends Controller
         foreach ($jos as $jo) {
             $contact_array = [];
             $brands_array = [];
-            
+
             foreach($jo->clients->toArray() as $client) {
                 $contact_array[] = $client['client_id'];
                 foreach($client['brands'] as $brand) {
