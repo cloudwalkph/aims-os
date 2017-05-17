@@ -30,11 +30,23 @@
         },
         data: function () {
             return {
-                job_order_no: '',
-                jos: this.propData.assignedJobs
+                jos: []
             }
         },
         methods: {
+          getAssignedJob: function () {
+              this.$http.get('/api/v1/inventory/department')
+                  .then(function (response) {
+                      for (let r of response.data) {
+                          if (r) {
+                              this.jos.push(r);
+                          }
+                      }
+                  })
+                  .catch(function (e) {
+                      console.log('error jobs assigned', e);
+                  });
+          },
             convertDate: function (dateVal) {
                 var milliseconds = Date.parse(dateVal);
                 var d = new Date(milliseconds);
@@ -45,6 +57,7 @@
             },
         },
         mounted: function () {
+          this.getAssignedJob();
         },
         props: [
             'propData'

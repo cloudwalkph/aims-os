@@ -20,7 +20,7 @@ class InventoryJob extends Model
 
     public function jobOrder()
     {
-        return $this->belongsTo('App\Models\JobOrder');
+        return $this->belongsTo('App\Models\JobOrder')->with('products');
     }
 
     public function assignedPerson()

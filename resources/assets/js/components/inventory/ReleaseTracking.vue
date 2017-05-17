@@ -5,7 +5,7 @@
             <h3>
                 Release Tracking
                 <button class="btn btn-default pull-right" onclick="frames['inventoryReleaseFrame'].print()">
-                    <i class="fa fa-print fa-lg"></i> Print Inventory Releases
+                    <i class="fa fa-print fa-lg"></i> Print Releases
                 </button>
             </h3>
         </div>
@@ -17,62 +17,77 @@
             style="margin-top: 20px;"
             v-for="(product, indexTrace) in products"
             :key="product.id"
-            v-if="inventoryJob.job_order_id == product.job_order_id"
           >
-            <label htmlFor="itemname" class="col-sm-4 control-label">
-                Item Name: {{product.name}}
-            </label>
-            <label htmlFor="quantity" class="col-sm-4 control-label">
-                Expected Quantity: {{product.quantity}}
-            </label>
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Products on Hand</th>
-                        <th>Disposed</th>
-                        <th>Returned</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
+            <form
+              @submit.prevent="handleSubmit"
+              :productId="product.id"
+              :workIndex="indexTrace"
+            >
+              <label htmlFor="itemname" class="col-sm-4 control-label">
+                  Item Name: {{product.item_name}}
+              </label>
+              <label htmlFor="quantity" class="col-sm-4 control-label">
+                  Current Stock on Hand: {{getProductsOnHand(product, dateToday)}}
+              </label>
+              <table class="table table-striped table-bordered">
+                  <thead>
+                      <tr>
+                          <th>Date</th>
+                          <th>Products on Hand</th>
+                          <th>Disposed</th>
+                          <th>Returned</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
 
-                <tbody>
+                  <tbody>
 
-                    <tr
-                      v-for="(r, indexD) in detail.releases"
-                      :key="indexD"
-                      v-if="r.product_id == product.id"
-                    >
-                        <td>{{convertDate(r.date)}}</td>
-                        <td>{{productsOnHand(detail, product.id, r.date)}}</td>
-                        <td>{{r.disposed}}</td>
-                        <td>{{returned(detail, product.id, r.date, r.disposed)}}</td>
-                        <td>{{r.status}}</td>
-                        <td class="text-center">
-                            <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
-                            <i class="fa fa-times-circle-o fa-2x text-danger" />
-                        </td>
-                    </tr>
+                      <tr
+                        v-for="(r, indexD) in product.releases"
+                        :key="indexD"
+                      >
+                          <td>{{convertDate(r.date)}}</td>
+                          <td>{{getProductsOnHand(product, r.date)}}</td>
+                          <td>{{r.disposed}}</td>
+                          <td>{{returned(product, r.date, r.disposed)}}</td>
+                          <td><div v-if="r.status = 1">Approved</div><div v-else>Pending</div></td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-sm"><i class="glyphicon glyphicon-pencil"></i></button>
+                            <button type="button" class="btn btn-sm" @click="removeDelivery(product, indexD)"><i class="glyphicon glyphicon-trash"></i></button>
+                          </td>
+                      </tr>
 
-                    <tr>
-                        <td>{{dateToday}}</td>
-                        <td>{{productsOnHand(detail, product.id, dateToday)}}</td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td>
-                            <select class="form-control">
-                                <option>Approved</option>
-                                <option>Pending</option>
-                            </select>
-                        </td>
-                        <td class="text-center">
+                      <tr>
+                          <td>
+                            <div class="input-group date datetimepickerRelease">
+                                <input
+                                  class="form-control"
+                                  name="datetime"
+                                  type="text"
+                                />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                          </td>
+                          <td>{{getProductsOnHand(product, dateToday)}}</td>
+                          <td><input type="text" name="disposedVal" class="form-control" /></td>
+                          <td><input type="text" name="returnedVal" class="form-control" /></td>
+                          <td>
+                              <select name="status" class="form-control">
+                                  <option value="1">Approved</option>
+                                  <option value="0">Pending</option>
+                              </select>
+                          </td>
+                          <td class="text-center">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                          </td>
+                      </tr>
 
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
+                  </tbody>
+              </table>
+            </form>
           </div>
         </div>
         <div
@@ -95,8 +110,7 @@
         },
         data: function () {
             return {
-                detail: this.workDetail,
-                frameSrc: '/inventory/print/release/' + this.inventoryJob.id,
+                frameSrc: '/inventory/print/release/' + this.propIJobId,
             }
         },
         methods: {
@@ -105,35 +119,56 @@
                 var d = new Date(milliseconds);
                 return d.toDateString();
             },
-            productsOnHand: function (detail, product_id, rDate = Date()) {
+            getProductsOnHand: function (product, rDate = Date()) {
                 var total = 0;
                 var rDateParsed = Date.parse(rDate);
-                for (delivery of detail.deliveries) {
-                    if (delivery.product_id == product_id) {
-                        var deliveryDateParsed = Date.parse(delivery.date);
-                        if (deliveryDateParsed <= rDateParsed) {
-                            total = Number(total) + Number(delivery.delivered);
-                        }
+                if(product.deliveries) {
+                  for (delivery of product.deliveries) {
+                    if (delivery.product_id == product.id) {
+                      var deliveryDateParsed = Date.parse(delivery.date);
+                      if (rDateParsed >= deliveryDateParsed) {
+                        total = Number(total) + Number(delivery.delivered);
+                      }
                     }
+                  }
                 }
-                for (release of detail.releases) {
-                    if (release.product_id == product_id) {
-                        var releaseDateParsed = Date.parse(release.date);
-                        if(releaseDateParsed < rDateParsed) {
-                            total = Number(total) - Number(release.disposed);
-                        }
+                if(product.releases) {
+                  for (release of product.releases) {
+                    if (release.product_id == product.id) {
+                      var releaseDateParsed = Date.parse(release.date);
+                      if(rDateParsed > releaseDateParsed) {
+                        total = Number(total) - Number(release.disposed);
+                      }
                     }
+                  }
                 }
                 return total;
             },
-            returned: function (detail, product_id, rDate, iDisposed = 0) {
-                var products = this.productsOnHand(detail, product_id, rDate);
-                return products - iDisposed;
-            }
+            returned: function (product, rDate, iDisposed = 0) {
+                var productsOnHand = this.getProductsOnHand(product, rDate);
+                return productsOnHand - iDisposed;
+            },
+            handleSubmit: function(e) {
+              var form = $(e.target)[0];
+                var workIndex = e.target.getAttribute('workIndex');
+                this.products[workIndex].releases.push({
+                    product_id: e.target.getAttribute('productId'),
+                    date: this.convertDate(form.datetime.value),
+                    disposed: form.disposedVal.value,
+                    status: form.status.value,
+                });
+                form.disposedVal.value = '';
+            },
+            removeRelease: function(product, index) {
+              product.releases.splice(index, 1);
+            },
         },
         mounted: function () {
+          $('.datetimepickerRelease').datetimepicker({
+            defaultDate: moment()
+          });
         },
-        props: ['workDetail', 'products', 'propIJobId', 'inventoryJob']
+        props: ['products', 'propIJobId']
     }
 
 </script>

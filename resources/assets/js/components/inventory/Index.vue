@@ -102,22 +102,61 @@
                         }
                     ],
                     products: [
-                        {
-                            id: 100,
-                            job_order_id: 0,
-                            product_code: 'SAMPLE-1PROD',
-                            name: 'palmolive',
-                            quantity: 1000,
-                            created_date: '2017-02-27',
-                        },
-                        {
-                            id: 101,
-                            job_order_id: 0,
-                            product_code: 'SAMPLE-1PROD',
-                            name: 'safeguard',
-                            quantity: 2000,
-                            created_date: '2017-02-27',
-                        },
+                      {
+                        id: 100,
+                        job_order_id: 0,
+                        product_code: 'SAMPLE-1PROD',
+                        item_name: 'palmolive',
+                        expected_quantity: 1000,
+                        created_date: '2017-02-27',
+                        deliveries: [
+                          {
+                            product_id: 100,
+                            date: '2016-12-22',
+                            delivered: 100,
+                          },
+                          {
+                            product_id: 100,
+                            date: '2016-12-23',
+                            delivered: 200,
+                          },
+                          {
+                            product_id: 100,
+                            date: '2016-12-24',
+                            delivered: 100,
+                          },
+                        ],
+                        releases: [
+                          {
+                            product_id: 100,
+                            date: '2016-12-22',
+                            disposed: 90,
+                            status: 1,
+                          },
+                          {
+                            product_id: 100,
+                            date: '2016-12-24',
+                            disposed: 100,
+                            status: 1,
+                          },
+                          {
+                            product_id: 100,
+                            date: '2016-12-25',
+                            disposed: 150,
+                            status: 1,
+                          },
+                        ]
+                      },
+                      {
+                          id: 101,
+                          job_order_id: 0,
+                          product_code: 'SAMPLE-1PROD',
+                          item_name: 'safeguard',
+                          expected_quantity: 2000,
+                          created_date: '2017-02-27',
+                          deliveries: [],
+                          releases: [],
+                      },
                     ],
                     inventoryJobs: [
                         {
@@ -132,45 +171,6 @@
                             user_id: 0
                         }
                     ],
-                    workDetail: {
-                        deliveries: [
-                            {
-                                product_id: 1,
-                                date: '2016-12-22',
-                                delivered: 100,
-                            },
-                            {
-                                product_id: 2,
-                                date: '2016-12-23',
-                                delivered: 200,
-                            },
-                            {
-                                product_id: 1,
-                                date: '2016-12-24',
-                                delivered: 100,
-                            },
-                        ],
-                        releases: [
-                            {
-                                product_id: 1,
-                                date: '2016-12-22',
-                                disposed: 90,
-                                status: 'Approved',
-                            },
-                            {
-                                product_id: 1,
-                                date: '2016-12-24',
-                                disposed: 100,
-                                status: 'Approved',
-                            },
-                            {
-                                product_id: 2,
-                                date: '2016-12-25',
-                                disposed: 150,
-                                status: 'Approved',
-                            },
-                        ]
-                    },
                     internalInventory: [
                         {
                             id: 0,
@@ -330,17 +330,17 @@
         },
         mounted: function () {
           // this.inventoryData.assignedJobs = [];
-          this.getAssignedJob();
           // this.inventoryData.products = [];
-          this.getInventory();
           // this.inventoryData.internalInventory = [];
-          this.getJob();
           // this.inventoryData.jobOrders = [];
-          this.getJobOrders();
           // this.inventoryData.inventoryJobs = [];
-          this.getJOInventory();
           // this.inventoryData.users = [];
-          this.getUsers();
+          // this.getAssignedJob();
+          // this.getInventory();
+          // this.getJob();
+          // this.getJobOrders();
+          // this.getJOInventory();
+          // this.getUsers();
         }
     }
 

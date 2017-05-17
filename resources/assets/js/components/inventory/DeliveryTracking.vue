@@ -4,7 +4,7 @@
         <div class="col-sm-12">
             <h3>Delivery Tracking</h3>
             <button class="btn btn-default pull-right" onclick="frames['inventoryDeliveryFrame'].print()">
-                <i class="fa fa-print fa-lg"></i> Print Inventory Deliveries
+                <i class="fa fa-print fa-lg"></i> Print Deliveries
             </button>
         </div>
 
@@ -13,16 +13,20 @@
             v-if="products.length > 0"
         >
             <div
-            style="margin-top: 20px;"
-            v-for="(product, indexTrace) in products"
-            :key="product.id"
-            v-if="inventoryJob.job_order_id == product.job_order_id"
+                style="margin-top: 20px;"
+                v-for="(product, indexTrace) in products"
+                :key="product.id"
             >
+              <form
+                @submit.prevent="handleSubmit"
+                :productId="product.id"
+                :workIndex="indexTrace"
+              >
                 <label htmlFor="itemname" class="col-sm-4 control-label">
-                    Item Name: {{product.name}}
+                    Item Name: {{product.item_name}}
                 </label>
                 <label htmlFor="quantity" class="col-sm-4 control-label">
-                    Expected Quantity: {{product.quantity}}
+                    Expected Quantity: {{product.expected_quantity}}
                 </label>
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -37,31 +41,49 @@
                     <tbody>
 
                         <tr
-                        v-for="(d, indexD) in detail.deliveries"
-                        :key="indexD"
-                        v-if="d.product_id == product.id"
+                          v-for="(d, indexD) in product.deliveries"
+                          :key="indexD"
+                          v-if="d.product_id == product.id"
                         >
                             <td>{{convertDate(d.date)}}</td>
                             <td>{{d.delivered}}</td>
-                            <td>{{balance(product.id, indexD)}}</td>
+                            <td>{{balance(product, indexD)}}</td>
                             <td class="text-center">
-                                <i class="fa fa-check-circle-o fa-2x text-success" /> &nbsp;
-                                <i class="fa fa-times-circle-o fa-2x text-danger" @click="removeDelivery(indexTrace, indexD)" />
+                              <button type="button" class="btn btn-sm" @click="editDelivery(product, indexD)"><i class="glyphicon glyphicon-pencil"></i></button>
+                              <button type="button" class="btn btn-sm" @click="removeDelivery(product, indexD)"><i class="glyphicon glyphicon-trash"></i></button>
                             </td>
                         </tr>
 
                         <tr>
-                            <td>{{dateToday}}</td>
                             <td>
-                                <input type="text" class="form-control" :workIndex="indexTrace" :productId="product.id" @keyup.enter="handleSubmit" />
+                                <div class="form-group">
+                                    <div class="input-group date datetimepickerDelivery">
+                                        <input
+                                          class="form-control"
+                                          name="datetime"
+                                          type="text"
+                                        />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="deliveryVal"
+                                />
                             </td>
                             <td><span></span></td>
                             <td class="text-center">
-
+                              <button type="submit" class="btn btn-primary">Save</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+              </form>
             </div>
         </div>
         <div
@@ -84,22 +106,15 @@
         },
         data: function () {
             return {
-                detail: this.workDetail,
-                frameSrc: '/inventory/print/delivery/' + this.inventoryJob.id,
+                frameSrc: '/inventory/print/delivery/' + this.propIJobId,
             }
         },
         methods: {
-            balance: function (product_id, indexD) {
+            balance: function (product, indexD) {
                 var qty = 0;
-                for (var p = 0; p < this.products.length; p++) {
-                    if (this.products[p].id == product_id) {
-                        qty = this.products[p].quantity
-                    }
-                }
+                  qty = product.expected_quantity
                 for (var d = 0; d <= indexD; d++) {
-                    if (this.detail.deliveries[d].product_id == product_id) {
-                        qty = qty - this.detail.deliveries[d].delivered;
-                    }
+                  qty = qty - product.deliveries[d].delivered;
                 }
                 return qty;
             },
@@ -109,23 +124,28 @@
                 return d.toDateString();
             },
             handleSubmit: function (e) {
+              var form = $(e.target)[0];
                 var workIndex = e.target.getAttribute('workIndex');
-                var productId = e.target.getAttribute('productId');
-                var deliveryVal = e.target.value;
-                this.detail.deliveries.push({
-                    product_id: productId,
-                    date: this.dateToday,
-                    delivered: deliveryVal
+                this.products[workIndex].deliveries.push({
+                    product_id: e.target.getAttribute('productId'),
+                    date: this.convertDate(form.datetime.value),
+                    delivered: form.deliveryVal.value
                 });
-                e.target.value = 0;
+                form.deliveryVal.value = '';
             },
-            removeDelivery: function (indexTrace, indexDelivery) {
-                this.detail.deliveries.splice(indexDelivery, 1);
+            editDelivery: function(product, indexDelivery) {
+
+            },
+            removeDelivery: function (product, index) {
+                product.deliveries.splice(index, 1);
             },
         },
         mounted: function () {
+          $('.datetimepickerDelivery').datetimepicker({
+            minDate: moment()
+          });
         },
-        props: ['workDetail', 'products', 'propIJobId', 'inventoryJob']
+        props: ['products', 'propIJobId']
     }
 
 </script>
