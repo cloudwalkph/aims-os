@@ -111,7 +111,7 @@
                 <td>
                   <button class="btn btn-sm btn-danger" @click="handleRemoveManpower(selected.id)"><i class="glyphicon glyphicon-trash"></i></button>
                 </td>
-                <td v-if="selected.surpassing" class="text-center" style="background: grey;color: #fff;">
+                <td v-if="selected.buffer == 1" class="text-center" style="background: grey;color: #fff;">
                   Buffer
                 </td>
               </tr>
@@ -288,7 +288,8 @@
       this.getVenues();
       this.getManpowerSchedule();
       this.manpowerDeployment();
-      console.log(this.joEvent);
+      console.log(JSON.parse(this.joEvent).event_date)
+      console.log(moment(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DDTHH:mm:ss'))
 		},
 		data() {
 			return {
@@ -407,12 +408,11 @@
         simulationTime : '',
         simulationVenue : '',
 
-        event_date : ''
+        event_date : (this.joEvent ? moment(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DDTHH:mm:ss') : '')
 			}
 		},
 		props: [ 
 			'data',
-      'joId',
       'joEvent'
 		],
 		methods : {
@@ -461,27 +461,28 @@
       getSelectedManpower(joNumber) {
         let url = '/api/v1/hr/selected-manpower/' + this.data;
         this.$http.get(url).then(response => {
-
-          for(let jo in this.joManpowerList) // manpower needed list
-          {
-            for(let man in response.data) // selected manpower to jo
-            {
-              let dataList = response.data[man]['manpower'];
-              dataList.venue_id = response.data[man]['venue_id'];
-              if(this.joManpowerList[jo]['manpower_type_id'] == dataList['manpower_type_id'])
-              {
-                if(this.joManpowerList[jo]['manpower_needed'] == this.selectedManpower.length)
-                {
-                  dataList.surpassing = 'Extra';
-                  this.selectedManpower = this.selectedManpower.concat([dataList]);
-                }else{
-                  this.selectedManpower = this.selectedManpower.concat([dataList]);
-                }
+          // console.log(response.data)
+          this.selectedManpower = response.data;
+          // for(let jo in this.joManpowerList) // manpower needed list
+          // {
+          //   for(let man in response.data) // selected manpower to jo
+          //   {
+          //     let dataList = response.data[man]['manpower'];
+          //     dataList.venue_id = response.data[man]['venue_id'];
+          //     if(this.joManpowerList[jo]['manpower_type_id'] == dataList['manpower_type_id'])
+          //     {
+          //       if(this.joManpowerList[jo]['manpower_needed'] == this.selectedManpower.length)
+          //       {
+          //         dataList.surpassing = 'Extra';
+          //         this.selectedManpower = this.selectedManpower.concat([dataList]);
+          //       }else{
+          //         this.selectedManpower = this.selectedManpower.concat([dataList]);
+          //       }
                 
-              }
+          //     }
               
-            }
-          }
+          //   }
+          // }
 
         }, error => {
             console.log(error)

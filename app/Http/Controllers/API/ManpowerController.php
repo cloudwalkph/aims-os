@@ -34,8 +34,8 @@ class ManpowerController extends Controller
                     $q->select('manpower_id')
                     ->whereIn('job_order_id', function($j) {
                         $j->select('job_order_id')
-                        ->whereRaw("UNIX_TIMESTAMP(STR_TO_DATE(`when`, '%M %d %Y %h:%i:%p')) >= UNIX_TIMESTAMP(NOW())")
-                        ->from('job_order_details');
+                        ->whereDate('event_date', '=', Carbon::today()->toDateString())
+                        ->from('job_order_manpower_events');
                     })
                     ->from('job_order_selected_manpowers');
                 })
@@ -49,8 +49,8 @@ class ManpowerController extends Controller
                     $q->select('manpower_id')
                     ->whereIn('job_order_id', function($j) {
                         $j->select('job_order_id')
-                        ->whereRaw("UNIX_TIMESTAMP(STR_TO_DATE(`when`, '%M %d %Y %h:%i:%p')) >= UNIX_TIMESTAMP(NOW())")
-                        ->from('job_order_details');
+                        ->whereDate('event_date', '=', Carbon::today()->toDateString())
+                        ->from('job_order_manpower_events');
                     })
                     ->from('job_order_selected_manpowers');
                 });

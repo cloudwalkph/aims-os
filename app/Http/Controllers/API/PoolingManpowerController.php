@@ -53,15 +53,23 @@ class PoolingManpowerController extends Controller
     public function getSelectedManpower($joNumber) 
     {
         $jo = JobOrder::where('job_order_no', $joNumber)->first();
-
+        $return = [];
         $joSelectedManpower = JobOrderSelectedManpower::with('jobOrder')
             ->with('venue')
             ->with('manpower.manpowerType')
             ->where('job_order_id', $jo->id)
             ->orderBy('id', 'ASC')
             ->get();
-
-        return response()->json($joSelectedManpower, 200);
+        if($joSelectedManpower)
+        {
+            foreach($joSelectedManpower as $key=>$selected)
+            {
+               $selected['manpower']['venue_id'] = $selected['venue_id']; 
+               $selected['manpower']['buffer'] = $selected['buffer']; 
+               $return[] = $selected['manpower'];
+            }
+        }
+        return response()->json($return, 200);
     }
 
     public function addSelectedManpower(Request $request, $joNumber)
