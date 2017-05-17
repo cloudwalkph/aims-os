@@ -93,6 +93,7 @@
               <tr>
                 <td>Full Name</td>
                 <td>Manpower Type</td>
+                <td>Rate</td>
                 <td>Assigned Venue</td>
                 <td>Action</td>
                 <td>&nbsp;</td>
@@ -102,6 +103,7 @@
               <tr v-for="selected in selectedManpower">
                 <td>{{selected.first_name + ' ' + selected.middle_name + ' ' + selected.last_name}}</td>
                 <td>{{selected.manpower_type.name}}</td>
+                <td>{{selected.rate}}</td>
                 <td>
                   <select @change="onAssignVenue($event, selected.id)">
                     <option value=""></option>
@@ -568,7 +570,7 @@
       getManpowerSchedule() {
         let url = '/api/v1/hr/manpower-schedule/' + this.data;
         this.$http.get(url).then(response => {
-          
+          console.log(response.data)
           for(let res of response.data)
           {
             let data = this.parseDateTime(res);
@@ -602,7 +604,7 @@
         let url = '/api/v1/hr/manpower-deployment/' + this.data;
         this.$http.get(url).then(response => {
           this.deploymentManpower = response.data;
-          // console.log(response.data)
+          console.log(response.data)
         }, error => {
           console.log(error);
         })

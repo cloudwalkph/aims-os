@@ -128,7 +128,8 @@ class ManpowerController extends Controller
             'city' => $input['city'],
             'violations' => $input['violations'],
             'birthdate' => $input['birthdate'],
-            'hired_date' => $input['hired_date']
+            'hired_date' => $input['hired_date'],
+            'rate' => $input['rate']
         ];
         
         $manpower = Manpower::create($data);

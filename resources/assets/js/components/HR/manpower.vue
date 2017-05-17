@@ -115,6 +115,13 @@
                                            v-bind:value="rowData.violations" />
                                 </div>
                                 <div class="col-md-4 form-group text-input-container">
+                                    <label class="control-label">Rate</label>
+                                    <input type="number" name="rate"
+                                           id="rate"
+                                           placeholder="Enter Rate" class="form-control" 
+                                           v-bind:value="rowData.rate" />
+                                </div>
+                                <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Documents</label>
                                     <input type="file" name="documents[]"
                                            id="documents"
