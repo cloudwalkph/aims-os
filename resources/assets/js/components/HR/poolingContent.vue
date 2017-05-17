@@ -212,6 +212,7 @@
             </button>
         </div>
         <div class="col-md-12">
+          <h4>EVENT DATE:&nbsp;<span>{{event_date_header}}</span></h4>
           <div class="row">
             <div class="col-md-6">
               <h4 class="text-center">Briefing Schedule</h4>
@@ -288,8 +289,6 @@
       this.getVenues();
       this.getManpowerSchedule();
       this.manpowerDeployment();
-      console.log(JSON.parse(this.joEvent).event_date)
-      console.log(moment(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DDTHH:mm:ss'))
 		},
 		data() {
 			return {
@@ -408,7 +407,8 @@
         simulationTime : '',
         simulationVenue : '',
 
-        event_date : (this.joEvent ? moment(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DDTHH:mm:ss') : '')
+        event_date : (this.joEvent ? moment(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DDTHH:mm:ss') : ''),
+        event_date_header : (this.joEvent ? moment(JSON.parse(this.joEvent).event_date).format('MMM DD, YYYY HH:mm:ss') : '')
 			}
 		},
 		props: [ 
