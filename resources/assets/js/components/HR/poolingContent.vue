@@ -48,8 +48,19 @@
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="plan" style="padding-top: 30px;">
         
+        <div class="col-md-12 col-md-offset-4">
+          <form class="form-inline">
+            <div class="form-group">
+              <label for="exampleInputName2">Event Date</label>
+              <input type="datetime-local" v-model="event_date" name="eventDate" class="form-control" id="joManpowerEvent">
+            </div>
+            <button type="button" class="btn btn-primary" @click="setEventDate">Set Event Date</button>
+          </form>
+        </div>
+
         <h3>Manpower</h3>
         <filter-bar></filter-bar>
+        <selection-filter-inputs></selection-filter-inputs>
         <div class="table-responsive" style="height: 300px;overflow-y: auto;">
          	<vuetable ref="vuetable_manpower"
           			:api-url="apiUrl"
@@ -258,10 +269,12 @@
 	import moment from 'moment';
   import CustomAddAction from '../HR/commons/CustomAddAction';
   import FilterBar from '../HR/commons/FilterBar';
+  import SelectionFilterAction from '../HR/commons/SelectionFilterAction';
 
 	Vue.use(VueEvents);
   Vue.component('CustomAddAction', CustomAddAction);
   Vue.component('filter-bar', FilterBar);
+  Vue.component('selection-filter-inputs', SelectionFilterAction);
 
 	export default {
 		components: {
@@ -275,6 +288,7 @@
       this.getVenues();
       this.getManpowerSchedule();
       this.manpowerDeployment();
+      console.log(this.joEvent);
 		},
 		data() {
 			return {
@@ -306,13 +320,13 @@
         			},
         			{
         				name: 'manpower_type.name',
-                sortField: 'manpower_type.name',
+                sortField: 'manpower_type_id',
         				title: 'Manpower Type',
                 dataClass : 'middleAlign'
         			},
         			{
         				name: 'agency.name',
-                sortField: 'agency.name',
+                sortField: 'agency_id',
         				title: 'Agency',
                         dataClass : 'middleAlign'
         			},
@@ -391,14 +405,35 @@
         batch : '',
         simulationDate : '',
         simulationTime : '',
-        simulationVenue : ''
+        simulationVenue : '',
+
+        event_date : ''
 			}
 		},
 		props: [ 
 			'data',
-      'joId'
+      'joId',
+      'joEvent'
 		],
 		methods : {
+      setEventDate(e) {
+        let joId = $('#jobOrderIdNumber').val();
+        let url = `/api/v1/hr/set/event/${joId}`;
+
+        let data = {
+          'job_order_id' : joId,
+          'event_date' :  this.event_date
+        }
+        
+        this.$http.post(url, data).then(response => {
+            toastr.success('Successfully saved!', 'Success');
+        }, error => {
+            console.log(error);
+            toastr.failed('Failed to save!', 'Failed');
+        });
+
+      },
+
       inputChange(e) {
         this[e.target.id] = e.target.value;
       },
@@ -447,7 +482,6 @@
               
             }
           }
-          console.log(this.selectedManpower)
 
         }, error => {
             console.log(error)
@@ -457,7 +491,7 @@
         let url = `/api/v1/venues/plans/job-order/${$('#jobOrderIdNumber').val()}`;
         this.$http.get(url).then(response => {
             this.venueList = response.data;
-            console.log(response.data)
+            // console.log(response.data)
         }, error => {
             console.log(error)
         });
@@ -600,6 +634,13 @@
         'filter-set' (filterText) {
             this.moreParams = {
                 filter: filterText
+            }
+            
+            Vue.nextTick( () => this.$refs.vuetable_manpower.refresh() )
+        }, 
+        'filter-selection-set' (filterObj) {
+            this.moreParams = {
+                filterSelections: filterObj
             }
             
             Vue.nextTick( () => this.$refs.vuetable_manpower.refresh() )

@@ -9,6 +9,8 @@ use App\Models\JobOrderManpower;
 use App\Models\JobOrderSelectedManpower;
 use App\Models\ManpowerSchedules;
 use App\Models\Venue;
+use App\Models\JobOrderManpowerEvent;
+use Carbon\Carbon;
 
 class PoolingManpowerController extends Controller
 {
@@ -170,6 +172,23 @@ class PoolingManpowerController extends Controller
             }
         }
 
+        return response()->json($return, 200);
+    }
+
+    public function setEventManpower(Request $request, $joId) {
+        $input = $request->all();
+        $input['event_date'] = Carbon::parse($input['event_date'])->toDateTimeString();
+        $return = [];
+        
+        $query = JobOrderManpowerEvent::where('job_order_id', $joId)->first();
+        
+        if($query)
+        {
+            $return[] = JobOrderManpowerEvent::where('job_order_id', $joId)->update($input);
+            return response()->json($return, 200);
+        }
+
+        $return[] = JobOrderManpowerEvent::create($input);
         return response()->json($return, 200);
     }
 

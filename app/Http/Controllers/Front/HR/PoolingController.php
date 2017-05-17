@@ -8,6 +8,7 @@ use App\Models\JobOrder;
 use App\Models\ManpowerSchedules;
 use App\Models\JobOrderSelectedManpower;
 use App\Models\Venue;
+use App\Models\JobOrderManpowerEvent;
 
 class PoolingController extends Controller
 {
@@ -37,10 +38,12 @@ class PoolingController extends Controller
     public function show($joNumber)
     {
         $jobOrder = jobOrder::with('joManpower.manpowerType.manpower')->where('job_order_no',$joNumber)->first();
-        
+        $joEvent = JobOrderManpowerEvent::where('job_order_id',$jobOrder->id)->first();
+
         return view('hr.Department.poolingDetailView')
                 ->with('jobOrder', $joNumber)
-                ->with('joId', $jobOrder->id);
+                ->with('joId', $jobOrder->id)
+                ->with('joEvent', $joEvent);
     }
 
     public function previewFinalDeployment($joNumber) {

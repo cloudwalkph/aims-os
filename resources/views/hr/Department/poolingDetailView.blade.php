@@ -5,7 +5,7 @@
     	<div class="row" >
     		<input id="jobOrderNumberElement" value="{{$jobOrder}}" type="hidden"/>
     		<input id="jobOrderIdNumber" value="{{$joId}}" type="hidden"/>
-    		<pooling-content data="{{$jobOrder}}" joId="{{$joId}}"></pooling-content>
+    		<pooling-content data="{{$jobOrder}}" joId="{{$joId}}" joEvent="{{$joEvent}}"></pooling-content>
     	</div>
     </div>
 

@@ -26,7 +26,7 @@ class ManpowerController extends Controller
 
         if($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
-            \Log::info($sortCol);
+            
             $manpower = Manpower::with('manpowerType')
                 ->with('agency')
                 ->whereNotIn('id', function($q) {
@@ -59,6 +59,32 @@ class ManpowerController extends Controller
         // Filter
         if ($request->has('filter')) {
             $this->filter($manpower, $request, Manpower::$filterable);
+        }
+
+        // Filter Selections
+        if($request->has('filterSelections')) {
+            $selections = $request->get('filterSelections');
+            
+            foreach ($selections as $key=>$filterVal)
+            {
+                if($filterVal)
+                    if($key == 'birthdate') // filter by age
+                    {
+                        $minAge = 18;
+                        $maxAge = $filterVal;
+                        
+                        $minDate = Carbon::today()->subYears($maxAge + 1)->endOfDay();
+                        $maxDate = Carbon::today()->subYears($minAge);
+                        
+                        $manpower->whereBetween($key, [$minDate, $maxDate]);  
+
+                        \Log::info($minDate.'>'.$maxDate);
+                        \Log::info($manpower->toSql());
+                    }else // filter selections
+                    {
+                        $manpower->where($key, $filterVal);    
+                    }
+            }
         }
 
         $data = $this->parseData($manpower->paginate());
