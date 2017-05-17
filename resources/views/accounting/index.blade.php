@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container-fluid">
         <div class="row">
 
@@ -25,11 +26,10 @@
             </div>
 
             <div class="col-md-12">
-                <table class="table table-striped" style="margin-top: 30px">
+                <table id="accounting_table" class="table table-striped" style="margin-top: 30px">
                     <thead>
                     <tr>
                         <td width="150">Job Order No.</td>
-                        <td width="150">Contract Number</td>
                         <td width="400">AE Assigned</td>
                         <td width="200">Project Name</td>
                         <td width="200">Client</td>
@@ -48,20 +48,6 @@
                         <tr>
                             <td>{{$jo['joId']}}</td>
                             <td>
-
-                                <?=$jo['coNo'] ?>
-
-                                <form action="/accounting/cono" method="post">
-
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="joID" value="{{$jo['joId']}}">
-                                    <input class="" name="cono" alt="28" placeholder="Contract No.">
-                                    <button class="btn btn-primary" type="submit">Add</button>
-
-                                </form>
-
-                            </td>
-                            <td>
                                 {{$jo['assigned']}}
                             </td>
                             <td>{{$jo['projName']}}</td>
@@ -78,7 +64,11 @@
 
                             @else
 
-                                <td><button class="btn btn-primary tiny btnForDocUpload" data-toggle="modal" data-target="#modalDoc" value="{{$jo['joId']}}" alt="ce">CE</button></td>
+                                @if( $dptid != 8 )
+                                    <td><button class="btn btn-primary tiny btnForDocUpload" data-toggle="modal" data-target="#modalDoc" value="{{$jo['joId']}}" alt="ce">CE</button></td>
+                                @else
+                                    <td> </td>
+                                @endif
 
                             @endif
 
@@ -90,15 +80,17 @@
 
                             @else
 
-                                <td><button class="btn btn-primary tiny btnForDocUpload" data-toggle="modal" data-target="#modalDoc" value="{{$jo['joId']}}" alt="do">Do</button></td>
+                                @if( $dptid != 8 )
+                                    <td><button class="btn btn-primary tiny btnForDocUpload" data-toggle="modal" data-target="#modalDoc" value="{{$jo['joId']}}" alt="do">Do</button></td>
+                                @else
+                                    <td> </td>
+                                @endif
 
                             @endif
 
                             @if( $jo['transmittal'] != null )
 
-                                <td>
-                                    {{ $jo['transmittal'] }}
-                                </td>
+                                <?=$jo['transmittal']?>
 
                             @else
 
@@ -149,11 +141,11 @@
                             @endif
 
                             <td>
-                                <button class="btn btn-primary btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks">Remarks</button>
-
                                 @if( $jo['remarks'] != null )
                                     <p>{{ $jo['remarks']  }}</p>
                                 @endif
+
+                                <button class="btn btn-primary btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks">Remarks</button>
 
                             </td>
                         </tr>
@@ -173,7 +165,7 @@
                 <form action="/accounting/check" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" id="joID" name="joID" value="">
-                    <input type="hidden" id="docType" name="docType" value="">
+                    <input type="hidden" id="documentsType" name="docType" value="">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Upload CE</h4>
@@ -265,12 +257,14 @@
 
 @section('scripts')
 
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
     <script>
         $('.btnForDocUpload').on('click', function(){
             var jid = $(this).val();
             var doc = $(this).attr('alt');
             $('#joID').val(jid);
-            $('#docType').val(doc);
+            $('#documentsType').val(doc);
         });
         $('.btnForPdUpload').on('click', function(){
             var jid = $(this).val();
@@ -282,5 +276,10 @@
             var jid = $(this).val();
             $('#remarks_joID').val(jid);
         });
+        $(document).ready(function() {
+            $('#accounting_table').DataTable({
+                "bFilter": false
+            });
+        } );
     </script>
 @endsection

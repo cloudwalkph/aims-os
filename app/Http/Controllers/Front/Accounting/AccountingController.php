@@ -28,9 +28,13 @@ class AccountingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request )
     {
         config(['app.name' => 'Accounting | AIMS']);
+
+        $user = $request->user();
+
+        $dptid = $user->department->id;
 
         $results = array();
 
@@ -97,6 +101,35 @@ class AccountingController extends Controller
             }
 //            dd($contractList);
 
+            $str_tp_bg = '';
+            $date = '';
+            $str_tp_bg_class = '';
+            $day_count = 0;
+            $now = time(); // or your date as well
+            $your_date = strtotime( $transmittal );
+            $datediff = abs( $now - $your_date );
+            $day_count = floor( $datediff/(60*60*24));
+            $date = '[ '.$day_count.' days]';
+
+            if( $day_count <= 45 ){
+                $str_tp_bg = 'background-color: green; color:white;';
+            }elseif( ( $day_count > 45 ) && ( $day_count <= 60)  ){
+                $str_tp_bg = 'background-color: yellow; color:black;';
+            }elseif( ( $day_count > 60 ) && ( $day_count <= 120 ) ){
+                $str_tp_bg = 'background-color: red; color:white;';
+            }else{
+                $str_tp_bg_class = 'emergency';
+                $str_tp_bg = '';
+            }
+
+            if( $transmittal == null ){
+                $date = '';
+                $str_tp_bg_class = '';
+                $str_tp_bg = '';
+            }
+
+
+
             $jobArray = array(
                 'joId' => $jo->job_order_no,
                 'coNo' => $contractList,
@@ -108,7 +141,7 @@ class AccountingController extends Controller
                 'ceFile' => $ceFile,
                 'doNo' => $doNumber,
                 'doFile' => $doFile,
-                'transmittal' => $transmittal,
+                'transmittal' => '<td class="'.$str_tp_bg_class.'" style = " text-align: center;'.$str_tp_bg.'">'.$transmittal.' <br/>'.$date.'</td>',
                 'invoiceNo' => $invoiceNo,
                 'invoiceFile' => $invoiceFile,
                 'paidDate' => $paidDate,
@@ -120,17 +153,7 @@ class AccountingController extends Controller
 //            dd($results);
         }
 
-        return view('accounting.index', compact('results'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('accounting.index', compact('results', 'dptid'));
     }
 
     /**
@@ -174,28 +197,6 @@ class AccountingController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -236,19 +237,9 @@ class AccountingController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function check(Request $request, Redirector $redirect){
 
+//        dd($request);
         $destinationPath = 'uploads';
         $filePath = null;
 

@@ -71,7 +71,67 @@ class ValidateController extends Controller
             ),
             array(
                 'id' => 'B',
-                'label' => 'Score',
+                'label' => 'Accounting',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'C',
+                'label' => 'Accounts',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'D',
+                'label' => 'Productions',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'E',
+                'label' => 'CMTUVA',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'F',
+                'label' => 'HR',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'G',
+                'label' => 'Inventory',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'H',
+                'label' => 'Setup',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'I',
+                'label' => 'Operations',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'J',
+                'label' => 'Activations',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'K',
+                'label' => 'Admin',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'L',
+                'label' => 'Creatives',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'D',
+                'label' => 'Megotiators',
+                'type' => 'number'
+            ),
+            array(
+                'id' => 'D',
+                'label' => 'Team Leader',
                 'type' => 'number'
             ),
         );
@@ -81,7 +141,7 @@ class ValidateController extends Controller
             $collection = array(
                 'c' => array(
                     array(
-                        'v' => $score->name
+                        'v' => $score->name,
                     ),
                     array(
                         'v' => ($score->avg_score / 100),
@@ -119,12 +179,24 @@ class ValidateController extends Controller
 
         $joArrays = array();
 
-        $assignments = Assignment::where('user_id', $uid)
-            ->get();
+        if( $uid != null ){
+            $assignments = Assignment::where('user_id', $uid)
+                ->get();
 
-        foreach ($assignments as $assignment){
 
-            array_push($joArrays, $assignment->job_order_id);
+            foreach ($assignments as $assignment){
+
+                array_push($joArrays, $assignment->job_order_id);
+
+            }
+        }else{
+
+            $assignments = Assignment::get();
+            foreach ($assignments as $assignment){
+
+                array_push($joArrays, $assignment->job_order_id);
+
+            }
 
         }
 
@@ -150,7 +222,7 @@ class ValidateController extends Controller
                 'joId' => $jo->job_order_no,
                 'assigned' => $jo->user_profile->last_name.', '.$jo->user_profile->first_name,
                 'projName' => $jo->project_name,
-//                'contact' => implode(', ', $contact_array),
+                'contact' => implode(', ', $contact_array),
                 'brands' => implode(', ', $brands_array),
                 'status' => $jo->status,
                 'projecttypes' => implode(', ', array_column(json_decode($jo->project_types, true), 'name'))
