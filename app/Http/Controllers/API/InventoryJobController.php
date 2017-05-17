@@ -146,7 +146,7 @@ class InventoryJobController extends Controller
      */
     public function show($id)
     {
-        return InventoryJob::find($id);
+        return InventoryJob::with('jobOrder', 'assignedPerson')->find($id);
     }
 
     /**
