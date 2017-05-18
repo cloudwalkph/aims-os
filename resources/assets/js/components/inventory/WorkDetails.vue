@@ -34,7 +34,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <delivery-tracking
-                                :products="products"
+                              :propIJobId="propIJobId"
+                              :products="products"
                             >
                             </delivery-tracking>
                         </div>
@@ -45,7 +46,8 @@
 
                         <div class="col-sm-12">
                             <release-tracking
-                                :products="products"
+                              :propIJobId="propIJobId"
+                              :products="products"
                             >
                             </release-tracking>
                         </div>

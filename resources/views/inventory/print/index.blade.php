@@ -30,16 +30,24 @@
 <body>
   <div class="row">
     <div class="col-md-12">
+
       <div style="text-align: center">
         <img src="/img/aai-logo.png" alt="aims logo" style="height: 100px"/>
       </div>
-        
-    </div>
 
-    <div class="col-md-12">
-      {!! $content !!}
-    </div>
+      <div class="row">
+        <div class="col-md-12">
+          {!! $header !!}
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col-md-12">
+          {!! $content !!}
+        </div>
+      </div>
+
+    </div>
   </div>
 </body>
 </html>

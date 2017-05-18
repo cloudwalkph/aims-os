@@ -1,8 +1,13 @@
 <template>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <h1>Product List</h1>
+            <button class="btn btn-default pull-right" onclick="frames['productListFrame'].print()">
+                <i class="fa fa-print fa-lg"></i> Print Product List
+            </button>
+        </div>
+        <div class="col-md-12">
             <div class="content">
               <filter-bar></filter-bar>
               <vuetable ref="vuetable"
@@ -29,6 +34,8 @@
               </div>
             </div>
         </div>
+
+        <iframe name="productListFrame" :src="frameSrc" style="width:0; height:0"></iframe>
     </div>
 
 </template>
@@ -49,6 +56,7 @@
         },
         data: function () {
             return {
+              frameSrc: '/inventory/print/product',
               fields: [
                 {
                   name: 'job_order_no',
@@ -67,8 +75,16 @@
                 },
                 {
                   name: 'expected_quantity',
+                  title: 'Expected Quantity',
+                },
+                {
+                  name: 'products_on_hand',
                   title: 'Products on Hand',
                 },
+                {
+                  name: 'disposed',
+                  title: 'Disposed'
+                }
               ],
               css: {
                 table: {
