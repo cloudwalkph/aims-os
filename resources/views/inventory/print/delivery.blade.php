@@ -1,7 +1,7 @@
 <h3>Delivery Tracking</h3>
 
 <div class="row">
-@foreach($iJob->jobOrder->productDeliveries as $product)
+@foreach($iJob->jobOrder->products as $product)
 <?php
   $balance = $product->expected_quantity;
  ?>

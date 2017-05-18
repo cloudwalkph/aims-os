@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\InventoryDeliveries;
+use App\Models\InventoryReleases;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 
-class InventoryDeliveriesController extends Controller
+class InventoryReleasesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,22 +39,23 @@ class InventoryDeliveriesController extends Controller
     {
         //
         $user = $request->user();
-        $delivery_data = array(
+        $release_data = array(
           'user_id' => $user->id,
           'product_id' => $request->product_id,
-          'delivery_quantity' => $request->delivery_quantity,
-          'delivery_date' => date('Y-m-d H:i:s', strtotime($request->delivery_date)),
+          'dispose_quantity' => $request->dispose_quantity,
+          'return_quantity' => $request->return_quantity,
+          'release_date' => date('Y-m-d H:i:s', strtotime($request->release_date)),
         );
-        $delivery = InventoryDeliveries::create($delivery_data);
+        $release = InventoryReleases::create($release_data);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
+     * @param  \App\InventoryReleases  $inventoryReleases
      * @return \Illuminate\Http\Response
      */
-    public function show(InventoryDeliveries $inventoryDeliveries)
+    public function show(InventoryReleases $inventoryReleases)
     {
         //
     }
@@ -62,10 +63,10 @@ class InventoryDeliveriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
+     * @param  \App\InventoryReleases  $inventoryReleases
      * @return \Illuminate\Http\Response
      */
-    public function edit(InventoryDeliveries $inventoryDeliveries)
+    public function edit(InventoryReleases $inventoryReleases)
     {
         //
     }
@@ -74,10 +75,10 @@ class InventoryDeliveriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
+     * @param  \App\InventoryReleases  $inventoryReleases
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InventoryDeliveries $inventoryDeliveries)
+    public function update(Request $request, InventoryReleases $inventoryReleases)
     {
         //
     }
@@ -85,10 +86,10 @@ class InventoryDeliveriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
+     * @param  \App\InventoryReleases  $inventoryReleases
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InventoryDeliveries $inventoryDeliveries)
+    public function destroy(InventoryReleases $inventoryReleases)
     {
         //
     }

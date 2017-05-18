@@ -62,12 +62,7 @@ class JobOrder extends Model
 
     public function products()
     {
-        return $this->hasMany(JobOrderProduct::class);
-    }
-
-    function productDeliveries()
-    {
-        return $this->hasMany(JobOrderProduct::class)->with('deliveries');
+        return $this->hasMany(JobOrderProduct::class)->with('deliveries', 'releases');
     }
 
     public function discussions()

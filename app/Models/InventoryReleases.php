@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class InventoryDeliveries extends Model
+class InventoryReleases extends Model
 {
     //
     use SoftDeletes;
@@ -14,7 +14,7 @@ class InventoryDeliveries extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'product_id', 'delivery_quantity', 'delivery_date'];
+    protected $fillable = ['user_id', 'product_id', 'dispose_quantity', 'return_quantity', 'release_date'];
     /**
      * The attributes that should be mutated to dates.
      *

@@ -47,10 +47,10 @@
                         v-for="(r, indexD) in product.releases"
                         :key="indexD"
                       >
-                          <td>{{convertDate(r.date)}}</td>
+                          <td>{{convertDate(r.release_date)}}</td>
                           <td>{{getProductsOnHand(product, r.date)}}</td>
-                          <td>{{r.disposed}}</td>
-                          <td>{{returned(product, r.date, r.disposed)}}</td>
+                          <td>{{r.dispose_quantity}}</td>
+                          <td>{{r.return_quantity}}</td>
                           <td><div v-if="r.status = 1">Approved</div><div v-else>Pending</div></td>
                           <td class="text-center">
                             <button type="button" class="btn btn-sm"><i class="glyphicon glyphicon-pencil"></i></button>
@@ -63,7 +63,7 @@
                             <div class="input-group date datetimepickerRelease">
                                 <input
                                   class="form-control"
-                                  name="datetime"
+                                  name="datetimeRelease"
                                   type="text"
                                 />
                                 <span class="input-group-addon">
@@ -125,9 +125,9 @@
                 if(product.deliveries) {
                   for (delivery of product.deliveries) {
                     if (delivery.product_id == product.id) {
-                      var deliveryDateParsed = Date.parse(delivery.date);
-                      if (rDateParsed >= deliveryDateParsed) {
-                        total = Number(total) + Number(delivery.delivered);
+                      var deliveryDateParsed = Date.parse(delivery.delivery_date);
+                      if (deliveryDateParsed <= rDateParsed) {
+                        total = Number(total) + Number(delivery.delivery_quantity);
                       }
                     }
                   }
@@ -135,9 +135,9 @@
                 if(product.releases) {
                   for (release of product.releases) {
                     if (release.product_id == product.id) {
-                      var releaseDateParsed = Date.parse(release.date);
-                      if(rDateParsed > releaseDateParsed) {
-                        total = Number(total) - Number(release.disposed);
+                      var releaseDateParsed = Date.parse(release.release_date);
+                      if(releaseDateParsed < rDateParsed) {
+                        total = Number(total) - Number(release.dispose_quantity) + Number(release.return_quantity);
                       }
                     }
                   }
@@ -150,14 +150,26 @@
             },
             handleSubmit: function(e) {
               var form = $(e.target)[0];
-                var workIndex = e.target.getAttribute('workIndex');
-                this.products[workIndex].releases.push({
-                    product_id: e.target.getAttribute('productId'),
-                    date: this.convertDate(form.datetime.value),
-                    disposed: form.disposedVal.value,
-                    status: form.status.value,
+              var workIndex = e.target.getAttribute('workIndex');
+              var product_id = e.target.getAttribute('productId');
+              var dispose_quantity = form.disposedVal.value;
+              var return_quantity = form.returnedVal.value
+
+              var postData = {
+                product_id: product_id,
+                dispose_quantity: dispose_quantity,
+                return_quantity: return_quantity,
+                release_date: form.datetimeRelease.value,
+              }
+
+              this.$http.post('/api/v1/inventory/release', postData)
+                .then(function (response) {
+                  form.reset();
+                  this.products[workIndex].releases.push(postData);
+                })
+                .catch(function (e) {
+                  console.log('error post inventory release', e);
                 });
-                form.disposedVal.value = '';
             },
             removeRelease: function(product, index) {
               product.releases.splice(index, 1);

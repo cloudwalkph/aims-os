@@ -30,6 +30,11 @@ class JobOrderProduct extends Model
 
     function deliveries()
     {
-        return $this->hasMany('App\Models\InventoryDeliveries', 'product_id');
+      return $this->hasMany('App\Models\InventoryDeliveries', 'product_id');
+    }
+
+    function releases()
+    {
+      return $this->hasMany('App\Models\InventoryReleases', 'product_id');
     }
 }

@@ -141,7 +141,7 @@
                   this.products[workIndex].deliveries.push(postData);
                 })
                 .catch(function (e) {
-                  console.log('error post delivery', e);
+                  console.log('error post inventory delivery', e);
                 });
             },
             editDelivery: function(product, indexDelivery) {
