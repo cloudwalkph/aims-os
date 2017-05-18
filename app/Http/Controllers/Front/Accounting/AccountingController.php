@@ -110,22 +110,23 @@ class AccountingController extends Controller
             $datediff = abs( $now - $your_date );
             $day_count = floor( $datediff/(60*60*24));
             $date = '[ '.$day_count.' days]';
+            $transmittal_value = '';
 
             if( $day_count <= 45 ){
-                $str_tp_bg = 'background-color: green; color:white;';
+                $transmittal_value = '<td style = " text-align: center;background-color: green; color:white;">'.$transmittal.' <br/>'.$date.'</td>';
             }elseif( ( $day_count > 45 ) && ( $day_count <= 60)  ){
-                $str_tp_bg = 'background-color: yellow; color:black;';
+                $transmittal_value = '<td style = " text-align: center; background-color: yellow; color:black">'.$transmittal.' <br/>'.$date.'</td>';
             }elseif( ( $day_count > 60 ) && ( $day_count <= 120 ) ){
-                $str_tp_bg = 'background-color: red; color:white;';
+                $transmittal_value = '<td style = " text-align: center; background-color: red; color:white;">'.$transmittal.' <br/>'.$date.'</td>';
             }else{
-                $str_tp_bg_class = 'emergency';
-                $str_tp_bg = '';
+                $transmittal_value = '<td class="emergency" style = " text-align: center;">'.$transmittal.' <br/>'.$date.'</td>';
             }
 
             if( $transmittal == null ){
                 $date = '';
                 $str_tp_bg_class = '';
                 $str_tp_bg = '';
+                $transmittal_value = null;
             }
 
 
@@ -141,7 +142,7 @@ class AccountingController extends Controller
                 'ceFile' => $ceFile,
                 'doNo' => $doNumber,
                 'doFile' => $doFile,
-                'transmittal' => '<td class="'.$str_tp_bg_class.'" style = " text-align: center;'.$str_tp_bg.'">'.$transmittal.' <br/>'.$date.'</td>',
+                'transmittal' => $transmittal_value,
                 'invoiceNo' => $invoiceNo,
                 'invoiceFile' => $invoiceFile,
                 'paidDate' => $paidDate,
