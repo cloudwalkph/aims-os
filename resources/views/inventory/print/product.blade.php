@@ -21,8 +21,8 @@
                   <td>{{$product->jobOrder->project_name}}</td>
                   <td>{{$product->item_name}}</td>
                   <td>{{$product->expected_quantity}}</td>
-                  <td>100</td>
-                  <td>0</td>
+                  <td>{{$product->products_on_hand}}</td>
+                  <td>{{$product->disposed}}</td>
               </tr>
 @endforeach
           </tbody>

@@ -90,6 +90,15 @@ class JobOrderProductController extends Controller {
         $query->join('job_orders', 'job_orders.id', '=', 'job_order_products.job_order_id');
         $query->addSelect('job_orders.project_name', 'job_orders.job_order_no');
 
+        $query->join(\DB::raw('(SELECT product_id, SUM(delivery_quantity) AS products_on_hand FROM inventory_deliveries GROUP BY product_id) AS inventory_deliveries'), function($q) {
+          $q->on('job_order_products.id', '=', 'inventory_deliveries.product_id');
+        });
+        $query->addSelect('products_on_hand');
+        $query->join(\DB::raw('(SELECT product_id, SUM(dispose_quantity) AS disposed FROM inventory_releases GROUP BY product_id) AS inventory_releases'), function($q) {
+          $q->on('job_order_products.id', '=', 'inventory_releases.product_id');
+        });
+        $query->addSelect('disposed');
+
         // Filter
         if ($request->has('filter')) {
             $this->filter($query, $request, array('project_name', 'job_order_no', 'item_name'));

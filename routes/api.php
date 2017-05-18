@@ -57,6 +57,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::resource('job', 'InventoryJobController');
         Route::resource('user', 'InventoryJobAssignedPersonController');
         Route::get('department', 'InventoryController@getByDepartmentInvolvement');
+        Route::resource('delivery', 'InventoryDeliveriesController');
+        Route::resource('release', 'InventoryReleasesController');
     });
 
     // Clients
