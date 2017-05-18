@@ -209,18 +209,19 @@
       </div>
       <div role="tabpanel" class="tab-pane" id="final_deployment" style="padding-top: 30px;">
         <div class="col-md-12">
+            <h4 class="text-center">EVENT DATE:&nbsp;<span>{{event_date_header}}</span></h4>
             <button class="btn btn-default pull-right" onclick="frames['finalDeploymentFrame'].print()">
                 <i class="fa fa-print fa-lg"></i> Print Final deployment
             </button>
         </div>
         <div class="col-md-12">
-          <h4>EVENT DATE:&nbsp;<span>{{event_date_header}}</span></h4>
           <div class="row">
             <div class="col-md-6">
               <h4 class="text-center">Briefing Schedule</h4>
               <div v-for="(briefing, key) in deploymentManpower.briefing">
                 <table class="table table-striped">
                   <caption>Team : {{key}}</caption>
+                  <caption>Date : {{briefing.schedule.created_datetime}}</caption>
                   <thead>
                     <tr>
                       <th>Full Name</th>
@@ -228,7 +229,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="manpowerList in briefing">
+                    <tr v-for="manpowerList in briefing.manpower_list">
                       <td>{{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}</td>
                       <td>{{manpowerList.manpower.manpower_type.name}}</td>
                     </tr>
@@ -241,6 +242,7 @@
               <div v-for="(simulation, key) in deploymentManpower.simulation">
                 <table class="table table-striped">
                   <caption>Team : {{key}}</caption>
+                  <caption>Date : {{simulation.schedule.created_datetime}}</caption>
                   <thead>
                     <tr>
                       <th>Full Name</th>
@@ -248,7 +250,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="manpowerList in simulation">
+                    <tr v-for="manpowerList in simulation.manpower_list">
                       <td>{{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}</td>
                       <td>{{manpowerList.manpower.manpower_type.name}}</td>
                     </tr>
@@ -410,7 +412,7 @@
         simulationVenue : '',
 
         event_date : (this.joEvent ? moment(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DDTHH:mm:ss') : ''),
-        event_date_header : (this.joEvent ? moment(JSON.parse(this.joEvent).event_date).format('MMM DD, YYYY HH:mm:ss') : '')
+        event_date_header : (this.joEvent ? moment(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DD HH:mm:ss') : '')
 			}
 		},
 		props: [ 
@@ -604,7 +606,7 @@
         let url = '/api/v1/hr/manpower-deployment/' + this.data;
         this.$http.get(url).then(response => {
           this.deploymentManpower = response.data;
-          console.log(response.data)
+          console.log(response.data);
         }, error => {
           console.log(error);
         })

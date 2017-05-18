@@ -58,12 +58,14 @@ class PoolingController extends Controller
             
             if($sched->type == 'briefingSched')
             {
-                $return['briefing'][$venue->venue] = JobOrderSelectedManpower::with('manpower.manpowerType')->where('job_order_id', $jo->id)->where('venue_id',$venue->id)->get(); 
+                $return['briefing'][$venue->venue]['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerType')->where('job_order_id', $jo->id)->where('venue_id',$venue->id)->get(); 
+                $return['briefing'][$venue->venue]['schedule'] = $sched;
             }
 
             if($sched->type == 'simulationSched')
             {
-                $return['simulation'][$venue->venue] = JobOrderSelectedManpower::with('manpower.manpowerType')->where('job_order_id', $jo->id)->where('venue_id',$venue->id)->get(); 
+                $return['simulation'][$venue->venue]['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerType')->where('job_order_id', $jo->id)->where('venue_id',$venue->id)->get(); 
+                $return['simulation'][$venue->venue]['schedule'] = $sched;
             }
         }
 

@@ -45,6 +45,18 @@
                 </h5>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <h5>
+                    <b>PROJECT NAME.:</b> {{ $jo->project_name }}
+                </h5>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                <h5>
+                    <b>DATE:</b> {{ $jo->created_at->toFormattedDateString() }}
+                </h5>
+            </div>
+        </div>
         {{--jo number and date end--}}
 
         <div class="row">
@@ -54,6 +66,7 @@
                 @foreach($data['briefing'] as $key=>$briefing)
                 <table class="table table-striped">
                   <caption>Team : {{$key}}</caption>
+                  <caption>Date : {{$briefing['schedule']['created_datetime']}}</caption>
                   <thead>
                     <tr>
                       <th>Full Name</th>
@@ -61,7 +74,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($briefing as $manpowerList)
+                    @foreach($briefing['manpower_list'] as $manpowerList)
                     <tr>
                       <td>{{$manpowerList['manpower']['first_name'] . ' ' . $manpowerList['manpower']['last_name']}}</td>
                       <td>{{$manpowerList['manpower']['manpowerType']['name']}}</td>
@@ -77,6 +90,7 @@
                 @foreach($data['simulation'] as $key=>$simulation)
                 <table class="table table-striped">
                   <caption>Team : {{$key}}</caption>
+                  <caption>Date : {{$simulation['schedule']['created_datetime']}}</caption>
                   <thead>
                     <tr>
                       <th>Full Name</th>
@@ -84,7 +98,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($simulation as $manpowerList)
+                    @foreach($simulation['manpower_list'] as $manpowerList)
                     
                     <tr>
                       <td>{{$manpowerList['manpower']['first_name'] . ' ' . $manpowerList['manpower']['last_name']}}</td>
