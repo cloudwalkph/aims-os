@@ -94,7 +94,25 @@ class PoolingManpowerController extends Controller
             
             if(!$selectedManpower)
             {
-                $return[] = JobOrderSelectedManpower::create($data);
+                $joManpower = JobOrderManpower::where('job_order_id',$jo->id)->where('manpower_type_id',$manpower['manpower_type_id'])->first();
+                
+                if($joManpower)
+                {
+                    $manpowerNeeded = JobOrderSelectedManpower::where('job_order_id', $jo->id)
+                                                                ->whereIn('manpower_id', function($q) use($joManpower) {
+                                                                    $q->select('id')
+                                                                    ->whereNull('deleted_at')
+                                                                    ->where('manpower_type_id', $joManpower->manpower_type_id)
+                                                                    ->from('manpowers');
+                                                                })->get();
+                    if($joManpower->manpower_needed <= count($manpowerNeeded))
+                    {
+                        $data['buffer'] = 1;
+                    }
+                }
+                
+                $query = JobOrderSelectedManpower::create($data);
+                $return[] = $query;
             }else
             {
                 $return[] = JobOrderSelectedManpower::where('manpower_id',$data['manpower_id'])->update($data);

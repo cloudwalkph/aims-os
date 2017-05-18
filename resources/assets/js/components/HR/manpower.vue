@@ -30,6 +30,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">First Name</label>
                                     <input type="text" name="first_name"
+                                            v-model="rowData.first_name"
                                            id="first_name"
                                            placeholder="Enter first name" class="form-control" 
                                            v-bind:value="rowData.first_name" />
@@ -37,6 +38,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Middle Name</label>
                                     <input type="text" name="middle_name"
+                                            v-model="rowData.middle_name"
                                            id="middle_name"
                                            placeholder="Enter middle name" class="form-control" 
                                            v-bind:value="rowData.middle_name" />
@@ -44,6 +46,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Last Name</label>
                                     <input type="text" name="last_name"
+                                           v-model="rowData.last_name"
                                            id="last_name"
                                            placeholder="Enter last name" class="form-control" 
                                            v-bind:value="rowData.last_name" />
@@ -51,6 +54,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Manpower Type</label>
                                     <select type="date" name="manpower_type_id"
+                                            v-model="rowData.manpower_type_id"
                                            id="manpower_type_id"
                                            placeholder="Select..." class="form-control">
                                            <option v-for="manpowerType in manpowerTypeList" :value="manpowerType.id" v-bind:selected="rowData.manpower_type_id == manpowerType.id">{{manpowerType.name}}</option>
@@ -59,6 +63,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Agency</label>
                                     <select type="date" name="agency_id"
+                                            v-model="rowData.agency_id"
                                            id="agency_id"
                                            placeholder="Select..." class="form-control">
                                            <option v-for="agency in agencyList" :value="agency.id" v-bind:selected="rowData.agency_id == agency.id">{{agency.name}}</option>
@@ -67,6 +72,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Birth Date</label>
                                     <input type="date" name="birthdate"
+                                            v-model="rowData.birthdate"
                                             max="2010-01-01"
                                            id="birthdate"
                                            class="form-control" 
@@ -75,6 +81,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">City</label>
                                     <input type="city" name="city"
+                                            v-model="rowData.city"
                                            id="last_name"
                                            placeholder="Enter City" class="form-control" 
                                            v-bind:value="rowData.city" />
@@ -82,6 +89,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Email Address</label>
                                     <input type="email" name="email"
+                                            v-model="rowData.email"
                                            id="last_email"
                                            placeholder="Enter Email Address" class="form-control" 
                                            v-bind:value="rowData.email" />
@@ -89,6 +97,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Contact Number</label>
                                     <input type="text" name="contact_number"
+                                            v-model="rowData.contact_number"
                                            id="contact_number"
                                            placeholder="Enter contact number" class="form-control" 
                                            v-bind:value="rowData.contact_number" />
@@ -96,6 +105,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Facebook Profile Link</label>
                                     <input type="text" name="fb_link"
+                                            v-model="rowData.fb_link"
                                            id="fb_link"
                                            placeholder="Facebook Link" class="form-control" 
                                            v-bind:value="rowData.fb_link" />
@@ -103,6 +113,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Date Hired</label>
                                     <input type="date" name="hired_date"
+                                            v-model="rowData.hired_date"
                                            id="hired_date"
                                            class="form-control" 
                                            v-bind:value="rowData.hired_date" />
@@ -110,6 +121,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Violations</label>
                                     <input type="text" name="violations"
+                                            v-model="rowData.violations"
                                            id="violations"
                                            placeholder="Enter violations" class="form-control" 
                                            v-bind:value="rowData.violations" />
@@ -117,6 +129,7 @@
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Rate</label>
                                     <input type="number" name="rate"
+                                            v-model="rowData.rate"
                                            id="rate"
                                            placeholder="Enter Rate" class="form-control" 
                                            v-bind:value="rowData.rate" />
@@ -159,7 +172,20 @@
             this.getAgency();
 
             $('#createManpower').on('hidden.bs.modal', (e) => {
-               this.rowData = ''; // reset form data 
+               this.rowData = {
+                    'first_name': null,
+                    'middle_name': null,
+                    'manpower_type_id': 1,
+                    'agency_id': 1,
+                    'birthdate': null,
+                    'city': null,
+                    'email': null,
+                    'contact_number': null,
+                    'fb_link': null,
+                    'hired_date': null,
+                    'violations': null,
+                    'rate': null
+                }; // reset form data 
             });
 
 
@@ -231,7 +257,20 @@
                 },
                 manpowerTypeList : [],
                 agencyList : [],
-                rowData : ''
+                rowData : {
+                    'first_name': null,
+                    'middle_name': null,
+                    'manpower_type_id': 1,
+                    'agency_id': 1,
+                    'birthdate': null,
+                    'city': null,
+                    'email': null,
+                    'contact_number': null,
+                    'fb_link': null,
+                    'hired_date': null,
+                    'violations': null,
+                    'rate': null
+                }
 
         	}
         },
@@ -255,8 +294,11 @@
                 }
                 
                 let form = new FormData($(e.target)[0]);
-                
-                if(this.rowData) // EDIT
+                // for (var pair of form.entries()) {
+                //     console.log(pair[0]+ ', ' + pair[1]); 
+                // }
+                // return;
+                if(this.rowData.id) // EDIT
                 {
                     let url = '/api/v1/hr/manpower/' + this.rowData.id;
                     this.$http.post(url,form).then(response => {

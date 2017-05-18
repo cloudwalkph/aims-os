@@ -41,7 +41,7 @@
       <div class="col-md-4 col-md-offset-4">
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#plan" aria-controls="plan" role="tab" data-toggle="tab">Plan</a></li>
-          <li role="presentation"><a href="#final_deployment" aria-controls="final_deployment" role="tab" data-toggle="tab">Final Deployment</a></li>
+          <li role="presentation"><a href="#final_deployment" aria-controls="final_deployment" role="tab" data-toggle="tab" @click="manpowerDeployment">Final Deployment</a></li>
         </ul>
       </div>
     </div>
@@ -292,7 +292,7 @@
       this.getSelectedManpower();
       this.getVenues();
       this.getManpowerSchedule();
-      this.manpowerDeployment();
+      // this.manpowerDeployment();
 		},
 		data() {
 			return {
@@ -523,6 +523,7 @@
         
         this.$http.post(url, dataArray).then(response => {
           console.log(response.data)
+          this.getSelectedManpower();
           toastr.success('Successfully saved!', 'Success');
         }, error => {
           console.log(error)
@@ -532,7 +533,7 @@
       onAssignVenue(event, manpowerId) {
         let index = this.selectedManpower.findIndex((item) => item.id == manpowerId);
         this.selectedManpower[index].venue_id = event.target.value;
-        console.log(this.selectedManpower);
+        // console.log(this.selectedManpower);
 
       },
       addManpowerSchedule(type) {
@@ -572,7 +573,7 @@
       getManpowerSchedule() {
         let url = '/api/v1/hr/manpower-schedule/' + this.data;
         this.$http.get(url).then(response => {
-          console.log(response.data)
+          // console.log(response.data)
           for(let res of response.data)
           {
             let data = this.parseDateTime(res);
@@ -606,7 +607,7 @@
         let url = '/api/v1/hr/manpower-deployment/' + this.data;
         this.$http.get(url).then(response => {
           this.deploymentManpower = response.data;
-          console.log(response.data);
+          // console.log(response.data);
         }, error => {
           console.log(error);
         })
@@ -630,6 +631,7 @@
             
             Vue.nextTick( 
                 () => {
+                  // console.log(data);
                   this.selectedManpower = this.selectedManpower.concat([data]);
                     $('#button-' + data.id).hide();
                     this.$refs.vuetable_manpower.refresh();

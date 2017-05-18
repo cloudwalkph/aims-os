@@ -32,6 +32,7 @@ class ManpowerController extends Controller
                 ->whereNotIn('id', function($q) {
                     
                     $q->select('manpower_id')
+                    ->whereNull('deleted_at')
                     ->whereIn('job_order_id', function($j) {
                         $j->select('job_order_id')
                         ->whereDate('event_date', '=', Carbon::today()->toDateString())
@@ -47,6 +48,7 @@ class ManpowerController extends Controller
                 ->whereNotIn('id', function($q) {
                     
                     $q->select('manpower_id')
+                    ->whereNull('deleted_at')
                     ->whereIn('job_order_id', function($j) {
                         $j->select('job_order_id')
                         ->whereDate('event_date', '=', Carbon::today()->toDateString())
@@ -116,6 +118,7 @@ class ManpowerController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+
         $data = [
             'first_name' => $input['first_name'],
             'middle_name' => $input['middle_name'],

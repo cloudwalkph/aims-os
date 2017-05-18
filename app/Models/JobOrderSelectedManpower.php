@@ -10,7 +10,7 @@ class JobOrderSelectedManpower extends Model
     use SoftDeletes;
     
     protected $table = 'job_order_selected_manpowers';
-    protected $fillable = ['job_order_id', 'manpower_id','venue_id'];
+    protected $fillable = ['job_order_id', 'manpower_id','venue_id','buffer'];
 
     public function jobOrder()
     {
