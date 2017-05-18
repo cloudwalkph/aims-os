@@ -73,5 +73,19 @@
         </table>
     </div>
 
+    <div class="row">
+      <div class="col-xs-offset-9 col-xs-3 text-right">
+@foreach ($iJob->assignedPerson as $assigned_person)
+        <br />
+        <br />
+        <br />
+        <div class="row" style="text-decoration: overline;">
+          <div style="text-decoration: overline; text-align: center;">
+            <b>{{ $assigned_person->user->profile->first_name . ' ' . $assigned_person->user->profile->last_name }}</b>
+          </div>
+        </div>
+@endforeach
+      </div>
+    </div>
 
 </div>
