@@ -27,4 +27,9 @@ class JobOrderProduct extends Model
     {
         return $this->belongsTo(JobOrder::class);
     }
+
+    function deliveries()
+    {
+        return $this->hasMany('App\Models\InventoryDeliveries', 'product_id');
+    }
 }

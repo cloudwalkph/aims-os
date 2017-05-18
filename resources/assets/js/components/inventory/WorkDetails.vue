@@ -35,7 +35,7 @@
                         <div class="col-sm-12">
                             <delivery-tracking
                               :propIJobId="propIJobId"
-                              :products="products"
+                              :products="job.job_order.product_deliveries"
                             >
                             </delivery-tracking>
                         </div>
@@ -47,7 +47,7 @@
                         <div class="col-sm-12">
                             <release-tracking
                               :propIJobId="propIJobId"
-                              :products="products"
+                              :products="job.job_order.product_deliveries"
                             >
                             </release-tracking>
                         </div>
@@ -71,7 +71,6 @@
         data: function () {
             return {
                 iJobs: [],
-                products: this.propData.products
             }
         },
         methods: {

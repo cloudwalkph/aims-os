@@ -45,8 +45,8 @@
                           :key="indexD"
                           v-if="d.product_id == product.id"
                         >
-                            <td>{{convertDate(d.date)}}</td>
-                            <td>{{d.delivered}}</td>
+                            <td>{{convertDate(d.delivery_date)}}</td>
+                            <td>{{d.delivery_quantity}}</td>
                             <td>{{balance(product, indexD)}}</td>
                             <td class="text-center">
                               <button type="button" class="btn btn-sm" @click="editDelivery(product, indexD)"><i class="glyphicon glyphicon-pencil"></i></button>
@@ -60,7 +60,7 @@
                                     <div class="input-group date datetimepickerDelivery">
                                         <input
                                           class="form-control"
-                                          name="datetime"
+                                          name="datetimeDelivery"
                                           type="text"
                                         />
                                         <span class="input-group-addon">
@@ -114,7 +114,7 @@
                 var qty = 0;
                   qty = product.expected_quantity
                 for (var d = 0; d <= indexD; d++) {
-                  qty = qty - product.deliveries[d].delivered;
+                  qty = qty - product.deliveries[d].delivery_quantity;
                 }
                 return qty;
             },
@@ -125,13 +125,24 @@
             },
             handleSubmit: function (e) {
               var form = $(e.target)[0];
-                var workIndex = e.target.getAttribute('workIndex');
-                this.products[workIndex].deliveries.push({
-                    product_id: e.target.getAttribute('productId'),
-                    date: this.convertDate(form.datetime.value),
-                    delivered: form.deliveryVal.value
+              var workIndex = e.target.getAttribute('workIndex');
+              var product_id = e.target.getAttribute('productId');
+              var delivered_quantity = form.deliveryVal.value;
+
+              var postData = {
+                product_id: product_id,
+                delivery_quantity: delivered_quantity,
+                delivery_date: form.datetimeDelivery.value,
+              }
+
+              this.$http.post('/api/v1/inventory/delivery', postData)
+                .then(function (response) {
+                  form.reset();
+                  this.products[workIndex].deliveries.push(postData);
+                })
+                .catch(function (e) {
+                  console.log('error post delivery', e);
                 });
-                form.deliveryVal.value = '';
             },
             editDelivery: function(product, indexDelivery) {
 
@@ -142,7 +153,7 @@
         },
         mounted: function () {
           $('.datetimepickerDelivery').datetimepicker({
-            minDate: moment()
+            // minDate: moment()
           });
         },
         props: ['products', 'propIJobId']
