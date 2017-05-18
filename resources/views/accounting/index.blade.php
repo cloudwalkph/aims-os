@@ -18,7 +18,7 @@
             </div>
             {{-- breadcrumb end --}}
 
-            <div class="col-md-12">
+            <div class="col-md-12" style="margin-bottom: 10px;">
                 <div class="col-md-3 div30days">30 days</div>
                 <div class="col-md-3 div45days">45 days</div>
                 <div class="col-md-3 div60days">60 days</div>
@@ -26,22 +26,37 @@
             </div>
 
             <div class="col-md-12">
-                <table id="accounting_table" class="table table-striped" style="margin-top: 30px">
+                <table id="accounting_table" class="table table-striped display" style="margin-top: 30px">
                     <thead>
                     <tr>
-                        <td width="150">Job Order No.</td>
-                        <td width="400">AE Assigned</td>
-                        <td width="200">Project Name</td>
-                        <td width="200">Client</td>
-                        <td width="150">Brand</td>
-                        <td width="150">CE</td>
-                        <td width="150">DO No. / PO</td>
-                        <td width="150">Transmittal</td>
-                        <td width="150">Invoice No.</td>
-                        <td width="150">Paid</td>
-                        <td width="150">Remarks</td>
+                        <th width="150">Job Order No.</th>
+                        <th width="400">AE Assigned</th>
+                        <th width="200">Project Name</th>
+                        <th width="200">Client</th>
+                        <th width="150">Brand</th>
+                        <th width="150">CE</th>
+                        <th width="150">DO No. / PO</th>
+                        <th width="150">Transmittal</th>
+                        <th width="150">Invoice No.</th>
+                        <th width="150">Paid</th>
+                        <th width="150">Remarks</th>
                     </tr>
                     </thead>
+                    <tfoot>
+                    <tr>
+                        <th width="150">Job Order No.</th>
+                        <th width="400">AE Assigned</th>
+                        <th width="200">Project Name</th>
+                        <th width="200">Client</th>
+                        <th width="150">Brand</th>
+                        <th width="150">CE</th>
+                        <th width="150">DO No. / PO</th>
+                        <th width="150">Transmittal</th>
+                        <th width="150">Invoice No.</th>
+                        <th width="150">Paid</th>
+                        <th width="150">Remarks</th>
+                    </tr>
+                    </tfoot>
 
                     <tbody id="tbody_accounts">
                         @foreach( $results as $jo)
@@ -276,10 +291,46 @@
             var jid = $(this).val();
             $('#remarks_joID').val(jid);
         });
+
         $(document).ready(function() {
-            $('#accounting_table').DataTable({
-                "bFilter": false
-            });
+
+            $('#accounting_table tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            } );
+
+            var table = $('#accounting_table').DataTable({
+//                "bFilter": false,
+                initComplete: function ()
+                {
+                    var r = $('#accounting_table tfoot tr');
+                    r.find('th').each(function(){
+                        $(this).css('padding', 8);
+                    });
+                    $('#accounting_table thead').append(r);
+                },
+            }).columns().every( function () {
+                var that = this;
+
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+
         } );
     </script>
+
+
+
+    <style>
+
+        .dataTables_filter{
+            float: right;
+        }
+
+    </style>
 @endsection
