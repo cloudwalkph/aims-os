@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Inventory;
+use App\Models\InventoryFiles;
 use App\Models\JobOrderDepartmentInvolved;
 
 use App\Traits\FilterTrait;
@@ -78,6 +79,7 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
+        $user = $request->user();
         $jo = null;
         // Create the jo inventory
         \DB::transaction(function() use ($request, &$jo) {
@@ -92,6 +94,25 @@ class InventoryController extends Controller
             );
             $jo = Inventory::create($input);
         });
+        // upload inventory pictures
+        if($request->hasFile('pictures')) {
+            $pictures = $request->file('pictures');
+            foreach($pictures as $picture) {
+              $extension = $picture->extension();
+              $path = $picture->store('images');
+
+              InventoryFiles::create(
+                array(
+                  'inventory_id' => $jo->id,
+                  'url' => $path,
+                  'file_type' => 'picture'
+                )
+              );
+              $picture->move(public_path('images'), $path);
+            }
+        } else {
+          $jo['warning'] = 'file not present';
+        }
 
         return response()->json($jo, 201);
     }
@@ -104,7 +125,8 @@ class InventoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $inventory = Inventory::with('inventoryFiles')->find($id);
+        return $inventory;
     }
 
     /**
