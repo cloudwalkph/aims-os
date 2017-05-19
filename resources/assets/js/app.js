@@ -84,6 +84,13 @@ Vue.component('discussions', require('./components/job-orders/discussion/discuss
 
 require('./components/inventory');
 
+
+import VeeValidate from 'vee-validate'
+
+Vue.use(VeeValidate, {
+    fieldsBagName: 'validate'
+});
+
 /* HR */
 Vue.component('hraccount', require('./components/HR/hr-account.vue'));
 Vue.component('manpower', require('./components/HR/manpower.vue'));
