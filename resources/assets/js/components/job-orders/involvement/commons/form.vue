@@ -1,5 +1,6 @@
 <template>
     <div class="row">
+    <form @submit.prevent="validateBeforeSubmit">
 
         <div class="col-md-4 form-group text-input-container">
             <label class="control-label col-sm-12" for="department_id">Departments <span class="required-field">*</span></label>
@@ -8,42 +9,45 @@
             </div>
         </div>
 
-        <div class="col-md-4 form-group text-input-container">
+        <div class="col-md-4 form-group text-input-container" :class="{'has-error': errors.has('deadline') }">
             <label class="control-label col-sm-12" for="deadline">Deadline <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <input type="text" name="deadline" required placeholder="Deadline"
-                       id="deadline" class="form-control"
+                       id="deadline" class="form-control" v-model="deadline" v-validate="'required'" 
                        @input="inputChange" v-bind:value="deadline"/>
+                <span v-show="errors.has('deadline')" class="help-block"><strong>{{ errors.first('deadline') }}</strong></span>
             </div>
         </div>
 
         <div class="col-md-4 form-group text-input-container">
-            <label class="control-label col-sm-12" for="department_file">File <span class="required-field">*</span></label>
+            <label class="control-label col-sm-12" for="department_file">File </label>
             <div class="col-md-12">
-                <input type="file" name="department_file" required placeholder="Input file"
+                <input type="file" name="department_file" placeholder="Input file"
                        id="department_file" class="form-control"
                        @input="inputChange" v-bind:value="department_file"/>
             </div>
         </div>
 
-        <div class="col-md-12 form-group text-area-container">
+        <div class="col-md-12 form-group text-area-container" :class="{'has-error': errors.has('deliverables') }">
             <div class="col-md-12">
-                <textarea class="form-control" name="deliverables"
+                <textarea class="form-control" name="deliverables" v-model="deliverables" v-validate="'required'" 
                           placeholder="Enter Deliverables" id="deliverables"
                           @input="inputChange" v-bind:value="deliverables"></textarea>
+                <span v-show="errors.has('deliverables')" class="help-block"><strong>{{ errors.first('deliverables') }}</strong></span>
             </div>
         </div>
 
         <div class="col-md-12 text-right form-group select-input-container">
-            <button type="submit" style="width: 200px" class="btn btn-primary btn-add" @click="saveProject">Save</button>
+            <button type="submit" style="width: 200px" class="btn btn-primary btn-add">Save</button>
         </div>
+    </form>
 
     </div>
 </template>
 
 <script>
     import vSelect from 'vue-select'
-
+    
     Vue.component('v-select', vSelect)
     export default {
         data() {
@@ -52,7 +56,7 @@
                 departmentOptions: [],
                 department_id: '',
                 department_file: '',
-                deadline: moment().format("YYYY-MM-DD HH:mm"),
+                deadline: '',
                 deliverables: '',
                 job_order_id: ''
             }
@@ -65,6 +69,12 @@
             });
         },
         methods: {
+            validateBeforeSubmit(e) {
+                this.$validator.validateAll();
+                if (!this.errors.any()) {
+                    this.saveProject()
+                }
+            },
             resetForm() {
                 this.deadline = ''
                 this.deliverables = ''
