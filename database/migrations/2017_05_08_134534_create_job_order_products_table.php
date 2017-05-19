@@ -18,6 +18,7 @@ class CreateJobOrderProductsTable extends Migration
             $table->integer('job_order_id')->unsigned();
             $table->string('item_name');
             $table->bigInteger('expected_quantity');
+            $table->date('expected_delivery_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
