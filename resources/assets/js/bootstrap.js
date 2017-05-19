@@ -80,6 +80,7 @@ $(function () {
     $('#date_time').datetimepicker();
     $('#deadline').datetimepicker();
     $('#event_when').datetimepicker();
+    $('#expected_delivery_date').datetimepicker();
 });
 
 window.axios.defaults.headers.common = {

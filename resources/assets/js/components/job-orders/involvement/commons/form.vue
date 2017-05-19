@@ -23,7 +23,7 @@
             <label class="control-label col-sm-12" for="department_file">File </label>
             <div class="col-md-12">
                 <input type="file" name="department_file" placeholder="Input file"
-                       id="department_file" class="form-control"
+                       id="department_file"
                        @input="inputChange" v-bind:value="department_file"/>
             </div>
         </div>
@@ -47,7 +47,7 @@
 
 <script>
     import vSelect from 'vue-select'
-    
+
     Vue.component('v-select', vSelect)
     export default {
         data() {
