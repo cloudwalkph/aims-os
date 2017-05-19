@@ -33,8 +33,8 @@
                                 <h5><strong>Remarks</strong>: {{ $jo->remarks }}</h5>
                             </div>
                             <div class="col-md-6">
-                                <h5><strong>Deadline</strong> : {{ \Carbon\Carbon::createFromTimestamp(strtotime($jo->deadline))->toFormattedDateString() }}</h5>
                                 <h5><strong>Assigned Persons</strong> : {{ $jo->assignedUser->profile->first_name }} {{ $jo->assignedUser->profile->last_name }} </h5>
+                                <h5><strong>Internal Deadline</strong> : {{ \Carbon\Carbon::createFromTimestamp(strtotime($jo->deadline))->toFormattedDateString() }}</h5>
                             </div>
                         </div>
                     </div>

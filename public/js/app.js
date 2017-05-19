@@ -40175,6 +40175,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             navLinks: true, // can click day/week names to navigate views
             // businessHours: true, // display business hours
             editable: true
+            // events: events
         });
 
         $('#event_datetime').datetimepicker({
@@ -40241,10 +40242,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     for (var _iterator = _this3.currentEvents[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                         var event = _step.value;
 
+                        var color = '#3a87ad';
+
+                        if (event.type === 'jo') {
+                            color = '#AD9A48';
+                        }
+
                         events.push({
                             id: event.id,
                             title: event.title,
-                            start: event.event_datetime
+                            start: event.event_datetime,
+                            backgroundColor: color
+                            // constraint: 'businessHours'
                         });
                     }
                 } catch (err) {
@@ -104702,28 +104711,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-5"
-  }, _vm._l((_vm.currentEvents), function(event) {
-    return _c('div', [_c('div', {
-      staticClass: "col-md-12 col-sm-12 col-xs-12 event"
-    }, [_c('span', {
-      staticClass: "pull-right",
-      on: {
-        "click": function($event) {
-          _vm.deleteEvent(event.id)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-times fa-2x"
-    })]), _vm._v(" "), _c('h1', {
-      staticClass: "event-title"
-    }, [_vm._v(_vm._s(event.title))]), _vm._v(" "), _c('p', {
-      staticClass: "event-date"
-    }, [_vm._v(_vm._s(event.event_datetime))]), _vm._v(" "), _c('p', {
-      staticClass: "event-desc"
-    }, [_vm._v("Description: " + _vm._s(JSON.parse(event.meta).description))])])])
-  })), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {
       "id": "createSchedule",
@@ -104822,7 +104810,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Save")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-md-7"
+    staticClass: "col-md-12"
   }, [_c('button', {
     staticClass: "btn btn-primary pull-right",
     staticStyle: {

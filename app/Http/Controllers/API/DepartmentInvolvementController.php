@@ -3,12 +3,15 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentInvolved\CreateDepartmentInvolvedRequest;
+use App\Models\Event;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Traits\FilterTrait;
+use App\Traits\SimpleEventTrait;
 use Illuminate\Http\Request;
 
 class DepartmentInvolvementController extends Controller {
-    use FilterTrait;
+    use FilterTrait, SimpleEventTrait;
+
     /**
      * @return \Illuminate\Http\JsonResponse
      */
@@ -66,6 +69,23 @@ class DepartmentInvolvementController extends Controller {
 
             $jo = JobOrderDepartmentInvolved::where('id', $jo->id)
                 ->with('department', 'jobOrder')->first();
+
+            // Create schedule
+            $event = [
+                'meta'  => [
+                    'job_order_id'  => $jo->job_order_id,
+                    'deliverables'  => $jo->deliverables,
+                    'file'          => $jo->file
+                ],
+                'event_datetime'    => $jo->deadline,
+                'department_id'     => $jo->department_id,
+                'user_id'           => 0,
+                'title'             => $jo->jobOrder->job_order_no . ': ' . $jo->jobOrder->project_name,
+                'type'              => 'jo',
+                'scope'             => 'public'
+            ];
+
+            $this->createEvent($event);
         });
 
         return response()->json($jo, 201);
