@@ -27,4 +27,9 @@ class Inventory extends Model
     {
         return $this->belongsTo(JobOrder::class);
     }
+
+    function inventoryFiles()
+    {
+        return $this->hasMany(InventoryFiles::class);
+    }
 }
