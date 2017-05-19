@@ -4,18 +4,18 @@
         <div class="col-md-12">
             <h3>Assigned Job Orders</h3>
             <div class="row assigned-jo">
-                <div class="col-md-12 jo-item" v-for="(jo, index) in jos" :key="jo.id" v-on:click="showModal(jo.job_order.job_order_no)">
+                <div class="col-md-12 jo-item" v-for="(jo, index) in propData.assignedJobs" :key="jo.id" v-on:click="showModal(jo.job_order.job_order_no)">
                     <div class="project-name">{{jo.job_order.project_name}}</div>
 
                     <div class="project-body">
-                        <strong>Job Order #:</strong> <span>{{jo.job_order.job_order_no}}</span> <br>
-                        <strong>Deadline:</strong> <span>{{convertDate(jo.deadline)}}</span> <br>
-                        <strong>AE:</strong> <span>{{jo.job_order.user.profile.first_name}} {{jo.job_order.user.profile.last_name}} </span>                        <br>
+                        <strong>Job Order #:</strong> <span>{{jo.job_order.job_order_no}}</span><br>
+                        <strong>Deadline:</strong> <span>{{convertDate(jo.deadline)}}</span><br>
+                        <strong>AE:</strong> <span>{{jo.job_order.user.profile.first_name}} {{jo.job_order.user.profile.last_name}} </span><br>
                         <strong>Status:</strong> <span>{{jo.job_order.status}}</span>
                     </div>
                 </div>
 
-                <AssignedJobDetails v-for="jo in jos" :key="jo.id" :id="jo.job_order.job_order_no" :jo="jo"></AssignedJobDetails>
+                <AssignedJobDetails v-for="jo in propData.assignedJobs" :key="jo.id" :id="jo.job_order.job_order_no" :jo="jo"></AssignedJobDetails>
             </div>
         </div>
     </div>
@@ -29,24 +29,11 @@
             AssignedJobDetails
         },
         data: function () {
-            return {
-                jos: []
-            }
+          return {
+
+          }
         },
         methods: {
-          getAssignedJob: function () {
-              this.$http.get('/api/v1/inventory/department')
-                  .then(function (response) {
-                      for (let r of response.data) {
-                          if (r) {
-                              this.jos.push(r);
-                          }
-                      }
-                  })
-                  .catch(function (e) {
-                      console.log('error jobs assigned', e);
-                  });
-          },
             convertDate: function (dateVal) {
                 var milliseconds = Date.parse(dateVal);
                 var d = new Date(milliseconds);
@@ -57,11 +44,8 @@
             },
         },
         mounted: function () {
-          this.getAssignedJob();
         },
-        props: [
-            'propData'
-        ]
+        props: ['propData']
     }
 
 </script>

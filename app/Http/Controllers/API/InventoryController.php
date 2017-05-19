@@ -42,8 +42,10 @@ class InventoryController extends Controller
         if ($request->has('filter')) {
           $filterables = [
             'job_order_no',
+            'category',
             'product_code',
             'name',
+            'inventories.status'
           ];
             $this->filter($query, $request, $filterables);
         }
@@ -76,18 +78,19 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-
         $jo = null;
         // Create the jo inventory
-        \DB::transaction(function() use ($input, &$jo) {
-
-            $input['expiration_date'] = date('Y-m-d H:i:s', strtotime($input['expiration_date']));
-
+        \DB::transaction(function() use ($request, &$jo) {
+            $input = array(
+              'job_order_id' => $request->input('job_order_id'),
+              'category' => $request->input('category'),
+              'product_code' => $request->input('product_code'),
+              'name' => $request->input('product_name'),
+              'quantity' => $request->input('quantity'),
+              'expiration_date' => date('Y-m-d H:i:s', strtotime($request->input('expiration_date'))),
+              'status' => $request->input('status'),
+            );
             $jo = Inventory::create($input);
-
-            $jo = Inventory::where('id', $jo->id)
-                ->with('jobOrder')->first();
         });
 
         return response()->json($jo, 201);
