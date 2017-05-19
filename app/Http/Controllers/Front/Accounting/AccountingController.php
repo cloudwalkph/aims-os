@@ -182,7 +182,7 @@ class AccountingController extends Controller
             $storeAccounts->invoiceFile = $file;
             $storeAccounts->invoiceDateUpdated = date("Y-m-d H:i:s");
         } elseif ( $request['docType'] == 'payment' ) {
-            $storeAccounts->paidNumber = $request['doc_number'];
+            $storeAccounts->paidDate= $request['doc_number'];
             $storeAccounts->paidFile = $file;
             $storeAccounts->paidDateUpdated = date("Y-m-d H:i:s");
         } elseif ( $request['docType'] == 'transmittal' ) {
