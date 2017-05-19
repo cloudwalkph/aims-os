@@ -74,6 +74,11 @@
                         title: 'Expected Quantity'
                     },
                     {
+                        name: 'expected_delivery_date',
+                        sortField: 'expected_delivery_date',
+                        title: 'Expected Delivery Date'
+                    },
+                    {
                         name: 'created_at',
                         sortField: 'created_at',
                         titleClass: 'text-center',
