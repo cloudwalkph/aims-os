@@ -40175,6 +40175,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             navLinks: true, // can click day/week names to navigate views
             // businessHours: true, // display business hours
             editable: true
+            // events: events
         });
 
         $('#event_datetime').datetimepicker({
@@ -40241,10 +40242,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     for (var _iterator = _this3.currentEvents[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                         var event = _step.value;
 
+                        var color = '#3a87ad';
+
+                        if (event.type === 'jo') {
+                            color = '#AD9A48';
+                        }
+
                         events.push({
                             id: event.id,
                             title: event.title,
-                            start: event.event_datetime
+                            start: event.event_datetime,
+                            backgroundColor: color
+                            // constraint: 'businessHours'
                         });
                     }
                 } catch (err) {
@@ -97020,12 +97029,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label",
-    attrs: {
-      "for": "particular"
-    }
-  }, [_vm._v("Particulars")]), _vm._v(" "), _c('input', {
+  }, [_vm._m(1), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
       "type": "text",
@@ -97042,12 +97046,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-12 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label",
-    attrs: {
-      "for": "target_activity"
-    }
-  }, [_vm._v("Target Activity")]), _vm._v(" "), _c('input', {
+  }, [_vm._m(2), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
       "type": "text",
@@ -97062,7 +97061,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": _vm.inputChange
     }
-  })]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label",
@@ -97194,14 +97193,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": _vm.inputChange
     }
-  })]), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _vm._m(4), _vm._v(" "), _c('div', {
     staticClass: "col-md-12 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label",
-    attrs: {
-      "for": "target_duration"
-    }
-  }, [_vm._v("Target Duration")]), _vm._v(" "), _c('input', {
+  }, [_vm._m(5), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
       "type": "number",
@@ -97218,12 +97212,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-12 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label",
-    attrs: {
-      "for": "target_areas"
-    }
-  }, [_vm._v("Areas")]), _vm._v(" "), _c('input', {
+  }, [_vm._m(6), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
       "type": "number",
@@ -97276,6 +97265,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Add Animation Details")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "particular"
+    }
+  }, [_vm._v("Particulars "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "target_activity"
+    }
+  }, [_vm._v("Target Activity "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-md-12 text-center"
   }, [_c('h4', [_vm._v("Target Hits")])])
@@ -97283,6 +97290,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "col-md-12"
   }, [_c('hr')])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "target_duration"
+    }
+  }, [_vm._v("Target Duration "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "target_areas"
+    }
+  }, [_vm._v("Areas "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -98437,13 +98462,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-6 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12",
-    attrs: {
-      "for": "item_name"
-    }
-  }, [_vm._v("Item Name")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 col-md-sm-6 col-xs-12 form-group text-input-container"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -98461,13 +98481,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "input": _vm.inputChange
     }
   })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12",
-    attrs: {
-      "for": "expected_quantity"
-    }
-  }, [_vm._v("Expected Quantity")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 col-md-sm-6 col-xs-12 form-group text-input-container"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -98485,13 +98500,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "input": _vm.inputChange
     }
   })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12",
-    attrs: {
-      "for": "expected_quantity"
-    }
-  }, [_vm._v("Expected Delivery Date")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 col-md-sm-6 col-xs-12 form-group text-input-container"
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -98522,7 +98532,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.saveProject
     }
   }, [_vm._v("Save")])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12",
+    attrs: {
+      "for": "item_name"
+    }
+  }, [_vm._v("Item Name "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12",
+    attrs: {
+      "for": "expected_quantity"
+    }
+  }, [_vm._v("Expected Quantity "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12",
+    attrs: {
+      "for": "expected_quantity"
+    }
+  }, [_vm._v("Expected Delivery Date "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -101587,9 +101624,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-12"
   }, [_c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Meal Type")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('v-select', {
     attrs: {
@@ -101598,9 +101633,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Quantity")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -101618,9 +101651,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Serving Time")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -101640,9 +101671,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-12"
   }, [_c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Pickup By")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -101660,9 +101689,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Remarks")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(4), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -101691,7 +101718,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.saveProject
     }
   }, [_vm._v("Add ")])])])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Meal Type "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Quantity "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Serving Time "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Pickup By "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Remarks "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -103878,12 +103935,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label",
-    attrs: {
-      "for": "reference_for"
-    }
-  }, [_vm._v("Reference For")]), _vm._v(" "), _c('input', {
+  }, [_vm._m(1), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
       "type": "text",
@@ -103900,12 +103952,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-12 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label",
-    attrs: {
-      "for": "file_name"
-    }
-  }, [_vm._v("Project attachment")]), _vm._v(" "), _c('input', {
+  }, [_vm._m(2), _vm._v(" "), _c('input', {
     attrs: {
       "type": "file"
     },
@@ -103949,6 +103996,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "myModalLabel"
     }
   }, [_vm._v("Add Project Attachments")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "reference_for"
+    }
+  }, [_vm._v("Reference For "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "file_name"
+    }
+  }, [_vm._v("Project attachment "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -104646,28 +104711,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-5"
-  }, _vm._l((_vm.currentEvents), function(event) {
-    return _c('div', [_c('div', {
-      staticClass: "col-md-12 col-sm-12 col-xs-12 event"
-    }, [_c('span', {
-      staticClass: "pull-right",
-      on: {
-        "click": function($event) {
-          _vm.deleteEvent(event.id)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-times fa-2x"
-    })]), _vm._v(" "), _c('h1', {
-      staticClass: "event-title"
-    }, [_vm._v(_vm._s(event.title))]), _vm._v(" "), _c('p', {
-      staticClass: "event-date"
-    }, [_vm._v(_vm._s(event.event_datetime))]), _vm._v(" "), _c('p', {
-      staticClass: "event-desc"
-    }, [_vm._v("Description: " + _vm._s(JSON.parse(event.meta).description))])])])
-  })), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {
       "id": "createSchedule",
@@ -104766,7 +104810,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Save")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-md-7"
+    staticClass: "col-md-12"
   }, [_c('button', {
     staticClass: "btn btn-primary pull-right",
     staticStyle: {
@@ -105386,9 +105430,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-6 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Manpower Type")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('v-select', {
     attrs: {
@@ -105397,9 +105439,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "col-md-3 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("# Manpower Needed")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -105417,9 +105457,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-3 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Rate")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -105437,9 +105475,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-12 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Remarks")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -105468,7 +105504,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.saveProject
     }
   }, [_vm._v("Add ")])])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Manpower Type "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("# Manpower Needed "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Rate "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Remarks "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -105488,9 +105548,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-12"
   }, [_c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Vehicle Type")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('v-select', {
     attrs: {
@@ -105499,9 +105557,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Venues")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('v-select', {
     attrs: {
@@ -105510,9 +105566,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("# Vehicle Needed")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -105532,9 +105586,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-12"
   }, [_c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Rate")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -105552,9 +105604,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12"
-  }, [_vm._v("Remarks")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(4), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -105583,7 +105633,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.saveProject
     }
   }, [_vm._v("Add ")])])])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Vehicle Type "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Venues "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("# Vehicle Needed "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Rate "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12"
+  }, [_vm._v("Remarks "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -105601,12 +105681,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12",
-    attrs: {
-      "for": "department_id"
-    }
-  }, [_vm._v("Departments")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('v-select', {
     attrs: {
@@ -105615,12 +105690,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12",
-    attrs: {
-      "for": "deadline"
-    }
-  }, [_vm._v("Deadline")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -105639,12 +105709,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
-  }, [_c('label', {
-    staticClass: "control-label col-sm-12",
-    attrs: {
-      "for": "department_file"
-    }
-  }, [_vm._v("File")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('input', {
     staticClass: "form-control",
@@ -105692,7 +105757,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.saveProject
     }
   }, [_vm._v("Save")])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12",
+    attrs: {
+      "for": "department_id"
+    }
+  }, [_vm._v("Departments "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12",
+    attrs: {
+      "for": "deadline"
+    }
+  }, [_vm._v("Deadline "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label col-sm-12",
+    attrs: {
+      "for": "department_file"
+    }
+  }, [_vm._v("File "), _c('span', {
+    staticClass: "required-field"
+  }, [_vm._v("*")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

@@ -2,7 +2,7 @@
     <div class="row">
 
         <div class="col-md-4 col-md-sm-6 col-xs-12 form-group text-input-container">
-            <label class="control-label col-sm-12" for="item_name">Item Name </label>
+            <label class="control-label col-sm-12" for="item_name">Item Name <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <input type="text" name="item_name" required placeholder="Item Name"
                        id="item_name" class="form-control"
@@ -20,7 +20,7 @@
         </div>
 
         <div class="col-md-4 col-md-sm-6 col-xs-12 form-group text-input-container">
-            <label class="control-label col-sm-12" for="expected_quantity">Expected Delivery Date</label>
+            <label class="control-label col-sm-12" for="expected_quantity">Expected Delivery Date <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <input type="date" name="expected_delivery_date" required placeholder="Expected Delivery Date"
                        id="expected_delivery_date" class="form-control"

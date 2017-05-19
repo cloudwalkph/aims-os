@@ -40,6 +40,12 @@
                                 <label class="control-label">Status</label>
                                 <v-select :on-change="selectStatus" :options="statusOptions"></v-select>
                             </div>
+                            <div class="col-md-12 form-group text-input-container">
+                                <label class="control-label">Pictures</label>
+                                <input type="file" name="pictures[]"
+                                       id="pictures"
+                                       class="form-control" multiple/>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -129,7 +135,6 @@
         mounted: function () {
             $('.expiration_date').datetimepicker();
             for (let jo of this.propData.assignedJobs) {
-              console.log(jo);
                 if (jo) {
                     this.joOptions.push({
                         label: `${jo.job_order.job_order_no} : ${jo.job_order.project_name}`,

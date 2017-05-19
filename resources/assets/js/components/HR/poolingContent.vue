@@ -99,9 +99,9 @@
                 <td>&nbsp;</td>
               </tr>
             </thead>
-            <tbody>
+            <draggable v-model="selectedManpower" :element="'tbody'" :move="onMove">
               <tr v-for="selected in selectedManpower">
-                <td>{{selected.first_name + ' ' + selected.middle_name + ' ' + selected.last_name}}</td>
+                <td>{{selected.first_name +  ' ' + selected.last_name}}</td>
                 <td>{{selected.manpower_type.name}}</td>
                 <td>{{selected.rate}}</td>
                 <td>
@@ -117,7 +117,7 @@
                   Buffer
                 </td>
               </tr>
-            </tbody>
+            </draggable>
           </table>
           <button class="btn btn-primary pull-right" @click="handleAddManpower">Save</button>
         </div>
@@ -262,7 +262,6 @@
         </div>
       </div>
     </div>
-	</div>
 </template>
 
 <script>
@@ -275,6 +274,7 @@
   import CustomAddAction from '../HR/commons/CustomAddAction';
   import FilterBar from '../HR/commons/FilterBar';
   import SelectionFilterAction from '../HR/commons/SelectionFilterAction';
+  import draggable from 'vuedraggable'
 
 	Vue.use(VueEvents);
   Vue.component('CustomAddAction', CustomAddAction);
@@ -285,7 +285,8 @@
 		components: {
             vuetable,
             VuetablePagination,
-            VuetablePaginationInfo
+            VuetablePaginationInfo,
+            draggable
         },
 		mounted() {
 			this.getJobOrderManpower();
@@ -297,6 +298,20 @@
 		data() {
 			return {
         apiUrl: `/api/v1/hr/manpower/${$('#jobOrderNumberElement').val()}`,
+        list: [{
+          name: "John"
+        }, {
+          name: "Joao"
+        }, {
+          name: "Jean"
+        }],
+        list2: [{
+          name: "Juan"
+        }, {
+          name: "Edgard"
+        }, {
+          name: "Johnson"
+        }],
 				fields : [
               {
                   name: '__sequence',
@@ -420,6 +435,35 @@
       'joEvent'
 		],
 		methods : {
+      onMove(evt) {
+        let draggedStart = evt.draggedContext.element;
+        let draggedEnd = evt.relatedContext.element;
+        let typeStart = draggedStart.manpower_type_id;
+        let typeEnd = draggedEnd.manpower_type_id;
+        let joId = $('#jobOrderIdNumber').val();
+        let url = `/api/v1/hr/assign-buffef/${joId}`;
+
+        if(draggedStart.manpower_type_id != draggedEnd.manpower_type_id){
+          return false;
+        };
+
+        if(draggedStart.buffer == draggedEnd.buffer){
+          return false;
+        };
+
+        let data = {
+          'start' : draggedStart,
+          'end' : draggedEnd
+        }
+
+        this.$http.post(url, data).then(response => {
+            // console.log(response.data)
+            this.getSelectedManpower();
+        }, error => {
+            console.log(error);
+        });
+
+      },
       setEventDate(e) {
         let joId = $('#jobOrderIdNumber').val();
         let url = `/api/v1/hr/set/event/${joId}`;

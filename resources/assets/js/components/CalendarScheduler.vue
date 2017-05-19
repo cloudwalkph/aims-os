@@ -1,17 +1,17 @@
 <template>
     <div class="row">
-        <div class="col-md-5">
-            <div v-for="event in currentEvents">
-                <div class="col-md-12 col-sm-12 col-xs-12 event">
-                    <span class="pull-right" @click="deleteEvent(event.id)"><i class="fa fa-times fa-2x"></i></span>
-                    <h1 class="event-title">{{ event.title }}</h1>
-                    <p class="event-date">{{ event.event_datetime }}</p>
-                    <p class="event-desc">Description: {{ JSON.parse(event.meta).description }}</p>
-                </div>
-            </div>
-        </div>
+        <!--<div class="col-md-5">-->
+            <!--<div v-for="event in currentEvents">-->
+                <!--<div class="col-md-12 col-sm-12 col-xs-12 event">-->
+                    <!--<span class="pull-right" @click="deleteEvent(event.id)"><i class="fa fa-times fa-2x"></i></span>-->
+                    <!--<h1 class="event-title">{{ event.title }}</h1>-->
+                    <!--<p class="event-date">{{ event.event_datetime }}</p>-->
+                    <!--<p class="event-desc">Description: {{ JSON.parse(event.meta).description }}</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
-        <div class="col-md-7">
+        <div class="col-md-12">
             <button class="btn btn-primary pull-right"
                     data-toggle="modal" data-target="#createSchedule" style="margin-bottom: 20px">
                 <i class="fa fa-plus"></i> New Schedule
@@ -74,7 +74,7 @@
                 },
                 navLinks: true, // can click day/week names to navigate views
                 // businessHours: true, // display business hours
-                editable: true,
+                editable: true
                 // events: events
             });
 
@@ -130,10 +130,17 @@
                     $calendar.fullCalendar('removeEvents');
 
                     for (let event of this.currentEvents) {
+                        let color = '#3a87ad';
+
+                        if (event.type === 'jo') {
+                            color = '#AD9A48';
+                        }
+
                         events.push({
                             id: event.id,
                             title: event.title,
                             start: event.event_datetime,
+                            backgroundColor: color
                             // constraint: 'businessHours'
                         });
                     }

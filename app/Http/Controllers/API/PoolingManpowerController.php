@@ -58,7 +58,7 @@ class PoolingManpowerController extends Controller
             ->with('venue')
             ->with('manpower.manpowerType')
             ->where('job_order_id', $jo->id)
-            ->orderBy('id', 'ASC')
+            ->orderBy('buffer', 'ASC')
             ->get();
         if($joSelectedManpower)
         {
@@ -218,6 +218,39 @@ class PoolingManpowerController extends Controller
 
         $return[] = JobOrderManpowerEvent::create($input);
         return response()->json($return, 200);
+    }
+
+    public function assignBufferManpower(Request $request, $joId) {
+        $input = $request->all();
+        // return $input;
+        if($input['start']['buffer'] == 0)
+        {
+            $dataStart = [
+                'buffer' => 1
+            ]; 
+        }else
+        {
+            $dataStart = [
+                'buffer' => 0
+            ];
+        }
+
+        if($input['end']['buffer'] == 0)
+        {
+            $dataEnd = [
+                'buffer' => 1
+            ]; 
+        }else
+        {
+            $dataEnd = [
+                'buffer' => 0
+            ];
+        }
+        
+        JobOrderSelectedManpower::where('job_order_id', $joId)->where('manpower_id', $input['start']['id'])->update($dataStart); 
+        JobOrderSelectedManpower::where('job_order_id', $joId)->where('manpower_id', $input['end']['id'])->update($dataEnd); 
+
+        return response()->json(['ok'], 200);
     }
 
     /**

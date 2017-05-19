@@ -56,9 +56,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::resource('/', 'InventoryController');
         Route::resource('job', 'InventoryJobController');
         Route::resource('user', 'InventoryJobAssignedPersonController');
-        Route::get('department', 'InventoryController@getByDepartmentInvolvement');
         Route::resource('delivery', 'InventoryDeliveriesController');
         Route::resource('release', 'InventoryReleasesController');
+        Route::get('department', 'InventoryController@getByDepartmentInvolvement');
+        Route::get('/{id}', 'InventoryController@show');
     });
 
     // Clients
@@ -217,5 +218,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::delete('/manpower-schedule/{id}','PoolingManpowerController@deteteManpowerSchedule');
         Route::get('/manpower-deployment/{JoNumber}','PoolingManpowerController@manpowerDeployment');
         Route::post('/set/event/{JoId}','PoolingManpowerController@setEventManpower');
+
+        Route::post('/assign-buffef/{JoId}','PoolingManpowerController@assignBufferManpower');
     });
 });
