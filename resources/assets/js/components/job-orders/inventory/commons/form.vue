@@ -2,7 +2,7 @@
     <div class="row">
 
         <div class="col-md-4 col-md-sm-6 col-xs-12 form-group text-input-container">
-            <label class="control-label col-sm-12" for="item_name">Item Name <span class="required-field">*</span></label>
+            <label class="control-label col-sm-12" for="item_name">Item Name </label>
             <div class="col-md-12">
                 <input type="text" name="item_name" required placeholder="Item Name"
                        id="item_name" class="form-control"
