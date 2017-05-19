@@ -9,14 +9,14 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12 form-group text-input-container">
-                            <label class="control-label" for="reference_for">Reference For</label>
+                            <label class="control-label" for="reference_for">Reference For <span class="required-field">*</span></label>
                             <input type="text" name="reference_for" required id="reference_for"
                                        @input="inputChange" v-bind:value="reference_for"
                                        placeholder="Reference" class="form-control" />
                         </div>
 
                         <div class="col-md-12 form-group text-input-container">
-                            <label class="control-label" for="file_name">Project attachment</label>
+                            <label class="control-label" for="file_name">Project attachment <span class="required-field">*</span></label>
                             <input type="file" @change="onFileChange">
                         </div>
                     </div>

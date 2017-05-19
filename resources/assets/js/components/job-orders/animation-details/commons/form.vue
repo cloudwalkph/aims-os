@@ -9,14 +9,14 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label" for="particular">Particulars</label>
+                                <label class="control-label" for="particular">Particulars <span class="required-field">*</span></label>
                                 <input type="text" name="particular" required id="particular"
                                        @input="inputChange" v-bind:value="particular"
                                        placeholder="Particulars" class="form-control" />
                             </div>
 
                             <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label" for="target_activity">Target Activity</label>
+                                <label class="control-label" for="target_activity">Target Activity <span class="required-field">*</span></label>
                                 <input type="text" name="target_activity" required id="target_activity"
                                        @input="inputChange" v-bind:value="target_activity"
                                        placeholder="Target Activity" class="form-control" />
@@ -73,14 +73,14 @@
                             </div>
 
                             <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label" for="target_duration">Target Duration</label>
+                                <label class="control-label" for="target_duration">Target Duration <span class="required-field">*</span></label>
                                 <input type="number" name="target_duration" required id="target_duration"
                                        @input="inputChange" v-bind:value="target_duration"
                                        placeholder="Target Duration" class="form-control" />
                             </div>
 
                             <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label" for="target_areas">Areas</label>
+                                <label class="control-label" for="target_areas">Areas <span class="required-field">*</span></label>
                                 <input type="number" name="target_areas" required id="target_areas"
                                        @input="inputChange" v-bind:value="target_areas"
                                        placeholder="Areas" class="form-control" />
