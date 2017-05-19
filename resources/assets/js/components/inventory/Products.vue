@@ -82,7 +82,7 @@
                   title: 'Products on Hand',
                 },
                 {
-                  name: 'disposed',
+                  name: 'total_disposed',
                   title: 'Disposed'
                 }
               ],
