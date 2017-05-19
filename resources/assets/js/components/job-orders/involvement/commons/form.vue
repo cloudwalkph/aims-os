@@ -2,14 +2,14 @@
     <div class="row">
 
         <div class="col-md-4 form-group text-input-container">
-            <label class="control-label col-sm-12" for="department_id">Departments</label>
+            <label class="control-label col-sm-12" for="department_id">Departments <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <v-select :on-change="departmentSelected" :options="departmentOptions"></v-select>
             </div>
         </div>
 
         <div class="col-md-4 form-group text-input-container">
-            <label class="control-label col-sm-12" for="deadline">Deadline</label>
+            <label class="control-label col-sm-12" for="deadline">Deadline <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <input type="text" name="deadline" required placeholder="Deadline"
                        id="deadline" class="form-control"
@@ -18,7 +18,7 @@
         </div>
 
         <div class="col-md-4 form-group text-input-container">
-            <label class="control-label col-sm-12" for="department_file">File</label>
+            <label class="control-label col-sm-12" for="department_file">File <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <input type="file" name="department_file" required placeholder="Input file"
                        id="department_file" class="form-control"

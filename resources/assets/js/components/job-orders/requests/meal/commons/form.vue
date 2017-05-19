@@ -3,14 +3,14 @@
 
         <div class="col-md-12">
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Meal Type</label>
+                <label class="control-label col-sm-12">Meal Type <span class="required-field">*</span></label>
                 <div class="col-md-12">
                     <v-select :on-change="typeSelected" :options="mealOptions"></v-select>
                 </div>
             </div>
 
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Quantity</label>
+                <label class="control-label col-sm-12">Quantity <span class="required-field">*</span></label>
                 <div class="col-md-12">
                     <input type="number" name="quantity"
                            @input="inputChange" v-bind:value="quantity" id="quantity"
@@ -19,7 +19,7 @@
             </div>
 
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Serving Time</label>
+                <label class="control-label col-sm-12">Serving Time <span class="required-field">*</span></label>
                 <div class="col-md-12">
                     <input type="time" name="serving_time"
                            @input="inputChange" v-bind:value="serving_time" id="serving_time"
@@ -30,7 +30,7 @@
 
         <div class="col-md-12">
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Pickup By</label>
+                <label class="control-label col-sm-12">Pickup By <span class="required-field">*</span></label>
                 <div class="col-md-12">
                     <input type="text" name="pickup_by"
                            @input="inputChange" v-bind:value="pickup_by" id="pickup_by"
@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Remarks</label>
+                <label class="control-label col-sm-12">Remarks <span class="required-field">*</span></label>
                 <div class="col-md-12">
                     <input type="text" name="remarks"
                            @input="inputChange" v-bind:value="remarks" id="remarks"
