@@ -22,39 +22,51 @@ class ManpowerController extends Controller
      */
     public function index($joNumber, Request $request)
     {
-        // $jo = JobOrder::where('job_order_no', $joNumber)->first();
+        $jo = JobOrder::where('job_order_no', $joNumber)->first();
 
         if($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
             
             $manpower = Manpower::with('manpowerType')
                 ->with('agency')
-                ->whereNotIn('id', function($q) {
+                ->whereNotIn('id', function($q) { // filter by selected manpower
                     
                     $q->select('manpower_id')
                     ->whereNull('deleted_at')
-                    ->whereIn('job_order_id', function($j) {
+                    ->whereIn('job_order_id', function($j) { // filter by even date
                         $j->select('job_order_id')
                         ->whereDate('event_date', '=', Carbon::today()->toDateString())
                         ->from('job_order_manpower_events');
                     })
                     ->from('job_order_selected_manpowers');
                 })
+                ->whereIn('manpower_type_id', function($m) use($jo) { // filter by manpower needed
+                    $m->select('manpower_type_id')
+                    ->where('job_order_id',$jo->id)
+                    ->whereNull('deleted_at')
+                    ->from('job_order_manpowers');
+                })
                 ->orderBy($sortCol, $sortDir);
         }else
         {
             $manpower = Manpower::with('manpowerType')
                 ->with('agency')
-                ->whereNotIn('id', function($q) {
+                ->whereNotIn('id', function($q) { // filter by selected manpower
                     
                     $q->select('manpower_id')
                     ->whereNull('deleted_at')
-                    ->whereIn('job_order_id', function($j) {
+                    ->whereIn('job_order_id', function($j) { // filter by even date
                         $j->select('job_order_id')
                         ->whereDate('event_date', '=', Carbon::today()->toDateString())
                         ->from('job_order_manpower_events');
                     })
                     ->from('job_order_selected_manpowers');
+                })
+                ->whereIn('manpower_type_id', function($m) use($jo) { // filter by manpower needed
+                    $m->select('manpower_type_id')
+                    ->where('job_order_id',$jo->id)
+                    ->whereNull('deleted_at')
+                    ->from('job_order_manpowers');
                 });
         }
 

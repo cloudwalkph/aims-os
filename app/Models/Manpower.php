@@ -12,7 +12,7 @@ class Manpower extends Model
     protected $table = 'manpowers';
     protected $fillable = [
         'first_name', 'middle_name', 'last_name', 'manpower_type_id', 'agency_id',
-        'birthdate', 'hired_date', 'city', 'email', 'contact_number', 'fb_link', 'violations'];
+        'birthdate', 'hired_date', 'city', 'email', 'contact_number', 'fb_link', 'violations','rate'];
 
     public static $filterable = [
         'first_name', 'last_name'
