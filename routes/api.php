@@ -217,5 +217,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::delete('/manpower-schedule/{id}','PoolingManpowerController@deteteManpowerSchedule');
         Route::get('/manpower-deployment/{JoNumber}','PoolingManpowerController@manpowerDeployment');
         Route::post('/set/event/{JoId}','PoolingManpowerController@setEventManpower');
+
+        Route::post('/assign-buffef/{JoId}','PoolingManpowerController@assignBufferManpower');
     });
 });
