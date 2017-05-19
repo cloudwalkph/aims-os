@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobOrderProductsTable extends Migration
+class CreateInventoryFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateJobOrderProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_order_products', function (Blueprint $table) {
+        Schema::create('inventory_files', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('job_order_id')->unsigned();
-            $table->string('item_name');
-            $table->bigInteger('expected_quantity');
-            $table->date('expected_delivery_date')->nullable();
+            $table->integer('inventory_id');
+            $table->string('url');
+            $table->enum('file_type', ['file', 'picture']);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +30,6 @@ class CreateJobOrderProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_order_products');
+        Schema::dropIfExists('inventory_files');
     }
 }

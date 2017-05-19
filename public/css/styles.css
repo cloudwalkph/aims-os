@@ -4,7 +4,11 @@ body {
     color: #333;
     background-color: #ffffff;
 }
-
+.required-field {
+    color: red;
+    font-size: 1.5em;
+    vertical-align: middle;
+}
 #toast-container{
     margin-top: 50px;
 }

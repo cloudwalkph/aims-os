@@ -3,21 +3,21 @@
 
         <div class="col-md-12">
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Vehicle Type</label>
+                <label class="control-label col-sm-12">Vehicle Type <span class="required-field">*</span></label>
                 <div class="col-md-12">
                     <v-select :on-change="typeSelected" :options="vehicleOptions"></v-select>
                 </div>
             </div>
 
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Venues</label>
+                <label class="control-label col-sm-12">Venues <span class="required-field">*</span></label>
                 <div class="col-md-12">
                     <v-select :on-change="venueSelected" :options="venueOptions"></v-select>
                 </div>
             </div>
 
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12"># Vehicle Needed</label>
+                <label class="control-label col-sm-12"># Vehicle Needed <span class="required-field">*</span></label>
                 <div class="col-md-12">
                     <input type="number" name="vehicle_needed"
                            @input="inputChange" v-bind:value="vehicle_needed" id="vehicle_needed"
@@ -29,7 +29,7 @@
         <div class="col-md-12">
 
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Rate</label>
+                <label class="control-label col-sm-12">Rate <span class="required-field">*</span></label>
                 <div class="col-md-12">
                     <input type="number" name="rate"
                            @input="inputChange" v-bind:value="rate" id="rate"
@@ -38,7 +38,7 @@
             </div>
 
             <div class="col-md-4 form-group text-input-container">
-                <label class="control-label col-sm-12">Remarks</label>
+                <label class="control-label col-sm-12">Remarks <span class="required-field">*</span></label>
                 <div class="col-md-12">
                     <input type="text" name="remarks"
                            @input="inputChange" v-bind:value="remarks" id="remarks"

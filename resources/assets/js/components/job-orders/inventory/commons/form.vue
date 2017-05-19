@@ -1,8 +1,8 @@
 <template>
     <div class="row">
 
-        <div class="col-md-6 form-group text-input-container">
-            <label class="control-label col-sm-12" for="item_name">Item Name</label>
+        <div class="col-md-4 col-md-sm-6 col-xs-12 form-group text-input-container">
+            <label class="control-label col-sm-12" for="item_name">Item Name </label>
             <div class="col-md-12">
                 <input type="text" name="item_name" required placeholder="Item Name"
                        id="item_name" class="form-control"
@@ -10,12 +10,21 @@
             </div>
         </div>
 
-        <div class="col-md-6 form-group text-input-container">
-            <label class="control-label col-sm-12" for="expected_quantity">Expected Quantity</label>
+        <div class="col-md-4 col-md-sm-6 col-xs-12 form-group text-input-container">
+            <label class="control-label col-sm-12" for="expected_quantity">Expected Quantity <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <input type="number" name="expected_quantity" required placeholder="Expected Quantity"
                        id="expected_quantity" class="form-control"
                        @input="inputChange" v-bind:value="expected_quantity"/>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-md-sm-6 col-xs-12 form-group text-input-container">
+            <label class="control-label col-sm-12" for="expected_quantity">Expected Delivery Date</label>
+            <div class="col-md-12">
+                <input type="date" name="expected_delivery_date" required placeholder="Expected Delivery Date"
+                       id="expected_delivery_date" class="form-control"
+                       @input="inputChange" v-bind:value="expected_delivery_date"/>
             </div>
         </div>
 
@@ -35,7 +44,8 @@
             return {
                 item_name: '',
                 expected_quantity: '',
-                job_order_id: ''
+                job_order_id: '',
+                expected_delivery_date: ''
             }
         },
         mounted() {
@@ -44,6 +54,7 @@
             resetForm() {
                 this.item_name = ''
                 this.expected_quantity = ''
+                this.expected_delivery_date = ''
             },
             inputChange(e) {
                 this[e.target.id] = e.target.value
@@ -53,7 +64,8 @@
                 let data = {
                     job_order_id: jobOrderId,
                     expected_quantity: this.expected_quantity,
-                    item_name: this.item_name
+                    item_name: this.item_name,
+                    expected_delivery_date: this.expected_delivery_date
                 }
 
                 let url = `/api/v1/job-order-inventory`;

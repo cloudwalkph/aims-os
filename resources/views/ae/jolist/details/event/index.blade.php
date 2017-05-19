@@ -10,28 +10,28 @@
                     <div class="row">
                         {{ csrf_field() }}
                         <div class="col-md-12 form-group text-input-container">
-                            <label class="control-label col-sm-2" for="what">What</label>
+                            <label class="control-label col-sm-2" for="what">What <span class="required-field">*</span></label>
                             <div class="col-md-10">
                                 <input type="text" value="{{ $detail->what or '' }}" required name="what" placeholder="What" class="form-control eventDataField" />
                             </div>
                         </div>
 
                         <div class="col-md-12 form-group text-input-container">
-                            <label class="control-label col-sm-2" for="when">When</label>
+                            <label class="control-label col-sm-2" for="when">When <span class="required-field">*</span></label>
                             <div class="col-md-10">
                                 <input type="text" id="event_when" value="{{ isset($detail['when']) ? \Carbon\Carbon::createFromTimestamp(strtotime($detail->when))->toDateString() : '' }}" required name="when" placeholder="When" class="form-control eventDataField" />
                             </div>
                         </div>
 
                         <div class="col-md-12 form-group text-input-container">
-                            <label class="control-label col-sm-2" for="where">Where</label>
+                            <label class="control-label col-sm-2" for="where">Where <span class="required-field">*</span></label>
                             <div class="col-md-10">
                                 <input type="text" value="{{ $detail->where or '' }}" required name="where" placeholder="Where" class="form-control eventDataField" />
                             </div>
                         </div>
 
                         <div class="col-md-12 form-group text-input-container">
-                            <label for="expected_guest" class="control-label col-sm-2">Expected Attendees</label>
+                            <label for="expected_guest" class="control-label col-sm-2">Expected Attendees <span class="required-field">*</span></label>
 
                             <div class="col-md-10">
                                 <input type="text" value="{{ $detail->expected_guest or '' }}" required name="expected_guest" placeholder="Attendees Profile" class="form-control eventDataField" />

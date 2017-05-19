@@ -8,7 +8,7 @@
                 <form id="momForm">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="agenda" class="col-sm-2 control-label">Agenda</label>
+                        <label for="agenda" class="col-sm-2 control-label">Agenda <span class="required-field">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control dataField"
                                    required
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="date_time" class="col-sm-2 control-label">Date and Time</label>
+                        <label for="date_time" class="col-sm-2 control-label">Date and Time <span class="required-field">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control dataField"
                                    required
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="location" class="col-sm-2 control-label">Location</label>
+                        <label for="location" class="col-sm-2 control-label">Location <span class="required-field">*</span></label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control dataField"
                                    required
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="attendees" class="col-sm-2 control-label">Attendees</label>
+                        <label for="attendees" class="col-sm-2 control-label">Attendees <span class="required-field">*</span></label>
                         <div class="col-sm-10">
                         <textarea class="attendees dataField"
                                   required

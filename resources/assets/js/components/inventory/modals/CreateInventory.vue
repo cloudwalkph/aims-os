@@ -14,19 +14,37 @@
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <label for="job_order_id">Job Order Number</label>
-                                <v-select :on-change="joSelected" :options="joOptions"></v-select>
+                                <v-select :on-change="selectJO" :options="joOptions"></v-select>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="category">Category</label>
+                                <v-select :on-change="selectCategory" :options="categoryOptions"></v-select>
                             </div>
                             <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label">Product Code</label>
-                                <input type="text" name="product_code" placeholder="Product Code" class="form-control" />
+                                <label class="control-label">SKU</label>
+                                <input type="text" name="product_code" placeholder="SKU-123" class="form-control" />
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Product Name</label>
                                 <input type="text" name="product_name" placeholder="Product Name" class="form-control" />
                             </div>
                             <div class="col-md-12 form-group text-input-container">
+                                <label class="control-label">Quantity</label>
+                                <input type="number" name="quantity" placeholder="0" class="form-control" />
+                            </div>
+                            <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Expiration Date</label>
                                 <input type="text" name="expiration_date" placeholder="Title" class="expiration_date form-control" />
+                            </div>
+                            <div class="col-md-12 form-group text-input-container">
+                                <label class="control-label">Status</label>
+                                <v-select :on-change="selectStatus" :options="statusOptions"></v-select>
+                            </div>
+                            <div class="col-md-12 form-group text-input-container">
+                                <label class="control-label">Pictures</label>
+                                <input type="file" name="pictures[]"
+                                       id="pictures"
+                                       class="form-control" multiple/>
                             </div>
                         </div>
                     </form>
@@ -45,35 +63,57 @@
     module.exports = {
         data: function () {
             return {
-                event_datetime: '',
-                joOptions: [],
-                selected_job_order: null,
+              categoryOptions: [
+                {
+                  label: 'T Shirt',
+                  value: 'tshirt',
+                },
+                {
+                  label: 'Sandals',
+                  value: 'sandals',
+                },
+                {
+                  label: 'Pantalon',
+                  value: 'pants',
+                },
+              ],
+              categorySelected: null,
+              event_datetime: '',
+              joOptions: [],
+              joSelected: null,
+              statusOptions: [
+                  {
+                      label: 'New',
+                      value: 'new'
+                  },
+                  {
+                      label: 'Used',
+                      value: 'used'
+                  },
+                  {
+                      label: 'Damaged',
+                      value: 'damaged'
+                  },
+              ],
+              statusSelected: null
             }
         },
         methods: {
             handleSubmit: function (e) {
                 var form = $(e.target)[0];
 
-                var postData = {
-                    job_order_id: this.selected_job_order,
-                    product_code: form.product_code.value,
-                    name: form.product_name.value,
-                    expiration_date: form.expiration_date.value,
-                }
+                var formData = new FormData(form);
 
-                this.$http.post('/api/v1/inventory', postData)
+                formData.append('job_order_id', this.joSelected);
+                formData.append('category', this.categorySelected);
+                formData.append('status', this.statusSelected);
+
+                this.$http.post('/api/v1/inventory', formData)
                     .then(function (response) {
-                        this.propData.internalInventory.push(
-                            {
-                                id: response.data.id,
-                                job_order_id: postData.job_order_id,
-                                product_code: postData.product_code,
-                                name: postData.name,
-                                expiration_date: postData.expiration_date,
-                            }
-                        );
+                        this.propData.internalInventory.push(formData);
                         $('#modalCreateInventory').modal('hide');
                         form.reset();
+                        this.$events.fire('filter-reset');
                     })
                     .catch(function (e) {
                         console.log('error post jobs', e);
@@ -82,17 +122,23 @@
             inputChange: function () {
 
             },
-            joSelected: function (e) {
-                this.selected_job_order = e.value;
+            selectJO: function (e) {
+              this.joSelected = e.value;
+            },
+            selectCategory: function(e) {
+              this.categorySelected = e.value;
+            },
+            selectStatus: function(e) {
+              this.statusSelected = e.value;
             },
         },
         mounted: function () {
             $('.expiration_date').datetimepicker();
-            for (let jo of this.propData.jobOrders) {
+            for (let jo of this.propData.assignedJobs) {
                 if (jo) {
                     this.joOptions.push({
-                        label: `${jo.job_order_no} : ${jo.project_name}`,
-                        value: jo.id
+                        label: `${jo.job_order.job_order_no} : ${jo.job_order.project_name}`,
+                        value: jo.job_order_id
                     });
                 }
             }

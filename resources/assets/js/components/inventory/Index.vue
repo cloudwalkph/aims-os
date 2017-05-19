@@ -70,9 +70,7 @@
                 ],
                 iJobId: null,
                 inventoryData: {
-                    assignedJobs: [
-
-                    ],
+                    assignedJobs: [],
                     jobOrders: [
                         {
                             id: 0,
@@ -329,13 +327,13 @@
             }
         },
         mounted: function () {
-          // this.inventoryData.assignedJobs = [];
+          this.inventoryData.assignedJobs = [];
           // this.inventoryData.products = [];
           // this.inventoryData.internalInventory = [];
           // this.inventoryData.jobOrders = [];
           // this.inventoryData.inventoryJobs = [];
           // this.inventoryData.users = [];
-          // this.getAssignedJob();
+          this.getAssignedJob();
           // this.getInventory();
           // this.getJob();
           // this.getJobOrders();

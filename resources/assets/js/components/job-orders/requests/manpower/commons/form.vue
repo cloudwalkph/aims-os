@@ -2,14 +2,14 @@
     <div class="row">
 
         <div class="col-md-6 form-group text-input-container">
-            <label class="control-label col-sm-12">Manpower Type</label>
+            <label class="control-label col-sm-12">Manpower Type <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <v-select :on-change="typeSelected" :options="manpowerOptions"></v-select>
             </div>
         </div>
 
         <div class="col-md-3 form-group text-input-container">
-            <label class="control-label col-sm-12"># Manpower Needed</label>
+            <label class="control-label col-sm-12"># Manpower Needed <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <input type="number" name="manpower_needed"
                        @input="inputChange" v-bind:value="manpower_needed" id="manpower_needed"
@@ -18,7 +18,7 @@
         </div>
 
         <div class="col-md-3 form-group text-input-container">
-            <label class="control-label col-sm-12">Rate</label>
+            <label class="control-label col-sm-12">Rate <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <input type="number" name="rate"
                        @input="inputChange" v-bind:value="rate" id="rate"
@@ -27,7 +27,7 @@
         </div>
 
         <div class="col-md-12 form-group text-input-container">
-            <label class="control-label col-sm-12">Remarks</label>
+            <label class="control-label col-sm-12">Remarks <span class="required-field">*</span></label>
             <div class="col-md-12">
                 <input type="text" name="remarks"
                        @input="inputChange" v-bind:value="remarks" id="remarks"

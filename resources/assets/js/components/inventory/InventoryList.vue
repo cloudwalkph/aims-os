@@ -15,7 +15,7 @@
                 :css="css.table"
                 :sort-order="sortOrder"
                 :multi-sort="true"
-                detail-row-component="my-detail-row"
+                detail-row-component="internal-inventory-detail-row"
                 :append-params="moreParams"
                 @vuetable:cell-clicked="onCellClicked"
                 @vuetable:pagination-data="onPaginationData"
@@ -44,8 +44,10 @@
     var VuetablePagination = require('vuetable-2/src/components/VuetablePagination');
     var VuetablePaginationInfo = require('vuetable-2/src/components/VuetablePaginationInfo');
 
-    var DetailRow = require('../commons/DetailRow');
     var FilterBar = require('../commons/FilterBar');
+
+    var InternalInventoryDetailRow = require('./commons/InternalInventoryDetailRow');
+    Vue.component('internal-inventory-detail-row', InternalInventoryDetailRow);
 
     module.exports = {
         components: {
@@ -64,8 +66,13 @@
                   sortField: 'job_order_no',
                 },
                 {
+                  name: 'category',
+                  title: 'Category',
+                  sortField: 'category',
+                },
+                {
                   name: 'product_code',
-                  title: 'Inventory Code',
+                  title: 'SKU',
                   sortField: 'product_code',
                 },
                 {
@@ -74,10 +81,20 @@
                   sortField: 'name',
                 },
                 {
+                  name: 'quantity',
+                  title: 'Quantity',
+                  sortField: 'quantity',
+                },
+                {
                   name: 'expiration_date',
                   title: 'Expiration Date',
                   callback: 'convertDate',
                   sortField: 'expiration_date',
+                },
+                {
+                  name: 'status',
+                  title: 'Status',
+                  sortField: 'status',
                 },
               ],
               css: {
@@ -120,7 +137,7 @@
         },
         methods: {
           onCellClicked (data, field, event) {
-            // this.$refs.vuetable.toggleDetailRow(data.id)
+            this.$refs.vuetable.toggleDetailRow(data.id)
           },
           onChangePage (page) {
             this.$refs.vuetable.changePage(page);
@@ -134,6 +151,8 @@
                 var d = new Date(milliseconds);
                 return d.toDateString();
             },
+        },
+        mounted: function() {
         },
         props: ['propData']
     }
