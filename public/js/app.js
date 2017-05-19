@@ -40351,6 +40351,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -40372,7 +40385,20 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK
         this.getAgency();
 
         $('#createManpower').on('hidden.bs.modal', function (e) {
-            _this.rowData = ''; // reset form data 
+            _this.rowData = {
+                'first_name': null,
+                'middle_name': null,
+                'manpower_type_id': 1,
+                'agency_id': 1,
+                'birthdate': null,
+                'city': null,
+                'email': null,
+                'contact_number': null,
+                'fb_link': null,
+                'hired_date': null,
+                'violations': null,
+                'rate': null
+            }; // reset form data 
         });
     },
     data: function data() {
@@ -40431,7 +40457,20 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK
             },
             manpowerTypeList: [],
             agencyList: [],
-            rowData: ''
+            rowData: {
+                'first_name': null,
+                'middle_name': null,
+                'manpower_type_id': 1,
+                'agency_id': 1,
+                'birthdate': null,
+                'city': null,
+                'email': null,
+                'contact_number': null,
+                'fb_link': null,
+                'hired_date': null,
+                'violations': null,
+                'rate': null
+            }
 
         };
     },
@@ -40457,8 +40496,11 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK
             };
 
             var form = new FormData($(e.target)[0]);
-
-            if (this.rowData) // EDIT
+            // for (var pair of form.entries()) {
+            //     console.log(pair[0]+ ', ' + pair[1]); 
+            // }
+            // return;
+            if (this.rowData.id) // EDIT
                 {
                     var _url = '/api/v1/hr/manpower/' + this.rowData.id;
                     this.$http.post(_url, form).then(function (response) {
@@ -40927,6 +40969,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -40954,7 +40998,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
     this.getSelectedManpower();
     this.getVenues();
     this.getManpowerSchedule();
-    this.manpowerDeployment();
+    // this.manpowerDeployment();
   },
   data: function data() {
     var _ref;
@@ -41059,7 +41103,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
       simulationVenue: '',
 
       event_date: this.joEvent ? __WEBPACK_IMPORTED_MODULE_5_moment___default()(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DDTHH:mm:ss') : '',
-      event_date_header: this.joEvent ? __WEBPACK_IMPORTED_MODULE_5_moment___default()(JSON.parse(this.joEvent).event_date).format('MMM DD, YYYY HH:mm:ss') : ''
+      event_date_header: this.joEvent ? __WEBPACK_IMPORTED_MODULE_5_moment___default()(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DD HH:mm:ss') : ''
     };
   },
 
@@ -41164,6 +41208,8 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
       });
     },
     handleAddManpower: function handleAddManpower() {
+      var _this5 = this;
+
       var url = '/api/v1/hr/selected-manpower/' + this.data;
       var dataArray = {
         'manpower': this.selectedManpower
@@ -41171,6 +41217,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
 
       this.$http.post(url, dataArray).then(function (response) {
         console.log(response.data);
+        _this5.getSelectedManpower();
         toastr.success('Successfully saved!', 'Success');
       }, function (error) {
         console.log(error);
@@ -41181,10 +41228,10 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
         return item.id == manpowerId;
       });
       this.selectedManpower[index].venue_id = event.target.value;
-      console.log(this.selectedManpower);
+      // console.log(this.selectedManpower);
     },
     addManpowerSchedule: function addManpowerSchedule(type) {
-      var _this5 = this;
+      var _this6 = this;
 
       var data = {
         date: this.briefingDate,
@@ -41206,8 +41253,8 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
       var url = '/api/v1/hr/manpower-schedule/' + this.data;
       this.$http.post(url, data).then(function (response) {
 
-        var data = _this5.parseDateTime(response.data);
-        _this5[type] = _this5[type].concat([data]);
+        var data = _this6.parseDateTime(response.data);
+        _this6[type] = _this6[type].concat([data]);
       }, function (error) {
         console.log(error);
       });
@@ -41218,11 +41265,11 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
       return obj;
     },
     getManpowerSchedule: function getManpowerSchedule() {
-      var _this6 = this;
+      var _this7 = this;
 
       var url = '/api/v1/hr/manpower-schedule/' + this.data;
       this.$http.get(url).then(function (response) {
-        console.log(response.data);
+        // console.log(response.data)
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
         var _iteratorError = undefined;
@@ -41231,12 +41278,12 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
           for (var _iterator = response.data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var res = _step.value;
 
-            var data = _this6.parseDateTime(res);
+            var data = _this7.parseDateTime(res);
 
             if (data.type == 'briefingSched') {
-              _this6.briefingSched = _this6.briefingSched.concat([data]);
+              _this7.briefingSched = _this7.briefingSched.concat([data]);
             } else {
-              _this6.simulationSched = _this6.simulationSched.concat([data]);
+              _this7.simulationSched = _this7.simulationSched.concat([data]);
             }
           }
         } catch (err) {
@@ -41258,25 +41305,25 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
       });
     },
     deleteManpowerSchedule: function deleteManpowerSchedule(id, type) {
-      var _this7 = this;
+      var _this8 = this;
 
       var url = '/api/v1/hr/manpower-schedule/' + id;
       this.$http.delete(url).then(function (response) {
-        var index = _this7[type].findIndex(function (item) {
+        var index = _this8[type].findIndex(function (item) {
           return item.id == id;
         });
-        _this7[type].splice(index, 1);
+        _this8[type].splice(index, 1);
       }, function (error) {
         console.log(error);
       });
     },
     manpowerDeployment: function manpowerDeployment() {
-      var _this8 = this;
+      var _this9 = this;
 
       var url = '/api/v1/hr/manpower-deployment/' + this.data;
       this.$http.get(url).then(function (response) {
-        _this8.deploymentManpower = response.data;
-        console.log(response.data);
+        _this9.deploymentManpower = response.data;
+        // console.log(response.data);
       }, function (error) {
         console.log(error);
       });
@@ -41295,42 +41342,43 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
   },
   events: {
     'add-data': function addData(data, index) {
-      var _this9 = this;
+      var _this10 = this;
 
       __WEBPACK_IMPORTED_MODULE_1_vue___default.a.nextTick(function () {
-        _this9.selectedManpower = _this9.selectedManpower.concat([data]);
+        // console.log(data);
+        _this10.selectedManpower = _this10.selectedManpower.concat([data]);
         $('#button-' + data.id).hide();
-        _this9.$refs.vuetable_manpower.refresh();
+        _this10.$refs.vuetable_manpower.refresh();
       });
     },
     'filter-set': function filterSet(filterText) {
-      var _this10 = this;
+      var _this11 = this;
 
       this.moreParams = {
         filter: filterText
       };
 
       __WEBPACK_IMPORTED_MODULE_1_vue___default.a.nextTick(function () {
-        return _this10.$refs.vuetable_manpower.refresh();
+        return _this11.$refs.vuetable_manpower.refresh();
       });
     },
     'filter-selection-set': function filterSelectionSet(filterObj) {
-      var _this11 = this;
+      var _this12 = this;
 
       this.moreParams = {
         filterSelections: filterObj
       };
 
       __WEBPACK_IMPORTED_MODULE_1_vue___default.a.nextTick(function () {
-        return _this11.$refs.vuetable_manpower.refresh();
+        return _this12.$refs.vuetable_manpower.refresh();
       });
     },
     'filter-reset': function filterReset() {
-      var _this12 = this;
+      var _this13 = this;
 
       this.moreParams = {};
       __WEBPACK_IMPORTED_MODULE_1_vue___default.a.nextTick(function () {
-        return _this12.$refs.vuetable_manpower.refresh();
+        return _this13.$refs.vuetable_manpower.refresh();
       });
     }
   }
@@ -45651,7 +45699,7 @@ module.exports = {
             var qty = 0;
             qty = product.expected_quantity;
             for (var d = 0; d <= indexD; d++) {
-                qty = qty - product.deliveries[d].delivered;
+                qty = qty - product.deliveries[d].delivery_quantity;
             }
             return qty;
         },
@@ -45663,12 +45711,21 @@ module.exports = {
         handleSubmit: function handleSubmit(e) {
             var form = $(e.target)[0];
             var workIndex = e.target.getAttribute('workIndex');
-            this.products[workIndex].deliveries.push({
-                product_id: e.target.getAttribute('productId'),
-                date: this.convertDate(form.datetime.value),
-                delivered: form.deliveryVal.value
+            var product_id = e.target.getAttribute('productId');
+            var delivered_quantity = form.deliveryVal.value;
+
+            var postData = {
+                product_id: product_id,
+                delivery_quantity: delivered_quantity,
+                delivery_date: form.datetimeDelivery.value
+            };
+
+            this.$http.post('/api/v1/inventory/delivery', postData).then(function (response) {
+                form.reset();
+                this.products[workIndex].deliveries.push(postData);
+            }).catch(function (e) {
+                console.log('error post inventory delivery', e);
             });
-            form.deliveryVal.value = '';
         },
         editDelivery: function editDelivery(product, indexDelivery) {},
         removeDelivery: function removeDelivery(product, index) {
@@ -45677,7 +45734,7 @@ module.exports = {
     },
     mounted: function mounted() {
         $('.datetimepickerDelivery').datetimepicker({
-            minDate: moment()
+            // minDate: moment()
         });
     },
     props: ['products', 'propIJobId']
@@ -46603,6 +46660,13 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 var Vuetable = __webpack_require__(5);
 var VuetablePagination = __webpack_require__(7);
@@ -46619,6 +46683,7 @@ module.exports = {
   },
   data: function data() {
     return {
+      frameSrc: '/inventory/print/product',
       fields: [{
         name: 'job_order_no',
         title: 'Job Order Number',
@@ -46633,7 +46698,13 @@ module.exports = {
         sortField: 'item_name'
       }, {
         name: 'expected_quantity',
+        title: 'Expected Quantity'
+      }, {
+        name: 'products_on_hand',
         title: 'Products on Hand'
+      }, {
+        name: 'disposed',
+        title: 'Disposed'
       }],
       css: {
         table: {
@@ -46840,9 +46911,9 @@ module.exports = {
             delivery = _step.value;
 
             if (delivery.product_id == product.id) {
-              var deliveryDateParsed = Date.parse(delivery.date);
-              if (rDateParsed >= deliveryDateParsed) {
-                total = Number(total) + Number(delivery.delivered);
+              var deliveryDateParsed = Date.parse(delivery.delivery_date);
+              if (deliveryDateParsed <= rDateParsed) {
+                total = Number(total) + Number(delivery.delivery_quantity);
               }
             }
           }
@@ -46871,9 +46942,9 @@ module.exports = {
             release = _step2.value;
 
             if (release.product_id == product.id) {
-              var releaseDateParsed = Date.parse(release.date);
-              if (rDateParsed > releaseDateParsed) {
-                total = Number(total) - Number(release.disposed);
+              var releaseDateParsed = Date.parse(release.release_date);
+              if (releaseDateParsed < rDateParsed) {
+                total = Number(total) - Number(release.dispose_quantity) + Number(release.return_quantity);
               }
             }
           }
@@ -46903,13 +46974,23 @@ module.exports = {
     handleSubmit: function handleSubmit(e) {
       var form = $(e.target)[0];
       var workIndex = e.target.getAttribute('workIndex');
-      this.products[workIndex].releases.push({
-        product_id: e.target.getAttribute('productId'),
-        date: this.convertDate(form.datetime.value),
-        disposed: form.disposedVal.value,
-        status: form.status.value
+      var product_id = e.target.getAttribute('productId');
+      var dispose_quantity = form.disposedVal.value;
+      var return_quantity = form.returnedVal.value;
+
+      var postData = {
+        product_id: product_id,
+        dispose_quantity: dispose_quantity,
+        return_quantity: return_quantity,
+        release_date: form.datetimeRelease.value
+      };
+
+      this.$http.post('/api/v1/inventory/release', postData).then(function (response) {
+        form.reset();
+        this.products[workIndex].releases.push(postData);
+      }).catch(function (e) {
+        console.log('error post inventory release', e);
       });
-      form.disposedVal.value = '';
     },
     removeRelease: function removeRelease(product, index) {
       product.releases.splice(index, 1);
@@ -46987,6 +47068,8 @@ module.exports = {
 //
 //
 //
+//
+//
 
 var DeliveryTracking = __webpack_require__(400);
 var ReleaseTracking = __webpack_require__(407);
@@ -46998,8 +47081,7 @@ module.exports = {
     },
     data: function data() {
         return {
-            iJobs: [],
-            products: this.propData.products
+            iJobs: []
         };
     },
     methods: {
@@ -97241,7 +97323,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((product.releases), function(r, indexD) {
       return _c('tr', {
         key: indexD
-      }, [_c('td', [_vm._v(_vm._s(_vm.convertDate(r.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getProductsOnHand(product, r.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.disposed))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.returned(product, r.date, r.disposed)))]), _vm._v(" "), _c('td', [(r.status = 1) ? _c('div', [_vm._v("Approved")]) : _c('div', [_vm._v("Pending")])]), _vm._v(" "), _c('td', {
+      }, [_c('td', [_vm._v(_vm._s(_vm.convertDate(r.release_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getProductsOnHand(product, r.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.dispose_quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.return_quantity))]), _vm._v(" "), _c('td', [(r.status = 1) ? _c('div', [_vm._v("Approved")]) : _c('div', [_vm._v("Pending")])]), _vm._v(" "), _c('td', {
         staticClass: "text-center"
       }, [_vm._m(2, true), _vm._v(" "), _c('button', {
         staticClass: "btn btn-sm",
@@ -97297,7 +97379,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('input', {
     staticClass: "form-control",
     attrs: {
-      "name": "datetime",
+      "name": "datetimeRelease",
       "type": "text"
     }
   }), _vm._v(" "), _c('span', {
@@ -97989,7 +98071,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._m(1, true), _vm._v(" "), _c('tbody', [_vm._l((product.deliveries), function(d, indexD) {
       return (d.product_id == product.id) ? _c('tr', {
         key: indexD
-      }, [_c('td', [_vm._v(_vm._s(_vm.convertDate(d.date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(d.delivered))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.balance(product, indexD)))]), _vm._v(" "), _c('td', {
+      }, [_c('td', [_vm._v(_vm._s(_vm.convertDate(d.delivery_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(d.delivery_quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.balance(product, indexD)))]), _vm._v(" "), _c('td', {
         staticClass: "text-center"
       }, [_c('button', {
         staticClass: "btn btn-sm",
@@ -98050,7 +98132,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('input', {
     staticClass: "form-control",
     attrs: {
-      "name": "datetime",
+      "name": "datetimeDelivery",
       "type": "text"
     }
   }), _vm._v(" "), _c('span', {
@@ -98340,13 +98422,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col-sm-12"
     }, [_c('delivery-tracking', {
       attrs: {
-        "products": _vm.products
+        "propIJobId": _vm.propIJobId,
+        "products": job.job_order.products
       }
     })], 1), _vm._v(" "), _vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "col-sm-12"
     }, [_c('release-tracking', {
       attrs: {
-        "products": _vm.products
+        "propIJobId": _vm.propIJobId,
+        "products": job.job_order.products
       }
     })], 1)])])])
   }))])
@@ -98950,7 +99034,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "border-color": "#000",
       "margin": "50px 0"
     }
-  }), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "container-fluid"
+  }, [_c('div', {
+    staticClass: "col-md-4 col-md-offset-4"
+  }, [_c('ul', {
+    staticClass: "nav nav-tabs",
+    attrs: {
+      "role": "tablist"
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('li', {
+    attrs: {
+      "role": "presentation"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "#final_deployment",
+      "aria-controls": "final_deployment",
+      "role": "tab",
+      "data-toggle": "tab"
+    },
+    on: {
+      "click": _vm.manpowerDeployment
+    }
+  }, [_vm._v("Final Deployment")])])])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-content"
   }, [_c('div', {
     staticClass: "tab-pane active",
@@ -99403,9 +99510,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "tabpanel",
       "id": "final_deployment"
     }
-  }, [_vm._m(5), _vm._v(" "), _c('div', {
+  }, [_c('div', {
     staticClass: "col-md-12"
-  }, [_c('h4', [_vm._v("EVENT DATE: "), _c('span', [_vm._v(_vm._s(_vm.event_date_header))])]), _vm._v(" "), _c('div', {
+  }, [_c('h4', {
+    staticClass: "text-center"
+  }, [_vm._v("EVENT DATE: "), _c('span', [_vm._v(_vm._s(_vm.event_date_header))])]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-6"
@@ -99414,7 +99525,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Briefing Schedule")]), _vm._v(" "), _vm._l((_vm.deploymentManpower.briefing), function(briefing, key) {
     return _c('div', [_c('table', {
       staticClass: "table table-striped"
-    }, [_c('caption', [_vm._v("Team : " + _vm._s(key))]), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('tbody', _vm._l((briefing), function(manpowerList) {
+    }, [_c('caption', [_vm._v("Team : " + _vm._s(key))]), _vm._v(" "), _c('caption', [_vm._v("Date : " + _vm._s(briefing.schedule.created_datetime))]), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('tbody', _vm._l((briefing.manpower_list), function(manpowerList) {
       return _c('tr', [_c('td', [_vm._v(_vm._s(manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(manpowerList.manpower.manpower_type.name))])])
     }))])])
   })], 2), _vm._v(" "), _c('div', {
@@ -99424,23 +99535,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Training and simulation Schedule")]), _vm._v(" "), _vm._l((_vm.deploymentManpower.simulation), function(simulation, key) {
     return _c('div', [_c('table', {
       staticClass: "table table-striped"
-    }, [_c('caption', [_vm._v("Team : " + _vm._s(key))]), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('tbody', _vm._l((simulation), function(manpowerList) {
+    }, [_c('caption', [_vm._v("Team : " + _vm._s(key))]), _vm._v(" "), _c('caption', [_vm._v("Date : " + _vm._s(simulation.schedule.created_datetime))]), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('tbody', _vm._l((simulation.manpower_list), function(manpowerList) {
       return _c('tr', [_c('td', [_vm._v(_vm._s(manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(manpowerList.manpower.manpower_type.name))])])
     }))])])
   })], 2)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('td', [_vm._v("Manpower")]), _vm._v(" "), _c('td', [_vm._v("Manpower Needed")]), _vm._v(" "), _c('td', [_vm._v("Rate")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container-fluid"
-  }, [_c('div', {
-    staticClass: "col-md-4 col-md-offset-4"
-  }, [_c('ul', {
-    staticClass: "nav nav-tabs",
-    attrs: {
-      "role": "tablist"
-    }
-  }, [_c('li', {
+  return _c('li', {
     staticClass: "active",
     attrs: {
       "role": "presentation"
@@ -99452,18 +99554,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "tab",
       "data-toggle": "tab"
     }
-  }, [_vm._v("Plan")])]), _vm._v(" "), _c('li', {
-    attrs: {
-      "role": "presentation"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "#final_deployment",
-      "aria-controls": "final_deployment",
-      "role": "tab",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v("Final Deployment")])])])])])
+  }, [_vm._v("Plan")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('td', [_vm._v("Full Name")]), _vm._v(" "), _c('td', [_vm._v("Manpower Type")]), _vm._v(" "), _c('td', [_vm._v("Rate")]), _vm._v(" "), _c('td', [_vm._v("Assigned Venue")]), _vm._v(" "), _c('td', [_vm._v("Action")]), _vm._v(" "), _c('td', [_vm._v(" ")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -99479,16 +99570,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "text-center"
   }, [_vm._v("Manpower Training and Simulation Schedule:")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('button', {
+  return _c('button', {
     staticClass: "btn btn-default pull-right",
     attrs: {
       "onclick": "frames['finalDeploymentFrame'].print()"
     }
   }, [_c('i', {
     staticClass: "fa fa-print fa-lg"
-  }), _vm._v(" Print Final deployment\n            ")])])
+  }), _vm._v(" Print Final deployment\n            ")])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Full Name")]), _vm._v(" "), _c('th', [_vm._v("Manpower Type")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -101496,6 +101585,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("First Name")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.first_name),
+      expression: "rowData.first_name"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "text",
@@ -101504,13 +101599,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Enter first name"
     },
     domProps: {
-      "value": _vm.rowData.first_name
+      "value": _vm.rowData.first_name,
+      "value": (_vm.rowData.first_name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.first_name = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Middle Name")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.middle_name),
+      expression: "rowData.middle_name"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "text",
@@ -101519,13 +101627,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Enter middle name"
     },
     domProps: {
-      "value": _vm.rowData.middle_name
+      "value": _vm.rowData.middle_name,
+      "value": (_vm.rowData.middle_name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.middle_name = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Last Name")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.last_name),
+      expression: "rowData.last_name"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "text",
@@ -101534,19 +101655,43 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Enter last name"
     },
     domProps: {
-      "value": _vm.rowData.last_name
+      "value": _vm.rowData.last_name,
+      "value": (_vm.rowData.last_name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.last_name = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Manpower Type")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.manpower_type_id),
+      expression: "rowData.manpower_type_id"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "date",
       "name": "manpower_type_id",
       "id": "manpower_type_id",
       "placeholder": "Select..."
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.rowData.manpower_type_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
     }
   }, _vm._l((_vm.manpowerTypeList), function(manpowerType) {
     return _c('option', {
@@ -101560,12 +101705,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Agency")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.agency_id),
+      expression: "rowData.agency_id"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "date",
       "name": "agency_id",
       "id": "agency_id",
       "placeholder": "Select..."
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.rowData.agency_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
     }
   }, _vm._l((_vm.agencyList), function(agency) {
     return _c('option', {
@@ -101579,6 +101741,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Birth Date")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.birthdate),
+      expression: "rowData.birthdate"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "date",
@@ -101587,13 +101755,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "birthdate"
     },
     domProps: {
-      "value": _vm.rowData.birthdate
+      "value": _vm.rowData.birthdate,
+      "value": (_vm.rowData.birthdate)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.birthdate = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("City")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.city),
+      expression: "rowData.city"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "city",
@@ -101602,13 +101783,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Enter City"
     },
     domProps: {
-      "value": _vm.rowData.city
+      "value": _vm.rowData.city,
+      "value": (_vm.rowData.city)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.city = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Email Address")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.email),
+      expression: "rowData.email"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "email",
@@ -101617,13 +101811,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Enter Email Address"
     },
     domProps: {
-      "value": _vm.rowData.email
+      "value": _vm.rowData.email,
+      "value": (_vm.rowData.email)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.email = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Contact Number")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.contact_number),
+      expression: "rowData.contact_number"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "text",
@@ -101632,13 +101839,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Enter contact number"
     },
     domProps: {
-      "value": _vm.rowData.contact_number
+      "value": _vm.rowData.contact_number,
+      "value": (_vm.rowData.contact_number)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.contact_number = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Facebook Profile Link")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.fb_link),
+      expression: "rowData.fb_link"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "text",
@@ -101647,13 +101867,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Facebook Link"
     },
     domProps: {
-      "value": _vm.rowData.fb_link
+      "value": _vm.rowData.fb_link,
+      "value": (_vm.rowData.fb_link)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.fb_link = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Date Hired")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.hired_date),
+      expression: "rowData.hired_date"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "date",
@@ -101661,13 +101894,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "hired_date"
     },
     domProps: {
-      "value": _vm.rowData.hired_date
+      "value": _vm.rowData.hired_date,
+      "value": (_vm.rowData.hired_date)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.hired_date = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Violations")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.violations),
+      expression: "rowData.violations"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "text",
@@ -101676,13 +101922,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Enter violations"
     },
     domProps: {
-      "value": _vm.rowData.violations
+      "value": _vm.rowData.violations,
+      "value": (_vm.rowData.violations)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.violations = $event.target.value
+      }
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
   }, [_vm._v("Rate")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rowData.rate),
+      expression: "rowData.rate"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "number",
@@ -101691,7 +101950,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "Enter Rate"
     },
     domProps: {
-      "value": _vm.rowData.rate
+      "value": _vm.rowData.rate,
+      "value": (_vm.rowData.rate)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rowData.rate = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
     }
   })]), _vm._v(" "), _vm._m(3)])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
@@ -105661,9 +105930,9 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
-  }, [_c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
-  }, [_c('h1', [_vm._v("Product List")]), _vm._v(" "), _c('div', {
+  }, [_c('div', {
     staticClass: "content"
   }, [_c('filter-bar'), _vm._v(" "), _c('vuetable', {
     ref: "vuetable",
@@ -105697,8 +105966,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "vuetable-pagination:change-page": _vm.onChangePage
     }
-  })], 1)], 1)])])
-},staticRenderFns: []}
+  })], 1)], 1)]), _vm._v(" "), _c('iframe', {
+    staticStyle: {
+      "width": "0",
+      "height": "0"
+    },
+    attrs: {
+      "name": "productListFrame",
+      "src": _vm.frameSrc
+    }
+  })], 1)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-12"
+  }, [_c('h1', [_vm._v("Product List")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default pull-right",
+    attrs: {
+      "onclick": "frames['productListFrame'].print()"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-print fa-lg"
+  }), _vm._v(" Print Product List\n        ")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
