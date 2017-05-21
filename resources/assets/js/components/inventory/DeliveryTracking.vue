@@ -153,7 +153,7 @@
         },
         mounted: function () {
           $('.datetimepickerDelivery').datetimepicker({
-            // minDate: moment()
+            minDate: moment()
           });
         },
         props: ['products', 'propIJobId']
