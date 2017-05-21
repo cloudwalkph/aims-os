@@ -90,7 +90,7 @@ class PoolingManpowerController extends Controller
             }
 
             
-            $selectedManpower = JobOrderSelectedManpower::where('manpower_id',$data['manpower_id'])->first();
+            $selectedManpower = JobOrderSelectedManpower::where('manpower_id',$data['manpower_id'])->where('job_order_id',$jo->id)->first();
             
             if(!$selectedManpower)
             {
@@ -115,7 +115,7 @@ class PoolingManpowerController extends Controller
                 $return[] = $query;
             }else
             {
-                $return[] = JobOrderSelectedManpower::where('manpower_id',$data['manpower_id'])->update($data);
+                $return[] = JobOrderSelectedManpower::where('manpower_id',$data['manpower_id'])->where('job_order_id',$jo->id)->update($data);
             }
 
         }
