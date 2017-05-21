@@ -27,7 +27,7 @@
                   Item Name: {{product.item_name}}
               </label>
               <label htmlFor="quantity" class="col-sm-4 control-label">
-                  Current Stock on Hand: {{getProductsOnHand(product, dateToday)}}
+                  Current Stock on Hand: {{getProductsOnHand(product)}}
               </label>
               <table class="table table-striped table-bordered">
                   <thead>
@@ -48,7 +48,7 @@
                         :key="indexD"
                       >
                           <td>{{convertDate(r.release_date)}}</td>
-                          <td>{{getProductsOnHand(product, r.date)}}</td>
+                          <td>{{getProductsOnHand(product, r.release_date)}}</td>
                           <td>{{r.dispose_quantity}}</td>
                           <td>{{r.return_quantity}}</td>
                           <td><div v-if="r.status = 1">Approved</div><div v-else>Pending</div></td>
@@ -71,7 +71,7 @@
                                 </span>
                             </div>
                           </td>
-                          <td>{{getProductsOnHand(product, dateToday)}}</td>
+                          <td>{{getProductsOnHand(product)}}</td>
                           <td><input type="text" name="disposedVal" class="form-control" /></td>
                           <td><input type="text" name="returnedVal" class="form-control" /></td>
                           <td>
@@ -120,28 +120,54 @@
                 return d.toDateString();
             },
             getProductsOnHand: function (product, rDate = Date()) {
-                var total = 0;
-                var rDateParsed = Date.parse(rDate);
-                if(product.deliveries) {
+              var deliveries = 0,
+                releases = 0,
+                total = 0,
+                rDateParsed = Date.parse(rDate);
+
+                for (release of product.releases) {
+                  deliveries = 0;
+                  var releaseDateParsed = Date.parse(release.release_date);
+
                   for (delivery of product.deliveries) {
-                    if (delivery.product_id == product.id) {
-                      var deliveryDateParsed = Date.parse(delivery.delivery_date);
-                      if (deliveryDateParsed <= rDateParsed) {
-                        total = Number(total) + Number(delivery.delivery_quantity);
-                      }
+                    var deliveryDateParsed = Date.parse(delivery.delivery_date);
+                    if (deliveryDateParsed < releaseDateParsed && rDateParsed > deliveryDateParsed) {
+                      deliveries += Number(delivery.delivery_quantity);
                     }
                   }
-                }
-                if(product.releases) {
-                  for (release of product.releases) {
-                    if (release.product_id == product.id) {
-                      var releaseDateParsed = Date.parse(release.release_date);
-                      if(releaseDateParsed < rDateParsed) {
-                        total = Number(total) - Number(release.dispose_quantity) + Number(release.return_quantity);
-                      }
-                    }
+
+                  if (rDateParsed > releaseDateParsed) {
+                    releases += Number(release.dispose_quantity) - Number(release.return_quantity);
                   }
                 }
+
+                total = deliveries - releases;
+
+                // if(product.releases) {
+                //   for (release of product.releases) {
+                //     var deliveries = 0;
+                //     if (release.product_id == product.id) {
+                //       var releaseDateParsed = Date.parse(release.release_date);
+                //
+                //       // get total deliveries
+                //       if(product.deliveries) {
+                //         for (delivery of product.deliveries) {
+                //           if (delivery.product_id == product.id) {
+                //             var deliveryDateParsed = Date.parse(delivery.delivery_date);
+                //             if (rDateParsed >= deliveryDateParsed) {
+                //               deliveries += Number(delivery.delivery_quantity);
+                //             }
+                //           }
+                //         }
+                //       }
+                //       console.log(deliveries);
+                //
+                //       if(rDateParsed < releaseDateParsed) {
+                //         releases -= (Number(release.dispose_quantity) + Number(release.return_quantity));
+                //       }
+                //     }
+                //   }
+                // }
                 return total;
             },
             returned: function (product, rDate, iDisposed = 0) {

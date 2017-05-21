@@ -1,6 +1,7 @@
 <template>
     <div class="modal fade" id="createAnimationDetails" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document">
+        <form @submit.prevent="validateBeforeSubmit">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -8,18 +9,20 @@
                 </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-12 form-group text-input-container">
+                            <div class="col-md-12 form-group text-input-container" :class="{'has-error': errors.has('particular') }">
                                 <label class="control-label" for="particular">Particulars <span class="required-field">*</span></label>
                                 <input type="text" name="particular" required id="particular"
-                                       @input="inputChange" v-bind:value="particular"
+                                       @input="inputChange" v-bind:value="particular" v-model="particular" v-validate="'required'" 
                                        placeholder="Particulars" class="form-control" />
+                                <span v-show="errors.has('particular')" class="help-block"><strong>{{ errors.first('particular') }}</strong></span>
                             </div>
 
-                            <div class="col-md-12 form-group text-input-container">
+                            <div class="col-md-12 form-group text-input-container" :class="{'has-error': errors.has('target_activity') }">
                                 <label class="control-label" for="target_activity">Target Activity <span class="required-field">*</span></label>
                                 <input type="text" name="target_activity" required id="target_activity"
-                                       @input="inputChange" v-bind:value="target_activity"
+                                       @input="inputChange" v-bind:value="target_activity" v-model="target_activity" v-validate="'required'" 
                                        placeholder="Target Activity" class="form-control" />
+                                <span v-show="errors.has('target_activity')" class="help-block"><strong>{{ errors.first('target_activity') }}</strong></span>
                             </div>
 
                             <div class="col-md-12 text-center">
@@ -72,26 +75,29 @@
                                 <hr/>
                             </div>
 
-                            <div class="col-md-12 form-group text-input-container">
+                            <div class="col-md-12 form-group text-input-container" :class="{'has-error': errors.has('target_duration') }">
                                 <label class="control-label" for="target_duration">Target Duration <span class="required-field">*</span></label>
                                 <input type="number" name="target_duration" required id="target_duration"
-                                       @input="inputChange" v-bind:value="target_duration"
+                                       @input="inputChange" v-bind:value="target_duration" v-model="target_duration" v-validate="'required'" 
                                        placeholder="Target Duration" class="form-control" />
+                                <span v-show="errors.has('target_duration')" class="help-block"><strong>{{ errors.first('target_duration') }}</strong></span>
                             </div>
 
-                            <div class="col-md-12 form-group text-input-container">
+                            <div class="col-md-12 form-group text-input-container" :class="{'has-error': errors.has('target_areas') }">
                                 <label class="control-label" for="target_areas">Areas <span class="required-field">*</span></label>
                                 <input type="number" name="target_areas" required id="target_areas"
-                                       @input="inputChange" v-bind:value="target_areas"
+                                       @input="inputChange" v-bind:value="target_areas" v-model="target_areas" v-validate="'required'" 
                                        placeholder="Areas" class="form-control" />
+                                <span v-show="errors.has('target_areas')" class="help-block"><strong>{{ errors.first('target_areas') }}</strong></span>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" @click="saveProject">Add</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
                     </div>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </template>
@@ -120,6 +126,12 @@
 
         },
         methods: {
+            validateBeforeSubmit(e) {
+                this.$validator.validateAll();
+                if (!this.errors.any()) {
+                    this.saveProject()
+                }
+            },
             resetForm() {
                 this.particular = ''
                 this.target_activity = ''

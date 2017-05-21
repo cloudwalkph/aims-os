@@ -1,50 +1,52 @@
 <template>
     <div class="modal fade" id="ongoingModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add Creatives to JO</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="clientForm">
-                        <div class="row">
-                            <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label">Job Order Number</label>
-                                <v-select :on-change="joSelected" :options="joOptions"></v-select>
-                            </div>
-                            <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label">Remarks</label>
-                                <input type="text" name="description"
-                                       @input="inputChange" v-bind:value="description" id="description"
-                                       placeholder="Description" class="form-control" />
-                            </div>
-                            <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label">Deadline</label>
-                                <input type="text" name="deadline"
-                                       @input="inputChange" v-bind:value="deadline" id="deadline"
-                                       placeholder="Deadline" class="form-control" />
-                            </div>
-                            <div class="col-md-12 form-group text-input-container">
-                                <label class="control-label">Users</label>
-                                <v-select :on-change="userSelected" :options="userOptions"></v-select>
-                            </div>
+            <form id="clientForm" @submit.prevent="validateBeforeSubmit">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add Creatives to JO</h4>
+                    </div>
+                    <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group text-input-container">
+                                    <label class="control-label">Job Order Number</label>
+                                    <v-select :on-change="joSelected" :options="joOptions"></v-select>
+                                </div>
+                                <div class="col-md-12 form-group text-input-container" :class="{'has-error': errors.has('remarks') }">
+                                    <label class="control-label">Remarks</label>
+                                    <input type="text" name="remarks" v-model="remarks" v-validate="'required'" 
+                                           @input="inputChange" v-bind:value="remarks" id="remarks"
+                                           placeholder="Remarks" class="form-control" />
+                                    <span v-show="errors.has('remarks')" class="help-block"><strong>{{ errors.first('remarks') }}</strong></span>
+                                </div>
+                                <div class="col-md-12 form-group text-input-container" :class="{'has-error': errors.has('deadline') }">
+                                    <label class="control-label">Deadline</label>
+                                    <input type="text" name="deadline" v-model="deadline" v-validate="'required'" 
+                                           @input="inputChange" v-bind:value="deadline" id="deadline"
+                                           placeholder="Deadline" class="form-control" />
+                                    <span v-show="errors.has('deadline')" class="help-block"><strong>{{ errors.first('deadline') }}</strong></span>
+                                </div>
+                                <div class="col-md-12 form-group text-input-container">
+                                    <label class="control-label">Users</label>
+                                    <v-select :on-change="userSelected" :options="userOptions"></v-select>
+                                </div>
 
-                        </div>
-                    </form>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="saveProject">Save</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </template>
 
 <script>
     import vSelect from 'vue-select'
-
+    
     Vue.component('v-select', vSelect)
     export default {
         data() {
@@ -54,8 +56,8 @@
                 userOptions: [],
                 joOptions: [],
                 job_order_id: '',
-                description: '',
-                deadline: moment().format("YYYY-MM-DD HH:mm"),
+                remarks: '',
+                deadline: '',
                 user_id: ''
             }
         },
@@ -68,9 +70,15 @@
             });
         },
         methods: {
+            validateBeforeSubmit(e) {
+                this.$validator.validateAll();
+                if (!this.errors.any()) {
+                    this.saveProject()
+                }
+            },
             resetForm() {
                 this.job_order_id = ''
-                this.description = ''
+                this.remarks = ''
                 this.deadline = ''
                 this.user_id = ''
             },
@@ -109,7 +117,7 @@
 
                 let data = {
                     job_order_id: this.job_order_id,
-                    description: this.description,
+                    description: this.remarks,
                     deadline: moment(this.deadline, "YYYY-MM-DD hh:mm a").format("YYYY-MM-DD HH:mm:ss"),
                     user_id: this.user_id
                 }
