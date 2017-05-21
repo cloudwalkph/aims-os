@@ -535,4 +535,39 @@ table tbody tr {
     margin-left: 0;
 }
 
+/*STATS*/
+.stat-info {
+    background-color: #cacaca;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
 
+.stat-info .stat-title {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.stat-info .stat-value {
+    font-size: 50px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.stat-success {
+    background-color: #4fb568;
+    color: #eeeeee;
+}
+
+.stat-information {
+    background-color: #b5a45e;
+    color: #eeeeee;
+}
+
+.stat-danger {
+    background-color: #b5453f;
+    color: #eeeeee;
+}
