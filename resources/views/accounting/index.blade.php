@@ -149,9 +149,14 @@
 
                             @else
 
-                                <td>
-                                    <button class="btn btn-primary btnForPdUpload" data-toggle="modal" data-target="#modalPD" value="{{$jo['joId']}}" alt="payment">Unpaid</button>
-                                </td>
+
+                                @if( $dptid == 8 )
+                                    <td>
+                                        <button class="btn btn-primary btnForPdUpload" data-toggle="modal" data-target="#modalPD" value="{{$jo['joId']}}" alt="payment">Unpaid</button>
+                                    </td>
+                                @else
+                                    <td> </td>
+                                @endif
 
                             @endif
 
