@@ -54,7 +54,7 @@
                           <td><div v-if="r.status = 1">Approved</div><div v-else>Pending</div></td>
                           <td class="text-center">
                             <button type="button" class="btn btn-sm"><i class="glyphicon glyphicon-pencil"></i></button>
-                            <button type="button" class="btn btn-sm" @click="removeDelivery(product, indexD)"><i class="glyphicon glyphicon-trash"></i></button>
+                            <button type="button" class="btn btn-sm" @click="removeRelease(product, indexD)"><i class="glyphicon glyphicon-trash"></i></button>
                           </td>
                       </tr>
 

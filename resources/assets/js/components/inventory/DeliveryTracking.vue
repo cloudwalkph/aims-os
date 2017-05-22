@@ -49,7 +49,13 @@
                             <td>{{d.delivery_quantity}}</td>
                             <td>{{balance(product, indexD)}}</td>
                             <td class="text-center">
-                              <button type="button" class="btn btn-sm" @click="editDelivery(product, indexD)"><i class="glyphicon glyphicon-pencil"></i></button>
+                              <button
+                                class="btn btn-sm"
+                                type="button"
+                                data-toggle="modal"
+                                data-target="#modalUpdateDelivery"
+                                @click="onModalClick(indexTrace, indexD)"
+                              ><i class="glyphicon glyphicon-pencil"></i></button>
                               <button type="button" class="btn btn-sm" @click="removeDelivery(product, indexD)"><i class="glyphicon glyphicon-trash"></i></button>
                             </td>
                         </tr>
@@ -92,6 +98,47 @@
         >No Products to show</div>
 
         <iframe name="inventoryDeliveryFrame" :src="frameSrc" style="width:0; height:0"></iframe>
+
+        <div class="modal fade" id="modalUpdateDelivery" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Deliveries</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger hide">
+                            This is an alert message
+                        </div>
+
+                        <form id="updateDeliveryForm" @submit.prevent="editDelivery">
+                            <input type="hidden" name="deliveryIndex" />
+                            <input type="hidden" name="productIndex" />
+                            <div class="row">
+                                <div class="col-md-12 form-group text-input-container">
+                                    <label class="control-label">Delivery Quantity</label>
+                                    <input
+                                      type="text"
+                                      name="delivery_quantity"
+                                      id="delivery_quantity"
+                                      placeholder="delivery quantity"
+                                      class="form-control"
+                                    />
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" form="updateDeliveryForm" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </template>
@@ -144,8 +191,17 @@
                   console.log('error post inventory delivery', e);
                 });
             },
-            editDelivery: function(product, indexDelivery) {
-
+            onModalClick: function(indexProduct, indexDelivery) {
+                $('input[name="productIndex"]').val(indexProduct);
+                $('input[name="deliveryIndex"]').val(indexDelivery);
+            },
+            editDelivery: function(e) {
+                var form = $(e.target)[0];
+                var productIndex = form.productIndex.value;
+                var deliveryIndex = form.deliveryIndex.value;
+                this.products[productIndex].deliveries[deliveryIndex].delivery_quantity = form.delivery_quantity.value;
+                $('#modalUpdateDelivery').modal('hide');
+                form.reset();
             },
             removeDelivery: function (product, index) {
                 product.deliveries.splice(index, 1);
