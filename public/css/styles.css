@@ -571,3 +571,27 @@ table tbody tr {
     background-color: #b5453f;
     color: #eeeeee;
 }
+
+.filter-bar .navbar-nav .dropdown {
+    margin: 0 10px;
+}
+
+.filter-bar li.dropdown a {
+    color: #333;
+    font-size: 16px;
+}
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background-color: #ddd;
+}
+
+.filter-bar .navbar-nav li ul.dropdown-menu {
+    min-width: 200px;
+    min-height: 100px;
+    padding: 20px;
+    max-height: 400px;
+    overflow: scroll;
+}
+
+.filter-bar label {
+    font-size: 14px;
+}
