@@ -18,7 +18,7 @@
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Delivery Date</th>
+                    <th>Actual Delivery Date</th>
                     <th>Delivered</th>
                     <th>Balance Needed</th>
                 </tr>
