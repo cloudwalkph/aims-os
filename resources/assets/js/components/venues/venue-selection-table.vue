@@ -30,6 +30,38 @@
 
         <hr/>
 
+        <div class="venue-stat">
+            <ul>
+                <li>
+                    <span>Tie-Ups:</span> {{ stats.tieUps }}
+                </li>
+
+                <li>
+                    <span>Stations:</span> {{ stats.stations }}
+                </li>
+
+                <li>
+                    <span>Barangays:</span> {{ stats.barangays }}
+                </li>
+
+                <li>
+                    <span>Malls:</span> {{ stats.malls }}
+                </li>
+
+                <li>
+                    <span>Hospitals:</span> {{ stats.hospitals }}
+                </li>
+
+                <li>
+                    <span>Offices:</span> {{ stats.offices }}
+                </li>
+
+                <li>
+                    <span>Schools:</span> {{ stats.schools }}
+                </li>
+            </ul>
+        </div>
+
         <div class="col-md-12" style="margin-top: 50px">
             <h4>
                 Selected Venues
@@ -101,6 +133,15 @@
         },
         data() {
             return {
+                stats: {
+                    tieUps: 0,
+                    stations: 0,
+                    barangays: 0,
+                    malls: 0,
+                    hospitals: 0,
+                    offices: 0,
+                    schools: 0
+                },
                 selectedVenues: [],
                 selectedVenueCount: 0,
                 selectedVenueIds: [],
@@ -300,6 +341,9 @@
                 }, error => {
                     console.log(error)
                 })
+            },
+            getStats() {
+
             },
             saveSelectedVenues() {
                 let jobOrderId = $('#jobOrderId').val();

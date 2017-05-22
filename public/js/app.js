@@ -53984,6 +53984,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -54011,6 +54043,15 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('venues-update-modal', __W
     },
     data: function data() {
         return {
+            stats: {
+                tieUps: 0,
+                stations: 0,
+                barangays: 0,
+                malls: 0,
+                hospitals: 0,
+                offices: 0,
+                schools: 0
+            },
             selectedVenues: [],
             selectedVenueCount: 0,
             selectedVenueIds: [],
@@ -54210,6 +54251,7 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('venues-update-modal', __W
                 console.log(error);
             });
         },
+        getStats: function getStats() {},
         saveSelectedVenues: function saveSelectedVenues() {
             var jobOrderId = $('#jobOrderId').val();
 
@@ -110549,7 +110591,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('venues-modal'), _vm._v(" "), _c('venues-update-modal', {
     ref: "updateVenues"
-  })], 1), _vm._v(" "), _c('hr'), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+    staticClass: "venue-stat"
+  }, [_c('ul', [_c('li', [_c('span', [_vm._v("Tie-Ups:")]), _vm._v(" " + _vm._s(_vm.stats.tieUps) + "\n            ")]), _vm._v(" "), _c('li', [_c('span', [_vm._v("Stations:")]), _vm._v(" " + _vm._s(_vm.stats.stations) + "\n            ")]), _vm._v(" "), _c('li', [_c('span', [_vm._v("Barangays:")]), _vm._v(" " + _vm._s(_vm.stats.barangays) + "\n            ")]), _vm._v(" "), _c('li', [_c('span', [_vm._v("Malls:")]), _vm._v(" " + _vm._s(_vm.stats.malls) + "\n            ")]), _vm._v(" "), _c('li', [_c('span', [_vm._v("Hospitals:")]), _vm._v(" " + _vm._s(_vm.stats.hospitals) + "\n            ")]), _vm._v(" "), _c('li', [_c('span', [_vm._v("Offices:")]), _vm._v(" " + _vm._s(_vm.stats.offices) + "\n            ")]), _vm._v(" "), _c('li', [_c('span', [_vm._v("Schools:")]), _vm._v(" " + _vm._s(_vm.stats.schools) + "\n            ")])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('table', {
     staticClass: "table table-striped table-bordered",
