@@ -595,3 +595,19 @@ table tbody tr {
 .filter-bar label {
     font-size: 14px;
 }
+
+/*Venues Stat*/
+.venue-stat {
+    margin-top: 120px;
+}
+
+.venue-stat ul li {
+    display: inline;
+    list-style: none;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.venue-stat ul li span {
+    font-weight: 600;
+}

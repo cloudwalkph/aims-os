@@ -84,7 +84,7 @@
 
                     <li class="dropdown">
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            Filter Estimated Foot Traffic <span class="caret"></span>
+                            Estimated Foot Traffic <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu location" role="menu">
@@ -98,7 +98,7 @@
 
                     <li class="dropdown">
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            Filter Actual Hits <span class="caret"></span>
+                            Actual Hits <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu location" role="menu">
@@ -112,13 +112,41 @@
 
                     <li class="dropdown">
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            Filter LSM <span class="caret"></span>
+                            Actual Hits Male<span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu location" role="menu">
                             <li>
                                 <label for="None">
                                     <input type="checkbox" name="None" id="None" /> None
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Actual Hits Female<span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu location" role="menu">
+                            <li>
+                                <label for="None">
+                                    <input type="checkbox" name="None" id="None" /> None
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            LSM <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu location" role="menu">
+                            <li>
+                                <label for="lsm">
+                                    <input type="text" id="lsm" name="lsm" value="" />
                                 </label>
                             </li>
                         </ul>
