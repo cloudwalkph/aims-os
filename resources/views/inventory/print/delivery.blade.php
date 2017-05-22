@@ -10,6 +10,9 @@
             Item Name: {{$product->item_name}}
         </label>
         <label htmlFor="quantity" class="col-sm-4 control-label">
+            Expected Delivery Date: {{$product->expected_delivery_date}}
+        </label>
+        <label htmlFor="quantity" class="col-sm-4 control-label">
             Expected Quantity: {{$product->expected_quantity}}
         </label>
         <table class="table table-striped table-bordered">

@@ -22,10 +22,13 @@
                 :productId="product.id"
                 :workIndex="indexTrace"
               >
-                <label htmlFor="itemname" class="col-sm-4 control-label">
+                <label htmlFor="itemname" class="col-sm-3 control-label">
                     Item Name: {{product.item_name}}
                 </label>
-                <label htmlFor="quantity" class="col-sm-4 control-label">
+                <label htmlFor="quantity" class="col-sm-3 control-label">
+                    Expected Delivery Date: {{convertDate(product.expected_delivery_date)}}
+                </label>
+                <label htmlFor="quantity" class="col-sm-3 control-label">
                     Expected Quantity: {{product.expected_quantity}}
                 </label>
                 <table class="table table-striped table-bordered">
