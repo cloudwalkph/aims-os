@@ -80,14 +80,15 @@ class InventoryController extends Controller
           $query->where('job_order_id', $id);
         }
 
-        $query->join(\DB::raw('(SELECT product_id, SUM(delivery_quantity) AS products_on_hand FROM inventory_deliveries GROUP BY product_id) AS inventory_deliveries'), function($q) {
+        $query->join(\DB::raw('(SELECT product_id, SUM(delivery_quantity) AS delivered FROM inventory_deliveries GROUP BY product_id) AS inventory_deliveries'), function($q) {
           $q->on('job_order_products.id', '=', 'inventory_deliveries.product_id');
         });
-        $query->addSelect('products_on_hand');
+        $query->addSelect('delivered');
         $query->join(\DB::raw('(SELECT product_id, SUM(dispose_quantity) AS disposed FROM inventory_releases GROUP BY product_id) AS inventory_releases'), function($q) {
           $q->on('job_order_products.id', '=', 'inventory_releases.product_id');
         });
         $query->addSelect('disposed');
+        $query->addSelect(\DB::raw('(delivered - disposed) as products_on_hand'));
 
         $result = $query->get();
 
