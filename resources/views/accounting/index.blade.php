@@ -32,7 +32,7 @@
                         <th width="150">Job Order No.</th>
                         <th width="400">AE Assigned</th>
                         <th width="200">Project Name</th>
-                        <th width="200">Client</th>
+                        {{--<th width="200">Client</th>--}}
                         <th width="150">Brand</th>
                         <th width="150">CE</th>
                         <th width="150">DO No. / PO</th>
@@ -47,7 +47,7 @@
                         <th width="150">Job Order No.</th>
                         <th width="400">AE Assigned</th>
                         <th width="200">Project Name</th>
-                        <th width="200">Client</th>
+                        {{--<th width="200">Client</th>--}}
                         <th width="150">Brand</th>
                         <th width="150">CE</th>
                         <th width="150">DO No. / PO</th>
@@ -66,7 +66,7 @@
                                 {{$jo['assigned']}}
                             </td>
                             <td>{{$jo['projName']}}</td>
-                            <td>{{$jo['contact']}}</td>
+                            {{--<td>{{$jo['contact']}}</td>--}}
                             <td>
                                 {{ $jo['brands'] }}
                             </td>
