@@ -35,7 +35,11 @@ class InventoryController extends Controller
 
     function print_delivery($joID)
     {
-        $iJob = InventoryJob::with('jobOrder', 'assignedPerson')->find($joID);
+        $iJob = InventoryJob::with(
+          'jobOrder.user.profile',
+          'jobOrder.products.deliveries',
+          'assignedPerson.user.profile'
+        )->find($joID);
         $header = view('inventory.print.header')->with('iJob', $iJob);
 
         $deliveryView = view('inventory.print.delivery')->with('iJob', $iJob);
@@ -47,7 +51,11 @@ class InventoryController extends Controller
 
     function print_release($joID)
     {
-        $iJob = InventoryJob::with('jobOrder', 'assignedPerson')->find($joID);
+        $iJob = InventoryJob::with(
+          'jobOrder.user.profile',
+          'jobOrder.products.releases',
+          'assignedPerson.user.profile'
+        )->find($joID);
         $header = view('inventory.print.header')->with('iJob', $iJob);
 
         $releaseView = view('inventory.print.release')->with('iJob', $iJob);
@@ -64,9 +72,13 @@ class InventoryController extends Controller
         return view('inventory.print')->with('jo', $jo);
     }
 
-    function print_product_list()
+    function print_product_list($id = null)
     {
-        $query = JobOrderProduct::select('job_order_products.*')->with('jobOrder');
+        $query = JobOrderProduct::select('job_order_products.*')->with('jobOrder.products');
+
+        if($id) {
+          $query->where('job_order_id', $id);
+        }
 
         $query->join(\DB::raw('(SELECT product_id, SUM(delivery_quantity) AS products_on_hand FROM inventory_deliveries GROUP BY product_id) AS inventory_deliveries'), function($q) {
           $q->on('job_order_products.id', '=', 'inventory_deliveries.product_id');
