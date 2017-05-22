@@ -125,19 +125,28 @@
                 total = 0,
                 rDateParsed = Date.parse(rDate);
 
-                for (release of product.releases) {
-                  deliveries = 0;
-                  var releaseDateParsed = Date.parse(release.release_date);
+                if(product.releases.length > 0) {
+                  for (release of product.releases) {
+                    deliveries = 0;
+                    var releaseDateParsed = Date.parse(release.release_date);
 
-                  for (delivery of product.deliveries) {
-                    var deliveryDateParsed = Date.parse(delivery.delivery_date);
-                    if (deliveryDateParsed < releaseDateParsed && rDateParsed > deliveryDateParsed) {
-                      deliveries += Number(delivery.delivery_quantity);
+                    for (delivery of product.deliveries) {
+                      var deliveryDateParsed = Date.parse(delivery.delivery_date);
+                      if (deliveryDateParsed < releaseDateParsed && rDateParsed > deliveryDateParsed) {
+                        deliveries += Number(delivery.delivery_quantity);
+                      }
+                    }
+
+                    if (rDateParsed > releaseDateParsed) {
+                      releases += Number(release.dispose_quantity) - Number(release.return_quantity);
                     }
                   }
-
-                  if (rDateParsed > releaseDateParsed) {
-                    releases += Number(release.dispose_quantity) - Number(release.return_quantity);
+                } else {
+                  for (delivery of product.deliveries) {
+                    var deliveryDateParsed = Date.parse(delivery.delivery_date);
+                    if (rDateParsed > deliveryDateParsed) {
+                      deliveries += Number(delivery.delivery_quantity);
+                    }
                   }
                 }
 
