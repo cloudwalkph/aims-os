@@ -136,7 +136,7 @@ class AccountingController extends Controller
                 'coNo' => $contractList,
                 'assigned' => $userProfile->last_name.', '.$userProfile->first_name,
                 'projName' => $jo->project_name,
-                'contact' => $client->contact_person,
+//                'contact' => $client->contact_person,
                 'brands' => $strBrands,
                 'ceNo' => $ceNo,
                 'ceFile' => $ceFile,
