@@ -40553,6 +40553,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -53020,6 +53054,84 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -103308,61 +103420,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "2"
     }
-  }, [_vm._v("Activations")])])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.filterByAge),
-      expression: "filterByAge"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "type": "date",
-      "name": "birthdate",
-      "id": "birthdateAge",
-      "placeholder": "Select..."
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.filterByAge = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("Filter Age")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "20"
-    }
-  }, [_vm._v("20 and below")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "25"
-    }
-  }, [_vm._v("25 and below")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "30"
-    }
-  }, [_vm._v("30 and below")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "35"
-    }
-  }, [_vm._v("35 and below")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "40"
-    }
-  }, [_vm._v("40 and below")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Activations")])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('button', {
     staticClass: "btn btn-primary btn-block",
+    staticStyle: {
+      "padding": "10px"
+    },
     attrs: {
       "type": "button"
     },
@@ -103370,7 +103434,87 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.doFilter
     }
   }, [_vm._v("\n                        Apply Filter\n                    ")])])])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group"
+  }, [_c('li', {
+    staticClass: "dropdown"
+  }, [_c('a', {
+    staticClass: "dropdown-toggle",
+    attrs: {
+      "href": "#",
+      "data-toggle": "dropdown",
+      "role": "button",
+      "aria-expanded": "false"
+    }
+  }, [_vm._v("\n                            Location "), _c('span', {
+    staticClass: "caret"
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu location",
+    attrs: {
+      "role": "menu"
+    }
+  }, [_c('li', [_c('input', {
+    staticClass: "form-control search-location",
+    attrs: {
+      "type": "text",
+      "placeholder": "Enter a location",
+      "name": "search_location"
+    }
+  })]), _vm._v(" "), _c('li', {
+    staticClass: "nav-divider"
+  }), _vm._v(" "), _c('li', [_c('h4', [_vm._v("TOP LOCATIONS")])]), _vm._v(" "), _c('li', [_c('label', {
+    attrs: {
+      "for": "location_1"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "location_1",
+      "id": "location_1"
+    }
+  }), _vm._v(" Makati\n                                ")])]), _vm._v(" "), _c('li', [_c('label', {
+    attrs: {
+      "for": "location_2"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "location_2",
+      "id": "location_2"
+    }
+  }), _vm._v(" Pasig\n                                ")])]), _vm._v(" "), _c('li', [_c('label', {
+    attrs: {
+      "for": "location_3"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "location_3",
+      "id": "location_3"
+    }
+  }), _vm._v(" Quezon City\n                                ")])]), _vm._v(" "), _c('li', [_c('label', {
+    attrs: {
+      "for": "location_4"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "location_4",
+      "id": "location_4"
+    }
+  }), _vm._v(" Metro Manila\n                                ")])]), _vm._v(" "), _c('li', [_c('label', {
+    attrs: {
+      "for": "location_5"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "location_5",
+      "id": "location_5"
+    }
+  }), _vm._v(" Cavite\n                                ")])])])])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -106109,136 +106253,243 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "form-group col-xs-12 col-sm-12 col-md-2"
-  }, [_c('select', {
-    staticClass: "venue-filter",
+    staticClass: "nav navbar-nav"
+  }, [_c('li', {
+    staticClass: "dropdown"
+  }, [_c('a', {
+    staticClass: "btn btn-default dropdown-toggle",
     attrs: {
-      "name": "category",
-      "id": "category"
+      "href": "#",
+      "data-toggle": "dropdown",
+      "role": "button",
+      "aria-expanded": "false"
     }
-  }, [_c('option', {
+  }, [_vm._v("\n                        Filter Category "), _c('span', {
+    staticClass: "caret"
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu location",
     attrs: {
-      "value": "",
-      "disabled": "",
-      "selected": ""
+      "role": "menu"
     }
-  }, [_vm._v("Filter Category")]), _vm._v(" "), _c('option', {
+  }, [_c('li', [_c('label', {
     attrs: {
-      "value": "Tie-Ups"
+      "for": "Tie-Ups"
     }
-  }, [_vm._v("Tie-Ups")]), _vm._v(" "), _c('option', {
+  }, [_c('input', {
     attrs: {
-      "value": "Stations"
+      "type": "checkbox",
+      "name": "Tie-Ups",
+      "id": "Tie-Ups"
     }
-  }, [_vm._v("Stations")]), _vm._v(" "), _c('option', {
+  }), _vm._v(" Tie-Ups\n                            ")])]), _vm._v(" "), _c('li', [_c('label', {
     attrs: {
-      "value": "Barangay"
+      "for": "Stations"
     }
-  }, [_vm._v("Barangay")]), _vm._v(" "), _c('option', {
+  }, [_c('input', {
     attrs: {
-      "value": "Malls"
+      "type": "checkbox",
+      "name": "Stations",
+      "id": "Stations"
     }
-  }, [_vm._v("Malls")]), _vm._v(" "), _c('option', {
+  }), _vm._v(" Stations\n                            ")])]), _vm._v(" "), _c('li', [_c('label', {
     attrs: {
-      "value": "Hospitals"
+      "for": "Barangay"
     }
-  }, [_vm._v("Hospitals")]), _vm._v(" "), _c('option', {
+  }, [_c('input', {
     attrs: {
-      "value": "Offices"
+      "type": "checkbox",
+      "name": "Barangay",
+      "id": "Barangay"
     }
-  }, [_vm._v("Offices")]), _vm._v(" "), _c('option', {
+  }), _vm._v(" Barangay\n                            ")])]), _vm._v(" "), _c('li', [_c('label', {
     attrs: {
-      "value": "School"
+      "for": "Malls"
     }
-  }, [_vm._v("School")])])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-xs-12 col-sm-12 col-md-2"
-  }, [_c('select', {
-    staticClass: "venue-filter",
+  }, [_c('input', {
     attrs: {
-      "name": "area",
-      "id": "area"
+      "type": "checkbox",
+      "name": "Malls",
+      "id": "Malls"
     }
-  }, [_c('option', {
+  }), _vm._v(" Malls\n                            ")])]), _vm._v(" "), _c('li', [_c('label', {
     attrs: {
-      "value": "",
-      "disabled": "",
-      "selected": ""
+      "for": "Hospitals"
     }
-  }, [_vm._v("Filter Area")]), _vm._v(" "), _c('option', {
+  }, [_c('input', {
     attrs: {
-      "value": "Quezon City"
+      "type": "checkbox",
+      "name": "Hospitals",
+      "id": "Hospitals"
     }
-  }, [_vm._v("Quezon City")]), _vm._v(" "), _c('option', {
+  }), _vm._v(" Hospitals\n                            ")])]), _vm._v(" "), _c('li', [_c('label', {
     attrs: {
-      "value": "Mandaluyong City"
+      "for": "Offices"
     }
-  }, [_vm._v("Mandaluyong City")]), _vm._v(" "), _c('option', {
+  }, [_c('input', {
     attrs: {
-      "value": "Caloocan City"
+      "type": "checkbox",
+      "name": "Offices",
+      "id": "Offices"
     }
-  }, [_vm._v("Caloocan City")]), _vm._v(" "), _c('option', {
+  }), _vm._v(" Offices\n                            ")])]), _vm._v(" "), _c('li', [_c('label', {
     attrs: {
-      "value": "San Juan City"
+      "for": "School"
     }
-  }, [_vm._v("San Juan City")]), _vm._v(" "), _c('option', {
+  }, [_c('input', {
     attrs: {
-      "value": "Pasig City"
+      "type": "checkbox",
+      "name": "School",
+      "id": "School"
     }
-  }, [_vm._v("Pasig City")])])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-xs-12 col-sm-12 col-md-2"
-  }, [_c('select', {
-    staticClass: "venue-filter",
+  }), _vm._v(" School\n                            ")])])])]), _vm._v(" "), _c('li', {
+    staticClass: "dropdown"
+  }, [_c('a', {
+    staticClass: "btn btn-default dropdown-toggle",
     attrs: {
-      "name": "eft",
-      "id": "eft"
+      "href": "#",
+      "data-toggle": "dropdown",
+      "role": "button",
+      "aria-expanded": "false"
     }
-  }, [_c('option', {
+  }, [_vm._v("\n                        Filter Area "), _c('span', {
+    staticClass: "caret"
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu location",
     attrs: {
-      "value": "",
-      "disabled": "",
-      "selected": ""
+      "role": "menu"
     }
-  }, [_vm._v("Filter Estimated Foot Traffic")]), _vm._v(" "), _c('option', {
+  }, [_c('li', [_c('label', {
     attrs: {
-      "value": ""
+      "for": "Quezon City"
     }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-xs-12 col-sm-12 col-md-2"
-  }, [_c('select', {
-    staticClass: "venue-filter",
+  }, [_c('input', {
     attrs: {
-      "name": "actual_hits",
-      "id": "actual_hits"
+      "type": "checkbox",
+      "name": "Quezon City",
+      "id": "Quezon City"
     }
-  }, [_c('option', {
+  }), _vm._v(" Quezon City\n                            ")])]), _vm._v(" "), _c('li', [_c('label', {
     attrs: {
-      "value": "",
-      "disabled": "",
-      "selected": ""
+      "for": "Mandaluyong City"
     }
-  }, [_vm._v("Filter Actual Hits")]), _vm._v(" "), _c('option', {
+  }, [_c('input', {
     attrs: {
-      "value": ""
+      "type": "checkbox",
+      "name": "Mandaluyong City",
+      "id": "Mandaluyong City"
     }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-xs-12 col-sm-12 col-md-2"
-  }, [_c('select', {
-    staticClass: "venue-filter",
+  }), _vm._v(" Mandaluyong City\n                            ")])]), _vm._v(" "), _c('li', [_c('label', {
     attrs: {
-      "name": "lsm",
-      "id": "lsm"
+      "for": "Caloocan City"
     }
-  }, [_c('option', {
+  }, [_c('input', {
     attrs: {
-      "value": "",
-      "disabled": "",
-      "selected": ""
+      "type": "checkbox",
+      "name": "Caloocan City",
+      "id": "Caloocan City"
     }
-  }, [_vm._v("Filter LSM")]), _vm._v(" "), _c('option', {
+  }), _vm._v(" Caloocan City\n                            ")])]), _vm._v(" "), _c('li', [_c('label', {
     attrs: {
-      "value": ""
+      "for": "San Juan City"
     }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "San Juan City",
+      "id": "San Juan City"
+    }
+  }), _vm._v(" San Juan City\n                            ")])]), _vm._v(" "), _c('li', [_c('label', {
+    attrs: {
+      "for": "Pasig City"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "Pasig City",
+      "id": "Pasig City"
+    }
+  }), _vm._v(" Pasig City\n                            ")])])])]), _vm._v(" "), _c('li', {
+    staticClass: "dropdown"
+  }, [_c('a', {
+    staticClass: "btn btn-default dropdown-toggle",
+    attrs: {
+      "href": "#",
+      "data-toggle": "dropdown",
+      "role": "button",
+      "aria-expanded": "false"
+    }
+  }, [_vm._v("\n                        Filter Estimated Foot Traffic "), _c('span', {
+    staticClass: "caret"
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu location",
+    attrs: {
+      "role": "menu"
+    }
+  }, [_c('li', [_c('label', {
+    attrs: {
+      "for": "None"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "None",
+      "id": "None"
+    }
+  }), _vm._v(" None\n                            ")])])])]), _vm._v(" "), _c('li', {
+    staticClass: "dropdown"
+  }, [_c('a', {
+    staticClass: "btn btn-default dropdown-toggle",
+    attrs: {
+      "href": "#",
+      "data-toggle": "dropdown",
+      "role": "button",
+      "aria-expanded": "false"
+    }
+  }, [_vm._v("\n                        Filter Actual Hits "), _c('span', {
+    staticClass: "caret"
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu location",
+    attrs: {
+      "role": "menu"
+    }
+  }, [_c('li', [_c('label', {
+    attrs: {
+      "for": "None"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "None",
+      "id": "None"
+    }
+  }), _vm._v(" None\n                            ")])])])]), _vm._v(" "), _c('li', {
+    staticClass: "dropdown"
+  }, [_c('a', {
+    staticClass: "btn btn-default dropdown-toggle",
+    attrs: {
+      "href": "#",
+      "data-toggle": "dropdown",
+      "role": "button",
+      "aria-expanded": "false"
+    }
+  }, [_vm._v("\n                        Filter LSM "), _c('span', {
+    staticClass: "caret"
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu location",
+    attrs: {
+      "role": "menu"
+    }
+  }, [_c('li', [_c('label', {
+    attrs: {
+      "for": "None"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "None",
+      "id": "None"
+    }
+  }), _vm._v(" None\n                            ")])])])])]), _vm._v(" "), _c('div', {
     staticClass: "form-group col-md-2"
   }, [_c('button', {
     staticClass: "btn btn-primary btn-block",
