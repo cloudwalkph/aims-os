@@ -90,6 +90,10 @@
                     </li>
 
                     <li id="vehicle-types">
+                        <a href="/accounting"><i class="fa fa-fw fa-book"></i>Accounting</a>
+                    </li>
+
+                    <li id="vehicle-types">
                         <a href="/admin/validate"><i class="fa fa-fw fa-check-square-o"></i>Validate</a>
                     </li>
                     {{--<li>--}}

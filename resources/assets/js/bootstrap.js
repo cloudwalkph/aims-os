@@ -50,6 +50,11 @@ window.toastr = require('toastr');
 window.datetimepicker = require('../lib/datetimepicker/js/bootstrap-datetimepicker.min');
 
 /**
+ * ionRangeSlider
+ */
+window.ionRangeSlider = require('../lib/ion.rangeSlider.min');
+
+/**
  * Slick
  */
 window.slick = require('slick-carousel');
@@ -81,6 +86,16 @@ $(function () {
     $('#deadline').datetimepicker();
     $('#event_when').datetimepicker();
     $('#expected_delivery_date').datetimepicker();
+
+    $("#lsm").ionRangeSlider({
+        type: "double",
+        grid: false,
+        min: 0,
+        max: 5,
+        from: 1,
+        to: 4,
+        step: 1
+    });
 });
 
 window.axios.defaults.headers.common = {
