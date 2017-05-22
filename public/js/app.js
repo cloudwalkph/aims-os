@@ -53200,6 +53200,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -106460,7 +106488,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "button",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                        Filter Estimated Foot Traffic "), _c('span', {
+  }, [_vm._v("\n                        Estimated Foot Traffic "), _c('span', {
     staticClass: "caret"
   })]), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu location",
@@ -106487,7 +106515,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "button",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                        Filter Actual Hits "), _c('span', {
+  }, [_vm._v("\n                        Actual Hits "), _c('span', {
     staticClass: "caret"
   })]), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu location",
@@ -106514,7 +106542,61 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "button",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n                        Filter LSM "), _c('span', {
+  }, [_vm._v("\n                        Actual Hits Male"), _c('span', {
+    staticClass: "caret"
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu location",
+    attrs: {
+      "role": "menu"
+    }
+  }, [_c('li', [_c('label', {
+    attrs: {
+      "for": "None"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "None",
+      "id": "None"
+    }
+  }), _vm._v(" None\n                            ")])])])]), _vm._v(" "), _c('li', {
+    staticClass: "dropdown"
+  }, [_c('a', {
+    staticClass: "btn btn-default dropdown-toggle",
+    attrs: {
+      "href": "#",
+      "data-toggle": "dropdown",
+      "role": "button",
+      "aria-expanded": "false"
+    }
+  }, [_vm._v("\n                        Actual Hits Female"), _c('span', {
+    staticClass: "caret"
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu location",
+    attrs: {
+      "role": "menu"
+    }
+  }, [_c('li', [_c('label', {
+    attrs: {
+      "for": "None"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "name": "None",
+      "id": "None"
+    }
+  }), _vm._v(" None\n                            ")])])])]), _vm._v(" "), _c('li', {
+    staticClass: "dropdown"
+  }, [_c('a', {
+    staticClass: "btn btn-default dropdown-toggle",
+    attrs: {
+      "href": "#",
+      "data-toggle": "dropdown",
+      "role": "button",
+      "aria-expanded": "false"
+    }
+  }, [_vm._v("\n                        LSM "), _c('span', {
     staticClass: "caret"
   })]), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu location",
