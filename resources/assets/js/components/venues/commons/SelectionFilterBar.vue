@@ -117,8 +117,8 @@
 
                         <ul class="dropdown-menu location" role="menu">
                             <li>
-                                <label for="None">
-                                    <input type="checkbox" name="None" id="None" /> None
+                                <label for="lsm">
+                                    <input type="text" id="lsm" name="lsm" value="" />
                                 </label>
                             </li>
                         </ul>
