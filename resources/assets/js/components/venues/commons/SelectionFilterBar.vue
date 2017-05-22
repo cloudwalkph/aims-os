@@ -3,9 +3,15 @@
         <form class="form-inline">
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-2">
-                    <select name="venue" id="venue" class="venue-filter">
-                        <option value="" disabled selected>Filter Venue</option>
-                        <option value=""></option>
+                    <select name="category" id="category" class="venue-filter">
+                        <option value="" disabled selected>Filter Category</option>
+                        <option value="Tie-Ups">Tie-Ups</option>
+                        <option value="Stations">Stations</option>
+                        <option value="Barangay">Barangay</option>
+                        <option value="Malls">Malls</option>
+                        <option value="Hospitals">Hospitals</option>
+                        <option value="Offices">Offices</option>
+                        <option value="School">School</option>
                     </select>
                 </div>
 
