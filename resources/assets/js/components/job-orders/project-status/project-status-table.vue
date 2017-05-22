@@ -35,9 +35,11 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue'
     import VueEvents from 'vue-events'
+    import ProjectStatusActions from './commons/CustomActions'
     import ProjectStatusFilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
+    Vue.component('project-status-actions', ProjectStatusActions)
     Vue.component('project-status-filter-bar', ProjectStatusFilterBar)
 
     export default {
@@ -97,6 +99,12 @@
                         sortField: 'status',
                         title: 'Status'
                     },
+                    {
+                        name: '__component:project-status-actions',
+                        title: 'Actions',
+                        titleClass: 'text-center',
+                        dataClass: 'text-center'
+                    }
                 ],
                 css: {
                     table: {

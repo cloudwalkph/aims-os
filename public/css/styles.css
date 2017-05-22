@@ -525,8 +525,8 @@ table tbody tr {
 
 .venue-filter {
     width: 100%;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
     font-size: 15px;
     margin-top: 8px;
 }
@@ -535,4 +535,79 @@ table tbody tr {
     margin-left: 0;
 }
 
+/*STATS*/
+.stat-info {
+    background-color: #cacaca;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
 
+.stat-info .stat-title {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.stat-info .stat-value {
+    font-size: 50px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.stat-success {
+    background-color: #4fb568;
+    color: #eeeeee;
+}
+
+.stat-information {
+    background-color: #b5a45e;
+    color: #eeeeee;
+}
+
+.stat-danger {
+    background-color: #b5453f;
+    color: #eeeeee;
+}
+
+.filter-bar .navbar-nav .dropdown {
+    margin: 0 10px;
+}
+
+.filter-bar li.dropdown a {
+    color: #333;
+    font-size: 16px;
+}
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background-color: #ddd;
+}
+
+.filter-bar .navbar-nav li ul.dropdown-menu {
+    min-width: 200px;
+    min-height: 100px;
+    padding: 20px;
+    max-height: 400px;
+    overflow: scroll;
+}
+
+.filter-bar label {
+    font-size: 14px;
+}
+
+/*Venues Stat*/
+.venue-stat {
+    margin-top: 120px;
+}
+
+.venue-stat ul li {
+    display: inline;
+    list-style: none;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.venue-stat ul li span {
+    font-weight: 600;
+}
