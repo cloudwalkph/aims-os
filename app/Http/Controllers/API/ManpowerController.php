@@ -296,36 +296,30 @@ class ManpowerController extends Controller
             'rate' => $input['rate']
         ];
         
-        $manpowerId = Manpower::where('id', $id)->update($data);
+        $result = Manpower::where('id', $id)->update($data);
         
         if(isset($input['manpower_type_id']))
         {
 
+            $type = ManpowerAssignTypes::where('manpower_id',$id)->delete();
             foreach($input['manpower_type_id'] as $manpowerType)
             {
                 $datas = [
-                    'manpower_id' => $manpowerId,
+                    'manpower_id' => $id,
                     'manpower_type_id' => $manpowerType
                 ];
+
+                $assignType = ManpowerAssignTypes::create($datas);    
                 
-                $type = ManpowerAssignTypes::where('manpower_id',$manpowerId)->where('manpower_type_id',$manpowerType)->first();
-                
-                if($type)
-                {
-                    $assignType = ManpowerAssignTypes::update($datas);
-                }else
-                {
-                    $assignType = ManpowerAssignTypes::create($datas);    
-                }
                 
             }
         }
 
-        $file = $this->upload($request, $manpowerId, 'profile_picture');
-        $files = $this->multiUpload($request, $manpowerId, 'documents');
+        $file = $this->upload($request, $id, 'profile_picture');
+        $files = $this->multiUpload($request, $id, 'documents');
 
         // $manpower = $this->parseData($manpower->paginate());
-        return response()->json($manpowerId, 200);
+        return response()->json($result, 200);
     }
 
     /**

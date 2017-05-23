@@ -328,7 +328,7 @@
                     let url = '/api/v1/hr/manpower/' + this.rowData.id;
                     this.$http.post(url,form).then(response => {
                         toastr.success('Successfully editted manpower', 'Success')
-                        console.log(response);
+                        console.log(response.data);
                         this.isFetching = {
                             disabled: false,
                             saveLabel: 'Save'
@@ -408,7 +408,7 @@
                         this.checkedNames.push(type.id);
                     }
                 }
-
+                
                 data.birthdate = data.birthdate ? moment(data.birthdate).format('YYYY-MM-DD') : null;
                 data.hired_date = data.hired_date ? moment(data.hired_date).format('YYYY-MM-DD') : null;
                 Vue.nextTick( 
