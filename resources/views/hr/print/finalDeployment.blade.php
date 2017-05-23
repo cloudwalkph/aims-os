@@ -55,55 +55,71 @@
         {{--jo number and date end--}}
 
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="col-md-6 col-sm-6 col-xs-6" style="border-right: 1px  solid #ddd;">
               <h4 class="text-center">Briefing Schedule</h4>
               @if(isset($data['briefing']))
                 @foreach($data['briefing'] as $key=>$briefing)
-                <table class="table table-striped">
-                  <caption>Team : {{$key}}</caption>
-                  <caption>Date : {{$briefing['schedule']['created_datetime']}}</caption>
-                  <thead>
-                    <tr>
-                      <th>Full Name</th>
-                      <th>Manpower Type</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($briefing['manpower_list'] as $manpowerList)
-                    <tr>
-                      <td>{{$manpowerList['manpower']['first_name'] . ' ' . $manpowerList['manpower']['last_name']}}</td>
-                      <td>{{$manpowerList['manpower']['manpowerType']['name']}}</td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                <h5>TEAM : {{$key}}</h5>
+                <div class="col-md-12 col-sm-12">
+                  @foreach($briefing as $manpowerSched)
+                    <table class="table table-striped">
+                      <caption>DATE : {{$manpowerSched['created_datetime']}}</caption>
+                      <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Manpower Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($manpowerSched['manpower_list'] as $manpowerList)
+                        <tr>
+                            <td>
+                              {{$manpowerList['manpower']['first_name'] . ' ' . $manpowerList['manpower']['last_name']}}
+                            </td>
+                            <td><td>{{$manpowerList['manpower']['manpower_type']['name']}}</td></td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  @endforeach
+                </div>
+                
                 @endforeach
             @endif
-            </div><div class="col-md-6 col-sm-6 col-xs-6">
+            
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
               <h4 class="text-center">Simulation Schedule</h4>
               @if(isset($data['simulation']))
                 @foreach($data['simulation'] as $key=>$simulation)
-                <table class="table table-striped">
-                  <caption>Team : {{$key}}</caption>
-                  <caption>Date : {{$simulation['schedule']['created_datetime']}}</caption>
-                  <thead>
-                    <tr>
-                      <th>Full Name</th>
-                      <th>Manpower Type</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($simulation['manpower_list'] as $manpowerList)
-                    
-                    <tr>
-                      <td>{{$manpowerList['manpower']['first_name'] . ' ' . $manpowerList['manpower']['last_name']}}</td>
-                      <td>{{$manpowerList['manpower']['manpower_type']['name']}}</td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                <h5>TEAM : {{$key}}</h5>
+                <div class="col-md-12 col-sm-12">
+                  @foreach($simulation as $manpowerSched)
+                    <table class="table table-striped">
+                      <caption>DATE : {{$manpowerSched['created_datetime']}}</caption>
+                      <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Manpower Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($manpowerSched['manpower_list'] as $manpowerList)
+                        <tr>
+                            <td>
+                              {{$manpowerList['manpower']['first_name'] . ' ' . $manpowerList['manpower']['last_name']}}
+                            </td>
+                            <td><td>{{$manpowerList['manpower']['manpower_type']['name']}}</td></td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  @endforeach
+                </div>
+                
                 @endforeach
             @endif
+            
             </div>
         </div>
     </div>

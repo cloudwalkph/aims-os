@@ -37,7 +37,7 @@ class InventoryJobController extends Controller
             $query = InventoryJob::orderBy('id', 'asc');
         }
 
-        $query->with('jobOrder', 'assignedPerson');
+        $query->with('jobOrder.products', 'assignedPerson.user.profile');
 
         // Filter
         if ($request->has('filter')) {
@@ -146,7 +146,7 @@ class InventoryJobController extends Controller
      */
     public function show($id)
     {
-        return InventoryJob::with('jobOrder', 'assignedPerson')->find($id);
+        return InventoryJob::with('jobOrder.products.deliveries', 'jobOrder.products.releases', 'assignedPerson.user.profile')->find($id);
     }
 
     /**

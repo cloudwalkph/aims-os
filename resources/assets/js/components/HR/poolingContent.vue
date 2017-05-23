@@ -102,7 +102,7 @@
                             <td>&nbsp;</td>
                         </tr>
                         </thead>
-                        <draggable v-model="selectedManpower" :element="'tbody'" :move="onMove">
+                        <draggable v-model="selectedManpower" :element="'tbody'" :move="onMove" @end="onEnd">
                             <tr v-for="selected in selectedManpower">
                                 <td>{{selected.first_name + ' ' + selected.last_name}}</td>
                                 <td>{{selected.manpower_type.name}}</td>
@@ -260,52 +260,57 @@
                         <i class="fa fa-print fa-lg"></i> Print Final deployment
                     </button>
                 </div>
+                <!-- <pre>{{deploymentManpower}}</pre> -->
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-6">
-                            <h4 class="text-center">Briefing Schedule</h4>
+                        <div class="col-md-6" style="border-right: 1px solid #ddd;">
+                            <h3 class="text-center">Briefing Schedule</h3>
                             <div v-for="(briefing, key) in deploymentManpower.briefing">
+                              <h4>TEAM : {{key}}</h4>
+                              <div class="col-md-12 col-sm-12" v-for="manpowerSched in briefing">
                                 <table class="table table-striped">
-                                    <caption>Team : {{key}}</caption>
-                                    <caption>Date : {{briefing.schedule.created_datetime}}</caption>
-                                    <thead>
+                                  <caption>DATE : {{manpowerSched.created_datetime}}</caption>
+                                  <thead>
                                     <tr>
                                         <th>Full Name</th>
                                         <th>Manpower Type</th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr v-for="manpowerList in briefing.manpower_list">
-                                        <td>{{manpowerList.manpower.first_name + ' ' +
-                                            manpowerList.manpower.last_name}}
+                                  </thead>
+                                  <tbody>
+                                    <tr v-for="manpowerList in manpowerSched.manpower_list">
+                                        <td>
+                                          {{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}
                                         </td>
-                                        <td>{{manpowerList.manpower.manpower_type.name}}</td>
+                                        <td><td>{{manpowerList.manpower.manpower_type.name}}</td></td>
                                     </tr>
                                     </tbody>
                                 </table>
+                              </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <h4 class="text-center">Training and simulation Schedule</h4>
+                            <h3 class="text-center">Training and simulation Schedule</h3>
                             <div v-for="(simulation, key) in deploymentManpower.simulation">
+                              <h4>TEAM : {{key}}</h4>
+                              <div class="col-md-12 col-sm-12" v-for="manpowerSched in simulation">
                                 <table class="table table-striped">
-                                    <caption>Team : {{key}}</caption>
-                                    <caption>Date : {{simulation.schedule.created_datetime}}</caption>
-                                    <thead>
+                                  <caption>DATE : {{manpowerSched.created_datetime}} BATCH : {{manpowerSched.batch}}</caption>
+                                  <thead>
                                     <tr>
                                         <th>Full Name</th>
                                         <th>Manpower Type</th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr v-for="manpowerList in simulation.manpower_list">
-                                        <td>{{manpowerList.manpower.first_name + ' ' +
-                                            manpowerList.manpower.last_name}}
+                                  </thead>
+                                  <tbody>
+                                    <tr v-for="manpowerList in manpowerSched.manpower_list">
+                                        <td>
+                                          {{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}
                                         </td>
-                                        <td>{{manpowerList.manpower.manpower_type.name}}</td>
+                                        <td><td>{{manpowerList.manpower.manpower_type.name}}</td></td>
                                     </tr>
                                     </tbody>
                                 </table>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -486,6 +491,9 @@
             'joEvent'
         ],
         methods: {
+            onEnd(evt) {
+              console.log(evt);
+            },
             onMove(evt) {
                 let draggedStart = evt.draggedContext.element;
                 let draggedEnd = evt.relatedContext.element;
@@ -493,7 +501,7 @@
                 let typeEnd = draggedEnd.manpower_type_id;
                 let joId = $('#jobOrderIdNumber').val();
                 let url = `/api/v1/hr/assign-buffef/${joId}`;
-
+                
                 if (draggedStart.manpower_type_id != draggedEnd.manpower_type_id) {
                     return false;
                 }
@@ -504,6 +512,7 @@
                 }
                 ;
 
+                // console.log(evt.draggedContext,evt.relatedContext);return;
                 let data = {
                     'start': draggedStart,
                     'end': draggedEnd

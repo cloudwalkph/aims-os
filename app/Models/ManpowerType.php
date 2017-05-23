@@ -10,7 +10,7 @@ class ManpowerType extends Model
     use SoftDeletes;
 
     protected $table = 'manpower_types';
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'slug', 'rate', 'extended_rate'];
 
     public static $rules = [
         'name' => 'required',
@@ -18,7 +18,9 @@ class ManpowerType extends Model
 
     public static $filterable = [
         'name',
-        'slug'
+        'slug',
+        'rate',
+        'extended_rate'
     ];
 
     public function manpower()
