@@ -41,11 +41,17 @@ class ManpowerController extends Controller
                     })
                     ->from('job_order_selected_manpowers');
                 })
-                ->whereIn('manpower_type_id', function($m) use($jo) { // filter by manpower needed
-                    $m->select('manpower_type_id')
-                    ->where('job_order_id',$jo->id)
+                ->whereIn('id', function($m) use($jo) { // filter by manpower needed
+                    $m->select('manpower_id')
+                    ->whereIn('manpower_type_id',function($q) use($jo) {
+                        $q->select('manpower_type_id')
+                        ->where('job_order_id',$jo->id)
+                        ->whereNull('deleted_at')
+                        ->from('job_order_manpowers');
+                    })
                     ->whereNull('deleted_at')
-                    ->from('job_order_manpowers');
+                    ->from('manpower_assign_types');
+                    
                 })
                 ->orderBy($sortCol, $sortDir);
         }else
@@ -63,11 +69,17 @@ class ManpowerController extends Controller
                     })
                     ->from('job_order_selected_manpowers');
                 })
-                ->whereIn('manpower_type_id', function($m) use($jo) { // filter by manpower needed
-                    $m->select('manpower_type_id')
-                    ->where('job_order_id',$jo->id)
+                ->whereIn('id', function($m) use($jo) { // filter by manpower needed
+                    $m->select('manpower_id')
+                    ->whereIn('manpower_type_id',function($q) use($jo) {
+                        $q->select('manpower_type_id')
+                        ->where('job_order_id',$jo->id)
+                        ->whereNull('deleted_at')
+                        ->from('job_order_manpowers');
+                    })
                     ->whereNull('deleted_at')
-                    ->from('job_order_manpowers');
+                    ->from('manpower_assign_types');
+                    
                 });
         }
 
