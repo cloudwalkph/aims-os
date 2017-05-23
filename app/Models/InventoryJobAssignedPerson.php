@@ -14,11 +14,6 @@ class InventoryJobAssignedPerson extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User')->with('profile');
-    }
-
-    public function creativesJob()
-    {
-        return $this->belongsTo('App\Models\InventoryJob');
+        return $this->belongsTo('App\User');
     }
 }

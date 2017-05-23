@@ -35,11 +35,6 @@ class JobOrder extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    function user_profile()
-    {
-        return $this->hasOne(UserProfile::class, 'user_id', 'user_id');
-    }
-
     public function clients()
     {
         return $this->hasMany(JobOrderClient::class);
@@ -62,7 +57,7 @@ class JobOrder extends Model
 
     public function products()
     {
-        return $this->hasMany(JobOrderProduct::class)->with('deliveries', 'releases');
+        return $this->hasMany(JobOrderProduct::class);
     }
 
     public function discussions()

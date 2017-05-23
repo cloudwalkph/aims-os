@@ -74,6 +74,16 @@
                         title: 'Manpower Type Name'
                     },
                     {
+                        name: 'rate',
+                        sortField: 'rate',
+                        title: 'Rate'
+                    },
+                    {
+                        name: 'extended_rate',
+                        sortField: 'extended_rate',
+                        title: 'Extended Rate'
+                    },
+                    {
                         name: 'created_at',
                         sortField: 'created_at',
                         titleClass: 'text-center',

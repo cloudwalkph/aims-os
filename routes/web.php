@@ -53,6 +53,7 @@ Route::group(['prefix' => 'creatives'], function () {
     Route::get('/', 'Front\Creatives\CreativesController@index');
     Route::get('schedules', 'Front\Creatives\CreativesController@schedules');
     Route::get('ongoing-projects', 'Front\Creatives\CreativesController@ongoing');
+    Route::post('ongoing-projects', 'Front\Creatives\CreativesController@assignProject');
     Route::get('work-in-progress', 'Front\Creatives\CreativesController@workInProgress');
     Route::get('work-in-progress/{creativesId}/{joId}', 'Front\Creatives\CreativesController@workDetails');
     Route::post('work-in-progress/{creativesId}/{joId}', 'Front\Creatives\CreativesController@addTask');
@@ -74,7 +75,7 @@ Route::group(['prefix' => 'inventory'], function () {
     Route::get('/', 'Front\Inventory\InventoryController@index');
     Route::get('/print/delivery/{joID}', 'Front\Inventory\InventoryController@print_delivery');
     Route::get('/print/release/{joID}', 'Front\Inventory\InventoryController@print_release');
-    Route::get('/print/product', 'Front\Inventory\InventoryController@print_product_list');
+    Route::get('/print/product/{joID?}', 'Front\Inventory\InventoryController@print_product_list');
 });
 
 Route::group(['prefix' => 'accounting'], function () {

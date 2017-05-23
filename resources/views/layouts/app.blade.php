@@ -16,6 +16,9 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/toastr/build/toastr.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('vendor/ion.rangeSlider/css/ion.rangeSlider.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('vendor/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('vendor/ion.rangeSlider/css/normalize.css') }}" rel="stylesheet"/>
 
     <style>
         .wizard ul, .tabcontrol ul{
