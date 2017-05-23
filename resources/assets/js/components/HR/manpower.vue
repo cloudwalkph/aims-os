@@ -235,8 +235,7 @@
         			{
                         name: 'birthdate',
                         sortField: 'birthdate',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
+                        dataClass: 'middleAlign',
                         callback: 'formatDate|DD-MM-YYYY',
                         title: 'Birthdate'
         			},
@@ -253,8 +252,7 @@
         			{
                         name: 'updated_at',
                         sortField: 'updated_at',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
+                        dataClass: 'middleAlign',
                         callback: 'formatDate|DD-MM-YYYY',
                         title: 'Last Updated'
         			},

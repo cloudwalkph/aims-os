@@ -304,10 +304,12 @@ class ManpowerController extends Controller
             foreach($input['manpower_type_id'] as $manpowerType)
             {
                 $datas = [
-                    'manpower_id' => $manpower['id'],
+                    'manpower_id' => $manpowerId,
                     'manpower_type_id' => $manpowerType
                 ];
+                
                 $type = ManpowerAssignTypes::where('manpower_id',$manpowerId)->where('manpower_type_id',$manpowerType)->first();
+                
                 if($type)
                 {
                     $assignType = ManpowerAssignTypes::update($datas);
