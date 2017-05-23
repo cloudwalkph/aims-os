@@ -16,6 +16,18 @@
                                        @input="inputChange" v-bind:value="name" id="name"
                                        placeholder="Name" class="form-control" />
                             </div>
+                            <div class="col-md-12 form-group text-input-container">
+                                <label class="control-label">Rate</label>
+                                <input type="text" name="rate"
+                                       @input="inputChange" v-bind:value="rate" id="rate"
+                                       placeholder="Rate" class="form-control" />
+                            </div>
+                            <div class="col-md-12 form-group text-input-container">
+                                <label class="control-label">Extended Rate</label>
+                                <input type="text" name="extended_rate"
+                                       @input="inputChange" v-bind:value="extended_rate" id="extended_rate"
+                                       placeholder="Extended Rate" class="form-control" />
+                            </div>
 
                         </div>
                     </form>
@@ -34,6 +46,8 @@
         data() {
             return {
                 name: '',
+                rate: '',
+                extended_rate: '',
             }
         },
         mounted() {
@@ -41,6 +55,8 @@
         methods: {
             resetForm() {
                 this.name = ''
+                this.rate = ''
+                this.extended_rate = ''
             },
             inputChange(e) {
                 this[e.target.id] = e.target.value
@@ -49,6 +65,8 @@
 
                 let data = {
                     name: this.name,
+                    rate: this.rate,
+                    extended_rate: this.extended_rate,
                 }
 
                 let url = `/api/v1/manpower-types`;
