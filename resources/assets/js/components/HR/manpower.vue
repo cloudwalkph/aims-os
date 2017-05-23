@@ -28,10 +28,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4 form-group text-input-container">
-                                    <label class="control-label">First Name</label>
+                                    <label class="control-label">First Name</label><span>*</span>
                                     <input type="text" name="first_name"
                                             v-model="rowData.first_name"
                                            id="first_name"
+                                           required
                                            placeholder="Enter first name" class="form-control" 
                                            v-bind:value="rowData.first_name" />
                                 </div>
@@ -44,10 +45,11 @@
                                            v-bind:value="rowData.middle_name" />
                                 </div>
                                 <div class="col-md-4 form-group text-input-container">
-                                    <label class="control-label">Last Name</label>
+                                    <label class="control-label">Last Name</label><span>*</span>
                                     <input type="text" name="last_name"
                                            v-model="rowData.last_name"
                                            id="last_name"
+                                           required
                                            placeholder="Enter last name" class="form-control" 
                                            v-bind:value="rowData.last_name" />
                                 </div>
@@ -70,10 +72,11 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group text-input-container">
-                                    <label class="control-label">Birth Date</label>
+                                    <label class="control-label">Birth Date</label><span>*</span>
                                     <input type="date" name="birthdate"
                                             v-model="rowData.birthdate"
                                             max="2010-01-01"
+                                            required
                                            id="birthdate"
                                            class="form-control" 
                                            :value="rowData.birthdate" />
@@ -159,7 +162,7 @@
     import Vue from 'vue';
     import CustomActions from '../HR/commons/CustomActions';
     import VueEvents from 'vue-events';
-
+    
     Vue.use(VueEvents);
     Vue.component('CustomActions', CustomActions);
 
