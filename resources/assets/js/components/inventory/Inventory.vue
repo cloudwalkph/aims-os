@@ -36,7 +36,7 @@
                                 <div class="options">
                                     <a
                                       href="/validate"
-                                      class="btn btn-primary btn-lg"
+                                      class="btn btn-lg"
                                       style="color: #fff;background-color: #2579a9;border-color: #1f648b;"
                                     >View Lists</a>
                                 </div>

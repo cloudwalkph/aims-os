@@ -40403,6 +40403,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -41062,6 +41065,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -41216,6 +41224,9 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
 
     props: ['data', 'joEvent'],
     methods: {
+        onEnd: function onEnd(evt) {
+            console.log(evt);
+        },
         onMove: function onMove(evt) {
             var _this = this;
 
@@ -41236,6 +41247,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
             }
             ;
 
+            // console.log(evt.draggedContext,evt.relatedContext);return;
             var data = {
                 'start': draggedStart,
                 'end': draggedEnd
@@ -42477,6 +42489,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -42485,17 +42509,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             manpowerTypeId: '',
-            name: ''
+            name: '',
+            rate: '',
+            extended_rate: ''
         };
     },
 
     methods: {
         populateData: function populateData(data) {
             this.name = data.name;
+            this.rate = data.rate;
+            this.extended_rate = data.extended_rate;
             this.manpowerTypeId = data.id;
         },
         resetForm: function resetForm() {
             this.name = '';
+            this.rate = '';
+            this.extended_rate = '';
             this.manpowerTypeId = '';
         },
         inputChange: function inputChange(e) {
@@ -42505,7 +42535,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var data = {
-                name: this.name
+                name: this.name,
+                rate: this.rate,
+                extended_rate: this.extended_rate
             };
 
             var url = '/api/v1/manpower-types/' + this.manpowerTypeId;
@@ -42561,11 +42593,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            name: ''
+            name: '',
+            rate: '',
+            extended_rate: ''
         };
     },
     mounted: function mounted() {},
@@ -42573,6 +42619,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         resetForm: function resetForm() {
             this.name = '';
+            this.rate = '';
+            this.extended_rate = '';
         },
         inputChange: function inputChange(e) {
             this[e.target.id] = e.target.value;
@@ -42581,7 +42629,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var data = {
-                name: this.name
+                name: this.name,
+                rate: this.rate,
+                extended_rate: this.extended_rate
             };
 
             var url = '/api/v1/manpower-types';
@@ -42700,6 +42750,14 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('manpower-type-update-moda
                 name: 'name',
                 sortField: 'name',
                 title: 'Manpower Type Name'
+            }, {
+                name: 'rate',
+                sortField: 'rate',
+                title: 'Rate'
+            }, {
+                name: 'extended_rate',
+                sortField: 'extended_rate',
+                title: 'Extended Rate'
             }, {
                 name: 'created_at',
                 sortField: 'created_at',
@@ -45839,6 +45897,9 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IM
 //
 //
 //
+//
+//
+//
 
 module.exports = {
     computed: {
@@ -47092,60 +47153,90 @@ module.exports = {
           total = 0,
           rDateParsed = Date.parse(rDate);
 
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
+      if (product.releases.length > 0) {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-      try {
-        for (var _iterator = product.releases[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          release = _step.value;
+        try {
+          for (var _iterator = product.releases[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            release = _step.value;
 
-          deliveries = 0;
-          var releaseDateParsed = Date.parse(release.release_date);
+            deliveries = 0;
+            var releaseDateParsed = Date.parse(release.release_date);
 
-          var _iteratorNormalCompletion2 = true;
-          var _didIteratorError2 = false;
-          var _iteratorError2 = undefined;
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
 
-          try {
-            for (var _iterator2 = product.deliveries[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-              delivery = _step2.value;
+            try {
+              for (var _iterator2 = product.deliveries[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                delivery = _step2.value;
 
-              var deliveryDateParsed = Date.parse(delivery.delivery_date);
-              if (deliveryDateParsed < releaseDateParsed && rDateParsed > deliveryDateParsed) {
-                deliveries += Number(delivery.delivery_quantity);
+                var deliveryDateParsed = Date.parse(delivery.delivery_date);
+                if (deliveryDateParsed < releaseDateParsed && rDateParsed > deliveryDateParsed) {
+                  deliveries += Number(delivery.delivery_quantity);
+                }
+              }
+            } catch (err) {
+              _didIteratorError2 = true;
+              _iteratorError2 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                  _iterator2.return();
+                }
+              } finally {
+                if (_didIteratorError2) {
+                  throw _iteratorError2;
+                }
               }
             }
-          } catch (err) {
-            _didIteratorError2 = true;
-            _iteratorError2 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                _iterator2.return();
-              }
-            } finally {
-              if (_didIteratorError2) {
-                throw _iteratorError2;
-              }
+
+            if (rDateParsed > releaseDateParsed) {
+              releases += Number(release.dispose_quantity) - Number(release.return_quantity);
             }
           }
-
-          if (rDateParsed > releaseDateParsed) {
-            releases += Number(release.dispose_quantity) - Number(release.return_quantity);
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
           }
         }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
+      } else {
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
         try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
+          for (var _iterator3 = product.deliveries[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            delivery = _step3.value;
+
+            var deliveryDateParsed = Date.parse(delivery.delivery_date);
+            if (rDateParsed > deliveryDateParsed) {
+              deliveries += Number(delivery.delivery_quantity);
+            }
           }
+        } catch (err) {
+          _didIteratorError3 = true;
+          _iteratorError3 = err;
         } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
+          try {
+            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+              _iterator3.return();
+            }
+          } finally {
+            if (_didIteratorError3) {
+              throw _iteratorError3;
+            }
           }
         }
       }
@@ -103766,6 +103857,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": _vm.inputChange
     }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Rate")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "rate",
+      "id": "rate",
+      "placeholder": "Rate"
+    },
+    domProps: {
+      "value": _vm.rate
+    },
+    on: {
+      "input": _vm.inputChange
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Extended Rate")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "extended_rate",
+      "id": "extended_rate",
+      "placeholder": "Extended Rate"
+    },
+    domProps: {
+      "value": _vm.extended_rate
+    },
+    on: {
+      "input": _vm.inputChange
+    }
   })])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
@@ -104619,12 +104746,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('label', {
-      staticClass: "col-sm-4 control-label",
+      staticClass: "col-sm-3 control-label",
       attrs: {
         "htmlFor": "itemname"
       }
     }, [_vm._v("\n                Item Name: " + _vm._s(product.item_name) + "\n            ")]), _vm._v(" "), _c('label', {
-      staticClass: "col-sm-4 control-label",
+      staticClass: "col-sm-3 control-label",
+      attrs: {
+        "htmlFor": "quantity"
+      }
+    }, [_vm._v("\n                Expected Delivery Date: " + _vm._s(_vm.convertDate(product.expected_delivery_date)) + "\n            ")]), _vm._v(" "), _c('label', {
+      staticClass: "col-sm-3 control-label",
       attrs: {
         "htmlFor": "quantity"
       }
@@ -104726,7 +104858,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-print fa-lg"
   }), _vm._v(" Print Deliveries\n        ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("Delivery Date")]), _vm._v(" "), _c('th', [_vm._v("Delivered")]), _vm._v(" "), _c('th', [_vm._v("Balance Needed")]), _vm._v(" "), _c('th', [_vm._v("Actions")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Actual Delivery Date")]), _vm._v(" "), _c('th', [_vm._v("Delivered")]), _vm._v(" "), _c('th', [_vm._v("Balance Needed")]), _vm._v(" "), _c('th', [_vm._v("Actions")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('tr', [_c('td', [_c('div', {
     staticClass: "form-group"
@@ -104934,7 +105066,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Validate")])]), _vm._v(" "), _c('div', {
     staticClass: "options"
   }, [_c('a', {
-    staticClass: "btn btn-primary btn-lg",
+    staticClass: "btn btn-lg",
     staticStyle: {
       "color": "#fff",
       "background-color": "#2579a9",
@@ -105938,6 +106070,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "element": 'tbody',
       "move": _vm.onMove
     },
+    on: {
+      "end": _vm.onEnd
+    },
     model: {
       value: (_vm.selectedManpower),
       callback: function($$v) {
@@ -106314,27 +106449,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('h4', {
+    staticClass: "col-md-6",
+    staticStyle: {
+      "border-right": "1px solid #ddd"
+    }
+  }, [_c('h3', {
     staticClass: "text-center"
   }, [_vm._v("Briefing Schedule")]), _vm._v(" "), _vm._l((_vm.deploymentManpower.briefing), function(briefing, key) {
-    return _c('div', [_c('table', {
-      staticClass: "table table-striped"
-    }, [_c('caption', [_vm._v("Team : " + _vm._s(key))]), _vm._v(" "), _c('caption', [_vm._v("Date : " + _vm._s(briefing.schedule.created_datetime))]), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('tbody', _vm._l((briefing.manpower_list), function(manpowerList) {
-      return _c('tr', [_c('td', [_vm._v(_vm._s(manpowerList.manpower.first_name + ' ' +
-        manpowerList.manpower.last_name) + "\n                                    ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(manpowerList.manpower.manpower_type.name))])])
-    }))])])
+    return _c('div', [_c('h4', [_vm._v("TEAM : " + _vm._s(key))]), _vm._v(" "), _vm._l((briefing), function(manpowerSched) {
+      return _c('div', {
+        staticClass: "col-md-12 col-sm-12"
+      }, [_c('table', {
+        staticClass: "table table-striped"
+      }, [_c('caption', [_vm._v("DATE : " + _vm._s(manpowerSched.created_datetime))]), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('tbody', _vm._l((manpowerSched.manpower_list), function(manpowerList) {
+        return _c('tr', [_c('td', [_vm._v("\n                                      " + _vm._s(manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name) + "\n                                    ")]), _vm._v(" "), _c('td'), _c('td', [_vm._v(_vm._s(manpowerList.manpower.manpower_type.name))])])
+      }))])])
+    })], 2)
   })], 2), _vm._v(" "), _c('div', {
     staticClass: "col-md-6"
-  }, [_c('h4', {
+  }, [_c('h3', {
     staticClass: "text-center"
   }, [_vm._v("Training and simulation Schedule")]), _vm._v(" "), _vm._l((_vm.deploymentManpower.simulation), function(simulation, key) {
-    return _c('div', [_c('table', {
-      staticClass: "table table-striped"
-    }, [_c('caption', [_vm._v("Team : " + _vm._s(key))]), _vm._v(" "), _c('caption', [_vm._v("Date : " + _vm._s(simulation.schedule.created_datetime))]), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('tbody', _vm._l((simulation.manpower_list), function(manpowerList) {
-      return _c('tr', [_c('td', [_vm._v(_vm._s(manpowerList.manpower.first_name + ' ' +
-        manpowerList.manpower.last_name) + "\n                                    ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(manpowerList.manpower.manpower_type.name))])])
-    }))])])
+    return _c('div', [_c('h4', [_vm._v("TEAM : " + _vm._s(key))]), _vm._v(" "), _vm._l((simulation), function(manpowerSched) {
+      return _c('div', {
+        staticClass: "col-md-12 col-sm-12"
+      }, [_c('table', {
+        staticClass: "table table-striped"
+      }, [_c('caption', [_vm._v("DATE : " + _vm._s(manpowerSched.created_datetime) + " BATCH : " + _vm._s(manpowerSched.batch))]), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('tbody', _vm._l((manpowerSched.manpower_list), function(manpowerList) {
+        return _c('tr', [_c('td', [_vm._v("\n                                      " + _vm._s(manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name) + "\n                                    ")]), _vm._v(" "), _c('td'), _c('td', [_vm._v(_vm._s(manpowerList.manpower.manpower_type.name))])])
+      }))])])
+    })], 2)
   })], 2)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('td', [_vm._v("Manpower")]), _vm._v(" "), _c('td', [_vm._v("Manpower Needed")]), _vm._v(" "), _c('td', [_vm._v("Rate")])])])
@@ -107285,6 +107429,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     domProps: {
       "value": _vm.name
+    },
+    on: {
+      "input": _vm.inputChange
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Rate")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "rate",
+      "id": "rate",
+      "placeholder": "Rate"
+    },
+    domProps: {
+      "value": _vm.rate
+    },
+    on: {
+      "input": _vm.inputChange
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Extended Rate")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "extended_rate",
+      "id": "extended_rate",
+      "placeholder": "Extended Rate"
+    },
+    domProps: {
+      "value": _vm.extended_rate
     },
     on: {
       "input": _vm.inputChange
@@ -108616,7 +108796,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
-  }, [_vm._v("First Name")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("First Name")]), _c('span', [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -108628,6 +108808,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "name": "first_name",
       "id": "first_name",
+      "required": "",
       "placeholder": "Enter first name"
     },
     domProps: {
@@ -108672,7 +108853,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
-  }, [_vm._v("Last Name")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("Last Name")]), _c('span', [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -108684,6 +108865,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "name": "last_name",
       "id": "last_name",
+      "required": "",
       "placeholder": "Enter last name"
     },
     domProps: {
@@ -108772,7 +108954,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
-  }, [_vm._v("Birth Date")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("Birth Date")]), _c('span', [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -108784,6 +108966,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "date",
       "name": "birthdate",
       "max": "2010-01-01",
+      "required": "",
       "id": "birthdate"
     },
     domProps: {
@@ -112284,7 +112467,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Validate")])]), _vm._v(" "), _c('div', {
     staticClass: "options"
   }, [_c('a', {
-    staticClass: "btn btn-primary btn-lg",
+    staticClass: "btn btn-lg",
+    staticStyle: {
+      "color": "#fff",
+      "background-color": "#2579a9",
+      "border-color": "#1f648b"
+    },
     attrs: {
       "href": "/validate"
     }
