@@ -84,7 +84,7 @@ class ManpowerController extends Controller
                 if($filterVal)
                     if($key == 'birthdate') // filter by age
                     {
-                        $minAge = 18;
+                        $minAge = 1;
                         $maxAge = $filterVal;
                         
                         $minDate = Carbon::today()->subYears($maxAge + 1)->endOfDay();

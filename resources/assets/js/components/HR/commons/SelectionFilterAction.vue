@@ -25,7 +25,15 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <li class="dropdown">
+                	<select type="date" v-model="filterByAge" name="birthdate" id="birthdateAge" placeholder="Select..." class="form-control">
+                    	<option value="">Filter Age</option>
+                    	<option value="20">20 and below</option>
+                     	<option value="25">25 and below</option>
+                     	<option value="30">30 and below</option>
+                     	<option value="35">35 and below</option>
+                     	<option value="40">40 and below</option>
+                    </select>
+                    <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             Location <span class="caret"></span>
                         </a>
@@ -66,7 +74,7 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li> -->
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block"
