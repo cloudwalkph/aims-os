@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Manpower;
 use App\Models\ManpowerFile;
 use App\Models\JobOrder;
+use App\Models\ManpowerAssignTypes;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Carbon\Carbon;
 use App\Traits\FilterTrait;
@@ -106,7 +107,7 @@ class ManpowerController extends Controller
     }
 
     public function getManpower() {
-        $manpower = Manpower::with('manpowerType')->with('agency')->paginate();
+        $manpower = Manpower::with('ManpowerAssignType.manpowerType')->with('agency')->paginate();
         $data = $this->parseData($manpower);
         return response()->json($data, 200);
     }
@@ -135,7 +136,6 @@ class ManpowerController extends Controller
             'first_name' => $input['first_name'],
             'middle_name' => $input['middle_name'],
             'last_name' => $input['last_name'],
-            'manpower_type_id' => $input['manpower_type_id'],
             'agency_id' => $input['agency_id'],
             'email' => $input['email'],
             'contact_number' => $input['contact_number'],
@@ -148,6 +148,18 @@ class ManpowerController extends Controller
         ];
         
         $manpower = Manpower::create($data);
+        if(isset($input['manpower_type_id']))
+        {
+            foreach($input['manpower_type_id'] as $manpowerType)
+            {
+                $datas = [
+                    'manpower_id' => $manpower['id'],
+                    'manpower_type_id' => $manpowerType
+                ];
+
+                $assignType = ManpowerAssignTypes::create($datas);
+            }
+        }
         
         $file = $this->upload($request, $manpower['id'], 'profile_picture');
         $files = $this->multiUpload($request, $manpower['id'], 'documents');
@@ -273,7 +285,6 @@ class ManpowerController extends Controller
             'first_name' => $input['first_name'],
             'middle_name' => $input['middle_name'],
             'last_name' => $input['last_name'],
-            'manpower_type_id' => $input['manpower_type_id'],
             'agency_id' => $input['agency_id'],
             'email' => $input['email'],
             'contact_number' => $input['contact_number'],
@@ -287,6 +298,27 @@ class ManpowerController extends Controller
         
         $manpowerId = Manpower::where('id', $id)->update($data);
         
+        if(isset($input['manpower_type_id']))
+        {
+
+            foreach($input['manpower_type_id'] as $manpowerType)
+            {
+                $datas = [
+                    'manpower_id' => $manpower['id'],
+                    'manpower_type_id' => $manpowerType
+                ];
+                $type = ManpowerAssignTypes::where('manpower_id',$manpowerId)->where('manpower_type_id',$manpowerType)->first();
+                if($type)
+                {
+                    $assignType = ManpowerAssignTypes::update($datas);
+                }else
+                {
+                    $assignType = ManpowerAssignTypes::create($datas);    
+                }
+                
+            }
+        }
+
         $file = $this->upload($request, $manpowerId, 'profile_picture');
         $files = $this->multiUpload($request, $manpowerId, 'documents');
 

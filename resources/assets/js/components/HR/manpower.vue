@@ -55,12 +55,25 @@
                                 </div>
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Manpower Type</label>
-                                    <select type="date" name="manpower_type_id"
+                                    <!-- <select type="date" name="manpower_type_id"
                                             v-model="rowData.manpower_type_id"
                                            id="manpower_type_id"
                                            placeholder="Select..." class="form-control">
-                                           <option v-for="manpowerType in manpowerTypeList" :value="manpowerType.id" v-bind:selected="rowData.manpower_type_id == manpowerType.id">{{manpowerType.name}}</option>
-                                    </select>
+                                           <option v-for="manpowerType in manpowerTypeList" :value="manpowerType.id" v-bind:selected="rowData.manpower_type_id == manpowerType.id">{{manpowerType.name}}</option> 
+                                    </select> -->
+                                    
+                                    <div class="dropdown">
+                                        <a href="#" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            Manpower Type <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu col-md-12" role="menu">
+                                            <li v-for="manpowerType in manpowerTypeList">
+                                                <label v-bind:for="'type_' + manpowerType.id">
+                                                    <input v-model="checkedNames" v-bind:value="manpowerType.id" v-bind:id="'type_' + manpowerType.id" type="checkbox" name="manpower_type_id[]" selected/> {{manpowerType.name}}
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="col-md-4 form-group text-input-container">
                                     <label class="control-label">Agency</label>
@@ -189,6 +202,7 @@
                     'violations': null,
                     'rate': null
                 }; // reset form data 
+                this.checkedNames = [];
             });
 
 
@@ -208,9 +222,10 @@
                         dataClass : 'middleAlign'
         			},
         			{
-        				name: 'manpower_type.name',
+        				name: 'manpower_assign_type',
         				title: 'Manpower Type',
-                        dataClass : 'middleAlign'
+                        dataClass : 'middleAlign',
+                        callback : 'expandType'
         			},
         			{
         				name: 'agency.name',
@@ -259,6 +274,7 @@
                     saveLabel : 'Save'
                 },
                 manpowerTypeList : [],
+                checkedNames : [],
                 agencyList : [],
                 rowData : {
                     'first_name': null,
@@ -278,6 +294,14 @@
         	}
         },
         methods: {
+            expandType(value) {
+                let arr = [];
+                for(let v in value)
+                {
+                    arr.push(value[v]['manpower_type'].name);
+                }
+                return arr.toString();
+            },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)
                     ? ''
@@ -329,7 +353,7 @@
                 let url = '/api/v1/hr/manpower';
                 this.$http.post(url,form).then(response => {
                     toastr.success('Successfully added new manpower', 'Success')
-                    console.log(response);
+                    console.log(response.data);
                     this.isFetching = {
                         disabled: false,
                         saveLabel: 'Save'
@@ -379,6 +403,14 @@
                 Vue.nextTick( () => this.$refs.Vuetable_manpower.reload() )
             },
             'edit-table' (data) {
+                if(data.manpower_assign_type.length > 0)
+                {
+                    for(let type of data.manpower_assign_type)
+                    {
+                        this.checkedNames.push(type.id);
+                    }
+                }
+
                 data.birthdate = data.birthdate ? moment(data.birthdate).format('YYYY-MM-DD') : null;
                 data.hired_date = data.hired_date ? moment(data.hired_date).format('YYYY-MM-DD') : null;
                 Vue.nextTick( 
