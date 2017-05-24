@@ -30,6 +30,15 @@ class ManpowerController extends Controller
             
             $manpower = Manpower::with('manpowerType')
                 ->with('agency')
+                ->with(array(
+                    'manpowerAssignType' => function($q) use($sortCol) {
+                        if($sortCol == 'manpower_assign_type'){
+                            $q->orderBy('manpower_type_id', 'ASC');    
+                        }
+                        
+                    },
+                    'manpowerAssignType.manpowerType'
+                ))
                 ->whereNotIn('id', function($q) { // filter by selected manpower
                     
                     $q->select('manpower_id')
@@ -52,12 +61,17 @@ class ManpowerController extends Controller
                     ->whereNull('deleted_at')
                     ->from('manpower_assign_types');
                     
-                })
-                ->orderBy($sortCol, $sortDir);
+                });
+                if($sortCol != 'manpower_assign_type')
+                {
+                    $manpower->orderBy($sortCol, $sortDir);    
+                }
+                
         }else
         {
             $manpower = Manpower::with('manpowerType')
                 ->with('agency')
+                ->with('ManpowerAssignType.manpowerType')
                 ->whereNotIn('id', function($q) { // filter by selected manpower
                     
                     $q->select('manpower_id')
@@ -105,8 +119,8 @@ class ManpowerController extends Controller
                         
                         $manpower->whereBetween($key, [$minDate, $maxDate]);  
 
-                        \Log::info($minDate.'>'.$maxDate);
-                        \Log::info($manpower->toSql());
+                        // \Log::info($minDate.'>'.$maxDate);
+                        // \Log::info($manpower->toSql());
                     }else // filter selections
                     {
                         $manpower->where($key, $filterVal);    
@@ -115,6 +129,7 @@ class ManpowerController extends Controller
         }
 
         $data = $this->parseData($manpower->paginate());
+        // \Log::info($data);
         return response()->json($data, 200);
     }
 

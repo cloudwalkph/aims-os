@@ -394,10 +394,11 @@
                         dataClass: 'middleAlign'
                     },
                     {
-                        name: 'manpower_type.name',
+                        name: 'manpower_assign_type',
                         sortField: 'manpower_type_id',
                         title: 'Manpower Type',
-                        dataClass: 'middleAlign'
+                        dataClass: 'middleAlign',
+                        callback: 'expandType'
                     },
                     {
                         name: 'agency.name',
@@ -491,6 +492,14 @@
             'joEvent'
         ],
         methods: {
+            expandType(value) {
+              let arr = [];
+              for(let v in value)
+              {
+                  arr.push(value[v]['manpower_type'].name);
+              }
+              return arr.toString();
+            },
             onEnd(evt) {
               console.log(evt);
             },
