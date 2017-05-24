@@ -75,6 +75,11 @@ class JobOrder extends Model
         return $this->hasMany(JobOrderSelectedVenue::class);
     }
 
+    function inventoryJobs()
+    {
+        return $this->hasMany(InventoryJob::class);
+    }
+
     /**
      * Local Scopes
      * ======================================================================================================

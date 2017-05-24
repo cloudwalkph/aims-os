@@ -20,12 +20,16 @@
     },
     methods: {
       doFilter () {
-        this.$events.fire('filter-set', this.filterText)
+        this.filterSet(this.filterText);
       },
       resetFilter () {
-        this.filterText = ''
-        this.$events.fire('filter-reset')
+        this.filterText = '';
+        this.filterReset();
       }
+    },
+    props: {
+      filterSet: Function,
+      filterReset: Function,
     }
   }
 </script>

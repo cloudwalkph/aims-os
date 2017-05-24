@@ -22,12 +22,25 @@
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Description</label>
-                                <input type="text" name="description" @input="inputChange" id="description" placeholder="Description" class="form-control"
+                                <input
+                                  type="text"
+                                  name="description"
+                                  @input="inputChange"
+                                  id="description"
+                                  placeholder="Description"
+                                  class="form-control"
                                 />
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Deadline</label>
-                                <input type="text" name="deadline" @input="inputChange" id="deadline" placeholder="Deadline" class="form-control" />
+                                <input
+                                  type="text"
+                                  name="deadline"
+                                  @input="inputChange"
+                                  id="deadline"
+                                  placeholder="Deadline"
+                                  class="form-control"
+                                />
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="user_id">Users</label>
@@ -60,7 +73,7 @@
         },
         methods: {
             getJo: function () {
-                this.$http.get('/api/v1/inventory/job/create')
+                this.$http.get('api/v1/inventory/job/create')
                     .then(function (response) {
                         for (let jo of response.data) {
                             if(jo) {
@@ -76,7 +89,7 @@
                     });
             },
             getUser: function () {
-                this.$http.get('/api/v1/inventory/user/create')
+                this.$http.get('api/v1/inventory/user/create')
                     .then(function (response) {
                         for (let user of response.data) {
                             this.userOptions.push(
@@ -110,10 +123,11 @@
                     description: form.description.value,
                 }
 
-                this.$http.post('/api/v1/inventory/job', postData)
+                this.$http.post('api/v1/inventory/job', postData)
                     .then(function (response) {
                         $('#modalCreateJob').modal('hide');
                         form.reset();
+                        this.refreshVuetable();
                     })
                     .catch(function (e) {
                         console.log('error post jobs', e);
@@ -137,9 +151,11 @@
             $('#deadline').on('dp.change', (newDate, oldDate) => {
                 this.deadline = newDate.date.format("YYYY-MM-DD hh:mm a");
             });
-
         },
-        props: ['propData']
+        props: {
+          propData: Object,
+          refreshVuetable: Function,
+        }
     }
 
 </script>

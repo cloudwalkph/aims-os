@@ -156,7 +156,7 @@
         },
         data: function () {
             return {
-                frameSrc: '/inventory/print/delivery/' + this.propIJobId,
+                frameSrc: 'inventory/print/delivery/' + this.propIJobId,
             }
         },
         methods: {
@@ -185,7 +185,7 @@
                 delivery_date: form.datetimeDelivery.value,
               }
 
-              this.$http.post('/api/v1/inventory/delivery', postData)
+              this.$http.post('api/v1/inventory/delivery', postData)
                 .then(function (response) {
                   form.reset();
                   this.products[workIndex].deliveries.push(postData);

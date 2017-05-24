@@ -32,7 +32,7 @@
     <div class="col-md-12">
 
       <div style="text-align: center">
-        <img src="/img/aai-logo.png" alt="aims logo" style="height: 100px"/>
+        <img src="{{ asset('img/aai-logo.png') }}" alt="aims logo" style="height: 100px"/>
       </div>
 
       <div class="row">
