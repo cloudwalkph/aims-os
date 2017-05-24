@@ -105,7 +105,11 @@
                         <draggable v-model="selectedManpower" :element="'tbody'" :move="onMove" @end="onEnd">
                             <tr v-for="selected in selectedManpower">
                                 <td>{{selected.first_name + ' ' + selected.last_name}}</td>
-                                <td>{{selected.manpower_type.name}}</td>
+                                <td>
+                                  <span v-for="types in selected.manpower_assign_type">
+                                    {{types.manpower_type.name}}
+                                  </span>
+                                </td>
                                 <td>{{selected.rate}}</td>
                                 <td>
                                     <select @change="onAssignVenue($event, selected.id)">
