@@ -33,13 +33,12 @@ class ManpowerController extends Controller
                 ->with(array(
                     'manpowerAssignType' => function($q) use($sortCol) {
                         if($sortCol == 'manpower_assign_type'){
-                            $q->orderBy('manpower_type_id', 'ASC');    
-                        }
-                        
+                            $q->orderBy('manpower_type_id', $sortDir);    
+                        }  
                     },
                     'manpowerAssignType.manpowerType'
                 ))
-                ->whereNotIn('id', function($q) { // filter by selected manpower
+                ->whereNotIn('id', function($q) { // filter by selected manpower event date
                     
                     $q->select('manpower_id')
                     ->whereNull('deleted_at')
@@ -121,7 +120,15 @@ class ManpowerController extends Controller
 
                         // \Log::info($minDate.'>'.$maxDate);
                         // \Log::info($manpower->toSql());
-                    }else // filter selections
+                    }else if($key == 'manpower_type_id')// filter manpower_type_id
+                    {
+                        // $manpower->where($key, $filterVal); 
+                        $manpower->whereIn('id', function($q) use($key, $filterVal) {
+                            $q->select('manpower_id')
+                            ->where($key,$filterVal)
+                            ->from('manpower_assign_types');
+                        });   
+                    }else // filter selection
                     {
                         $manpower->where($key, $filterVal);    
                     }
