@@ -16,4 +16,9 @@ class InventoryJobAssignedPerson extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    function inventoryJob()
+    {
+        return $this->belongsTo('App\Models\inventoryJob');
+    }
 }

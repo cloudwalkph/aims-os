@@ -34,7 +34,7 @@ export default {
       console.log('my-detail-row: on-click', event.target)
     },
     getInventoryFiles: function() {
-      this.$http.get('/api/v1/inventory/' + this.rowData.id)
+      this.$http.get('api/v1/inventory/' + this.rowData.id)
           .then(function (response) {
             this.pictures = response.data.inventory_files;
           })

@@ -30,14 +30,9 @@ class InventoryJobAssignedPersonController extends Controller
     public function create(Request $request)
     {
         $user = $request->user();
-        $users = User::with('profile', 'department', 'role')->where('department_id', $user['department_id'])
-            ->whereNotIn(
-                'id',
-                array_column(
-                    InventoryJobAssignedPerson::select('user_id')->get()->toArray(), 
-                    'user_id'
-                )
-            )
+        $users = User::with('profile', 'department', 'role', 'inventoryJobAssigned')
+            ->where('department_id', $user['department_id'])
+            ->doesntHave('inventoryJobAssigned')
             ->get();
 
         return response()->json($users, 200);

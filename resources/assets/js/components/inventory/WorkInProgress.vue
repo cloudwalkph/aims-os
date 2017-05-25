@@ -3,56 +3,28 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="pull-left table-title">Work In Progress</h1>
-            <div class="content">
-              <filter-bar></filter-bar>
-              <vuetable ref="vuetable"
-                api-url="/api/v1/inventory/job"
-                :fields="fields"
-                pagination-path=""
-                :css="css.table"
-                :sort-order="sortOrder"
-                :multi-sort="true"
-                detail-row-component="my-detail-row"
-                :append-params="moreParams"
-                @vuetable:cell-clicked="onCellClicked"
-                @vuetable:row-clicked="onRowClicked"
-                @vuetable:pagination-data="onPaginationData"
-              ></vuetable>
-              <div class="vuetable-pagination">
-                <vuetable-pagination-info ref="paginationInfo"
-                  info-class="pagination-info"
-                ></vuetable-pagination-info>
-                <vuetable-pagination ref="pagination"
-                  :css="css.pagination"
-                  :icons="css.icons"
-                  @vuetable-pagination:change-page="onChangePage"
-                ></vuetable-pagination>
-              </div>
-            </div>
+        </div>
+        <div class="col-md-12">
+          <InventoryVuetable
+            :api-url="apiUrl"
+            :fields="fields"
+            :onRowClicked="onRowClicked"
+          ></InventoryVuetable>
         </div>
     </div>
 
 </template>
 
 <script>
-  var Vuetable = require('vuetable-2/src/components/Vuetable');
-  var VuetablePagination = require('vuetable-2/src/components/VuetablePagination');
-  var VuetablePaginationInfo = require('vuetable-2/src/components/VuetablePaginationInfo');
-
-  var DetailRow = require('../commons/DetailRow');
-  var FilterBar = require('../commons/FilterBar');
-
-  Vue.component('my-detail-row', DetailRow);
+    var InventoryVuetable = require('./commons/InventoryVuetable');
 
     module.exports = {
       components: {
-        Vuetable,
-        VuetablePagination,
-        VuetablePaginationInfo,
-        FilterBar,
+        InventoryVuetable,
       },
         data: function () {
             return {
+              apiUrl: 'api/v1/inventory/job',
               fields: [
                 {
                   name: 'job_order.job_order_no',
@@ -71,68 +43,19 @@
                   callback: 'getAssignedPerson',
                 },
               ],
-              css: {
-                table: {
-                  tableClass: 'table table-bordered table-striped table-hover',
-                  ascendingIcon: 'glyphicon glyphicon-chevron-up',
-                  descendingIcon: 'glyphicon glyphicon-chevron-down'
-                },
-                pagination: {
-                  wrapperClass: 'pagination',
-                  activeClass: 'active',
-                  disabledClass: 'disabled',
-                  pageClass: 'page',
-                  linkClass: 'link',
-                },
-                icons: {
-                  first: 'glyphicon glyphicon-step-backward',
-                  prev: 'glyphicon glyphicon-chevron-left',
-                  next: 'glyphicon glyphicon-chevron-right',
-                  last: 'glyphicon glyphicon-step-forward',
-                },
-              },
-              sortOrder: [
-                { field: 'id', direction: 'asc'}
-              ],
-              moreParams: {},
                 jobs: this.propData.inventoryJobs
             }
-        },
-        events: {
-          'filter-set' (filterText) {
-            this.moreParams = {
-              filter: filterText
-            },
-            Vue.nextTick( () => this.$refs.vuetable.refresh() )
-          },
-          'filter-reset' () {
-            this.moreParams = {},
-            Vue.nextTick( () => this.$refs.vuetable.refresh() )
-          },
         },
         methods: {
           onRowClicked (dataItem, event) {
             this.openPage('work-details', dataItem.id);
           },
-          onCellClicked (data, field, event) {
-            // this.$refs.vuetable.toggleDetailRow(data.id)
-          },
-          onChangePage (page) {
-            this.$refs.vuetable.changePage(page);
-          },
-          onPaginationData (paginationData) {
-            this.$refs.pagination.setPaginationData(paginationData);
-            this.$refs.paginationInfo.setPaginationData(paginationData);
-          },
-          getAssignedPerson (val) {
-            var person = [];
-            val.map(function(value, index) {
-              person.push(value.user.profile.first_name + ' ' + value.user.profile.last_name);
-            });
-            return person.join(', ');
-          },
         },
         mounted: function () {},
-        props: ['propIJobId','openPage','propData']
+        props: {
+          propIJobId: Number,
+          openPage: Function,
+          propData: Object
+        }
     }
 </script>

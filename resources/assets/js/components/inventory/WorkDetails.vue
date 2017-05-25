@@ -75,7 +75,7 @@
         },
         methods: {
           getJob: function () {
-              this.$http.get('/api/v1/inventory/job/' + this.propIJobId)
+              this.$http.get('api/v1/inventory/job/' + this.propIJobId)
                   .then(function (response) {
                       this.iJobs.push(response.data);
                   })

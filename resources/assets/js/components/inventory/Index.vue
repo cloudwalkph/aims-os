@@ -31,7 +31,7 @@
         </div>
 
         <div class="col-lg-12">
-            <component :is="currentView" :openPage="openPage" :propData="inventoryData" :propIJobId="iJobId">
+            <component :is="currentView" :openPage="openPage" :propData="inventoryData" :propIJobId="iJobId" ref="root">
                 <!-- component changes when vm.currentView changes! -->
             </component>
         </div>
@@ -42,17 +42,11 @@
 
 <script>
     var Home = require('./Inventory.vue');
-
     var Calendar = require('../CalendarScheduler.vue');
-
-    var InternalInventory = require('./InternalInventory.vue');
     var JOProductList = require('./Products.vue');
-
     var OnGoingProjectList = require('./OnGoingProjects.vue');
-
     var WorkInProgress = require('./WorkInProgress.vue');
     var WorkDetails = require('./WorkDetails.vue');
-
     var InventoryList = require('./InventoryList.vue');
 
     module.exports = {
@@ -83,22 +77,7 @@
                             status: null,
                         }
                     ],
-                    users: [
-                        {
-                            id: 0,
-                            profile: {
-                                first_name: 'First',
-                                last_name: 'Last'
-                            }
-                        },
-                        {
-                            id: 100,
-                            profile: {
-                                first_name: 'Juan',
-                                last_name: 'Dela Cruz'
-                            }
-                        }
-                    ],
+                    users: [],
                     products: [
                       {
                         id: 100,
@@ -241,7 +220,7 @@
                 }
             },
             getAssignedJob: function () {
-                this.$http.get('/api/v1/inventory/department')
+                this.$http.get('api/v1/inventory/department')
                     .then(function (response) {
                         for (let r of response.data) {
                             if (r) {
@@ -254,7 +233,7 @@
                     });
             },
             getJOInventory: function () {
-                this.$http.get('/api/v1/job-order-inventory/all')
+                this.$http.get('api/v1/job-order-inventory/all')
                     .then(function (response) {
                         for (product of response.data.data) {
                             this.inventoryData.products.push({
@@ -274,7 +253,7 @@
                     });
             },
             getInventory: function () {
-                this.$http.get('/api/v1/inventory')
+                this.$http.get('api/v1/inventory')
                     .then(function (response) {
                         for (product of response.data.data) {
                             this.inventoryData.internalInventory.push({
@@ -291,7 +270,7 @@
                     });
             },
             getJobOrders: function () {
-                this.$http.get('/api/v1/job-orders/department')
+                this.$http.get('api/v1/job-orders/department')
                     .then(function (response) {
                         for (let r of response.data) {
                             if (r) {
@@ -304,7 +283,7 @@
                     });
             },
             getJob: function () {
-                this.$http.get('/api/v1/inventory/job')
+                this.$http.get('api/v1/inventory/job')
                     .then(function (response) {
                         for (let r of response.data.data) {
                             this.inventoryData.inventoryJobs.push(r);
@@ -315,7 +294,7 @@
                     });
             },
             getUsers: function () {
-                this.$http.get('/api/v1/users/5')
+                this.$http.get('api/v1/users/5')
                     .then(function (response) {
                         for (let r of response.data) {
                             this.inventoryData.users.push(r);

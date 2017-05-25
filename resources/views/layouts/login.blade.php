@@ -28,7 +28,7 @@
         <div class="login-inner-wrapper col-md-6 col-xs-12 col-sm-12 col-md-offset-3">
             <div class="login-box">
                 <div class="logo" style="text-align: center">
-                    <img src="/img/aims-logo.png" alt="aims logo" style="height: 250px"/>
+                    <img src="{{ asset('img/aims-logo.png') }}" alt="aims logo" style="height: 250px"/>
                 </div>
 
                 <div class="login-form">

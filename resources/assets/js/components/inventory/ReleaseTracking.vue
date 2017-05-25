@@ -110,7 +110,7 @@
         },
         data: function () {
             return {
-                frameSrc: '/inventory/print/release/' + this.propIJobId,
+                frameSrc: 'inventory/print/release/' + this.propIJobId,
             }
         },
         methods: {
@@ -152,31 +152,6 @@
 
                 total = deliveries - releases;
 
-                // if(product.releases) {
-                //   for (release of product.releases) {
-                //     var deliveries = 0;
-                //     if (release.product_id == product.id) {
-                //       var releaseDateParsed = Date.parse(release.release_date);
-                //
-                //       // get total deliveries
-                //       if(product.deliveries) {
-                //         for (delivery of product.deliveries) {
-                //           if (delivery.product_id == product.id) {
-                //             var deliveryDateParsed = Date.parse(delivery.delivery_date);
-                //             if (rDateParsed >= deliveryDateParsed) {
-                //               deliveries += Number(delivery.delivery_quantity);
-                //             }
-                //           }
-                //         }
-                //       }
-                //       console.log(deliveries);
-                //
-                //       if(rDateParsed < releaseDateParsed) {
-                //         releases -= (Number(release.dispose_quantity) + Number(release.return_quantity));
-                //       }
-                //     }
-                //   }
-                // }
                 return total;
             },
             returned: function (product, rDate, iDisposed = 0) {
@@ -197,7 +172,7 @@
                 release_date: form.datetimeRelease.value,
               }
 
-              this.$http.post('/api/v1/inventory/release', postData)
+              this.$http.post('api/v1/inventory/release', postData)
                 .then(function (response) {
                   form.reset();
                   this.products[workIndex].releases.push(postData);

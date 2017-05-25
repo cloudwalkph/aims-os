@@ -6,59 +6,36 @@
             <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalCreateInventory">
                 <i class="fa fa-plus" /> Create Inventory
             </button>
-            <div class="content">
-              <filter-bar></filter-bar>
-              <vuetable ref="vuetable"
-                api-url="/api/v1/inventory"
-                :fields="fields"
-                pagination-path=""
-                :css="css.table"
-                :sort-order="sortOrder"
-                :multi-sort="true"
-                detail-row-component="internal-inventory-detail-row"
-                :append-params="moreParams"
-                @vuetable:cell-clicked="onCellClicked"
-                @vuetable:pagination-data="onPaginationData"
-              ></vuetable>
-              <div class="vuetable-pagination">
-                <vuetable-pagination-info ref="paginationInfo"
-                  info-class="pagination-info"
-                ></vuetable-pagination-info>
-                <vuetable-pagination ref="pagination"
-                  :css="css.pagination"
-                  :icons="css.icons"
-                  @vuetable-pagination:change-page="onChangePage"
-                ></vuetable-pagination>
-              </div>
-            </div>
         </div>
-        <CreateInventoryModal :propData="propData"></CreateInventoryModal>
+        <div class="col-md-12">
+          <InventoryVuetable
+            ref="vuetableInventory"
+            :api-url="apiUrl"
+            detail-row-component="internal-inventory-detail-row"
+            :fields="fields"
+            :on-row-clicked="onRowClicked"
+          ></InventoryVuetable>
+        </div>
+
+        <CreateInventoryModal :propData="propData" :refresh-vuetable="refreshVuetable"></CreateInventoryModal>
     </div>
 
 </template>
 
 <script>
     var CreateInventoryModal = require('./modals/CreateInventory.vue');
-
-    var Vuetable = require('vuetable-2/src/components/Vuetable');
-    var VuetablePagination = require('vuetable-2/src/components/VuetablePagination');
-    var VuetablePaginationInfo = require('vuetable-2/src/components/VuetablePaginationInfo');
-
-    var FilterBar = require('../commons/FilterBar');
-
     var InternalInventoryDetailRow = require('./commons/InternalInventoryDetailRow');
     Vue.component('internal-inventory-detail-row', InternalInventoryDetailRow);
+    var InventoryVuetable = require('./commons/InventoryVuetable');
 
     module.exports = {
         components: {
-          Vuetable,
-          VuetablePagination,
-          VuetablePaginationInfo,
-          FilterBar,
-            CreateInventoryModal,
+          CreateInventoryModal,
+          InventoryVuetable,
         },
         data: function () {
             return {
+              apiUrl: 'api/v1/inventory',
               fields: [
                 {
                   name: 'job_order_no',
@@ -97,64 +74,19 @@
                   sortField: 'status',
                 },
               ],
-              css: {
-                table: {
-                  tableClass: 'table table-bordered table-striped table-hover',
-                  ascendingIcon: 'glyphicon glyphicon-chevron-up',
-                  descendingIcon: 'glyphicon glyphicon-chevron-down'
-                },
-                pagination: {
-                  wrapperClass: 'pagination',
-                  activeClass: 'active',
-                  disabledClass: 'disabled',
-                  pageClass: 'page',
-                  linkClass: 'link',
-                },
-                icons: {
-                  first: 'glyphicon glyphicon-step-backward',
-                  prev: 'glyphicon glyphicon-chevron-left',
-                  next: 'glyphicon glyphicon-chevron-right',
-                  last: 'glyphicon glyphicon-step-forward',
-                },
-              },
-              sortOrder: [
-                { field: 'id', direction: 'asc'}
-              ],
-              moreParams: {},
             }
         },
-        events: {
-          'filter-set' (filterText) {
-            this.moreParams = {
-              filter: filterText
-            },
-            Vue.nextTick( () => this.$refs.vuetable.refresh() )
-          },
-          'filter-reset' () {
-            this.moreParams = {},
-            Vue.nextTick( () => this.$refs.vuetable.refresh() )
-          },
-        },
         methods: {
-          onCellClicked (data, field, event) {
-            this.$refs.vuetable.toggleDetailRow(data.id)
+          onRowClicked (dataItem, event) {
+            this.$refs.vuetableInventory.$refs.vuetableInventory.toggleDetailRow(dataItem.id);
           },
-          onChangePage (page) {
-            this.$refs.vuetable.changePage(page);
+          refreshVuetable: function () {
+            this.$refs.vuetableInventory.$refs.vuetableInventory.refresh();
           },
-          onPaginationData (paginationData) {
-            this.$refs.pagination.setPaginationData(paginationData);
-            this.$refs.paginationInfo.setPaginationData(paginationData);
-          },
-            convertDate: function (dateVal) {
-                var milliseconds = Date.parse(dateVal);
-                var d = new Date(milliseconds);
-                return d.toDateString();
-            },
         },
-        mounted: function() {
-        },
-        props: ['propData']
+        props: {
+          propData: Object
+        }
     }
 
 </script>
