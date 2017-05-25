@@ -113,11 +113,15 @@
                                   </span>
                                 </td>
                                 <td>
-                                  <span v-for="types in selected.manpower_assign_type">
+                                  <span v-for="types in selected.manpower_assign_type" style="display: block;">
                                     {{types.manpower_type.name}}
                                   </span>
                                 </td>
-                                <td>{{selected.rate}}</td>
+                                <td>
+                                  <span v-for="types in selected.manpower_assign_type" style="display: block;">
+                                    {{types.manpower_type.rate}}
+                                  </span>
+                                </td>
                                 <td>
                                     <select @change="onAssignVenue($event, selected.id)">
                                         <option value=""></option>
