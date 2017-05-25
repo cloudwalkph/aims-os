@@ -47,7 +47,7 @@ class PoolingController extends Controller
     }
 
     public function previewFinalDeployment($joNumber) {
-        $jo = JobOrder::where('job_order_no', $joNumber)->first();
+        $jo = JobOrder::where('job_order_no', $joNumber)->with('user.profile')->first();
 
         $return = [];
         $manpowerSched = ManpowerSchedules::where('job_order_id', $jo->id)->get();

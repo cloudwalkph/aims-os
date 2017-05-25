@@ -51,6 +51,11 @@
                     <b>PROJECT NAME.:</b> {{ $jo->project_name }}
                 </h5>
             </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                <h5>
+                    <b>AE.:</b> {{ $jo->user->profile->first_name . ' ' . $jo->user->profile->last_name }}
+                </h5>
+            </div>
         </div>
         {{--jo number and date end--}}
 
