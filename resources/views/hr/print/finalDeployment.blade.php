@@ -76,7 +76,13 @@
                             <td>
                               {{$manpowerList['manpower']['first_name'] . ' ' . $manpowerList['manpower']['last_name']}}
                             </td>
-                            <td><td>{{$manpowerList['manpower']['manpower_type']['name']}}</td></td>
+                            <td>
+                              @foreach($manpowerList['manpower']['manpowerAssignType'] as $types)
+                                <span>
+                                  {{$types['manpowerType']['name']}}
+                                </span>
+                              @endforeach
+                            </td>
                         </tr>
                         @endforeach
                       </tbody>
@@ -109,7 +115,13 @@
                             <td>
                               {{$manpowerList['manpower']['first_name'] . ' ' . $manpowerList['manpower']['last_name']}}
                             </td>
-                            <td><td>{{$manpowerList['manpower']['manpower_type']['name']}}</td></td>
+                            <td>
+                              @foreach($manpowerList['manpower']['manpowerAssignType'] as $types)
+                                <span>
+                                  {{$types['manpowerType']['name']}}
+                                </span>
+                              @endforeach
+                            </td>
                         </tr>
                         @endforeach
                       </tbody>

@@ -104,7 +104,14 @@
                         </thead>
                         <draggable v-model="selectedManpower" :element="'tbody'" :move="onMove" @end="onEnd">
                             <tr v-for="selected in selectedManpower">
-                                <td>{{selected.first_name + ' ' + selected.last_name}}</td>
+                                <td>
+                                  <span v-if="selected.violations" style="color: red;">
+                                    {{selected.first_name + ' ' + selected.last_name}}
+                                  </span>
+                                  <span v-else>
+                                    {{selected.first_name + ' ' + selected.last_name}}
+                                  </span>
+                                </td>
                                 <td>
                                   <span v-for="types in selected.manpower_assign_type">
                                     {{types.manpower_type.name}}
@@ -285,7 +292,11 @@
                                         <td>
                                           {{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}
                                         </td>
-                                        <td><td>{{manpowerList.manpower.manpower_type.name}}</td></td>
+                                        <td>
+                                          <span v-for="types in manpowerList.manpower.manpower_assign_type">
+                                            {{types.manpower_type.name}}
+                                          </span>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -310,7 +321,11 @@
                                         <td>
                                           {{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}
                                         </td>
-                                        <td><td>{{manpowerList.manpower.manpower_type.name}}</td></td>
+                                        <td>
+                                          <span v-for="types in manpowerList.manpower.manpower_assign_type">
+                                            {{types.manpower_type.name}}
+                                          </span>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

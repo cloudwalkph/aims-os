@@ -189,7 +189,7 @@ class PoolingManpowerController extends Controller
             
             if($sched->type == 'briefingSched')
             {
-                $sched['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerType')->with('venue')->where('job_order_id', $jo->id)->where('venue_id',$sched->venue_id)->get();
+                $sched['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerAssignType.manpowerType')->with('venue')->where('job_order_id', $jo->id)->where('venue_id',$sched->venue_id)->get();
                 $return['briefing'][$venue->venue][] = $sched;
                 // $return['briefing'][$key]['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerType')->with('venue')->where('job_order_id', $jo->id)->where('venue_id',$venue->id)->get();
                 // $return['briefing'][$key]['manpower_list']['schedule'] = $sched;
@@ -197,7 +197,7 @@ class PoolingManpowerController extends Controller
 
             if($sched->type == 'simulationSched')
             {
-                $sched['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerType')->with('venue')->where('job_order_id', $jo->id)->where('venue_id',$sched->venue_id)->get();
+                $sched['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerAssignType.manpowerType')->with('venue')->where('job_order_id', $jo->id)->where('venue_id',$sched->venue_id)->get();
                 $return['simulation'][$venue->venue][] = $sched;
                 // $return['simulation'][]['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerType')->with('venue')->where('job_order_id', $jo->id)->where('venue_id',$venue->id)->get(); 
                 // $return['simulation'][]['manpower_list']['schedule'] = $sched;
