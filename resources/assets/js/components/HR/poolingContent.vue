@@ -118,8 +118,8 @@
                                   </span>
                                 </td>
                                 <td>
-                                  <span v-for="types in selected.manpower_assign_type" style="display: block;">
-                                    {{types.manpower_type.rate}}
+                                  <span v-for="rates in selected.manpower_assign_type" style="display: block;">
+                                    {{rates.manpower_type.rate}}
                                   </span>
                                 </td>
                                 <td>
