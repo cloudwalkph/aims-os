@@ -143,8 +143,8 @@
                                            v-bind:value="rowData.violations" />
                                 </div>
                                 <div class="col-md-4 form-group text-input-container">
-                                    <label class="control-label">Rate</label>
-                                    <input type="hidden" name="rate"
+                                    <label class="control-label">Extended rate</label>
+                                    <input type="number" name="rate"
                                             v-model="rowData.rate"
                                            id="rate"
                                            placeholder="Enter Rate" class="form-control" 
