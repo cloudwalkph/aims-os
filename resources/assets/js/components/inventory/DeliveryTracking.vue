@@ -59,7 +59,11 @@
                                 data-target="#modalUpdateDelivery"
                                 @click="onModalClick(indexTrace, indexD)"
                               ><i class="glyphicon glyphicon-pencil"></i></button>
-                              <button type="button" class="btn btn-sm" @click="removeDelivery(product, indexD)"><i class="glyphicon glyphicon-trash"></i></button>
+                              <button
+                                type="button"
+                                class="btn btn-sm"
+                                @click="removeDelivery(product.deliveries, indexD)"
+                              ><i class="glyphicon glyphicon-trash"></i></button>
                             </td>
                         </tr>
 
@@ -103,7 +107,7 @@
         <iframe name="inventoryDeliveryFrame" :src="frameSrc" style="width:0; height:0"></iframe>
 
         <div class="modal fade" id="modalUpdateDelivery" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -123,7 +127,7 @@
                                 <div class="col-md-12 form-group text-input-container">
                                     <label class="control-label">Delivery Quantity</label>
                                     <input
-                                      type="text"
+                                      type="number"
                                       name="delivery_quantity"
                                       id="delivery_quantity"
                                       placeholder="delivery quantity"
@@ -202,12 +206,36 @@
                 var form = $(e.target)[0];
                 var productIndex = form.productIndex.value;
                 var deliveryIndex = form.deliveryIndex.value;
-                this.products[productIndex].deliveries[deliveryIndex].delivery_quantity = form.delivery_quantity.value;
+                var delivery_quantity = form.delivery_quantity.value;
+                var data = {
+                  _method: 'PUT',
+                  delivery_quantity: delivery_quantity,
+                }
+
+                this.$http.post('api/v1/inventory/delivery/' + this.products[productIndex].deliveries[deliveryIndex].id, data)
+                  .then(function (response) {
+                    this.products[productIndex].deliveries[deliveryIndex].delivery_quantity = delivery_quantity;
+                  })
+                  .catch(function (e) {
+                    console.log('error edit inventory delivery', e);
+                  });
+
+
                 $('#modalUpdateDelivery').modal('hide');
                 form.reset();
             },
-            removeDelivery: function (product, index) {
-                product.deliveries.splice(index, 1);
+            removeDelivery: function (deliveries, index) {
+              var data = {
+                _method: 'DELETE'
+              }
+              this.$http.post('api/v1/inventory/delivery/' + deliveries[index].id, data)
+                .then(function (response) {
+                  deliveries.splice(index, 1);
+                })
+                .catch(function (e) {
+                  console.log('error delete inventory delivery', e);
+                });
+
             },
         },
         mounted: function () {

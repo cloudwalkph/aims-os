@@ -7,6 +7,7 @@
         <vuetable ref="Vuetable_manpower"
         			api-url="/api/v1/hr/manpower"
         			:fields="fields"
+                    @vuetable:cell-clicked="onCellClicked"
        	></vuetable>
 
         <div class="modal fade" id="createManpower" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"> 
@@ -69,7 +70,7 @@
                                         <ul class="dropdown-menu col-md-12" role="menu">
                                             <li v-for="manpowerType in manpowerTypeList">
                                                 <label v-bind:for="'type_' + manpowerType.id">
-                                                    <input v-model="checkedNames" v-bind:value="manpowerType.id" v-bind:id="'type_' + manpowerType.id" type="checkbox" name="manpower_type_id[]" selected/> {{manpowerType.name}}
+                                                    <input v-model="checkedNames" v-bind:value="manpowerType.id" v-bind:id="'type_' + manpowerType.id" type="checkbox" name="manpower_type_id[]" /> {{manpowerType.name}}
                                                 </label>
                                             </li>
                                         </ul>
@@ -143,8 +144,8 @@
                                            v-bind:value="rowData.violations" />
                                 </div>
                                 <div class="col-md-4 form-group text-input-container">
-                                    <label class="control-label">Rate</label>
-                                    <input type="hidden" name="rate"
+                                    <label class="control-label">Extended rate</label>
+                                    <input type="number" name="rate"
                                             v-model="rowData.rate"
                                            id="rate"
                                            placeholder="Enter Rate" class="form-control" 
@@ -388,6 +389,21 @@
                     console.log(error)
                     
                 });
+            },
+            onCellClicked (data, field, event) {
+                if(data.manpower_assign_type.length > 0)
+                {
+                    for(let type of data.manpower_assign_type)
+                    {
+                        this.checkedNames.push(type.manpower_type_id);
+                    }
+                }
+                
+                data.birthdate = data.birthdate ? moment(data.birthdate).format('YYYY-MM-DD') : null;
+                data.hired_date = data.hired_date ? moment(data.hired_date).format('YYYY-MM-DD') : null;
+
+                this.rowData = data
+                $('#createManpower').modal('show');
             }
         },
         events: {
@@ -401,11 +417,12 @@
                 Vue.nextTick( () => this.$refs.Vuetable_manpower.reload() )
             },
             'edit-table' (data) {
+                
                 if(data.manpower_assign_type.length > 0)
                 {
                     for(let type of data.manpower_assign_type)
                     {
-                        this.checkedNames.push(type.id);
+                        this.checkedNames.push(type.manpower_type_id);
                     }
                 }
                 

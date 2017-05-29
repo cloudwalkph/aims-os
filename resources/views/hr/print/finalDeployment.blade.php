@@ -64,8 +64,10 @@
               <h4 class="text-center">Briefing Schedule</h4>
               @if(isset($data['briefing']))
                 @foreach($data['briefing'] as $key=>$briefing)
-                <h5>TEAM : {{$key}}</h5>
-                <div class="col-md-12 col-sm-12">
+                <div class="row">
+                  <h5>TEAM : {{$key}}</h5>
+                </div>
+                <div class="row">
                   @foreach($briefing as $manpowerSched)
                     <table class="table table-striped">
                       <caption>DATE : {{$manpowerSched['created_datetime']}}</caption>
@@ -83,11 +85,16 @@
                             </td>
                             <td>
                               @foreach($manpowerList['manpower']['manpowerAssignType'] as $types)
+                                @if($types['manpower_type_id'] == $manpowerList['manpower_type_required'])
                                 <span>
                                   {{$types['manpowerType']['name']}}
                                 </span>
+                                @endif
                               @endforeach
                             </td>
+                            @if($manpowerList['buffer'] == 1)
+                            <td>Buffer</td>
+                            @endif
                         </tr>
                         @endforeach
                       </tbody>
@@ -103,8 +110,10 @@
               <h4 class="text-center">Simulation Schedule</h4>
               @if(isset($data['simulation']))
                 @foreach($data['simulation'] as $key=>$simulation)
-                <h5>TEAM : {{$key}}</h5>
-                <div class="col-md-12 col-sm-12">
+                <div class="row">
+                  <h5>TEAM : {{$key}}</h5>
+                </div>
+                <div class="row">
                   @foreach($simulation as $manpowerSched)
                     <table class="table table-striped">
                       <caption>DATE : {{$manpowerSched['created_datetime']}}</caption>
@@ -122,11 +131,16 @@
                             </td>
                             <td>
                               @foreach($manpowerList['manpower']['manpowerAssignType'] as $types)
+                                @if($types['manpower_type']['id'] == $manpowerList['manpower_type_required'])
                                 <span>
                                   {{$types['manpowerType']['name']}}
                                 </span>
+                                @endif
                               @endforeach
                             </td>
+                            @if($manpowerList['buffer'] == 1)
+                            <td>Buffer</td>
+                            @endif
                         </tr>
                         @endforeach
                       </tbody>
