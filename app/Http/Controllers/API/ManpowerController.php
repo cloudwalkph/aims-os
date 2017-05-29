@@ -126,6 +126,7 @@ class ManpowerController extends Controller
                         $manpower->whereIn('id', function($q) use($key, $filterVal) {
                             $q->select('manpower_id')
                             ->where($key,$filterVal)
+                            ->whereNull('deleted_at')
                             ->from('manpower_assign_types');
                         });   
                     }else // filter selection

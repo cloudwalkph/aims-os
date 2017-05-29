@@ -7,7 +7,8 @@
     		<input id="jobOrderIdNumber" value="{{$joId}}" type="hidden"/>
     		<pooling-content 
     			data="{{$jobOrder}}" 
-    			jo-event="{{$joEvent}}">
+    			jo-event="{{$joEvent}}"
+                ae-event="{{$aeEvent}}">
     		</pooling-content>
     	</div>
     </div>

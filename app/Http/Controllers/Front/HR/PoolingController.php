@@ -9,6 +9,7 @@ use App\Models\ManpowerSchedules;
 use App\Models\JobOrderSelectedManpower;
 use App\Models\Venue;
 use App\Models\JobOrderManpowerEvent;
+use App\Models\JobOrderDetail;
 
 class PoolingController extends Controller
 {
@@ -39,11 +40,13 @@ class PoolingController extends Controller
     {
         $jobOrder = jobOrder::with('joManpower.manpowerType.manpower')->where('job_order_no',$joNumber)->first();
         $joEvent = JobOrderManpowerEvent::where('job_order_id',$jobOrder->id)->first();
+        $aeEvent = JobOrderDetail::where('job_order_id',$jobOrder->id)->first();
 
         return view('hr.Department.poolingDetailView')
                 ->with('jobOrder', $joNumber)
                 ->with('joId', $jobOrder->id)
-                ->with('joEvent', $joEvent);
+                ->with('joEvent', $joEvent)
+                ->with('aeEvent', $aeEvent);
     }
 
     public function previewFinalDeployment($joNumber) {
@@ -55,7 +58,10 @@ class PoolingController extends Controller
         foreach($manpowerSched as $sched)
         {
             $venue = Venue::where('id',$sched->venue_id)->first();
-            
+            if(!$venue)
+            {
+                $venue = (object) ['venue' => 'TBA'];
+            }
             if($sched->type == 'briefingSched')
             {
                 $sched['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerAssignType.manpowerType')->with('venue')->where('job_order_id', $jo->id)->where('venue_id',$sched->venue_id)->get();
