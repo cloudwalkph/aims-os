@@ -7,12 +7,24 @@
                 <i class="fa fa-plus" /> Create Inventory
             </button>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 content">
+          <div class="row">
+            <div class="col-md-3 form-group">
+                <v-select
+                  :multiple="true"
+                  :on-change="selectCategory"
+                  :options="categoryOptions"
+                  placeholder="Category"
+                ></v-select>
+            </div>
+          </div>
+
           <InventoryVuetable
-            ref="vuetableInventory"
+            ref="v"
             :api-url="apiUrl"
             detail-row-component="internal-inventory-detail-row"
             :fields="fields"
+            :moreParams="moreParams"
             :on-row-clicked="onRowClicked"
           ></InventoryVuetable>
         </div>
@@ -36,11 +48,28 @@
         data: function () {
             return {
               apiUrl: 'api/v1/inventory',
+              categoryOptions: [
+                {
+                  label: 'TShirt',
+                  value: 'tshirt',
+                },
+                {
+                  label: 'Pants',
+                  value: 'pants',
+                },
+                {
+                  label: 'Sandals',
+                  value: 'sandals',
+                },
+              ],
               fields: [
                 {
-                  name: 'job_order_no',
+                  name: 'job_order.job_order_no',
                   title: 'Job Order Number',
-                  sortField: 'job_order_no',
+                },
+                {
+                  name: 'job_order.project_name',
+                  title: 'Project Name',
                 },
                 {
                   name: 'category',
@@ -74,14 +103,25 @@
                   sortField: 'status',
                 },
               ],
+              moreParams: {},
             }
         },
         methods: {
+          selectCategory (e) {
+            var arr = [];
+            for(var obj of e) {
+              arr.push(obj.value);
+            }
+            this.moreParams = {
+              category: arr,
+            }
+            Vue.nextTick( () => this.$refs.v.$refs.vuetableInventory.refresh() );
+          },
           onRowClicked (dataItem, event) {
-            this.$refs.vuetableInventory.$refs.vuetableInventory.toggleDetailRow(dataItem.id);
+            Vue.nextTick( () => this.$refs.v.$refs.vuetableInventory.toggleDetailRow(dataItem.id) );
           },
           refreshVuetable: function () {
-            this.$refs.vuetableInventory.$refs.vuetableInventory.refresh();
+            Vue.nextTick( () => this.$refs.v.$refs.vuetableInventory.refresh() );
           },
         },
         props: {
