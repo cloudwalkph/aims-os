@@ -36,19 +36,25 @@ class InventoryController extends Controller
             $query->orderBy('inventories.id', 'asc');
         }
 
-        $query->join('job_orders', 'job_orders.id', '=', 'inventories.job_order_id')
-            ->addSelect('job_orders.project_name', 'job_orders.job_order_no');
+        $query->with('jobOrder');
 
         // Filter
+        if($request->has('category')) {
+          $categories = $request->get('category');
+          $query->whereIn('category', $categories);
+        }
         if ($request->has('filter')) {
-          $filterables = [
-            'job_order_no',
-            'category',
-            'product_code',
-            'name',
-            'inventories.status'
-          ];
-            $this->filter($query, $request, $filterables);
+          $filterRequest = $request->get('filter');
+          $query->whereHas('jobOrder', function($q) use($filterRequest) {
+            $q->where('job_order_no', 'like', '%'.$filterRequest.'%');
+            $q->orWhere('project_name', 'like', '%'.$filterRequest.'%');
+          });
+          $query->orWhere(function($q) use($filterRequest) {
+            $q->orWhere('product_code', 'like', '%'.$filterRequest.'%');
+            $q->orWhere('category', 'like', '%'.$filterRequest.'%');
+            $q->orWhere('name', 'like', '%'.$filterRequest.'%');
+            $q->orWhere('inventories.status', 'like', '%'.$filterRequest.'%');
+          });
         }
 
         // Count per page
@@ -84,7 +90,6 @@ class InventoryController extends Controller
         // Create the jo inventory
         \DB::transaction(function() use ($request, &$jo) {
             $input = array(
-              'job_order_id' => $request->input('job_order_id'),
               'category' => $request->input('category'),
               'product_code' => $request->input('product_code'),
               'name' => $request->input('product_name'),
@@ -92,6 +97,9 @@ class InventoryController extends Controller
               'expiration_date' => date('Y-m-d H:i:s', strtotime($request->input('expiration_date'))),
               'status' => $request->input('status'),
             );
+            if($request->has('job_order_id') && $request->input('job_order_id') != 'null') {
+              $input['job_order_id'] = $request->input('job_order_id');
+            }
             $jo = Inventory::create($input);
         });
         // upload inventory pictures
