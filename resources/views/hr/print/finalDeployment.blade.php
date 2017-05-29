@@ -92,6 +92,9 @@
                                 @endif
                               @endforeach
                             </td>
+                            @if($manpowerList['buffer'] == 1)
+                            <td>Buffer</td>
+                            @endif
                         </tr>
                         @endforeach
                       </tbody>
@@ -135,6 +138,9 @@
                                 @endif
                               @endforeach
                             </td>
+                            @if($manpowerList['buffer'] == 1)
+                            <td>Buffer</td>
+                            @endif
                         </tr>
                         @endforeach
                       </tbody>

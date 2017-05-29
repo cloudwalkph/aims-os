@@ -98,7 +98,7 @@
                 <div class="col-md-8">
                     <h3>Selected Manpower</h3>
                     <div v-for="count in joManpowerList" class="col-md-3">
-                      <strong><span>{{count.manpower_type.name}} : {{count.manpower_needed}} / {{count.selected_count}}</span></strong>
+                      <strong><span>{{count.manpower_type.name}} : {{count.selected_count}} / {{count.manpower_needed}}</span></strong>
                     </div>
                     <table class="table table-striped">
                         <thead>
@@ -285,7 +285,7 @@
             <div role="tabpanel" class="tab-pane" id="final_deployment" style="padding-top: 30px;">
                 <div class="col-md-12">
                     <h4 class="text-center">EVENT DATE:&nbsp;<span>{{event_date_header}}</span></h4>
-                    <button class="btn btn-default pull-right" onclick="frames['finalDeploymentFrame'].print()">
+                    <button class="btn btn-default pull-right" onclick="frames['finalDeploymentFrame'].print();">
                         <i class="fa fa-print fa-lg"></i> Print Final deployment
                     </button>
                 </div>
@@ -753,8 +753,16 @@
             },
 
             onCellClicked (data, field, event) {
-                console.log('cellClicked: ', field.name,data);
-                this.$refs.vuetable_manpower.toggleDetailRow(data.id)
+                if(!this.moreParams.filterSelections)
+                {
+                  toastr.error('Please Apply filter for Manpower type', 'Failed');
+                  return;
+                }
+                data.manpower_type_required = this.moreParams.filterSelections.manpower_type_id;
+
+                this.selectedManpower = this.selectedManpower.concat([data]);
+                $('#button-' + data.id).hide();
+                this.$refs.vuetable_manpower.refresh();
             },
 
             onPaginationData (paginationData) {
