@@ -5,16 +5,7 @@
                 <div class="form-group">
                     <select type="date" v-model="filterByManpowerType" name="manpower_type_id" id="manpowerTypeId" placeholder="Select..." class="form-control">
                     	<option value="">Filter Manpower type</option>
-                    	<option value="1">Setup</option>
-                    	<option value="2">BA</option>
-                    	<option value="3">Promodizer</option>
-                    	<option value="4">Push Girl</option>
-                    	<option value="5">Seller</option>
-                    	<option value="6">PA</option>
-                    	<option value="7">Repacker</option>
-                    	<option value="8">TL</option>
-                    	<option value="9">ATL</option>
-                    	<option value="10">Project Coordinator</option>
+                    	<option v-for="man in manpowerNeeded" :value="man.manpower_type.id">{{man.manpower_type.name}}</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -97,6 +88,9 @@
 				filterByAge: ''
 			}
 	    },
+	    props: [
+            'manpowerNeeded'
+        ],
 	    methods: {
 			doFilter () {
 				let dataFiltered = {
@@ -104,7 +98,11 @@
 					agency_id : this.filterByAgency,
 					birthdate : this.filterByAge
 				}
-				this.$events.fire('filter-selection-set', dataFiltered)
+				if(this.filterByManpowerType)
+				{
+					this.$events.fire('filter-selection-set', dataFiltered)	
+				}
+				
 			},
 			resetFilter () {
 				this.filterByManpowerType = ''
