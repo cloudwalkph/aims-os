@@ -51,6 +51,7 @@ class ValidateController extends Controller
     function getEventScores($jno = '', $eventCategory = 'all')
     {
       $query = Department::select('departments.id as dept_id', 'slug', 'name')
+        ->whereIn('departments.id', [2, 3, 4, 5, 7, 8, 9, 11])
         ->leftJoin(DB::raw('(SELECT job_order_no, category, department_id, AVG(score) AS avg_score FROM validate_results WHERE category = "pre" AND job_order_no = "'.$jno.'" GROUP BY job_order_no, category, department_id) AS preEvent'),
           function($q){
             $q->on('departments.id', '=', 'preEvent.department_id');
@@ -67,6 +68,7 @@ class ValidateController extends Controller
           })
         ->addSelect(DB::raw('IFNULL(postEvent.avg_score, 0) AS post_avg_score'))
         ->orderBy('dept_id');
+
       $eventData = $query->get();
 
         $eventArray['cols'] = array(
@@ -104,8 +106,9 @@ class ValidateController extends Controller
               );
             }
 
-        foreach($eventData as $data) {
-            $eventArray['cols'][$data['dept_id']] = array(
+        foreach($eventData as $i=>$data) {
+                $index = $i + 1;
+            $eventArray['cols'][$index] = array(
                 'id' => $data['dept_id'],
                 'label' => $data['name'],
                 'type' => 'number',
@@ -115,15 +118,15 @@ class ValidateController extends Controller
             //     'v' => 0,
             //     'f' => 0,
             // );
-            $preEvent['c'][$data['dept_id']] = array(
+            $preEvent['c'][$index] = array(
               'v' => ($data['pre_avg_score'] / 100),
               'f' => round($data['pre_avg_score'], 2),
             );
-            $propEvent['c'][$data['dept_id']] = array(
+            $propEvent['c'][$index] = array(
               'v' => ($data['prop_avg_score'] / 100),
               'f' => round($data['prop_avg_score'], 2),
             );
-            $postEvent['c'][$data['dept_id']] = array(
+            $postEvent['c'][$index] = array(
               'v' => ($data['post_avg_score'] / 100),
               'f' => round($data['post_avg_score'], 2),
             );
@@ -195,7 +198,7 @@ class ValidateController extends Controller
 
         $jos = JobOrder::whereIn( 'id', $joArrays )
             ->get();
-
+//dd($jos);
         foreach ($jos as $jo) {
             $contact_array = [];
             $brands_array = [];
@@ -209,7 +212,6 @@ class ValidateController extends Controller
 
             $jobArray = array(
                 'joId' => $jo->job_order_no,
-                'assigned' => $jo->user_profile->last_name.', '.$jo->user_profile->first_name,
                 'projName' => $jo->project_name,
                 'contact' => implode(', ', $contact_array),
                 'brands' => implode(', ', $brands_array),

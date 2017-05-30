@@ -40052,15 +40052,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -40070,6 +40061,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			filterByAge: ''
 		};
 	},
+	props: ['manpowerNeeded'],
 	methods: {
 		doFilter: function doFilter() {
 			var dataFiltered = {
@@ -40077,7 +40069,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				agency_id: this.filterByAgency,
 				birthdate: this.filterByAge
 			};
-			this.$events.fire('filter-selection-set', dataFiltered);
+			if (this.filterByManpowerType) {
+				this.$events.fire('filter-selection-set', dataFiltered);
+			}
 		},
 		resetFilter: function resetFilter() {
 			this.filterByManpowerType = '';
@@ -40222,6 +40216,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__HR_commons_CustomActions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__HR_commons_CustomActions__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_events__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_events__);
+//
 //
 //
 //
@@ -40602,6 +40597,40 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK
             }, function (error) {
                 console.log(error);
             });
+        },
+        onCellClicked: function onCellClicked(data, field, event) {
+            if (data.manpower_assign_type.length > 0) {
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
+
+                try {
+                    for (var _iterator = data.manpower_assign_type[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var type = _step.value;
+
+                        this.checkedNames.push(type.manpower_type_id);
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+            }
+
+            data.birthdate = data.birthdate ? __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.birthdate).format('YYYY-MM-DD') : null;
+            data.hired_date = data.hired_date ? __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.hired_date).format('YYYY-MM-DD') : null;
+
+            this.rowData = data;
+            $('#createManpower').modal('show');
         }
     },
     events: {
@@ -40626,27 +40655,27 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK
             var _this7 = this;
 
             if (data.manpower_assign_type.length > 0) {
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
+                var _iteratorNormalCompletion2 = true;
+                var _didIteratorError2 = false;
+                var _iteratorError2 = undefined;
 
                 try {
-                    for (var _iterator = data.manpower_assign_type[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var type = _step.value;
+                    for (var _iterator2 = data.manpower_assign_type[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                        var type = _step2.value;
 
-                        this.checkedNames.push(type.id);
+                        this.checkedNames.push(type.manpower_type_id);
                     }
                 } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
+                    _didIteratorError2 = true;
+                    _iteratorError2 = err;
                 } finally {
                     try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
+                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                            _iterator2.return();
                         }
                     } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
+                        if (_didIteratorError2) {
+                            throw _iteratorError2;
                         }
                     }
                 }
@@ -40770,6 +40799,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_vuedraggable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_vuedraggable__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -41262,13 +41307,16 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
             simulationDate: '',
             simulationTime: '',
             simulationVenue: '',
+            draggableStart: '',
+            draggableEnd: '',
 
             event_date: this.joEvent ? __WEBPACK_IMPORTED_MODULE_5_moment___default()(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DDTHH:mm:ss') : '',
-            event_date_header: this.joEvent ? __WEBPACK_IMPORTED_MODULE_5_moment___default()(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DD HH:mm:ss') : ''
+            event_date_header: this.joEvent ? __WEBPACK_IMPORTED_MODULE_5_moment___default()(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DD HH:mm:ss') : '',
+            ae_event_date_header: this.aeEvent ? JSON.parse(this.aeEvent).when : ''
         };
     },
 
-    props: ['data', 'joEvent'],
+    props: ['data', 'joEvent', 'aeEvent'],
     methods: {
         expandType: function expandType(value) {
             var arr = [];
@@ -41278,40 +41326,40 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
             return arr.toString();
         },
         onEnd: function onEnd(evt) {
-            console.log(evt);
-        },
-        onMove: function onMove(evt) {
             var _this = this;
 
-            var draggedStart = evt.draggedContext.element;
-            var draggedEnd = evt.relatedContext.element;
-            var typeStart = draggedStart.manpower_type_id;
-            var typeEnd = draggedEnd.manpower_type_id;
             var joId = $('#jobOrderIdNumber').val();
             var url = '/api/v1/hr/assign-buffef/' + joId;
 
-            if (draggedStart.manpower_type_id != draggedEnd.manpower_type_id) {
-                return false;
-            }
-            ;
-
-            if (draggedStart.buffer == draggedEnd.buffer) {
-                return false;
-            }
-            ;
-
-            // console.log(evt.draggedContext,evt.relatedContext);return;
             var data = {
-                'start': draggedStart,
-                'end': draggedEnd
+                'start': this.draggableStart,
+                'end': this.draggableEnd
             };
-
+            // console.log(data);return;
             this.$http.post(url, data).then(function (response) {
                 // console.log(response.data)
                 _this.getSelectedManpower();
             }, function (error) {
                 console.log(error);
             });
+        },
+        onMove: function onMove(evt) {
+            var draggedStart = evt.draggedContext.element;
+            var draggedEnd = evt.relatedContext.element;
+            var typeStart = draggedStart.manpower_type_id;
+            var typeEnd = draggedEnd.manpower_type_id;
+
+            if (draggedStart.manpower_type_required != draggedEnd.manpower_type_required) {
+                return false;
+            }
+            ;
+
+            if (draggedStart.buffer == draggedEnd.buffer) {
+                return false;
+            };
+
+            this.draggableStart = draggedStart;
+            this.draggableEnd = draggedEnd;
         },
         setEventDate: function setEventDate(e) {
             var joId = $('#jobOrderIdNumber').val();
@@ -41326,7 +41374,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
                 toastr.success('Successfully saved!', 'Success');
             }, function (error) {
                 console.log(error);
-                toastr.failed('Failed to save!', 'Failed');
+                toastr.error('Failed to save!', 'Failed');
             });
         },
         inputChange: function inputChange(e) {
@@ -41349,7 +41397,8 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
 
             var url = '/api/v1/hr/job-order-manpower/' + this.data;
             this.$http.get(url).then(function (response) {
-                _this2.joManpowerList = response.data.data;
+                // console.log(response.data)
+                _this2.joManpowerList = response.data;
             }, function (error) {
                 console.log(error);
             });
@@ -41361,26 +41410,6 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
             this.$http.get(url).then(function (response) {
                 // console.log(response.data)
                 _this3.selectedManpower = response.data;
-                // for(let jo in this.joManpowerList) // manpower needed list
-                // {
-                //   for(let man in response.data) // selected manpower to jo
-                //   {
-                //     let dataList = response.data[man]['manpower'];
-                //     dataList.venue_id = response.data[man]['venue_id'];
-                //     if(this.joManpowerList[jo]['manpower_type_id'] == dataList['manpower_type_id'])
-                //     {
-                //       if(this.joManpowerList[jo]['manpower_needed'] == this.selectedManpower.length)
-                //       {
-                //         dataList.surpassing = 'Extra';
-                //         this.selectedManpower = this.selectedManpower.concat([dataList]);
-                //       }else{
-                //         this.selectedManpower = this.selectedManpower.concat([dataList]);
-                //       }
-
-                //     }
-
-                //   }
-                // }
             }, function (error) {
                 console.log(error);
             });
@@ -41402,7 +41431,8 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
             var index = this.selectedManpower.findIndex(function (item) {
                 return item.id == id;
             });
-            var url = '/api/v1/hr/selected-manpower/' + index;
+
+            var url = '/api/v1/hr/selected-manpower/' + id + '/' + $('#jobOrderIdNumber').val();
 
             this.$http.delete(url).then(function (response) {
                 _this5.selectedManpower.splice(index, 1);
@@ -41420,8 +41450,9 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
             };
 
             this.$http.post(url, dataArray).then(function (response) {
-                console.log(response.data);
+                // console.log(response.data)
                 _this6.getSelectedManpower();
+                _this6.getJobOrderManpower();
                 toastr.success('Successfully saved!', 'Success');
             }, function (error) {
                 console.log(error);
@@ -41533,8 +41564,15 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
             });
         },
         onCellClicked: function onCellClicked(data, field, event) {
-            console.log('cellClicked: ', field.name);
-            this.$refs.vuetable.toggleDetailRow(data.id);
+            if (!this.moreParams.filterSelections) {
+                toastr.error('Please Apply filter for Manpower type', 'Failed');
+                return;
+            }
+            data.manpower_type_required = this.moreParams.filterSelections.manpower_type_id;
+
+            this.selectedManpower = this.selectedManpower.concat([data]);
+            $('#button-' + data.id).hide();
+            this.$refs.vuetable_manpower.refresh();
         },
         onPaginationData: function onPaginationData(paginationData) {
             this.$refs.pagination.setPaginationData(paginationData);
@@ -41549,7 +41587,13 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('selection-filter-inputs',
             var _this11 = this;
 
             __WEBPACK_IMPORTED_MODULE_1_vue___default.a.nextTick(function () {
-                // console.log(data);
+
+                if (!_this11.moreParams.filterSelections) {
+                    toastr.error('Please Apply filter for Manpower type', 'Failed');
+                    return;
+                }
+                data.manpower_type_required = _this11.moreParams.filterSelections.manpower_type_id;
+
                 _this11.selectedManpower = _this11.selectedManpower.concat([data]);
                 $('#button-' + data.id).hide();
                 _this11.$refs.vuetable_manpower.refresh();
@@ -45957,74 +46001,96 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IM
 //
 //
 //
+//
+//
+//
+//
 
 module.exports = {
-    computed: {
-        dateToday: function dateToday() {
-            var d = new Date();
-            return d.toDateString();
-        }
+  computed: {
+    dateToday: function dateToday() {
+      var d = new Date();
+      return d.toDateString();
+    }
+  },
+  data: function data() {
+    return {
+      frameSrc: 'inventory/print/delivery/' + this.propIJobId
+    };
+  },
+  methods: {
+    balance: function balance(product, indexD) {
+      var qty = 0;
+      qty = product.expected_quantity;
+      for (var d = 0; d <= indexD; d++) {
+        qty = qty - product.deliveries[d].delivery_quantity;
+      }
+      return qty;
     },
-    data: function data() {
-        return {
-            frameSrc: 'inventory/print/delivery/' + this.propIJobId
-        };
+    convertDate: function convertDate(dateValue) {
+      var milliseconds = Date.parse(dateValue);
+      var d = new Date(milliseconds);
+      return d.toDateString();
     },
-    methods: {
-        balance: function balance(product, indexD) {
-            var qty = 0;
-            qty = product.expected_quantity;
-            for (var d = 0; d <= indexD; d++) {
-                qty = qty - product.deliveries[d].delivery_quantity;
-            }
-            return qty;
-        },
-        convertDate: function convertDate(dateValue) {
-            var milliseconds = Date.parse(dateValue);
-            var d = new Date(milliseconds);
-            return d.toDateString();
-        },
-        handleSubmit: function handleSubmit(e) {
-            var form = $(e.target)[0];
-            var workIndex = e.target.getAttribute('workIndex');
-            var product_id = e.target.getAttribute('productId');
-            var delivered_quantity = form.deliveryVal.value;
+    handleSubmit: function handleSubmit(e) {
+      var form = $(e.target)[0];
+      var workIndex = e.target.getAttribute('workIndex');
+      var product_id = e.target.getAttribute('productId');
+      var delivered_quantity = form.deliveryVal.value;
 
-            var postData = {
-                product_id: product_id,
-                delivery_quantity: delivered_quantity,
-                delivery_date: form.datetimeDelivery.value
-            };
+      var postData = {
+        product_id: product_id,
+        delivery_quantity: delivered_quantity,
+        delivery_date: form.datetimeDelivery.value
+      };
 
-            this.$http.post('api/v1/inventory/delivery', postData).then(function (response) {
-                form.reset();
-                this.products[workIndex].deliveries.push(postData);
-            }).catch(function (e) {
-                console.log('error post inventory delivery', e);
-            });
-        },
-        onModalClick: function onModalClick(indexProduct, indexDelivery) {
-            $('input[name="productIndex"]').val(indexProduct);
-            $('input[name="deliveryIndex"]').val(indexDelivery);
-        },
-        editDelivery: function editDelivery(e) {
-            var form = $(e.target)[0];
-            var productIndex = form.productIndex.value;
-            var deliveryIndex = form.deliveryIndex.value;
-            this.products[productIndex].deliveries[deliveryIndex].delivery_quantity = form.delivery_quantity.value;
-            $('#modalUpdateDelivery').modal('hide');
-            form.reset();
-        },
-        removeDelivery: function removeDelivery(product, index) {
-            product.deliveries.splice(index, 1);
-        }
+      this.$http.post('api/v1/inventory/delivery', postData).then(function (response) {
+        form.reset();
+        this.products[workIndex].deliveries.push(postData);
+      }).catch(function (e) {
+        console.log('error post inventory delivery', e);
+      });
     },
-    mounted: function mounted() {
-        $('.datetimepickerDelivery').datetimepicker({
-            minDate: moment()
-        });
+    onModalClick: function onModalClick(indexProduct, indexDelivery) {
+      $('input[name="productIndex"]').val(indexProduct);
+      $('input[name="deliveryIndex"]').val(indexDelivery);
     },
-    props: ['products', 'propIJobId']
+    editDelivery: function editDelivery(e) {
+      var form = $(e.target)[0];
+      var productIndex = form.productIndex.value;
+      var deliveryIndex = form.deliveryIndex.value;
+      var delivery_quantity = form.delivery_quantity.value;
+      var data = {
+        _method: 'PUT',
+        delivery_quantity: delivery_quantity
+      };
+
+      this.$http.post('api/v1/inventory/delivery/' + this.products[productIndex].deliveries[deliveryIndex].id, data).then(function (response) {
+        this.products[productIndex].deliveries[deliveryIndex].delivery_quantity = delivery_quantity;
+      }).catch(function (e) {
+        console.log('error edit inventory delivery', e);
+      });
+
+      $('#modalUpdateDelivery').modal('hide');
+      form.reset();
+    },
+    removeDelivery: function removeDelivery(deliveries, index) {
+      var data = {
+        _method: 'DELETE'
+      };
+      this.$http.post('api/v1/inventory/delivery/' + deliveries[index].id, data).then(function (response) {
+        deliveries.splice(index, 1);
+      }).catch(function (e) {
+        console.log('error delete inventory delivery', e);
+      });
+    }
+  },
+  mounted: function mounted() {
+    $('.datetimepickerDelivery').datetimepicker({
+      minDate: moment()
+    });
+  },
+  props: ['products', 'propIJobId']
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
@@ -46163,13 +46229,6 @@ module.exports = {
                     project_name: 'Sample Job Order',
 
                     user_id: 0
-                }],
-                internalInventory: [{
-                    id: 0,
-                    job_order_id: 0,
-                    product_code: 'product_code',
-                    name: 'Product Name',
-                    expiration_date: '2017-05-25'
                 }]
             }
         };
@@ -46301,23 +46360,19 @@ module.exports = {
                 console.log('error joinventories', e);
             });
         },
-        getInventory: function getInventory() {
-            this.$http.get('api/v1/inventory').then(function (response) {
+        getJobOrders: function getJobOrders() {
+            this.$http.get('api/v1/job-orders/department').then(function (response) {
                 var _iteratorNormalCompletion3 = true;
                 var _didIteratorError3 = false;
                 var _iteratorError3 = undefined;
 
                 try {
-                    for (var _iterator3 = response.data.data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                        product = _step3.value;
+                    for (var _iterator3 = response.data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                        var r = _step3.value;
 
-                        this.inventoryData.internalInventory.push({
-                            id: product.id,
-                            job_order_id: product.job_order_id,
-                            product_code: product.product_code,
-                            name: product.name,
-                            expiration_date: product.expiration_date
-                        });
+                        if (r) {
+                            this.inventoryData.jobOrders.push(r);
+                        }
                     }
                 } catch (err) {
                     _didIteratorError3 = true;
@@ -46334,22 +46389,20 @@ module.exports = {
                     }
                 }
             }).catch(function (e) {
-                console.log('error inventories', e);
+                console.log('error jobs department', e);
             });
         },
-        getJobOrders: function getJobOrders() {
-            this.$http.get('api/v1/job-orders/department').then(function (response) {
+        getJob: function getJob() {
+            this.$http.get('api/v1/inventory/job').then(function (response) {
                 var _iteratorNormalCompletion4 = true;
                 var _didIteratorError4 = false;
                 var _iteratorError4 = undefined;
 
                 try {
-                    for (var _iterator4 = response.data[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                    for (var _iterator4 = response.data.data[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
                         var r = _step4.value;
 
-                        if (r) {
-                            this.inventoryData.jobOrders.push(r);
-                        }
+                        this.inventoryData.inventoryJobs.push(r);
                     }
                 } catch (err) {
                     _didIteratorError4 = true;
@@ -46366,20 +46419,20 @@ module.exports = {
                     }
                 }
             }).catch(function (e) {
-                console.log('error jobs department', e);
+                console.log('error inventory jobs', e);
             });
         },
-        getJob: function getJob() {
-            this.$http.get('api/v1/inventory/job').then(function (response) {
+        getUsers: function getUsers() {
+            this.$http.get('api/v1/users/5').then(function (response) {
                 var _iteratorNormalCompletion5 = true;
                 var _didIteratorError5 = false;
                 var _iteratorError5 = undefined;
 
                 try {
-                    for (var _iterator5 = response.data.data[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                    for (var _iterator5 = response.data[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
                         var r = _step5.value;
 
-                        this.inventoryData.inventoryJobs.push(r);
+                        this.inventoryData.users.push(r);
                     }
                 } catch (err) {
                     _didIteratorError5 = true;
@@ -46396,36 +46449,6 @@ module.exports = {
                     }
                 }
             }).catch(function (e) {
-                console.log('error inventory jobs', e);
-            });
-        },
-        getUsers: function getUsers() {
-            this.$http.get('api/v1/users/5').then(function (response) {
-                var _iteratorNormalCompletion6 = true;
-                var _didIteratorError6 = false;
-                var _iteratorError6 = undefined;
-
-                try {
-                    for (var _iterator6 = response.data[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                        var r = _step6.value;
-
-                        this.inventoryData.users.push(r);
-                    }
-                } catch (err) {
-                    _didIteratorError6 = true;
-                    _iteratorError6 = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion6 && _iterator6.return) {
-                            _iterator6.return();
-                        }
-                    } finally {
-                        if (_didIteratorError6) {
-                            throw _iteratorError6;
-                        }
-                    }
-                }
-            }).catch(function (e) {
                 console.log('error users department', e);
             });
         }
@@ -46433,12 +46456,10 @@ module.exports = {
     mounted: function mounted() {
         this.inventoryData.assignedJobs = [];
         // this.inventoryData.products = [];
-        // this.inventoryData.internalInventory = [];
         // this.inventoryData.jobOrders = [];
         // this.inventoryData.inventoryJobs = [];
         // this.inventoryData.users = [];
         this.getAssignedJob();
-        // this.getInventory();
         // this.getJob();
         // this.getJobOrders();
         // this.getJOInventory();
@@ -46550,6 +46571,64 @@ module.exports = {
 /* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* WEBPACK VAR INJECTION */(function($) {//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -46588,10 +46667,22 @@ module.exports = {
   data: function data() {
     return {
       apiUrl: 'api/v1/inventory',
+      categoryOptions: [{
+        label: 'TShirt',
+        value: 'tshirt'
+      }, {
+        label: 'Pants',
+        value: 'pants'
+      }, {
+        label: 'Sandals',
+        value: 'sandals'
+      }],
       fields: [{
-        name: 'job_order_no',
-        title: 'Job Order Number',
-        sortField: 'job_order_no'
+        name: 'job_order.job_order_no',
+        title: 'Job Order Number'
+      }, {
+        name: 'job_order.project_name',
+        title: 'Project Name'
       }, {
         name: 'category',
         title: 'Category',
@@ -46617,22 +46708,84 @@ module.exports = {
         name: 'status',
         title: 'Status',
         sortField: 'status'
-      }]
+      }],
+      moreParams: {}
     };
   },
   methods: {
+    importInternalInventory: function importInternalInventory(e) {
+      var form = $(e.target)[0];
+      var formData = new FormData(form);
+
+      this.$http.post('api/v1/inventory/import', formData).then(function (response) {
+        var _this = this;
+
+        $('#importInternalInventoryModal').modal('hide');
+        form.reset();
+        Vue.nextTick(function () {
+          return _this.$refs.v.$refs.vuetableInventory.refresh();
+        });
+      }).catch(function (e) {
+        console.log('error post jobs', e);
+      });
+    },
+    selectCategory: function selectCategory(e) {
+      var _this2 = this;
+
+      var arr = [];
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = e[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var obj = _step.value;
+
+          arr.push(obj.value);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      this.moreParams = {
+        category: arr
+      };
+      Vue.nextTick(function () {
+        return _this2.$refs.v.$refs.vuetableInventory.refresh();
+      });
+    },
     onRowClicked: function onRowClicked(dataItem, event) {
-      this.$refs.vuetableInventory.$refs.vuetableInventory.toggleDetailRow(dataItem.id);
+      var _this3 = this;
+
+      Vue.nextTick(function () {
+        return _this3.$refs.v.$refs.vuetableInventory.toggleDetailRow(dataItem.id);
+      });
     },
 
     refreshVuetable: function refreshVuetable() {
-      this.$refs.vuetableInventory.$refs.vuetableInventory.refresh();
+      var _this4 = this;
+
+      Vue.nextTick(function () {
+        return _this4.$refs.v.$refs.vuetableInventory.refresh();
+      });
     }
   },
   props: {
     propData: Object
   }
 };
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 /* 223 */
@@ -46891,6 +47044,70 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 module.exports = {
   computed: {
@@ -47037,8 +47254,43 @@ module.exports = {
         console.log('error post inventory release', e);
       });
     },
-    removeRelease: function removeRelease(product, index) {
-      product.releases.splice(index, 1);
+    onModalClick: function onModalClick(indexProduct, indexRelease) {
+      $('input[name="productIndex"]').val(indexProduct);
+      $('input[name="releaseIndex"]').val(indexRelease);
+      $('input[name="dispose_quantity"]').val(this.products[indexProduct].releases[indexRelease].dispose_quantity);
+      $('input[name="return_quantity"]').val(this.products[indexProduct].releases[indexRelease].return_quantity);
+    },
+    editRelease: function editRelease(e) {
+      var form = $(e.target)[0];
+      var productIndex = form.productIndex.value;
+      var releaseIndex = form.releaseIndex.value;
+      var dispose_quantity = form.dispose_quantity.value;
+      var return_quantity = form.return_quantity.value;
+      var data = {
+        _method: 'PUT',
+        dispose_quantity: dispose_quantity,
+        return_quantity: return_quantity
+      };
+
+      this.$http.post('api/v1/inventory/release/' + this.products[productIndex].releases[releaseIndex].id, data).then(function (response) {
+        this.products[productIndex].releases[releaseIndex].dispose_quantity = dispose_quantity;
+        this.products[productIndex].releases[releaseIndex].return_quantity = return_quantity;
+      }).catch(function (e) {
+        console.log('error edit inventory release', e);
+      });
+
+      $('#modalUpdateRelease').modal('hide');
+      form.reset();
+    },
+    removeRelease: function removeRelease(releases, index) {
+      var data = {
+        _method: 'DELETE'
+      };
+      this.$http.post('api/v1/inventory/release/' + releases[index].id, data).then(function (response) {
+        releases.splice(index, 1);
+      }).catch(function (e) {
+        console.log('error delete inventory release', e);
+      });
     }
   },
   mounted: function mounted() {
@@ -47319,6 +47571,11 @@ module.exports = {
     VuetablePaginationInfo: VuetablePaginationInfo,
     FilterBar: FilterBar
   },
+  computed: {
+    appendParams: function appendParams() {
+      return this.moreParams;
+    }
+  },
   data: function data() {
     return {
       css: {
@@ -47341,7 +47598,6 @@ module.exports = {
           last: 'glyphicon glyphicon-step-forward'
         }
       },
-      moreParams: {},
       sortOrder: [{ field: 'id', direction: 'asc' }]
     };
   },
@@ -47361,16 +47617,14 @@ module.exports = {
     filterSet: function filterSet(filterText) {
       var _this = this;
 
-      this.moreParams = {
-        filter: filterText
-      }, Vue.nextTick(function () {
+      this.appendParams.filter = filterText, Vue.nextTick(function () {
         return _this.$refs.vuetableInventory.refresh();
       });
     },
     filterReset: function filterReset() {
       var _this2 = this;
 
-      this.moreParams = {}, Vue.nextTick(function () {
+      this.appendParams.filter = {}, Vue.nextTick(function () {
         return _this2.$refs.vuetableInventory.refresh();
       });
     },
@@ -47385,6 +47639,7 @@ module.exports = {
       this.$refs.paginationInfo.setPaginationData(paginationData);
     }
   },
+  mounted: function mounted() {},
   props: {
     apiUrl: {
       default: '',
@@ -47399,6 +47654,12 @@ module.exports = {
         return [];
       },
       type: Array
+    },
+    moreParams: {
+      default: function _default() {
+        return {};
+      },
+      type: Object
     },
     onRowClicked: {
       default: function _default() {},
@@ -47476,16 +47737,6 @@ module.exports = {
 module.exports = {
     data: function data() {
         return {
-            categoryOptions: [{
-                label: 'T Shirt',
-                value: 'tshirt'
-            }, {
-                label: 'Sandals',
-                value: 'sandals'
-            }, {
-                label: 'Pantalon',
-                value: 'pants'
-            }],
             categorySelected: null,
             event_datetime: '',
             joOptions: [],
@@ -47503,18 +47754,33 @@ module.exports = {
             statusSelected: null
         };
     },
+    computed: {
+        categoryOptions: function categoryOptions() {
+            return [{
+                label: 'T Shirt',
+                value: 'tshirt'
+            }, {
+                label: 'Sandals',
+                value: 'sandals'
+            }, {
+                label: 'Pantalon',
+                value: 'pants'
+            }];
+        }
+    },
     methods: {
         handleSubmit: function handleSubmit(e) {
             var form = $(e.target)[0];
 
             var formData = new FormData(form);
 
-            formData.append('job_order_id', this.joSelected);
+            if (this.joSelected) {
+                formData.append('job_order_id', this.joSelected);
+            }
             formData.append('category', this.categorySelected);
             formData.append('status', this.statusSelected);
 
             this.$http.post('api/v1/inventory', formData).then(function (response) {
-                this.propData.internalInventory.push(formData);
                 $('#modalCreateInventory').modal('hide');
                 form.reset();
                 this.refreshVuetable();
@@ -103835,20 +104101,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         key: indexD
       }, [_c('td', [_vm._v(_vm._s(_vm.convertDate(r.release_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getProductsOnHand(product, r.release_date)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.dispose_quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(r.return_quantity))]), _vm._v(" "), _c('td', [(r.status = 1) ? _c('div', [_vm._v("Approved")]) : _c('div', [_vm._v("Pending")])]), _vm._v(" "), _c('td', {
         staticClass: "text-center"
-      }, [_vm._m(2, true), _vm._v(" "), _c('button', {
+      }, [_c('button', {
+        staticClass: "btn btn-sm",
+        attrs: {
+          "type": "button",
+          "data-toggle": "modal",
+          "data-target": "#modalUpdateRelease"
+        },
+        on: {
+          "click": function($event) {
+            _vm.onModalClick(indexTrace, indexD)
+          }
+        }
+      }, [_c('i', {
+        staticClass: "glyphicon glyphicon-pencil"
+      })]), _vm._v(" "), _c('button', {
         staticClass: "btn btn-sm",
         attrs: {
           "type": "button"
         },
         on: {
           "click": function($event) {
-            _vm.removeRelease(product, indexD)
+            _vm.removeRelease(product.releases, indexD)
           }
         }
       }, [_c('i', {
         staticClass: "glyphicon glyphicon-trash"
       })])])])
-    }), _vm._v(" "), _c('tr', [_vm._m(3, true), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getProductsOnHand(product)))]), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _vm._m(7, true)])], 2)])])])
+    }), _vm._v(" "), _c('tr', [_vm._m(2, true), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getProductsOnHand(product)))]), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _vm._m(6, true)])], 2)])])])
   })) : _c('div', {
     staticClass: "col-sm-12"
   }, [_vm._v("No Products to Show")]), _vm._v(" "), _c('iframe', {
@@ -103860,7 +104140,46 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "inventoryReleaseFrame",
       "src": _vm.frameSrc
     }
-  })], 1)
+  }), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "modalUpdateRelease",
+      "tabIndex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(7), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "alert alert-danger hide"
+  }, [_vm._v("\n                        This is an alert message\n                    ")]), _vm._v(" "), _c('form', {
+    attrs: {
+      "id": "updateReleaseForm"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.editRelease($event)
+      }
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "releaseIndex"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "productIndex"
+    }
+  }), _vm._v(" "), _vm._m(8), _vm._v(" "), _vm._m(9)])]), _vm._v(" "), _vm._m(10)])])])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-12"
@@ -103874,15 +104193,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" Print Releases\n            ")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Date")]), _vm._v(" "), _c('th', [_vm._v("Products on Hand")]), _vm._v(" "), _c('th', [_vm._v("Disposed")]), _vm._v(" "), _c('th', [_vm._v("Returned")]), _vm._v(" "), _c('th', [_vm._v("Status")]), _vm._v(" "), _c('th', [_vm._v("Actions")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "btn btn-sm",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-pencil"
-  })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('td', [_c('div', {
     staticClass: "input-group date datetimepickerRelease"
@@ -103935,6 +104245,76 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "btn btn-primary",
     attrs: {
       "type": "submit"
+    }
+  }, [_vm._v("Save")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Edit Releases")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Disposed Quantity")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "number",
+      "name": "dispose_quantity",
+      "id": "dispose_quantity",
+      "placeholder": "dispose quantity",
+      "value": "0"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Returned Quantity")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "number",
+      "name": "return_quantity",
+      "id": "return_quantity",
+      "placeholder": "return quantity",
+      "value": "0"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit",
+      "form": "updateReleaseForm"
     }
   }, [_vm._v("Save")])])
 }]}
@@ -104364,47 +104744,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": ""
     }
-  }, [_vm._v("Filter Manpower type")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v("Setup")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "2"
-    }
-  }, [_vm._v("BA")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "3"
-    }
-  }, [_vm._v("Promodizer")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "4"
-    }
-  }, [_vm._v("Push Girl")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "5"
-    }
-  }, [_vm._v("Seller")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "6"
-    }
-  }, [_vm._v("PA")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "7"
-    }
-  }, [_vm._v("Repacker")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "8"
-    }
-  }, [_vm._v("TL")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "9"
-    }
-  }, [_vm._v("ATL")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "10"
-    }
-  }, [_vm._v("Project Coordinator")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Filter Manpower type")]), _vm._v(" "), _vm._l((_vm.manpowerNeeded), function(man) {
+    return _c('option', {
+      domProps: {
+        "value": man.manpower_type.id
+      }
+    }, [_vm._v(_vm._s(man.manpower_type.name))])
+  })], 2)]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('select', {
     directives: [{
@@ -104612,7 +104958,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         },
         on: {
           "click": function($event) {
-            _vm.removeDelivery(product, indexD)
+            _vm.removeDelivery(product.deliveries, indexD)
           }
         }
       }, [_c('i', {
@@ -104639,7 +104985,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-labelledby": "myModalLabel"
     }
   }, [_c('div', {
-    staticClass: "modal-dialog modal-lg",
+    staticClass: "modal-dialog modal-sm",
     attrs: {
       "role": "document"
     }
@@ -104742,7 +105088,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Delivery Quantity")]), _vm._v(" "), _c('input', {
     staticClass: "form-control",
     attrs: {
-      "type": "text",
+      "type": "number",
       "name": "delivery_quantity",
       "id": "delivery_quantity",
       "placeholder": "delivery quantity"
@@ -105808,7 +106154,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "plan"
     }
   }, [_c('div', {
-    staticClass: "col-md-12 col-md-offset-4"
+    staticClass: "col-md-8 col-md-offset-4"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "exampleInputName2"
+    }
+  }, [_vm._v("AE Event Date : ")]), _vm._v("\n                " + _vm._s(_vm.ae_event_date_header) + "\n              ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-8 col-md-offset-4"
   }, [_c('form', {
     staticClass: "form-inline"
   }, [_c('div', {
@@ -105847,7 +106201,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.setEventDate
     }
-  }, [_vm._v("Set Event Date")])])]), _vm._v(" "), _c('h3', [_vm._v("Manpower")]), _vm._v(" "), _c('filter-bar'), _vm._v(" "), _c('selection-filter-inputs'), _vm._v(" "), _c('div', {
+  }, [_vm._v("Set Event Date")])])]), _vm._v(" "), _c('h3', [_vm._v("Manpower")]), _vm._v(" "), _c('filter-bar'), _vm._v(" "), _c('selection-filter-inputs', {
+    attrs: {
+      "manpowerNeeded": _vm.joManpowerList
+    }
+  }), _vm._v(" "), _c('div', {
     staticClass: "table-responsive",
     staticStyle: {
       "height": "300px",
@@ -105887,7 +106245,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('div', {
     staticClass: "col-md-8"
-  }, [_c('h3', [_vm._v("Selected Manpower")]), _vm._v(" "), _c('table', {
+  }, [_c('h3', [_vm._v("Selected Manpower")]), _vm._v(" "), _vm._l((_vm.joManpowerList), function(count) {
+    return _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_c('span', [_vm._v(_vm._s(count.manpower_type.name) + " : " + _vm._s(count.selected_count) + " / " + _vm._s(count.manpower_needed))])])])
+  }), _vm._v(" "), _c('table', {
     staticClass: "table table-striped"
   }, [_vm._m(2), _vm._v(" "), _c('draggable', {
     attrs: {
@@ -105910,17 +106272,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "color": "red"
       }
     }, [_vm._v("\n                                " + _vm._s(selected.first_name + ' ' + selected.last_name) + "\n                              ")]) : _c('span', [_vm._v("\n                                " + _vm._s(selected.first_name + ' ' + selected.last_name) + "\n                              ")])]), _vm._v(" "), _c('td', _vm._l((selected.manpower_assign_type), function(types) {
-      return _c('span', {
+      return _c('p', {
         staticStyle: {
-          "display": "block"
+          "display": "block",
+          "margin-bottom": "0"
         }
-      }, [_vm._v("\n                                " + _vm._s(types.manpower_type.name) + "\n                              ")])
+      }, [(types.manpower_type.id == selected.manpower_type_required) ? _c('span', [_vm._v("\n                                  " + _vm._s(types.manpower_type.name) + "\n                                ")]) : _vm._e()])
     })), _vm._v(" "), _c('td', _vm._l((selected.manpower_assign_type), function(rates) {
-      return _c('span', {
+      return _c('p', {
         staticStyle: {
-          "display": "block"
+          "display": "block",
+          "margin-bottom": "0"
         }
-      }, [_vm._v("\n                                " + _vm._s(rates.manpower_type.rate) + "\n                              ")])
+      }, [(rates.manpower_type_id == selected.manpower_type_required) ? _c('span', [_vm._v("\n                                  " + _vm._s(rates.manpower_type.rate + rates.manpower_type.extended_rate) + "\n                                ")]) : _vm._e()])
     })), _vm._v(" "), _c('td', [_c('select', {
       on: {
         "change": function($event) {
@@ -105929,9 +106293,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('option', {
       attrs: {
-        "value": ""
+        "value": "0"
       }
-    }), _vm._v(" "), _vm._l((_vm.venueList), function(venue) {
+    }, [_vm._v("TBA")]), _vm._v(" "), _vm._l((_vm.venueList), function(venue) {
       return _c('option', {
         domProps: {
           "value": venue.id,
@@ -105959,7 +106323,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.handleAddManpower
     }
-  }, [_vm._v("Save")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Save")])], 2), _vm._v(" "), _c('div', {
     staticClass: "clearfix"
   }), _vm._v(" "), _c('hr', {
     staticStyle: {
@@ -106005,14 +106369,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "disabled": ""
       }
-    }, _vm._l((_vm.venueList), function(venue) {
+    }, [(briefing.venue_id == 0) ? _c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v("TBA")]) : _vm._l((_vm.venueList), function(venue) {
       return _c('option', {
         domProps: {
           "value": venue.id,
           "selected": venue.id == briefing.venue_id
         }
       }, [_vm._v(_vm._s(venue.venue) + "\n                                ")])
-    }))]), _vm._v(" "), _c('div', {
+    })], 2)]), _vm._v(" "), _c('div', {
       staticClass: "col-md-1"
     }, [_c('button', {
       staticClass: "btn btn-sm btn-danger"
@@ -106077,7 +106445,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": ""
     }
-  }), _vm._v(" "), _vm._l((_vm.venueList), function(venue) {
+  }, [_vm._v("TBA")]), _vm._v(" "), _vm._l((_vm.venueList), function(venue) {
     return _c('option', {
       domProps: {
         "value": venue.id
@@ -106248,7 +106616,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": ""
     }
-  }), _vm._v(" "), _vm._l((_vm.venueList), function(venue) {
+  }, [_vm._v("TBA")]), _vm._v(" "), _vm._l((_vm.venueList), function(venue) {
     return _c('option', {
       domProps: {
         "value": venue.id
@@ -106303,8 +106671,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "table table-striped"
       }, [_c('caption', [_vm._v("DATE : " + _vm._s(manpowerSched.created_datetime))]), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('tbody', _vm._l((manpowerSched.manpower_list), function(manpowerList) {
         return _c('tr', [_c('td', [_vm._v("\n                                      " + _vm._s(manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name) + "\n                                    ")]), _vm._v(" "), _c('td', _vm._l((manpowerList.manpower.manpower_assign_type), function(types) {
-          return _c('span', [_vm._v("\n                                        " + _vm._s(types.manpower_type.name) + "\n                                      ")])
-        }))])
+          return (types.manpower_type_id == manpowerList.manpower_type_required) ? _c('span', [_vm._v("\n                                        " + _vm._s(types.manpower_type.name) + "\n                                      ")]) : _vm._e()
+        })), _vm._v(" "), (manpowerList.buffer == 1) ? _c('td', [_vm._v("Buffer")]) : _vm._e()])
       }))])])
     })], 2)
   })], 2), _vm._v(" "), _c('div', {
@@ -106319,8 +106687,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "table table-striped"
       }, [_c('caption', [_vm._v("DATE : " + _vm._s(manpowerSched.created_datetime) + " BATCH : " + _vm._s(manpowerSched.batch))]), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('tbody', _vm._l((manpowerSched.manpower_list), function(manpowerList) {
         return _c('tr', [_c('td', [_vm._v("\n                                      " + _vm._s(manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name) + "\n                                    ")]), _vm._v(" "), _c('td', _vm._l((manpowerList.manpower.manpower_assign_type), function(types) {
-          return _c('span', [_vm._v("\n                                        " + _vm._s(types.manpower_type.name) + "\n                                      ")])
-        }))])
+          return (types.manpower_type_id == manpowerList.manpower_type_required) ? _c('span', [_vm._v("\n                                        " + _vm._s(types.manpower_type.name) + "\n                                      ")]) : _vm._e()
+        })), _vm._v(" "), (manpowerList.buffer == 1) ? _c('td', [_vm._v("Buffer")]) : _vm._e()])
       }))])])
     })], 2)
   })], 2)])])])])])
@@ -106358,7 +106726,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('button', {
     staticClass: "btn btn-default pull-right",
     attrs: {
-      "onclick": "frames['finalDeploymentFrame'].print()"
+      "onclick": "frames['finalDeploymentFrame'].print();"
     }
   }, [_c('i', {
     staticClass: "fa fa-print fa-lg"
@@ -108607,6 +108975,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "api-url": "/api/v1/hr/manpower",
       "fields": _vm.fields
+    },
+    on: {
+      "vuetable:cell-clicked": _vm.onCellClicked
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
@@ -108749,8 +109120,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "id": 'type_' + manpowerType.id,
         "type": "checkbox",
-        "name": "manpower_type_id[]",
-        "selected": ""
+        "name": "manpower_type_id[]"
       },
       domProps: {
         "value": manpowerType.id,
@@ -109011,7 +109381,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-4 form-group text-input-container"
   }, [_c('label', {
     staticClass: "control-label"
-  }, [_vm._v("Rate")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("Extended rate")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -109020,7 +109390,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "type": "hidden",
+      "type": "number",
       "name": "rate",
       "id": "rate",
       "placeholder": "Enter Rate"
@@ -109033,6 +109403,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.rowData.rate = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   })]), _vm._v(" "), _vm._m(4)])])]), _vm._v(" "), _c('div', {
@@ -112818,14 +113191,26 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('InventoryVuetable', {
-    ref: "vuetableInventory",
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12 content"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-4 form-group"
+  }, [_c('v-select', {
+    attrs: {
+      "multiple": true,
+      "on-change": _vm.selectCategory,
+      "options": _vm.categoryOptions,
+      "placeholder": "Category"
+    }
+  })], 1)]), _vm._v(" "), _c('InventoryVuetable', {
+    ref: "v",
     attrs: {
       "api-url": _vm.apiUrl,
       "detail-row-component": "internal-inventory-detail-row",
       "fields": _vm.fields,
+      "moreParams": _vm.moreParams,
       "on-row-clicked": _vm.onRowClicked
     }
   })], 1), _vm._v(" "), _c('CreateInventoryModal', {
@@ -112833,22 +113218,117 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "propData": _vm.propData,
       "refresh-vuetable": _vm.refreshVuetable
     }
-  })], 1)
+  }), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "importInternalInventoryModal",
+      "tabIndex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(2), _vm._v(" "), _c('form', {
+    attrs: {
+      "id": "importInternalInventoryForm"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.importInternalInventory($event)
+      }
+    }
+  }, [_vm._m(3), _vm._v(" "), _vm._m(4)])])])])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-md-12"
+    staticClass: "col-md-6"
   }, [_c('h1', {
     staticClass: "pull-left table-title"
-  }, [_vm._v("Inventory List")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary pull-right",
+  }, [_vm._v("Inventory List")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "row pull-right"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
     attrs: {
-      "type": "button",
       "data-toggle": "modal",
-      "data-target": "#modalCreateInventory"
+      "data-target": "#modalCreateInventory",
+      "type": "button"
     }
   }, [_c('i', {
     staticClass: "fa fa-plus"
-  }), _vm._v(" Create Inventory\n        ")])])
+  }), _vm._v(" Create Inventory\n          ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "data-target": "#importInternalInventoryModal",
+      "data-toggle": "modal",
+      "type": "button"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-upload"
+  }), _vm._v(" Import From Excel\n          ")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Import Internal Inventory")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12 form-group text-input-container"
+  }, [_c('label', {
+    staticClass: "control-label"
+  }, [_vm._v("Excel File only")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "file",
+      "name": "excel",
+      "id": "excel",
+      "placeholder": "Excel File"
+    }
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Save Changes")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -113114,9 +113594,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "content"
-  }, [_c('filter-bar', {
+  return _c('div', [_c('filter-bar', {
     attrs: {
       "filterSet": _vm.filterSet,
       "filterReset": _vm.filterReset
@@ -113131,7 +113609,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "sort-order": _vm.sortOrder,
       "multi-sort": true,
       "detail-row-component": _vm.detailRowComponent,
-      "append-params": _vm.moreParams
+      "append-params": _vm.appendParams
     },
     on: {
       "vuetable:cell-clicked": _vm.onCellClicked,
