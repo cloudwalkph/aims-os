@@ -116,7 +116,6 @@
 
                 this.$http.post('api/v1/inventory', formData)
                     .then(function (response) {
-                        this.propData.internalInventory.push(formData);
                         $('#modalCreateInventory').modal('hide');
                         form.reset();
                         this.refreshVuetable();

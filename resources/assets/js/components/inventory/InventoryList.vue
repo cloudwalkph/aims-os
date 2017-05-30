@@ -159,10 +159,8 @@
 
             this.$http.post('api/v1/inventory/import', formData)
                 .then(function (response) {
-                    console.log(response);
-                    // this.propData.internalInventory.push(formData);
-                    // $('#importInternalInventoryModal').modal('hide');
-                    // form.reset();
+                    $('#importInternalInventoryModal').modal('hide');
+                    form.reset();
                     Vue.nextTick( () => this.$refs.v.$refs.vuetableInventory.refresh() );
                 })
                 .catch(function (e) {
