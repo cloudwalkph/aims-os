@@ -672,6 +672,7 @@
                     // console.log(response.data)
                     this.getSelectedManpower();
                     this.getJobOrderManpower();
+                    this.$refs.vuetable_manpower.reload();
                     toastr.success('Successfully saved!', 'Success');
                 }, error => {
                     console.log(error)
@@ -752,7 +753,7 @@
                 let url = '/api/v1/hr/manpower-deployment/' + this.data;
                 this.$http.get(url).then(response => {
                     this.deploymentManpower = response.data;
-                    // console.log(response.data);
+                    // console.log(response.data);                                                                                              
                 }, error => {
                     console.log(error);
                 })
