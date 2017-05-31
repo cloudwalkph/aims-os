@@ -672,8 +672,10 @@
                     // console.log(response.data)
                     this.getSelectedManpower();
                     this.getJobOrderManpower();
-                    this.$refs.vuetable_manpower.reload();
-                    toastr.success('Successfully saved!', 'Success');
+                    this.$refs.vuetable_manpower.reload(); // reload manpower list
+                    toastr.success('Successfully saved!', 'Success'); // notification
+                    $('#finalDepFrameId')[0].contentWindow.location.reload(true); // reload iframe for print
+
                 }, error => {
                     console.log(error)
                 })
