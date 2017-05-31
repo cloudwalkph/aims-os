@@ -109,7 +109,7 @@ class AccountingController extends Controller
             $your_date = strtotime( $transmittal );
             $datediff = abs( $now - $your_date );
             $day_count = floor( $datediff/(60*60*24));
-            $date = '[ '.$day_count.' days]';
+            $date = '[ '.$day_count.' days ]';
             $transmittal_value = '';
 
             if( $day_count <= 45 ){
@@ -147,7 +147,8 @@ class AccountingController extends Controller
                 'invoiceFile' => $invoiceFile,
                 'paidDate' => $paidDate,
                 'paidFile' => $paidFile,
-                'remarks' => $remarks,
+                'remarks' => substr($remarks,0,6),
+                'remarksFull' => $remarks
             );
 
             array_push( $results, $jobArray );

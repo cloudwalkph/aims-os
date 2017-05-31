@@ -162,10 +162,15 @@
 
                             <td style="text-align: center;">
                                 @if( $jo['remarks'] != null )
-                                    <p>{{ $jo['remarks']  }}</p>
+                                    <button type="button" class="btn btn-info btnRemarks" style="width:60%;" data-toggle="modal" data-target="#remarksModal" title="{{ $jo['remarksFull'] }}">
+                                        {{ $jo['remarks'].'...' }}
+                                    </button>
+                                    <button class="btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks"><icon class="glyphicon glyphicon-pencil"></icon></button>
+                                @else
+                                    <button class="btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks"><icon class="glyphicon glyphicon-plus"></icon></button>
                                 @endif
 
-                                <button class="btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks">+</button>
+
 
                             </td>
                         </tr>
@@ -177,6 +182,20 @@
     </div>
 
     {{--modal--}}
+
+    <div class="modal fade" id="remarksModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 id="modal-title" class="modal-title">Remarks</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="textForRemarks"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {{--CE--}}
     <div class="modal fade" id="modalDoc" tabindex="-1" role="dialog">
@@ -280,6 +299,7 @@
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
     <script>
+
         $('.btnForDocUpload').on('click', function(){
             var jid = $(this).val();
             var doc = $(this).attr('alt');
@@ -345,6 +365,17 @@
             } );
 
         } );
+
+        $('.btnRemarks').on('click', function () {
+            var remarkText = $(this).attr('title');
+
+            console.log(remarkText);
+
+            $('p#textForRemarks').val('');
+
+            $('p#textForRemarks').text(remarkText);
+        });
+
     </script>
 
 
