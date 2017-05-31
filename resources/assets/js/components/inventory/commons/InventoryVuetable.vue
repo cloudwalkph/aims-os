@@ -81,8 +81,11 @@
     methods: {
       convertDate (dateVal) {
         var milliseconds = Date.parse(dateVal);
-        var d = new Date(milliseconds);
-        return d.toDateString();
+        if(milliseconds > 0) {
+          var d = new Date(milliseconds);
+          return d.toDateString();
+        }
+        return 'NA';
       },
       getAssignedPerson (val) {
         var person = [];
