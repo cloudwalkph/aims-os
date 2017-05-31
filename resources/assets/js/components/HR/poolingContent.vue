@@ -103,6 +103,7 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
+                            <td>Photo</td>
                             <td>Full Name</td>
                             <td>Manpower Type</td>
                             <td>Rate</td>
@@ -113,6 +114,9 @@
                         </thead>
                         <draggable v-model="selectedManpower" :element="'tbody'" :move="onMove" @end="onEnd">
                             <tr v-for="selected in selectedManpower">
+                                <td>
+                                  <div><img v-if="selected.profile_picture" :src="'/' + selected.profile_picture" style="width : 40%;"/></div>
+                                </td>
                                 <td>
                                   <span v-if="selected.violations" style="color: red;">
                                     {{selected.first_name + ' ' + selected.last_name}}
@@ -131,7 +135,7 @@
                                 <td>
                                   <p v-for="rates in selected.manpower_assign_type" style="display: block;margin-bottom: 0;">
                                     <span v-if="rates.manpower_type_id == selected.manpower_type_required">
-                                      {{rates.manpower_type.rate + rates.manpower_type.extended_rate}}
+                                      {{rates.manpower_type.rate + rates.manpower_type.extended_rate + selected.rate}}
                                     </span>
                                   </p>
                                 </td>
@@ -589,6 +593,7 @@
 
                 this.$http.post(url, data).then(response => {
                     toastr.success('Successfully saved!', 'Success');
+                    window.location = self.location;
                 }, error => {
                     console.log(error);
                     toastr.error('Failed to save!', 'Failed');
@@ -653,6 +658,7 @@
 
                 }, error => {
                     console.log(error)
+                    this.selectedManpower.splice(index, 1);
                 })
 
             },
@@ -753,15 +759,19 @@
             },
 
             onCellClicked (data, field, event) {
+                
                 if(!this.moreParams.filterSelections)
                 {
                   toastr.error('Please Apply filter for Manpower type', 'Failed');
                   return;
                 }
+
+                toastr.options.positionClass = 'toast-bottom-right';
+                toastr.success(data.first_name + ' Added', 'Success');
                 data.manpower_type_required = this.moreParams.filterSelections.manpower_type_id;
 
                 this.selectedManpower = this.selectedManpower.concat([data]);
-                $('#button-' + data.id).hide();
+                // $('#button_' + data.id).hide();
                 this.$refs.vuetable_manpower.refresh();
             },
 
@@ -784,11 +794,14 @@
                           toastr.error('Please Apply filter for Manpower type', 'Failed');
                           return;
                         }
-                        data.manpower_type_required = this.moreParams.filterSelections.manpower_type_id;
 
+                        toastr.options.positionClass = 'toast-bottom-right';
+                        toastr.success(data.first_name + ' Added', 'Success');
+                        data.manpower_type_required = this.moreParams.filterSelections.manpower_type_id;
+                        
                         this.selectedManpower = this.selectedManpower.concat([data]);
-                        $('#button-' + data.id).hide();
-                        this.$refs.vuetable_manpower.refresh();
+                        // $('#button_' + data.id).hide();
+                        this.$refs.vuetable_manpower.reload();
                     }
                 )
             },
