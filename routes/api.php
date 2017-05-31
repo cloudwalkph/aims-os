@@ -53,6 +53,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // Inventory
     Route::group(['prefix' => 'inventory'], function() {
+      Route::post('import', 'InventoryController@import');
         Route::resource('/', 'InventoryController');
         Route::resource('job', 'InventoryJobController');
         Route::resource('user', 'InventoryJobAssignedPersonController');
@@ -211,7 +212,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/poolingManpower', 'PoolingManpowerController@index');
         Route::get('/job-order-manpower/{joNumber}', 'PoolingManpowerController@showJobOrderManpower');
         Route::post('/selected-manpower/{joNumber}','PoolingManpowerController@addSelectedManpower');
-        Route::delete('/selected-manpower/{seletedId}','PoolingManpowerController@deleteSelectedManpower');
+        Route::delete('/selected-manpower/{seletedId}/{joId}','PoolingManpowerController@deleteSelectedManpower');
         Route::get('/selected-manpower/{joNumber}','PoolingManpowerController@getSelectedManpower');
         Route::post('/manpower-schedule/{joNumber}','PoolingManpowerController@addManpowerSchedule');
         Route::get('/manpower-schedule/{joNumber}','PoolingManpowerController@getManpowerSchedule');

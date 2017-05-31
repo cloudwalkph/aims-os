@@ -1,69 +1,121 @@
 <template>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h1 class="pull-left table-title">Inventory List</h1>
-            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalCreateInventory">
-                <i class="fa fa-plus" /> Create Inventory
-            </button>
-            <div class="content">
-              <filter-bar></filter-bar>
-              <vuetable ref="vuetable"
-                api-url="/api/v1/inventory"
-                :fields="fields"
-                pagination-path=""
-                :css="css.table"
-                :sort-order="sortOrder"
-                :multi-sort="true"
-                detail-row-component="internal-inventory-detail-row"
-                :append-params="moreParams"
-                @vuetable:cell-clicked="onCellClicked"
-                @vuetable:pagination-data="onPaginationData"
-              ></vuetable>
-              <div class="vuetable-pagination">
-                <vuetable-pagination-info ref="paginationInfo"
-                  info-class="pagination-info"
-                ></vuetable-pagination-info>
-                <vuetable-pagination ref="pagination"
-                  :css="css.pagination"
-                  :icons="css.icons"
-                  @vuetable-pagination:change-page="onChangePage"
-                ></vuetable-pagination>
-              </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row pull-right">
+            <div class="col-md-12">
+              <button
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#modalCreateInventory"
+                type="button"
+              ><i class="fa fa-plus"></i> Create Inventory
+              </button>
+
+              <button
+                class="btn btn-default"
+                data-target="#importInternalInventoryModal"
+                data-toggle="modal"
+                type="button"
+              ><i class="fa fa-upload"></i> Import From Excel
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 content">
+          <div class="row">
+            <div class="col-md-4 form-group">
+                <v-select
+                  :multiple="true"
+                  :on-change="selectCategory"
+                  :options="categoryOptions"
+                  placeholder="Category"
+                ></v-select>
+            </div>
+          </div>
+
+          <InventoryVuetable
+            ref="v"
+            :api-url="apiUrl"
+            detail-row-component="internal-inventory-detail-row"
+            :fields="fields"
+            :moreParams="moreParams"
+            :on-row-clicked="onRowClicked"
+          ></InventoryVuetable>
+        </div>
+
+        <CreateInventoryModal :propData="propData" :refresh-vuetable="refreshVuetable"></CreateInventoryModal>
+
+        <div class="modal fade" id="importInternalInventoryModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Import Internal Inventory</h4>
+                    </div>
+                    <form id="importInternalInventoryForm" @submit.prevent="importInternalInventory">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group text-input-container">
+                                    <label class="control-label">Excel File only</label>
+                                    <input type="file" name="excel" id="excel"
+                                        placeholder="Excel File" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        <CreateInventoryModal :propData="propData"></CreateInventoryModal>
     </div>
 
 </template>
 
 <script>
     var CreateInventoryModal = require('./modals/CreateInventory.vue');
-
-    var Vuetable = require('vuetable-2/src/components/Vuetable');
-    var VuetablePagination = require('vuetable-2/src/components/VuetablePagination');
-    var VuetablePaginationInfo = require('vuetable-2/src/components/VuetablePaginationInfo');
-
-    var FilterBar = require('../commons/FilterBar');
-
     var InternalInventoryDetailRow = require('./commons/InternalInventoryDetailRow');
     Vue.component('internal-inventory-detail-row', InternalInventoryDetailRow);
+    var InventoryVuetable = require('./commons/InventoryVuetable');
 
     module.exports = {
         components: {
-          Vuetable,
-          VuetablePagination,
-          VuetablePaginationInfo,
-          FilterBar,
-            CreateInventoryModal,
+          CreateInventoryModal,
+          InventoryVuetable,
         },
         data: function () {
             return {
+              apiUrl: 'api/v1/inventory',
+              categoryOptions: [
+                {
+                  label: 'TShirt',
+                  value: 'tshirt',
+                },
+                {
+                  label: 'Pants',
+                  value: 'pants',
+                },
+                {
+                  label: 'Sandals',
+                  value: 'sandals',
+                },
+              ],
               fields: [
                 {
-                  name: 'job_order_no',
+                  name: 'job_order.job_order_no',
                   title: 'Job Order Number',
-                  sortField: 'job_order_no',
+                },
+                {
+                  name: 'job_order.project_name',
+                  title: 'Project Name',
                 },
                 {
                   name: 'category',
@@ -97,64 +149,44 @@
                   sortField: 'status',
                 },
               ],
-              css: {
-                table: {
-                  tableClass: 'table table-bordered table-striped table-hover',
-                  ascendingIcon: 'glyphicon glyphicon-chevron-up',
-                  descendingIcon: 'glyphicon glyphicon-chevron-down'
-                },
-                pagination: {
-                  wrapperClass: 'pagination',
-                  activeClass: 'active',
-                  disabledClass: 'disabled',
-                  pageClass: 'page',
-                  linkClass: 'link',
-                },
-                icons: {
-                  first: 'glyphicon glyphicon-step-backward',
-                  prev: 'glyphicon glyphicon-chevron-left',
-                  next: 'glyphicon glyphicon-chevron-right',
-                  last: 'glyphicon glyphicon-step-forward',
-                },
-              },
-              sortOrder: [
-                { field: 'id', direction: 'asc'}
-              ],
               moreParams: {},
             }
         },
-        events: {
-          'filter-set' (filterText) {
-            this.moreParams = {
-              filter: filterText
-            },
-            Vue.nextTick( () => this.$refs.vuetable.refresh() )
-          },
-          'filter-reset' () {
-            this.moreParams = {},
-            Vue.nextTick( () => this.$refs.vuetable.refresh() )
-          },
-        },
         methods: {
-          onCellClicked (data, field, event) {
-            this.$refs.vuetable.toggleDetailRow(data.id)
+          importInternalInventory (e) {
+            var form = $(e.target)[0];
+            var formData = new FormData(form);
+
+            this.$http.post('api/v1/inventory/import', formData)
+                .then(function (response) {
+                    $('#importInternalInventoryModal').modal('hide');
+                    form.reset();
+                    Vue.nextTick( () => this.$refs.v.$refs.vuetableInventory.refresh() );
+                })
+                .catch(function (e) {
+                    console.log('error post jobs', e);
+                });
           },
-          onChangePage (page) {
-            this.$refs.vuetable.changePage(page);
+          selectCategory (e) {
+            var arr = [];
+            for(var obj of e) {
+              arr.push(obj.value);
+            }
+            this.moreParams = {
+              category: arr,
+            }
+            Vue.nextTick( () => this.$refs.v.$refs.vuetableInventory.refresh() );
           },
-          onPaginationData (paginationData) {
-            this.$refs.pagination.setPaginationData(paginationData);
-            this.$refs.paginationInfo.setPaginationData(paginationData);
+          onRowClicked (dataItem, event) {
+            Vue.nextTick( () => this.$refs.v.$refs.vuetableInventory.toggleDetailRow(dataItem.id) );
           },
-            convertDate: function (dateVal) {
-                var milliseconds = Date.parse(dateVal);
-                var d = new Date(milliseconds);
-                return d.toDateString();
-            },
+          refreshVuetable: function () {
+            Vue.nextTick( () => this.$refs.v.$refs.vuetableInventory.refresh() );
+          },
         },
-        mounted: function() {
-        },
-        props: ['propData']
+        props: {
+          propData: Object
+        }
     }
 
 </script>

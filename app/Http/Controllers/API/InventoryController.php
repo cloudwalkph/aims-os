@@ -5,8 +5,11 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Jobs\ImportInventory;
+
 use App\Models\Inventory;
 use App\Models\InventoryFiles;
+use App\Models\JobOrder;
 use App\Models\JobOrderDepartmentInvolved;
 
 use App\Traits\FilterTrait;
@@ -36,19 +39,25 @@ class InventoryController extends Controller
             $query->orderBy('inventories.id', 'asc');
         }
 
-        $query->join('job_orders', 'job_orders.id', '=', 'inventories.job_order_id')
-            ->addSelect('job_orders.project_name', 'job_orders.job_order_no');
+        $query->with('jobOrder');
 
         // Filter
+        if($request->has('category')) {
+          $categories = $request->get('category');
+          $query->whereIn('category', $categories);
+        }
         if ($request->has('filter')) {
-          $filterables = [
-            'job_order_no',
-            'category',
-            'product_code',
-            'name',
-            'inventories.status'
-          ];
-            $this->filter($query, $request, $filterables);
+          $filterRequest = $request->get('filter');
+          $query->whereHas('jobOrder', function($q) use($filterRequest) {
+            $q->where('job_order_no', 'like', '%'.$filterRequest.'%');
+            $q->orWhere('project_name', 'like', '%'.$filterRequest.'%');
+          });
+          $query->orWhere(function($q) use($filterRequest) {
+            $q->orWhere('product_code', 'like', '%'.$filterRequest.'%');
+            $q->orWhere('category', 'like', '%'.$filterRequest.'%');
+            $q->orWhere('name', 'like', '%'.$filterRequest.'%');
+            $q->orWhere('inventories.status', 'like', '%'.$filterRequest.'%');
+          });
         }
 
         // Count per page
@@ -84,7 +93,6 @@ class InventoryController extends Controller
         // Create the jo inventory
         \DB::transaction(function() use ($request, &$jo) {
             $input = array(
-              'job_order_id' => $request->input('job_order_id'),
               'category' => $request->input('category'),
               'product_code' => $request->input('product_code'),
               'name' => $request->input('product_name'),
@@ -92,6 +100,9 @@ class InventoryController extends Controller
               'expiration_date' => date('Y-m-d H:i:s', strtotime($request->input('expiration_date'))),
               'status' => $request->input('status'),
             );
+            if($request->has('job_order_id') && $request->input('job_order_id') != 'null') {
+              $input['job_order_id'] = $request->input('job_order_id');
+            }
             $jo = Inventory::create($input);
         });
         // upload inventory pictures
@@ -176,5 +187,40 @@ class InventoryController extends Controller
         }
 
         return response()->json($result, 200);
+    }
+
+    function import(Request $request)
+    {
+      if($request->hasFile('excel')) {
+          $file = $request->file('excel');
+          \Excel::load($file, function($reader) {
+            $results = $reader->get();
+            \DB::transaction(function() use ($results) {
+              foreach ($results as $inventories) {
+                foreach ($inventories as $inventory) {
+                  $data = [
+                    'category' => $inventory->category,
+                    'product_code' => $inventory->sku,
+                    'name' => $inventory->inventory_name,
+                    'quantity' => $inventory->quantity,
+                    'expiration_date' => date('Y-m-d', strtotime($inventory->expiration_date)),
+                    'status' => $inventory->status,
+                  ];
+
+                  $query = JobOrder::where('job_order_no', $inventory->job_order_number);
+                  if($query->count() > 0) {
+                    $jo = $query->first();
+                    $data['job_order_id'] = $jo->id;
+                  }
+
+                  // dispatch queue
+                  $this->dispatch(new ImportInventory($data));
+                }
+              }
+            });
+          });
+      } else {
+        $jo['warning'] = 'file not present';
+      }
     }
 }

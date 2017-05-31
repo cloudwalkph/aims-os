@@ -37,4 +37,9 @@ class Manpower extends Model
     {
         return $this->hasMany('App\Models\JobOrderManpower');
     }
+
+    public function ManpowerAssignType() 
+    {
+        return $this->hasMany('App\Models\ManpowerAssignTypes');
+    }
 }

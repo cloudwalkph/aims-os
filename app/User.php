@@ -93,4 +93,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Assignment::class);
     }
+
+    function inventoryJobAssigned()
+    {
+        return $this->hasMany('App\Models\InventoryJobAssignedPerson');
+    }
 }

@@ -41,12 +41,17 @@ class InventoryJobController extends Controller
 
         // Filter
         if ($request->has('filter')) {
-          $filterables = [
-            'job_order_no',
-            'project_name',
-            'description',
-          ];
-            $this->filter($query, $request, $filterables);
+          $value = "%{$request->get('filter')}%";
+          
+          $query->orWhereHas('jobOrder', function ($q) use ($value) {
+            $q->where('job_order_no', 'like', $value);
+            $q->orWhere('project_name', 'like', $value);
+          });
+          $query->orWhereHas('assignedPerson.user.profile', function ($q) use ($value) {
+            $q->where('first_name', 'like', $value);
+            $q->orWhere('last_name', 'like', $value);
+          });
+          $query->orWhere('description', 'like', $value);
         }
 
         // Count per page
@@ -66,14 +71,9 @@ class InventoryJobController extends Controller
     public function create(Request $request)
     {
         $user = $request->user();
-        $jos = JobOrderDepartmentInvolved::with('jobOrder')->where('department_id', $user['department_id'])
-            ->whereNotIn(
-                'job_order_id',
-                array_column(
-                    InventoryJob::select('job_order_id')->get()->toArray(),
-                    'job_order_id'
-                )
-            )
+        $jos = JobOrderDepartmentInvolved::with('jobOrder.inventoryJobs')
+            ->where('department_id', $user['department_id'])
+            ->doesntHave('jobOrder.inventoryJobs')
             ->get();
 
         $result = [];

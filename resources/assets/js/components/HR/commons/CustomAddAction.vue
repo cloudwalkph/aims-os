@@ -1,6 +1,6 @@
 <template>
     <div class="custom-actions">
-        <button class="btn btn-sm" title="Add Manpower" v-bind="{id: 'button-' + rowData.id}" @click="itemAction('add-item', rowData, rowIndex)"><i class="glyphicon glyphicon glyphicon-check"></i></button>
+        <button class="btn btn-sm" title="Add Manpower" v-bind="{id: 'button_' + rowData.id}" @click="itemAction('add-item', rowData, rowIndex)"><i class="glyphicon glyphicon glyphicon-check"></i></button>
     </div>
 </template>
 
@@ -17,7 +17,7 @@
         },
         methods: {
             itemAction (action, data, index) {
-                console.log(data);
+                
                 console.log('custom-actions: ' + action, data, index);
 
                 if(action === 'add-item')

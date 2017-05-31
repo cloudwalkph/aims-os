@@ -22,7 +22,7 @@
                   <td>{{$product->item_name}}</td>
                   <td>{{$product->expected_quantity}}</td>
                   <td>{{$product->products_on_hand}}</td>
-                  <td>{{$product->disposed}}</td>
+                  <td>{{$product->total_disposed}}</td>
               </tr>
 @endforeach
           </tbody>

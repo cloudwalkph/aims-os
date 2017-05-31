@@ -54,7 +54,7 @@ class InventoryDeliveriesController extends Controller
      * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
      * @return \Illuminate\Http\Response
      */
-    public function show(InventoryDeliveries $inventoryDeliveries)
+    public function show($id)
     {
         //
     }
@@ -65,7 +65,7 @@ class InventoryDeliveriesController extends Controller
      * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
      * @return \Illuminate\Http\Response
      */
-    public function edit(InventoryDeliveries $inventoryDeliveries)
+    public function edit($id)
     {
         //
     }
@@ -77,9 +77,12 @@ class InventoryDeliveriesController extends Controller
      * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InventoryDeliveries $inventoryDeliveries)
+    public function update(Request $request, $id)
     {
-        //
+        $delivery_data = [
+            'delivery_quantity' => $request->delivery_quantity
+        ];
+        InventoryDeliveries::find($id)->update($delivery_data);
     }
 
     /**
@@ -88,8 +91,8 @@ class InventoryDeliveriesController extends Controller
      * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InventoryDeliveries $inventoryDeliveries)
+    public function destroy($id)
     {
-        //
+        InventoryDeliveries::destroy($id);
     }
 }

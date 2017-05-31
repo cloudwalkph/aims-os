@@ -50,7 +50,13 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="plan" style="padding-top: 30px;">
 
-                <div class="col-md-12 col-md-offset-4">
+                <div class="col-md-8 col-md-offset-4">
+                  <div class="form-group">
+                    <label for="exampleInputName2">AE Event Date : </label>
+                    {{ae_event_date_header}}
+                  </div>
+                </div>
+                <div class="col-md-8 col-md-offset-4">
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="exampleInputName2">Event Date</label>
@@ -63,7 +69,7 @@
 
                 <h3>Manpower</h3>
                 <filter-bar></filter-bar>
-                <selection-filter-inputs></selection-filter-inputs>
+                <selection-filter-inputs :manpowerNeeded="joManpowerList"></selection-filter-inputs>
                 <div class="table-responsive" style="height: 300px;overflow-y: auto;">
                     <vuetable ref="vuetable_manpower"
                               :api-url="apiUrl"
@@ -91,9 +97,13 @@
 
                 <div class="col-md-8">
                     <h3>Selected Manpower</h3>
+                    <div v-for="count in joManpowerList" class="col-md-3">
+                      <strong><span>{{count.manpower_type.name}} : {{count.selected_count}} / {{count.manpower_needed}}</span></strong>
+                    </div>
                     <table class="table table-striped">
                         <thead>
                         <tr>
+                            <td>Photo</td>
                             <td>Full Name</td>
                             <td>Manpower Type</td>
                             <td>Rate</td>
@@ -104,12 +114,34 @@
                         </thead>
                         <draggable v-model="selectedManpower" :element="'tbody'" :move="onMove" @end="onEnd">
                             <tr v-for="selected in selectedManpower">
-                                <td>{{selected.first_name + ' ' + selected.last_name}}</td>
-                                <td>{{selected.manpower_type.name}}</td>
-                                <td>{{selected.rate}}</td>
+                                <td>
+                                  <div><img v-if="selected.profile_picture" :src="'/' + selected.profile_picture" style="width : 40%;"/></div>
+                                </td>
+                                <td>
+                                  <span v-if="selected.violations" style="color: red;">
+                                    {{selected.first_name + ' ' + selected.last_name}}
+                                  </span>
+                                  <span v-else>
+                                    {{selected.first_name + ' ' + selected.last_name}}
+                                  </span>
+                                </td>
+                                <td>
+                                  <p v-for="types in selected.manpower_assign_type" style="display: block;margin-bottom: 0;">
+                                    <span v-if="types.manpower_type.id == selected.manpower_type_required">
+                                      {{types.manpower_type.name}}
+                                    </span>
+                                  </p>
+                                </td>
+                                <td>
+                                  <p v-for="rates in selected.manpower_assign_type" style="display: block;margin-bottom: 0;">
+                                    <span v-if="rates.manpower_type_id == selected.manpower_type_required">
+                                      {{rates.manpower_type.rate + rates.manpower_type.extended_rate + selected.rate}}
+                                    </span>
+                                  </p>
+                                </td>
                                 <td>
                                     <select @change="onAssignVenue($event, selected.id)">
-                                        <option value=""></option>
+                                        <option value="0">TBA</option>
                                         <option v-for="venue in venueList" :value="venue.id"
                                                 :selected="venue.id == selected.venue_id">{{venue.venue}}
                                         </option>
@@ -143,7 +175,8 @@
                                                          :value="briefing.time"/></div>
                             <div class="col-md-3">
                                 <select class="form-control" disabled>
-                                    <option v-for="venue in venueList" :value="venue.id"
+                                    <option v-if="briefing.venue_id == 0" value="">TBA</option>
+                                    <option v-else v-for="venue in venueList" :value="venue.id"
                                             :selected="venue.id == briefing.venue_id">{{venue.venue}}
                                     </option>
                                 </select>
@@ -173,7 +206,7 @@
                             <div class="col-md-3">
                                 <label class="control-label">Venue</label>
                                 <select class="form-control" @change="onChangeEvents" id="briefingVenue">
-                                    <option value=""></option>
+                                    <option value="">TBA</option>
                                     <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
                                 </select>
                             </div>
@@ -238,7 +271,7 @@
                             <div class="col-md-2">
                                 <label class="control-label">Venue</label>
                                 <select class="form-control" @change="onChangeEvents" id="simulationVenue">
-                                    <option value=""></option>
+                                    <option value="">TBA</option>
                                     <option v-for="venue in venueList" :value="venue.id">{{venue.venue}}</option>
                                 </select>
                             </div>
@@ -256,7 +289,7 @@
             <div role="tabpanel" class="tab-pane" id="final_deployment" style="padding-top: 30px;">
                 <div class="col-md-12">
                     <h4 class="text-center">EVENT DATE:&nbsp;<span>{{event_date_header}}</span></h4>
-                    <button class="btn btn-default pull-right" onclick="frames['finalDeploymentFrame'].print()">
+                    <button class="btn btn-default pull-right" onclick="frames['finalDeploymentFrame'].print();">
                         <i class="fa fa-print fa-lg"></i> Print Final deployment
                     </button>
                 </div>
@@ -281,7 +314,12 @@
                                         <td>
                                           {{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}
                                         </td>
-                                        <td><td>{{manpowerList.manpower.manpower_type.name}}</td></td>
+                                        <td>
+                                          <span v-for="types in manpowerList.manpower.manpower_assign_type" v-if="types.manpower_type_id == manpowerList.manpower_type_required">
+                                            {{types.manpower_type.name}}
+                                          </span>
+                                        </td>
+                                        <td v-if="manpowerList.buffer == 1">Buffer</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -306,7 +344,12 @@
                                         <td>
                                           {{manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name}}
                                         </td>
-                                        <td><td>{{manpowerList.manpower.manpower_type.name}}</td></td>
+                                        <td>
+                                          <span v-for="types in manpowerList.manpower.manpower_assign_type" v-if="types.manpower_type_id == manpowerList.manpower_type_required">
+                                            {{types.manpower_type.name}}
+                                          </span>
+                                        </td>
+                                        <td v-if="manpowerList.buffer == 1">Buffer</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -394,10 +437,11 @@
                         dataClass: 'middleAlign'
                     },
                     {
-                        name: 'manpower_type.name',
+                        name: 'manpower_assign_type',
                         sortField: 'manpower_type_id',
                         title: 'Manpower Type',
-                        dataClass: 'middleAlign'
+                        dataClass: 'middleAlign',
+                        callback: 'expandType'
                     },
                     {
                         name: 'agency.name',
@@ -481,49 +525,61 @@
                 simulationDate: '',
                 simulationTime: '',
                 simulationVenue: '',
+                draggableStart: '',
+                draggableEnd: '',
 
                 event_date: (this.joEvent ? moment(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DDTHH:mm:ss') : ''),
-                event_date_header: (this.joEvent ? moment(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DD HH:mm:ss') : '')
+                event_date_header: (this.joEvent ? moment(JSON.parse(this.joEvent).event_date).format('YYYY-MM-DD HH:mm:ss') : ''),
+                ae_event_date_header : (this.aeEvent ? JSON.parse(this.aeEvent).when : '')
             }
         },
         props: [
             'data',
-            'joEvent'
+            'joEvent',
+            'aeEvent'
         ],
         methods: {
+            expandType(value) {
+              let arr = [];
+              for(let v in value)
+              {
+                  arr.push(value[v]['manpower_type'].name);
+              }
+              return arr.toString();
+            },
             onEnd(evt) {
-              console.log(evt);
+              let joId = $('#jobOrderIdNumber').val();
+              let url = `/api/v1/hr/assign-buffef/${joId}`;
+
+              let data = {
+                  'start': this.draggableStart,
+                  'end': this.draggableEnd
+              }
+              // console.log(data);return;
+              this.$http.post(url, data).then(response => {
+                  // console.log(response.data)
+                  this.getSelectedManpower();
+              }, error => {
+                  console.log(error);
+              });
             },
             onMove(evt) {
                 let draggedStart = evt.draggedContext.element;
                 let draggedEnd = evt.relatedContext.element;
                 let typeStart = draggedStart.manpower_type_id;
                 let typeEnd = draggedEnd.manpower_type_id;
-                let joId = $('#jobOrderIdNumber').val();
-                let url = `/api/v1/hr/assign-buffef/${joId}`;
                 
-                if (draggedStart.manpower_type_id != draggedEnd.manpower_type_id) {
+                if (draggedStart.manpower_type_required != draggedEnd.manpower_type_required) {
                     return false;
                 }
                 ;
 
                 if (draggedStart.buffer == draggedEnd.buffer) {
                     return false;
-                }
-                ;
+                };
 
-                // console.log(evt.draggedContext,evt.relatedContext);return;
-                let data = {
-                    'start': draggedStart,
-                    'end': draggedEnd
-                }
-
-                this.$http.post(url, data).then(response => {
-                    // console.log(response.data)
-                    this.getSelectedManpower();
-                }, error => {
-                    console.log(error);
-                });
+                this.draggableStart = draggedStart;
+                this.draggableEnd = draggedEnd;
 
             },
             setEventDate(e) {
@@ -537,9 +593,10 @@
 
                 this.$http.post(url, data).then(response => {
                     toastr.success('Successfully saved!', 'Success');
+                    window.location = self.location;
                 }, error => {
                     console.log(error);
-                    toastr.failed('Failed to save!', 'Failed');
+                    toastr.error('Failed to save!', 'Failed');
                 });
 
             },
@@ -563,7 +620,8 @@
             getJobOrderManpower() {
                 let url = '/api/v1/hr/job-order-manpower/' + this.data;
                 this.$http.get(url).then(response => {
-                    this.joManpowerList = response.data.data;
+                    // console.log(response.data)
+                    this.joManpowerList = response.data;
                 }, error => {
                     console.log(error)
                 });
@@ -573,26 +631,6 @@
                 this.$http.get(url).then(response => {
                     // console.log(response.data)
                     this.selectedManpower = response.data;
-                    // for(let jo in this.joManpowerList) // manpower needed list
-                    // {
-                    //   for(let man in response.data) // selected manpower to jo
-                    //   {
-                    //     let dataList = response.data[man]['manpower'];
-                    //     dataList.venue_id = response.data[man]['venue_id'];
-                    //     if(this.joManpowerList[jo]['manpower_type_id'] == dataList['manpower_type_id'])
-                    //     {
-                    //       if(this.joManpowerList[jo]['manpower_needed'] == this.selectedManpower.length)
-                    //       {
-                    //         dataList.surpassing = 'Extra';
-                    //         this.selectedManpower = this.selectedManpower.concat([dataList]);
-                    //       }else{
-                    //         this.selectedManpower = this.selectedManpower.concat([dataList]);
-                    //       }
-
-                    //     }
-
-                    //   }
-                    // }
 
                 }, error => {
                     console.log(error)
@@ -608,9 +646,11 @@
                 });
             },
             handleRemoveManpower(id) {
-                let index = this.selectedManpower.findIndex((item) => item.id == id);
-                let url = '/api/v1/hr/selected-manpower/' + index;
 
+                let index = this.selectedManpower.findIndex((item) => item.id == id);
+
+                let url = `/api/v1/hr/selected-manpower/${id}/${$('#jobOrderIdNumber').val()}`;
+                
 
                 this.$http.delete(url).then(response => {
                     this.selectedManpower.splice(index, 1);
@@ -618,6 +658,7 @@
 
                 }, error => {
                     console.log(error)
+                    this.selectedManpower.splice(index, 1);
                 })
 
             },
@@ -628,8 +669,9 @@
                 };
 
                 this.$http.post(url, dataArray).then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     this.getSelectedManpower();
+                    this.getJobOrderManpower();
                     toastr.success('Successfully saved!', 'Success');
                 }, error => {
                     console.log(error)
@@ -717,8 +759,20 @@
             },
 
             onCellClicked (data, field, event) {
-                console.log('cellClicked: ', field.name)
-                this.$refs.vuetable.toggleDetailRow(data.id)
+                
+                if(!this.moreParams.filterSelections)
+                {
+                  toastr.error('Please Apply filter for Manpower type', 'Failed');
+                  return;
+                }
+
+                toastr.options.positionClass = 'toast-bottom-right';
+                toastr.success(data.first_name + ' Added', 'Success');
+                data.manpower_type_required = this.moreParams.filterSelections.manpower_type_id;
+
+                this.selectedManpower = this.selectedManpower.concat([data]);
+                // $('#button_' + data.id).hide();
+                this.$refs.vuetable_manpower.refresh();
             },
 
             onPaginationData (paginationData) {
@@ -731,13 +785,23 @@
         },
         events: {
             'add-data' (data, index) {
-
+                
                 Vue.nextTick(
                     () => {
-                        // console.log(data);
+                        
+                        if(!this.moreParams.filterSelections)
+                        {
+                          toastr.error('Please Apply filter for Manpower type', 'Failed');
+                          return;
+                        }
+
+                        toastr.options.positionClass = 'toast-bottom-right';
+                        toastr.success(data.first_name + ' Added', 'Success');
+                        data.manpower_type_required = this.moreParams.filterSelections.manpower_type_id;
+                        
                         this.selectedManpower = this.selectedManpower.concat([data]);
-                        $('#button-' + data.id).hide();
-                        this.$refs.vuetable_manpower.refresh();
+                        // $('#button_' + data.id).hide();
+                        this.$refs.vuetable_manpower.reload();
                     }
                 )
             },
@@ -749,6 +813,7 @@
                 Vue.nextTick(() => this.$refs.vuetable_manpower.refresh())
             },
             'filter-selection-set' (filterObj) {
+                
                 this.moreParams = {
                     filterSelections: filterObj
                 }

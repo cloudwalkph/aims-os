@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Manpower;
 use App\Models\ManpowerFile;
 use App\Models\JobOrder;
+use App\Models\ManpowerAssignTypes;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Carbon\Carbon;
 use App\Traits\FilterTrait;
@@ -29,7 +30,15 @@ class ManpowerController extends Controller
             
             $manpower = Manpower::with('manpowerType')
                 ->with('agency')
-                ->whereNotIn('id', function($q) { // filter by selected manpower
+                ->with(array(
+                    'manpowerAssignType' => function($q) use($sortCol) {
+                        if($sortCol == 'manpower_assign_type'){
+                            $q->orderBy('manpower_type_id', $sortDir);    
+                        }  
+                    },
+                    'manpowerAssignType.manpowerType'
+                ))
+                ->whereNotIn('id', function($q) { // filter by selected manpower event date
                     
                     $q->select('manpower_id')
                     ->whereNull('deleted_at')
@@ -40,17 +49,28 @@ class ManpowerController extends Controller
                     })
                     ->from('job_order_selected_manpowers');
                 })
-                ->whereIn('manpower_type_id', function($m) use($jo) { // filter by manpower needed
-                    $m->select('manpower_type_id')
-                    ->where('job_order_id',$jo->id)
+                ->whereIn('id', function($m) use($jo) { // filter by manpower needed
+                    $m->select('manpower_id')
+                    ->whereIn('manpower_type_id',function($q) use($jo) {
+                        $q->select('manpower_type_id')
+                        ->where('job_order_id',$jo->id)
+                        ->whereNull('deleted_at')
+                        ->from('job_order_manpowers');
+                    })
                     ->whereNull('deleted_at')
-                    ->from('job_order_manpowers');
-                })
-                ->orderBy($sortCol, $sortDir);
+                    ->from('manpower_assign_types');
+                    
+                });
+                if($sortCol != 'manpower_assign_type')
+                {
+                    $manpower->orderBy($sortCol, $sortDir);    
+                }
+                
         }else
         {
             $manpower = Manpower::with('manpowerType')
                 ->with('agency')
+                ->with('ManpowerAssignType.manpowerType')
                 ->whereNotIn('id', function($q) { // filter by selected manpower
                     
                     $q->select('manpower_id')
@@ -62,11 +82,17 @@ class ManpowerController extends Controller
                     })
                     ->from('job_order_selected_manpowers');
                 })
-                ->whereIn('manpower_type_id', function($m) use($jo) { // filter by manpower needed
-                    $m->select('manpower_type_id')
-                    ->where('job_order_id',$jo->id)
+                ->whereIn('id', function($m) use($jo) { // filter by manpower needed
+                    $m->select('manpower_id')
+                    ->whereIn('manpower_type_id',function($q) use($jo) {
+                        $q->select('manpower_type_id')
+                        ->where('job_order_id',$jo->id)
+                        ->whereNull('deleted_at')
+                        ->from('job_order_manpowers');
+                    })
                     ->whereNull('deleted_at')
-                    ->from('job_order_manpowers');
+                    ->from('manpower_assign_types');
+                    
                 });
         }
 
@@ -92,9 +118,18 @@ class ManpowerController extends Controller
                         
                         $manpower->whereBetween($key, [$minDate, $maxDate]);  
 
-                        \Log::info($minDate.'>'.$maxDate);
-                        \Log::info($manpower->toSql());
-                    }else // filter selections
+                        // \Log::info($minDate.'>'.$maxDate);
+                        // \Log::info($manpower->toSql());
+                    }else if($key == 'manpower_type_id')// filter manpower_type_id
+                    {
+                        // $manpower->where($key, $filterVal); 
+                        $manpower->whereIn('id', function($q) use($key, $filterVal) {
+                            $q->select('manpower_id')
+                            ->where($key,$filterVal)
+                            ->whereNull('deleted_at')
+                            ->from('manpower_assign_types');
+                        });   
+                    }else // filter selection
                     {
                         $manpower->where($key, $filterVal);    
                     }
@@ -102,11 +137,12 @@ class ManpowerController extends Controller
         }
 
         $data = $this->parseData($manpower->paginate());
+        // \Log::info($data);
         return response()->json($data, 200);
     }
 
     public function getManpower() {
-        $manpower = Manpower::with('manpowerType')->with('agency')->paginate();
+        $manpower = Manpower::with('ManpowerAssignType.manpowerType')->with('agency')->orderBy('id','DESC')->paginate();
         $data = $this->parseData($manpower);
         return response()->json($data, 200);
     }
@@ -135,7 +171,6 @@ class ManpowerController extends Controller
             'first_name' => $input['first_name'],
             'middle_name' => $input['middle_name'],
             'last_name' => $input['last_name'],
-            'manpower_type_id' => $input['manpower_type_id'],
             'agency_id' => $input['agency_id'],
             'email' => $input['email'],
             'contact_number' => $input['contact_number'],
@@ -148,6 +183,18 @@ class ManpowerController extends Controller
         ];
         
         $manpower = Manpower::create($data);
+        if(isset($input['manpower_type_id']))
+        {
+            foreach($input['manpower_type_id'] as $manpowerType)
+            {
+                $datas = [
+                    'manpower_id' => $manpower['id'],
+                    'manpower_type_id' => $manpowerType
+                ];
+
+                $assignType = ManpowerAssignTypes::create($datas);
+            }
+        }
         
         $file = $this->upload($request, $manpower['id'], 'profile_picture');
         $files = $this->multiUpload($request, $manpower['id'], 'documents');
@@ -273,7 +320,6 @@ class ManpowerController extends Controller
             'first_name' => $input['first_name'],
             'middle_name' => $input['middle_name'],
             'last_name' => $input['last_name'],
-            'manpower_type_id' => $input['manpower_type_id'],
             'agency_id' => $input['agency_id'],
             'email' => $input['email'],
             'contact_number' => $input['contact_number'],
@@ -285,13 +331,30 @@ class ManpowerController extends Controller
             'rate' => $input['rate']
         ];
         
-        $manpowerId = Manpower::where('id', $id)->update($data);
+        $result = Manpower::where('id', $id)->update($data);
         
-        $file = $this->upload($request, $manpowerId, 'profile_picture');
-        $files = $this->multiUpload($request, $manpowerId, 'documents');
+        if(isset($input['manpower_type_id']))
+        {
+
+            $type = ManpowerAssignTypes::where('manpower_id',$id)->delete();
+            foreach($input['manpower_type_id'] as $manpowerType)
+            {
+                $datas = [
+                    'manpower_id' => $id,
+                    'manpower_type_id' => $manpowerType
+                ];
+
+                $assignType = ManpowerAssignTypes::create($datas);    
+                
+                
+            }
+        }
+
+        $file = $this->upload($request, $id, 'profile_picture');
+        $files = $this->multiUpload($request, $id, 'documents');
 
         // $manpower = $this->parseData($manpower->paginate());
-        return response()->json($manpowerId, 200);
+        return response()->json($result, 200);
     }
 
     /**

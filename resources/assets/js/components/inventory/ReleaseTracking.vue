@@ -53,8 +53,18 @@
                           <td>{{r.return_quantity}}</td>
                           <td><div v-if="r.status = 1">Approved</div><div v-else>Pending</div></td>
                           <td class="text-center">
-                            <button type="button" class="btn btn-sm"><i class="glyphicon glyphicon-pencil"></i></button>
-                            <button type="button" class="btn btn-sm" @click="removeRelease(product, indexD)"><i class="glyphicon glyphicon-trash"></i></button>
+                            <button
+                              type="button"
+                              class="btn btn-sm"
+                              data-toggle="modal"
+                              data-target="#modalUpdateRelease"
+                              @click="onModalClick(indexTrace, indexD)"
+                            ><i class="glyphicon glyphicon-pencil"></i></button>
+                            <button
+                              type="button"
+                              class="btn btn-sm"
+                              @click="removeRelease(product.releases, indexD)"
+                            ><i class="glyphicon glyphicon-trash"></i></button>
                           </td>
                       </tr>
 
@@ -96,6 +106,60 @@
         >No Products to Show</div>
 
         <iframe name="inventoryReleaseFrame" :src="frameSrc" style="width:0; height:0"></iframe>
+
+        <div class="modal fade" id="modalUpdateRelease" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Releases</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger hide">
+                            This is an alert message
+                        </div>
+
+                        <form id="updateReleaseForm" @submit.prevent="editRelease">
+                            <input type="hidden" name="releaseIndex" />
+                            <input type="hidden" name="productIndex" />
+                            <div class="row">
+                                <div class="col-md-12 form-group text-input-container">
+                                    <label class="control-label">Disposed Quantity</label>
+                                    <input
+                                      type="number"
+                                      name="dispose_quantity"
+                                      id="dispose_quantity"
+                                      placeholder="dispose quantity"
+                                      class="form-control"
+                                      value=0
+                                    />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group text-input-container">
+                                    <label class="control-label">Returned Quantity</label>
+                                    <input
+                                      type="number"
+                                      name="return_quantity"
+                                      id="return_quantity"
+                                      placeholder="return quantity"
+                                      class="form-control"
+                                      value=0
+                                    />
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" form="updateReleaseForm" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>
@@ -110,7 +174,7 @@
         },
         data: function () {
             return {
-                frameSrc: '/inventory/print/release/' + this.propIJobId,
+                frameSrc: 'inventory/print/release/' + this.propIJobId,
             }
         },
         methods: {
@@ -152,31 +216,6 @@
 
                 total = deliveries - releases;
 
-                // if(product.releases) {
-                //   for (release of product.releases) {
-                //     var deliveries = 0;
-                //     if (release.product_id == product.id) {
-                //       var releaseDateParsed = Date.parse(release.release_date);
-                //
-                //       // get total deliveries
-                //       if(product.deliveries) {
-                //         for (delivery of product.deliveries) {
-                //           if (delivery.product_id == product.id) {
-                //             var deliveryDateParsed = Date.parse(delivery.delivery_date);
-                //             if (rDateParsed >= deliveryDateParsed) {
-                //               deliveries += Number(delivery.delivery_quantity);
-                //             }
-                //           }
-                //         }
-                //       }
-                //       console.log(deliveries);
-                //
-                //       if(rDateParsed < releaseDateParsed) {
-                //         releases -= (Number(release.dispose_quantity) + Number(release.return_quantity));
-                //       }
-                //     }
-                //   }
-                // }
                 return total;
             },
             returned: function (product, rDate, iDisposed = 0) {
@@ -197,7 +236,7 @@
                 release_date: form.datetimeRelease.value,
               }
 
-              this.$http.post('/api/v1/inventory/release', postData)
+              this.$http.post('api/v1/inventory/release', postData)
                 .then(function (response) {
                   form.reset();
                   this.products[workIndex].releases.push(postData);
@@ -206,8 +245,48 @@
                   console.log('error post inventory release', e);
                 });
             },
-            removeRelease: function(product, index) {
-              product.releases.splice(index, 1);
+            onModalClick: function(indexProduct, indexRelease) {
+                $('input[name="productIndex"]').val(indexProduct);
+                $('input[name="releaseIndex"]').val(indexRelease);
+                $('input[name="dispose_quantity"]').val(this.products[indexProduct].releases[indexRelease].dispose_quantity);
+                $('input[name="return_quantity"]').val(this.products[indexProduct].releases[indexRelease].return_quantity);
+            },
+            editRelease: function(e) {
+                var form = $(e.target)[0];
+                var productIndex = form.productIndex.value;
+                var releaseIndex = form.releaseIndex.value;
+                var dispose_quantity = form.dispose_quantity.value;
+                var return_quantity = form.return_quantity.value;
+                var data = {
+                  _method: 'PUT',
+                  dispose_quantity: dispose_quantity,
+                  return_quantity: return_quantity,
+                }
+
+                this.$http.post('api/v1/inventory/release/' + this.products[productIndex].releases[releaseIndex].id, data)
+                  .then(function (response) {
+                    this.products[productIndex].releases[releaseIndex].dispose_quantity = dispose_quantity;
+                    this.products[productIndex].releases[releaseIndex].return_quantity = return_quantity;
+                  })
+                  .catch(function (e) {
+                    console.log('error edit inventory release', e);
+                  });
+
+
+                $('#modalUpdateRelease').modal('hide');
+                form.reset();
+            },
+            removeRelease: function(releases, index) {
+              var data = {
+                _method: 'DELETE'
+              }
+              this.$http.post('api/v1/inventory/release/' + releases[index].id, data)
+                .then(function (response) {
+                  releases.splice(index, 1);
+                })
+                .catch(function (e) {
+                  console.log('error delete inventory release', e);
+                });
             },
         },
         mounted: function () {
