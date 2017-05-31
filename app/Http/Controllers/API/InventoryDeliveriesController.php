@@ -37,15 +37,17 @@ class InventoryDeliveriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $user = $request->user();
         $delivery_data = array(
           'user_id' => $user->id,
           'product_id' => $request->product_id,
           'delivery_quantity' => $request->delivery_quantity,
           'delivery_date' => date('Y-m-d H:i:s', strtotime($request->delivery_date)),
+          'delivery_report' => $request->delivery_report,
         );
         $delivery = InventoryDeliveries::create($delivery_data);
+
+        return response()->json($delivery, 201);
     }
 
     /**

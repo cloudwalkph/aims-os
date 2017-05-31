@@ -37,7 +37,6 @@ class InventoryReleasesController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $user = $request->user();
         $release_data = array(
           'user_id' => $user->id,
@@ -47,6 +46,7 @@ class InventoryReleasesController extends Controller
           'release_date' => date('Y-m-d H:i:s', strtotime($request->release_date)),
         );
         $release = InventoryReleases::create($release_data);
+        return response()->json($release, 201);
     }
 
     /**

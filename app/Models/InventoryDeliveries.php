@@ -14,7 +14,7 @@ class InventoryDeliveries extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'product_id', 'delivery_quantity', 'delivery_date'];
+    protected $fillable = ['user_id', 'product_id', 'delivery_quantity', 'delivery_date', 'delivery_report'];
     /**
      * The attributes that should be mutated to dates.
      *
