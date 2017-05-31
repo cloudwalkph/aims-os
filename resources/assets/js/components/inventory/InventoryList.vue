@@ -1,15 +1,33 @@
 <template>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h1 class="pull-left table-title">Inventory List</h1>
-            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalCreateInventory">
-                <i class="fa fa-plus" /> Create Inventory
-            </button>
+        </div>
+        <div class="col-md-6">
+          <div class="row pull-right">
+            <div class="col-md-12">
+              <button
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#modalCreateInventory"
+                type="button"
+              ><i class="fa fa-plus"></i> Create Inventory
+              </button>
+
+              <button
+                class="btn btn-default"
+                data-target="#importInternalInventoryModal"
+                data-toggle="modal"
+                type="button"
+              ><i class="fa fa-upload"></i> Import From Excel
+              </button>
+            </div>
+          </div>
         </div>
         <div class="col-md-12 content">
           <div class="row">
-            <div class="col-md-3 form-group">
+            <div class="col-md-4 form-group">
                 <v-select
                   :multiple="true"
                   :on-change="selectCategory"
@@ -30,6 +48,34 @@
         </div>
 
         <CreateInventoryModal :propData="propData" :refresh-vuetable="refreshVuetable"></CreateInventoryModal>
+
+        <div class="modal fade" id="importInternalInventoryModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Import Internal Inventory</h4>
+                    </div>
+                    <form id="importInternalInventoryForm" @submit.prevent="importInternalInventory">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group text-input-container">
+                                    <label class="control-label">Excel File only</label>
+                                    <input type="file" name="excel" id="excel"
+                                        placeholder="Excel File" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>
@@ -107,6 +153,20 @@
             }
         },
         methods: {
+          importInternalInventory (e) {
+            var form = $(e.target)[0];
+            var formData = new FormData(form);
+
+            this.$http.post('api/v1/inventory/import', formData)
+                .then(function (response) {
+                    $('#importInternalInventoryModal').modal('hide');
+                    form.reset();
+                    Vue.nextTick( () => this.$refs.v.$refs.vuetableInventory.refresh() );
+                })
+                .catch(function (e) {
+                    console.log('error post jobs', e);
+                });
+          },
           selectCategory (e) {
             var arr = [];
             for(var obj of e) {

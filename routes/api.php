@@ -53,6 +53,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // Inventory
     Route::group(['prefix' => 'inventory'], function() {
+      Route::post('import', 'InventoryController@import');
         Route::resource('/', 'InventoryController');
         Route::resource('job', 'InventoryJobController');
         Route::resource('user', 'InventoryJobAssignedPersonController');

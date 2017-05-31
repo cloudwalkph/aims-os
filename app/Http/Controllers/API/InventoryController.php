@@ -5,8 +5,11 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Jobs\ImportInventory;
+
 use App\Models\Inventory;
 use App\Models\InventoryFiles;
+use App\Models\JobOrder;
 use App\Models\JobOrderDepartmentInvolved;
 
 use App\Traits\FilterTrait;
@@ -184,5 +187,40 @@ class InventoryController extends Controller
         }
 
         return response()->json($result, 200);
+    }
+
+    function import(Request $request)
+    {
+      if($request->hasFile('excel')) {
+          $file = $request->file('excel');
+          \Excel::load($file, function($reader) {
+            $results = $reader->get();
+            \DB::transaction(function() use ($results) {
+              foreach ($results as $inventories) {
+                foreach ($inventories as $inventory) {
+                  $data = [
+                    'category' => $inventory->category,
+                    'product_code' => $inventory->sku,
+                    'name' => $inventory->inventory_name,
+                    'quantity' => $inventory->quantity,
+                    'expiration_date' => date('Y-m-d', strtotime($inventory->expiration_date)),
+                    'status' => $inventory->status,
+                  ];
+
+                  $query = JobOrder::where('job_order_no', $inventory->job_order_number);
+                  if($query->count() > 0) {
+                    $jo = $query->first();
+                    $data['job_order_id'] = $jo->id;
+                  }
+
+                  // dispatch queue
+                  $this->dispatch(new ImportInventory($data));
+                }
+              }
+            });
+          });
+      } else {
+        $jo['warning'] = 'file not present';
+      }
     }
 }

@@ -160,12 +160,12 @@
 
                             @endif
 
-                            <td>
+                            <td style="text-align: center;">
                                 @if( $jo['remarks'] != null )
                                     <p>{{ $jo['remarks']  }}</p>
                                 @endif
 
-                                <button class="btn btn-primary btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks">Remarks</button>
+                                <button class="btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks">+</button>
 
                             </td>
                         </tr>
@@ -188,12 +188,12 @@
                     <input type="hidden" id="documentsType" name="docType" value="">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Upload CE</h4>
+                        <h4 id="modal-title" class="modal-title"></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="text" name="doc_number" id="ce_number" class="form-control" placeholder="CE Number">
+                                <input type="text" name="doc_number" id="ce_number" class="form-control">
                             </div>
                         </div>
                         <div class="row">
@@ -283,6 +283,24 @@
         $('.btnForDocUpload').on('click', function(){
             var jid = $(this).val();
             var doc = $(this).attr('alt');
+
+            if( doc == 'ce' ){
+
+                $('#modal-title').text('Upload CE');
+                $('#ce_number').attr("placeholder", "CE number");
+
+            }else if( doc == 'do' ){
+
+                $('#modal-title').text('Upload DO');
+                $('#ce_number').attr("placeholder", "DO number");
+
+            }else if( doc == 'invoice' ){
+
+                $('#modal-title').text('Upload Invoice');
+                $('#ce_number').attr("placeholder", "Invoice number");
+
+            }
+
             $('#joID').val(jid);
             $('#documentsType').val(doc);
         });
