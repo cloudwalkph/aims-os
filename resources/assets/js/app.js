@@ -81,6 +81,7 @@ Vue.component('hr-vehicle-request', require('./components/HR/vehicle_request'));
 
 Vue.component('discussions', require('./components/job-orders/discussion/discussions.vue'));
 
+Vue.component('operations-jo-table', require('./components/operations/job-order/job-order-table.vue'));
 
 require('./components/inventory');
 
