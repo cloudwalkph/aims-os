@@ -14,7 +14,7 @@
                         <a href="/operations"><i class="fa fa-dashboard"></i> Operations Department</a>
                     </li>
                     <li class="active">
-                        <i class="fa fa-file-text-o"></i> Official Business/OB Lists
+                        <i class="fa fa-file-text-o"></i> Official Business Lists
                     </li>
                 </ol>
             </div>
