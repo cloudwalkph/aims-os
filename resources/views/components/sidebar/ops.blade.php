@@ -11,10 +11,10 @@
             <a href="/operations/job-orders"><i class="fa fa-fw fa-file-text-o"></i> Job Orders</a>
         </li>
         <li id="project-monitor">
-            <a href="/operations/project-monitor"><i class="fa fa-fw fa-laptop"></i> Project Monitor</a>
+            <a href="/operations/project-monitors"><i class="fa fa-fw fa-laptop"></i> Project Monitor</a>
         </li>
         <li id="ob">
-            <a href="/operations/ob"><i class="fa fa-fw fa-hourglass"></i> OB</a>
+            <a href="/operations/official-business"><i class="fa fa-fw fa-hourglass"></i> OB</a>
         </li>
     </ul>
 </div>
