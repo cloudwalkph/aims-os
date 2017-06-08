@@ -105,6 +105,7 @@ Route::group(['prefix' => 'productions'], function () {
 
 Route::group(['prefix' => 'operations'], function () {
     Route::get('/', 'Front\Operations\OperationsController@index');
+    Route::get('/schedules', 'Front\Operations\SchedulerController@index');
 });
 
 Route::group(['prefix' => 'users'], function () {
