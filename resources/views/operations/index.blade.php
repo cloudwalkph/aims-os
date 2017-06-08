@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <div class="container-fluid">
@@ -18,62 +18,71 @@
             {{-- breadcrumb end --}}
 
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="button-menu">
-                    <div class="hero-widget well well-sm">
-                        <div class="icon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <div class="text">
-                            <label class="text-muted">Calendar</label>
-                        </div>
-                        <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">Schedules</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="button-menu">
-                    <div class="hero-widget well well-sm">
-                        <div class="icon">
-                            <i class="fa fa-file-text-o"></i>
-                        </div>
-                        <div class="text">
-                            <label class="text-muted">Job Order Lists</label>
-                        </div>
-                        <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">View Job Orders</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="button-menu">
-                    <div class="hero-widget well well-sm">
-                        <div class="icon">
-                            <i class="fa fa-file-text-o"></i>
-                        </div>
-                        <div class="text">
-                            <label class="text-muted">On-Going Projects Lists</label>
-                        </div>
-                        <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">On-Going Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <a href="/validate">
+                <a href="#">
                     <div class="button-menu">
                         <div class="hero-widget well well-sm">
                             <div class="icon">
-                                <i class="fa fa-clipboard"></i>
+                                <i class="fa fa-cubes"></i>
                             </div>
                             <div class="text">
-                                <label class="text-muted">Validate</label>
+                                <label class="text-muted">Inventory</label>
                             </div>
                             <div class="options">
-                                <a href="/validate" style="color: #fff;background-color: #2579a9;border-color: #1f648b;" class="btn btn-lg">View Lists</a>
+                                <a href="/ae/schedules" class="btn btn-primary btn-lg">View more...</a>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <a href="#">
+                    <div class="button-menu">
+                        <div class="hero-widget well well-sm">
+                            <div class="icon">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+                            <div class="text">
+                                <label class="text-muted">Production</label>
+                            </div>
+                            <div class="options">
+                                <a href="/ae/schedules" class="btn btn-primary btn-lg">View more...</a>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <a href="#">
+                    <div class="button-menu">
+                        <div class="hero-widget well well-sm">
+                            <div class="icon">
+                                <i class="fa fa-wrench"></i>
+                            </div>
+                            <div class="text">
+                                <label class="text-muted">Setup</label>
+                            </div>
+                            <div class="options">
+                                <a href="/ae/schedules" class="btn btn-primary btn-lg">View more...</a>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <a href="#">
+                    <div class="button-menu">
+                        <div class="hero-widget well well-sm">
+                            <div class="icon">
+                                <i class="fa fa-sitemap"></i>
+                            </div>
+                            <div class="text">
+                                <label class="text-muted">Activations</label>
+                            </div>
+                            <div class="options">
+                                <a href="/ae/schedules" class="btn btn-primary btn-lg">View more...</a>
                             </div>
                         </div>
                     </div>
