@@ -53,13 +53,13 @@
                 <div class="col-md-10 col-md-offset-1 vr">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#mom" data-toggle="tab">Print (Tarpaulin)</a></li>
-                            <li><a href="#event-details" data-toggle="tab">Print (Stickers)</a></li>
-                            <li><a href="#project-attachments" data-toggle="tab">Print (Offset and or Digital)</a></li>
-                            <li><a href="#client-attachments" data-toggle="tab">Booth</a></li>
-                            <li><a href="#project-status" data-toggle="tab">Photowalls and Panels</a></li>
-                            <li><a href="#request-forms" data-toggle="tab">Shirts</a></li>
-                            <li><a href="#discussions" data-toggle="tab">Event Staging Requirements</a></li>
+                            <li class="active"><a href="#tarpaulin" data-toggle="tab">Print (Tarpaulin)</a></li>
+                            <li><a href="#stickers" data-toggle="tab">Print (Stickers)</a></li>
+                            <li><a href="#offset" data-toggle="tab">Print (Offset and or Digital)</a></li>
+                            <li><a href="#booth" data-toggle="tab">Booth</a></li>
+                            <li><a href="#photowall" data-toggle="tab">Photowalls and Panels</a></li>
+                            <li><a href="#shirts" data-toggle="tab">Shirts</a></li>
+                            <li><a href="#staging" data-toggle="tab">Event Staging Requirements</a></li>
                         </ul>
                         <div class="tab-content">
                             @include('productions.jolist.details.print.tarpaulin.index')

@@ -1,10 +1,8 @@
-<div class="active tab-pane" id="mom">
+<div class="active tab-pane" id="tarpaulin">
     <div class="form-horizontal">
         <div class="box box-info">
             <div class="box-header">
-                <h4 class="box-title">Supplier :</h4>
-                <h4 class="box-title">Point Person :</h4>
-                <h4 class="box-title">Contact No. :</h4>
+                @include('productions.common.supplier')
             </div>
             <div class="box-body">
                 <table class="table text-center table-striped" border="1">
