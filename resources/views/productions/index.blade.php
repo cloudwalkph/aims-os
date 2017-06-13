@@ -59,7 +59,7 @@
                             <label class="text-muted">Reference Lists</label>
                         </div>
                         <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">References</a>
+                            <a href="/productions/references" class="btn btn-primary btn-lg">References</a>
                         </div>
                     </div>
                 </div>

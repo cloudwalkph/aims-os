@@ -48,4 +48,10 @@ class ProductionsController extends Controller
             ->with('jo', $jo);
     }
 
+    public function references(){
+        config(['app.name' => 'Productions | AIMS']);
+
+        return view('productions.references');
+    }
+
 }
