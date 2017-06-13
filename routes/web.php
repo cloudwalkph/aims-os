@@ -101,6 +101,11 @@ Route::group(['prefix' => 'setup'], function () {
 
 Route::group(['prefix' => 'productions'], function () {
     Route::get('/', 'Front\Productions\ProductionsController@index');
+
+    Route::group(['prefix' => 'jo'], function () {
+        Route::get('/', 'Front\Productions\ProductionsController@jos');
+        Route::get('/details/{joNo}', 'Front\Productions\ProductionsController@show');
+    });
 });
 
 Route::group(['prefix' => 'operations'], function () {

@@ -98,6 +98,8 @@ Vue.component('manpower', require('./components/HR/manpower.vue'));
 Vue.component('manpower-pooling', require('./components/HR/pooling.vue'));
 Vue.component('pooling-content', require('./components/HR/poolingContent.vue'));
 
+Vue.component('production-jo-table', require('./components/production/production-jo-table.vue'));
+
 const app = new Vue({
     el: '#app'
 });

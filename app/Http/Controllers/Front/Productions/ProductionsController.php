@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\Productions;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\JobOrder;
 
 class ProductionsController extends Controller
 {
@@ -28,4 +29,23 @@ class ProductionsController extends Controller
 
         return view('productions.index');
     }
+
+    public function jos()
+    {
+        config(['app.name' => 'Productions | AIMS']);
+
+        return view('productions.jo');
+    }
+
+    public function show($joNo)
+    {
+        config(['app.name' => 'Productions | AIMS']);
+
+
+        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNo)->first();
+
+        return view('productions.jolist.details.index')
+            ->with('jo', $jo);
+    }
+
 }
