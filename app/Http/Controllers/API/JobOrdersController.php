@@ -90,6 +90,36 @@ class JobOrdersController extends Controller {
         return response()->json($jobOrders, 200);
     }
 
+    public function getByDepartmentId(Request $request, $departmentId)
+    {
+        // Sort
+        if ($request->has('sort')) {
+            list($sortCol, $sortDir) = explode('|', $request->get('sort'));
+            $query = JobOrderDepartmentInvolved::orderBy($sortCol, $sortDir);
+        } else {
+            $query = JobOrderDepartmentInvolved::orderBy('id', 'asc');
+        }
+
+        $query->join('job_orders', 'job_orders.id', '=', 'job_order_department_involved.job_order_id')
+            ->join('user_profiles', 'user_profiles.user_id', '=', 'job_orders.user_id')
+            ->groupBy('job_orders.id', 'user_profiles.last_name', 'user_profiles.first_name')
+            ->select('job_orders.*', \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as created_by'))
+            ->where('department_id', '=', $departmentId);
+
+        // Filter
+        if ($request->has('filter')) {
+            $this->filter($query, $request, JobOrder::$filterable);
+        }
+
+        // Count per page
+        $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
+        \Log::info($query->toSql());
+        // Get the data
+        $jobOrders = $query->paginate($perPage);
+
+        return response()->json($jobOrders, 200);
+    }
+
     /**
      * @param $clientId
      * @return mixed
