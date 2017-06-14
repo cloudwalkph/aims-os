@@ -117,6 +117,10 @@ Route::group(['prefix' => 'operations'], function () {
     Route::get('/job-orders', 'Front\Operations\JobOrderController@index');
     Route::get('/project-monitors', 'Front\Operations\ProjectMonitorController@index');
     Route::get('/official-business', 'Front\Operations\OfficialBusinessController@index');
+
+    Route::get('/inventory', 'Front\Operations\DepartmentsController@inventory');
+    Route::get('/production', 'Front\Operations\DepartmentsController@production');
+    Route::get('/setup', 'Front\Operations\DepartmentsController@setup');
 });
 
 Route::group(['prefix' => 'users'], function () {
