@@ -493,6 +493,25 @@ table tbody tr {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
 }
+
+.table{
+    width: 90%;
+    margin-left: 60px;
+}
+
+.table-costing{
+    width: 100%;
+    margin-left: 0px;
+}
+
+.printpg{
+    margin-left: 30px;
+}
+
+.btn-costing{
+    margin-top: 15px;
+    margin-left: 42px;
+}
 /*validate result button end*/
 
 
@@ -533,6 +552,11 @@ table tbody tr {
 
 .venue-filter:nth-child(1) {
     margin-left: 0;
+}
+
+.vr{
+    width: 100%;
+    margin-left: 10px;
 }
 
 /*STATS*/

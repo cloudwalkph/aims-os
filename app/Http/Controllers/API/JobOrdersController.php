@@ -238,7 +238,7 @@ class JobOrdersController extends Controller {
     {
         $input = $request->all();
         $input['job_order_id'] = $joId;
-        
+
         if($input['event_specifications'] == "") {
             $input['event_specifications'] = " ";
         }

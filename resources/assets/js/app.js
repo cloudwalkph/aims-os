@@ -81,6 +81,7 @@ Vue.component('hr-vehicle-request', require('./components/HR/vehicle_request'));
 
 Vue.component('discussions', require('./components/job-orders/discussion/discussions.vue'));
 
+Vue.component('operations-jo-table', require('./components/operations/job-order/job-order-table.vue'));
 
 require('./components/inventory');
 
@@ -96,6 +97,8 @@ Vue.component('hraccount', require('./components/HR/hr-account.vue'));
 Vue.component('manpower', require('./components/HR/manpower.vue'));
 Vue.component('manpower-pooling', require('./components/HR/pooling.vue'));
 Vue.component('pooling-content', require('./components/HR/poolingContent.vue'));
+
+Vue.component('production-jo-table', require('./components/production/production-jo-table.vue'));
 
 const app = new Vue({
     el: '#app'

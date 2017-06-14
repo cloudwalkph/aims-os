@@ -46,7 +46,14 @@ class PoolingManpowerController extends Controller
     {
         $jo = JobOrder::where('job_order_no', $joNumber)->first();
 
-        $joManpower = JobOrderManpower::with('manpowerType')->where('job_order_id', $jo->id)->paginate();
+        $joManpower = JobOrderManpower::with('manpowerType')->where('job_order_id', $jo->id)->get();
+        
+        foreach($joManpower as $joMan)
+        {
+            $joMan['selected_count'] = JobOrderSelectedManpower::where('job_order_id', $jo->id)->where('manpower_type_required',$joMan->manpower_type_id)->count();
+            
+        }
+        // \Log::info($joManpower);
         return response()->json($joManpower, 200);
     }
 
@@ -58,7 +65,7 @@ class PoolingManpowerController extends Controller
             ->with('venue')
             ->with('manpower.manpowerAssignType.manpowerType')
             ->where('job_order_id', $jo->id)
-            ->orderBy('buffer', 'ASC')
+            ->orderBy('manpower_type_required', 'ASC')
             ->get();
         if($joSelectedManpower)
         {
@@ -66,6 +73,7 @@ class PoolingManpowerController extends Controller
             {
                $selected['manpower']['venue_id'] = $selected['venue_id']; 
                $selected['manpower']['buffer'] = $selected['buffer']; 
+               $selected['manpower']['manpower_type_required'] = $selected['manpower_type_required']; 
                $return[] = $selected['manpower'];
             }
         }
@@ -82,8 +90,11 @@ class PoolingManpowerController extends Controller
         {
             $data = [
                 'job_order_id' => $jo->id,
-                'manpower_id' => $manpower['id']
+                'manpower_id' => $manpower['id'],
+                'manpower_type_required' => $manpower['manpower_type_required'],
+                'venue_id' => 0
             ];
+            // return $data;
             if(isset($manpower['venue_id']))
             {
                 $data['venue_id'] = $manpower['venue_id'];
@@ -94,17 +105,11 @@ class PoolingManpowerController extends Controller
             
             if(!$selectedManpower)
             {
-                $joManpower = JobOrderManpower::where('job_order_id',$jo->id)->where('manpower_type_id',$manpower['manpower_type_id'])->first();
+                $joManpower = JobOrderManpower::where('job_order_id',$jo->id)->where('manpower_type_id',$manpower['manpower_type_required'])->first();
                 
                 if($joManpower)
                 {
-                    $manpowerNeeded = JobOrderSelectedManpower::where('job_order_id', $jo->id)
-                                                                ->whereIn('manpower_id', function($q) use($joManpower) {
-                                                                    $q->select('id')
-                                                                    ->whereNull('deleted_at')
-                                                                    ->where('manpower_type_id', $joManpower->manpower_type_id)
-                                                                    ->from('manpowers');
-                                                                })->get();
+                    $manpowerNeeded = JobOrderSelectedManpower::where('job_order_id', $jo->id)->where('manpower_type_required',$manpower['manpower_type_required'])->get();
                     if($joManpower->manpower_needed <= count($manpowerNeeded))
                     {
                         $data['buffer'] = 1;
@@ -122,9 +127,9 @@ class PoolingManpowerController extends Controller
         return response()->json($return, 200);
     }
 
-    public function deleteSelectedManpower($id)
+    public function deleteSelectedManpower($id,$joId)
     {
-        $return = JobOrderSelectedManpower::where('id', $id)->delete();
+        $return = JobOrderSelectedManpower::where('manpower_id', $id)->where('job_order_id',$joId)->delete();
         
         if(!$return)
         {
@@ -144,7 +149,7 @@ class PoolingManpowerController extends Controller
 
         $data = [
             'job_order_id' => $jo->id,
-            'venue_id' => $input['venue_id'],
+            'venue_id' => $input['venue_id'] ? $input['venue_id'] : 0,
             'type' => $input['type'],
             'batch' => (isset($input['batch']) ? $input['batch'] : null),
             'created_datetime' => $date
@@ -186,7 +191,10 @@ class PoolingManpowerController extends Controller
         foreach($manpowerSched as $key=>$sched)
         {
             $venue = Venue::where('id',$sched->venue_id)->first();
-            
+            if(!$venue)
+            {
+                $venue = (object) ['venue' => 'TBA'];
+            }
             if($sched->type == 'briefingSched')
             {
                 $sched['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerAssignType.manpowerType')->with('venue')->where('job_order_id', $jo->id)->where('venue_id',$sched->venue_id)->get();

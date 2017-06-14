@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div>
     <filter-bar
       :filterSet="filterSet"
       :filterReset="filterReset"
@@ -12,7 +12,7 @@
       :sort-order="sortOrder"
       :multi-sort="true"
       :detail-row-component="detailRowComponent"
-      :append-params="moreParams"
+      :append-params="appendParams"
       @vuetable:cell-clicked="onCellClicked"
       @vuetable:row-clicked="onRowClicked"
       @vuetable:pagination-data="onPaginationData"
@@ -46,6 +46,11 @@
       VuetablePaginationInfo,
       FilterBar
     },
+    computed: {
+      appendParams: function () {
+        return this.moreParams;
+      }
+    },
     data: function () {
       return {
         css: {
@@ -68,7 +73,6 @@
             last: 'glyphicon glyphicon-step-forward',
           },
         },
-        moreParams: {},
         sortOrder: [
           { field: 'id', direction: 'asc'}
         ],
@@ -77,8 +81,11 @@
     methods: {
       convertDate (dateVal) {
         var milliseconds = Date.parse(dateVal);
-        var d = new Date(milliseconds);
-        return d.toDateString();
+        if(milliseconds > 0) {
+          var d = new Date(milliseconds);
+          return d.toDateString();
+        }
+        return 'NA';
       },
       getAssignedPerson (val) {
         var person = [];
@@ -88,13 +95,11 @@
         return person.join(', ');
       },
       filterSet (filterText) {
-        this.moreParams = {
-          filter: filterText
-        },
+        this.appendParams.filter = filterText,
         Vue.nextTick( () => this.$refs.vuetableInventory.refresh() )
       },
       filterReset () {
-        this.moreParams = {},
+        this.appendParams.filter = {},
         Vue.nextTick( () => this.$refs.vuetableInventory.refresh() )
       },
       onCellClicked (data, field, event) {
@@ -108,6 +113,9 @@
         this.$refs.paginationInfo.setPaginationData(paginationData);
       },
     },
+    mounted: function () {
+
+    },
     props: {
       apiUrl: {
         default: '',
@@ -120,6 +128,10 @@
       fields: {
         default: function () { return [] },
         type: Array
+      },
+      moreParams: {
+        default: function () { return {} },
+        type: Object
       },
       onRowClicked: {
         default: function () {},

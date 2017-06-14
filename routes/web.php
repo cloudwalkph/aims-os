@@ -101,10 +101,22 @@ Route::group(['prefix' => 'setup'], function () {
 
 Route::group(['prefix' => 'productions'], function () {
     Route::get('/', 'Front\Productions\ProductionsController@index');
+    Route::get('/references', 'Front\Productions\ProductionsController@references');
+
+    Route::group(['prefix' => 'jo'], function () {
+        Route::get('/', 'Front\Productions\ProductionsController@jos');
+        Route::get('/details/{joNo}', 'Front\Productions\ProductionsController@show');
+        Route::get('/jolist/details/print/tarpaulin/costing/{joNo}', 'Front\Productions\ProductionsController@costing');
+
+    });
 });
 
 Route::group(['prefix' => 'operations'], function () {
     Route::get('/', 'Front\Operations\OperationsController@index');
+    Route::get('/schedules', 'Front\Operations\SchedulerController@index');
+    Route::get('/job-orders', 'Front\Operations\JobOrderController@index');
+    Route::get('/project-monitors', 'Front\Operations\ProjectMonitorController@index');
+    Route::get('/official-business', 'Front\Operations\OfficialBusinessController@index');
 });
 
 Route::group(['prefix' => 'users'], function () {

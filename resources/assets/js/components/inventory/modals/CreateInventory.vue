@@ -63,20 +63,6 @@
     module.exports = {
         data: function () {
             return {
-              categoryOptions: [
-                {
-                  label: 'T Shirt',
-                  value: 'tshirt',
-                },
-                {
-                  label: 'Sandals',
-                  value: 'sandals',
-                },
-                {
-                  label: 'Pantalon',
-                  value: 'pants',
-                },
-              ],
               categorySelected: null,
               event_datetime: '',
               joOptions: [],
@@ -98,19 +84,38 @@
               statusSelected: null
             }
         },
+        computed: {
+          categoryOptions: function() {
+            return [
+              {
+                label: 'T Shirt',
+                value: 'tshirt',
+              },
+              {
+                label: 'Sandals',
+                value: 'sandals',
+              },
+              {
+                label: 'Pantalon',
+                value: 'pants',
+              },
+            ];
+          }
+        },
         methods: {
             handleSubmit: function (e) {
                 var form = $(e.target)[0];
 
                 var formData = new FormData(form);
 
-                formData.append('job_order_id', this.joSelected);
+                if(this.joSelected) {
+                  formData.append('job_order_id', this.joSelected);
+                }
                 formData.append('category', this.categorySelected);
                 formData.append('status', this.statusSelected);
 
                 this.$http.post('api/v1/inventory', formData)
                     .then(function (response) {
-                        this.propData.internalInventory.push(formData);
                         $('#modalCreateInventory').modal('hide');
                         form.reset();
                         this.refreshVuetable();

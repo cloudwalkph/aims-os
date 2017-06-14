@@ -37,15 +37,17 @@ class InventoryDeliveriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $user = $request->user();
         $delivery_data = array(
           'user_id' => $user->id,
           'product_id' => $request->product_id,
           'delivery_quantity' => $request->delivery_quantity,
           'delivery_date' => date('Y-m-d H:i:s', strtotime($request->delivery_date)),
+          'delivery_report' => $request->delivery_report,
         );
         $delivery = InventoryDeliveries::create($delivery_data);
+
+        return response()->json($delivery, 201);
     }
 
     /**
@@ -54,7 +56,7 @@ class InventoryDeliveriesController extends Controller
      * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
      * @return \Illuminate\Http\Response
      */
-    public function show(InventoryDeliveries $inventoryDeliveries)
+    public function show($id)
     {
         //
     }
@@ -65,7 +67,7 @@ class InventoryDeliveriesController extends Controller
      * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
      * @return \Illuminate\Http\Response
      */
-    public function edit(InventoryDeliveries $inventoryDeliveries)
+    public function edit($id)
     {
         //
     }
@@ -77,9 +79,12 @@ class InventoryDeliveriesController extends Controller
      * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InventoryDeliveries $inventoryDeliveries)
+    public function update(Request $request, $id)
     {
-        //
+        $delivery_data = [
+            'delivery_quantity' => $request->delivery_quantity
+        ];
+        InventoryDeliveries::find($id)->update($delivery_data);
     }
 
     /**
@@ -88,8 +93,8 @@ class InventoryDeliveriesController extends Controller
      * @param  \App\Models\InventoryDeliveries  $inventoryDeliveries
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InventoryDeliveries $inventoryDeliveries)
+    public function destroy($id)
     {
-        //
+        InventoryDeliveries::destroy($id);
     }
 }

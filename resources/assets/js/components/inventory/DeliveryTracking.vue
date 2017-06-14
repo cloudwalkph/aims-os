@@ -14,14 +14,16 @@
         >
             <div
                 style="margin-top: 20px;"
-                v-for="(product, indexTrace) in products"
+                v-for="(product, prodIndex) in products"
                 :key="product.id"
             >
               <form
+                id="DeliveryTrackingForm"
+                name="DeliveryTrackingForm"
                 @submit.prevent="handleSubmit"
-                :productId="product.id"
-                :workIndex="indexTrace"
               >
+                <input type="hidden" name="product_id" :value="product.id" />
+                <input type="hidden" name="prodIndex" :value="prodIndex" />
                 <label htmlFor="itemname" class="col-sm-3 control-label">
                     Item Name: {{product.item_name}}
                 </label>
@@ -35,6 +37,7 @@
                     <thead>
                         <tr>
                             <th>Actual Delivery Date</th>
+                            <th>DR</th>
                             <th>Delivered</th>
                             <th>Balance Needed</th>
                             <th>Actions</th>
@@ -49,6 +52,7 @@
                           v-if="d.product_id == product.id"
                         >
                             <td>{{convertDate(d.delivery_date)}}</td>
+                            <td>{{d.delivery_report}}</td>
                             <td>{{d.delivery_quantity}}</td>
                             <td>{{balance(product, indexD)}}</td>
                             <td class="text-center">
@@ -57,9 +61,13 @@
                                 type="button"
                                 data-toggle="modal"
                                 data-target="#modalUpdateDelivery"
-                                @click="onModalClick(indexTrace, indexD)"
+                                @click="onModalClick(prodIndex, indexD)"
                               ><i class="glyphicon glyphicon-pencil"></i></button>
-                              <button type="button" class="btn btn-sm" @click="removeDelivery(product, indexD)"><i class="glyphicon glyphicon-trash"></i></button>
+                              <button
+                                type="button"
+                                class="btn btn-sm"
+                                @click="removeDelivery(product.deliveries, indexD)"
+                              ><i class="glyphicon glyphicon-trash"></i></button>
                             </td>
                         </tr>
 
@@ -69,8 +77,9 @@
                                     <div class="input-group date datetimepickerDelivery">
                                         <input
                                           class="form-control"
-                                          name="datetimeDelivery"
+                                          name="delivery_date"
                                           type="text"
+                                          required="required"
                                         />
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
@@ -79,10 +88,19 @@
                                 </div>
                             </td>
                             <td>
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="delivery_report"
+                                required="required"
+                              />
+                            </td>
+                            <td>
                                 <input
                                   type="text"
                                   class="form-control"
-                                  name="deliveryVal"
+                                  name="delivery_quantity"
+                                  required="required"
                                 />
                             </td>
                             <td><span></span></td>
@@ -103,7 +121,7 @@
         <iframe name="inventoryDeliveryFrame" :src="frameSrc" style="width:0; height:0"></iframe>
 
         <div class="modal fade" id="modalUpdateDelivery" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -123,7 +141,7 @@
                                 <div class="col-md-12 form-group text-input-container">
                                     <label class="control-label">Delivery Quantity</label>
                                     <input
-                                      type="text"
+                                      type="number"
                                       name="delivery_quantity"
                                       id="delivery_quantity"
                                       placeholder="delivery quantity"
@@ -174,21 +192,14 @@
                 return d.toDateString();
             },
             handleSubmit: function (e) {
-              var form = $(e.target)[0];
-              var workIndex = e.target.getAttribute('workIndex');
-              var product_id = e.target.getAttribute('productId');
-              var delivered_quantity = form.deliveryVal.value;
+              var form = e.target;
+              var formData = new FormData(form);
+              var productIndex = formData.get('prodIndex');
 
-              var postData = {
-                product_id: product_id,
-                delivery_quantity: delivered_quantity,
-                delivery_date: form.datetimeDelivery.value,
-              }
-
-              this.$http.post('api/v1/inventory/delivery', postData)
+              this.$http.post('api/v1/inventory/delivery', formData)
                 .then(function (response) {
                   form.reset();
-                  this.products[workIndex].deliveries.push(postData);
+                  this.products[productIndex].deliveries.push(response.data);
                 })
                 .catch(function (e) {
                   console.log('error post inventory delivery', e);
@@ -199,15 +210,36 @@
                 $('input[name="deliveryIndex"]').val(indexDelivery);
             },
             editDelivery: function(e) {
-                var form = $(e.target)[0];
-                var productIndex = form.productIndex.value;
-                var deliveryIndex = form.deliveryIndex.value;
-                this.products[productIndex].deliveries[deliveryIndex].delivery_quantity = form.delivery_quantity.value;
+                var form = e.target;
+                var formData = new FormData(form);
+                var productIndex = formData.get('productIndex');
+                var deliveryIndex = formData.get('deliveryIndex');
+
+                formData.set('_method', 'PUT');
+
+                this.$http.post('api/v1/inventory/delivery/' + this.products[productIndex].deliveries[deliveryIndex].id, formData)
+                  .then(function (response) {
+                    this.products[productIndex].deliveries[deliveryIndex].delivery_quantity = formData.get('delivery_quantity');
+                  })
+                  .catch(function (e) {
+                    console.log('error edit inventory delivery', e);
+                  });
+
                 $('#modalUpdateDelivery').modal('hide');
                 form.reset();
             },
-            removeDelivery: function (product, index) {
-                product.deliveries.splice(index, 1);
+            removeDelivery: function (deliveries, index) {
+              var data = {
+                _method: 'DELETE'
+              }
+              this.$http.post('api/v1/inventory/delivery/' + deliveries[index].id, data)
+                .then(function (response) {
+                  deliveries.splice(index, 1);
+                })
+                .catch(function (e) {
+                  console.log('error delete inventory delivery', e);
+                });
+
             },
         },
         mounted: function () {

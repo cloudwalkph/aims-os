@@ -7,10 +7,11 @@
     		<input id="jobOrderIdNumber" value="{{$joId}}" type="hidden"/>
     		<pooling-content 
     			data="{{$jobOrder}}" 
-    			jo-event="{{$joEvent}}">
+    			jo-event="{{$joEvent}}"
+                ae-event="{{$aeEvent}}">
     		</pooling-content>
     	</div>
     </div>
 
-    <iframe name="finalDeploymentFrame" src="/hr/finalDeployment/{{$jobOrder}}" style="width:0;height:0"></iframe>
+    <iframe name="finalDeploymentFrame" id="finalDepFrameId" src="/hr/finalDeployment/{{$jobOrder}}" style="width:0;height:0"></iframe>
 @endsection

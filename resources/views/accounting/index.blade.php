@@ -160,12 +160,17 @@
 
                             @endif
 
-                            <td>
+                            <td style="text-align: center;">
                                 @if( $jo['remarks'] != null )
-                                    <p>{{ $jo['remarks']  }}</p>
+                                    <button type="button" class="btn btn-info btnRemarks" style="width:60%;" data-toggle="modal" data-target="#remarksModal" title="{{ $jo['remarksFull'] }}">
+                                        {{ $jo['remarks'].'...' }}
+                                    </button>
+                                    <button class="btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks"><icon class="glyphicon glyphicon-pencil"></icon></button>
+                                @else
+                                    <button class="btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks"><icon class="glyphicon glyphicon-plus"></icon></button>
                                 @endif
 
-                                <button class="btn btn-primary btnForRemarks" value="{{$jo['joId']}}" data-toggle="modal" data-target="#modalRemarks">Remarks</button>
+
 
                             </td>
                         </tr>
@@ -178,6 +183,20 @@
 
     {{--modal--}}
 
+    <div class="modal fade" id="remarksModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 id="modal-title" class="modal-title">Remarks</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="textForRemarks"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{--CE--}}
     <div class="modal fade" id="modalDoc" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
@@ -188,12 +207,12 @@
                     <input type="hidden" id="documentsType" name="docType" value="">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Upload CE</h4>
+                        <h4 id="modal-title" class="modal-title"></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="text" name="doc_number" id="ce_number" class="form-control" placeholder="CE Number">
+                                <input type="text" name="doc_number" id="ce_number" class="form-control">
                             </div>
                         </div>
                         <div class="row">
@@ -280,9 +299,28 @@
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
     <script>
+
         $('.btnForDocUpload').on('click', function(){
             var jid = $(this).val();
             var doc = $(this).attr('alt');
+
+            if( doc == 'ce' ){
+
+                $('#modal-title').text('Upload CE');
+                $('#ce_number').attr("placeholder", "CE number");
+
+            }else if( doc == 'do' ){
+
+                $('#modal-title').text('Upload DO');
+                $('#ce_number').attr("placeholder", "DO number");
+
+            }else if( doc == 'invoice' ){
+
+                $('#modal-title').text('Upload Invoice');
+                $('#ce_number').attr("placeholder", "Invoice number");
+
+            }
+
             $('#joID').val(jid);
             $('#documentsType').val(doc);
         });
@@ -327,6 +365,17 @@
             } );
 
         } );
+
+        $('.btnRemarks').on('click', function () {
+            var remarkText = $(this).attr('title');
+
+            console.log(remarkText);
+
+            $('p#textForRemarks').val('');
+
+            $('p#textForRemarks').text(remarkText);
+        });
+
     </script>
 
 

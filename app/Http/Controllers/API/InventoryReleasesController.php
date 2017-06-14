@@ -37,7 +37,6 @@ class InventoryReleasesController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $user = $request->user();
         $release_data = array(
           'user_id' => $user->id,
@@ -47,6 +46,7 @@ class InventoryReleasesController extends Controller
           'release_date' => date('Y-m-d H:i:s', strtotime($request->release_date)),
         );
         $release = InventoryReleases::create($release_data);
+        return response()->json($release, 201);
     }
 
     /**
@@ -55,7 +55,7 @@ class InventoryReleasesController extends Controller
      * @param  \App\InventoryReleases  $inventoryReleases
      * @return \Illuminate\Http\Response
      */
-    public function show(InventoryReleases $inventoryReleases)
+    public function show($id)
     {
         //
     }
@@ -66,7 +66,7 @@ class InventoryReleasesController extends Controller
      * @param  \App\InventoryReleases  $inventoryReleases
      * @return \Illuminate\Http\Response
      */
-    public function edit(InventoryReleases $inventoryReleases)
+    public function edit($id)
     {
         //
     }
@@ -78,9 +78,13 @@ class InventoryReleasesController extends Controller
      * @param  \App\InventoryReleases  $inventoryReleases
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InventoryReleases $inventoryReleases)
+    public function update(Request $request, $id)
     {
-        //
+      $data = [
+          'dispose_quantity' => $request->dispose_quantity,
+          'return_quantity' => $request->return_quantity,
+      ];
+      InventoryReleases::find($id)->update($data);
     }
 
     /**
@@ -89,8 +93,8 @@ class InventoryReleasesController extends Controller
      * @param  \App\InventoryReleases  $inventoryReleases
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InventoryReleases $inventoryReleases)
+    public function destroy($id)
     {
-        //
+        InventoryReleases::destroy($id);
     }
 }

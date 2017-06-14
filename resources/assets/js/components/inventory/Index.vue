@@ -148,15 +148,6 @@
                             user_id: 0
                         }
                     ],
-                    internalInventory: [
-                        {
-                            id: 0,
-                            job_order_id: 0,
-                            product_code: 'product_code',
-                            name: 'Product Name',
-                            expiration_date: '2017-05-25'
-                        },
-                    ]
                 }
             }
         },
@@ -252,23 +243,6 @@
                         console.log('error joinventories', e);
                     });
             },
-            getInventory: function () {
-                this.$http.get('api/v1/inventory')
-                    .then(function (response) {
-                        for (product of response.data.data) {
-                            this.inventoryData.internalInventory.push({
-                                id: product.id,
-                                job_order_id: product.job_order_id,
-                                product_code: product.product_code,
-                                name: product.name,
-                                expiration_date: product.expiration_date
-                            })
-                        }
-                    })
-                    .catch(function (e) {
-                        console.log('error inventories', e);
-                    });
-            },
             getJobOrders: function () {
                 this.$http.get('api/v1/job-orders/department')
                     .then(function (response) {
@@ -308,12 +282,10 @@
         mounted: function () {
           this.inventoryData.assignedJobs = [];
           // this.inventoryData.products = [];
-          // this.inventoryData.internalInventory = [];
           // this.inventoryData.jobOrders = [];
           // this.inventoryData.inventoryJobs = [];
           // this.inventoryData.users = [];
           this.getAssignedJob();
-          // this.getInventory();
           // this.getJob();
           // this.getJobOrders();
           // this.getJOInventory();
