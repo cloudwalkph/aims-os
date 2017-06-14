@@ -24,9 +24,8 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>Template Name</th>
-                        <th>Reference Type</th>
-                        <th class="text-center">Download Template</th>
+                        <th>Name</th>
+                        <th>Reference for</th>
                         <th class="text-center">Download Reference</th>
                     </tr>
                     </thead>
@@ -36,12 +35,8 @@
                         <td>Minutes of the Meeting Template</td>
                         <td>Internal</td>
                         <td class="text-center">
-                            <a href="/productions/references/mom.doc/download" role="button" class="btn btn-primary">
-                                <i class="fa fa-download fa-lg"></i> Download
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="/productions/references/mom.doc/download" role="button" class="btn btn-primary">
+                            <a href="#" role="button" class="btn btn-primary">
+                            {{--<a href="/productions/references/mom.doc/download" role="button" class="btn btn-primary">--}}
                                 <i class="fa fa-download fa-lg"></i> Download
                             </a>
                         </td>
@@ -50,12 +45,8 @@
                         <td>Presentation Template</td>
                         <td>Internal</td>
                         <td class="text-center">
-                            <a href="/productions/references/amg.ppt/download" role="button" class="btn btn-primary">
-                                <i class="fa fa-download fa-lg"></i> Download
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="/productions/references/amg.ppt/download" role="button" class="btn btn-primary">
+                            <a href="#" role="button" class="btn btn-primary">
+                            {{--<a href="/productions/references/amg.ppt/download" role="button" class="btn btn-primary">--}}
                                 <i class="fa fa-download fa-lg"></i> Download
                             </a>
                         </td>
@@ -64,12 +55,8 @@
                         <td>Ocular Template</td>
                         <td>Internal</td>
                         <td class="text-center">
-                            <a href="/productions/references/ocular.pptx/download" role="button" class="btn btn-primary">
-                                <i class="fa fa-download fa-lg"></i> Download
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="/productions/references/ocular.pptx/download" role="button" class="btn btn-primary">
+                            <a href="#" role="button" class="btn btn-primary">
+                            {{--<a href="/productions/references/ocular.pptx/download" role="button" class="btn btn-primary">--}}
                                 <i class="fa fa-download fa-lg"></i> Download
                             </a>
                         </td>
@@ -78,12 +65,8 @@
                         <td>Material Checklist Template</td>
                         <td>Internal</td>
                         <td class="text-center">
-                            <a href="/productions/references/checklist.xlsx/download" role="button" class="btn btn-primary">
-                                <i class="fa fa-download fa-lg"></i> Download
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="/productions/references/checklist.xlsx/download" role="button" class="btn btn-primary">
+                            <a href="#" role="button" class="btn btn-primary">
+                            {{--<a href="/productions/references/checklist.xlsx/download" role="button" class="btn btn-primary">--}}
                                 <i class="fa fa-download fa-lg"></i> Download
                             </a>
                         </td>
