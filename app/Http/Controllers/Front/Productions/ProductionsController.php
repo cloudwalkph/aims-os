@@ -54,4 +54,13 @@ class ProductionsController extends Controller
         return view('productions.references');
     }
 
+    public function costing($joNo){
+        config(['app.name' => 'Productions | AIMS']);
+
+        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNo)->first();
+
+        return view('productions.jolist.details.print.tarpaulin.costing')
+        ->with('jo', $jo);
+    }
+
 }

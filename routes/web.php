@@ -106,7 +106,7 @@ Route::group(['prefix' => 'productions'], function () {
     Route::group(['prefix' => 'jo'], function () {
         Route::get('/', 'Front\Productions\ProductionsController@jos');
         Route::get('/details/{joNo}', 'Front\Productions\ProductionsController@show');
-        Route::get('/costing', 'Front\Productions\ProductionsController@costing');
+        Route::get('/jolist/details/print/tarpaulin/costing/{joNo}', 'Front\Productions\ProductionsController@costing');
 
     });
 });
