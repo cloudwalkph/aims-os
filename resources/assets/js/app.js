@@ -83,6 +83,8 @@ Vue.component('discussions', require('./components/job-orders/discussion/discuss
 
 Vue.component('operations-jo-table', require('./components/operations/job-order/job-order-table.vue'));
 
+Vue.component('operations-departments-jo-table', require('./components/operations/departments/jo-table.vue'));
+
 require('./components/inventory');
 
 
