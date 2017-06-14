@@ -635,3 +635,8 @@ table tbody tr {
 .venue-stat ul li span {
     font-weight: 600;
 }
+
+#staging, #shirts, #photowall, #booth, #offset, #stickers, #tarpaulin{
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
