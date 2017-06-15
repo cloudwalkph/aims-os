@@ -5,7 +5,7 @@
                 @include('productions.common.supplier')
             </div>
             <div class="box-body">
-                <table class="table table-striped" border="1">
+                <table class="table table-striped" border="1" id="tbl-booth">
                     <thead>
                         <tr>
                             <th class="text-center">Description</th>
@@ -16,6 +16,7 @@
                     </thead>
                     <tbody>
                         <tr>
+                            <td class="hidden"> </td>
                             <td> </td>
                             <td> </td>
                             <td> </td>
