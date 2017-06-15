@@ -277,4 +277,38 @@ class JobOrdersController extends Controller {
 
         return response()->json($detail, 200);
     }
+
+    public function calendar()
+    {
+        $jos = JobOrder::with('joDetail')->get();
+
+        $events = [];
+        foreach ($jos as $jo) {
+            $color = null;
+            switch ($jo->status) {
+                case 'pending':
+                    $color = '#f0ad4e';
+                    break;
+                case 'cancelled':
+                    $color = '#f05c4e';
+                    break;
+                case 'completed':
+                    $color = '#51b00f';
+                    break;
+                default:
+                    $color = '#f0ad4e';
+            }
+
+            if( isset($jo->joDetail->when) ) {
+                $events[] = [
+                    'id'    => $jo->id,
+                    'title' => $jo->project_name. " - {$jo->status}",
+                    'date' => $jo->joDetail->when,
+                    'color' => $color
+                ];
+            }
+        }
+
+        return response()->json($events, 200);
+    }
 }

@@ -25,7 +25,7 @@
             {{-- breadcrumb end --}}
 
 
-            <scheduler></scheduler>
+            <ops-scheduler></ops-scheduler>
         </div>
     </div>
 @endsection
