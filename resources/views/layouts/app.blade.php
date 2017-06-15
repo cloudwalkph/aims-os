@@ -48,9 +48,10 @@
             window.token = '{{ session('token') }}'
         </script>
     @endif
+    @yield('styles')
+    <script src="//localhost:6001/socket.io/socket.io.js"></script>
 </head>
 <body>
-    @yield('styles')
     <div id="app">
         <nav class="navbar navbar-default topbar" role="navigation">
             <div class="navbar-header">
@@ -159,6 +160,27 @@
             "hideMethod": "fadeOut"
         }
     </script>
+    @if (! Auth::guest())
+    <script>
+        let userId = '{{ Auth::user()->id }}';
+//        console.log(userId);
+        (function() {
+            let notifSound = new Audio('/sounds/notification.mp3');
+            Echo.private('App.User.' + userId)
+                .notification((notification) => {
+                    console.log(notification.type);
+
+                    notifSound.play();
+                    switch (notification.type) {
+                        case 'App\\Notifications\\NewJobOrderAssignment':
+                            toastr.info(`The Job Order ${notification.job_order_no} has been assigned to your department`);
+                            break;
+                    }
+                });
+        })();
+    </script>
+    @endif
+
     @yield('scripts')
 </body>
 </html>
