@@ -124,10 +124,12 @@ Route::group(['prefix' => 'operations'], function () {
     Route::get('/inventory', 'Front\Operations\DepartmentsController@inventory');
     Route::get('/production', 'Front\Operations\DepartmentsController@production');
     Route::get('/setup', 'Front\Operations\DepartmentsController@setup');
+    Route::get('/activations', 'Front\Operations\DepartmentsController@activations');
 
     Route::group(['prefix' => 'job-orders'], function () {
         Route::get('/', 'Front\Operations\JobOrderController@index');
         Route::get('/{joNo}', 'Front\Operations\JobOrderController@show');
+        Route::post('/{joNo}', 'Front\Operations\JobOrderController@assign');
 
     });
 });
