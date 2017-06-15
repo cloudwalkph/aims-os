@@ -47,8 +47,6 @@
                     <i class="fa fa-plus"></i> Assign Project Manager
                 </button>
 
-                <div class="clearfix"></div>
-
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>

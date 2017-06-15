@@ -43,7 +43,7 @@ class JobOrderController extends Controller
             ->join('departments', 'departments.id', '=', 'users.department_id')
             ->select('job_order_add_users.*', 'departments.name as department',
                 \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as user_name'))
-            ->where('users.department_id', '=', '11')->get();
+            ->where('users.department_id', '=', '11')->where('job_order_id', '=', $jo->id)->get();
 
         $users = User::where('department_id', '=', 11)->get();
 

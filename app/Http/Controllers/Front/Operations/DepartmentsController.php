@@ -18,6 +18,7 @@ use App\Models\JobOrderVehicle;
 use App\Models\ManpowerType;
 use App\Models\MealType;
 use App\Models\VehicleType;
+use App\User;
 use Illuminate\Http\Request;
 
 class DepartmentsController extends Controller
@@ -51,5 +52,21 @@ class DepartmentsController extends Controller
         config(['app.name' => 'Operations | AIMS']);
 
         return view('operations.departments.setup.index');
+    }
+
+    public function activations()
+    {
+        config(['app.name' => 'Operations | AIMS']);
+
+        $assigned = \DB::table('job_order_add_users')->join('users', 'users.id', '=', 'job_order_add_users.user_id')
+            ->join('user_profiles', 'user_profiles.user_id', '=', 'job_order_add_users.user_id')
+            ->join('departments', 'departments.id', '=', 'users.department_id')
+            ->select('job_order_add_users.*', 'departments.name as department',
+                \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as user_name'))
+            ->where('users.department_id', '=', '11')->get();
+
+        $users = User::where('department_id', '=', 11)->get();
+
+        return view('operations.departments.activations.index', compact('assigned', 'users'));
     }
 }
