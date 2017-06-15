@@ -101,10 +101,11 @@ class JobOrdersController extends Controller {
         }
 
         $query->join('job_orders', 'job_orders.id', '=', 'job_order_department_involved.job_order_id')
-            ->join('user_profiles', 'user_profiles.user_id', '=', 'job_orders.user_id')
+            ->join('assignments', 'assignments.job_order_id', '=', 'job_orders.id')
+            ->join('user_profiles', 'user_profiles.user_id', '=', 'assignments.user_id')
             ->groupBy('job_orders.id', 'user_profiles.last_name', 'user_profiles.first_name')
             ->select('job_orders.*', \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as created_by'))
-            ->where('department_id', '=', $departmentId);
+            ->where('assignments.department_id', '=', $departmentId);
 
         // Filter
         if ($request->has('filter')) {
