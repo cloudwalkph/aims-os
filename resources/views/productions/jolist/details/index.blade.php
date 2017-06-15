@@ -62,7 +62,7 @@
                                 <li><a href="#shirts" data-toggle="tab">Shirts</a></li>
                                 <li><a href="#staging" data-toggle="tab">Event Staging Requirements</a></li>
                             </ul>
-                            <div class="tab-content">
+                            <div class="tab-content productions">
                                 @include('productions.jolist.details.print.tarpaulin.index')
                                 @include('productions.jolist.details.print.stickers.index')
                                 @include('productions.jolist.details.print.offset.index')

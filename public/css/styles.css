@@ -494,7 +494,7 @@ table tbody tr {
     border-top: 1px solid #ccc;
 }
 
-.table{
+.productions .table{
     width: 90%;
     margin-left: 60px;
 }

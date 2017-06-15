@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filter-bar></filter-bar>
+        <production-filter-bar></production-filter-bar>
         <vuetable ref="vuetable"
                   api-url="/api/v1/job-orders"
                   :fields="fields"
@@ -36,8 +36,8 @@
     import FilterBar from './commons/FilterBar'
 
     Vue.use(VueEvents)
-    Vue.component('jo-custom-actions', CustomActions)
-    Vue.component('filter-bar', FilterBar)
+    Vue.component('production-custom-actions', CustomActions)
+    Vue.component('production-filter-bar', FilterBar)
 
     export default {
         components: {
@@ -90,7 +90,7 @@
                         callback: 'lowercap'
                     },
                     {
-                        name: '__component:jo-custom-actions',
+                        name: '__component:production-custom-actions',
                         title: 'Actions',
                         titleClass: 'text-center',
                         dataClass: 'text-center'
