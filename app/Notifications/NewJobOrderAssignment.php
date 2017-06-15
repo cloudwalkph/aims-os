@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
@@ -13,6 +14,7 @@ class NewJobOrderAssignment extends Notification implements ShouldQueue
     use Queueable;
 
     protected $jo;
+    protected $currentDateTime;
 
     /**
      * Create a new notification instance.
@@ -22,6 +24,7 @@ class NewJobOrderAssignment extends Notification implements ShouldQueue
     public function __construct($jo)
     {
         $this->jo = $jo;
+        $this->currentDateTime = Carbon::today('Asia/Manila')->toDateTimeString();
     }
 
     /**
@@ -32,22 +35,25 @@ class NewJobOrderAssignment extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['broadcast'];
+        return ['broadcast', 'database'];
     }
 
     /**
-     * Get the broadcastable representation of the notification.
+     * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return BroadcastMessage
+     * @return array
      */
-    public function toBroadcast($notifiable)
+    public function toArray($notifiable)
     {
-        return new BroadcastMessage([
-            'job_order_id' => $this->jo->id,
-            'job_order_no' => $this->jo->job_order_no,
-            'project_name'  => $this->jo->project_name
-        ]);
+        return [
+            'job_order_id'  => $this->jo->id,
+            'job_order_no'  => $this->jo->job_order_no,
+            'project_name'  => $this->jo->project_name,
+            'status'        => 'unread',
+            'message'       => 'The Job Order '.$this->jo->job_order_no.' has been assigned to your department',
+            'timestamp'     => $this->currentDateTime
+        ];
     }
 
     /**
@@ -62,18 +68,5 @@ class NewJobOrderAssignment extends Notification implements ShouldQueue
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
     }
 }

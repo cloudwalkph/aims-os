@@ -53920,8 +53920,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_4_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_5_vue_events___default.a);
-__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('jo-custom-actions', __WEBPACK_IMPORTED_MODULE_6__commons_CustomActions___default.a);
-__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('filter-bar', __WEBPACK_IMPORTED_MODULE_7__commons_FilterBar___default.a);
+__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('production-custom-actions', __WEBPACK_IMPORTED_MODULE_6__commons_CustomActions___default.a);
+__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('production-filter-bar', __WEBPACK_IMPORTED_MODULE_7__commons_FilterBar___default.a);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
@@ -53966,7 +53966,7 @@ __WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('filter-bar', __WEBPACK_IM
                 title: 'Status',
                 callback: 'lowercap'
             }, {
-                name: '__component:jo-custom-actions',
+                name: '__component:production-custom-actions',
                 title: 'Actions',
                 titleClass: 'text-center',
                 dataClass: 'text-center'
@@ -116532,7 +116532,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('filter-bar'), _vm._v(" "), _c('vuetable', {
+  return _c('div', [_c('production-filter-bar'), _vm._v(" "), _c('vuetable', {
     ref: "vuetable",
     attrs: {
       "api-url": "/api/v1/job-orders",
