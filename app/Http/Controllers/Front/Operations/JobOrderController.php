@@ -43,4 +43,11 @@ class JobOrderController extends Controller
 
         return view('operations.joborder.index');
     }
+
+    public function show($joId)
+    {
+        config(['app.name' => 'Operations | AIMS']);
+
+        return view('operations.joborder.details');
+    }
 }

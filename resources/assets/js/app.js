@@ -21,6 +21,8 @@ Vue.component('scheduler', require('./components/CalendarScheduler.vue'));
 
 Vue.component('admin-scheduler', require('./components/AdminCalendarScheduler.vue'));
 
+Vue.component('ops-scheduler', require('./components/OpsCalendarScheduler.vue'));
+
 Vue.component('clients-table', require('./components/clients/clients-table.vue'));
 
 Vue.component('jo-table', require('./components/job-orders/jo-table.vue'));
@@ -84,6 +86,8 @@ Vue.component('discussions', require('./components/job-orders/discussion/discuss
 Vue.component('operations-jo-table', require('./components/operations/job-order/job-order-table.vue'));
 
 Vue.component('operations-departments-jo-table', require('./components/operations/departments/jo-table.vue'));
+
+Vue.component('ob-table', require('./components/operations/ob/ob-table.vue'));
 
 require('./components/inventory');
 

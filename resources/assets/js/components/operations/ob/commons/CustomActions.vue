@@ -1,6 +1,7 @@
 <template>
     <div class="custom-actions">
-        <button class="btn btn-sm" @click="itemAction('view-item', rowData, rowIndex)"><i class="glyphicon glyphicon-zoom-in"></i> View</button>
+        <button class="btn btn-sm btn-success" @click="itemAction('accept-item', rowData, rowIndex)"><i class="fa fa-check"></i></button>
+        <button class="btn btn-sm btn-danger" @click="itemAction('reject-item', rowData, rowIndex)"><i class="fa fa-remove"></i></button>
     </div>
 </template>
 
@@ -19,9 +20,6 @@
             itemAction (action, data, index) {
                 console.log('custom-actions: ' + action, data.id, index)
 
-                if (action === 'view-item') {
-                    location.href = `/operations/job-orders/${data.job_order_no}`;
-                }
                 
             }
         }

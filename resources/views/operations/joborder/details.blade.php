@@ -1,9 +1,5 @@
 @extends('layouts.admin')
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('vendor/fullcalendar/fullcalendar.min.css') }}">
-@endsection
-
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -17,15 +13,17 @@
                     <li>
                         <a href="/operations"><i class="fa fa-dashboard"></i> Operations Department</a>
                     </li>
+                    <li>
+                        <a href="/operations/job-orders"><i class="fa fa-file-text-o"></i> Job Order Lists</a>
+                    </li>
                     <li class="active">
-                        <i class="fa fa-calendar"></i> Schedules
+                        <i class="fa fa-list-ul"></i> Job Order Details
                     </li>
                 </ol>
             </div>
             {{-- breadcrumb end --}}
 
 
-            <ops-scheduler></ops-scheduler>
         </div>
     </div>
 @endsection

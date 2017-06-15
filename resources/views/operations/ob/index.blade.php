@@ -21,29 +21,7 @@
             {{-- breadcrumb end --}}
 
             <div class="col-md-12">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Department</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Jane Doe</td>
-                            <td>Setup</td>
-                            <td>June 15, 2017</td>
-                            <td>pending</td>
-                            <td>
-                                <button type="button" class="btn btn-success"><i class="fa fa-check"></i> Approve</button>
-                                <button type="button" class="btn btn-danger"><i class="fa fa-remove"></i> Reject</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <ob-table></ob-table>
             </div>
 
         </div>
