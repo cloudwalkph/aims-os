@@ -167,6 +167,14 @@
                             createNotificationItem(notification);
                             checkNotification();
                             break;
+
+                        case 'App\\Notifications\\JobOrderUpdated':
+                            toastr.info(notification.message);
+                            newNotifications++;
+
+                            createNotificationItem(notification);
+                            checkNotification();
+                            break;
                     }
                 });
 
@@ -189,7 +197,7 @@
 
             function createNotificationItem(notification) {
                 let item = '<li>' +
-                    '<a href="#">' +
+                    '<a href="/job-orders/'+notification.job_order_no+'">' +
                         notification.message +
                     '</a>' +
                 '</li>';
