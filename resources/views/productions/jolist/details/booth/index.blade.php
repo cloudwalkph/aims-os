@@ -17,10 +17,17 @@
                     <tbody>
                         <tr>
                             <td class="hidden"> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td>Quantum photobooth</td>
+                            <td>photobooth.zip</td>
+                            <td>3</td>
+                            <td>Sintra, wood, nails and paint</td>
+                        </tr>
+                        <tr>
+                            <td class="hidden"> </td>
+                            <td>Photolive photobooth</td>
+                            <td>photolive.zip</td>
+                            <td>3</td>
+                            <td>Sintra, wood, nails and paint</td>
                         </tr>
                     </tbody>
                 </table>

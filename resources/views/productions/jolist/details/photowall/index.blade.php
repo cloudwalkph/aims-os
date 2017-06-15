@@ -17,10 +17,17 @@
                     <tbody>
                     <tr>
                         <td class="hidden"> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
+                        <td>Plain white wallpaper</td>
+                        <td>wallpaper.zip</td>
+                        <td>100</td>
+                        <td>tarpaulin</td>
+                    </tr>
+                    <tr>
+                        <td class="hidden"> </td>
+                        <td>animated photowall</td>
+                        <td>animated-photowall.zip</td>
+                        <td>10</td>
+                        <td>Computer and projector</td>
                     </tr>
                     </tbody>
                 </table>

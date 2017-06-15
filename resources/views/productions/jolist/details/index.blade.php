@@ -82,7 +82,12 @@
 //            url: 'example.php',
             columns: {
                 identifier: [0, 'id'],
-                editable: [[1, 'visual'], [2, 'size'], [3, 'qty'], [4, 'details']]
+                editable: [
+                    [1, 'visual', 'file'],
+                    [2, 'size'],
+                    [3, 'qty', 'number'],
+                    [4, 'details']
+                ]
             }
         });
         $('#tbl-stickers').Tabledit({
@@ -90,10 +95,10 @@
             columns: {
                 identifier: [0, 'id'],
                 editable: [
-                    [1, 'description'],
-                    [2, 'visual'],
+                    [1, 'description', 'textarea', {row:4}],
+                    [2, 'visual', 'file'],
                     [3, 'size'],
-                    [4, 'qty']
+                    [4, 'qty', 'number']
                 ]
             }
         });
@@ -104,9 +109,9 @@
                 identifier: [0, 'id'],
                 editable: [
                     [1, 'description'],
-                    [2, 'visual'],
+                    [2, 'visual', 'file'],
                     [3, 'size'],
-                    [4, 'qty'],
+                    [4, 'qty', 'number'],
                     [5, 'details']
                 ]
             }
@@ -118,8 +123,8 @@
                 identifier: [0, 'id'],
                 editable: [
                     [1, 'description'],
-                    [2, 'visual'],
-                    [3, 'qty'],
+                    [2, 'visual', 'file'],
+                    [3, 'qty', 'number'],
                     [4, 'materials']
                 ]
             }

@@ -36,11 +36,19 @@
                         <tbody id="tbody-offset">
                         <tr>
                             <td class="hidden"> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td>Camera</td>
+                            <td>camera.zip</td>
+                            <td>n/a</td>
+                            <td>5</td>
+                            <td>Canon DSLR lists</td>
+                        </tr>
+                        <tr>
+                            <td class="hidden"> </td>
+                            <td>Camera Stands</td>
+                            <td>camera-stands.zip</td>
+                            <td>n/a</td>
+                            <td>5</td>
+                            <td>Canon DSLR stand lists</td>
                         </tr>
                         </tbody>
                     </table>
