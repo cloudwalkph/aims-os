@@ -8,12 +8,13 @@ use App\Models\JobOrder;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Notifications\NewJobOrderAssignment;
 use App\Traits\FilterTrait;
+use App\Traits\NotificationTrait;
 use App\Traits\SimpleEventTrait;
 use App\User;
 use Illuminate\Http\Request;
 
 class DepartmentInvolvementController extends Controller {
-    use FilterTrait, SimpleEventTrait;
+    use FilterTrait, SimpleEventTrait, NotificationTrait;
 
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -91,7 +92,7 @@ class DepartmentInvolvementController extends Controller {
             $this->createEvent($event);
 
             // Notify the department head
-            $this->notifyDepartmentHead($jo->job_order_id, $jo->department_id);
+            $this->newAssignedJobOrder($jo->job_order_id, $jo->department_id);
         });
 
         return response()->json($jo, 201);
@@ -110,25 +111,5 @@ class DepartmentInvolvementController extends Controller {
         }
 
         return response()->json($jo, 200);
-    }
-
-    private function notifyDepartmentHead($joId, $departmentId)
-    {
-        $jo = JobOrder::where('id', $joId)->first();
-
-        if (! $jo) {
-            return;
-        }
-
-        $users = User::where('department_id', $departmentId)
-            ->get();
-
-        if ($users->isEmpty()) {
-            return;
-        }
-
-        foreach ($users as $user) {
-            $user->notify(new NewJobOrderAssignment($jo));
-        }
     }
 }

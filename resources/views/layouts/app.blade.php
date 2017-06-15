@@ -158,16 +158,27 @@
                     console.log(notification.type);
                     console.log(notification);
 
+                    let message = '';
+
                     notifSound.play();
                     switch (notification.type) {
                         case 'App\\Notifications\\NewJobOrderAssignment':
-                            toastr.info(notification.message);
-                            newNotifications++;
+                            message = notification.message;
+                            break;
 
-                            createNotificationItem(notification);
-                            checkNotification();
+                        case 'App\\Notifications\\JobOrderUpdated':
+                            message = notification.message;
+                            break;
+                        case 'App\\Notifications\\NewMessageOnDiscussion':
+                            message = notification.message;
                             break;
                     }
+
+                    toastr.info(notification.message);
+                    newNotifications++;
+
+                    createNotificationItem(notification);
+                    checkNotification();
                 });
 
             $notificationMenu.on('click', function() {
@@ -189,7 +200,7 @@
 
             function createNotificationItem(notification) {
                 let item = '<li>' +
-                    '<a href="#">' +
+                    '<a href="/job-orders/'+notification.job_order_no+'">' +
                         notification.message +
                     '</a>' +
                 '</li>';

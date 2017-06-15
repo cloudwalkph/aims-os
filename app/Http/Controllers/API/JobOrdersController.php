@@ -15,11 +15,12 @@ use App\Models\JobOrderMeal;
 use App\Models\JobOrderMom;
 use App\Models\JobOrderVehicle;
 use App\Traits\FilterTrait;
+use App\Traits\NotificationTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class JobOrdersController extends Controller {
-    use FilterTrait;
+    use FilterTrait, NotificationTrait;
 
     public function all(Request $request)
     {
@@ -253,6 +254,8 @@ class JobOrdersController extends Controller {
             return response()->json(['error' => 'AE Already exists'], 400);
         }
 
+        $this->jobOrderUpdated($input['job_order_id'], $request->user());
+
         return response()->json($jo, 201);
     }
 
@@ -261,6 +264,8 @@ class JobOrdersController extends Controller {
         $input = $request->all();
         $input['job_order_id'] = $joId;
         $mom = JobOrderMom::create($input);
+
+        $this->jobOrderUpdated($joId, $request->user());
 
         return response()->json($mom, 200);
     }
@@ -275,6 +280,8 @@ class JobOrdersController extends Controller {
         }
 
         $detail = JobOrderDetail::create($input);
+
+        $this->jobOrderUpdated($joId, $request->user());
 
         return response()->json($detail, 200);
     }

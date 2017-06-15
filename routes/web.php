@@ -20,6 +20,10 @@ Auth::routes();
 Route::get('/profile', 'HomeController@profile');
 Route::post('/change-password', 'HomeController@changePassword');
 
+Route::group(['prefix' => 'job-orders'], function() {
+    Route::get('/{joNo}', 'JobOrdersController@index');
+});
+
 Route::group(['prefix' => 'ae'], function () {
     Route::get('/', 'Front\AE\AccountsExecutiveController@index');
     Route::get('schedules', 'Front\AE\AccountsExecutiveController@schedules');
