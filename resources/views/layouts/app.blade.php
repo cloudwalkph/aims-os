@@ -153,36 +153,40 @@
             let $notificationMenu = $('.notifications-menu');
             let $notificationItems = $('.notifications-menu .dropdown-menu ul');
 
-            Echo.private('App.User.' + userId)
-                .notification((notification) => {
-                    console.log(notification.type);
-                    console.log(notification);
+            try {
+                Echo.private('App.User.' + userId)
+                    .notification((notification) => {
+                        console.log(notification.type);
+                        console.log(notification);
 
-                    let message = '';
+                        let message = '';
 
-                    notifSound.play();
-                    switch (notification.type) {
-                        case 'App\\Notifications\\NewJobOrderAssignment':
-                            message = notification.message;
-                            break;
+                        notifSound.play();
+                        switch (notification.type) {
+                            case 'App\\Notifications\\NewJobOrderAssignment':
+                                message = notification.message;
+                                break;
 
-                        case 'App\\Notifications\\JobOrderUpdated':
-                            message = notification.message;
-                            break;
-                        case 'App\\Notifications\\NewMessageOnDiscussion':
-                            message = notification.message;
-                            break;
-                        case 'App\\Notifications\\AssignmentUpdated':
-                            message = notification.message;
-                            break;
-                    }
+                            case 'App\\Notifications\\JobOrderUpdated':
+                                message = notification.message;
+                                break;
+                            case 'App\\Notifications\\NewMessageOnDiscussion':
+                                message = notification.message;
+                                break;
+                            case 'App\\Notifications\\AssignmentUpdated':
+                                message = notification.message;
+                                break;
+                        }
 
-                    toastr.info(notification.message);
-                    newNotifications++;
+                        toastr.info(notification.message);
+                        newNotifications++;
 
-                    createNotificationItem(notification);
-                    checkNotification();
-                });
+                        createNotificationItem(notification);
+                        checkNotification();
+                    });
+            } catch (err) {
+                console.log(err);
+            }
 
             $notificationMenu.on('click', function() {
                 newNotifications = 0;

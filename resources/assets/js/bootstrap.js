@@ -113,11 +113,13 @@ window.axios.defaults.headers.common = {
 import Echo from "laravel-echo"
 
 try {
-    window.Echo = new Echo({
-        broadcaster: 'socket.io',
-        host: 'localhost:6001'
-        // key: 'your-pusher-key'
-    });
+    if (io) {
+        window.Echo = new Echo({
+            broadcaster: 'socket.io',
+            host: 'localhost:6001'
+            // key: 'your-pusher-key'
+        });
+    }
 } catch (err) {
     console.log('no io');
 }
