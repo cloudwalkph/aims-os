@@ -5,6 +5,7 @@ use App\Models\JobOrder;
 use App\Models\JobOrderDepartmentInvolved;
 use App\Notifications\JobOrderUpdated;
 use App\Notifications\NewJobOrderAssignment;
+use App\Notifications\NewMessageOnDiscussion;
 use App\User;
 
 trait NotificationTrait {
@@ -47,6 +48,36 @@ trait NotificationTrait {
 
             foreach ($users as $user) {
                 $user->notify(new JobOrderUpdated($jo, $initiator));
+            }
+        }
+    }
+    private function newDiscussionMessage($joId, $initiator)
+    {
+        $jo = JobOrder::where('id', $joId)->first();
+
+        if (! $jo) {
+            return;
+        }
+
+        $departments = JobOrderDepartmentInvolved::where('job_order_id', $jo->id)->get();
+
+        // Notify ae
+        $ae = User::where('id', $jo->user_id)->first();
+        if ($ae->id !== $initiator->id) {
+            $ae->notify(new NewMessageOnDiscussion($jo, $initiator));
+        }
+
+        // Notify departments
+        foreach ($departments as $department) {
+            $users = User::where('department_id', $department->department_id)
+                ->get();
+
+            if ($users->isEmpty()) {
+                continue;
+            }
+
+            foreach ($users as $user) {
+                $user->notify(new NewMessageOnDiscussion($jo, $initiator));
             }
         }
     }

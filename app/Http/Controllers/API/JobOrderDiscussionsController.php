@@ -4,8 +4,11 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobOrders\CreateDiscussionRequest;
 use App\Models\JobOrderDiscussion;
+use App\Traits\NotificationTrait;
 
 class JobOrderDiscussionsController extends Controller {
+    use NotificationTrait;
+
     public function getDiscussions($jobOrderId)
     {
         $discussions = JobOrderDiscussion::with('user.profile')->where('job_order_id', $jobOrderId)
@@ -30,6 +33,8 @@ class JobOrderDiscussionsController extends Controller {
         $discussion = JobOrderDiscussion::with('user.profile')
             ->where('id', $discussion->id)
             ->first();
+
+        $this->newDiscussionMessage($jobOrderId, $user);
 
         return response()->json($discussion, 201);
     }
