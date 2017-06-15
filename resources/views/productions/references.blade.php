@@ -41,36 +41,6 @@
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Presentation Template</td>
-                        <td>Internal</td>
-                        <td class="text-center">
-                            <a href="#" role="button" class="btn btn-primary">
-                            {{--<a href="/productions/references/amg.ppt/download" role="button" class="btn btn-primary">--}}
-                                <i class="fa fa-download fa-lg"></i> Download
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Ocular Template</td>
-                        <td>Internal</td>
-                        <td class="text-center">
-                            <a href="#" role="button" class="btn btn-primary">
-                            {{--<a href="/productions/references/ocular.pptx/download" role="button" class="btn btn-primary">--}}
-                                <i class="fa fa-download fa-lg"></i> Download
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Material Checklist Template</td>
-                        <td>Internal</td>
-                        <td class="text-center">
-                            <a href="#" role="button" class="btn btn-primary">
-                            {{--<a href="/productions/references/checklist.xlsx/download" role="button" class="btn btn-primary">--}}
-                                <i class="fa fa-download fa-lg"></i> Download
-                            </a>
-                        </td>
-                    </tr>
                     </tbody>
                 </table>
             </div>

@@ -1,10 +1,48 @@
 @extends('layouts.app')
 
-@section('scripts')
 
+@section('scripts')
+    <script src="{{ asset('js/jquery.tabledit.min.js') }}"></script>
+    <script>
+        $('#tbl-costing').Tabledit({
+//            url: 'example.php',
+            columns: {
+                identifier: [0, 'id'],
+                editable: [
+                    [3, 'cpu'],
+                    [4, 'qty'],
+                    [5, 'total-cost']
+                ]
+            }
+        });
+    </script>
 @endsection
 
 @section('content')
+
+
+    {{-- breadcrumb start --}}
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Productions<small> Department</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/productions"><i class="fa fa-dashboard"></i> Productions Department</a>
+            </li>
+            <li>
+                <a href="/productions/jo"><i class="fa fa-file-text-o"></i> Job Order Lists</a>
+            </li>
+            <li>
+                <a href="/productions/jo/details/{{ $jo->job_order_no }}"><i class="fa fa-file-text-o"></i> {{ $jo->job_order_no }}</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-list"></i> Costing
+            </li>
+        </ol>
+    </div>
+    {{-- breadcrumb end --}}
+
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -18,12 +56,12 @@
     </div>
 
     <div class="col-md-12">
-        <table class="table table-striped table-bordered table-costing">
+        <table class="table table-striped table-bordered table-costing" id="tbl-costing">
             <thead>
             <tr>
                 <th>#</th>
                 <th>Particular (Item)</th>
-                <th>Specifivations (Size, Material, etc)</th>
+                <th>Specifications (Size, Material, etc)</th>
                 <th>Cost per Unit</th>
                 <th>Quantity</th>
                 <th>Total Cost</th>
@@ -35,13 +73,13 @@
             <tbody>
             <tr>
                 <td>1</td>
-                <td>Internal</td>
-                <td>Internal</td>
-                <td>Internal</td>
-                <td>Internal</td>
-                <td>Internal</td>
-                <td>Internal</td>
-                <td>Internal</td>
+                <td>Both</td>
+                <td>Sintra, plywood</td>
+                <td>100</td>
+                <td>200</td>
+                <td>2000</td>
+                <td>Middleware</td>
+                <td>2 days delivery</td>
             </tr>
             </tbody>
         </table>

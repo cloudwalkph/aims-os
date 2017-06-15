@@ -18,14 +18,14 @@
                     <tbody>
                         <tr>
                             <td class="hidden"> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td>For the photobooth</td>
+                            <td>photobooth.zip</td>
+                            <td>12" x 12"</td>
+                            <td>500</td>
                             <td>
                                 <div class="row">
                                     <div class="col-xs-3"> Material:</div>
-                                    <div class="col-xs-9"> _____________</div>
+                                    <div class="col-xs-9"><input type="text" name="sticker-materials" id="sticker-materials"></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12">
