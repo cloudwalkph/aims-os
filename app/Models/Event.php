@@ -23,7 +23,7 @@ class Event extends Model
      * @var array
      */
     public static $rules = [
-        ''             => 'required|min:3',
+        'title'             => 'required|min:3',
         'event_datetime'    => 'required|date',
         'meta.description'  => 'required'
     ];
