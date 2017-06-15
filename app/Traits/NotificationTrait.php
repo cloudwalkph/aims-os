@@ -77,7 +77,9 @@ trait NotificationTrait {
             }
 
             foreach ($users as $user) {
-                $user->notify(new NewMessageOnDiscussion($jo, $initiator));
+                if ($initiator->id !== $user->id) {
+                    $user->notify(new NewMessageOnDiscussion($jo, $initiator));
+                }
             }
         }
     }
