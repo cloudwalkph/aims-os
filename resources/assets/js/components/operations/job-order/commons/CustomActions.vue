@@ -19,6 +19,9 @@
             itemAction (action, data, index) {
                 console.log('custom-actions: ' + action, data.id, index)
 
+                if (action === 'view-item') {
+                    location.href = `/operations/job-orders/${data.job_order_no}`;
+                }
                 
             }
         }
