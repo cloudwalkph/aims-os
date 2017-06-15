@@ -87,6 +87,8 @@ Vue.component('operations-jo-table', require('./components/operations/job-order/
 
 Vue.component('operations-departments-jo-table', require('./components/operations/departments/jo-table.vue'));
 
+Vue.component('ob-table', require('./components/operations/ob/ob-table.vue'));
+
 require('./components/inventory');
 
 

@@ -14,7 +14,7 @@
                         <a href="/operations"><i class="fa fa-dashboard"></i> Operations Department</a>
                     </li>
                     <li>
-                        <i class="fa fa-file-text-o"></i> Job Order Lists
+                        <a href="/operations/job-orders"><i class="fa fa-file-text-o"></i> Job Order Lists</a>
                     </li>
                     <li class="active">
                         <i class="fa fa-list-ul"></i> Job Order Details
