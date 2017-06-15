@@ -10,7 +10,7 @@
         <li id="job-orders">
             <a href="/operations/job-orders"><i class="fa fa-fw fa-file-text-o"></i> Job Orders</a>
         </li>
-        <li id="project-monitor">
+        <li id="project-monitor" class="hide">
             <a href="/operations/project-monitors"><i class="fa fa-fw fa-laptop"></i> Project Monitor</a>
         </li>
         <li id="ob">

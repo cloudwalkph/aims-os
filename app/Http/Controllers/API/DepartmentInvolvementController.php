@@ -4,13 +4,17 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentInvolved\CreateDepartmentInvolvedRequest;
 use App\Models\Event;
+use App\Models\JobOrder;
 use App\Models\JobOrderDepartmentInvolved;
+use App\Notifications\NewJobOrderAssignment;
 use App\Traits\FilterTrait;
+use App\Traits\NotificationTrait;
 use App\Traits\SimpleEventTrait;
+use App\User;
 use Illuminate\Http\Request;
 
 class DepartmentInvolvementController extends Controller {
-    use FilterTrait, SimpleEventTrait;
+    use FilterTrait, SimpleEventTrait, NotificationTrait;
 
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -86,6 +90,9 @@ class DepartmentInvolvementController extends Controller {
             ];
 
             $this->createEvent($event);
+
+            // Notify the department head
+            $this->newAssignedJobOrder($jo->job_order_id, $jo->department_id);
         });
 
         return response()->json($jo, 201);

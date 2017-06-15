@@ -2,23 +2,30 @@
 
 namespace App\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NewMessageOnDiscussion extends Notification
+class NewMessageOnDiscussion extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    protected $jo;
+    protected $user;
+    protected $currentDateTime;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($jo, $user)
     {
-        //
+        $this->jo = $jo;
+        $this->user = $user;
+        $this->currentDateTime = Carbon::today('Asia/Manila')->toDateTimeString();
     }
 
     /**
@@ -29,21 +36,7 @@ class NewMessageOnDiscussion extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return ['broadcast', 'database'];
     }
 
     /**
@@ -55,7 +48,12 @@ class NewMessageOnDiscussion extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'job_order_id'  => $this->jo->id,
+            'job_order_no'  => $this->jo->job_order_no,
+            'project_name'  => $this->jo->project_name,
+            'status'        => 'unread',
+            'message'       => $this->user->profile->full_name . ' Posted a new message on the Job Order '.$this->jo->job_order_no,
+            'timestamp'     => $this->currentDateTime
         ];
     }
 }
