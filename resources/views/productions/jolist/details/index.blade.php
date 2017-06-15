@@ -142,5 +142,17 @@
                 ]
             }
         });
+
+        $('#tbl-costing').Tabledit({
+//            url: 'example.php',
+            columns: {
+                identifier: [0, 'id'],
+                editable: [
+                    [3, 'cpu'],
+                    [4, 'qty'],
+                    [5, 'total-cost']
+                ]
+            }
+        });
     </script>
 @endsection

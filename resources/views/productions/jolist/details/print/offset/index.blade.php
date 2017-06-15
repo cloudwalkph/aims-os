@@ -8,12 +8,17 @@
                 @include('productions.common.supplier')
 
             </div>
-            <button type="button" style="margin-bottom: 15px; margin-left: 32px;" class="btn btn-primary btn-create"
-                    data-toggle="modal" data-target="#addPrint">
-                <i class="fa fa-plus"></i> ADD
-            </button>
 
             <div class="box-body">
+
+                <div class="row">
+                    <div class="col-md-offset-10 col-md-2">
+                        <button type="button" style="margin-bottom: 15px; margin-left: 32px;" class="btn btn-primary btn-create"
+                                data-toggle="modal" data-target="#addPrint">
+                            <i class="fa fa-plus"></i> ADD
+                        </button>
+                    </div>
+                </div>
 
 
                 <div class="row">
