@@ -49,7 +49,10 @@
         </script>
     @endif
     @yield('styles')
+
+    @if (! Auth::guest())
     <script src="//localhost:6001/socket.io/socket.io.js"></script>
+    @endif
 </head>
 <body>
     <div id="app">
