@@ -122,7 +122,7 @@ class InventoryJobController extends Controller
         foreach($job_users as $job_user) {
           $assignment_data['job_order_id'] = $job_order->value;
           $assignment_data['user_id'] = $job_user->value;
-          $assignment_data['department_id'] = $user['department_id'];
+          $assignment_data['department_id'] = 5;
           $assignment_data['remarks'] = $input['description'];
           $assignment_data['deadline'] = date('Y-m-d', strtotime($input['deadline']));
 

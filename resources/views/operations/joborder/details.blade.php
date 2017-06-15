@@ -13,16 +13,16 @@
                     <li>
                         <a href="/operations"><i class="fa fa-dashboard"></i> Operations Department</a>
                     </li>
+                    <li>
+                        <a href="/operations/job-orders"><i class="fa fa-file-text-o"></i> Job Order Lists</a>
+                    </li>
                     <li class="active">
-                        <i class="fa fa-file-text-o"></i> Official Business Lists
+                        <i class="fa fa-list-ul"></i> Job Order Details
                     </li>
                 </ol>
             </div>
             {{-- breadcrumb end --}}
 
-            <div class="col-md-12">
-                <ob-table></ob-table>
-            </div>
 
         </div>
     </div>

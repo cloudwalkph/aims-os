@@ -23,9 +23,16 @@ class Event extends Model
      * @var array
      */
     public static $rules = [
-        'title'             => 'required|min:3',
+        ''             => 'required|min:3',
         'event_datetime'    => 'required|date',
         'meta.description'  => 'required'
+    ];
+
+    public static $filterable = [
+        'user_profiles.last_name',
+        'user_profiles.first_name',
+        'event_datetime',
+        'title',
     ];
 
 
