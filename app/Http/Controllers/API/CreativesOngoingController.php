@@ -6,10 +6,11 @@ use App\Http\Requests\CreativesJo\CreateCreativesJoRequest;
 use App\Models\Assignment;
 use App\Models\CreativesJob;
 use App\Traits\FilterTrait;
+use App\Traits\NotificationTrait;
 use Illuminate\Http\Request;
 
 class CreativesOngoingController extends Controller {
-    use FilterTrait;
+    use FilterTrait, NotificationTrait;
     /**
      * @return \Illuminate\Http\JsonResponse
      */
@@ -56,7 +57,7 @@ class CreativesOngoingController extends Controller {
 
         $jo = null;
         // Create the jo
-        \DB::transaction(function() use ($input, &$jo) {
+        \DB::transaction(function() use ($input, &$jo, $request) {
             $creative = Assignment::create([
                 'job_order_id' => $input['job_order_id'],
                 'user_id'      => $input['user_id'],
@@ -64,6 +65,9 @@ class CreativesOngoingController extends Controller {
                 'deadline'      => $input['deadline'],
                 'remarks'       => $input['description']
             ]);
+
+            // Notify AE
+            $this->assignmentUpdated($input['job_order_id'], $request->user());
 
 //            $creative = CreativesJob::create($input);
 

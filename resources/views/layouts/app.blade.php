@@ -172,6 +172,9 @@
                         case 'App\\Notifications\\NewMessageOnDiscussion':
                             message = notification.message;
                             break;
+                        case 'App\\Notifications\\AssignmentUpdated':
+                            message = notification.message;
+                            break;
                     }
 
                     toastr.info(notification.message);
