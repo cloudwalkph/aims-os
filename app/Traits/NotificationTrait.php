@@ -3,6 +3,7 @@ namespace App\Traits;
 
 use App\Models\JobOrder;
 use App\Models\JobOrderDepartmentInvolved;
+use App\Notifications\AssignmentUpdated;
 use App\Notifications\JobOrderUpdated;
 use App\Notifications\NewJobOrderAssignment;
 use App\Notifications\NewMessageOnDiscussion;
@@ -82,5 +83,17 @@ trait NotificationTrait {
                 }
             }
         }
+    }
+    private function assignmentUpdated($joId, $initiator)
+    {
+        $jo = JobOrder::where('id', $joId)->first();
+
+        if (! $jo) {
+            return;
+        }
+
+        // Notify ae
+        $ae = User::where('id', $jo->user_id)->first();
+        $ae->notify(new AssignmentUpdated($jo, $initiator));
     }
 }
