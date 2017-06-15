@@ -36,16 +36,18 @@ class JobOrderController extends Controller
     {
         config(['app.name' => 'Operations | AIMS']);
 
+        $jo = JobOrder::where('job_order_no', '=', $joId)->first();
+
         $assigned = \DB::table('job_order_add_users')->join('users', 'users.id', '=', 'job_order_add_users.user_id')
             ->join('user_profiles', 'user_profiles.user_id', '=', 'job_order_add_users.user_id')
             ->join('departments', 'departments.id', '=', 'users.department_id')
             ->select('job_order_add_users.*', 'departments.name as department',
                 \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as user_name'))
-            ->where('users.department_id', '=', '1')->get();
+            ->where('users.department_id', '=', '11')->get();
 
-        $users = User::where('department_id', '=', 1)->get();
+        $users = User::where('department_id', '=', 11)->get();
 
-        return view('operations.joborder.details', compact('joId', 'users', 'assigned'));
+        return view('operations.joborder.details', compact('jo', 'users', 'assigned'));
     }
 
     public function assign(Request $request, $joId)

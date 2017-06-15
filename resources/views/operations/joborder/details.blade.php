@@ -24,6 +24,23 @@
             {{-- breadcrumb end --}}
 
             <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <h5> <b>Project Name: {{ $jo->project_name }}</b> </h5>
+                                <h5> <b>Job Order Number: {{ $jo->job_order_no }}</b> </h5>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <h5> <strong>Date Created: {{ \Carbon\Carbon::createFromTimestamp(strtotime($jo->created_at))->toFormattedDateString() }}</strong> </h5>
+                                <h5> <strong>Created By: {{ $jo->user->profile->full_name }}</strong> </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
 
                 <button type="button" class="btn btn-primary btn-create"
                         data-toggle="modal" data-target="#assignPM">
