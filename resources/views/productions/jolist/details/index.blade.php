@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('scripts')
-
-@endsection
-
 @section('content')
     <div class="container-fluid">
         <input type="hidden" name="job_order_id" id="jobOrderId" value="{{ $jo->id }}">
@@ -62,7 +58,7 @@
                                 <li><a href="#shirts" data-toggle="tab">Shirts</a></li>
                                 <li><a href="#staging" data-toggle="tab">Event Staging Requirements</a></li>
                             </ul>
-                            <div class="tab-content">
+                            <div class="tab-content productions">
                                 @include('productions.jolist.details.print.tarpaulin.index')
                                 @include('productions.jolist.details.print.stickers.index')
                                 @include('productions.jolist.details.print.offset.index')
@@ -75,8 +71,71 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/jquery.tabledit.min.js') }}"></script>
+    <script>
+        $('#tbl-tarpaulin').Tabledit({
+//            url: 'example.php',
+            columns: {
+                identifier: [0, 'id'],
+                editable: [[1, 'visual'], [2, 'size'], [3, 'qty'], [4, 'details']]
+            }
+        });
+        $('#tbl-stickers').Tabledit({
+//            url: 'example.php',
+            columns: {
+                identifier: [0, 'id'],
+                editable: [
+                    [1, 'description'],
+                    [2, 'visual'],
+                    [3, 'size'],
+                    [4, 'qty']
+                ]
+            }
+        });
+
+        $('#tbl-offset').Tabledit({
+//            url: 'example.php',
+            columns: {
+                identifier: [0, 'id'],
+                editable: [
+                    [1, 'description'],
+                    [2, 'visual'],
+                    [3, 'size'],
+                    [4, 'qty'],
+                    [5, 'details']
+                ]
+            }
+        });
+
+        $('#tbl-booth').Tabledit({
+//            url: 'example.php',
+            columns: {
+                identifier: [0, 'id'],
+                editable: [
+                    [1, 'description'],
+                    [2, 'visual'],
+                    [3, 'qty'],
+                    [4, 'materials']
+                ]
+            }
+        });
+
+        $('#tbl-photowall, #tbl-shirts').Tabledit({
+//            url: 'example.php',
+            columns: {
+                identifier: [0, 'id'],
+                editable: [
+                    [1, 'description'],
+                    [2, 'visual'],
+                    [3, 'qty'],
+                    [4, 'materials']
+                ]
+            }
+        });
+    </script>
 @endsection

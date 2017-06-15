@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <table class="table table-striped" border="1">
+                    <table class="table table-striped" border="1" id="tbl-offset">
                         <thead>
                         <tr>
                             <th class="text-center">Description</th>
@@ -33,8 +33,9 @@
                             <th class="text-center">Other Details</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody-offset">
                         <tr>
+                            <td class="hidden"> </td>
                             <td> </td>
                             <td> </td>
                             <td> </td>

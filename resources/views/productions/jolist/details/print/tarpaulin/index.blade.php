@@ -5,7 +5,7 @@
                 @include('productions.common.supplier')
             </div>
             <div class="box-body">
-                <table class="table text-center table-striped" border="1">
+                <table id="tbl-tarpaulin" class="table text-center table-striped" border="1">
                     <thead>
                         <tr>
                             <th class="text-center">Description</th>
