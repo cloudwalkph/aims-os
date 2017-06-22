@@ -47,9 +47,18 @@
         <div class="panel panel-default">
             <div class="panel-heading">
 
+                <span class="pull-right">
+                    <button class="btn btn-default" onclick="frames['frame'].print();">
+                        <i class="fa fa-print fa-lg"></i> Print
+                    </button>
+                </span>
+
                 <h5> <b>Job Order Number: {{ $jo->job_order_no }}</b> </h5>
                 <h5> <b>Project Name: {{ $jo->project_name }}</b> </h5>
                 <h5> <strong>Deadline: {{ \Carbon\Carbon::createFromTimestamp(strtotime($jo->created_at))->toFormattedDateString() }}</strong> </h5>
+
+            </div>
+            <div class="panel-body">
 
             </div>
         </div>
@@ -73,7 +82,7 @@
             <tbody>
             <tr>
                 <td>1</td>
-                <td>Both</td>
+                <td>Booth</td>
                 <td>Sintra, plywood</td>
                 <td>100</td>
                 <td>200</td>

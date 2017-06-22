@@ -28,7 +28,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
 
-                            <span class="pull-right">
+                            <span class="pull-right hidden">
                                 <button class="btn btn-default" onclick="frames['frame'].print();">
                                     <i class="fa fa-print fa-lg"></i> Print
                                 </button>
@@ -77,6 +77,7 @@
 
 @section('scripts')
     <script src="{{ asset('js/jquery.tabledit.min.js') }}"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
     <script>
         $('#tbl-tarpaulin').Tabledit({
 //            url: 'example.php',
@@ -143,16 +144,61 @@
             }
         });
 
-        $('#tbl-costing').Tabledit({
-//            url: 'example.php',
-            columns: {
-                identifier: [0, 'id'],
-                editable: [
-                    [3, 'cpu'],
-                    [4, 'qty'],
-                    [5, 'total-cost']
-                ]
-            }
+
+        var file;
+        $( document ).ready(function() {
+
+            $('#tarp_file').on('change', function (e) {
+                var files = e.target.files || e.dataTransfer.files;
+                console.log(files[0]);
+                file = files[0];
+            });
+
         });
+
+        function saveProductions() {
+            var list = {};
+            var jobOrderId = $('#jobOrderId').val();
+
+            let form = new FormData();
+            form.append('job_order_id', jobOrderId);
+            form.append('_token', $('input[name=_token]' ).val());
+            form.append('production_type', $('input[name=production_type]' ).val());
+            form.append('description', $( "#tarp_description option:selected" ).text());
+            form.append('visuals', file);
+            form.append('sizes', $('input[name=tarp_size]' ).val());
+            form.append('qty', $('input[name=tarp_quantity]' ).val());
+            form.append('details', $('input[name=tarp_details]' ).val());
+
+            let url = `/api/v1/productions/${jobOrderId}/details/`;
+            axios.post(url, form).then(function(res) {
+                toastr.success('Successfully saved event details', 'Success')
+            }).catch(function(error) {
+                toastr.error('Failed in saving event details', 'Error')
+            });
+        }
+
+//        function saveTarpaulin() {
+//
+//            $.ajaxSetup({
+//                headers: {
+//                    'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+//                }
+//            });
+//
+//            var joNo = $('#jobOrderId').val();
+//            let url = `/api/v1/productions/${joNo}/details`;
+//            $('#form_tarpaulin').ajaxForm({
+//                type: 'POST',
+//                url: url,
+//                data : $('#form_tarpaulin').serializeArray(),
+//                beforeSubmit: function(arr, jform, option){
+//
+//                },
+//                success:  function(response){
+//                    console.log(response);
+//                }
+//            }).submit();
+//        }
     </script>
 @endsection

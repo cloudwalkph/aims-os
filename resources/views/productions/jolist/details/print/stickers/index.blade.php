@@ -17,11 +17,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="hidden"> </td>
-                            <td>For the photobooth</td>
-                            <td>photobooth.zip</td>
-                            <td>12" x 12"</td>
-                            <td>500</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
                                 <div class="row">
                                     <div class="col-xs-3"> Material:</div>

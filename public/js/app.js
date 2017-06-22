@@ -55743,11 +55743,17 @@ window.axios.defaults.headers.common = {
 
 
 
-window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
-  broadcaster: 'socket.io',
-  host: 'localhost:6001'
-  // key: 'your-pusher-key'
-});
+try {
+  if (io) {
+    window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
+      broadcaster: 'socket.io',
+      host: 'localhost:6001'
+      // key: 'your-pusher-key'
+    });
+  }
+} catch (err) {
+  console.log('no io');
+}
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
@@ -110460,7 +110466,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "text",
-      "placeholder": "JO Number, Project Title"
+      "placeholder": "Name, department"
     },
     domProps: {
       "value": (_vm.filterText)
@@ -117745,7 +117751,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('production-filter-bar'), _vm._v(" "), _c('vuetable', {
     ref: "vuetable",
     attrs: {
-      "api-url": "/api/v1/job-orders",
+      "api-url": "/api/v1/productions",
       "fields": _vm.fields,
       "pagination-path": "",
       "css": _vm.css.table,

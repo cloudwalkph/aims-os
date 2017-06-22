@@ -640,3 +640,7 @@ table tbody tr {
     border: 1px solid #ddd;
     margin-bottom: 20px;
 }
+
+table#tbl-tarpaulin thead, tfoot {
+    display: table-header-group;
+}

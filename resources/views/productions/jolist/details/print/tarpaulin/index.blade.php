@@ -15,28 +15,40 @@
                             <th class="text-center">Other Details</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tfoot>
+                    <form class="form_tarpaulin" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="production_type" value="tarpaulin" />
                         <tr>
-                            <td>Tarpaulin Tent Headers</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            {{--<td><input class="form-control" type="text" name="tarp_description" id="tarp_description" placeholder="description"></td>--}}
+                            <td>
+                                <select class="form-control" name="tarp_description" id="tarp_description">
+                                    <option value="">Select...</option>
+                                    <option value="tarpaulin">Tarpaulin Tent Headers</option>
+                                    <option value="barricade">Barricade and Streamers</option>
+                                    <option value="boards">A Boards</option>
+                                </select>
+                            </td>
+                            <td><input class="form-control" type="file" name="tarp_file" id="tarp_file" /></td>
+                            <td><input class="form-control" type="text" name="tarp_size" id="tarp_size" placeholder="size" /></td>
+                            <td><input class="form-control" type="integer" name="tarp_quantity" id="tarp_quantity" placeholder="quantity" /></td>
+                            <td><input class="form-control" type="text" name="tarp_details" id="tarp_details" placeholder="details" /></td>
+                            <td>
+                                <button type="button" onclick="saveProductions()" class="btn btn-primary btn-sm">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>Barricade Streamers</td>
-                            <td>streamers.zip</td>
-                            <td>small</td>
-                            <td>5</td>
-                            <td>Barricade Designs</td>
-                        </tr>
-                        <tr>
-                            <td>A Boards</td>
-                            <td>boards.zip</td>
-                            <td>big</td>
-                            <td>10</td>
-                            <td>Board Designs</td>
-                        </tr>
+                    </form>
+                    </tfoot>
+                    <tbody id="tbody_tarpaulin">
+                    <tr>
+                        <td>g</td>
+                        <td>e</td>
+                        <td>c</td>
+                        <td>v</td>
+                        <td>a</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

@@ -4,7 +4,7 @@
             <div class="box-header">
                 @include('productions.common.supplier')
             </div>
-            <button type="button" style="margin-bottom: 15px; margin-left: 32px;" class="btn btn-primary btn-create"
+            <button type="button" style="margin-bottom: 15px; margin-left: 32px;" class="btn btn-primary btn-create hidden"
                     data-toggle="modal" data-target="#addBooth">
                 <i class="fa fa-plus"></i> ADD
             </button>
@@ -20,18 +20,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="hidden"> </td>
-                            <td>Quantum photobooth</td>
-                            <td>photobooth.zip</td>
-                            <td>3</td>
-                            <td>Sintra, wood, nails and paint</td>
-                        </tr>
-                        <tr>
-                            <td class="hidden"> </td>
-                            <td>Photolive photobooth</td>
-                            <td>photolive.zip</td>
-                            <td>3</td>
-                            <td>Sintra, wood, nails and paint</td>
+                            <td colspan="4">no details</td>
                         </tr>
                     </tbody>
                 </table>

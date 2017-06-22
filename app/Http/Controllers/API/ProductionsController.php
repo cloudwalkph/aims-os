@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\JobOrder;
+use App\Models\Productions;
+use App\Models\ProductionsItems;
+
+class ProductionsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        // Sort
+        if ($request->has('sort')) {
+            list($sortCol, $sortDir) = explode('|', $request->get('sort'));
+            $query = JobOrder::orderBy($sortCol, $sortDir);
+        } else {
+            $query = JobOrder::orderBy('id', 'asc');
+        }
+
+        $query->join('job_order_clients', 'job_order_clients.job_order_id', '=', 'job_orders.id')
+            ->join('clients', 'job_order_clients.client_id', '=', 'clients.id')
+            ->join('user_profiles', 'user_profiles.user_id', '=', 'job_orders.user_id')
+            ->leftJoin('job_order_animation_details', 'job_order_animation_details.job_order_id', '=', 'job_orders.id')
+            ->groupBy('job_orders.id', 'user_profiles.last_name', 'user_profiles.first_name')
+            ->select('job_orders.*', \DB::raw("GROUP_CONCAT(clients.`company` separator ', ') as company"),
+                \DB::raw("GROUP_CONCAT(job_order_clients.`brands` separator ', ') as brands"),
+                \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as created_by'));
+
+        // Filter
+        if ($request->has('filter')) {
+            $this->filter($query, $request, JobOrder::$filterable);
+        }
+
+        // Count per page
+        $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
+        \Log::info($query->toSql());
+        // Get the data
+        $jobOrders = $query->paginate($perPage);
+
+        return response()->json($jobOrders, 200);
+    }
+
+    public function save_details( $JoId, Request $request ){
+
+        $input = $request->all();
+
+        $input['job_order_id'] = $JoId;
+
+        $filename = '';
+        if ($request->hasFile('visuals')) {
+            $filename = uniqid() . '.png';
+
+            $request->file('visuals')->storeAs('productions', $filename);
+        }
+
+        $production_id = $this->productionSave($JoId);
+
+        $response = $this->productionItemSave( $production_id, $input, $filename );
+
+        return $response;
+    }
+
+    private function productionSave( $joId ){
+        $storeProductions = new Productions();
+        $storeProductions->job_order_no = $joId;
+        if( $storeProductions->save() ){
+            return $storeProductions->id;
+        }else{
+            return false;
+        }
+    }
+
+    private function productionItemSave( $prodId, $values, $filename ){
+
+        $storeProductionsItems = new ProductionsItems();
+        $storeProductionsItems->production_id = $prodId;
+        $storeProductionsItems->type = $values['production_type'];
+        $storeProductionsItems->description = $values['description'];
+        $storeProductionsItems->visuals = $filename;
+        $storeProductionsItems->sizes = $values['sizes'];
+        $storeProductionsItems->qty = $values['qty'];
+        $storeProductionsItems->details = $values['details'];
+        if( $storeProductionsItems->save() ){
+            return response()->json($storeProductionsItems, 200);
+        }else{
+            return false;
+        }
+    }
+}

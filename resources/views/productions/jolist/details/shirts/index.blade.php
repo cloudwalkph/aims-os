@@ -5,7 +5,7 @@
                 @include('productions.common.supplier')
             </div>
 
-            <button type="button" style="margin-bottom: 15px; margin-left: 32px;" class="btn btn-primary btn-create"
+            <button type="button" style="margin-bottom: 15px; margin-left: 32px;" class="btn btn-primary btn-create hidden"
                     data-toggle="modal" data-target="#addShirts">
                 <i class="fa fa-plus"></i> ADD
             </button>
@@ -20,13 +20,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="hidden"> </td>
-                        <td>Photolive Shirts</td>
-                        <td>10-designs.zip</td>
-                        <td>1000</td>
-                        <td>Cotton shirts</td>
-                    </tr>
+                        <tr>
+                            <td colspan="4">no details</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

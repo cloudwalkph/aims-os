@@ -5,7 +5,7 @@
                 @include('productions.common.supplier')
             </div>
 
-            <button type="button" style="margin-bottom: 15px; margin-left: 32px;" class="btn btn-primary btn-create"
+            <button type="button" style="margin-bottom: 15px; margin-left: 32px;" class="btn btn-primary btn-create hidden"
                     data-toggle="modal" data-target="#addPhotowall">
                 <i class="fa fa-plus"></i> ADD
             </button>
@@ -20,20 +20,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="hidden"> </td>
-                        <td>Plain white wallpaper</td>
-                        <td>wallpaper.zip</td>
-                        <td>100</td>
-                        <td>tarpaulin</td>
-                    </tr>
-                    <tr>
-                        <td class="hidden"> </td>
-                        <td>animated photowall</td>
-                        <td>animated-photowall.zip</td>
-                        <td>10</td>
-                        <td>Computer and projector</td>
-                    </tr>
+                        <tr>
+                            <td colspan="4">no details</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

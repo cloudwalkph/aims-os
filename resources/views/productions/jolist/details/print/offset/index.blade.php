@@ -11,7 +11,7 @@
 
             <div class="box-body">
 
-                <div class="row">
+                <div class="row hidden">
                     <div class="col-md-offset-10 col-md-2">
                         <button type="button" style="margin-bottom: 15px; margin-left: 32px;" class="btn btn-primary btn-create"
                                 data-toggle="modal" data-target="#addPrint">
@@ -49,21 +49,9 @@
                         </tr>
                         </thead>
                         <tbody id="tbody-offset">
+
                         <tr>
-                            <td class="hidden"> </td>
-                            <td>Camera</td>
-                            <td>camera.zip</td>
-                            <td>n/a</td>
-                            <td>5</td>
-                            <td>Canon DSLR lists</td>
-                        </tr>
-                        <tr>
-                            <td class="hidden"> </td>
-                            <td>Camera Stands</td>
-                            <td>camera-stands.zip</td>
-                            <td>n/a</td>
-                            <td>5</td>
-                            <td>Canon DSLR stand lists</td>
+                            <td colspan="5">no details</td>
                         </tr>
                         </tbody>
                     </table>
