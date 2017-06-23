@@ -51,7 +51,7 @@ body {
 }
 .navbar-nav>.notifications-menu>.dropdown-menu>li .menu>li>a {
     display: block;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     border-bottom: 1px solid #f4f4f4;
 }
 .navbar-nav>.notifications-menu>.dropdown-menu {
@@ -493,6 +493,25 @@ table tbody tr {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
 }
+
+.productions .table{
+    width: 90%;
+    margin-left: 60px;
+}
+
+.table-costing{
+    width: 100%;
+    margin-left: 0px;
+}
+
+.printpg{
+    margin-left: 30px;
+}
+
+.btn-costing{
+    margin-top: 15px;
+    margin-left: 42px;
+}
 /*validate result button end*/
 
 
@@ -533,6 +552,11 @@ table tbody tr {
 
 .venue-filter:nth-child(1) {
     margin-left: 0;
+}
+
+.productions .vr{
+    width: 100%;
+    margin-left: 10px;
 }
 
 /*STATS*/
@@ -610,4 +634,9 @@ table tbody tr {
 
 .venue-stat ul li span {
     font-weight: 600;
+}
+
+#staging, #shirts, #photowall, #booth, #offset, #stickers, #tarpaulin{
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
 }
