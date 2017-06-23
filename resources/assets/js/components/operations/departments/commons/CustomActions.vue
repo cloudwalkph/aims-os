@@ -17,7 +17,15 @@
         },
         methods: {
             itemAction (action, data, index) {
-                console.log('custom-actions: ' + action, data.id, index)
+                if (action === 'view-item') {
+                    if($('#departmentId').val() == 1) {
+                        location.href = `/productions/jo/details/${data.job_order_no}`;
+                    }else if($('#departmentId').val() == 2) {
+                        location.href = `/creatives/work-in-progress/${data.id}/preview`;
+                    }else if($('#departmentId').val() == 3) {
+                        location.href = `/cmtuva/plans/${data.job_order_no}`;
+                    }
+                }
 
                 
             }

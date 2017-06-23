@@ -59,9 +59,11 @@ Route::group(['prefix' => 'creatives'], function () {
     Route::get('ongoing-projects', 'Front\Creatives\CreativesController@ongoing');
     Route::post('ongoing-projects', 'Front\Creatives\CreativesController@assignProject');
     Route::get('work-in-progress', 'Front\Creatives\CreativesController@workInProgress');
+
+    Route::get('work-in-progress/{joId}/preview', 'Front\Creatives\CreativesController@preview');
+
     Route::get('work-in-progress/{creativesId}/{joId}', 'Front\Creatives\CreativesController@workDetails');
     Route::post('work-in-progress/{creativesId}/{joId}', 'Front\Creatives\CreativesController@addTask');
-
 });
 
 Route::group(['prefix' => 'admin'], function () {
@@ -121,10 +123,8 @@ Route::group(['prefix' => 'operations'], function () {
     Route::get('/project-monitors', 'Front\Operations\ProjectMonitorController@index');
     Route::get('/official-business', 'Front\Operations\OfficialBusinessController@index');
 
-    Route::get('/inventory', 'Front\Operations\DepartmentsController@inventory');
-    Route::get('/production', 'Front\Operations\DepartmentsController@production');
-    Route::get('/setup', 'Front\Operations\DepartmentsController@setup');
-    Route::get('/activations', 'Front\Operations\DepartmentsController@activations');
+    Route::get('/{departmentId}', 'Front\Operations\DepartmentsController@show');
+    Route::get('/{departmentId}/{joNo}', 'Front\Operations\DepartmentsController@showDetails');
 
     Route::group(['prefix' => 'job-orders'], function () {
         Route::get('/', 'Front\Operations\JobOrderController@index');
