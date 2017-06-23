@@ -123,15 +123,14 @@ Route::group(['prefix' => 'operations'], function () {
     Route::get('/project-monitors', 'Front\Operations\ProjectMonitorController@index');
     Route::get('/official-business', 'Front\Operations\OfficialBusinessController@index');
 
-    Route::get('/{departmentId}', 'Front\Operations\DepartmentsController@show');
-    Route::get('/{departmentId}/{joNo}', 'Front\Operations\DepartmentsController@showDetails');
-
     Route::group(['prefix' => 'job-orders'], function () {
         Route::get('/', 'Front\Operations\JobOrderController@index');
         Route::get('/{joNo}', 'Front\Operations\JobOrderController@show');
         Route::post('/{joNo}', 'Front\Operations\JobOrderController@assign');
-
     });
+
+    Route::get('/{departmentId}', 'Front\Operations\DepartmentsController@show');
+    Route::get('/{departmentId}/{joNo}', 'Front\Operations\DepartmentsController@showDetails');
 });
 
 Route::group(['prefix' => 'users'], function () {
