@@ -15,14 +15,14 @@
         >
           <div
             style="margin-top: 20px;"
-            v-for="(product, indexTrace) in products"
+            v-for="(product, prodIndex) in products"
             :key="product.id"
           >
             <form
               @submit.prevent="handleSubmit"
-              :productId="product.id"
-              :workIndex="indexTrace"
             >
+              <input type="hidden" name="product_id" :value="product.id" />
+              <input type="hidden" name="prodIndex" :value="prodIndex" />
               <label htmlFor="itemname" class="col-sm-4 control-label">
                   Item Name: {{product.item_name}}
               </label>
@@ -73,7 +73,7 @@
                             <div class="input-group date datetimepickerRelease">
                                 <input
                                   class="form-control"
-                                  name="datetimeRelease"
+                                  name="release_date"
                                   type="text"
                                 />
                                 <span class="input-group-addon">
@@ -82,8 +82,8 @@
                             </div>
                           </td>
                           <td>{{getProductsOnHand(product)}}</td>
-                          <td><input type="text" name="disposedVal" class="form-control" /></td>
-                          <td><input type="text" name="returnedVal" class="form-control" /></td>
+                          <td><input type="text" name="dispose_quantity" class="form-control" /></td>
+                          <td><input type="text" name="return_quantity" class="form-control" /></td>
                           <td>
                               <select name="status" class="form-control">
                                   <option value="1">Approved</option>
@@ -223,23 +223,13 @@
                 return productsOnHand - iDisposed;
             },
             handleSubmit: function(e) {
-              var form = $(e.target)[0];
-              var workIndex = e.target.getAttribute('workIndex');
-              var product_id = e.target.getAttribute('productId');
-              var dispose_quantity = form.disposedVal.value;
-              var return_quantity = form.returnedVal.value
+              var form = e.target;
+              var formData = new FormData(form);
 
-              var postData = {
-                product_id: product_id,
-                dispose_quantity: dispose_quantity,
-                return_quantity: return_quantity,
-                release_date: form.datetimeRelease.value,
-              }
-
-              this.$http.post('api/v1/inventory/release', postData)
+              this.$http.post('api/v1/inventory/release', formData)
                 .then(function (response) {
                   form.reset();
-                  this.products[workIndex].releases.push(postData);
+                  this.products[formData.get('prodIndex')].releases.push(response.data);
                 })
                 .catch(function (e) {
                   console.log('error post inventory release', e);
@@ -252,21 +242,20 @@
                 $('input[name="return_quantity"]').val(this.products[indexProduct].releases[indexRelease].return_quantity);
             },
             editRelease: function(e) {
-                var form = $(e.target)[0];
-                var productIndex = form.productIndex.value;
-                var releaseIndex = form.releaseIndex.value;
-                var dispose_quantity = form.dispose_quantity.value;
-                var return_quantity = form.return_quantity.value;
+                var form = e.target;
+                var formData = new FormData(form);
+                var productIndex = formData.get('productIndex');
+                var releaseIndex = formData.get('releaseIndex');
+
                 var data = {
                   _method: 'PUT',
-                  dispose_quantity: dispose_quantity,
-                  return_quantity: return_quantity,
                 }
+                formData.append($data);
 
-                this.$http.post('api/v1/inventory/release/' + this.products[productIndex].releases[releaseIndex].id, data)
+                this.$http.post('api/v1/inventory/release/' + this.products[productIndex].releases[releaseIndex].id, formData)
                   .then(function (response) {
-                    this.products[productIndex].releases[releaseIndex].dispose_quantity = dispose_quantity;
-                    this.products[productIndex].releases[releaseIndex].return_quantity = return_quantity;
+                    this.products[productIndex].releases[releaseIndex].dispose_quantity = formData.get('dispose_quantity');
+                    this.products[productIndex].releases[releaseIndex].return_quantity = formData.get('return_quantity');
                   })
                   .catch(function (e) {
                     console.log('error edit inventory release', e);

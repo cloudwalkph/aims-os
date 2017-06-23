@@ -57,6 +57,10 @@
             <div class="col-lg-12">
                 <h1 class="page-header">
                     Accounts Executive<small> Department</small>
+                    @if(Auth()->user()->department->slug != "ae")
+                        <a href="/{{ Auth()->user()->department->slug }}" class="btn btn-default pull-right">
+                            <i class="fa fa-home"></i> Go back</a>
+                    @endif
                 </h1>
                 <ol class="breadcrumb">
                     <li>

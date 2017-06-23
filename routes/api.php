@@ -74,9 +74,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // Job Orders
     Route::group(['prefix' => 'job-orders'], function() {
-        Route::get('/all', 'JobOrdersController@all');
-        Route::get('/department', 'JobOrdersController@getByDepartmentInvolvement');
         Route::get('/', 'JobOrdersController@index');
+        Route::get('/all', 'JobOrdersController@all');
+        Route::get('/calendar', 'JobOrdersController@calendar');
+        Route::get('/department', 'JobOrdersController@getByDepartmentInvolvement');
+        Route::get('/department/{departmentId}', 'JobOrdersController@getByDepartmentId');
         Route::get('/{jobOrderId}', 'JobOrdersController@show');
         Route::post('/', 'JobOrdersController@store');
         Route::post('/add-ae', 'JobOrdersController@addAe');

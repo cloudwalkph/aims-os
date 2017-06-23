@@ -35,6 +35,11 @@ class JobOrder extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function joDetail()
+    {
+        return $this->hasOne(JobOrderDetail::class);
+    }
+
     public function clients()
     {
         return $this->hasMany(JobOrderClient::class);

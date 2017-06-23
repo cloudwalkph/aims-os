@@ -40,6 +40,48 @@
             </div>
 
             <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i>
+                        <span class="label label-danger">10</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have 10 notifications</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-primary"></i> 5 new members joined today
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-warning"></i> Very long description here that may not fit into the
+                                            page and may cause design problems
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-danger"></i> 5 new members joined
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-success"></i> 25 sales made
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-danger"></i> You changed your username
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="footer"><a href="#">View all</a></li>
+                    </ul>
+                </li>
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">LOGIN</a></li>
                 @else
@@ -67,50 +109,12 @@
                 @endif
             </ul>
 
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li id="dashboard">
-                        <a href="/admin"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li id="accounts">
-                        <a href="/admin/users"><i class="fa fa-fw fa-users"></i> Users</a>
-                    </li>
-                    <li id="agencies">
-                        <a href="/admin/agencies"><i class="fa fa-fw fa-book"></i> Agency</a>
-                    </li>
-                    <li id="manpower-types">
-                        <a href="/admin/manpower-types"><i class="fa fa-fw fa-wrench"></i> Manpower Types</a>
-                    </li>
-                    <li id="vehicle-types">
-                        <a href="/admin/vehicle-types"><i class="fa fa-fw fa-truck"></i> Vehicle Types</a>
-                    </li>
-                    <li id="vehicle-types">
-                        <a href="/admin/job-orders"><i class="fa fa-fw fa-book"></i> Job Orders</a>
-                    </li>
+            @if (Auth::user()->department->slug == "operations")
+                @include('components.sidebar.ops')
+            @else
+                @include('components.sidebar.admin')
+            @endif
 
-                    <li id="vehicle-types">
-                        <a href="/accounting"><i class="fa fa-fw fa-book"></i>Accounting</a>
-                    </li>
-
-                    <li id="vehicle-types">
-                        <a href="/admin/validate"><i class="fa fa-fw fa-check-square-o"></i>Validate</a>
-                    </li>
-                    {{--<li>--}}
-                        {{--<a href="javascript:;" data-toggle="collapse" data-target="#demo">--}}
-                            {{--<i class="fa fa-fw fa-check-square-o" href="/admin/validate"></i> Validate <i class="fa fa-fw fa-caret-down"></i>--}}
-                            {{--<ul id="demo" class="collapse" aria-expanded="true">--}}
-                                {{--<li>--}}
-                                    {{--<a href="/admin/validate">Validation List</a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                    {{--<a href="/evaluate">Evaluate</a>--}}
-                                {{--</li>--}}
-                            {{--</ul>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                </ul>
-            </div>
         </nav>
 
         <div id="wrapper">

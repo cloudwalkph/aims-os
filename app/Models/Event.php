@@ -28,6 +28,13 @@ class Event extends Model
         'meta.description'  => 'required'
     ];
 
+    public static $filterable = [
+        'user_profiles.last_name',
+        'user_profiles.first_name',
+        'event_datetime',
+        'title',
+    ];
+
 
     /**
      * Associations

@@ -14,14 +14,16 @@
         >
             <div
                 style="margin-top: 20px;"
-                v-for="(product, indexTrace) in products"
+                v-for="(product, prodIndex) in products"
                 :key="product.id"
             >
               <form
+                id="DeliveryTrackingForm"
+                name="DeliveryTrackingForm"
                 @submit.prevent="handleSubmit"
-                :productId="product.id"
-                :workIndex="indexTrace"
               >
+                <input type="hidden" name="product_id" :value="product.id" />
+                <input type="hidden" name="prodIndex" :value="prodIndex" />
                 <label htmlFor="itemname" class="col-sm-3 control-label">
                     Item Name: {{product.item_name}}
                 </label>
@@ -35,6 +37,7 @@
                     <thead>
                         <tr>
                             <th>Actual Delivery Date</th>
+                            <th>DR</th>
                             <th>Delivered</th>
                             <th>Balance Needed</th>
                             <th>Actions</th>
@@ -49,6 +52,7 @@
                           v-if="d.product_id == product.id"
                         >
                             <td>{{convertDate(d.delivery_date)}}</td>
+                            <td>{{d.delivery_report}}</td>
                             <td>{{d.delivery_quantity}}</td>
                             <td>{{balance(product, indexD)}}</td>
                             <td class="text-center">
@@ -57,7 +61,7 @@
                                 type="button"
                                 data-toggle="modal"
                                 data-target="#modalUpdateDelivery"
-                                @click="onModalClick(indexTrace, indexD)"
+                                @click="onModalClick(prodIndex, indexD)"
                               ><i class="glyphicon glyphicon-pencil"></i></button>
                               <button
                                 type="button"
@@ -73,8 +77,9 @@
                                     <div class="input-group date datetimepickerDelivery">
                                         <input
                                           class="form-control"
-                                          name="datetimeDelivery"
+                                          name="delivery_date"
                                           type="text"
+                                          required="required"
                                         />
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
@@ -83,10 +88,19 @@
                                 </div>
                             </td>
                             <td>
+                              <input
+                                type="text"
+                                class="form-control"
+                                name="delivery_report"
+                                required="required"
+                              />
+                            </td>
+                            <td>
                                 <input
                                   type="text"
                                   class="form-control"
-                                  name="deliveryVal"
+                                  name="delivery_quantity"
+                                  required="required"
                                 />
                             </td>
                             <td><span></span></td>
@@ -178,21 +192,14 @@
                 return d.toDateString();
             },
             handleSubmit: function (e) {
-              var form = $(e.target)[0];
-              var workIndex = e.target.getAttribute('workIndex');
-              var product_id = e.target.getAttribute('productId');
-              var delivered_quantity = form.deliveryVal.value;
+              var form = e.target;
+              var formData = new FormData(form);
+              var productIndex = formData.get('prodIndex');
 
-              var postData = {
-                product_id: product_id,
-                delivery_quantity: delivered_quantity,
-                delivery_date: form.datetimeDelivery.value,
-              }
-
-              this.$http.post('api/v1/inventory/delivery', postData)
+              this.$http.post('api/v1/inventory/delivery', formData)
                 .then(function (response) {
                   form.reset();
-                  this.products[workIndex].deliveries.push(postData);
+                  this.products[productIndex].deliveries.push(response.data);
                 })
                 .catch(function (e) {
                   console.log('error post inventory delivery', e);
@@ -203,23 +210,20 @@
                 $('input[name="deliveryIndex"]').val(indexDelivery);
             },
             editDelivery: function(e) {
-                var form = $(e.target)[0];
-                var productIndex = form.productIndex.value;
-                var deliveryIndex = form.deliveryIndex.value;
-                var delivery_quantity = form.delivery_quantity.value;
-                var data = {
-                  _method: 'PUT',
-                  delivery_quantity: delivery_quantity,
-                }
+                var form = e.target;
+                var formData = new FormData(form);
+                var productIndex = formData.get('productIndex');
+                var deliveryIndex = formData.get('deliveryIndex');
 
-                this.$http.post('api/v1/inventory/delivery/' + this.products[productIndex].deliveries[deliveryIndex].id, data)
+                formData.set('_method', 'PUT');
+
+                this.$http.post('api/v1/inventory/delivery/' + this.products[productIndex].deliveries[deliveryIndex].id, formData)
                   .then(function (response) {
-                    this.products[productIndex].deliveries[deliveryIndex].delivery_quantity = delivery_quantity;
+                    this.products[productIndex].deliveries[deliveryIndex].delivery_quantity = formData.get('delivery_quantity');
                   })
                   .catch(function (e) {
                     console.log('error edit inventory delivery', e);
                   });
-
 
                 $('#modalUpdateDelivery').modal('hide');
                 form.reset();

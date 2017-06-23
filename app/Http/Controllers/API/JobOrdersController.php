@@ -15,11 +15,12 @@ use App\Models\JobOrderMeal;
 use App\Models\JobOrderMom;
 use App\Models\JobOrderVehicle;
 use App\Traits\FilterTrait;
+use App\Traits\NotificationTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class JobOrdersController extends Controller {
-    use FilterTrait;
+    use FilterTrait, NotificationTrait;
 
     public function all(Request $request)
     {
@@ -84,6 +85,37 @@ class JobOrdersController extends Controller {
         // Count per page
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
 \Log::info($query->toSql());
+        // Get the data
+        $jobOrders = $query->paginate($perPage);
+
+        return response()->json($jobOrders, 200);
+    }
+
+    public function getByDepartmentId(Request $request, $departmentId)
+    {
+        // Sort
+        if ($request->has('sort')) {
+            list($sortCol, $sortDir) = explode('|', $request->get('sort'));
+            $query = JobOrderDepartmentInvolved::orderBy($sortCol, $sortDir);
+        } else {
+            $query = JobOrderDepartmentInvolved::orderBy('id', 'asc');
+        }
+
+        $query->join('job_orders', 'job_orders.id', '=', 'job_order_department_involved.job_order_id')
+            ->join('assignments', 'assignments.job_order_id', '=', 'job_orders.id')
+            ->join('user_profiles', 'user_profiles.user_id', '=', 'assignments.user_id')
+            ->groupBy('job_orders.id', 'user_profiles.last_name', 'user_profiles.first_name')
+            ->select('job_orders.*', \DB::raw('CONCAT(user_profiles.first_name, " ", user_profiles.last_name) as created_by'))
+            ->where('assignments.department_id', '=', $departmentId);
+
+        // Filter
+        if ($request->has('filter')) {
+            $this->filter($query, $request, JobOrder::$filterable);
+        }
+
+        // Count per page
+        $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
+        \Log::info($query->toSql());
         // Get the data
         $jobOrders = $query->paginate($perPage);
 
@@ -222,6 +254,8 @@ class JobOrdersController extends Controller {
             return response()->json(['error' => 'AE Already exists'], 400);
         }
 
+        $this->jobOrderUpdated($input['job_order_id'], $request->user());
+
         return response()->json($jo, 201);
     }
 
@@ -231,6 +265,8 @@ class JobOrdersController extends Controller {
         $input['job_order_id'] = $joId;
         $mom = JobOrderMom::create($input);
 
+        $this->jobOrderUpdated($joId, $request->user());
+
         return response()->json($mom, 200);
     }
 
@@ -238,13 +274,49 @@ class JobOrdersController extends Controller {
     {
         $input = $request->all();
         $input['job_order_id'] = $joId;
-        
+
         if($input['event_specifications'] == "") {
             $input['event_specifications'] = " ";
         }
 
         $detail = JobOrderDetail::create($input);
 
+        $this->jobOrderUpdated($joId, $request->user());
+
         return response()->json($detail, 200);
+    }
+
+    public function calendar()
+    {
+        $jos = JobOrder::with('joDetail')->get();
+
+        $events = [];
+        foreach ($jos as $jo) {
+            $color = null;
+            switch ($jo->status) {
+                case 'pending':
+                    $color = '#f0ad4e';
+                    break;
+                case 'cancelled':
+                    $color = '#f05c4e';
+                    break;
+                case 'completed':
+                    $color = '#51b00f';
+                    break;
+                default:
+                    $color = '#f0ad4e';
+            }
+
+            if( isset($jo->joDetail->when) ) {
+                $events[] = [
+                    'id'    => $jo->id,
+                    'title' => $jo->project_name. " - {$jo->status}",
+                    'date' => $jo->joDetail->when,
+                    'color' => $color
+                ];
+            }
+        }
+
+        return response()->json($events, 200);
     }
 }

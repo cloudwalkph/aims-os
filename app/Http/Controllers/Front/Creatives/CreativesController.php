@@ -9,12 +9,15 @@ use App\Models\CreativesJob;
 use App\Models\CreativesTask;
 use App\Models\CreativesTasks;
 use App\Models\JobOrderDepartmentInvolved;
+use App\Traits\NotificationTrait;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CreativesController extends Controller
 {
+    use NotificationTrait;
+
     /**
      * Create a new controller instance.
      *
@@ -102,7 +105,6 @@ class CreativesController extends Controller
                     'assigned_persons'  => $person
                 ];
             }
-
         }
 
         $members = User::with('profile')->where('department_id', 2)->get();
@@ -120,7 +122,7 @@ class CreativesController extends Controller
 
         $jo = null;
         // Create the jo
-        \DB::transaction(function() use ($input, &$jo) {
+        \DB::transaction(function() use ($input, &$jo, $request) {
             $creative = Assignment::create([
                 'job_order_id' => $input['job_order_id'],
                 'user_id'      => $input['user_id'],
@@ -131,6 +133,7 @@ class CreativesController extends Controller
 
             $jo = Assignment::with('jobOrder', 'assignedUser')->where('id', $creative->id)->first();
 
+            $this->assignmentUpdated($input['job_order_id'], $request->user());
         });
 
         if (! $jo) {
@@ -187,7 +190,20 @@ class CreativesController extends Controller
             return redirect()->back();
         }
 
+        $this->assignmentUpdated($joId, $request->user());
+
         $request->session()->flash('success', 'Posted task successfully');
         return redirect()->back();
+    }
+
+    public function preview($joId)
+    {
+        config(['app.name' => 'Creatives Work in Progress Details | AIMS']);
+
+        $jo = Assignment::with('jobOrder', 'assignedUser.profile', 'tasks')
+            ->where('job_order_id', $joId)
+            ->first();
+
+        return view('creatives.work-in-progress.preview')->with('jo', $jo);
     }
 }

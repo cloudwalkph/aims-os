@@ -8,6 +8,11 @@
             <div class="col-lg-12">
                 <h1 class="page-header">
                     CMTUVA<small> Department</small>
+
+                    @if(Auth()->user()->department->slug != "cmtuva")
+                        <a href="/{{ Auth()->user()->department->slug }}" class="btn btn-default pull-right">
+                            <i class="fa fa-home"></i> Go back</a>
+                    @endif
                 </h1>
                 <ol class="breadcrumb">
                     <li>
