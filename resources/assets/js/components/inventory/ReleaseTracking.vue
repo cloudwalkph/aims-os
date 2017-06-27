@@ -51,7 +51,7 @@
                           <td>{{getProductsOnHand(product, r.release_date)}}</td>
                           <td>{{r.dispose_quantity}}</td>
                           <td>{{r.return_quantity}}</td>
-                          <td><div v-if="r.status = 1">Approved</div><div v-else>Pending</div></td>
+                          <td><div v-if="r.approved == 1">Approved</div><div v-else>Pending</div></td>
                           <td class="text-center">
                             <button
                               type="button"
@@ -85,7 +85,7 @@
                           <td><input type="text" name="dispose_quantity" class="form-control"></input></td>
                           <td><input type="text" name="return_quantity" class="form-control"></input></td>
                           <td>
-                              <select name="status" class="form-control">
+                              <select name="approved" class="form-control">
                                   <option value="1">Approved</option>
                                   <option value="0">Pending</option>
                               </select>
@@ -202,7 +202,7 @@
 
                     for (delivery of product.deliveries) {
                       var deliveryDateParsed = Date.parse(delivery.delivery_date);
-                      if (deliveryDateParsed < releaseDateParsed && rDateParsed > deliveryDateParsed) {
+                      if (deliveryDateParsed <= releaseDateParsed && rDateParsed >= deliveryDateParsed) {
                         deliveries += Number(delivery.delivery_quantity);
                       }
                     }

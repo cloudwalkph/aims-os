@@ -108,19 +108,19 @@
                             product_id: 100,
                             date: '2016-12-22',
                             disposed: 90,
-                            status: 1,
+                            approved: 1,
                           },
                           {
                             product_id: 100,
                             date: '2016-12-24',
                             disposed: 100,
-                            status: 1,
+                            approved: 1,
                           },
                           {
                             product_id: 100,
                             date: '2016-12-25',
                             disposed: 150,
-                            status: 1,
+                            approved: 1,
                           },
                         ]
                       },
