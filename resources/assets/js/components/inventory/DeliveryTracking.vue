@@ -22,8 +22,8 @@
                 name="DeliveryTrackingForm"
                 @submit.prevent="handleSubmit"
               >
-                <input type="hidden" name="product_id" :value="product.id" />
-                <input type="hidden" name="prodIndex" :value="prodIndex" />
+                <input type="hidden" name="product_id" :value="product.id"></input>
+                <input type="hidden" name="prodIndex" :value="prodIndex"></input>
                 <label htmlFor="itemname" class="col-sm-3 control-label">
                     Item Name: {{product.item_name}}
                 </label>
@@ -51,7 +51,7 @@
                           :key="indexD"
                           v-if="d.product_id == product.id"
                         >
-                            <td>{{convertDate(d.delivery_date)}}</td>
+                            <td>{{convertDateWithTime(d.delivery_date)}}</td>
                             <td>{{d.delivery_report}}</td>
                             <td>{{d.delivery_quantity}}</td>
                             <td>{{balance(product, indexD)}}</td>
@@ -80,7 +80,7 @@
                                           name="delivery_date"
                                           type="text"
                                           required="required"
-                                        />
+                                        ></input>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -93,7 +93,7 @@
                                 class="form-control"
                                 name="delivery_report"
                                 required="required"
-                              />
+                              ></input>
                             </td>
                             <td>
                                 <input
@@ -101,7 +101,7 @@
                                   class="form-control"
                                   name="delivery_quantity"
                                   required="required"
-                                />
+                                ></input>
                             </td>
                             <td><span></span></td>
                             <td class="text-center">
@@ -135,8 +135,8 @@
                         </div>
 
                         <form id="updateDeliveryForm" @submit.prevent="editDelivery">
-                            <input type="hidden" name="deliveryIndex" />
-                            <input type="hidden" name="productIndex" />
+                            <input type="hidden" name="deliveryIndex"></input>
+                            <input type="hidden" name="productIndex"></input>
                             <div class="row">
                                 <div class="col-md-12 form-group text-input-container">
                                     <label class="control-label">Delivery Quantity</label>
@@ -146,7 +146,7 @@
                                       id="delivery_quantity"
                                       placeholder="delivery quantity"
                                       class="form-control"
-                                    />
+                                    ></input>
                                 </div>
                             </div>
                         </form>
@@ -190,6 +190,11 @@
                 var milliseconds = Date.parse(dateValue);
                 var d = new Date(milliseconds);
                 return d.toDateString();
+            },
+            convertDateWithTime: function(dateValue) {
+                var milliseconds = Date.parse(dateValue);
+                var d = new Date(milliseconds);
+                return moment(d).format('lll');
             },
             handleSubmit: function (e) {
               var form = e.target;
