@@ -35,11 +35,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
     // Events API
     Route::group(['prefix' => 'events'], function() {
-        Route::get('/all', 'EventsController@all');
-        Route::get('/', 'EventsController@index');
-        Route::post('/', 'EventsController@store');
-        Route::put('/{eventId}', 'EventsController@update');
-        Route::delete('/{eventId}', 'EventsController@delete');
+        Route::get('/all', 'SchedulesController@all');
+        Route::get('/', 'SchedulesController@index');
+        Route::post('/', 'SchedulesController@store');
+        Route::put('/{eventId}', 'SchedulesController@update');
+        Route::delete('/{eventId}', 'SchedulesController@delete');
     });
 
     // Creatives

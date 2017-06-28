@@ -1,12 +1,12 @@
 <?php
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Events;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Traits\EventsTrait;
 use Illuminate\Http\Request;
 
-class EventsController extends Controller {
+class SchedulesController extends Controller {
     use EventsTrait;
 
     public function index(Request $request)

@@ -1,13 +1,13 @@
 <?php
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\JobOrders;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Vehicles\CreateVehicleRequest;
-use App\Models\JobOrderVehicle;
+use App\Http\Requests\Manpowers\CreateManpowerRequest;
+use App\Models\JobOrderManpower;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
 
-class VehicleRequestsController extends Controller {
+class ManpowerRequestsController extends Controller {
     use FilterTrait;
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -20,20 +20,19 @@ class VehicleRequestsController extends Controller {
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
-            $query = JobOrderVehicle::orderBy($sortCol, $sortDir);
+            $query = JobOrderManpower::orderBy($sortCol, $sortDir);
         } else {
-            $query = JobOrderVehicle::orderBy('id', 'asc');
+            $query = JobOrderManpower::orderBy('id', 'asc');
         }
 
-        $query->join('job_orders', 'job_orders.id', '=', 'job_order_vehicles.job_order_id')
-            ->join('vehicle_types', 'vehicle_types.id', '=', 'job_order_vehicles.vehicle_type_id')
-            ->join('venues', 'venues.id', '=', 'job_order_vehicles.venue_id')
-            ->where('job_order_vehicles.job_order_id', '=', $joId)
-            ->select('job_order_vehicles.*', 'job_orders.job_order_no', 'vehicle_types.name', 'venues.venue');
+        $query->join('job_orders', 'job_orders.id', '=', 'job_order_manpowers.job_order_id')
+            ->join('manpower_types', 'manpower_types.id', '=', 'job_order_manpowers.manpower_type_id')
+            ->where('job_order_manpowers.job_order_id', '=', $joId)
+            ->select('job_order_manpowers.*', 'job_orders.job_order_no', 'manpower_types.name');
 
         // Filter
         if ($request->has('filter')) {
-            $this->filter($query, $request, JobOrderVehicle::$filterable);
+            $this->filter($query, $request, JobOrderManpower::$filterable);
         }
 
         // Count per page
@@ -46,19 +45,19 @@ class VehicleRequestsController extends Controller {
     }
 
     /**
-     * @param CreateVehicleRequest $request
+     * @param CreateManpowerRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateVehicleRequest $request)
+    public function store(CreateManpowerRequest $request)
     {
         $input = $request->all();
 
         $jo = null;
         // Create the jo
         \DB::transaction(function() use ($input, &$jo) {
-            $jo = JobOrderVehicle::create($input);
+            $jo = JobOrderManpower::create($input);
 
-            $jo = JobOrderVehicle::where('id', $jo->id)->with('vehicleType', 'jobOrder')->first();
+            $jo = JobOrderManpower::where('id', $jo->id)->with('manpowerType', 'jobOrder')->first();
 
         });
 
@@ -71,7 +70,7 @@ class VehicleRequestsController extends Controller {
      */
     public function delete($joId)
     {
-        $jo = JobOrderVehicle::where('id', $joId)->delete();
+        $jo = JobOrderManpower::where('id', $joId)->delete();
 
         if (! $jo) {
             return response()->json([], 400);

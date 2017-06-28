@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\CMTUVA;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Venues\CreateVenuesRequest;

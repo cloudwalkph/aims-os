@@ -1,13 +1,13 @@
 <?php
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AnimationDetails\CreateAnimationDetailsRequest;
-use App\Models\JobOrderAnimationDetail;
+use App\Http\Requests\Vehicles\CreateVehicleRequest;
+use App\Models\JobOrderVehicle;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
 
-class AnimationDetailsController extends Controller {
+class VehicleRequestsController extends Controller {
     use FilterTrait;
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -20,18 +20,20 @@ class AnimationDetailsController extends Controller {
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
-            $query = JobOrderAnimationDetail::orderBy($sortCol, $sortDir);
+            $query = JobOrderVehicle::orderBy($sortCol, $sortDir);
         } else {
-            $query = JobOrderAnimationDetail::orderBy('id', 'asc');
+            $query = JobOrderVehicle::orderBy('id', 'asc');
         }
 
-        $query->join('job_orders', 'job_orders.id', '=', 'job_order_animation_details.job_order_id')
-            ->where('job_order_animation_details.job_order_id', '=', $joId)
-            ->select('job_order_animation_details.*');
+        $query->join('job_orders', 'job_orders.id', '=', 'job_order_vehicles.job_order_id')
+            ->join('vehicle_types', 'vehicle_types.id', '=', 'job_order_vehicles.vehicle_type_id')
+            ->join('venues', 'venues.id', '=', 'job_order_vehicles.venue_id')
+            ->where('job_order_vehicles.job_order_id', '=', $joId)
+            ->select('job_order_vehicles.*', 'job_orders.job_order_no', 'vehicle_types.name', 'venues.venue');
 
         // Filter
         if ($request->has('filter')) {
-            $this->filter($query, $request, JobOrderAnimationDetail::$filterable);
+            $this->filter($query, $request, JobOrderVehicle::$filterable);
         }
 
         // Count per page
@@ -44,19 +46,19 @@ class AnimationDetailsController extends Controller {
     }
 
     /**
-     * @param CreateAnimationDetailsRequest $request
+     * @param CreateVehicleRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateAnimationDetailsRequest $request)
+    public function store(CreateVehicleRequest $request)
     {
         $input = $request->all();
 
         $jo = null;
         // Create the jo
         \DB::transaction(function() use ($input, &$jo) {
-            $jo = JobOrderAnimationDetail::create($input);
+            $jo = JobOrderVehicle::create($input);
 
-            $jo = JobOrderAnimationDetail::where('id', $jo->id)->first();
+            $jo = JobOrderVehicle::where('id', $jo->id)->with('vehicleType', 'jobOrder')->first();
 
         });
 
@@ -69,7 +71,7 @@ class AnimationDetailsController extends Controller {
      */
     public function delete($joId)
     {
-        $jo = JobOrderAnimationDetail::where('id', $joId)->delete();
+        $jo = JobOrderVehicle::where('id', $joId)->delete();
 
         if (! $jo) {
             return response()->json([], 400);

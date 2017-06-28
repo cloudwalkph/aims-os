@@ -1,13 +1,13 @@
 <?php
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\JobOrders;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Manpowers\CreateManpowerRequest;
-use App\Models\JobOrderManpower;
+use App\Http\Requests\AnimationDetails\CreateAnimationDetailsRequest;
+use App\Models\JobOrderAnimationDetail;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
 
-class ManpowerRequestsController extends Controller {
+class AnimationDetailsController extends Controller {
     use FilterTrait;
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -20,19 +20,18 @@ class ManpowerRequestsController extends Controller {
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
-            $query = JobOrderManpower::orderBy($sortCol, $sortDir);
+            $query = JobOrderAnimationDetail::orderBy($sortCol, $sortDir);
         } else {
-            $query = JobOrderManpower::orderBy('id', 'asc');
+            $query = JobOrderAnimationDetail::orderBy('id', 'asc');
         }
 
-        $query->join('job_orders', 'job_orders.id', '=', 'job_order_manpowers.job_order_id')
-            ->join('manpower_types', 'manpower_types.id', '=', 'job_order_manpowers.manpower_type_id')
-            ->where('job_order_manpowers.job_order_id', '=', $joId)
-            ->select('job_order_manpowers.*', 'job_orders.job_order_no', 'manpower_types.name');
+        $query->join('job_orders', 'job_orders.id', '=', 'job_order_animation_details.job_order_id')
+            ->where('job_order_animation_details.job_order_id', '=', $joId)
+            ->select('job_order_animation_details.*');
 
         // Filter
         if ($request->has('filter')) {
-            $this->filter($query, $request, JobOrderManpower::$filterable);
+            $this->filter($query, $request, JobOrderAnimationDetail::$filterable);
         }
 
         // Count per page
@@ -45,19 +44,19 @@ class ManpowerRequestsController extends Controller {
     }
 
     /**
-     * @param CreateManpowerRequest $request
+     * @param CreateAnimationDetailsRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateManpowerRequest $request)
+    public function store(CreateAnimationDetailsRequest $request)
     {
         $input = $request->all();
 
         $jo = null;
         // Create the jo
         \DB::transaction(function() use ($input, &$jo) {
-            $jo = JobOrderManpower::create($input);
+            $jo = JobOrderAnimationDetail::create($input);
 
-            $jo = JobOrderManpower::where('id', $jo->id)->with('manpowerType', 'jobOrder')->first();
+            $jo = JobOrderAnimationDetail::where('id', $jo->id)->first();
 
         });
 
@@ -70,7 +69,7 @@ class ManpowerRequestsController extends Controller {
      */
     public function delete($joId)
     {
-        $jo = JobOrderManpower::where('id', $joId)->delete();
+        $jo = JobOrderAnimationDetail::where('id', $joId)->delete();
 
         if (! $jo) {
             return response()->json([], 400);
