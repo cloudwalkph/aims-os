@@ -42,13 +42,19 @@
                     </form>
                     </tfoot>
                     <tbody id="tbody_tarpaulin">
-                    <tr>
-                        <td>g</td>
-                        <td>e</td>
-                        <td>c</td>
-                        <td>v</td>
-                        <td>a</td>
-                    </tr>
+
+                    @foreach( $productionDatas as $productionData)
+
+                        @if( $productionData->type == 'tarpaulin' )
+                            <tr>
+                                <td>{{ $productionData->description }}</td>
+                                <td>{{ $productionData->visuals }}</td>
+                                <td>{{ $productionData->sizes }}</td>
+                                <td>{{ $productionData->qty }}</td>
+                                <td>{{ $productionData->details }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
                     </tbody>
                 </table>
             </div>

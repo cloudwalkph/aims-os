@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Front\Productions;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JobOrder;
+use App\Models\Productions;
+use App\Models\ProductionsItems;
 
 class ProductionsController extends Controller
 {
@@ -43,9 +45,11 @@ class ProductionsController extends Controller
 
 
         $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNo)->first();
+        $productionDatas  = Productions::join('production_items', 'productions.id', '=', 'production_items.production_id')->get();
 
         return view('productions.jolist.details.index')
-            ->with('jo', $jo);
+            ->with('jo', $jo)
+            ->with('productionDatas', $productionDatas);
     }
 
     public function references(){

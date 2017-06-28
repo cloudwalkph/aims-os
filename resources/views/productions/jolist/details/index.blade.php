@@ -122,7 +122,7 @@
             }
         });
 
-        $('#tbl-booth').Tabledit({
+        $('#tbl-booth, #tbl-photowall, #tbl-shirts').Tabledit({
 //            url: 'example.php',
             columns: {
                 identifier: [0, 'id'],
@@ -135,7 +135,7 @@
             }
         });
 
-        $('#tbl-photowall, #tbl-shirts').Tabledit({
+        $('#tbl_staging').Tabledit({
 //            url: 'example.php',
             columns: {
                 identifier: [0, 'id'],
@@ -143,7 +143,7 @@
                     [1, 'description'],
                     [2, 'visual'],
                     [3, 'qty'],
-                    [4, 'materials']
+                    [4, 'other']
                 ]
             }
         });
@@ -152,7 +152,7 @@
         var file;
         $( document ).ready(function() {
 
-            $('#tarp_file, #sticker_file, #offset_file, #booth_file').on('change', function (e) {
+            $('#tarp_file, #sticker_file, #offset_file, #booth_file, #staging_file').on('change', function (e) {
                 var files = e.target.files || e.dataTransfer.files;
 //                console.log(files[0]);
                 file = files[0];
@@ -236,24 +236,63 @@
         var stagingFormType = '';
         function saveStaging() {
             var jobOrderId = $('#jobOrderId').val();
+            var stagingDetails = '';
+            var stagingMicrophones = '';
+            var stagingMicrophonesEx = '';
 
             if( stagingFormType == 'led' ){
-                
+                stagingDetails = 'Elevation Trussing : ' + $('input[name=staging_elevation]').val() + '<br>' +
+                    'Hanged Trusses : ' + $('input[name=staging_hanged]').val() + '<br>' +
+                    'Others : ' + $('input[name=staging_others]').val();
             }else if( stagingFormType == 'stage' ){
+                stagingDetails = 'With Roofing : ' + $('input[name=roofing]:checked').val() + '<br>' +
+                    'Trusses : ' + $('input[name=trusses]:checked').val() + '<br>' +
+                    'Materials to be used : ' + $('input[name=staging_details]').val();
             }else if( stagingFormType == 'tents' ){
+                stagingDetails = 'With Aircon : ' + $('input[name=aircon]:checked').val() + '<br>' +
+                    'Supplier : ' + $('input[name=staging_details]').val();
             }else if( stagingFormType == 'iwata' ){
+                stagingDetails = 'Supplier : ' + $('input[name=staging_details]').val();
             }else if( stagingFormType == 'sound' ){
+                stagingDetails = $('input[name=staging_sounds]:checked').val() + '<br>' +
+                    'Supplier : ' + $('input[name=staging_details]').val();
             }else if( stagingFormType == 'microphones' ){
+                stagingDetails = '';
+                if( $('input#wireless').is(':checked')){
+                    stagingMicrophones += 'Wireless : ' + $('input[name=qty_wireless]').val() + '<br>';
+                }
+
+                if( $('input#wired').is(':checked')){
+                    stagingMicrophones += 'Wired : ' + $('input[name=qty_wired]').val() + '<br>';
+                }
+
+                if( $('input#mic_stand').is(':checked')){
+                    stagingMicrophones += 'Mic Stand : ' + $('input[name=qty_mic_stand]').val() + '<br>';
+                }
+
+                if( $('input#e-wireless').is(':checked')){
+                    stagingMicrophonesEx += 'Wireless : ' + $('input[name=ex_qty_wireless]').val() + '<br>';
+                }
+
+                if( $('input#e-wired').is(':checked')){
+                    stagingMicrophonesEx += 'Wired : ' + $('input[name=ex_qty_wired]').val() + '<br>';
+                }
+
+                stagingDetails = 'INTERNAL <br>' + stagingMicrophones + '<br><br>' +
+                    'EXTERNAL OR RENTAL : ' + stagingMicrophonesEx;
             }else if( stagingFormType == 'tables' ){
+                stagingDetails = $('input[name=staging_tables]:checked').val() + '<br>' +
+                    'Supplier : ' + $('input[name=staging_details]').val();
             }else{
+                stagingDetails =  $('input[name=staging_details]').val();
             }
-s
+
             saveProductions( jobOrderId,
                 $('input[name=production_staging]').val(),
                 $('#staging_description option:selected').text(),
                 null,
                 $('input[name=staging_quantity]').val(),
-                $('input[name=shirts_details]').val()
+                stagingDetails
             );
         }
 
@@ -285,15 +324,15 @@ s
             if( elet == 'led' ){
                 stagingContent = '<div class="row">\n<div class="col-xs-4">\nElevation Trussing :\n</div>\n<div class="col-xs-8">\n<input class="form-control" type="text" name="staging_elevation" id="staging_elevation">\n</div>\n</div>\n<div class="row">\n<div class="col-xs-4">\nHanged Trusses :\n</div>\n<div class="col-xs-8">\n<input class="form-control" type="text" name="staging_hanged" id="staging_hanged">\n</div>\n</div>\n<div class="row">\n<div class="col-xs-4">\nOthers :\n</div>\n<div class="col-xs-8">\n<input class="form-control" type="text" name="staging_others" id="staging_others">\n</div>\n</div>';
             }else if( elet == 'stage' ){
-                stagingContent = '<div class="row">\n<div class="col-xs-12">\nWith Roofing :\n</div>\n<div class="col-xs-12">\n<ul class="list-inline">\n<li>\n<label for="roofingY">\n<input id="roofingY" type="radio" name="roofing"> Yes\n</label>\n</li>\n<li>\n<label for="roofingN">\n<input id="roofingN" type="radio" name="roofing"> No\n</label>\n</li>\n</ul>\n</div>\n<div class="col-xs-12">\nTrusses :\n</div>\n<div class="col-xs-12">\n<ul class="list-inline">\n<li>\n<label for="trussesY">\n<input id="trussesY" type="radio" name="trusses"> Yes\n</label>\n</li>\n<li>\n<label for="roofingN">\n<input id="trussesN" type="radio" name="trusses"> No\n</label>\n</li>\n</ul>\n</div>\n<div class="col-xs-4">Materials to be used :</div>\n<div class="col-xs-8">\n<input class="form-control" type="text" name="staging_details" id="staging_details">\n</div>\n</div>';
+                stagingContent = '<div class="row">\n<div class="col-xs-12">\nWith Roofing :\n</div>\n<div class="col-xs-12">\n<ul class="list-inline">\n<li>\n<label for="roofingY">\n<input id="roofingY" type="radio" name="roofing" value="Yes"> Yes\n</label>\n</li>\n<li>\n<label for="roofingN">\n<input id="roofingN" type="radio" name="roofing" value="NO"> No\n</label>\n</li>\n</ul>\n</div>\n<div class="col-xs-12">\nTrusses :\n</div>\n<div class="col-xs-12">\n<ul class="list-inline">\n<li>\n<label for="trussesY">\n<input id="trussesY" type="radio" name="trusses"> Yes\n</label>\n</li>\n<li>\n<label for="roofingN">\n<input id="trussesN" type="radio" name="trusses"> No\n</label>\n</li>\n</ul>\n</div>\n<div class="col-xs-4">Materials to be used :</div>\n<div class="col-xs-8">\n<input class="form-control" type="text" name="staging_details" id="staging_details">\n</div>\n</div>';
             }else if( elet == 'tents' ){
-                stagingContent = '<div class="row">\n<div class="col-xs-12">\nWith Aircon :\n</div>\n<div class="col-xs-12">\n<ul class="list-inline">\n<li>\n<label for="airconY">\n<input id="airconY" type="radio" name="aircon"> Yes\n</label>\n</li>\n<li>\n<label for="roofingN">\n<input id="airconN" type="radio" name="aircon"> No\n</label>\n</li>\n</ul>\n</div>\n<div class="col-xs-6">Supplier :</div>\n<div class="col-xs-6">\n<input class="form-control" type="text" name="staging_details" id="staging_details">\n</div>\n</div>';
+                stagingContent = '<div class="row">\n<div class="col-xs-12">\nWith Aircon :\n</div>\n<div class="col-xs-12">\n<ul class="list-inline">\n<li>\n<label for="airconY">\n<input id="airconY" type="radio" name="aircon"> Yes\n</label>\n</li>\n<li>\n<label for="roofingN">\n<input id="airconN" type="radio" name="aircon"> No\n</label>\n</li>\n</ul>\n</div>\n<div class="col-xs-3">Supplier :</div>\n<div class="col-xs-9">\n<input class="form-control" type="text" name="staging_details" id="staging_details">\n</div>\n</div>';
             }else if( elet == 'iwata' ){
                 stagingContent = '<div class="row"><div class="col-xs-3">Supplier :</div><div class="col-xs-9"><input class="form-control" type="text" name="staging_details" id="staging_details"></div></div>';
             }else if( elet == 'sound' ){
-                stagingContent = '<div class="row">\n<div class="col-xs-12">\n<label for="table_selection">\n<input type="radio" name="table_selection" id="table_selection"> Internal\n</label>\n</div>\n<div class="col-xs-12">\n<label for="table_selection1">\n<input type="radio" name="table_selection" id="table_selection1"> External or Rental\n</label>\n</div>\n<div class="col-xs-6">Supplier :</div>\n<div class="col-xs-6"><input class="form-control" type="text" name="staging_details" id="staging_details"></div>\n</div>';
+                stagingContent = '<div class="row">\n<div class="col-xs-12">\n<label for="table_selection">\n<input type="radio" name="staging_sounds" id="table_selection" value="internal"> Internal\n</label>\n</div>\n<div class="col-xs-12">\n<label for="table_selection1">\n<input type="radio" name="staging_sounds" id="table_selection1" value="external or rental"> External or Rental\n</label>\n</div>\n<div class="col-xs-6">Supplier :</div>\n<div class="col-xs-6"><input class="form-control" type="text" name="staging_details" id="staging_details"></div>\n</div>';
             }else if( elet == 'microphones' ){
-                stagingContent = '<div class="row">\n<div class="col-xs-12 text-center">INTERNAL</div>\n</div>\n<div class="row">\n<div class="col-xs-4">\n<label for="wireless">\n<input type="radio" id="wireless" name="staging_microphones"> Wireless\n</label>\n</div>\n<div class="col-xs-4">\n<label for="wired">\n<input type="radio" id="wired" name="staging_microphones"> Wired\n</label>\n</div>\n<div class="col-xs-4">\n<label for="mic-stand">\n<input type="radio" id="mic_stand" name="staging_microphones"> Mic Stand\n</label>\n</div>\n</div>\n<div class="row">\n<div class="col-xs-1">\nQTY\n</div>\n<div class="col-xs-3">\n<input type="text" class="form-control" name="qty_wireless" id="qty_wireless">\n</div>\n<div class="col-xs-1">\nQTY\n</div>\n<div class="col-xs-3">\n<input type="text" class="form-control" name="qty_wired" id="qty_wired">\n</div>\n<div class="col-xs-1">\nQTY\n</div>\n<div class="col-xs-3">\n<input type="text" class="form-control" name="qty_mic_stand" id="qty_mic_stand">\n</div>\n</div>\n<hr>\n<div class="row">\n<div class="col-xs-12">EXTERNAL OR RENTAL</div>\n<div class="col-xs-6">\n<label for="e-wireless">\n<input type="radio" name="ex_microphone" id="e-wireless"> Wireless\n</label>\n</div>\n<div class="col-xs-6">\n<label for="wired">\n<input type="radio" name="ex_microphone" id="e-wired"> Wired\n</label>\n</div>\n<div class="col-xs-2">\nQTY :\n</div>\n<div class="col-xs-4">\n<input type="text" class="form-control" name="ex_qty_wireless" id="ex_qty_mic_stand_wireless">\n</div>\n<div class="col-xs-2">\nQTY :\n</div>\n<div class="col-xs-4">\n<input type="text" class="form-control" name="ex_qty_wired" id="ex_qty_mic_stand_wired">\n</div>\n</div>';
+                stagingContent = '<div class="row">\n<div class="col-xs-12 text-center">INTERNAL</div>\n</div>\n<div class="row">\n<div class="col-xs-4">\n<label for="wireless">\n<input type="checkbox" id="wireless" name="staging_wireless"> Wireless\n</label>\n</div>\n<div class="col-xs-4">\n<label for="wired">\n<input type="checkbox" id="wired" name="staging_wired"> Wired\n</label>\n</div>\n<div class="col-xs-4">\n<label for="mic_stand">\n<input type="checkbox" id="mic_stand" name="staging_micstand"> Mic Stand\n</label>\n</div>\n</div>\n<div class="row">\n<div class="col-xs-1">\nQTY\n</div>\n<div class="col-xs-3">\n<input type="text" class="form-control" name="qty_wireless" id="qty_wireless">\n</div>\n<div class="col-xs-1">\nQTY\n</div>\n<div class="col-xs-3">\n<input type="text" class="form-control" name="qty_wired" id="qty_wired">\n</div>\n<div class="col-xs-1">\nQTY\n</div>\n<div class="col-xs-3">\n<input type="text" class="form-control" name="qty_mic_stand" id="qty_mic_stand">\n</div>\n</div>\n<hr>\n<div class="row">\n<div class="col-xs-12">EXTERNAL OR RENTAL</div>\n<div class="col-xs-6">\n<label for="e-wireless">\n<input type="checkbox" name="ex_wireless" id="e-wireless"> Wireless\n</label>\n</div>\n<div class="col-xs-6">\n<label for="e-wired">\n<input type="checkbox" name="ex_wired" id="e-wired"> Wired\n</label>\n</div>\n<div class="col-xs-2">\nQTY :\n</div>\n<div class="col-xs-4">\n<input type="text" class="form-control" name="ex_qty_wireless" id="ex_qty_mic_stand_wireless">\n</div>\n<div class="col-xs-2">\nQTY :\n</div>\n<div class="col-xs-4">\n<input type="text" class="form-control" name="ex_qty_wired" id="ex_qty_mic_stand_wired">\n</div>\n</div>';
             }else if( elet == 'tables' ){
                 stagingContent = '<div class="row">\n<div class="col-xs-12">\n<label for="t-internal">\n<input type="radio" id="t-internal" name="staging_tables"> Internal\n</label>\n</div>\n<div class="col-xs-12">\n<label for="t-external">\n<input type="radio" id="t-external" name="staging_tables"> External\n</label>\n</div>\n<div class="col-xs-3">Supplier :</div>\n<div class="col-xs-9"><input class="form-control" type="text" name="staging_details" id="staging_details"></div>\n</div>';
             }else{
