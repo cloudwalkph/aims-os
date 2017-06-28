@@ -72,6 +72,24 @@
             </div>
 
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <a href="/operations/4">
+                    <div class="button-menu">
+                        <div class="hero-widget well well-sm">
+                            <div class="icon">
+                                <i class="fa fa-user-plus"></i>
+                            </div>
+                            <div class="text">
+                                <label class="text-muted">Human Resources</label>
+                            </div>
+                            <div class="options">
+                                <a href="/operations/4" class="btn btn-primary btn-lg">View more...</a>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <a href="/operations/5">
                     <div class="button-menu">
                         <div class="hero-widget well well-sm">
