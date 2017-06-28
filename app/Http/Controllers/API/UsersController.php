@@ -71,7 +71,7 @@ class UsersController extends Controller {
                 'user_role_id'  => $input['user_role_id'],
                 'department_id' => $input['department_id'],
                 'password'      => \Hash::make('password'),
-                'api_token'     => str_random(60)
+                'api_token'     => $this->generateAPIToken()
             ];
 
             $user = User::create($userData);
@@ -153,6 +153,20 @@ class UsersController extends Controller {
         }
 
         return response()->json($user, 200);
+    }
+
+    private function generateAPIToken()
+    {
+        $token = str_random(60);
+
+        $user = User::where('api_token', $token)
+            ->first();
+
+        if ($user) {
+            return $this->generateAPIToken();
+        }
+
+        return $token;
     }
 
 }
