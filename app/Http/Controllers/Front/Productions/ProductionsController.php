@@ -62,5 +62,4 @@ class ProductionsController extends Controller
         return view('productions.jolist.details.print.tarpaulin.costing')
         ->with('jo', $jo);
     }
-
 }
