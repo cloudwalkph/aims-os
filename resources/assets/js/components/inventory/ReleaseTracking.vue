@@ -21,8 +21,8 @@
             <form
               @submit.prevent="handleSubmit"
             >
-              <input type="hidden" name="product_id" :value="product.id" />
-              <input type="hidden" name="prodIndex" :value="prodIndex" />
+              <input type="hidden" name="product_id" :value="product.id"></input>
+              <input type="hidden" name="prodIndex" :value="prodIndex"></input>
               <label htmlFor="itemname" class="col-sm-4 control-label">
                   Item Name: {{product.item_name}}
               </label>
@@ -47,18 +47,18 @@
                         v-for="(r, indexD) in product.releases"
                         :key="indexD"
                       >
-                          <td>{{convertDate(r.release_date)}}</td>
+                          <td>{{convertDateWithTime(r.release_date)}}</td>
                           <td>{{getProductsOnHand(product, r.release_date)}}</td>
                           <td>{{r.dispose_quantity}}</td>
                           <td>{{r.return_quantity}}</td>
-                          <td><div v-if="r.status = 1">Approved</div><div v-else>Pending</div></td>
+                          <td><div v-if="r.approved == 1">Approved</div><div v-else>Pending</div></td>
                           <td class="text-center">
                             <button
                               type="button"
                               class="btn btn-sm"
                               data-toggle="modal"
                               data-target="#modalUpdateRelease"
-                              @click="onModalClick(indexTrace, indexD)"
+                              @click="onModalClick(prodIndex, indexD)"
                             ><i class="glyphicon glyphicon-pencil"></i></button>
                             <button
                               type="button"
@@ -75,17 +75,17 @@
                                   class="form-control"
                                   name="release_date"
                                   type="text"
-                                />
+                                ></input>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
                           </td>
                           <td>{{getProductsOnHand(product)}}</td>
-                          <td><input type="text" name="dispose_quantity" class="form-control" /></td>
-                          <td><input type="text" name="return_quantity" class="form-control" /></td>
+                          <td><input type="text" name="dispose_quantity" class="form-control"></input></td>
+                          <td><input type="text" name="return_quantity" class="form-control"></input></td>
                           <td>
-                              <select name="status" class="form-control">
+                              <select name="approved" class="form-control">
                                   <option value="1">Approved</option>
                                   <option value="0">Pending</option>
                               </select>
@@ -122,19 +122,19 @@
                         </div>
 
                         <form id="updateReleaseForm" @submit.prevent="editRelease">
-                            <input type="hidden" name="releaseIndex" />
-                            <input type="hidden" name="productIndex" />
+                            <input type="hidden" name="releaseIndex"></input>
+                            <input type="hidden" name="productIndex"></input>
                             <div class="row">
                                 <div class="col-md-12 form-group text-input-container">
                                     <label class="control-label">Disposed Quantity</label>
                                     <input
                                       type="number"
                                       name="dispose_quantity"
-                                      id="dispose_quantity"
+                                      id="edit_dispose_quantity"
                                       placeholder="dispose quantity"
                                       class="form-control"
                                       value=0
-                                    />
+                                    ></input>
                                 </div>
                             </div>
                             <div class="row">
@@ -143,11 +143,11 @@
                                     <input
                                       type="number"
                                       name="return_quantity"
-                                      id="return_quantity"
+                                      id="edit_return_quantity"
                                       placeholder="return quantity"
                                       class="form-control"
-                                      value=0
-                                    />
+                                      :value="0"
+                                    ></input>
                                 </div>
                             </div>
                         </form>
@@ -181,7 +181,13 @@
             convertDate: function (dateValue) {
                 var milliseconds = Date.parse(dateValue);
                 var d = new Date(milliseconds);
-                return d.toDateString();
+                return moment(d).format('lll');
+                // return d.toDateString();
+            },
+            convertDateWithTime: function(dateValue) {
+                var milliseconds = Date.parse(dateValue);
+                var d = new Date(milliseconds);
+                return moment(d).format('lll');
             },
             getProductsOnHand: function (product, rDate = Date()) {
               var deliveries = 0,
@@ -196,7 +202,7 @@
 
                     for (delivery of product.deliveries) {
                       var deliveryDateParsed = Date.parse(delivery.delivery_date);
-                      if (deliveryDateParsed < releaseDateParsed && rDateParsed > deliveryDateParsed) {
+                      if (deliveryDateParsed <= releaseDateParsed && rDateParsed >= deliveryDateParsed) {
                         deliveries += Number(delivery.delivery_quantity);
                       }
                     }
@@ -238,8 +244,8 @@
             onModalClick: function(indexProduct, indexRelease) {
                 $('input[name="productIndex"]').val(indexProduct);
                 $('input[name="releaseIndex"]').val(indexRelease);
-                $('input[name="dispose_quantity"]').val(this.products[indexProduct].releases[indexRelease].dispose_quantity);
-                $('input[name="return_quantity"]').val(this.products[indexProduct].releases[indexRelease].return_quantity);
+                $('#edit_dispose_quantity').val(this.products[indexProduct].releases[indexRelease].dispose_quantity);
+                $('#edit_return_quantity').val(this.products[indexProduct].releases[indexRelease].return_quantity);
             },
             editRelease: function(e) {
                 var form = e.target;
@@ -247,10 +253,7 @@
                 var productIndex = formData.get('productIndex');
                 var releaseIndex = formData.get('releaseIndex');
 
-                var data = {
-                  _method: 'PUT',
-                }
-                formData.append($data);
+                formData.set('_method', 'PUT');
 
                 this.$http.post('api/v1/inventory/release/' + this.products[productIndex].releases[releaseIndex].id, formData)
                   .then(function (response) {

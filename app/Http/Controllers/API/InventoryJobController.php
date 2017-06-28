@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Traits\NotificationTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,7 +19,8 @@ use DB;
 
 class InventoryJobController extends Controller
 {
-    use FilterTrait;
+    use FilterTrait, NotificationTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -96,7 +98,7 @@ class InventoryJobController extends Controller
       $jo = '';
       $input = $request->all();
       $user = $request->user();
-      DB::transaction(function() use($input, $user) {
+      DB::transaction(function() use($input, $user, $request) {
         $job_order = json_decode($input['job_order']);
         $job_users = json_decode($input['users']);
 
@@ -129,6 +131,8 @@ class InventoryJobController extends Controller
           /* create the inventory job */
           $created_inventory_job = Assignment::create($assignment_data);
         }
+
+        $this->assignmentUpdated($inventory_jobs_data['job_order_id'], $request->user());
       });
 
       $jo = [

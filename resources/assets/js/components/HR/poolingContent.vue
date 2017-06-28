@@ -649,7 +649,7 @@
 
                 let index = this.selectedManpower.findIndex((item) => item.id == id);
 
-                let url = `/api/v1/hr/selected-manpower/${id}/${$('#jobOrderIdNumber').val()}`;
+                let url = `/api/v1/hr/selected-manpower/${id}/${$('#jobOrderIdNumber').val()}`; // params selected id and joborder id
                 
 
                 this.$http.delete(url).then(response => {
@@ -779,7 +779,7 @@
             },
 
             onPaginationData (paginationData) {
-                this.$refs.pagination.setPaginationData(paginationData)
+                this.$refs.pagination.setPaginationData(paginationData);
                 this.$refs.paginationInfo.setPaginationData(paginationData)
             },
             onChangePage (page) {

@@ -195,4 +195,15 @@ class CreativesController extends Controller
         $request->session()->flash('success', 'Posted task successfully');
         return redirect()->back();
     }
+
+    public function preview($joId)
+    {
+        config(['app.name' => 'Creatives Work in Progress Details | AIMS']);
+
+        $jo = Assignment::with('jobOrder', 'assignedUser.profile', 'tasks')
+            ->where('job_order_id', $joId)
+            ->first();
+
+        return view('creatives.work-in-progress.preview')->with('jo', $jo);
+    }
 }

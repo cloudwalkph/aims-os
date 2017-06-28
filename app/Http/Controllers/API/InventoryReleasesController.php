@@ -43,6 +43,7 @@ class InventoryReleasesController extends Controller
           'product_id' => $request->product_id,
           'dispose_quantity' => $request->dispose_quantity,
           'return_quantity' => $request->return_quantity,
+          'approved' => $request->approved,
           'release_date' => date('Y-m-d H:i:s', strtotime($request->release_date)),
         );
         $release = InventoryReleases::create($release_data);
