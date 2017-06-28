@@ -50,6 +50,18 @@
                         </form>
                     </tfoot>
                     <tbody>
+                    @foreach( $productionDatas as $productionData)
+
+                        @if( $productionData->type == 'staging' )
+                            <tr>
+                                <td>{{ $productionData->description }}</td>
+                                <td>{{ $productionData->visuals }}</td>
+                                <td>{{ $productionData->qty }}</td>
+                                <td>{{ $productionData->details }}</td>
+                            </tr>
+                        @endif
+
+                    @endforeach
                     </tbody>
                 </table>
             </div>

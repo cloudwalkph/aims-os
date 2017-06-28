@@ -36,9 +36,18 @@
                     </form>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td colspan="4">no details</td>
-                        </tr>
+                    @foreach( $productionDatas as $productionData)
+
+                        @if( $productionData->type == 'booth' )
+                            <tr>
+                                <td>{{ $productionData->description }}</td>
+                                <td>{{ $productionData->visuals }}</td>
+                                <td>{{ $productionData->qty }}</td>
+                                <td>{{ $productionData->details }}</td>
+                            </tr>
+                        @endif
+
+                    @endforeach
                     </tbody>
                 </table>
             </div>

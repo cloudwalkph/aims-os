@@ -67,10 +67,19 @@
                             </form>
                         </tfoot>
                         <tbody id="tbody-offset">
+                        @foreach( $productionDatas as $productionData)
 
-                        <tr>
-                            <td colspan="5">no details</td>
-                        </tr>
+                            @if( $productionData->type == 'offset' )
+                                <tr>
+                                    <td>{{ $productionData->description }}</td>
+                                    <td>{{ $productionData->visuals }}</td>
+                                    <td>{{ $productionData->sizes }}</td>
+                                    <td>{{ $productionData->qty }}</td>
+                                    <td>{{ $productionData->details }}</td>
+                                </tr>
+                            @endif
+
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
