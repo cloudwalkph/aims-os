@@ -54,6 +54,8 @@ class ProductionsController extends Controller
 
         $input['job_order_id'] = $JoId;
 
+        $jo = Productions::where('job_order_no', '=', $JoId)->get();
+
         $filename = '';
         if ($request->hasFile('visuals')) {
             $filename = uniqid() . '.png';
@@ -61,7 +63,13 @@ class ProductionsController extends Controller
             $request->file('visuals')->storeAs('productions', $filename);
         }
 
-        $production_id = $this->productionSave($JoId);
+        $production_id = 0;
+
+        if( count($jo) <= 0 ){
+            $production_id = $this->productionSave($JoId);
+        }else{
+            $production_id = $JoId;
+        }
 
         $response = $this->productionItemSave( $production_id, $input, $filename );
 

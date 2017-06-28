@@ -34,7 +34,7 @@
                             <td><input class="form-control" type="integer" name="tarp_quantity" id="tarp_quantity" placeholder="quantity" /></td>
                             <td><input class="form-control" type="text" name="tarp_details" id="tarp_details" placeholder="details" /></td>
                             <td>
-                                <button type="button" onclick="saveProductions()" class="btn btn-primary btn-sm">
+                                <button type="button" onclick="saveTarpaulin()" class="btn btn-primary btn-sm">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>
                             </td>

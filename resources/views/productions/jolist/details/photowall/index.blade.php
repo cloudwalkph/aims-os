@@ -19,61 +19,29 @@
                         <th class="text-center">Materials to be used and other details</th>
                     </tr>
                     </thead>
+                    <tfoot>
+                    <form class="form_photowall" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="production_photowall" value="photowall" />
+                        <tr>
+                            <td><input class="form-control" type="text" name="photowall_description" id="photowall_description" placeholder="description" /></td>
+                            <td><input class="form-control" type="file" name="photowall_file" id="photowall_file" /></td>
+                            <td><input class="form-control" type="integer" name="photowall_quantity" id="photowall_quantity" placeholder="quantity" /></td>
+                            <td><input class="form-control" type="text" name="photowall_details" id="photowall_details" placeholder="details" /></td>
+                            <td>
+                                <button type="button" onclick="savePhotowall()" class="btn btn-primary btn-sm">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </form>
+                    </tfoot>
                     <tbody>
                         <tr>
                             <td colspan="4">no details</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="modal fade" id="addPhotowall" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Print Form</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="printForm">
-                            <div class="row">
-                                <div class="col-md-6 form-group text-input-container">
-                                    <label class="control-label">Description</label>
-                                    <input type="text" name="description"
-                                    @input="inputChange" v-bind:value="description" id="description"
-                                    placeholder="Enter Description" class="form-control" />
-                                </div>
-                                <div class="col-md-6 form-group text-input-container">
-                                    <label class="control-label">Visual Peg per File</label>
-                                    <input type="text" name="visual_peg_per_file"
-                                    @input="inputChange" v-bind:value="visual_peg_per_file" id="visual_peg_per_file"
-                                    placeholder="Enter Visual Peg per File" class="form-control" />
-                                </div>
-                                <div class="col-md-6 form-group text-input-container">
-                                    <label class="control-label">Quantity</label>
-                                    <input type="text" name="quantity"
-                                    @input="inputChange" v-bind:value="quantity" id="quantity"
-                                    placeholder="Enter quantity" class="form-control" />
-                                </div>
-
-                                <div class="col-md-6 form-group text-input-container">
-                                    <label class="control-label">Material to be used and other details</label>
-                                    <input type="text" name="quantity"
-                                    @input="inputChange" v-bind:value="quantity" id="quantity"
-                                    placeholder="Enter quantity" class="form-control" />
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="saveForm">Save</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

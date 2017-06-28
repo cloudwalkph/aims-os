@@ -148,27 +148,97 @@
         var file;
         $( document ).ready(function() {
 
-            $('#tarp_file').on('change', function (e) {
+            $('#tarp_file, #sticker_file, #offset_file, #booth_file').on('change', function (e) {
                 var files = e.target.files || e.dataTransfer.files;
-                console.log(files[0]);
+//                console.log(files[0]);
                 file = files[0];
             });
 
         });
 
-        function saveProductions() {
-            var list = {};
+        function saveTarpaulin() {
             var jobOrderId = $('#jobOrderId').val();
 
+            saveProductions( jobOrderId,
+                $('input[name=production_type]').val(),
+                $('#tarp_description option:selected').text(),
+                $('input[name=tarp_size]').val(),
+                $('input[name=tarp_quantity]').val(),
+                $('input[name=tarp_details]' ).val()
+            );
+        }
+
+        function saveStickers() {
+            var jobOrderId = $('#jobOrderId').val();
+
+            var sticker_details = "Materials : " + $('input[name=sticker_materials]' ).val() + "<br>" +
+                "Texture : " + $('input[name=sticker_texture]:checked' ).val() + "<br>" +
+                "Rendention : " + $('input[name=sticker_rendetion]:checked' ).val() + "<br>" +
+                "Others : " +$('input[name=sticker_others]' ).val();
+
+            saveProductions( jobOrderId,
+                $('input[name=production_sticker]').val(),
+                $('textarea#sticker_description').val(),
+                $('input[name=sticker_size]').val(),
+                $('input[name=sticker_quantity]').val(),
+                sticker_details
+            );
+        }
+
+        function saveOffset() {
+            var jobOrderId = $('#jobOrderId').val();
+            saveProductions( jobOrderId,
+                $('input[name=production_offset]').val(),
+                $('input[name=offset_description]').val(),
+                $('input[name=offset_size]').val(),
+                $('input[name=offset_quantity]').val(),
+                $('input[name=offset_details]').val()
+            );
+        }
+
+        function saveBooth() {
+            var jobOrderId = $('#jobOrderId').val();
+            saveProductions( jobOrderId,
+                $('input[name=production_booth]').val(),
+                $('input[name=booth_description]').val(),
+                null,
+                $('input[name=booth_quantity]').val(),
+                $('input[name=booth_details]').val()
+            );
+        }
+
+        function savePhotowall() {
+            var jobOrderId = $('#jobOrderId').val();
+            saveProductions( jobOrderId,
+                $('input[name=production_photowall]').val(),
+                $('input[name=photowall_description]').val(),
+                null,
+                $('input[name=photowall_quantity]').val(),
+                $('input[name=photowall_details]').val()
+            );
+        }
+
+        function saveShirts() {
+            var jobOrderId = $('#jobOrderId').val();
+            saveProductions( jobOrderId,
+                $('input[name=production_shirts]').val(),
+                $('input[name=shirts_description]').val(),
+                null,
+                $('input[name=shirts_quantity]').val(),
+                $('input[name=shirts_details]').val()
+            );
+        }
+
+        function saveProductions( jobOrderId, prodType, desc, size, quantity, proDetails){
             let form = new FormData();
             form.append('job_order_id', jobOrderId);
             form.append('_token', $('input[name=_token]' ).val());
-            form.append('production_type', $('input[name=production_type]' ).val());
-            form.append('description', $( "#tarp_description option:selected" ).text());
+            form.append('production_type', prodType);
+            form.append('description', desc);
             form.append('visuals', file);
-            form.append('sizes', $('input[name=tarp_size]' ).val());
-            form.append('qty', $('input[name=tarp_quantity]' ).val());
-            form.append('details', $('input[name=tarp_details]' ).val());
+            form.append('sizes', size);
+            form.append('qty', quantity);
+            form.append('details', proDetails);
 
             let url = `/api/v1/productions/${jobOrderId}/details/`;
             axios.post(url, form).then(function(res) {
@@ -177,28 +247,5 @@
                 toastr.error('Failed in saving event details', 'Error')
             });
         }
-
-//        function saveTarpaulin() {
-//
-//            $.ajaxSetup({
-//                headers: {
-//                    'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
-//                }
-//            });
-//
-//            var joNo = $('#jobOrderId').val();
-//            let url = `/api/v1/productions/${joNo}/details`;
-//            $('#form_tarpaulin').ajaxForm({
-//                type: 'POST',
-//                url: url,
-//                data : $('#form_tarpaulin').serializeArray(),
-//                beforeSubmit: function(arr, jform, option){
-//
-//                },
-//                success:  function(response){
-//                    console.log(response);
-//                }
-//            }).submit();
-//        }
     </script>
 @endsection
