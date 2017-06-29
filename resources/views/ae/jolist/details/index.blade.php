@@ -107,7 +107,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="col-md-12 col-xs-12">
-                                    <h5><strong>Project Type:</strong> {{ collect(json_decode($jo->project_types))->implode('name', ', ') }}</h5>
+                                    <h5><strong>Project Type:</strong> {{ $jo->project_type }}</h5>
                                 </div>
                                 <div class="col-md-12 col-xs-12">
                                     <h5><strong>Brand:</strong> {{ collect($brands)->implode(', ') }}</h5>
@@ -179,9 +179,9 @@
 
         </div>
 
-        <iframe src="/ae/jo/details/{{ $jo->id }}/meal" name="frameMeal" id="mealFrame" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->id }}/preview" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->id }}/manpower" name="frameManpower" id="manpowerFrame" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->id }}/vehicle" name="frameVehicle" id="vehicleFrame" style="width: 0; height: 0"></iframe>
+        {{--<iframe src="/ae/jo/details/{{ $jo->id }}/meal" name="frameMeal" id="mealFrame" style="width: 0; height: 0"></iframe>--}}
+        {{--<iframe src="/ae/jo/details/{{ $jo->id }}/preview" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>--}}
+        {{--<iframe src="/ae/jo/details/{{ $jo->id }}/manpower" name="frameManpower" id="manpowerFrame" style="width: 0; height: 0"></iframe>--}}
+        {{--<iframe src="/ae/jo/details/{{ $jo->id }}/vehicle" name="frameVehicle" id="vehicleFrame" style="width: 0; height: 0"></iframe>--}}
     </div>
 @endsection

@@ -12,6 +12,8 @@
                        required/>
             </div>
 
+            <hr/>
+
             <div class="form-group">
                     <div>
                         <label>Select Project Type</label>
@@ -19,10 +21,11 @@
 
                     <div v-for="(type, key) in projectTypes">
                         <div class="checkbox checkbox-primary col-md-2">
-                            <input name="project_types" v-bind:value="type.name"
+                            <input name="project_type" v-bind:value="type.name"
                                    @click="onChangeProjectType"
                                    class="checkbox"
-                                   type="checkbox" v-bind:id="'checkbox-' + type.id" />
+                                   :checked="key == 0"
+                                   type="radio" v-bind:id="'checkbox-' + type.id" />
 
                             <label v-bind:for="'checkbox-' + type.id">{{ type.name }}</label>
                         </div>
@@ -156,7 +159,8 @@
                 clients: [],
                 clientOptions: [],
                 selectedClient: null,
-                selectedProjectTypes: [],
+//                selectedProjectTypes: [],
+                selectedProjectType: '',
                 selectedBrands: [],
                 addedClients: []
             }
@@ -204,10 +208,8 @@
             },
             onChangeProjectType(e) {
                 if (e.target.checked) {
-                    this.selectedProjectTypes.push({ name: e.target.value});
-                } else {
-                    let index = this.selectedProjectTypes.findIndex((item) => { return item.name === e.target.value});
-                    this.selectedProjectTypes.splice(index, 1);
+//                    this.selectedProjectTypes.push({ name: e.target.value});
+                    this.selectedProjectType = e.target.value;
                 }
             },
             onChangeBrand(e) {
@@ -252,7 +254,7 @@
             createJobOrder() {
                 let data = {
                     project_name: this.projectName,
-                    project_types: this.selectedProjectTypes,
+                    project_type: this.selectedProjectType,
                     clients: this.addedClients
                 };
 
@@ -261,7 +263,7 @@
                     return;
                 }
 
-                if (! data.project_types.length) {
+                if (! data.project_type) {
                     toastr.error('Please select a project type', 'Error');
                     return;
                 }

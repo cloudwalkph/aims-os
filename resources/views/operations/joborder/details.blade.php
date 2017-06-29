@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="col-md-12 col-xs-12">
-                                    <h5><strong>Project Type:</strong> {{ collect(json_decode($jo->project_types))->implode('name', ', ') }}</h5>
+                                    <h5><strong>Project Type:</strong> {{ $jo->project_type }}</h5>
                                 </div>
                                 <div class="col-md-12 col-xs-12">
                                     <h5><strong>Brand:</strong> {{ collect($brands)->implode(', ') }}</h5>

@@ -90,10 +90,9 @@
                         title: 'Project Name'
                     },
                     {
-                        name: 'project_types',
-                        sortField: 'project_types',
-                        title: 'Project Types',
-                        callback: 'projectTypeDisseminate'
+                        name: 'project_type',
+                        sortField: 'project_type',
+                        title: 'Project Types'
                     },
                     {
                         name: 'status',
@@ -163,9 +162,6 @@
                 }
                 console.log(brands.join(', '));
                 return brands.join(', ')
-            },
-            projectTypeDisseminate (value) {
-                return JSON.parse(value).map(elem => { return elem.name }).join(', ')
             },
             formatDate (value, fmt = 'D MMM YYYY') {
                 return (value == null)

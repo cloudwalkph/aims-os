@@ -644,3 +644,7 @@ table tbody tr {
 table#tbl-tarpaulin thead, tfoot {
     display: table-header-group;
 }
+
+.fc-event .fc-content {
+    padding: 10px 5px;
+}
