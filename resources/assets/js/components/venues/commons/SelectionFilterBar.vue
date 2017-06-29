@@ -145,9 +145,8 @@
 
                         <ul class="dropdown-menu location" role="menu">
                             <li>
-                                <label for="lsm">
-                                    <input type="text" id="lsm" name="lsm" value="" />
-                                </label>
+                                <label for="lsm">LSM</label>
+                                <input type="number" class id="lsm" name="lsm" value="" />
                             </li>
                         </ul>
                     </li>

@@ -109,6 +109,7 @@ Route::group(['prefix' => 'setup'], function () {
 Route::group(['prefix' => 'productions'], function () {
     Route::get('/', 'Front\Productions\ProductionsController@index');
     Route::get('/references', 'Front\Productions\ProductionsController@references');
+    Route::get('/references/{fileName}/download', 'Front\AE\ReferenceController@download');
 
     Route::group(['prefix' => 'jo'], function () {
         Route::get('/', 'Front\Productions\ProductionsController@jos');

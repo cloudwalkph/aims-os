@@ -2,7 +2,7 @@
     <div>
         <production-filter-bar></production-filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/job-orders"
+                  api-url="/api/v1/productions"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"

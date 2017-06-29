@@ -11,7 +11,7 @@
 
             <div class="box-body">
 
-                <div class="row">
+                <div class="row hidden">
                     <div class="col-md-offset-10 col-md-2">
                         <button type="button" style="margin-bottom: 15px; margin-left: 32px;" class="btn btn-primary btn-create"
                                 data-toggle="modal" data-target="#addPrint">
@@ -48,80 +48,40 @@
                             <th class="text-center">Other Details</th>
                         </tr>
                         </thead>
+                        <tfoot>
+                            <form class="form_offset" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="production_offset" value="offset" />
+                                <tr>
+                                    <td><input class="form-control" type="text" name="offset_description" id="offset_description" placeholder="description" /></td>
+                                    <td><input class="form-control" type="file" name="offset_file" id="offset_file" /></td>
+                                    <td><input class="form-control" type="text" name="offset_size" id="offset_size" placeholder="size" /></td>
+                                    <td><input class="form-control" type="integer" name="offset_quantity" id="offset_quantity" placeholder="quantity" /></td>
+                                    <td><input class="form-control" type="text" name="offset_details" id="offset_details" placeholder="details" /></td>
+                                    <td>
+                                        <button type="button" onclick="saveOffset()" class="btn btn-primary btn-sm">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </form>
+                        </tfoot>
                         <tbody id="tbody-offset">
-                        <tr>
-                            <td class="hidden"> </td>
-                            <td>Camera</td>
-                            <td>camera.zip</td>
-                            <td>n/a</td>
-                            <td>5</td>
-                            <td>Canon DSLR lists</td>
-                        </tr>
-                        <tr>
-                            <td class="hidden"> </td>
-                            <td>Camera Stands</td>
-                            <td>camera-stands.zip</td>
-                            <td>n/a</td>
-                            <td>5</td>
-                            <td>Canon DSLR stand lists</td>
-                        </tr>
+                        @foreach( $productionDatas as $productionData)
+
+                            @if( $productionData->type == 'offset' )
+                                <tr>
+                                    <td>{{ $productionData->description }}</td>
+                                    <td>{{ $productionData->visuals }}</td>
+                                    <td>{{ $productionData->sizes }}</td>
+                                    <td>{{ $productionData->qty }}</td>
+                                    <td>{{ $productionData->details }}</td>
+                                </tr>
+                            @endif
+
+                        @endforeach
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="modal fade" id="addPrint" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Print Form</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="printForm">
-                            <div class="row">
-                                <div class="col-md-6 form-group text-input-container">
-                                    <label class="control-label">Description</label>
-                                    <input type="text" name="description"
-                                    @input="inputChange" v-bind:value="description" id="description"
-                                    placeholder="Enter Description" class="form-control" />
-                                </div>
-                                <div class="col-md-6 form-group text-input-container">
-                                    <label class="control-label">Visual Peg per File</label>
-                                    <input type="text" name="visual_peg_per_file"
-                                    @input="inputChange" v-bind:value="visual_peg_per_file" id="visual_peg_per_file"
-                                    placeholder="Enter Visual Peg per File" class="form-control" />
-                                </div>
-                                <div class="col-md-6 form-group text-input-container">
-                                    <label class="control-label">Size</label>
-                                    <input type="text" name="size"
-                                    @input="inputChange" v-bind:value="size" id="size"
-                                    placeholder="Enter size" class="form-control" />
-                                </div>
-                                <div class="col-md-6 form-group text-input-container">
-                                    <label class="control-label">Quantity</label>
-                                    <input type="text" name="quantity"
-                                    @input="inputChange" v-bind:value="quantity" id="quantity"
-                                    placeholder="Enter quantity" class="form-control" />
-                                </div>
-
-                                <div class="col-md-6 form-group text-input-container">
-                                    <label class="control-label">Other Details</label>
-                                    <input type="text" name="quantity"
-                                    @input="inputChange" v-bind:value="quantity" id="quantity"
-                                    placeholder="Enter quantity" class="form-control" />
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="saveForm">Save</button>
-                    </div>
                 </div>
             </div>
         </div>

@@ -22,7 +22,16 @@
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">SKU</label>
-                                <input type="text" name="product_code" placeholder="SKU-123" class="form-control" />
+                                <div class="input-group">
+                                  <span class="input-group-addon" ref="skuCode">000</span>
+                                  <span class="input-group-addon">-</span>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    name="product_code"
+                                    placeholder="SKU-123"
+                                  />
+                                </div>
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Product Name</label>
@@ -34,7 +43,7 @@
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Expiration Date</label>
-                                <input type="text" name="expiration_date" placeholder="Title" class="expiration_date form-control" />
+                                <input type="text" name="expiration_date" placeholder="01/01/2000 12:00 AM" class="expiration_date form-control" />
                             </div>
                             <div class="col-md-12 form-group text-input-container">
                                 <label class="control-label">Status</label>
@@ -84,24 +93,6 @@
               statusSelected: null
             }
         },
-        computed: {
-          categoryOptions: function() {
-            return [
-              {
-                label: 'T Shirt',
-                value: 'tshirt',
-              },
-              {
-                label: 'Sandals',
-                value: 'sandals',
-              },
-              {
-                label: 'Pantalon',
-                value: 'pants',
-              },
-            ];
-          }
-        },
         methods: {
             handleSubmit: function (e) {
                 var form = $(e.target)[0];
@@ -128,10 +119,18 @@
 
             },
             selectJO: function (e) {
-              this.joSelected = e.value;
+              if(e) {
+                this.joSelected = e.value;
+              }
             },
             selectCategory: function(e) {
-              this.categorySelected = e.value;
+              if(e) {
+                this.$refs.skuCode.innerText = e.value;
+                this.categorySelected = e.value;
+              } else {
+                this.$refs.skuCode.innerText = '000';
+                this.categorySelected = null;
+              }
             },
             selectStatus: function(e) {
               this.statusSelected = e.value;
@@ -149,6 +148,7 @@
             }
         },
         props: {
+          categoryOptions: Array,
           propData: Object,
           refreshVuetable: Function,
         }

@@ -1,4 +1,4 @@
-<template>
+    <template>
     <div>
         <div class="col-md-12 venues" style="margin-top: 20px">
             <venue-selection-filter-bar></venue-selection-filter-bar>

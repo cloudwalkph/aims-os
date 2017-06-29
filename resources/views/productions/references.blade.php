@@ -32,11 +32,19 @@
 
                     <tbody>
                     <tr>
-                        <td>Minutes of the Meeting Template</td>
+                        <td>Production Deck</td>
                         <td>Internal</td>
                         <td class="text-center">
-                            <a href="#" role="button" class="btn btn-primary">
-                            {{--<a href="/productions/references/mom.doc/download" role="button" class="btn btn-primary">--}}
+                            <a href="/productions/references/production.pptx/download" role="button" class="btn btn-primary">
+                                <i class="fa fa-download fa-lg"></i> Download
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Occular Inspection Template</td>
+                        <td>Internal</td>
+                        <td class="text-center">
+                            <a href="/productions/references/ocular.pptx/download" role="button" class="btn btn-primary">
                                 <i class="fa fa-download fa-lg"></i> Download
                             </a>
                         </td>

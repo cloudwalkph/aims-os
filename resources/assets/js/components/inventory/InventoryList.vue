@@ -47,7 +47,11 @@
           ></InventoryVuetable>
         </div>
 
-        <CreateInventoryModal :propData="propData" :refresh-vuetable="refreshVuetable"></CreateInventoryModal>
+        <CreateInventoryModal
+        :categoryOptions="categoryOptions"
+        :propData="propData"
+        :refresh-vuetable="refreshVuetable"
+        ></CreateInventoryModal>
 
         <div class="modal fade" id="importInternalInventoryModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-sm" role="document">
@@ -91,21 +95,46 @@
           CreateInventoryModal,
           InventoryVuetable,
         },
+        computed: {
+          categoryOptions: function () {
+            var options = [];
+            for(category of this.categories) {
+              options.push({
+                label: category.particulars,
+                value: category.item_code
+              })
+            }
+            return options;
+          }
+        },
         data: function () {
             return {
               apiUrl: 'api/v1/inventory',
-              categoryOptions: [
+              categories: [
                 {
-                  label: 'TShirt',
-                  value: 'tshirt',
+                  id: 1,
+                  item_code: '112',
+                  particulars: 'Polo Shirt',
                 },
                 {
-                  label: 'Pants',
-                  value: 'pants',
+                  id: 2,
+                  item_code: '017',
+                  particulars: 'Dress',
                 },
                 {
-                  label: 'Sandals',
-                  value: 'sandals',
+                  id: 3,
+                  item_code: '052',
+                  particulars: 'Long Sleeve Polo',
+                },
+                {
+                  id: 4,
+                  item_code: '117',
+                  particulars: 'T-Shirt',
+                },
+                {
+                  id: 5,
+                  item_code: '059',
+                  particulars: 'Skirt',
                 },
               ],
               fields: [
@@ -153,6 +182,9 @@
             }
         },
         methods: {
+          fileHandler (e) {
+            console.log(e);
+          },
           importInternalInventory (e) {
             var form = $(e.target)[0];
             var formData = new FormData(form);

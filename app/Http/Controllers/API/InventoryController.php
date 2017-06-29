@@ -213,8 +213,10 @@ class InventoryController extends Controller
                     $data['job_order_id'] = $jo->id;
                   }
 
-                  // dispatch queue
-                  $this->dispatch(new ImportInventory($data));
+                  if($data['product_code']) {
+                    // dispatch queue
+                    $this->dispatch(new ImportInventory($data));
+                  }
                 }
               }
             });

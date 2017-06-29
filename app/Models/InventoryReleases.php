@@ -14,7 +14,7 @@ class InventoryReleases extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'product_id', 'dispose_quantity', 'return_quantity', 'release_date'];
+    protected $fillable = ['user_id', 'product_id', 'dispose_quantity', 'return_quantity', 'release_date', 'approved'];
     /**
      * The attributes that should be mutated to dates.
      *

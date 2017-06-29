@@ -87,7 +87,7 @@ $(function () {
     $('#event_when').datetimepicker();
     $('#expected_delivery_date').datetimepicker();
 
-    $("#lsm").ionRangeSlider({
+    $(".location #lsm").ionRangeSlider({
         type: "double",
         grid: false,
         min: 0,
