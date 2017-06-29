@@ -4,8 +4,9 @@
     <script>
         $(function() {
             $('#printJobOrder').on('click', function() {
+                let $iframe = $('#joFrame');
 
-                $('#joFrame').get(0).contentWindow.print();
+                $iframe.get(0).contentWindow.print();
             });
         });
 
