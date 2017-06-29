@@ -135,6 +135,20 @@ Route::group(['prefix' => 'operations'], function () {
     Route::get('/{departmentId}/{joNo}', 'Front\Operations\DepartmentsController@showDetails');
 });
 
+Route::group(['prefix' => 'activations'], function () {
+    Route::get('/', 'Front\Activations\ActivationsController@index');
+    Route::get('/schedules', 'Front\Activations\SchedulerController@index');
+
+    Route::group(['prefix' => 'job-orders'], function () {
+        Route::get('/', 'Front\Activations\JobOrderController@index');
+        Route::get('/{joNo}', 'Front\Activations\JobOrderController@show');
+        Route::post('/{joNo}', 'Front\Activations\JobOrderController@assign');
+    });
+
+    Route::get('/{departmentId}', 'Front\Activations\DepartmentsController@show');
+    Route::get('/{departmentId}/{joNo}', 'Front\Activations\DepartmentsController@showDetails');
+});
+
 Route::group(['prefix' => 'users'], function () {
     Route::get('/getusers', 'Front\User\UsersController@showUsers');
 });
