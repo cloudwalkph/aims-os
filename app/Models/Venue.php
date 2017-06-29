@@ -44,4 +44,9 @@ class Venue extends Model
     {
         return $this->hasMany('App\Models\JobOrderVehicle');
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Venue::class);
+    }
 }

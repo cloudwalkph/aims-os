@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\API\Events;
+namespace App\Http\Controllers\API\Departments;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;

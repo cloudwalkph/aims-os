@@ -85,6 +85,11 @@ class JobOrder extends Model
         return $this->hasMany(InventoryJob::class);
     }
 
+    public function schedules()
+    {
+        return $this->hasMany(JobOrderSchedule::class);
+    }
+
     /**
      * Local Scopes
      * ======================================================================================================

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\API\Admin;
+namespace App\Http\Controllers\API\JobOrders;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vehicles\CreateVehicleRequest;
