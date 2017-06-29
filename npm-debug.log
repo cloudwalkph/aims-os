@@ -1,0 +1,1000 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\ProgramData\\Chocolatey\\lib\\npm\\tools\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'cross-env' ]
+2 info using npm@1.4.9
+3 info using node@v6.3.1
+4 warn package.json acorn-object-spread@1.0.0 No README data
+5 warn package.json buble@0.12.5 No README data
+6 warn package.json camel-case@3.0.0 No README data
+7 warn package.json copy-webpack-plugin@4.0.1 No README data
+8 warn package.json core-js@2.4.1 No README data
+9 warn package.json de-indent@1.0.2 No README data
+10 warn package.json jsesc@1.3.0 No README data
+11 warn package.json magic-string@0.14.0 No README data
+12 warn package.json obuf@1.1.1 No description
+13 warn package.json obuf@1.1.1 No README data
+14 warn package.json querystringify@0.0.4 No README data
+15 warn package.json setimmediate@1.0.5 No README data
+16 warn package.json url-parse@1.1.8 No README data
+17 warn package.json accounting@0.4.1 specifying dependencies as array is deprecated
+18 warn package.json assert@1.4.1 assert is also the name of a node core module.
+19 warn package.json bcrypt-pbkdf@1.0.1 No repository field.
+20 warn package.json buffer@4.9.1 buffer is also the name of a node core module.
+21 warn package.json callsite@1.0.0 No repository field.
+22 warn package.json cli-usage@0.1.4 No repository field.
+23 warn package.json create-error-class@3.0.2 keywords should be an array of strings
+24 warn package.json events@1.1.1 events is also the name of a node core module.
+25 warn package.json fs@0.0.1-security fs is also the name of a node core module.
+26 warn package.json has-binary@0.1.7 No repository field.
+27 warn package.json indexof@0.0.1 No repository field.
+28 warn package.json is-retry-allowed@1.1.0 keywords should be an array of strings
+29 warn package.json laravel-mix@0.8.9 No repository field.
+30 warn package.json object-component@0.0.3 No repository field.
+31 warn package.json path@0.12.7 path is also the name of a node core module.
+32 warn package.json punycode@1.4.1 punycode is also the name of a node core module.
+33 warn package.json querystring@0.2.0 querystring is also the name of a node core module.
+34 warn package.json require-from-string@1.2.1 keywords should be an array of strings
+35 warn package.json rework-visit@1.0.0 No repository field.
+36 warn package.json string_decoder@0.10.31 string_decoder is also the name of a node core module.
+37 warn package.json url@0.11.0 url is also the name of a node core module.
+38 warn package.json util@0.10.3 util is also the name of a node core module.
+39 warn package.json vue-template-es2015-compiler@1.5.0 No repository field.
+40 warn package.json vuetable-2@1.3.0 No repository field.
+41 verbose readDependencies using package.json deps
+42 verbose cache add [ 'cross-env', null ]
+43 verbose cache add name=undefined spec="cross-env" args=["cross-env",null]
+44 verbose parsed url Url {
+44 verbose parsed url   protocol: null,
+44 verbose parsed url   slashes: null,
+44 verbose parsed url   auth: null,
+44 verbose parsed url   host: null,
+44 verbose parsed url   port: null,
+44 verbose parsed url   hostname: null,
+44 verbose parsed url   hash: null,
+44 verbose parsed url   search: null,
+44 verbose parsed url   query: null,
+44 verbose parsed url   pathname: 'cross-env',
+44 verbose parsed url   path: 'cross-env',
+44 verbose parsed url   href: 'cross-env' }
+45 silly lockFile 27775ee3-cross-env cross-env
+46 verbose lock cross-env C:\Users\michael\AppData\Roaming\npm-cache\27775ee3-cross-env.lock
+47 silly lockFile 27775ee3-cross-env cross-env
+48 silly lockFile 27775ee3-cross-env cross-env
+49 verbose addNamed [ 'cross-env', '' ]
+50 verbose addNamed [ null, '*' ]
+51 silly lockFile 8de1f3af-cross-env cross-env@
+52 verbose lock cross-env@ C:\Users\michael\AppData\Roaming\npm-cache\8de1f3af-cross-env.lock
+53 silly addNameRange { name: 'cross-env', range: '*', hasData: false }
+54 verbose url raw cross-env
+55 verbose url resolving [ 'https://registry.npmjs.org/', './cross-env' ]
+56 verbose url resolved https://registry.npmjs.org/cross-env
+57 info trying registry request attempt 1 at 10:59:23 AM
+58 http GET https://registry.npmjs.org/cross-env
+59 http 200 https://registry.npmjs.org/cross-env
+60 silly registry.get cb [ 200,
+60 silly registry.get   { server: 'nginx/1.10.3',
+60 silly registry.get     'content-type': 'application/json',
+60 silly registry.get     'last-modified': 'Mon, 26 Jun 2017 15:04:40 GMT',
+60 silly registry.get     etag: 'W/"59512288-1466d"',
+60 silly registry.get     'content-encoding': 'gzip',
+60 silly registry.get     'cache-control': 'max-age=300',
+60 silly registry.get     'content-length': '10520',
+60 silly registry.get     'accept-ranges': 'bytes',
+60 silly registry.get     date: 'Tue, 27 Jun 2017 02:57:46 GMT',
+60 silly registry.get     via: '1.1 varnish',
+60 silly registry.get     age: '35',
+60 silly registry.get     connection: 'close',
+60 silly registry.get     'x-served-by': 'cache-lax8639-LAX',
+60 silly registry.get     'x-cache': 'HIT',
+60 silly registry.get     'x-cache-hits': '1',
+60 silly registry.get     'x-timer': 'S1498532267.766484,VS0,VE1',
+60 silly registry.get     vary: 'Accept-Encoding' } ]
+61 silly addNameRange number 2 { name: 'cross-env', range: '*', hasData: true }
+62 silly addNameRange versions [ 'cross-env',
+62 silly addNameRange   [ '1.0.0',
+62 silly addNameRange     '1.0.1',
+62 silly addNameRange     '1.0.2',
+62 silly addNameRange     '1.0.3',
+62 silly addNameRange     '1.0.4',
+62 silly addNameRange     '1.0.5',
+62 silly addNameRange     '1.0.6',
+62 silly addNameRange     '1.0.7',
+62 silly addNameRange     '1.0.8',
+62 silly addNameRange     '2.0.0',
+62 silly addNameRange     '2.0.1',
+62 silly addNameRange     '3.0.0',
+62 silly addNameRange     '3.1.0',
+62 silly addNameRange     '3.1.1',
+62 silly addNameRange     '3.1.2',
+62 silly addNameRange     '3.1.3',
+62 silly addNameRange     '3.1.4',
+62 silly addNameRange     '3.2.0',
+62 silly addNameRange     '3.2.1',
+62 silly addNameRange     '3.2.2',
+62 silly addNameRange     '3.2.3',
+62 silly addNameRange     '3.2.4',
+62 silly addNameRange     '4.0.0-beta.0',
+62 silly addNameRange     '4.0.0',
+62 silly addNameRange     '5.0.0-beta.0',
+62 silly addNameRange     '5.0.0',
+62 silly addNameRange     '5.0.1' ] ]
+63 verbose addNamed [ 'cross-env', '5.0.1' ]
+64 verbose addNamed [ '5.0.1', '5.0.1' ]
+65 silly lockFile 80e8ee06-cross-env-5-0-1 cross-env@5.0.1
+66 verbose lock cross-env@5.0.1 C:\Users\michael\AppData\Roaming\npm-cache\80e8ee06-cross-env-5-0-1.lock
+67 silly lockFile eacb61ba-rg-cross-env-cross-env-5-0-1-tgz https://registry.npmjs.org/cross-env/-/cross-env-5.0.1.tgz
+68 verbose lock https://registry.npmjs.org/cross-env/-/cross-env-5.0.1.tgz C:\Users\michael\AppData\Roaming\npm-cache\eacb61ba-rg-cross-env-cross-env-5-0-1-tgz.lock
+69 verbose addRemoteTarball [ 'https://registry.npmjs.org/cross-env/-/cross-env-5.0.1.tgz',
+69 verbose addRemoteTarball   'ff4e72ea43b47da2486b43a7f2043b2609e44913' ]
+70 info retry fetch attempt 1 at 10:59:25 AM
+71 verbose fetch to= C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532365650-0.5977476933603847\tmp.tgz
+72 http GET https://registry.npmjs.org/cross-env/-/cross-env-5.0.1.tgz
+73 http 200 https://registry.npmjs.org/cross-env/-/cross-env-5.0.1.tgz
+74 verbose tar unpack C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532365650-0.5977476933603847\tmp.tgz
+75 silly lockFile 901e4863-pm-cache-cross-env-5-0-1-package tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-env\5.0.1\package
+76 verbose lock tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-env\5.0.1\package C:\Users\michael\AppData\Roaming\npm-cache\901e4863-pm-cache-cross-env-5-0-1-package.lock
+77 silly lockFile 2a51ff40-65650-0-5977476933603847-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532365650-0.5977476933603847\tmp.tgz
+78 verbose lock tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532365650-0.5977476933603847\tmp.tgz C:\Users\michael\AppData\Roaming\npm-cache\2a51ff40-65650-0-5977476933603847-tmp-tgz.lock
+79 silly gunzTarPerm modes [ '755', '644' ]
+80 silly gunzTarPerm extractEntry package.json
+81 silly gunzTarPerm extractEntry README.md
+82 silly gunzTarPerm extractEntry LICENSE
+83 silly gunzTarPerm extractEntry CHANGELOG.md
+84 silly gunzTarPerm extractEntry dist/command.js
+85 silly gunzTarPerm extractEntry dist/index.js
+86 silly gunzTarPerm extractEntry dist/variable.js
+87 silly gunzTarPerm extractEntry dist/bin/cross-env-shell.js
+88 silly gunzTarPerm extractEntry dist/bin/cross-env.js
+89 silly lockFile 901e4863-pm-cache-cross-env-5-0-1-package tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-env\5.0.1\package
+90 silly lockFile 901e4863-pm-cache-cross-env-5-0-1-package tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-env\5.0.1\package
+91 silly lockFile 2a51ff40-65650-0-5977476933603847-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532365650-0.5977476933603847\tmp.tgz
+92 silly lockFile 2a51ff40-65650-0-5977476933603847-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532365650-0.5977476933603847\tmp.tgz
+93 silly lockFile eacb61ba-rg-cross-env-cross-env-5-0-1-tgz https://registry.npmjs.org/cross-env/-/cross-env-5.0.1.tgz
+94 silly lockFile eacb61ba-rg-cross-env-cross-env-5-0-1-tgz https://registry.npmjs.org/cross-env/-/cross-env-5.0.1.tgz
+95 silly lockFile 80e8ee06-cross-env-5-0-1 cross-env@5.0.1
+96 silly lockFile 80e8ee06-cross-env-5-0-1 cross-env@5.0.1
+97 silly lockFile 8de1f3af-cross-env cross-env@
+98 silly lockFile 8de1f3af-cross-env cross-env@
+99 silly resolved [ { name: 'cross-env',
+99 silly resolved     version: '5.0.1',
+99 silly resolved     description: 'Run scripts that set and use environment variables across platforms',
+99 silly resolved     main: 'dist/index.js',
+99 silly resolved     bin:
+99 silly resolved      { 'cross-env': 'dist/bin/cross-env.js',
+99 silly resolved        'cross-env-shell': 'dist/bin/cross-env-shell.js' },
+99 silly resolved     engines: { node: '>=4.0' },
+99 silly resolved     scripts:
+99 silly resolved      { start: 'nps',
+99 silly resolved        test: 'nps test',
+99 silly resolved        commitmsg: 'opt --in commit-msg --exec "validate-commit-msg"',
+99 silly resolved        precommit: 'lint-staged && opt --in pre-commit --exec "npm start validate"' },
+99 silly resolved     files: [ 'dist' ],
+99 silly resolved     keywords: [],
+99 silly resolved     author:
+99 silly resolved      { name: 'Kent C. Dodds',
+99 silly resolved        email: 'kent@doddsfamily.us',
+99 silly resolved        url: 'http://kentcdodds.com/' },
+99 silly resolved     license: 'MIT',
+99 silly resolved     dependencies: { 'cross-spawn': '^5.1.0', 'is-windows': '^1.0.0' },
+99 silly resolved     devDependencies:
+99 silly resolved      { 'all-contributors-cli': '^4.0.1',
+99 silly resolved        'babel-cli': '^6.23.0',
+99 silly resolved        'babel-core': '^6.23.1',
+99 silly resolved        'babel-jest': '^19.0.0',
+99 silly resolved        'babel-preset-env': '^1.2.0',
+99 silly resolved        'babel-preset-stage-2': '^6.22.0',
+99 silly resolved        'babel-register': '^6.23.0',
+99 silly resolved        codecov: '^1.0.1',
+99 silly resolved        commitizen: '^2.9.6',
+99 silly resolved        'cz-conventional-changelog': '^2.0.0',
+99 silly resolved        eslint: '^3.17.0',
+99 silly resolved        'eslint-config-kentcdodds': '^12.0.0',
+99 silly resolved        husky: '^0.13.2',
+99 silly resolved        'jest-cli': '^19.0.2',
+99 silly resolved        'lint-staged': '^3.3.1',
+99 silly resolved        nps: '^5.0.3',
+99 silly resolved        'nps-utils': '^1.1.2',
+99 silly resolved        'opt-cli': '^1.5.1',
+99 silly resolved        'prettier-eslint-cli': '^3.1.2',
+99 silly resolved        'semantic-release': '^6.3.6',
+99 silly resolved        'validate-commit-msg': '^2.11.1' },
+99 silly resolved     eslintConfig: { extends: [Object], rules: [Object] },
+99 silly resolved     'lint-staged': { '*.js': [Object] },
+99 silly resolved     jest: { testEnvironment: 'node', coverageThreshold: [Object] },
+99 silly resolved     config: { commitizen: [Object] },
+99 silly resolved     repository:
+99 silly resolved      { type: 'git',
+99 silly resolved        url: 'https://github.com/kentcdodds/cross-env.git' },
+99 silly resolved     bugs: { url: 'https://github.com/kentcdodds/cross-env/issues' },
+99 silly resolved     homepage: 'https://github.com/kentcdodds/cross-env#readme',
+99 silly resolved     readme: '# cross-env\n\nRun scripts that set and use environment variables across platforms\n\n[![Travis Build Status][build-badge]][build]\n[![AppVeyor Build Status][win-build-badge]][win-build]\n[![Code Coverage][coverage-badge]][coverage]\n[![Dependencies][dependencyci-badge]][dependencyci]\n[![version][version-badge]][package]\n[![node-version][node-version-badge]][node]\n[![downloads][downloads-badge]][npm-stat]\n\n[![MIT License][license-badge]][LICENSE]\n[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors)\n[![PRs Welcome][prs-badge]][prs]\n[![Donate][donate-badge]][donate]\n[![Code of Conduct][coc-badge]][coc]\n[![Roadmap][roadmap-badge]][roadmap]\n[![Examples][examples-badge]][examples]\n\n[![Watch on GitHub][github-watch-badge]][github-watch]\n[![Star on GitHub][github-star-badge]][github-star]\n[![Tweet][twitter-badge]][twitter]\n\n## The problem\n\nMost Windows command prompts will choke when you set environment variables with\n`NODE_ENV=production` like that. (The exception is [Bash on Windows][win-bash],\nwhich uses native Bash.) Similarly, there\'s a difference in how windows and\nPOSIX commands utilize environment variables. With POSIX, you use: `$ENV_VAR`\nand on windows you use `%ENV_VAR%`.\n\n## This solution\n\n`cross-env` makes it so you can have a single command without worrying about\nsetting or using the environment variable properly for the platform. Just set it\nlike you would if it\'s running on a POSIX system, and `cross-env` will take care\nof setting it properly.\n\n## Installation\n\nThis module is distributed via [npm][npm] which is bundled with [node][node] and\nshould be installed as one of your project\'s `devDependencies`:\n\n```\nnpm install --save-dev cross-env\n```\n\n## Usage\n\nI use this in my npm scripts:\n\n```json\n{\n  "scripts": {\n    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.js"\n  }\n}\n```\n\nUltimately, the command that is executed (using [`cross-spawn`][cross-spawn])\nis:\n\n```\nwebpack --config build/webpack.config.js\n```\n\nThe `NODE_ENV` environment variable will be set by `cross-env`\n\nYou can also split a command into several ones, or separate the environment\nvariables declaration from the actual command execution. You can do it this way:\n\n```json\n{\n  "scripts": {\n    "parentScript": "cross-env GREET=\\"Joe\\" npm run childScript",\n    "childScript": "echo Hello $GREET"\n  }\n}\n```\n\nWhere `childScript` holds the actual command to execute and `parentScript` sets\nthe environment variables to use. Then instead of run the childScript you run\nthe parent. This is quite useful for launching the same command with different\nenv variables or when the environment variables are too long to have everything\nin one line.\n\nLastly, if you want to pass a JSON string (e.g., when using [ts-loader]), you can do as follows:\n```json\n{\n  "scripts": {\n    "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\\\\"module\\\\\\":\\\\\\"commonjs\\\\\\"} node some_file.test.ts"\n  }\n}\n```\nPay special attention to the **triple backslash** `(\\\\\\)` **before** the **double quotes** `(")` and the **absence** of **single quotes** `(\')`.\nBoth of these conditions have to be met in order to work both on Windows and UNIX.\n\n## `cross-env` vs `cross-env-shell`\n\nThe `cross-env` module exposes two bins: `cross-env` and `cross-env-shell`. The\nfirst one executes commands using [`cross-spawn`][cross-spawn], while the\nsecond one uses the `shell` option from Node\'s `spawn`.\n\nThe main use case for `cross-env-shell` is when your need an environment\nvariable to be set across an entire inline shell script, rather than just one\ncommand.\n\nFor example, if you want to have the environment variable apply to several\ncommands in series then you will need to wrap those in quotes and use \n`cross-env-shell` instead of `cross-env`.\n\n```json\n{\n  "scripts": {\n    "greet": "cross-env-shell GREETING=Hi NAME=Joe \\"echo $GREETING && echo $NAME\\""\n  }\n}\n```\n\nThe rule of thumb is: if you want to pass to `cross-env` a command that\ncontains special shell characters *that you want interpreted*, then use\n`cross-env-shell`. Otherwise stick to `cross-env`.\n\n## Inspiration\n\nI originally created this to solve a problem I was having with my npm scripts in\n[angular-formly][angular-formly]. This made it made contributing to the project\nmuch easier for windows users.\n\n## Other Solutions\n\n- [`env-cmd`](https://github.com/toddbluhm/env-cmd) - Reads environment variables from a file instead\n\n## Contributors\n\nThanks goes to these people ([emoji key][emojis]):\n\n<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->\n| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/cross-env/commits?author=kentcdodds "Code") [📖](https://github.com/kentcdodds/cross-env/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/kentcdodds/cross-env/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/499038?v=3" width="100px;"/><br /><sub>Ya Zhuang </sub>](https://zhuangya.me)<br />[🔌](#plugin-zhuangya "Plugin/utility libraries") [📖](https://github.com/kentcdodds/cross-env/commits?author=zhuangya "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/3440094?v=3" width="100px;"/><br /><sub>James Harris</sub>](https://wopian.me)<br />[📖](https://github.com/kentcdodds/cross-env/commits?author=wopian "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/8941730?v=3" width="100px;"/><br /><sub>compumike08</sub>](https://github.com/compumike08)<br />[🐛](https://github.com/kentcdodds/cross-env/issues?q=author%3Acompumike08 "Bug reports") [📖](https://github.com/kentcdodds/cross-env/commits?author=compumike08 "Documentation") [⚠️](https://github.com/kentcdodds/cross-env/commits?author=compumike08 "Tests") | [<img src="https://avatars1.githubusercontent.com/u/2270425?v=3" width="100px;"/><br /><sub>Daniel Rodríguez Rivero</sub>](https://github.com/danielo515)<br />[🐛](https://github.com/kentcdodds/cross-env/issues?q=author%3Adanielo515 "Bug reports") [💻](https://github.com/kentcdodds/cross-env/commits?author=danielo515 "Code") [📖](https://github.com/kentcdodds/cross-env/commits?author=danielo515 "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/1508477?v=3" width="100px;"/><br /><sub>Jonas Keinholz</sub>](https://github.com/inyono)<br />[🐛](https://github.com/kentcdodds/cross-env/issues?q=author%3Ainyono "Bug reports") [💻](https://github.com/kentcdodds/cross-env/commits?author=inyono "Code") [⚠️](https://github.com/kentcdodds/cross-env/commits?author=inyono "Tests") | [<img src="https://avatars3.githubusercontent.com/u/1656170?v=3" width="100px;"/><br /><sub>Hugo Wood</sub>](https://github.com/hgwood)<br />[🐛](https://github.com/kentcdodds/cross-env/issues?q=author%3Ahgwood "Bug reports") [💻](https://github.com/kentcdodds/cross-env/commits?author=hgwood "Code") [⚠️](https://github.com/kentcdodds/cross-env/commits?author=hgwood "Tests") |\n| :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| [<img src="https://avatars0.githubusercontent.com/u/3715715?v=3" width="100px;"/><br /><sub>Thiebaud Thomas</sub>](https://github.com/thomasthiebaud)<br />[🐛](https://github.com/kentcdodds/cross-env/issues?q=author%3Athomasthiebaud "Bug reports") [💻](https://github.com/kentcdodds/cross-env/commits?author=thomasthiebaud "Code") [⚠️](https://github.com/kentcdodds/cross-env/commits?author=thomasthiebaud "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1715800?v=3" width="100px;"/><br /><sub>Daniel Rey López</sub>](https://daniel.blog)<br />[💻](https://github.com/kentcdodds/cross-env/commits?author=DanReyLop "Code") [⚠️](https://github.com/kentcdodds/cross-env/commits?author=DanReyLop "Tests") | [<img src="https://avatars2.githubusercontent.com/u/6374832?v=3" width="100px;"/><br /><sub>Amila Welihinda</sub>](http://amilajack.com)<br />[🚇](#infra-amilajack "Infrastructure (Hosting, Build-Tools, etc)") | [<img src="https://avatars1.githubusercontent.com/u/1396?v=3" width="100px;"/><br /><sub>Paul Betts</sub>](https://twitter.com/paulcbetts)<br />[🐛](https://github.com/kentcdodds/cross-env/issues?q=author%3Apaulcbetts "Bug reports") [💻](https://github.com/kentcdodds/cross-env/commits?author=paulcbetts "Code") | [<img src="https://avatars1.githubusercontent.com/u/6371670?v=3" width="100px;"/><br /><sub>Turner Hayes</sub>](https://github.com/turnerhayes)<br />[🐛](https://github.com/kentcdodds/cross-env/issues?q=author%3Aturnerhayes "Bug reports") [💻](https://github.com/kentcdodds/cross-env/commits?author=turnerhayes "Code") [⚠️](https://github.com/kentcdodds/cross-env/commits?author=turnerhayes "Tests") |\n<!-- ALL-CONTRIBUTORS-LIST:END -->\n\nThis project follows the [all-contributors][all-contributors] specification. Contributions of any kind welcome!\n\n> Note: this was added late into the project. If you\'ve contributed to this\n> project in any way, please make a pull request to add yourself to the list\n> by following the instructions in the `CONTRIBUTING.md`\n\n## LICENSE\n\nMIT\n\n[npm]: https://www.npmjs.com/\n[node]: https://nodejs.org\n[build-badge]: https://img.shields.io/travis/kentcdodds/cross-env.svg?style=flat-square\n[build]: https://travis-ci.org/kentcdodds/cross-env\n[win-build-badge]: https://img.shields.io/appveyor/ci/kentcdodds/cross-env.svg?style=flat-square\n[win-build]: https://ci.appveyor.com/project/kentcdodds/cross-env\n[coverage-badge]: https://img.shields.io/codecov/c/github/kentcdodds/cross-env.svg?style=flat-square\n[coverage]: https://codecov.io/github/kentcdodds/cross-env\n[dependencyci-badge]: https://dependencyci.com/github/kentcdodds/cross-env/badge?style=flat-square\n[dependencyci]: https://dependencyci.com/github/kentcdodds/cross-env\n[version-badge]: https://img.shields.io/npm/v/cross-env.svg?style=flat-square\n[package]: https://www.npmjs.com/package/cross-env\n[node-version-badge]: https://img.shields.io/badge/node-%3E%3D%204.0-orange.svg?style=flat-square\n[downloads-badge]: https://img.shields.io/npm/dm/cross-env.svg?style=flat-square\n[npm-stat]: http://npm-stat.com/charts.html?package=cross-env&from=2016-04-01\n[license-badge]: https://img.shields.io/npm/l/cross-env.svg?style=flat-square\n[license]: https://github.com/kentcdodds/cross-env/blob/master/other/LICENSE\n[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square\n[prs]: http://makeapullrequest.com\n[donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square\n[donate]: http://kcd.im/donate\n[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square\n[coc]: https://github.com/kentcdodds/cross-env/blob/master/other/CODE_OF_CONDUCT.md\n[roadmap-badge]: https://img.shields.io/badge/%F0%9F%93%94-roadmap-CD9523.svg?style=flat-square\n[roadmap]: https://github.com/kentcdodds/cross-env/blob/master/other/ROADMAP.md\n[examples-badge]: https://img.shields.io/badge/%F0%9F%92%A1-examples-8C8E93.svg?style=flat-square\n[examples]: https://github.com/kentcdodds/cross-env/blob/master/other/EXAMPLES.md\n[github-watch-badge]: https://img.shields.io/github/watchers/kentcdodds/cross-env.svg?style=social\n[github-watch]: https://github.com/kentcdodds/cross-env/watchers\n[github-star-badge]: https://img.shields.io/github/stars/kentcdodds/cross-env.svg?style=social\n[github-star]: https://github.com/kentcdodds/cross-env/stargazers\n[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20cross-env!%20https://github.com/kentcdodds/cross-env%20%F0%9F%91%8D\n[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/kentcdodds/cross-env.svg?style=social\n[emojis]: https://github.com/kentcdodds/all-contributors#emoji-key\n[all-contributors]: https://github.com/kentcdodds/all-contributors\n[win-bash]: https://msdn.microsoft.com/en-us/commandline/wsl/about\n[angular-formly]: https://github.com/formly-js/angular-formly\n[cross-spawn]: https://www.npmjs.com/package/cross-spawn\n[ts-loader]: https://www.npmjs.com/package/ts-loader\n',
+99 silly resolved     readmeFilename: 'README.md',
+99 silly resolved     _id: 'cross-env@5.0.1',
+99 silly resolved     _shasum: 'ff4e72ea43b47da2486b43a7f2043b2609e44913',
+99 silly resolved     _from: 'cross-env@',
+99 silly resolved     _resolved: 'https://registry.npmjs.org/cross-env/-/cross-env-5.0.1.tgz' } ]
+100 info install cross-env@5.0.1 into D:\PROJECT\react_redux\aims-os
+101 info installOne cross-env@5.0.1
+102 info D:\PROJECT\react_redux\aims-os\node_modules\cross-env unbuild
+103 info preuninstall cross-env@3.1.4
+104 info uninstall cross-env@3.1.4
+105 verbose true,D:\PROJECT\react_redux\aims-os\node_modules,D:\PROJECT\react_redux\aims-os\node_modules unbuild cross-env@3.1.4
+106 verbose D:\PROJECT\react_redux\aims-os\node_modules\.bin,[object Object] binRoot
+107 info postuninstall cross-env@3.1.4
+108 verbose tar unpack C:\Users\michael\AppData\Roaming\npm-cache\cross-env\5.0.1\package.tgz
+109 silly lockFile ec55e25a-x-aims-os-node-modules-cross-env tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env
+110 verbose lock tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env C:\Users\michael\AppData\Roaming\npm-cache\ec55e25a-x-aims-os-node-modules-cross-env.lock
+111 silly lockFile 289ae99f-ache-cross-env-5-0-1-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-env\5.0.1\package.tgz
+112 verbose lock tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-env\5.0.1\package.tgz C:\Users\michael\AppData\Roaming\npm-cache\289ae99f-ache-cross-env-5-0-1-package-tgz.lock
+113 silly gunzTarPerm modes [ '755', '644' ]
+114 silly gunzTarPerm extractEntry package.json
+115 silly gunzTarPerm extractEntry README.md
+116 silly gunzTarPerm extractEntry LICENSE
+117 silly gunzTarPerm extractEntry CHANGELOG.md
+118 silly gunzTarPerm extractEntry dist/command.js
+119 silly gunzTarPerm extractEntry dist/index.js
+120 silly gunzTarPerm extractEntry dist/variable.js
+121 silly gunzTarPerm extractEntry dist/bin/cross-env-shell.js
+122 silly gunzTarPerm extractEntry dist/bin/cross-env.js
+123 silly lockFile ec55e25a-x-aims-os-node-modules-cross-env tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env
+124 silly lockFile ec55e25a-x-aims-os-node-modules-cross-env tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env
+125 silly lockFile 289ae99f-ache-cross-env-5-0-1-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-env\5.0.1\package.tgz
+126 silly lockFile 289ae99f-ache-cross-env-5-0-1-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-env\5.0.1\package.tgz
+127 info preinstall cross-env@5.0.1
+128 verbose readDependencies using package.json deps
+129 verbose readDependencies using package.json deps
+130 verbose cache add [ 'cross-spawn@^5.1.0', null ]
+131 verbose cache add name=undefined spec="cross-spawn@^5.1.0" args=["cross-spawn@^5.1.0",null]
+132 verbose parsed url Url {
+132 verbose parsed url   protocol: null,
+132 verbose parsed url   slashes: null,
+132 verbose parsed url   auth: null,
+132 verbose parsed url   host: null,
+132 verbose parsed url   port: null,
+132 verbose parsed url   hostname: null,
+132 verbose parsed url   hash: null,
+132 verbose parsed url   search: null,
+132 verbose parsed url   query: null,
+132 verbose parsed url   pathname: 'cross-spawn@%5E5.1.0',
+132 verbose parsed url   path: 'cross-spawn@%5E5.1.0',
+132 verbose parsed url   href: 'cross-spawn@%5E5.1.0' }
+133 verbose cache add name="cross-spawn" spec="^5.1.0" args=["cross-spawn","^5.1.0"]
+134 verbose parsed url Url {
+134 verbose parsed url   protocol: null,
+134 verbose parsed url   slashes: null,
+134 verbose parsed url   auth: null,
+134 verbose parsed url   host: null,
+134 verbose parsed url   port: null,
+134 verbose parsed url   hostname: null,
+134 verbose parsed url   hash: null,
+134 verbose parsed url   search: null,
+134 verbose parsed url   query: null,
+134 verbose parsed url   pathname: '%5E5.1.0',
+134 verbose parsed url   path: '%5E5.1.0',
+134 verbose parsed url   href: '%5E5.1.0' }
+135 verbose addNamed [ 'cross-spawn', '^5.1.0' ]
+136 verbose addNamed [ null, '>=5.1.0-0 <6.0.0-0' ]
+137 silly lockFile 7d057bd9-cross-spawn-5-1-0 cross-spawn@^5.1.0
+138 verbose lock cross-spawn@^5.1.0 C:\Users\michael\AppData\Roaming\npm-cache\7d057bd9-cross-spawn-5-1-0.lock
+139 verbose cache add [ 'is-windows@^1.0.0', null ]
+140 verbose cache add name=undefined spec="is-windows@^1.0.0" args=["is-windows@^1.0.0",null]
+141 verbose parsed url Url {
+141 verbose parsed url   protocol: null,
+141 verbose parsed url   slashes: null,
+141 verbose parsed url   auth: null,
+141 verbose parsed url   host: null,
+141 verbose parsed url   port: null,
+141 verbose parsed url   hostname: null,
+141 verbose parsed url   hash: null,
+141 verbose parsed url   search: null,
+141 verbose parsed url   query: null,
+141 verbose parsed url   pathname: 'is-windows@%5E1.0.0',
+141 verbose parsed url   path: 'is-windows@%5E1.0.0',
+141 verbose parsed url   href: 'is-windows@%5E1.0.0' }
+142 verbose cache add name="is-windows" spec="^1.0.0" args=["is-windows","^1.0.0"]
+143 verbose parsed url Url {
+143 verbose parsed url   protocol: null,
+143 verbose parsed url   slashes: null,
+143 verbose parsed url   auth: null,
+143 verbose parsed url   host: null,
+143 verbose parsed url   port: null,
+143 verbose parsed url   hostname: null,
+143 verbose parsed url   hash: null,
+143 verbose parsed url   search: null,
+143 verbose parsed url   query: null,
+143 verbose parsed url   pathname: '%5E1.0.0',
+143 verbose parsed url   path: '%5E1.0.0',
+143 verbose parsed url   href: '%5E1.0.0' }
+144 verbose addNamed [ 'is-windows', '^1.0.0' ]
+145 verbose addNamed [ null, '>=1.0.0-0 <2.0.0-0' ]
+146 silly lockFile 1eeb9686-is-windows-1-0-0 is-windows@^1.0.0
+147 verbose lock is-windows@^1.0.0 C:\Users\michael\AppData\Roaming\npm-cache\1eeb9686-is-windows-1-0-0.lock
+148 silly addNameRange { name: 'cross-spawn',
+148 silly addNameRange   range: '>=5.1.0-0 <6.0.0-0',
+148 silly addNameRange   hasData: false }
+149 silly addNameRange { name: 'is-windows',
+149 silly addNameRange   range: '>=1.0.0-0 <2.0.0-0',
+149 silly addNameRange   hasData: false }
+150 verbose url raw is-windows
+151 verbose url resolving [ 'https://registry.npmjs.org/', './is-windows' ]
+152 verbose url resolved https://registry.npmjs.org/is-windows
+153 info trying registry request attempt 1 at 10:59:26 AM
+154 http GET https://registry.npmjs.org/is-windows
+155 verbose url raw cross-spawn
+156 verbose url resolving [ 'https://registry.npmjs.org/', './cross-spawn' ]
+157 verbose url resolved https://registry.npmjs.org/cross-spawn
+158 info trying registry request attempt 1 at 10:59:26 AM
+159 verbose etag W/"5909d266-f689"
+160 http GET https://registry.npmjs.org/cross-spawn
+161 http 200 https://registry.npmjs.org/cross-spawn
+162 silly registry.get cb [ 200,
+162 silly registry.get   { server: 'nginx/1.10.3',
+162 silly registry.get     'content-type': 'application/json',
+162 silly registry.get     'last-modified': 'Tue, 27 Jun 2017 00:42:59 GMT',
+162 silly registry.get     etag: 'W/"5951aa13-f69d"',
+162 silly registry.get     'content-encoding': 'gzip',
+162 silly registry.get     'cache-control': 'max-age=300',
+162 silly registry.get     'content-length': '7018',
+162 silly registry.get     'accept-ranges': 'bytes',
+162 silly registry.get     date: 'Tue, 27 Jun 2017 02:57:49 GMT',
+162 silly registry.get     via: '1.1 varnish',
+162 silly registry.get     age: '119',
+162 silly registry.get     connection: 'close',
+162 silly registry.get     'x-served-by': 'cache-lax8651-LAX',
+162 silly registry.get     'x-cache': 'HIT',
+162 silly registry.get     'x-cache-hits': '1',
+162 silly registry.get     'x-timer': 'S1498532269.067753,VS0,VE1',
+162 silly registry.get     vary: 'Accept-Encoding' } ]
+163 silly addNameRange number 2 { name: 'cross-spawn',
+163 silly addNameRange   range: '>=5.1.0-0 <6.0.0-0',
+163 silly addNameRange   hasData: true }
+164 silly addNameRange versions [ 'cross-spawn',
+164 silly addNameRange   [ '0.1.0',
+164 silly addNameRange     '0.1.1',
+164 silly addNameRange     '0.1.2',
+164 silly addNameRange     '0.1.3',
+164 silly addNameRange     '0.1.4',
+164 silly addNameRange     '0.1.5',
+164 silly addNameRange     '0.1.6',
+164 silly addNameRange     '0.1.7',
+164 silly addNameRange     '0.2.0',
+164 silly addNameRange     '0.2.1',
+164 silly addNameRange     '0.2.2',
+164 silly addNameRange     '0.2.3',
+164 silly addNameRange     '0.2.4',
+164 silly addNameRange     '0.2.5',
+164 silly addNameRange     '0.2.6',
+164 silly addNameRange     '0.2.7',
+164 silly addNameRange     '0.2.8',
+164 silly addNameRange     '0.2.9',
+164 silly addNameRange     '0.3.0',
+164 silly addNameRange     '0.4.0',
+164 silly addNameRange     '0.4.1',
+164 silly addNameRange     '1.0.0',
+164 silly addNameRange     '1.0.1',
+164 silly addNameRange     '1.0.2',
+164 silly addNameRange     '1.0.3',
+164 silly addNameRange     '1.0.4',
+164 silly addNameRange     '2.0.0',
+164 silly addNameRange     '2.0.1',
+164 silly addNameRange     '2.1.0',
+164 silly addNameRange     '2.1.1',
+164 silly addNameRange     '2.1.2',
+164 silly addNameRange     '2.1.3',
+164 silly addNameRange     '2.1.4',
+164 silly addNameRange     '2.1.5',
+164 silly addNameRange     '2.2.0',
+164 silly addNameRange     '2.2.2',
+164 silly addNameRange     '2.2.3',
+164 silly addNameRange     '3.0.0',
+164 silly addNameRange     '3.0.1',
+164 silly addNameRange     '4.0.0',
+164 silly addNameRange     '4.0.2',
+164 silly addNameRange     '5.0.0',
+164 silly addNameRange     '5.0.1',
+164 silly addNameRange     '5.1.0' ] ]
+165 verbose addNamed [ 'cross-spawn', '5.1.0' ]
+166 verbose addNamed [ '5.1.0', '5.1.0' ]
+167 silly lockFile adbe2d75-cross-spawn-5-1-0 cross-spawn@5.1.0
+168 verbose lock cross-spawn@5.1.0 C:\Users\michael\AppData\Roaming\npm-cache\adbe2d75-cross-spawn-5-1-0.lock
+169 silly lockFile 5982b0c5-ross-spawn-cross-spawn-5-1-0-tgz https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz
+170 verbose lock https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz C:\Users\michael\AppData\Roaming\npm-cache\5982b0c5-ross-spawn-cross-spawn-5-1-0-tgz.lock
+171 verbose addRemoteTarball [ 'https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz',
+171 verbose addRemoteTarball   'e8bd0efee58fcff6f8f94510a0a554bbfa235449' ]
+172 info retry fetch attempt 1 at 10:59:27 AM
+173 verbose fetch to= C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532367842-0.007162974553343693\tmp.tgz
+174 http GET https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz
+175 http 200 https://registry.npmjs.org/is-windows
+176 silly registry.get cb [ 200,
+176 silly registry.get   { server: 'nginx/1.10.3',
+176 silly registry.get     'content-type': 'application/json',
+176 silly registry.get     'last-modified': 'Sat, 24 Jun 2017 06:12:08 GMT',
+176 silly registry.get     etag: 'W/"594e02b8-30de"',
+176 silly registry.get     'content-encoding': 'gzip',
+176 silly registry.get     'cache-control': 'max-age=300',
+176 silly registry.get     'content-length': '2894',
+176 silly registry.get     'accept-ranges': 'bytes',
+176 silly registry.get     date: 'Tue, 27 Jun 2017 02:57:49 GMT',
+176 silly registry.get     via: '1.1 varnish',
+176 silly registry.get     age: '210',
+176 silly registry.get     connection: 'close',
+176 silly registry.get     'x-served-by': 'cache-lax8642-LAX',
+176 silly registry.get     'x-cache': 'HIT',
+176 silly registry.get     'x-cache-hits': '1',
+176 silly registry.get     'x-timer': 'S1498532270.537176,VS0,VE0',
+176 silly registry.get     vary: 'Accept-Encoding' } ]
+177 silly addNameRange number 2 { name: 'is-windows',
+177 silly addNameRange   range: '>=1.0.0-0 <2.0.0-0',
+177 silly addNameRange   hasData: true }
+178 silly addNameRange versions [ 'is-windows',
+178 silly addNameRange   [ '0.1.0', '0.1.1', '0.2.0', '1.0.0', '1.0.1' ] ]
+179 verbose addNamed [ 'is-windows', '1.0.1' ]
+180 verbose addNamed [ '1.0.1', '1.0.1' ]
+181 silly lockFile 0e1a801e-is-windows-1-0-1 is-windows@1.0.1
+182 verbose lock is-windows@1.0.1 C:\Users\michael\AppData\Roaming\npm-cache\0e1a801e-is-windows-1-0-1.lock
+183 silly lockFile dccbf228--is-windows-is-windows-1-0-1-tgz https://registry.npmjs.org/is-windows/-/is-windows-1.0.1.tgz
+184 verbose lock https://registry.npmjs.org/is-windows/-/is-windows-1.0.1.tgz C:\Users\michael\AppData\Roaming\npm-cache\dccbf228--is-windows-is-windows-1-0-1-tgz.lock
+185 verbose addRemoteTarball [ 'https://registry.npmjs.org/is-windows/-/is-windows-1.0.1.tgz',
+185 verbose addRemoteTarball   '310db70f742d259a16a369202b51af84233310d9' ]
+186 info retry fetch attempt 1 at 10:59:28 AM
+187 verbose fetch to= C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532368853-0.32269855616563703\tmp.tgz
+188 http GET https://registry.npmjs.org/is-windows/-/is-windows-1.0.1.tgz
+189 http 200 https://registry.npmjs.org/is-windows/-/is-windows-1.0.1.tgz
+190 verbose tar unpack C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532368853-0.32269855616563703\tmp.tgz
+191 silly lockFile a8e84c52-m-cache-is-windows-1-0-1-package tar://C:\Users\michael\AppData\Roaming\npm-cache\is-windows\1.0.1\package
+192 verbose lock tar://C:\Users\michael\AppData\Roaming\npm-cache\is-windows\1.0.1\package C:\Users\michael\AppData\Roaming\npm-cache\a8e84c52-m-cache-is-windows-1-0-1-package.lock
+193 silly lockFile cd3d745b-8853-0-32269855616563703-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532368853-0.32269855616563703\tmp.tgz
+194 verbose lock tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532368853-0.32269855616563703\tmp.tgz C:\Users\michael\AppData\Roaming\npm-cache\cd3d745b-8853-0-32269855616563703-tmp-tgz.lock
+195 silly gunzTarPerm modes [ '755', '644' ]
+196 silly gunzTarPerm extractEntry package.json
+197 silly gunzTarPerm extractEntry README.md
+198 silly gunzTarPerm extractEntry LICENSE
+199 silly gunzTarPerm extractEntry index.js
+200 silly lockFile a8e84c52-m-cache-is-windows-1-0-1-package tar://C:\Users\michael\AppData\Roaming\npm-cache\is-windows\1.0.1\package
+201 silly lockFile a8e84c52-m-cache-is-windows-1-0-1-package tar://C:\Users\michael\AppData\Roaming\npm-cache\is-windows\1.0.1\package
+202 silly lockFile cd3d745b-8853-0-32269855616563703-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532368853-0.32269855616563703\tmp.tgz
+203 silly lockFile cd3d745b-8853-0-32269855616563703-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532368853-0.32269855616563703\tmp.tgz
+204 silly lockFile dccbf228--is-windows-is-windows-1-0-1-tgz https://registry.npmjs.org/is-windows/-/is-windows-1.0.1.tgz
+205 silly lockFile dccbf228--is-windows-is-windows-1-0-1-tgz https://registry.npmjs.org/is-windows/-/is-windows-1.0.1.tgz
+206 silly lockFile 0e1a801e-is-windows-1-0-1 is-windows@1.0.1
+207 silly lockFile 0e1a801e-is-windows-1-0-1 is-windows@1.0.1
+208 silly lockFile 1eeb9686-is-windows-1-0-0 is-windows@^1.0.0
+209 silly lockFile 1eeb9686-is-windows-1-0-0 is-windows@^1.0.0
+210 http 200 https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz
+211 verbose tar unpack C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532367842-0.007162974553343693\tmp.tgz
+212 silly lockFile 56b64836--cache-cross-spawn-5-1-0-package tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-spawn\5.1.0\package
+213 verbose lock tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-spawn\5.1.0\package C:\Users\michael\AppData\Roaming\npm-cache\56b64836--cache-cross-spawn-5-1-0-package.lock
+214 silly lockFile db93cbb3-842-0-007162974553343693-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532367842-0.007162974553343693\tmp.tgz
+215 verbose lock tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532367842-0.007162974553343693\tmp.tgz C:\Users\michael\AppData\Roaming\npm-cache\db93cbb3-842-0-007162974553343693-tmp-tgz.lock
+216 silly gunzTarPerm modes [ '755', '644' ]
+217 silly gunzTarPerm extractEntry package.json
+218 silly gunzTarPerm extractEntry README.md
+219 silly gunzTarPerm extractEntry LICENSE
+220 silly gunzTarPerm extractEntry index.js
+221 silly gunzTarPerm extractEntry CHANGELOG.md
+222 silly gunzTarPerm extractEntry lib/enoent.js
+223 silly gunzTarPerm extractEntry lib/parse.js
+224 silly gunzTarPerm extractEntry lib/util/escapeArgument.js
+225 silly gunzTarPerm extractEntry lib/util/escapeCommand.js
+226 silly gunzTarPerm extractEntry lib/util/hasEmptyArgumentBug.js
+227 silly gunzTarPerm extractEntry lib/util/readShebang.js
+228 silly gunzTarPerm extractEntry lib/util/resolveCommand.js
+229 silly lockFile 56b64836--cache-cross-spawn-5-1-0-package tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-spawn\5.1.0\package
+230 silly lockFile 56b64836--cache-cross-spawn-5-1-0-package tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-spawn\5.1.0\package
+231 silly lockFile db93cbb3-842-0-007162974553343693-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532367842-0.007162974553343693\tmp.tgz
+232 silly lockFile db93cbb3-842-0-007162974553343693-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532367842-0.007162974553343693\tmp.tgz
+233 silly lockFile 5982b0c5-ross-spawn-cross-spawn-5-1-0-tgz https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz
+234 silly lockFile 5982b0c5-ross-spawn-cross-spawn-5-1-0-tgz https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz
+235 silly lockFile adbe2d75-cross-spawn-5-1-0 cross-spawn@5.1.0
+236 silly lockFile adbe2d75-cross-spawn-5-1-0 cross-spawn@5.1.0
+237 silly lockFile 7d057bd9-cross-spawn-5-1-0 cross-spawn@^5.1.0
+238 silly lockFile 7d057bd9-cross-spawn-5-1-0 cross-spawn@^5.1.0
+239 silly resolved [ { name: 'is-windows',
+239 silly resolved     description: 'Returns true if the platform is windows.',
+239 silly resolved     version: '1.0.1',
+239 silly resolved     homepage: 'https://github.com/jonschlinkert/is-windows',
+239 silly resolved     author:
+239 silly resolved      { name: 'Jon Schlinkert',
+239 silly resolved        url: 'https://github.com/jonschlinkert' },
+239 silly resolved     contributors: [ [Object], [Object], [Object] ],
+239 silly resolved     repository:
+239 silly resolved      { type: 'git',
+239 silly resolved        url: 'git://github.com/jonschlinkert/is-windows' },
+239 silly resolved     bugs: { url: 'https://github.com/jonschlinkert/is-windows/issues' },
+239 silly resolved     license: 'MIT',
+239 silly resolved     files: [ 'index.js' ],
+239 silly resolved     main: 'index.js',
+239 silly resolved     engines: { node: '>=0.10.0' },
+239 silly resolved     scripts: { test: 'mocha' },
+239 silly resolved     devDependencies: { 'gulp-format-md': '^0.1.11', mocha: '^3.2.0' },
+239 silly resolved     keywords:
+239 silly resolved      [ 'check',
+239 silly resolved        'cywin',
+239 silly resolved        'is',
+239 silly resolved        'is-windows',
+239 silly resolved        'nix',
+239 silly resolved        'operating system',
+239 silly resolved        'os',
+239 silly resolved        'platform',
+239 silly resolved        'process',
+239 silly resolved        'unix',
+239 silly resolved        'win',
+239 silly resolved        'win32',
+239 silly resolved        'windows' ],
+239 silly resolved     verb:
+239 silly resolved      { toc: false,
+239 silly resolved        layout: 'default',
+239 silly resolved        tasks: [Object],
+239 silly resolved        plugins: [Object],
+239 silly resolved        related: [Object],
+239 silly resolved        lint: [Object],
+239 silly resolved        reflinks: [Object] },
+239 silly resolved     readme: '# is-windows [![NPM version](https://img.shields.io/npm/v/is-windows.svg?style=flat)](https://www.npmjs.com/package/is-windows) [![NPM monthly downloads](https://img.shields.io/npm/dm/is-windows.svg?style=flat)](https://npmjs.org/package/is-windows)  [![NPM total downloads](https://img.shields.io/npm/dt/is-windows.svg?style=flat)](https://npmjs.org/package/is-windows) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/is-windows.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/is-windows)\n\n> Returns true if the platform is windows.\n\n## Install\n\nInstall with [npm](https://www.npmjs.com/):\n\n```sh\n$ npm install --save is-windows\n```\n\n## Heads up!\n\nAs of `v0.2.0` this module always returns a function.\n\n## Usage\n\n```js\nvar isWindows = require(\'is-windows\');\n\nisWindows();\n//=> returns true if the platform is windows\n```\n\n## About\n\n### Related projects\n\n* [is-absolute](https://www.npmjs.com/package/is-absolute): Polyfill for node.js `path.isAbolute`. Returns true if a file path is absolute. | [homepage](https://github.com/jonschlinkert/is-absolute "Polyfill for node.js `path.isAbolute`. Returns true if a file path is absolute.")\n* [is-glob](https://www.npmjs.com/package/is-glob): Returns `true` if the given string looks like a glob pattern or an extglob pattern… [more](https://github.com/jonschlinkert/is-glob) | [homepage](https://github.com/jonschlinkert/is-glob "Returns `true` if the given string looks like a glob pattern or an extglob pattern. This makes it easy to create code that only uses external modules like node-glob when necessary, resulting in much faster code execution and initialization time, and a bet")\n* [is-relative](https://www.npmjs.com/package/is-relative): Returns `true` if the path appears to be relative. | [homepage](https://github.com/jonschlinkert/is-relative "Returns `true` if the path appears to be relative.")\n* [isobject](https://www.npmjs.com/package/isobject): Returns true if the value is an object and not an array or null. | [homepage](https://github.com/jonschlinkert/isobject "Returns true if the value is an object and not an array or null.")\n* [window-size](https://www.npmjs.com/package/window-size): Reliable way to to get the height and width of the terminal/console in a node.js… [more](https://github.com/jonschlinkert/window-size) | [homepage](https://github.com/jonschlinkert/window-size "Reliable way to to get the height and width of the terminal/console in a node.js environment.")\n\n### Contributing\n\nPull requests and stars are always welcome. For bugs and feature requests, [please create an issue](../../issues/new).\n\n### Contributors\n\n| **Commits** | **Contributor** | \n| --- | --- |\n| 11 | [jonschlinkert](https://github.com/jonschlinkert) |\n| 1 | [SimenB](https://github.com/SimenB) |\n| 1 | [gucong3000](https://github.com/gucong3000) |\n\n### Building docs\n\n_(This project\'s readme.md is generated by [verb](https://github.com/verbose/verb-generate-readme), please don\'t edit the readme directly. Any changes to the readme must be made in the [.verb.md](.verb.md) readme template.)_\n\nTo generate the readme, run the following command:\n\n```sh\n$ npm install -g verbose/verb#dev verb-generate-readme && verb\n```\n\n### Running tests\n\nRunning and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:\n\n```sh\n$ npm install && npm test\n```\n\n### Author\n\n**Jon Schlinkert**\n\n* [github/jonschlinkert](https://github.com/jonschlinkert)\n* [twitter/jonschlinkert](https://twitter.com/jonschlinkert)\n\n### License\n\nCopyright © 2017, [Jon Schlinkert](https://github.com/jonschlinkert).\nReleased under the [MIT License](LICENSE).\n\n***\n\n_This file was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme), v0.4.3, on April 28, 2017._',
+239 silly resolved     readmeFilename: 'README.md',
+239 silly resolved     _id: 'is-windows@1.0.1',
+239 silly resolved     _shasum: '310db70f742d259a16a369202b51af84233310d9',
+239 silly resolved     _from: 'is-windows@^1.0.0',
+239 silly resolved     _resolved: 'https://registry.npmjs.org/is-windows/-/is-windows-1.0.1.tgz' },
+239 silly resolved   { name: 'cross-spawn',
+239 silly resolved     version: '5.1.0',
+239 silly resolved     description: 'Cross platform child_process#spawn and child_process#spawnSync',
+239 silly resolved     main: 'index.js',
+239 silly resolved     scripts:
+239 silly resolved      { test: 'node test/prepare && mocha --bail test/test',
+239 silly resolved        lint: 'eslint \'{*.js,lib/**/*.js,test/**/*.js}\'' },
+239 silly resolved     bugs: { url: 'https://github.com/IndigoUnited/node-cross-spawn/issues/' },
+239 silly resolved     repository:
+239 silly resolved      { type: 'git',
+239 silly resolved        url: 'git://github.com/IndigoUnited/node-cross-spawn.git' },
+239 silly resolved     files: [ 'index.js', 'lib' ],
+239 silly resolved     keywords:
+239 silly resolved      [ 'spawn',
+239 silly resolved        'spawnSync',
+239 silly resolved        'windows',
+239 silly resolved        'cross',
+239 silly resolved        'platform',
+239 silly resolved        'path',
+239 silly resolved        'ext',
+239 silly resolved        'path-ext',
+239 silly resolved        'path_ext',
+239 silly resolved        'shebang',
+239 silly resolved        'hashbang',
+239 silly resolved        'cmd',
+239 silly resolved        'execute' ],
+239 silly resolved     author:
+239 silly resolved      { name: 'IndigoUnited',
+239 silly resolved        email: 'hello@indigounited.com',
+239 silly resolved        url: 'http://indigounited.com' },
+239 silly resolved     license: 'MIT',
+239 silly resolved     dependencies:
+239 silly resolved      { 'lru-cache': '^4.0.1',
+239 silly resolved        'shebang-command': '^1.2.0',
+239 silly resolved        which: '^1.2.9' },
+239 silly resolved     devDependencies:
+239 silly resolved      { '@satazor/eslint-config': '^3.0.0',
+239 silly resolved        eslint: '^3.0.0',
+239 silly resolved        'expect.js': '^0.3.0',
+239 silly resolved        glob: '^7.0.0',
+239 silly resolved        mkdirp: '^0.5.1',
+239 silly resolved        mocha: '^3.0.2',
+239 silly resolved        once: '^1.4.0',
+239 silly resolved        rimraf: '^2.5.0' },
+239 silly resolved     readme: '# cross-spawn\n\n[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Build status][appveyor-image]][appveyor-url] [![Dependency status][david-dm-image]][david-dm-url] [![Dev Dependency status][david-dm-dev-image]][david-dm-dev-url]\n\n[npm-url]:https://npmjs.org/package/cross-spawn\n[downloads-image]:http://img.shields.io/npm/dm/cross-spawn.svg\n[npm-image]:http://img.shields.io/npm/v/cross-spawn.svg\n[travis-url]:https://travis-ci.org/IndigoUnited/node-cross-spawn\n[travis-image]:http://img.shields.io/travis/IndigoUnited/node-cross-spawn/master.svg\n[appveyor-url]:https://ci.appveyor.com/project/satazor/node-cross-spawn\n[appveyor-image]:https://img.shields.io/appveyor/ci/satazor/node-cross-spawn/master.svg\n[david-dm-url]:https://david-dm.org/IndigoUnited/node-cross-spawn\n[david-dm-image]:https://img.shields.io/david/IndigoUnited/node-cross-spawn.svg\n[david-dm-dev-url]:https://david-dm.org/IndigoUnited/node-cross-spawn#info=devDependencies\n[david-dm-dev-image]:https://img.shields.io/david/dev/IndigoUnited/node-cross-spawn.svg\n\nA cross platform solution to node\'s spawn and spawnSync.\n\n\n## Installation\n\n`$ npm install cross-spawn`\n\nIf you are using `spawnSync` on node 0.10 or older, you will also need to install `spawn-sync`:\n\n`$ npm install spawn-sync`\n\n\n## Why\n\nNode has issues when using spawn on Windows:\n\n- It ignores [PATHEXT](https://github.com/joyent/node/issues/2318)\n- It does not support [shebangs](http://pt.wikipedia.org/wiki/Shebang)\n- No `options.shell` support on node < v6\n- It does not allow you to run `del` or `dir`\n\nAll these issues are handled correctly by `cross-spawn`.\nThere are some known modules, such as [win-spawn](https://github.com/ForbesLindesay/win-spawn), that try to solve this but they are either broken or provide faulty escaping of shell arguments.\n\n\n## Usage\n\nExactly the same way as node\'s [`spawn`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options) or [`spawnSync`](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options), so it\'s a drop in replacement.\n\n\n```js\nvar spawn = require(\'cross-spawn\');\n\n// Spawn NPM asynchronously\nvar child = spawn(\'npm\', [\'list\', \'-g\', \'-depth\', \'0\'], { stdio: \'inherit\' });\n\n// Spawn NPM synchronously\nvar results = spawn.sync(\'npm\', [\'list\', \'-g\', \'-depth\', \'0\'], { stdio: \'inherit\' });\n```\n\n\n## Caveats\n\n#### `options.shell` as an alternative to `cross-spawn`\n\nStarting from node v6, `spawn` has a `shell` option that allows you run commands from within a shell. This new option solves most of the problems that `cross-spawn` attempts to solve, but:\n\n- It\'s not supported in node < v6\n- It has no support for shebangs on Windows\n- You must manually escape the command and arguments which is very error prone, specially when passing user input\n\nIf you are using the `shell` option to spawn a command in a cross platform way, consider using `cross-spawn` instead. You have been warned.\n\n\n#### Shebangs\n\nWhile `cross-spawn` handles shebangs on Windows, its support is limited: e.g.: it doesn\'t handle arguments after the path, e.g.: `#!/bin/bash -e`.\n\nRemember to always test your code on Windows!\n\n\n## Tests\n\n`$ npm test`\n\n\n## License\n\nReleased under the [MIT License](http://www.opensource.org/licenses/mit-license.php).\n',
+239 silly resolved     readmeFilename: 'README.md',
+239 silly resolved     homepage: 'https://github.com/IndigoUnited/node-cross-spawn',
+239 silly resolved     _id: 'cross-spawn@5.1.0',
+239 silly resolved     _shasum: 'e8bd0efee58fcff6f8f94510a0a554bbfa235449',
+239 silly resolved     _from: 'cross-spawn@^5.1.0',
+239 silly resolved     _resolved: 'https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz' } ]
+240 info install is-windows@1.0.1 into D:\PROJECT\react_redux\aims-os\node_modules\cross-env
+241 info install cross-spawn@5.1.0 into D:\PROJECT\react_redux\aims-os\node_modules\cross-env
+242 info installOne is-windows@1.0.1
+243 info installOne cross-spawn@5.1.0
+244 info D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\is-windows unbuild
+245 info D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn unbuild
+246 verbose tar unpack C:\Users\michael\AppData\Roaming\npm-cache\is-windows\1.0.1\package.tgz
+247 silly lockFile d535911b-ross-env-node-modules-is-windows tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\is-windows
+248 verbose lock tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\is-windows C:\Users\michael\AppData\Roaming\npm-cache\d535911b-ross-env-node-modules-is-windows.lock
+249 silly lockFile 6749ae7a-che-is-windows-1-0-1-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\is-windows\1.0.1\package.tgz
+250 verbose lock tar://C:\Users\michael\AppData\Roaming\npm-cache\is-windows\1.0.1\package.tgz C:\Users\michael\AppData\Roaming\npm-cache\6749ae7a-che-is-windows-1-0-1-package-tgz.lock
+251 verbose tar unpack C:\Users\michael\AppData\Roaming\npm-cache\cross-spawn\5.1.0\package.tgz
+252 silly lockFile 8022e0cc-oss-env-node-modules-cross-spawn tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn
+253 verbose lock tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn C:\Users\michael\AppData\Roaming\npm-cache\8022e0cc-oss-env-node-modules-cross-spawn.lock
+254 silly lockFile 479ea909-he-cross-spawn-5-1-0-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-spawn\5.1.0\package.tgz
+255 verbose lock tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-spawn\5.1.0\package.tgz C:\Users\michael\AppData\Roaming\npm-cache\479ea909-he-cross-spawn-5-1-0-package-tgz.lock
+256 silly gunzTarPerm modes [ '755', '644' ]
+257 silly gunzTarPerm modes [ '755', '644' ]
+258 silly gunzTarPerm extractEntry package.json
+259 silly gunzTarPerm extractEntry package.json
+260 silly gunzTarPerm extractEntry README.md
+261 silly gunzTarPerm extractEntry LICENSE
+262 silly gunzTarPerm extractEntry README.md
+263 silly gunzTarPerm extractEntry LICENSE
+264 silly gunzTarPerm extractEntry index.js
+265 silly gunzTarPerm extractEntry index.js
+266 silly gunzTarPerm extractEntry CHANGELOG.md
+267 silly gunzTarPerm extractEntry lib/enoent.js
+268 silly gunzTarPerm extractEntry lib/parse.js
+269 silly lockFile d535911b-ross-env-node-modules-is-windows tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\is-windows
+270 silly lockFile d535911b-ross-env-node-modules-is-windows tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\is-windows
+271 silly lockFile 6749ae7a-che-is-windows-1-0-1-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\is-windows\1.0.1\package.tgz
+272 silly lockFile 6749ae7a-che-is-windows-1-0-1-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\is-windows\1.0.1\package.tgz
+273 info preinstall is-windows@1.0.1
+274 verbose readDependencies using package.json deps
+275 verbose readDependencies using package.json deps
+276 silly resolved []
+277 verbose about to build D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\is-windows
+278 info build D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\is-windows
+279 verbose linkStuff [ false,
+279 verbose linkStuff   false,
+279 verbose linkStuff   false,
+279 verbose linkStuff   'D:\\PROJECT\\react_redux\\aims-os\\node_modules\\cross-env\\node_modules' ]
+280 info linkStuff is-windows@1.0.1
+281 verbose linkBins is-windows@1.0.1
+282 verbose linkMans is-windows@1.0.1
+283 verbose rebuildBundles is-windows@1.0.1
+284 info install is-windows@1.0.1
+285 silly gunzTarPerm extractEntry lib/util/escapeArgument.js
+286 info postinstall is-windows@1.0.1
+287 silly gunzTarPerm extractEntry lib/util/escapeCommand.js
+288 silly gunzTarPerm extractEntry lib/util/hasEmptyArgumentBug.js
+289 silly gunzTarPerm extractEntry lib/util/readShebang.js
+290 silly gunzTarPerm extractEntry lib/util/resolveCommand.js
+291 silly lockFile 8022e0cc-oss-env-node-modules-cross-spawn tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn
+292 silly lockFile 8022e0cc-oss-env-node-modules-cross-spawn tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn
+293 silly lockFile 479ea909-he-cross-spawn-5-1-0-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-spawn\5.1.0\package.tgz
+294 silly lockFile 479ea909-he-cross-spawn-5-1-0-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\cross-spawn\5.1.0\package.tgz
+295 info preinstall cross-spawn@5.1.0
+296 verbose readDependencies using package.json deps
+297 verbose readDependencies using package.json deps
+298 verbose cache add [ 'shebang-command@^1.2.0', null ]
+299 verbose cache add name=undefined spec="shebang-command@^1.2.0" args=["shebang-command@^1.2.0",null]
+300 verbose parsed url Url {
+300 verbose parsed url   protocol: null,
+300 verbose parsed url   slashes: null,
+300 verbose parsed url   auth: null,
+300 verbose parsed url   host: null,
+300 verbose parsed url   port: null,
+300 verbose parsed url   hostname: null,
+300 verbose parsed url   hash: null,
+300 verbose parsed url   search: null,
+300 verbose parsed url   query: null,
+300 verbose parsed url   pathname: 'shebang-command@%5E1.2.0',
+300 verbose parsed url   path: 'shebang-command@%5E1.2.0',
+300 verbose parsed url   href: 'shebang-command@%5E1.2.0' }
+301 verbose cache add name="shebang-command" spec="^1.2.0" args=["shebang-command","^1.2.0"]
+302 verbose parsed url Url {
+302 verbose parsed url   protocol: null,
+302 verbose parsed url   slashes: null,
+302 verbose parsed url   auth: null,
+302 verbose parsed url   host: null,
+302 verbose parsed url   port: null,
+302 verbose parsed url   hostname: null,
+302 verbose parsed url   hash: null,
+302 verbose parsed url   search: null,
+302 verbose parsed url   query: null,
+302 verbose parsed url   pathname: '%5E1.2.0',
+302 verbose parsed url   path: '%5E1.2.0',
+302 verbose parsed url   href: '%5E1.2.0' }
+303 verbose addNamed [ 'shebang-command', '^1.2.0' ]
+304 verbose addNamed [ null, '>=1.2.0-0 <2.0.0-0' ]
+305 silly lockFile 8a7abe5f-shebang-command-1-2-0 shebang-command@^1.2.0
+306 verbose lock shebang-command@^1.2.0 C:\Users\michael\AppData\Roaming\npm-cache\8a7abe5f-shebang-command-1-2-0.lock
+307 silly addNameRange { name: 'shebang-command',
+307 silly addNameRange   range: '>=1.2.0-0 <2.0.0-0',
+307 silly addNameRange   hasData: false }
+308 verbose url raw shebang-command
+309 verbose url resolving [ 'https://registry.npmjs.org/', './shebang-command' ]
+310 verbose url resolved https://registry.npmjs.org/shebang-command
+311 info trying registry request attempt 1 at 10:59:31 AM
+312 http GET https://registry.npmjs.org/shebang-command
+313 http 200 https://registry.npmjs.org/shebang-command
+314 silly registry.get cb [ 200,
+314 silly registry.get   { server: 'nginx/1.10.3',
+314 silly registry.get     'content-type': 'application/json',
+314 silly registry.get     'last-modified': 'Thu, 22 Sep 2016 07:41:46 GMT',
+314 silly registry.get     etag: 'W/"57e38b3a-1466"',
+314 silly registry.get     'content-encoding': 'gzip',
+314 silly registry.get     'cache-control': 'max-age=300',
+314 silly registry.get     'content-length': '1290',
+314 silly registry.get     'accept-ranges': 'bytes',
+314 silly registry.get     date: 'Tue, 27 Jun 2017 02:57:53 GMT',
+314 silly registry.get     via: '1.1 varnish',
+314 silly registry.get     age: '143',
+314 silly registry.get     connection: 'close',
+314 silly registry.get     'x-served-by': 'cache-lax8650-LAX',
+314 silly registry.get     'x-cache': 'HIT',
+314 silly registry.get     'x-cache-hits': '2',
+314 silly registry.get     'x-timer': 'S1498532274.597065,VS0,VE0',
+314 silly registry.get     vary: 'Accept-Encoding' } ]
+315 silly addNameRange number 2 { name: 'shebang-command',
+315 silly addNameRange   range: '>=1.2.0-0 <2.0.0-0',
+315 silly addNameRange   hasData: true }
+316 silly addNameRange versions [ 'shebang-command', [ '1.0.0', '1.1.0', '1.2.0' ] ]
+317 verbose addNamed [ 'shebang-command', '1.2.0' ]
+318 verbose addNamed [ '1.2.0', '1.2.0' ]
+319 silly lockFile 0faf4868-shebang-command-1-2-0 shebang-command@1.2.0
+320 verbose lock shebang-command@1.2.0 C:\Users\michael\AppData\Roaming\npm-cache\0faf4868-shebang-command-1-2-0.lock
+321 silly lockFile b50ee0ba-ommand-shebang-command-1-2-0-tgz https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz
+322 verbose lock https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz C:\Users\michael\AppData\Roaming\npm-cache\b50ee0ba-ommand-shebang-command-1-2-0-tgz.lock
+323 verbose addRemoteTarball [ 'https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz',
+323 verbose addRemoteTarball   '44aac65b695b03398968c39f363fee5deafdf1ea' ]
+324 info retry fetch attempt 1 at 10:59:32 AM
+325 verbose fetch to= C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532372270-0.9207396218495736\tmp.tgz
+326 http GET https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz
+327 http 200 https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz
+328 verbose tar unpack C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532372270-0.9207396218495736\tmp.tgz
+329 silly lockFile 1b4ce072-he-shebang-command-1-2-0-package tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-command\1.2.0\package
+330 verbose lock tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-command\1.2.0\package C:\Users\michael\AppData\Roaming\npm-cache\1b4ce072-he-shebang-command-1-2-0-package.lock
+331 silly lockFile bf9ee4aa-72270-0-9207396218495736-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532372270-0.9207396218495736\tmp.tgz
+332 verbose lock tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532372270-0.9207396218495736\tmp.tgz C:\Users\michael\AppData\Roaming\npm-cache\bf9ee4aa-72270-0-9207396218495736-tmp-tgz.lock
+333 silly gunzTarPerm modes [ '755', '644' ]
+334 silly gunzTarPerm extractEntry package.json
+335 silly gunzTarPerm extractEntry index.js
+336 silly gunzTarPerm extractEntry license
+337 silly gunzTarPerm extractEntry readme.md
+338 silly lockFile 1b4ce072-he-shebang-command-1-2-0-package tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-command\1.2.0\package
+339 silly lockFile 1b4ce072-he-shebang-command-1-2-0-package tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-command\1.2.0\package
+340 silly lockFile bf9ee4aa-72270-0-9207396218495736-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532372270-0.9207396218495736\tmp.tgz
+341 silly lockFile bf9ee4aa-72270-0-9207396218495736-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532372270-0.9207396218495736\tmp.tgz
+342 silly lockFile b50ee0ba-ommand-shebang-command-1-2-0-tgz https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz
+343 silly lockFile b50ee0ba-ommand-shebang-command-1-2-0-tgz https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz
+344 silly lockFile 0faf4868-shebang-command-1-2-0 shebang-command@1.2.0
+345 silly lockFile 0faf4868-shebang-command-1-2-0 shebang-command@1.2.0
+346 silly lockFile 8a7abe5f-shebang-command-1-2-0 shebang-command@^1.2.0
+347 silly lockFile 8a7abe5f-shebang-command-1-2-0 shebang-command@^1.2.0
+348 silly resolved [ { name: 'shebang-command',
+348 silly resolved     version: '1.2.0',
+348 silly resolved     description: 'Get the command from a shebang',
+348 silly resolved     license: 'MIT',
+348 silly resolved     repository: { type: 'git', url: 'git://github.com/kevva/shebang-command' },
+348 silly resolved     author:
+348 silly resolved      { name: 'Kevin Martensson',
+348 silly resolved        email: 'kevinmartensson@gmail.com',
+348 silly resolved        url: 'github.com/kevva' },
+348 silly resolved     engines: { node: '>=0.10.0' },
+348 silly resolved     scripts: { test: 'xo && ava' },
+348 silly resolved     files: [ 'index.js' ],
+348 silly resolved     keywords: [ 'cmd', 'command', 'parse', 'shebang' ],
+348 silly resolved     dependencies: { 'shebang-regex': '^1.0.0' },
+348 silly resolved     devDependencies: { ava: '*', xo: '*' },
+348 silly resolved     xo: { ignores: [Object] },
+348 silly resolved     readme: '# shebang-command [![Build Status](https://travis-ci.org/kevva/shebang-command.svg?branch=master)](https://travis-ci.org/kevva/shebang-command)\n\n> Get the command from a shebang\n\n\n## Install\n\n```\n$ npm install --save shebang-command\n```\n\n\n## Usage\n\n```js\nconst shebangCommand = require(\'shebang-command\');\n\nshebangCommand(\'#!/usr/bin/env node\');\n//=> \'node\'\n\nshebangCommand(\'#!/bin/bash\');\n//=> \'bash\'\n```\n\n\n## API\n\n### shebangCommand(string)\n\n#### string\n\nType: `string`\n\nString containing a shebang.\n\n\n## License\n\nMIT © [Kevin Martensson](http://github.com/kevva)\n',
+348 silly resolved     readmeFilename: 'readme.md',
+348 silly resolved     bugs: { url: 'https://github.com/kevva/shebang-command/issues' },
+348 silly resolved     homepage: 'https://github.com/kevva/shebang-command',
+348 silly resolved     _id: 'shebang-command@1.2.0',
+348 silly resolved     _shasum: '44aac65b695b03398968c39f363fee5deafdf1ea',
+348 silly resolved     _from: 'shebang-command@^1.2.0',
+348 silly resolved     _resolved: 'https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz' } ]
+349 info install shebang-command@1.2.0 into D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn
+350 info installOne shebang-command@1.2.0
+351 info D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command unbuild
+352 verbose tar unpack C:\Users\michael\AppData\Roaming\npm-cache\shebang-command\1.2.0\package.tgz
+353 silly lockFile 26da8e83-awn-node-modules-shebang-command tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command
+354 verbose lock tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command C:\Users\michael\AppData\Roaming\npm-cache\26da8e83-awn-node-modules-shebang-command.lock
+355 silly lockFile 189bb893-hebang-command-1-2-0-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-command\1.2.0\package.tgz
+356 verbose lock tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-command\1.2.0\package.tgz C:\Users\michael\AppData\Roaming\npm-cache\189bb893-hebang-command-1-2-0-package-tgz.lock
+357 silly gunzTarPerm modes [ '755', '644' ]
+358 silly gunzTarPerm extractEntry package.json
+359 silly gunzTarPerm extractEntry index.js
+360 silly gunzTarPerm extractEntry license
+361 silly gunzTarPerm extractEntry readme.md
+362 silly lockFile 26da8e83-awn-node-modules-shebang-command tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command
+363 silly lockFile 26da8e83-awn-node-modules-shebang-command tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command
+364 silly lockFile 189bb893-hebang-command-1-2-0-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-command\1.2.0\package.tgz
+365 silly lockFile 189bb893-hebang-command-1-2-0-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-command\1.2.0\package.tgz
+366 info preinstall shebang-command@1.2.0
+367 verbose readDependencies using package.json deps
+368 verbose readDependencies using package.json deps
+369 verbose cache add [ 'shebang-regex@^1.0.0', null ]
+370 verbose cache add name=undefined spec="shebang-regex@^1.0.0" args=["shebang-regex@^1.0.0",null]
+371 verbose parsed url Url {
+371 verbose parsed url   protocol: null,
+371 verbose parsed url   slashes: null,
+371 verbose parsed url   auth: null,
+371 verbose parsed url   host: null,
+371 verbose parsed url   port: null,
+371 verbose parsed url   hostname: null,
+371 verbose parsed url   hash: null,
+371 verbose parsed url   search: null,
+371 verbose parsed url   query: null,
+371 verbose parsed url   pathname: 'shebang-regex@%5E1.0.0',
+371 verbose parsed url   path: 'shebang-regex@%5E1.0.0',
+371 verbose parsed url   href: 'shebang-regex@%5E1.0.0' }
+372 verbose cache add name="shebang-regex" spec="^1.0.0" args=["shebang-regex","^1.0.0"]
+373 verbose parsed url Url {
+373 verbose parsed url   protocol: null,
+373 verbose parsed url   slashes: null,
+373 verbose parsed url   auth: null,
+373 verbose parsed url   host: null,
+373 verbose parsed url   port: null,
+373 verbose parsed url   hostname: null,
+373 verbose parsed url   hash: null,
+373 verbose parsed url   search: null,
+373 verbose parsed url   query: null,
+373 verbose parsed url   pathname: '%5E1.0.0',
+373 verbose parsed url   path: '%5E1.0.0',
+373 verbose parsed url   href: '%5E1.0.0' }
+374 verbose addNamed [ 'shebang-regex', '^1.0.0' ]
+375 verbose addNamed [ null, '>=1.0.0-0 <2.0.0-0' ]
+376 silly lockFile 5d9164e3-shebang-regex-1-0-0 shebang-regex@^1.0.0
+377 verbose lock shebang-regex@^1.0.0 C:\Users\michael\AppData\Roaming\npm-cache\5d9164e3-shebang-regex-1-0-0.lock
+378 silly addNameRange { name: 'shebang-regex',
+378 silly addNameRange   range: '>=1.0.0-0 <2.0.0-0',
+378 silly addNameRange   hasData: false }
+379 verbose url raw shebang-regex
+380 verbose url resolving [ 'https://registry.npmjs.org/', './shebang-regex' ]
+381 verbose url resolved https://registry.npmjs.org/shebang-regex
+382 info trying registry request attempt 1 at 10:59:33 AM
+383 http GET https://registry.npmjs.org/shebang-regex
+384 http 200 https://registry.npmjs.org/shebang-regex
+385 silly registry.get cb [ 200,
+385 silly registry.get   { server: 'nginx/1.10.1',
+385 silly registry.get     'content-type': 'application/json',
+385 silly registry.get     'last-modified': 'Fri, 04 Dec 2015 16:40:07 GMT',
+385 silly registry.get     etag: 'W/"5661c1e7-e72"',
+385 silly registry.get     'content-encoding': 'gzip',
+385 silly registry.get     'cache-control': 'max-age=300',
+385 silly registry.get     'content-length': '1095',
+385 silly registry.get     'accept-ranges': 'bytes',
+385 silly registry.get     date: 'Tue, 27 Jun 2017 02:57:55 GMT',
+385 silly registry.get     via: '1.1 varnish',
+385 silly registry.get     age: '215',
+385 silly registry.get     connection: 'close',
+385 silly registry.get     'x-served-by': 'cache-lax8649-LAX',
+385 silly registry.get     'x-cache': 'HIT',
+385 silly registry.get     'x-cache-hits': '1',
+385 silly registry.get     'x-timer': 'S1498532275.350314,VS0,VE1',
+385 silly registry.get     vary: 'Accept-Encoding' } ]
+386 silly addNameRange number 2 { name: 'shebang-regex',
+386 silly addNameRange   range: '>=1.0.0-0 <2.0.0-0',
+386 silly addNameRange   hasData: true }
+387 silly addNameRange versions [ 'shebang-regex', [ '1.0.0', '2.0.0' ] ]
+388 verbose addNamed [ 'shebang-regex', '1.0.0' ]
+389 verbose addNamed [ '1.0.0', '1.0.0' ]
+390 silly lockFile a2eaecc8-shebang-regex-1-0-0 shebang-regex@1.0.0
+391 verbose lock shebang-regex@1.0.0 C:\Users\michael\AppData\Roaming\npm-cache\a2eaecc8-shebang-regex-1-0-0.lock
+392 silly lockFile 339de33e-ng-regex-shebang-regex-1-0-0-tgz https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz
+393 verbose lock https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz C:\Users\michael\AppData\Roaming\npm-cache\339de33e-ng-regex-shebang-regex-1-0-0-tgz.lock
+394 verbose addRemoteTarball [ 'https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz',
+394 verbose addRemoteTarball   'da42f49740c0b42db2ca9728571cb190c98efea3' ]
+395 info retry fetch attempt 1 at 10:59:34 AM
+396 verbose fetch to= C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532374017-0.26265526577626774\tmp.tgz
+397 http GET https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz
+398 http 200 https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz
+399 verbose tar unpack C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532374017-0.26265526577626774\tmp.tgz
+400 silly lockFile 39c386a2-ache-shebang-regex-1-0-0-package tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-regex\1.0.0\package
+401 verbose lock tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-regex\1.0.0\package C:\Users\michael\AppData\Roaming\npm-cache\39c386a2-ache-shebang-regex-1-0-0-package.lock
+402 silly lockFile 4be85664-4017-0-26265526577626774-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532374017-0.26265526577626774\tmp.tgz
+403 verbose lock tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532374017-0.26265526577626774\tmp.tgz C:\Users\michael\AppData\Roaming\npm-cache\4be85664-4017-0-26265526577626774-tmp-tgz.lock
+404 silly gunzTarPerm modes [ '755', '644' ]
+405 silly gunzTarPerm extractEntry package.json
+406 silly gunzTarPerm extractEntry index.js
+407 silly gunzTarPerm extractEntry license
+408 silly gunzTarPerm extractEntry readme.md
+409 silly lockFile 39c386a2-ache-shebang-regex-1-0-0-package tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-regex\1.0.0\package
+410 silly lockFile 39c386a2-ache-shebang-regex-1-0-0-package tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-regex\1.0.0\package
+411 silly lockFile 4be85664-4017-0-26265526577626774-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532374017-0.26265526577626774\tmp.tgz
+412 silly lockFile 4be85664-4017-0-26265526577626774-tmp-tgz tar://C:\Users\michael\AppData\Local\Temp\npm-9152-WebdQkl3\1498532374017-0.26265526577626774\tmp.tgz
+413 silly lockFile 339de33e-ng-regex-shebang-regex-1-0-0-tgz https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz
+414 silly lockFile 339de33e-ng-regex-shebang-regex-1-0-0-tgz https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz
+415 silly lockFile a2eaecc8-shebang-regex-1-0-0 shebang-regex@1.0.0
+416 silly lockFile a2eaecc8-shebang-regex-1-0-0 shebang-regex@1.0.0
+417 silly lockFile 5d9164e3-shebang-regex-1-0-0 shebang-regex@^1.0.0
+418 silly lockFile 5d9164e3-shebang-regex-1-0-0 shebang-regex@^1.0.0
+419 silly resolved [ { name: 'shebang-regex',
+419 silly resolved     version: '1.0.0',
+419 silly resolved     description: 'Regular expression for matching a shebang',
+419 silly resolved     license: 'MIT',
+419 silly resolved     repository:
+419 silly resolved      { type: 'git',
+419 silly resolved        url: 'git://github.com/sindresorhus/shebang-regex' },
+419 silly resolved     author:
+419 silly resolved      { name: 'Sindre Sorhus',
+419 silly resolved        email: 'sindresorhus@gmail.com',
+419 silly resolved        url: 'sindresorhus.com' },
+419 silly resolved     engines: { node: '>=0.10.0' },
+419 silly resolved     scripts: { test: 'node test.js' },
+419 silly resolved     files: [ 'index.js' ],
+419 silly resolved     keywords: [ 're', 'regex', 'regexp', 'shebang', 'match', 'test' ],
+419 silly resolved     devDependencies: { ava: '0.0.4' },
+419 silly resolved     readme: '# shebang-regex [![Build Status](https://travis-ci.org/sindresorhus/shebang-regex.svg?branch=master)](https://travis-ci.org/sindresorhus/shebang-regex)\n\n> Regular expression for matching a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))\n\n\n## Install\n\n```\n$ npm install --save shebang-regex\n```\n\n\n## Usage\n\n```js\nvar shebangRegex = require(\'shebang-regex\');\nvar str = \'#!/usr/bin/env node\\nconsole.log("unicorns");\';\n\nshebangRegex.test(str);\n//=> true\n\nshebangRegex.exec(str)[0];\n//=> \'#!/usr/bin/env node\'\n```\n\n\n## License\n\nMIT © [Sindre Sorhus](http://sindresorhus.com)\n',
+419 silly resolved     readmeFilename: 'readme.md',
+419 silly resolved     bugs: { url: 'https://github.com/sindresorhus/shebang-regex/issues' },
+419 silly resolved     homepage: 'https://github.com/sindresorhus/shebang-regex',
+419 silly resolved     _id: 'shebang-regex@1.0.0',
+419 silly resolved     _shasum: 'da42f49740c0b42db2ca9728571cb190c98efea3',
+419 silly resolved     _from: 'shebang-regex@^1.0.0',
+419 silly resolved     _resolved: 'https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz' } ]
+420 info install shebang-regex@1.0.0 into D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command
+421 info installOne shebang-regex@1.0.0
+422 info D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command\node_modules\shebang-regex unbuild
+423 verbose tar unpack C:\Users\michael\AppData\Roaming\npm-cache\shebang-regex\1.0.0\package.tgz
+424 silly lockFile 9193291c-mmand-node-modules-shebang-regex tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command\node_modules\shebang-regex
+425 verbose lock tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command\node_modules\shebang-regex C:\Users\michael\AppData\Roaming\npm-cache\9193291c-mmand-node-modules-shebang-regex.lock
+426 silly lockFile 192f95ea--shebang-regex-1-0-0-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-regex\1.0.0\package.tgz
+427 verbose lock tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-regex\1.0.0\package.tgz C:\Users\michael\AppData\Roaming\npm-cache\192f95ea--shebang-regex-1-0-0-package-tgz.lock
+428 silly gunzTarPerm modes [ '755', '644' ]
+429 silly gunzTarPerm extractEntry package.json
+430 silly gunzTarPerm extractEntry index.js
+431 silly gunzTarPerm extractEntry license
+432 silly gunzTarPerm extractEntry readme.md
+433 silly lockFile 9193291c-mmand-node-modules-shebang-regex tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command\node_modules\shebang-regex
+434 silly lockFile 9193291c-mmand-node-modules-shebang-regex tar://D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command\node_modules\shebang-regex
+435 silly lockFile 192f95ea--shebang-regex-1-0-0-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-regex\1.0.0\package.tgz
+436 silly lockFile 192f95ea--shebang-regex-1-0-0-package-tgz tar://C:\Users\michael\AppData\Roaming\npm-cache\shebang-regex\1.0.0\package.tgz
+437 info preinstall shebang-regex@1.0.0
+438 verbose readDependencies using package.json deps
+439 verbose readDependencies using package.json deps
+440 silly resolved []
+441 verbose about to build D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command\node_modules\shebang-regex
+442 info build D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command\node_modules\shebang-regex
+443 verbose linkStuff [ false,
+443 verbose linkStuff   false,
+443 verbose linkStuff   false,
+443 verbose linkStuff   'D:\\PROJECT\\react_redux\\aims-os\\node_modules\\cross-env\\node_modules\\cross-spawn\\node_modules\\shebang-command\\node_modules' ]
+444 info linkStuff shebang-regex@1.0.0
+445 verbose linkBins shebang-regex@1.0.0
+446 verbose linkMans shebang-regex@1.0.0
+447 verbose rebuildBundles shebang-regex@1.0.0
+448 info install shebang-regex@1.0.0
+449 info postinstall shebang-regex@1.0.0
+450 verbose about to build D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command
+451 info build D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn\node_modules\shebang-command
+452 verbose linkStuff [ false,
+452 verbose linkStuff   false,
+452 verbose linkStuff   false,
+452 verbose linkStuff   'D:\\PROJECT\\react_redux\\aims-os\\node_modules\\cross-env\\node_modules\\cross-spawn\\node_modules' ]
+453 info linkStuff shebang-command@1.2.0
+454 verbose linkBins shebang-command@1.2.0
+455 verbose linkMans shebang-command@1.2.0
+456 verbose rebuildBundles shebang-command@1.2.0
+457 verbose rebuildBundles [ 'shebang-regex' ]
+458 info install shebang-command@1.2.0
+459 info postinstall shebang-command@1.2.0
+460 verbose about to build D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn
+461 info build D:\PROJECT\react_redux\aims-os\node_modules\cross-env\node_modules\cross-spawn
+462 verbose linkStuff [ false,
+462 verbose linkStuff   false,
+462 verbose linkStuff   false,
+462 verbose linkStuff   'D:\\PROJECT\\react_redux\\aims-os\\node_modules\\cross-env\\node_modules' ]
+463 info linkStuff cross-spawn@5.1.0
+464 verbose linkBins cross-spawn@5.1.0
+465 verbose linkMans cross-spawn@5.1.0
+466 verbose rebuildBundles cross-spawn@5.1.0
+467 verbose rebuildBundles [ 'shebang-command' ]
+468 info install cross-spawn@5.1.0
+469 info postinstall cross-spawn@5.1.0
+470 verbose about to build D:\PROJECT\react_redux\aims-os\node_modules\cross-env
+471 info build D:\PROJECT\react_redux\aims-os\node_modules\cross-env
+472 verbose linkStuff [ false,
+472 verbose linkStuff   false,
+472 verbose linkStuff   false,
+472 verbose linkStuff   'D:\\PROJECT\\react_redux\\aims-os\\node_modules' ]
+473 info linkStuff cross-env@5.0.1
+474 verbose linkBins cross-env@5.0.1
+475 verbose link bins [ { 'cross-env': 'dist/bin/cross-env.js',
+475 verbose link bins     'cross-env-shell': 'dist/bin/cross-env-shell.js' },
+475 verbose link bins   'D:\\PROJECT\\react_redux\\aims-os\\node_modules\\.bin',
+475 verbose link bins   false ]
+476 verbose linkMans cross-env@5.0.1
+477 verbose rebuildBundles cross-env@5.0.1
+478 verbose rebuildBundles [ 'cross-spawn', 'is-windows' ]
+479 info install cross-env@5.0.1
+480 info postinstall cross-env@5.0.1
+481 warn unmet dependency D:\PROJECT\react_redux\aims-os\node_modules\laravel-mix requires cross-env@'^3.1.3' but will load
+481 warn unmet dependency D:\PROJECT\react_redux\aims-os\node_modules\cross-env,
+481 warn unmet dependency which is version 5.0.1
+482 error peerinvalid The package vue does not satisfy its siblings' peerDependencies requirements!
+482 error peerinvalid Peer vee-validate@2.0.0-rc.6 wants vue@>= 2.2.0
+482 error peerinvalid Peer vue-select@2.0.0 wants vue@2.x
+483 error System Windows_NT 10.0.15063
+484 error command "C:\\Program Files\\nodejs\\node.exe" "C:\\ProgramData\\Chocolatey\\lib\\npm\\tools\\node_modules\\npm\\bin\\npm-cli.js" "install" "cross-env"
+485 error cwd D:\PROJECT\react_redux\aims-os
+486 error node -v v6.3.1
+487 error npm -v 1.4.9
+488 error code EPEERINVALID
+489 verbose exit [ 1, true ]

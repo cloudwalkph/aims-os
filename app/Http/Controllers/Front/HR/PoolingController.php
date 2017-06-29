@@ -50,6 +50,8 @@ class PoolingController extends Controller
     }
 
     public function previewFinalDeployment($joNumber) {
+        config(['app.name' => 'Human Resources | AIMS']);
+        
         $jo = JobOrder::where('job_order_no', $joNumber)->with('user.profile')->first();
 
         $data = [];

@@ -224,4 +224,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
         Route::post('/assign-buffef/{JoId}','PoolingManpowerController@assignBufferManpower');
     });
+
+    // SETUP
+
+    Route::group(['prefix' => 'setup'], function() {
+        Route::post('/manpower','SetupController@store');
+        Route::post('/manpower/{manpowerId}','SetupController@store');
+    });
 });

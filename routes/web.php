@@ -103,6 +103,7 @@ Route::group(['prefix' => 'hr'], function () {
 
 Route::group(['prefix' => 'setup'], function () {
     Route::get('/', 'Front\Setup\SetupController@index');
+    Route::get('/manpower', 'Front\Setup\SetupController@manpowerList');
 });
 
 Route::group(['prefix' => 'productions'], function () {
