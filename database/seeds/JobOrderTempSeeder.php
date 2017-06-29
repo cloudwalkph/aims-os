@@ -17,6 +17,7 @@ class JobOrderTempSeeder extends Seeder
             'user_id' => 7,
             'project_name'         => 'Quantum Physics',
             'project_types'      => '[{"name": "Activations"}, {"name": "Ambient"}]',
+            'project_type'      => 'Ambient',
             'status'     => 'pending'
         ]);
 
@@ -25,6 +26,7 @@ class JobOrderTempSeeder extends Seeder
             'user_id' => 7,
             'project_name'         => 'Gatsby',
             'project_types'      => '[{"name": "Sampling"}, {"name": "Logistics"}]',
+            'project_type'      => 'Logistics',
             'status'     => 'pending'
         ]);
     }
