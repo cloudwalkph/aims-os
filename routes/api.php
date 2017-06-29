@@ -225,17 +225,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('/assign-buffef/{JoId}','PoolingManpowerController@assignBufferManpower');
     });
 
-<<<<<<< HEAD
-    // SETUP
-
     Route::group(['prefix' => 'setup'], function() {
         Route::post('/manpower','SetupController@store');
         Route::post('/manpower/{manpowerId}','SetupController@store');
-=======
+    });
+    
 //    production
     Route::group(['prefix' => 'productions'], function() {
         Route::get('/', 'ProductionsController@index');
         Route::post('/{JoId}/details', 'ProductionsController@save_details');
->>>>>>> 482d8b0b96d4d04f29c6a5c1798c0f81634421c0
+
     });
-});
+
