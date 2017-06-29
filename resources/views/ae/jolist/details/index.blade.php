@@ -6,7 +6,11 @@
             $('#printJobOrder').on('click', function() {
                 let $iframe = $('#joFrame');
 
-                $iframe.get(0).contentWindow.print();
+                $iframe.attr('src', '/ae/jo/details/{{ $jo->id }}/preview');
+                $iframe.on('load', function() {
+                    $iframe.get(0).contentWindow.print();
+                    $iframe.attr('src', '#');
+                });
             });
         });
 
@@ -25,7 +29,7 @@
 
             let url = `/api/v1/job-orders/${joId}/details`;
             axios.post(url, list).then(function(res) {
-                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`); 
+//                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`);
                 toastr.success('Successfully saved event details', 'Success')
             }).catch(function(error) {
                 toastr.error('Failed in saving event details', 'Error')
@@ -47,7 +51,7 @@
 
             let url = `/api/v1/job-orders/${joId}/mom`;
             axios.post(url, list).then(function(res) {
-                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`); 
+//                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`);
                 toastr.success('Successfully saved mom details', 'Success');
             }).catch(function(error) {
                 toastr.error('Failed in saving mom details', 'Error');
