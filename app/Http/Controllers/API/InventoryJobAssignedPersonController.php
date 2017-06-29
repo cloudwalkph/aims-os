@@ -32,7 +32,7 @@ class InventoryJobAssignedPersonController extends Controller
         $user = $request->user();
         $users = User::with('profile', 'department', 'role', 'inventoryJobAssigned')
             ->where('department_id', $user['department_id'])
-            ->doesntHave('inventoryJobAssigned')
+            // ->doesntHave('inventoryJobAssigned')
             ->get();
 
         return response()->json($users, 200);

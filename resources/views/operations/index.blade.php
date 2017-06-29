@@ -133,7 +133,7 @@
                                 <i class="fa fa-sitemap"></i>
                             </div>
                             <div class="text">
-                                <label class="text-muted">Activations</label>
+                                <label class="text-muted">Project Manager</label>
                             </div>
                             <div class="options">
                                 <a href="/operations/11" class="btn btn-primary btn-lg">View more...</a>

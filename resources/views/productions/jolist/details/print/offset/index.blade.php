@@ -67,24 +67,32 @@
                             </form>
                         </tfoot>
                         <tbody id="tbody-offset">
+                        @foreach( $productionDatas as $productionData)
 
-                        {{--<tr>--}}
-                            {{--<td colspan="5">no details</td>--}}
-                        {{--</tr>--}}
+                            @if( $productionData->type == 'offset' )
+                                <tr>
+                                    <td>{{ $productionData->description }}</td>
+                                    <td>{{ $productionData->visuals }}</td>
+                                    <td>{{ $productionData->sizes }}</td>
+                                    <td>{{ $productionData->qty }}</td>
+                                    <td>{{ $productionData->details }}</td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
 
-                        <td>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
-                                </div>
-                                <div class="col-xs-4">
-                                    <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
-                                </div>
-                                <div class="col-xs-4">
-                                    <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
-                                </div>
-                            </div>
-                        </td>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

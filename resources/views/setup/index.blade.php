@@ -42,7 +42,7 @@
                             <label class="text-muted">Manpower Lists</label>
                         </div>
                         <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">Add Manpower</a>
+                            <a href="/setup/manpower" class="btn btn-primary btn-lg">Add Manpower</a>
                         </div>
                     </div>
                 </div>

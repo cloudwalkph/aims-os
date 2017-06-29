@@ -25,15 +25,54 @@
 
             <div class="col-md-12">
                 <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                            <span class="pull-right">
+                                <button class="btn btn-default" onclick="frames['frame'].print();">
+                                    <i class="fa fa-print fa-lg"></i> Print
+                                </button> &nbsp;
+                                <button type="button" class="btn btn-primary"
+                                        data-toggle="modal" data-target="#assignPM">
+                                    <i class="fa fa-plus"></i> Assign Project Manager
+                                </button>
+                            </span>
+
+                        <h5> <b>Project Name: {{ $jo->project_name }}</b> </h5>
+                        <h5> <b>Job Order Number: {{ $jo->job_order_no }}</b> </h5>
+                        <h5> <strong>Date Created: {{ \Carbon\Carbon::createFromTimestamp(strtotime($jo->created_at))->toFormattedDateString() }}</strong> </h5>
+
+                    </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <h5> <b>Project Name: {{ $jo->project_name }}</b> </h5>
-                                <h5> <b>Job Order Number: {{ $jo->job_order_no }}</b> </h5>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="col-md-12 col-xs-12">
+                                    <h5><strong>Client:</strong> {{ $jo->clients->implode('client.company', ', ') }}</h5>
+                                </div>
+                                <div class="col-md-12 col-xs-12">
+                                    <h5><strong>AE Name:</strong> {{ $jo->user->profile->full_name }}</h5>
+                                </div>
+
                             </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <h5> <strong>Date Created: {{ \Carbon\Carbon::createFromTimestamp(strtotime($jo->created_at))->toFormattedDateString() }}</strong> </h5>
-                                <h5> <strong>Created By: {{ $jo->user->profile->full_name }}</strong> </h5>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="col-md-12 col-xs-12">
+                                    <h5><strong>Project Type:</strong> {{ collect(json_decode($jo->project_types))->implode('name', ', ') }}</h5>
+                                </div>
+                                <div class="col-md-12 col-xs-12">
+                                    <h5><strong>Brand:</strong> {{ collect($brands)->implode(', ') }}</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="col-md-12 col-xs-12">
+                                    <h5><strong>D.O. Number:</strong>{{ isset($jo->do_contract_no) ? $jo->do_contract_no : 'N/A' }}</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="col-md-12 col-xs-12">
+                                    <h5><strong>Invoice Number:</strong> N/A</h5>
+                                </div>
+                                <div class="col-md-12 col-xs-12">
+                                    <h5><strong>Paid Date:</strong>N/A</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -42,10 +81,12 @@
 
             <div class="col-md-12">
 
-                <button type="button" class="btn btn-primary btn-create"
-                        data-toggle="modal" data-target="#assignPM">
-                    <i class="fa fa-plus"></i> Assign Project Manager
-                </button>
+                @if (session('status'))
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ session('status') }}
+                    </div>
+                @endif
 
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -70,6 +111,8 @@
                     </tbody>
                 </table>
             </div>
+
+            @include('components.jo_details')
 
         </div>
     </div>
@@ -104,4 +147,5 @@
             </div>
         </div>
     </div>
+    <iframe src="/ae/jo/details/{{ $jo->id }}/preview" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
 @endsection

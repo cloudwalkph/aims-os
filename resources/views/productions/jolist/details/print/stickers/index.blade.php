@@ -103,6 +103,19 @@
                     </tfoot>
 
                     <tbody>
+                        @foreach( $productionDatas as $productionData)
+
+                            @if( $productionData->type == 'sticker' )
+                                <tr>
+                                    <td>{{ $productionData->description }}</td>
+                                    <td>{{ $productionData->visuals }}</td>
+                                    <td>{{ $productionData->sizes }}</td>
+                                    <td>{{ $productionData->qty }}</td>
+                                    <td>{{ $productionData->details }}</td>
+                                </tr>
+                            @endif
+
+                        @endforeach
 
                     <td>
                         <div class="row">

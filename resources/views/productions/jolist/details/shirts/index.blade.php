@@ -37,23 +37,31 @@
                     </form>
                     </tfoot>
                     <tbody>
-                        {{--<tr>--}}
-                            {{--<td colspan="4">no details</td>--}}
-                        {{--</tr>--}}
+                    @foreach( $productionDatas as $productionData)
 
-                        <th>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
-                                </div>
-                                <div class="col-xs-4">
-                                    <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
-                                </div>
-                                <div class="col-xs-4">
-                                    <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
-                                </div>
-                            </div>
-                        </th>
+                        @if( $productionData->type == 'shirts' )
+                            <tr>
+                                <td>{{ $productionData->description }}</td>
+                                <td>{{ $productionData->visuals }}</td>
+                                <td>{{ $productionData->qty }}</td>
+                                <td>{{ $productionData->details }}</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endif
+
+                    @endforeach
                     </tbody>
                 </table>
             </div>

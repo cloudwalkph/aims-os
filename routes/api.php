@@ -13,37 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
 Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
 
-    // users
-    Route::group(['prefix' => 'users'], function () {
-        Route::get('/', 'UsersController@index');
-        Route::get('/{departmentId}', 'UsersController@getByDepartment');
-        Route::post('/', 'UsersController@store');
-        Route::put('/{userId}', 'UsersController@update');
-        Route::delete('/{userId}', 'UsersController@delete');
+    // Schedules / Calendar
+    Route::group(['prefix' => 'events', 'namespace' => 'Departments'], function() {
+        Route::get('/all', 'SchedulesController@all');
+        Route::get('/', 'SchedulesController@index');
+        Route::post('/', 'SchedulesController@store');
+        Route::put('/{eventId}', 'SchedulesController@update');
+        Route::delete('/{eventId}', 'SchedulesController@delete');
     });
 
-    // Events API
-    Route::group(['prefix' => 'events'], function() {
-        Route::get('/all', 'EventsController@all');
-        Route::get('/', 'EventsController@index');
-        Route::post('/', 'EventsController@store');
-        Route::put('/{eventId}', 'EventsController@update');
-        Route::delete('/{eventId}', 'EventsController@delete');
-    });
-
-    // Creatives
-    Route::group(['prefix' => 'clients'], function() {
+    // AE
+    Route::group(['prefix' => 'clients', 'namespace' => 'AE'], function() {
         Route::get('/', 'ClientsController@index');
         Route::get('/{clientId}', 'ClientsController@show');
         Route::post('/', 'ClientsController@store');
@@ -63,8 +45,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::get('/{id}', 'InventoryController@show');
     });
 
-    // Clients
-    Route::group(['prefix' => 'creatives'], function() {
+    // Creatives
+    Route::group(['prefix' => 'creatives', 'namespace' => 'Creatives'], function() {
         Route::get('/', 'CreativesOngoingController@index');
         Route::get('/{joId}', 'CreativesOngoingController@show');
         Route::post('/', 'CreativesOngoingController@store');
@@ -73,78 +55,81 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     });
 
     // Job Orders
-    Route::group(['prefix' => 'job-orders'], function() {
-        Route::get('/', 'JobOrdersController@index');
-        Route::get('/all', 'JobOrdersController@all');
-        Route::get('/calendar', 'JobOrdersController@calendar');
-        Route::get('/department', 'JobOrdersController@getByDepartmentInvolvement');
-        Route::get('/department/{departmentId}', 'JobOrdersController@getByDepartmentId');
-        Route::get('/{jobOrderId}', 'JobOrdersController@show');
-        Route::post('/', 'JobOrdersController@store');
-        Route::post('/add-ae', 'JobOrdersController@addAe');
-        Route::put('/{jobOrderId}', 'JobOrdersController@update');
-        Route::delete('/{jobOrderId}', 'JobOrdersController@delete');
-        Route::post('/{joId}/mom', 'JobOrdersController@saveJobOrderMOM');
-        Route::post('/{joId}/details', 'JobOrdersController@saveEventDetails');
+    Route::group(['namespace' => 'JobOrders'], function() {
+        // Job Orders
+        Route::group(['prefix' => 'job-orders'], function() {
+            Route::get('/', 'JobOrdersController@index');
+            Route::get('/all', 'JobOrdersController@all');
+            Route::get('/calendar', 'JobOrdersController@calendar');
+            Route::get('/department', 'JobOrdersController@getByDepartmentInvolvement');
+            Route::get('/department/{departmentId}', 'JobOrdersController@getByDepartmentId');
+            Route::get('/{jobOrderId}', 'JobOrdersController@show');
+            Route::post('/', 'JobOrdersController@store');
+            Route::post('/add-ae', 'JobOrdersController@addAe');
+            Route::put('/{jobOrderId}', 'JobOrdersController@update');
+            Route::delete('/{jobOrderId}', 'JobOrdersController@delete');
+            Route::post('/{joId}/mom', 'JobOrdersController@saveJobOrderMOM');
+            Route::post('/{joId}/details', 'JobOrdersController@saveEventDetails');
 
-        Route::get('/{joId}/discussions', 'JobOrderDiscussionsController@getDiscussions');
-        Route::post('/{joId}/discussions', 'JobOrderDiscussionsController@createDiscussion');
+            Route::get('/{joId}/discussions', 'JobOrderDiscussionsController@getDiscussions');
+            Route::post('/{joId}/discussions', 'JobOrderDiscussionsController@createDiscussion');
 
-    });
+        });
 
-    // manpower requests
-    Route::group(['prefix' => 'job-order-manpowers'], function() {
-        Route::get('/{Id}', 'ManpowerRequestsController@index');
-        Route::post('/', 'ManpowerRequestsController@store');
-        Route::delete('/{manpowerId}', 'ManpowerRequestsController@delete');
-    });
+        // manpower requests
+        Route::group(['prefix' => 'job-order-manpowers'], function() {
+            Route::get('/{Id}', 'ManpowerRequestsController@index');
+            Route::post('/', 'ManpowerRequestsController@store');
+            Route::delete('/{manpowerId}', 'ManpowerRequestsController@delete');
+        });
 
-    // meal requests
-    Route::group(['prefix' => 'job-order-meals'], function() {
-        Route::get('/{Id}', 'MealRequestsController@index');
-        Route::post('/', 'MealRequestsController@store');
-        Route::delete('/{mealId}', 'MealRequestsController@delete');
-    });
+        // meal requests
+        Route::group(['prefix' => 'job-order-meals'], function() {
+            Route::get('/{Id}', 'MealRequestsController@index');
+            Route::post('/', 'MealRequestsController@store');
+            Route::delete('/{mealId}', 'MealRequestsController@delete');
+        });
 
-    // vehicle requests
-    Route::group(['prefix' => 'job-order-vehicles'], function() {
-        Route::get('/{Id}', 'VehicleRequestsController@index');
-        Route::post('/', 'VehicleRequestsController@store');
-        Route::delete('/{vehicleId}', 'VehicleRequestsController@delete');
-    });
+        // vehicle requests
+        Route::group(['prefix' => 'job-order-vehicles'], function() {
+            Route::get('/{Id}', 'VehicleRequestsController@index');
+            Route::post('/', 'VehicleRequestsController@store');
+            Route::delete('/{vehicleId}', 'VehicleRequestsController@delete');
+        });
 
-    // department involvement
-    Route::group(['prefix' => 'job-order-department-involvements'], function() {
-        Route::get('/{Id}', 'DepartmentInvolvementController@index');
-        Route::post('/', 'DepartmentInvolvementController@store');
-        Route::delete('/{Id}', 'DepartmentInvolvementController@delete');
-    });
+        // department involvement
+        Route::group(['prefix' => 'job-order-department-involvements'], function() {
+            Route::get('/{Id}', 'DepartmentInvolvementController@index');
+            Route::post('/', 'DepartmentInvolvementController@store');
+            Route::delete('/{Id}', 'DepartmentInvolvementController@delete');
+        });
 
-    // ae job order inventory
-    Route::group(['prefix' => 'job-order-inventory'], function() {
-        Route::get('/all', 'JobOrderProductController@all');
-        Route::get('/{Id}', 'JobOrderProductController@index');
-        Route::post('/', 'JobOrderProductController@store');
-        Route::delete('/{Id}', 'JobOrderProductController@delete');
-    });
+        // ae job order inventory
+        Route::group(['prefix' => 'job-order-inventory'], function() {
+            Route::get('/all', 'JobOrderProductController@all');
+            Route::get('/{Id}', 'JobOrderProductController@index');
+            Route::post('/', 'JobOrderProductController@store');
+            Route::delete('/{Id}', 'JobOrderProductController@delete');
+        });
 
-    // project attachments
-    Route::group(['prefix' => 'job-order-project-attachments'], function() {
-        Route::get('/{Id}', 'ProjectAttachmentController@index');
-        Route::get('/{Id}/download', 'ProjectAttachmentController@download');
-        Route::post('/', 'ProjectAttachmentController@store');
-        Route::delete('/{Id}', 'ProjectAttachmentController@delete');
-    });
+        // project attachments
+        Route::group(['prefix' => 'job-order-project-attachments'], function() {
+            Route::get('/{Id}', 'ProjectAttachmentController@index');
+            Route::get('/{Id}/download', 'ProjectAttachmentController@download');
+            Route::post('/', 'ProjectAttachmentController@store');
+            Route::delete('/{Id}', 'ProjectAttachmentController@delete');
+        });
 
-    // animation details
-    Route::group(['prefix' => 'job-order-animation-details'], function() {
-        Route::get('/{Id}', 'AnimationDetailsController@index');
-        Route::post('/', 'AnimationDetailsController@store');
-        Route::delete('/{Id}', 'AnimationDetailsController@delete');
+        // animation details
+        Route::group(['prefix' => 'job-order-animation-details'], function() {
+            Route::get('/{Id}', 'AnimationDetailsController@index');
+            Route::post('/', 'AnimationDetailsController@store');
+            Route::delete('/{Id}', 'AnimationDetailsController@delete');
+        });
     });
 
     // Venues
-    Route::group(['prefix' => 'venues'], function() {
+    Route::group(['prefix' => 'venues', 'namespace' => 'CMTUVA'], function() {
         Route::get('/all', 'VenuesController@all');
         Route::get('/', 'VenuesController@index');
         Route::get('/{venueId}', 'VenuesController@show');
@@ -156,50 +141,62 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('plans/job-order/{jobOrderId}', 'VenuesController@createSelectedVenues');
     });
 
-    // Project Types
-    Route::group(['prefix' => 'project-types'], function() {
-        Route::get('/', 'ProjectTypesController@index');
-    });
+    // Admin
+    Route::group(['namespace' => 'Admin'], function() {
+        // Users
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/', 'UsersController@index');
+            Route::get('/{departmentId}', 'UsersController@getByDepartment');
+            Route::post('/', 'UsersController@store');
+            Route::put('/{userId}', 'UsersController@update');
+            Route::delete('/{userId}', 'UsersController@delete');
+        });
 
-    // Meal Types
-    Route::group(['prefix' => 'meal-types'], function() {
-        Route::get('/', 'MealTypesController@index');
-    });
+        // Project Types
+        Route::group(['prefix' => 'project-types'], function() {
+            Route::get('/', 'ProjectTypesController@index');
+        });
 
-    // vehicle Types
-    Route::group(['prefix' => 'vehicle-types'], function() {
-        Route::get('/all', 'VehicleTypesController@all');
-        Route::get('/', 'VehicleTypesController@index');
-        Route::post('/', 'VehicleTypesController@store');
-        Route::put('/{typeId}', 'VehicleTypesController@update');
-        Route::delete('/{typeId}', 'VehicleTypesController@delete');
-    });
+        // Meal Types
+        Route::group(['prefix' => 'meal-types'], function() {
+            Route::get('/', 'MealTypesController@index');
+        });
 
-    // User roles
-    Route::group(['prefix' => 'roles'], function() {
-        Route::get('/', 'RolesController@index');
-    });
+        // vehicle Types
+        Route::group(['prefix' => 'vehicle-types'], function() {
+            Route::get('/all', 'VehicleTypesController@all');
+            Route::get('/', 'VehicleTypesController@index');
+            Route::post('/', 'VehicleTypesController@store');
+            Route::put('/{typeId}', 'VehicleTypesController@update');
+            Route::delete('/{typeId}', 'VehicleTypesController@delete');
+        });
 
-    // departments
-    Route::group(['prefix' => 'departments'], function() {
-        Route::get('/', 'DepartmentsController@index');
-    });
+        // User roles
+        Route::group(['prefix' => 'roles'], function() {
+            Route::get('/', 'RolesController@index');
+        });
 
-    // agency
-    Route::group(['prefix' => 'agencies'], function() {
-        Route::get('/', 'AgenciesController@index');
-        Route::post('/', 'AgenciesController@store');
-        Route::put('/{agencyId}', 'AgenciesController@update');
-        Route::delete('/{agencyId}', 'AgenciesController@delete');
-    });
+        // departments
+        Route::group(['prefix' => 'departments'], function() {
+            Route::get('/', 'DepartmentsController@index');
+        });
 
-    // manpower types
-    Route::group(['prefix' => 'manpower-types'], function() {
-        Route::get('/all', 'ManpowerTypesController@all');
-        Route::get('/', 'ManpowerTypesController@index');
-        Route::post('/', 'ManpowerTypesController@store');
-        Route::put('/{typeId}', 'ManpowerTypesController@update');
-        Route::delete('/{typeId}', 'ManpowerTypesController@delete');
+        // agency
+        Route::group(['prefix' => 'agencies'], function() {
+            Route::get('/', 'AgenciesController@index');
+            Route::post('/', 'AgenciesController@store');
+            Route::put('/{agencyId}', 'AgenciesController@update');
+            Route::delete('/{agencyId}', 'AgenciesController@delete');
+        });
+
+        // manpower types
+        Route::group(['prefix' => 'manpower-types'], function() {
+            Route::get('/all', 'ManpowerTypesController@all');
+            Route::get('/', 'ManpowerTypesController@index');
+            Route::post('/', 'ManpowerTypesController@store');
+            Route::put('/{typeId}', 'ManpowerTypesController@update');
+            Route::delete('/{typeId}', 'ManpowerTypesController@delete');
+        });
     });
 
     // HR
@@ -225,7 +222,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('/assign-buffef/{JoId}','PoolingManpowerController@assignBufferManpower');
     });
 
-//    production
+    Route::group(['prefix' => 'setup'], function() {
+        Route::post('/manpower','SetupController@store');
+        Route::post('/manpower/{manpowerId}','SetupController@store');
+    });
+
+    // Production
     Route::group(['prefix' => 'productions'], function() {
         Route::get('/', 'ProductionsController@index');
         Route::post('/{JoId}/details', 'ProductionsController@save_details');

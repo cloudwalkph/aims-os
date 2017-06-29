@@ -50,19 +50,31 @@
                         </form>
                     </tfoot>
                     <tbody>
-                    <td>
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
-                            </div>
-                            <div class="col-xs-4">
-                                <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
-                            </div>
-                            <div class="col-xs-4">
-                                <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
-                            </div>
-                        </div>
+                    @foreach( $productionDatas as $productionData)
 
+                        @if( $productionData->type == 'staging' )
+                            <tr>
+                                <td>{{ $productionData->description }}</td>
+                                <td>{{ $productionData->visuals }}</td>
+                                <td>{{ $productionData->qty }}</td>
+                                <td>{{ $productionData->details }}</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endif
+
+                    @endforeach
                     </tbody>
                 </table>
             </div>

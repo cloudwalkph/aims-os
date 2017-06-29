@@ -28,4 +28,10 @@ class SetupController extends Controller
 
         return view('setup.index');
     }
+
+    public function manpowerList() {
+        config(['app.name' => 'Setup | AIMS']);
+
+        return view('setup.Manpower.index');
+    }
 }
