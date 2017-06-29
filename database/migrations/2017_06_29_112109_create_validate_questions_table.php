@@ -16,6 +16,7 @@ class CreateValidateQuestionsTable extends Migration
         Schema::create('validate_questions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('project_type');
+            $table->enum('validate_type', ['pre', 'event-proper', 'post'])->default('pre');
             $table->integer('rater_department');
             $table->integer('ratee_department');
             $table->string('question');
