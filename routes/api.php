@@ -222,7 +222,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
         Route::post('/assign-buffef/{JoId}','PoolingManpowerController@assignBufferManpower');
     });
 
-//    production
+    // Production
     Route::group(['prefix' => 'productions'], function() {
         Route::get('/', 'ProductionsController@index');
         Route::post('/{JoId}/details', 'ProductionsController@save_details');
