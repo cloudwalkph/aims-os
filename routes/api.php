@@ -13,7 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
+// Auth
+Route::group(['namespace' => 'API'], function() {
+    Route::post('/auth', 'AuthenticationController@auth');
+});
+
+Route::group(['prefix' => 'v1', 'namespace' => 'API', 'middleware'  => 'api'], function() {
+    // Validate
+    Route::group(['prefix' => 'validate', 'namespace' => 'Validate'], function() {
+        Route::get('job-orders', 'JobOrdersController@getJobOrders');
+    });
 
     // Schedules / Calendar
     Route::group(['prefix' => 'events', 'namespace' => 'Departments'], function() {
