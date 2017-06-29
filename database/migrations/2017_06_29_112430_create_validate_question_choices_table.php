@@ -16,6 +16,7 @@ class CreateValidateQuestionChoicesTable extends Migration
         Schema::create('validate_question_choices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('validate_question_id')->unsigned();
+            $table->enum('validate_type', ['pre', 'event-proper', 'post'])->default('pre');
             $table->string('choice');
             $table->double('point');
             $table->timestamps();
