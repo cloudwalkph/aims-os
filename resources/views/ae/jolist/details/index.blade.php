@@ -2,6 +2,13 @@
 
 @section('scripts')
     <script>
+        $(function() {
+            $('#printJobOrder').on('click', function() {
+
+                $('#joFrame').get(0).contentWindow.print();
+            });
+        });
+
         //Save or update data
         function eventSave() {
             var list = {};
@@ -81,7 +88,7 @@
                     <div class="panel-heading">
 
                             <span class="pull-right">
-                                <button class="btn btn-default" onclick="frames['frame'].print();">
+                                <button class="btn btn-default" id="printJobOrder">
                                     <i class="fa fa-print fa-lg"></i> Print
                                 </button> &nbsp;
                                 <button class="btn btn-primary">
@@ -180,7 +187,7 @@
         </div>
 
         {{--<iframe src="/ae/jo/details/{{ $jo->id }}/meal" name="frameMeal" id="mealFrame" style="width: 0; height: 0"></iframe>--}}
-        {{--<iframe src="/ae/jo/details/{{ $jo->id }}/preview" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>--}}
+        <iframe src="#" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
         {{--<iframe src="/ae/jo/details/{{ $jo->id }}/manpower" name="frameManpower" id="manpowerFrame" style="width: 0; height: 0"></iframe>--}}
         {{--<iframe src="/ae/jo/details/{{ $jo->id }}/vehicle" name="frameVehicle" id="vehicleFrame" style="width: 0; height: 0"></iframe>--}}
     </div>
