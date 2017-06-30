@@ -114,8 +114,7 @@ class JobOrderController extends Controller
         if($assigned) {
             return redirect()->back()->with('status', 'User already assigned to Job Order.');
         }
-        print_r($assigned); exit;
-//        $user = JobOrderAddUser::create($data);
+        $user = JobOrderAddUser::create($data);
 
         return redirect()->back();
     }
