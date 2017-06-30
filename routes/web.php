@@ -37,6 +37,7 @@ Route::group(['prefix' => 'ae'], function () {
         Route::get('/details/{joNo}', 'Front\AE\JobOrderController@show');
 
         Route::get('/details/{joNo}/event-details', 'Front\AE\JobOrderController@eventDetails');
+        Route::post('/details/{joNo}/event-details/schedules', 'Front\AE\JobOrderController@createJOSchedule');
         Route::get('/details/{joNo}/project-attachments', 'Front\AE\JobOrderController@projectAttachments');
         Route::get('/details/{joNo}/project-status', 'Front\AE\JobOrderController@projectStatus');
         Route::get('/details/{joNo}/request-forms', 'Front\AE\JobOrderController@requestForms');

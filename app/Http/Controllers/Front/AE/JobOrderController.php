@@ -14,10 +14,12 @@ use App\Models\JobOrderManpower;
 use App\Models\JobOrderMeal;
 use App\Models\JobOrderMom;
 use App\Models\JobOrderProjectAttachment;
+use App\Models\JobOrderSchedule;
 use App\Models\JobOrderVehicle;
 use App\Models\ManpowerType;
 use App\Models\MealType;
 use App\Models\VehicleType;
+use App\Models\Venue;
 use Illuminate\Http\Request;
 
 class JobOrderController extends Controller
@@ -130,13 +132,37 @@ class JobOrderController extends Controller
 
         $aes = JobOrderAddUser::where('job_order_id', $jo->id)->get();
 
+        $venues = Venue::all();
+
+        $schedules = JobOrderSchedule::where('job_order_id', $jo->id)
+            ->get();
+
         return view('ae.jolist.details.event.index')
             ->with('jo', $jo)
             ->with('brands', $brands)
             ->with('aes', $aes)
             ->with('detail', $detail)
             ->with('animations', $animations)
+            ->with('venues', $venues)
+            ->with('schedules', $schedules)
             ->with('departments', $departments);
+    }
+
+    public function createJOSchedule(Request $request, $joNumber)
+    {
+        $input = $request->all();
+        $jo = JobOrder::where('job_order_no', $joNumber)->first();
+        $input['job_order_id'] = $jo->id;
+
+        $schedule = JobOrderSchedule::create($input);
+
+        if ($schedule) {
+            $request->session()->flash('success', 'Successfully added a new schedule for this job order');
+        } else {
+            $request->session()->flash('error', 'Failed in creating a new schedule for this job order');
+        }
+
+        return redirect()->back();
     }
 
     public function projectAttachments($joNumber)
