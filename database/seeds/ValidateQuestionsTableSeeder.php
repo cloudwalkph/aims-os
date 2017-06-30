@@ -24,7 +24,7 @@ class ValidateQuestionsTableSeeder extends Seeder
                         'point'     => 100
                     ],
                     [
-                        'choice'    => 'Yes',
+                        'choice'    => 'No',
                         'point'     => 0
                     ]
                 ]
@@ -40,7 +40,7 @@ class ValidateQuestionsTableSeeder extends Seeder
                         'point'     => 100
                     ],
                     [
-                        'choice'    => 'Yes',
+                        'choice'    => 'No',
                         'point'     => 0
                     ]
                 ]
@@ -56,7 +56,7 @@ class ValidateQuestionsTableSeeder extends Seeder
                         'point'     => 100
                     ],
                     [
-                        'choice'    => 'Yes',
+                        'choice'    => 'No',
                         'point'     => 0
                     ]
                 ]
@@ -72,7 +72,7 @@ class ValidateQuestionsTableSeeder extends Seeder
                         'point'     => 100
                     ],
                     [
-                        'choice'    => 'Yes',
+                        'choice'    => 'No',
                         'point'     => 0
                     ]
                 ]
@@ -92,7 +92,7 @@ class ValidateQuestionsTableSeeder extends Seeder
                         'point'     => 20
                     ],
                     [
-                        'choice'    => 'Yes',
+                        'choice'    => 'No',
                         'point'     => 0
                     ]
                 ]
@@ -108,7 +108,7 @@ class ValidateQuestionsTableSeeder extends Seeder
                         'point'     => 100
                     ],
                     [
-                        'choice'    => 'Yes',
+                        'choice'    => 'No',
                         'point'     => 0
                     ]
                 ]
