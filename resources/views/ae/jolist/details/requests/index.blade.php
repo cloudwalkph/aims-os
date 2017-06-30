@@ -1,3 +1,6 @@
+@extends('ae.jolist.details.index')
+
+@section('job-order-content')
 <div class="tab-pane" id="request-forms">
     <div class="panel-group accordion" style="margin-top: 20px">
         <div class="panel panel-default">
@@ -69,3 +72,4 @@
         </div>
     </div>
 </div>
+@endsection

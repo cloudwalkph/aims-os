@@ -1,3 +1,6 @@
+@extends('ae.jolist.details.index')
+
+@section('job-order-content')
 <div class="tab-pane" id="event-details">
     <div class="col-md-12">
         <div class="box box-info">
@@ -143,3 +146,4 @@
         </div>
     </div>
 </div>
+@endsection

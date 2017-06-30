@@ -166,24 +166,27 @@
 
                 <div class="col-md-10 vr">
                     <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#mom" data-toggle="tab">MOM</a></li>
-                            <li><a href="#event-details" data-toggle="tab">Event Details</a></li>
-                            <li><a href="#project-attachments" data-toggle="tab">Project Attachments</a></li>
-                            <li class="hide"><a href="#client-attachments" data-toggle="tab">Client Attachments</a></li>
-                            <li><a href="#project-status" data-toggle="tab">Project Status</a></li>
-                            <li><a href="#request-forms" data-toggle="tab">Request Forms</a></li>
-                            <li><a href="#discussions" data-toggle="tab">Discussions</a></li>
+                        <ul class="nav nav-pills">
+                            <li class="{{ Request::is('*/'.$jo->job_order_no) ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}">MOM</a></li>
+                            <li class="{{ Request::is('*/event-details') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/event-details">Event Details</a></li>
+                            <li class="{{ Request::is('*/project-attachments') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/project-attachments">Project Attachments</a></li>
+                            {{--<li class="hide"><a href="/ae/jo/details/{{ $jo->job_order_no }}/client-attachments">Client Attachments</a></li>--}}
+                            <li class="{{ Request::is('*/project-status') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/project-status">Project Status</a></li>
+                            <li class="{{ Request::is('*/request-forms') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/request-forms">Request Forms</a></li>
+                            <li class="{{ Request::is('*/discussions') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/discussions">Discussions</a></li>
                         </ul>
-                        <div class="tab-content">
-                            @include('ae.jolist.details.mom.index')
-                            @include('ae.jolist.details.event.index')
-                            @include('ae.jolist.details.project.index')
-                            @include('ae.jolist.details.client.index')
-                            @include('ae.jolist.details.status.index')
-                            @include('ae.jolist.details.requests.index')
-                            @include('ae.jolist.details.discussion.index')
-                        </div>
+
+                        {{--<div class="tab-content">--}}
+                            @yield('job-order-content')
+
+                            {{--@include('ae.jolist.details.mom.index')--}}
+                            {{--@include('ae.jolist.details.event.index')--}}
+                            {{--@include('ae.jolist.details.project.index')--}}
+                            {{--@include('ae.jolist.details.client.index')--}}
+                            {{--@include('ae.jolist.details.status.index')--}}
+                            {{--@include('ae.jolist.details.requests.index')--}}
+                            {{--@include('ae.jolist.details.discussion.index')--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>

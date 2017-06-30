@@ -1,3 +1,6 @@
+@extends('ae.jolist.details.index')
+
+@section('job-order-content')
 <div class="tab-pane" id="discussions">
     <form method="POST" class="form-horizontal" style="margin-top: 20px">
         <div class="box box-info">
@@ -55,3 +58,4 @@
         </div>
     </form>
 </div>
+@endsection
