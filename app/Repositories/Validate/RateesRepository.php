@@ -42,7 +42,7 @@ class RateesRepository {
                     continue;
                 }
 
-                $ratees = $user;
+                $ratees[] = $user;
             }
         }
 

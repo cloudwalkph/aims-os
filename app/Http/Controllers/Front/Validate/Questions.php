@@ -7,11 +7,15 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use App\Models\Assignment;
-use App\Models\ValidateQuestions;
+use App\Models\ValidateQuestion;
 use App\Models\ValidateAnswers;
-use App\Models\ValidateResults;
+use App\Models\ValidateResult;
 use App\Models\JobOrder;
 use App\Models\Department;
+
+use App\Repositories\Validate\JobOrdersRepository;
+use App\Repositories\Validate\QuestionsRepository;
+use App\Repositories\Validate\RateesRepository;
 
 class Questions extends Controller
 {
@@ -49,7 +53,7 @@ class Questions extends Controller
     public function submitresult(Request $request)
     {
         $user = $request->user();
-        $checkResults = ValidateResults::where( 'job_order_no', '=', $request['jno'] )
+        $checkResults = ValidateResult::where( 'job_order_no', '=', $request['jno'] )
             ->where('category', '=', 'pre')
             ->where('department_id', '=', $request['deptid'])
             ->where('user_id', '=', $request['ratee'])
@@ -66,7 +70,7 @@ class Questions extends Controller
 
             foreach ( $request['q'] as $key => $score ){
 
-                $storeResult = new ValidateResults();
+                $storeResult = new ValidateResult();
 
                 $storeResult->job_order_no = $request['jno'];
                 $storeResult->category = $request['category'];
@@ -109,13 +113,14 @@ class Questions extends Controller
         //
     }
 
-    public function showQuestions( $jno, $eventCategory, $deptid, $rateeId, Request $request)
+    public function showQuestions( $jno, $eventCategory, $deptid, $rateeId, Request $request, QuestionsRepository $questionsRepo)
     {
 
         $jo_name = '';
         $dept_name = '';
         $jos = JobOrder::where('job_order_no', $jno)->first();
         $jo_name = $jos->project_name;
+        $jobOrderId = $jos->id;
 
 
         $dpt = Department::where('id', $deptid)->first();
@@ -136,48 +141,50 @@ class Questions extends Controller
 
         $user = $request->user();
 
-        $questions = ValidateQuestions::where('qrater','=',$user->department_id)
-            ->where('qcat','=',$eventCategory)
-            ->where('qdept','=',$deptid)
-            ->where('qtype','=','S')
-            ->get();
+        // $questions = ValidateQuestion::where('qrater','=',$user->department_id)
+        //     ->where('qcat','=',$eventCategory)
+        //     ->where('qdept','=',$deptid)
+        //     ->where('qtype','=','S')
+        //     ->get();
+        $questions = $questionsRepo->getQuestions($user->department_id, $deptid, $jobOrderId, $eventCategory);
 
         $questionCount = 1;
         $count = count($questions);
         foreach ($questions as $question){
 
             $strQuestions = '<label style="float: right;">Question '.$questionCount.' of '.$count.'</label> <br>';
-            if( in_array( $question->id, array(38, 62, 120, 141, 166, 188) ) ){
+            // if( in_array( $question->id, array(38, 62, 120, 141, 166, 188) ) ){
 
-                foreach( $productions as $key => $production ){
-                    if( $key == 0){
-                        $strQuestions = $production.'<br>';
-                    }else{
-                        $strQuestions .= '<input type="checkbox" value="1" name="q['.$question->id.'][]"> '.$production.'</input><br>';
-                    }
-                }
+            //     foreach( $productions as $key => $production ){
+            //         if( $key == 0){
+            //             $strQuestions = $production.'<br>';
+            //         }else{
+            //             $strQuestions .= '<input type="checkbox" value="1" name="q['.$question->id.'][]"> '.$production.'</input><br>';
+            //         }
+            //     }
 
-            }else{
+            // }else{
 
-                $strQuestions .= $question->qname.'</b><br>';
-                $answers = ValidateAnswers::where('questions_id','=',$question->id)
-                    ->get();
+                $strQuestions .= $question->question.'</b><br>';
+                // $answers = ValidateAnswers::where('questions_id','=',$question->id)
+                //     ->get();
+                $answers = $question->choices;
                 foreach( $answers as $answer ){
 
                     $strQuestions .= '
                         
                         <div class="radio-btn" style="margin-top: 20px;">
                             <div class="col-xs-1">
-                                <input style="height: 25px;" type="radio" value="'.$answer->score.'" name="q['.$question->id.']">
+                                <input style="height: 25px;" type="radio" value="'.$answer->point.'" name="q['.$question->id.']">
                             </div>
                             <div class="col-xs-11">
-                                <label onclick>'.$answer->answers.'</label>
+                                <label onclick>'.$answer->choice.'</label>
                             </div>
                         </div>
                         
                     ';
                 }
-            }
+            // }
 
             array_push($returnQuestions, $strQuestions);
             $questionCount++;
@@ -201,7 +208,7 @@ class Questions extends Controller
         return view('admin/validate/evaluate', compact('jno'));
     }
 
-    public function chooseemployee($jno, $category, Request $request)
+    public function chooseemployee($jno, $category, Request $request, RateesRepository $rateeRepo)
     {
 
         if( !$request->user()->id ){
@@ -210,35 +217,36 @@ class Questions extends Controller
 
         $userLogged = $request->user();
         $results = [];
-        $loadEmployees = Assignment::loadRatees($jno, $category, $userLogged->department_id);
+        $jos = JobOrder::where('job_order_no', $jno)->first();
+        $jobOrderId = $jos->id;
+        $loadEmployees = $rateeRepo->getRatees($jobOrderId, $userLogged->department_id, $category);
 
         foreach ($loadEmployees as $loadEmployee){
             $checkResults = 0;
 
-            $user = User::where( 'id', $loadEmployee->user_id )->first();
             $user_details = array(
-                'userid' => $loadEmployee->user_id,
-                'name' => $user->profile->last_name.', '.$user->profile->first_name,
-                'deptid' => $user->department->id,
-                'department' => $user->department->name,
+                'userid' => $loadEmployee->id,
+                'name' => $loadEmployee->profile->last_name.', '.$loadEmployee->profile->first_name,
+                'deptid' => $loadEmployee->department->id,
+                'department' => $loadEmployee->department->name,
                 'exist' => 0
             );
 
-            $checkResults = ValidateResults::where( 'job_order_no', '=', $jno )
-                ->where('category', '=', 'pre')
-                ->where('department_id', '=', $user->department_id)
-                ->where('user_id', '=', $loadEmployee->user_id)
-                ->where('rater_id', '=', $userLogged->id)
-                ->get();
+            // $checkResults = ValidateResult::where( 'job_order_no', '=', $jno )
+            //     ->where('category', '=', 'pre')
+            //     ->where('department_id', '=', $loadEmployee->department_id)
+            //     ->where('user_id', '=', $loadEmployee->id)
+            //     ->where('rater_id', '=', $userLogged->id)
+            //     ->get();
 
 //            dd($jno.' '.$user->department_id.' '.$loadEmployee->user_id.' '.$userLogged->id);
 
-            if( count($checkResults) <= 0 || $category != 'pre'){
+            // if( count($checkResults) <= 0 || $category != 'pre'){
+            //     array_push($results , $user_details);
+            // }else{
+            //     $user_details['exist'] = 1;
                 array_push($results , $user_details);
-            }else{
-                $user_details['exist'] = 1;
-                array_push($results , $user_details);
-            }
+            // }
 
         }
 
