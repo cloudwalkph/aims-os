@@ -48,8 +48,8 @@ class JobOrdersRepository {
 
             $preEvent = Carbon::createFromTimestamp(strtotime($schedules[0]->jo_datetime))->subDays(2);
 
-            $preEvent = $preEvent->isToday() || $postEvent->isFuture() ? 'active' : 'inactive';
-            $postEvent = $postEvent->isToday() || $postEvent->isFuture() ? 'active' : 'inactive';
+            $preEvent = $preEvent->isFuture() ? 'active' : 'inactive';
+            $postEvent = $postEvent->isFuture() ? 'active' : 'inactive';
 
             $eventProper = [];
             foreach ($schedules as $schedule) {
