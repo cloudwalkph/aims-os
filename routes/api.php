@@ -23,6 +23,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API', 'middleware'  => 'api'], f
     Route::group(['prefix' => 'validate', 'namespace' => 'Validate'], function() {
         Route::get('job-orders', 'JobOrdersController@getJobOrders');
         Route::get('questions/{rateeId}/{jobOrderId}/{validateType}', 'QuestionsController@getQuestions');
+        Route::get('ratees/{jobOrderId}/{validateType}', 'RateesController@getRatees');
     });
 
     // Schedules / Calendar
