@@ -144,7 +144,7 @@ class JobOrdersController extends Controller {
         // Create the client
         \DB::transaction(function() use ($user, $input, &$jo) {
             $input['user_id'] = $user->id;
-//            $input['project_types'] = json_encode($input['project_types']);
+            $input['project_types'] = json_encode([]);
             $input['job_order_no'] = strtoupper(uniqid());
             $clients = $input['clients'];
             unset($input['clients']);

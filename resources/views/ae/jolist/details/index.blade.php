@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('scripts')
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
     <script>
         $(function() {
             $('#printJobOrder').on('click', function() {
@@ -12,6 +13,10 @@
                     $iframe.attr('src', '#');
                 });
             });
+
+//            $('textarea').each(function(e) {
+//                CKEDITOR.replace(this);
+//            })
         });
 
         //Save or update data
