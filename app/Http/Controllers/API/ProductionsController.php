@@ -48,13 +48,16 @@ class ProductionsController extends Controller
         return response()->json($jobOrders, 200);
     }
 
+    public function update_details( $JoId, Request $request ){
+        $input = $request->all();
+        dd($input);
+    }
+
     public function save_details( $JoId, Request $request ){
 
         $input = $request->all();
 
         $input['job_order_id'] = $JoId;
-
-        $jo = Productions::where('job_order_no', '=', $JoId)->get();
 
         $filename = '';
         if ($request->hasFile('visuals')) {
@@ -64,6 +67,8 @@ class ProductionsController extends Controller
         }
 
         $production_id = 0;
+
+        $jo = Productions::where('job_order_no', '=', $JoId)->get();
 
         if( count($jo) <= 0 ){
             $production_id = $this->productionSave($JoId);
