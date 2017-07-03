@@ -242,5 +242,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API', 'middleware'  => 'api'], f
     Route::group(['prefix' => 'productions'], function() {
         Route::get('/', 'ProductionsController@index');
         Route::post('/{JoId}/details', 'ProductionsController@save_details');
+        Route::post('/{JoId}/details/update', 'ProductionsController@update_details');
     });
 });

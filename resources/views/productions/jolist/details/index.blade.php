@@ -86,7 +86,7 @@
         var file;
         $( document ).ready(function() {
 
-            $('#tarp_file, #sticker_file, #offset_file, #booth_file, #staging_file').on('change', function (e) {
+            $('#tarp_file, #sticker_file, #offset_file, #booth_file, #staging_file, .file_upload').on('change', function (e) {
                 var files = e.target.files || e.dataTransfer.files;
 //                console.log(files[0]);
                 file = files[0];
@@ -274,6 +274,73 @@
             }
 
             $('td#event_staging_details').append(stagingContent);
+        }
+        
+        function editProduction(productionType, productionID) {
+            $('.' + productionType + 'Update' + productionID).show();
+            $('.' + productionType + 'Edit' + productionID).hide();
+            $('.spanTarpaulin' + productionID).hide();
+            $('.tarpaulinInputs' + productionID).removeClass('hidden-not-important');
+            $('#tarp_file_edit'+ productionID).css('display','block');
+            $('#tarpaulin_description_edit' + productionID + ' option:selected').text( $('.tarpaulinDescription' + productionID).text() );
+        }
+
+        function updateProduction(productionType, productionID) {
+            $('.' + productionType + 'Update' + productionID).hide();
+            $('.' + productionType + 'Edit' + productionID).show();
+
+            $('.spanTarpaulin' + productionID).show();
+            $('.tarpaulinInputs' + productionID).addClass('hidden-not-important');
+            $('#tarp_file_edit'+ productionID).css('display','none');
+
+            var jobOrderId = $('#jobOrderId').val();
+            var description = '';
+
+            if( productionType == 'tarpaulin' ){
+                description = $('#' + productionType + '_description_edit' + productionID + ' option:selected').text();
+            }
+
+            if( (description.trim() == '') || (description.trim() == null) ){
+                console.log('null');
+                return;
+            }
+
+            //ajax here
+            let form = new FormData();
+            form.append('job_order_id', jobOrderId);
+            form.append('_token', $('input[name=_token]' ).val());
+            form.append('production_id', productionID);
+            form.append('description', description);
+            form.append('visuals', file);
+            form.append('sizes', $('input[name='+ productionType +'_size_edit]'+ productionID).val());
+            form.append('qty', $('input[name='+ productionType +'_quantity_edit]'+ productionID).val());
+            form.append('details', $('input[name='+ productionType +'_details_edit]'+ productionID).val());
+
+            console.log(form);
+            return;
+
+            let url = `/api/v1/productions/${jobOrderId}/details/update/`;
+            axios.post(url, form).then(function(res) {
+                toastr.success('Successfully saved event details', 'Success')
+            }).catch(function(error) {
+                toastr.error('Failed in saving event details', 'Error')
+            });
+        }
+
+        function trashProduction(productionType, productionID) {
+
+            if( $('.' + productionType + 'Delete' + productionID).is(":visible") ){
+
+                $('.' + productionType + 'Delete' + productionID).hide();
+                $('.' + productionType + 'Trash' + productionID).removeClass('glyphicon-remove');
+                $('.' + productionType + 'Trash' + productionID).addClass('btn-danger glyphicon-trash');
+                $('.' + productionType + 'Edit' + productionID).show();
+            }else{
+                $('.' + productionType + 'Delete' + productionID).show();
+                $('.' + productionType + 'Trash' + productionID).removeClass('btn-danger glyphicon-trash');
+                $('.' + productionType + 'Trash' + productionID).addClass('glyphicon-remove');
+                $('.' + productionType + 'Edit' + productionID).hide();
+            }
         }
     </script>
 @endsection
