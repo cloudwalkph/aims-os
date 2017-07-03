@@ -150,6 +150,8 @@ Route::group(['prefix' => 'operations'], function () {
 Route::group(['prefix' => 'activations'], function () {
     Route::get('/', 'Front\Activations\ActivationsController@index');
     Route::get('/schedules', 'Front\Activations\SchedulerController@index');
+    Route::get('/references', 'Front\Operations\ReferenceController@index');
+    Route::get('/references/{fileName}/download', 'Front\Operations\ReferenceController@download');
 
     Route::group(['prefix' => 'job-orders'], function () {
         Route::get('/', 'Front\Activations\JobOrderController@index');
