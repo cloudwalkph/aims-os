@@ -2,20 +2,6 @@
 
 
 @section('scripts')
-    <script src="{{ asset('js/jquery.tabledit.min.js') }}"></script>
-    <script>
-        $('#tbl-costing').Tabledit({
-//            url: 'example.php',
-            columns: {
-                identifier: [0, 'id'],
-                editable: [
-                    [3, 'cpu'],
-                    [4, 'qty'],
-                    [5, 'total-cost']
-                ]
-            }
-        });
-    </script>
 @endsection
 
 @section('content')
@@ -89,8 +75,46 @@
                 <td>2000</td>
                 <td>Middleware</td>
                 <td>2 days delivery</td>
+                <td>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
+                        </div>
+                    </div>
+                </td>
             </tr>
             </tbody>
+            @foreach( $productionDatas as $productionData)
+
+                @if( $productionData->type == 'photowall' )
+                    <tr>
+                        <td>{{ $productionData->description }}</td>
+                        <td>{{ $productionData->visuals }}</td>
+                        <td>{{ $productionData->qty }}</td>
+                        <td>{{ $productionData->details }}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
+                                </div>
+                                <div class="col-xs-4">
+                                    <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
+                                </div>
+                                <div class="col-xs-4">
+                                    <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
+
+            @endforeach
         </table>
     </div>
 
