@@ -132,6 +132,8 @@ Route::group(['prefix' => 'operations'], function () {
     Route::get('/schedules', 'Front\Operations\SchedulerController@index');
     Route::get('/project-monitors', 'Front\Operations\ProjectMonitorController@index');
     Route::get('/official-business', 'Front\Operations\OfficialBusinessController@index');
+    Route::get('/references', 'Front\Operations\ReferenceController@index');
+    Route::get('/references/{fileName}/download', 'Front\Operations\ReferenceController@download');
 
     Route::group(['prefix' => 'job-orders'], function () {
         Route::get('/', 'Front\Operations\JobOrderController@index');
