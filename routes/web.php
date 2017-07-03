@@ -137,8 +137,10 @@ Route::group(['prefix' => 'operations'], function () {
 
     Route::group(['prefix' => 'job-orders'], function () {
         Route::get('/', 'Front\Operations\JobOrderController@index');
-        Route::get('/{joNo}', 'Front\Operations\JobOrderController@show');
-        Route::post('/{joNo}', 'Front\Operations\JobOrderController@assign');
+        Route::get('/{joNo}', 'Front\Operations\JobOrderController@details');
+        Route::get('/{joNo}/assign', 'Front\Operations\JobOrderController@assignView');
+        Route::get('/{joNo}/discussions', 'Front\Operations\JobOrderController@discussions');
+        Route::post('/{joNo}/assign', 'Front\Operations\JobOrderController@assign');
     });
 
     Route::get('/{departmentId}', 'Front\Operations\DepartmentsController@show');
