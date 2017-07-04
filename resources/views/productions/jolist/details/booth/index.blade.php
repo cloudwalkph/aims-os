@@ -63,7 +63,7 @@
                                 </td>
                                 <td>
                                     <div id="col1">
-                                        <button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important boothzUpdate{{ $productionData->id }}" onclick="updateProduction( 'booth', {{ $productionData->id }} )" aria-hidden="true"></button>
+                                        <button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important boothUpdate{{ $productionData->id }}" onclick="updateProduction( 'booth', {{ $productionData->id }} )" aria-hidden="true"></button>
                                         <button class="btn glyphicon glyphicon-edit boothEdit{{ $productionData->id }}" aria-hidden="true" onclick="editProduction( 'booth', {{ $productionData->id }} )"></button>
                                     </div>
                                     <div id="col2">
