@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\API\JobOrders;
 
+use App\Events\NewDiscussion;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobOrders\CreateDiscussionRequest;
 use App\Models\JobOrderDiscussion;
@@ -30,11 +31,15 @@ class JobOrderDiscussionsController extends Controller {
             return response()->json(['creating a discussion failed'], 400);
         }
 
-        $discussion = JobOrderDiscussion::with('user.profile')
+        $discussion = JobOrderDiscussion::with('user.profile', 'jobOrder')
             ->where('id', $discussion->id)
             ->first();
 
+        // Notification
         $this->newDiscussionMessage($jobOrderId, $user);
+
+        // Event
+        event(new NewDiscussion($discussion));
 
         return response()->json($discussion, 201);
     }
