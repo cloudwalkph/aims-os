@@ -49,10 +49,10 @@
                                     <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanBooth{{ $productionData->id }} boothVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
                                     <input class="form-control file_upload boothInputs{{ $productionData->id }}" style="display: none;" type="file" name="booth_file_edit{{ $productionData->id }}" id="booth_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
                                 </td>
-                                <td>
-                                    <span class="spanBooth{{ $productionData->id }} boothSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>
-                                    <input class="form-control hidden-not-important boothInputs{{ $productionData->id }}" type="text" name="booth_size_edit{{ $productionData->id }}" id="booth_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>
-                                </td>
+                                {{--<td>--}}
+                                    {{--<span class="spanBooth{{ $productionData->id }} boothSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>--}}
+                                    {{--<input class="form-control hidden-not-important boothInputs{{ $productionData->id }}" type="text" name="booth_size_edit{{ $productionData->id }}" id="booth_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>--}}
+                                {{--</td>--}}
                                 <td>
                                     <span class="spanBooth{{ $productionData->id }} boothQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
                                     <input class="form-control hidden-not-important boothInputs{{ $productionData->id }}" type="integer" name="booth_quantity_edit{{ $productionData->id }}" id="booth_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>

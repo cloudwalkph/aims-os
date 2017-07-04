@@ -50,10 +50,10 @@
                                     <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanPhotowall{{ $productionData->id }} photowallVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
                                     <input class="form-control file_upload photowallInputs{{ $productionData->id }}" style="display: none;" type="file" name="photowall_file_edit{{ $productionData->id }}" id="photowall_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
                                 </td>
-                                <td>
-                                    <span class="spanPhotowall{{ $productionData->id }} photowallSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>
-                                    <input class="form-control hidden-not-important photowallInputs{{ $productionData->id }}" type="text" name="photowall_size_edit{{ $productionData->id }}" id="photowall_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>
-                                </td>
+                                {{--<td>--}}
+                                    {{--<span class="spanPhotowall{{ $productionData->id }} photowallSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>--}}
+                                    {{--<input class="form-control hidden-not-important photowallInputs{{ $productionData->id }}" type="text" name="photowall_size_edit{{ $productionData->id }}" id="photowall_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>--}}
+                                {{--</td>--}}
                                 <td>
                                     <span class="spanPhotowall{{ $productionData->id }} photowallQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
                                     <input class="form-control hidden-not-important photowallInputs{{ $productionData->id }}" type="integer" name="photowall_quantity_edit{{ $productionData->id }}" id="photowall_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>
