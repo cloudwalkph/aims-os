@@ -35,6 +35,14 @@ Route::group(['prefix' => 'ae'], function () {
         Route::get('/', 'Front\AE\JobOrderController@index');
         Route::get('/create', 'Front\AE\JobOrderController@create');
         Route::get('/details/{joNo}', 'Front\AE\JobOrderController@show');
+
+        Route::get('/details/{joNo}/event-details', 'Front\AE\JobOrderController@eventDetails');
+        Route::post('/details/{joNo}/event-details/schedules', 'Front\AE\JobOrderController@createJOSchedule');
+        Route::get('/details/{joNo}/project-attachments', 'Front\AE\JobOrderController@projectAttachments');
+        Route::get('/details/{joNo}/project-status', 'Front\AE\JobOrderController@projectStatus');
+        Route::get('/details/{joNo}/request-forms', 'Front\AE\JobOrderController@requestForms');
+        Route::get('/details/{joNo}/discussions', 'Front\AE\JobOrderController@discussions');
+
         Route::get('/details/{joNo}/preview', 'Front\AE\JobOrderController@preview');
         Route::get('/details/{joNo}/manpower', 'Front\AE\JobOrderController@previewManpower');
         Route::get('/details/{joNo}/meal', 'Front\AE\JobOrderController@previewMeal');
@@ -127,15 +135,35 @@ Route::group(['prefix' => 'operations'], function () {
     Route::get('/schedules', 'Front\Operations\SchedulerController@index');
     Route::get('/project-monitors', 'Front\Operations\ProjectMonitorController@index');
     Route::get('/official-business', 'Front\Operations\OfficialBusinessController@index');
+    Route::get('/references', 'Front\Operations\ReferenceController@index');
+    Route::get('/references/{fileName}/download', 'Front\Operations\ReferenceController@download');
 
     Route::group(['prefix' => 'job-orders'], function () {
         Route::get('/', 'Front\Operations\JobOrderController@index');
-        Route::get('/{joNo}', 'Front\Operations\JobOrderController@show');
-        Route::post('/{joNo}', 'Front\Operations\JobOrderController@assign');
+        Route::get('/{joNo}', 'Front\Operations\JobOrderController@details');
+        Route::get('/{joNo}/assign', 'Front\Operations\JobOrderController@assignView');
+        Route::get('/{joNo}/discussions', 'Front\Operations\JobOrderController@discussions');
+        Route::post('/{joNo}/assign', 'Front\Operations\JobOrderController@assign');
     });
 
     Route::get('/{departmentId}', 'Front\Operations\DepartmentsController@show');
     Route::get('/{departmentId}/{joNo}', 'Front\Operations\DepartmentsController@showDetails');
+});
+
+Route::group(['prefix' => 'activations'], function () {
+    Route::get('/', 'Front\Activations\ActivationsController@index');
+    Route::get('/schedules', 'Front\Activations\SchedulerController@index');
+    Route::get('/references', 'Front\Activations\ReferenceController@index');
+    Route::get('/references/{fileName}/download', 'Front\Activations\ReferenceController@download');
+
+    Route::group(['prefix' => 'job-orders'], function () {
+        Route::get('/', 'Front\Activations\JobOrderController@index');
+        Route::get('/{joNo}', 'Front\Activations\JobOrderController@details');
+        Route::get('/{joNo}/discussions', 'Front\Activations\JobOrderController@discussions');
+    });
+
+    Route::get('/{departmentId}', 'Front\Activations\DepartmentsController@show');
+    Route::get('/{departmentId}/{joNo}', 'Front\Activations\DepartmentsController@showDetails');
 });
 
 Route::group(['prefix' => 'users'], function () {
