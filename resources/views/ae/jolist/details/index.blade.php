@@ -1,7 +1,50 @@
 @extends('layouts.app')
 
 @section('scripts')
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
     <script>
+        $(function() {
+            $('#printJobOrder').on('click', function() {
+                let $iframe = $('#joFrame');
+
+                $iframe.attr('src', '/ae/jo/details/{{ $jo->id }}/preview');
+                $iframe.on('load', function() {
+                    $iframe.get(0).contentWindow.print();
+                });
+            });
+
+            $('#printManpower').on('click', function() {
+                let $iframe = $('#joFrame');
+
+                $iframe.attr('src', '/ae/jo/details/{{ $jo->id }}/manpower');
+                $iframe.on('load', function() {
+                    $iframe.get(0).contentWindow.print();
+                });
+            });
+
+            $('#printVehicle').on('click', function() {
+                let $iframe = $('#joFrame');
+
+                $iframe.attr('src', '/ae/jo/details/{{ $jo->id }}/vehicle');
+                $iframe.on('load', function() {
+                    $iframe.get(0).contentWindow.print();
+                });
+            });
+
+            $('#printMeal').on('click', function() {
+                let $iframe = $('#joFrame');
+
+                $iframe.attr('src', '/ae/jo/details/{{ $jo->id }}/meal');
+                $iframe.on('load', function() {
+                    $iframe.get(0).contentWindow.print();
+                });
+            });
+
+//            $('textarea').each(function(e) {
+//                CKEDITOR.replace(this);
+//            })
+        });
+
         //Save or update data
         function eventSave() {
             var list = {};
@@ -17,7 +60,7 @@
 
             let url = `/api/v1/job-orders/${joId}/details`;
             axios.post(url, list).then(function(res) {
-                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`); 
+//                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`);
                 toastr.success('Successfully saved event details', 'Success')
             }).catch(function(error) {
                 toastr.error('Failed in saving event details', 'Error')
@@ -39,7 +82,7 @@
 
             let url = `/api/v1/job-orders/${joId}/mom`;
             axios.post(url, list).then(function(res) {
-                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`); 
+//                $('#joFrame').attr('src',`/ae/jo/details/${joId}/preview`);
                 toastr.success('Successfully saved mom details', 'Success');
             }).catch(function(error) {
                 toastr.error('Failed in saving mom details', 'Error');
@@ -81,7 +124,7 @@
                     <div class="panel-heading">
 
                             <span class="pull-right">
-                                <button class="btn btn-default" onclick="frames['frame'].print();">
+                                <button class="btn btn-default" id="printJobOrder">
                                     <i class="fa fa-print fa-lg"></i> Print
                                 </button> &nbsp;
                                 <button class="btn btn-primary">
@@ -107,7 +150,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="col-md-12 col-xs-12">
-                                    <h5><strong>Project Type:</strong> {{ collect(json_decode($jo->project_types))->implode('name', ', ') }}</h5>
+                                    <h5><strong>Project Type:</strong> {{ $jo->project_type }}</h5>
                                 </div>
                                 <div class="col-md-12 col-xs-12">
                                     <h5><strong>Brand:</strong> {{ collect($brands)->implode(', ') }}</h5>
@@ -154,24 +197,27 @@
 
                 <div class="col-md-10 vr">
                     <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#mom" data-toggle="tab">MOM</a></li>
-                            <li><a href="#event-details" data-toggle="tab">Event Details</a></li>
-                            <li><a href="#project-attachments" data-toggle="tab">Project Attachments</a></li>
-                            <li class="hide"><a href="#client-attachments" data-toggle="tab">Client Attachments</a></li>
-                            <li><a href="#project-status" data-toggle="tab">Project Status</a></li>
-                            <li><a href="#request-forms" data-toggle="tab">Request Forms</a></li>
-                            <li><a href="#discussions" data-toggle="tab">Discussions</a></li>
+                        <ul class="nav nav-pills">
+                            <li class="{{ Request::is('*/'.$jo->job_order_no) ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}">MOM</a></li>
+                            <li class="{{ Request::is('*/event-details') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/event-details">Event Details</a></li>
+                            <li class="{{ Request::is('*/project-attachments') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/project-attachments">Project Attachments</a></li>
+                            {{--<li class="hide"><a href="/ae/jo/details/{{ $jo->job_order_no }}/client-attachments">Client Attachments</a></li>--}}
+                            <li class="{{ Request::is('*/project-status') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/project-status">Project Status</a></li>
+                            <li class="{{ Request::is('*/request-forms') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/request-forms">Request Forms</a></li>
+                            <li class="{{ Request::is('*/discussions') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/discussions">Discussions</a></li>
                         </ul>
-                        <div class="tab-content">
-                            @include('ae.jolist.details.mom.index')
-                            @include('ae.jolist.details.event.index')
-                            @include('ae.jolist.details.project.index')
-                            @include('ae.jolist.details.client.index')
-                            @include('ae.jolist.details.status.index')
-                            @include('ae.jolist.details.requests.index')
-                            @include('ae.jolist.details.discussion.index')
-                        </div>
+
+                        {{--<div class="tab-content">--}}
+                            @yield('job-order-content')
+
+                            {{--@include('ae.jolist.details.mom.index')--}}
+                            {{--@include('ae.jolist.details.event.index')--}}
+                            {{--@include('ae.jolist.details.project.index')--}}
+                            {{--@include('ae.jolist.details.client.index')--}}
+                            {{--@include('ae.jolist.details.status.index')--}}
+                            {{--@include('ae.jolist.details.requests.index')--}}
+                            {{--@include('ae.jolist.details.discussion.index')--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>
@@ -179,9 +225,9 @@
 
         </div>
 
-        <iframe src="/ae/jo/details/{{ $jo->id }}/meal" name="frameMeal" id="mealFrame" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->id }}/preview" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->id }}/manpower" name="frameManpower" id="manpowerFrame" style="width: 0; height: 0"></iframe>
-        <iframe src="/ae/jo/details/{{ $jo->id }}/vehicle" name="frameVehicle" id="vehicleFrame" style="width: 0; height: 0"></iframe>
+        {{--<iframe src="/ae/jo/details/{{ $jo->id }}/meal" name="frameMeal" id="mealFrame" style="width: 0; height: 0"></iframe>--}}
+        <iframe src="#" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
+        {{--<iframe src="/ae/jo/details/{{ $jo->id }}/manpower" name="frameManpower" id="manpowerFrame" style="width: 0; height: 0"></iframe>--}}
+        {{--<iframe src="/ae/jo/details/{{ $jo->id }}/vehicle" name="frameVehicle" id="vehicleFrame" style="width: 0; height: 0"></iframe>--}}
     </div>
 @endsection

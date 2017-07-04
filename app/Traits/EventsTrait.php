@@ -11,7 +11,7 @@ trait EventsTrait {
      * @param Request $request
      * @return mixed
      */
-    public function index(Request $request)
+    public function all(Request $request)
     {
         $user = $request->user();
 

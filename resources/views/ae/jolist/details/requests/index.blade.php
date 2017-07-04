@@ -1,3 +1,6 @@
+@extends('ae.jolist.details.index')
+
+@section('job-order-content')
 <div class="tab-pane" id="request-forms">
     <div class="panel-group accordion" style="margin-top: 20px">
         <div class="panel panel-default">
@@ -10,7 +13,7 @@
             <div id="collapseManpower" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="manpowerForm">
                 <div class="panel-body">
                     <div class="col-md-12">
-                        <button class="btn btn-default pull-right" onclick="frames['frameManpower'].print()">
+                        <button class="btn btn-default pull-right" id="printManpower">
                             <i class="fa fa-print fa-lg"></i> Print Manpower Requests
                         </button>
                     </div>
@@ -33,7 +36,7 @@
                 <div class="panel-body">
 
                     <div class="col-md-12">
-                        <button class="btn btn-default pull-right" onclick="frames['frameVehicle'].print()">
+                        <button class="btn btn-default pull-right" id="printVehicle">
                             <i class="fa fa-print fa-lg"></i> Print Vehicle Requests
                         </button>
                     </div>
@@ -56,7 +59,7 @@
                 <div class="panel-body">
 
                     <div class="col-md-12">
-                        <button class="btn btn-default pull-right" onclick="frames['frameMeal'].print()">
+                        <button class="btn btn-default pull-right" id="printMeal">
                             <i class="fa fa-print fa-lg"></i> Print Meal Requests
                         </button>
                     </div>
@@ -69,3 +72,4 @@
         </div>
     </div>
 </div>
+@endsection

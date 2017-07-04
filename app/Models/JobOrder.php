@@ -15,7 +15,7 @@ class JobOrder extends Model
 
     public static $rules = [
         'project_name'           => 'required|min:2',
-        'project_types.*.name'   => 'required',
+        'project_type'           => 'required',
         'clients'                => 'required',
         'clients.*.id'           => 'required',
         'clients.*.brands'       => 'required'
@@ -83,6 +83,11 @@ class JobOrder extends Model
     function inventoryJobs()
     {
         return $this->hasMany(InventoryJob::class);
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(JobOrderSchedule::class);
     }
 
     /**

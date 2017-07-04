@@ -28,13 +28,13 @@
                     <div class="panel-heading">
 
                             <span class="pull-right">
+                                <button type="button" class="btn btn-default">
+                                    <i class="fa fa-file-text"></i> Upload Attachments
+                                </button> &nbsp;
                                 <button class="btn btn-default" onclick="frames['frame'].print();">
                                     <i class="fa fa-print fa-lg"></i> Print
-                                </button> &nbsp;
-                                <button type="button" class="btn btn-primary"
-                                        data-toggle="modal" data-target="#assignPM">
-                                    <i class="fa fa-plus"></i> Assign Project Manager
                                 </button>
+
                             </span>
 
                         <h5> <b>Project Name: {{ $jo->project_name }}</b> </h5>
@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="col-md-12 col-xs-12">
-                                    <h5><strong>Project Type:</strong> {{ collect(json_decode($jo->project_types))->implode('name', ', ') }}</h5>
+                                    <h5><strong>Project Type:</strong> {{ $jo->project_type }}</h5>
                                 </div>
                                 <div class="col-md-12 col-xs-12">
                                     <h5><strong>Brand:</strong> {{ collect($brands)->implode(', ') }}</h5>
@@ -80,72 +80,18 @@
             </div>
 
             <div class="col-md-12">
-
-                @if (session('status'))
-                    <div class="alert alert-info alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        {{ session('status') }}
-                    </div>
-                @endif
-
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Department</th>
-                        <th>Date Added</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($assigned as $user)
-                            <tr>
-                                <td>{{ $user->user_name }}</td>
-                                <td>{{ $user->department }}</td>
-                                <td>{{ $user->created_at }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger"><i class="fa fa-remove"></i> Remove</button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-            @include('components.jo_details')
-
-        </div>
-    </div>
-
-    <div class="modal fade" id="assignPM" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add Project Manager</h4>
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-pills">
+                        <li class="{{ Request::is('*/'.$jo->job_order_no) ? 'active' : '' }}"><a href="/operations/job-orders/{{ $jo->job_order_no }}">Job Order Details</a></li>
+                        <li class="{{ Request::is('*/assign') ? 'active' : '' }}"><a href="/operations/job-orders/{{ $jo->job_order_no }}/assign">Assign User</a></li>
+                        <li class="{{ Request::is('*/discussions') ? 'active' : '' }}"><a href="/operations/job-orders/{{ $jo->job_order_no }}/discussions">Discussions</a></li>
+                    </ul>
+                    <hr>
+                    @yield('jo-details-content')
                 </div>
-                <form method="POST" action="">
-                    <div class="modal-body">
-                        <div class="row">
-                            {{ csrf_field() }}
-
-                            <div class="col-md-12 form-group">
-                                <label class="control-label" for="user_id">Users</label>
-                                <select name="user_id" id="user_id" class="form-control">
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}">{{ ucwords($user->profile->full_name) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
+
     <iframe src="/ae/jo/details/{{ $jo->id }}/preview" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
 @endsection

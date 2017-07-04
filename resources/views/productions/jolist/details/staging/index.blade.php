@@ -53,11 +53,38 @@
                     @foreach( $productionDatas as $productionData)
 
                         @if( $productionData->type == 'staging' )
-                            <tr>
-                                <td>{{ $productionData->description }}</td>
-                                <td>{{ $productionData->visuals }}</td>
-                                <td>{{ $productionData->qty }}</td>
-                                <td>{{ $productionData->details }}</td>
+                            <tr id="stagingRow{{ $productionData->id }}">
+                                <td>
+                                    <span class="spanStaging{{ $productionData->id }} stagingDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
+                                        <textarea class="form-control hidden-not-important stagingInputs{{ $productionData->id }}" name="staging_description_edit{{ $productionData->id }}" id="staging_description_edit{{ $productionData->id }}" value="{!! $productionData->description  !!} " cols="20"
+                                                  rows="5">{!! $productionData->description !!} </textarea>
+                                </td>
+                                <td>
+                                    <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanStaging{{ $productionData->id }} stagingVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
+                                    <input class="form-control file_upload stagingInputs{{ $productionData->id }}" style="display: none;" type="file" name="staging_file_edit{{ $productionData->id }}" id="staging_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
+                                </td>
+                                {{--<td>--}}
+                                {{--<span class="spanBooth{{ $productionData->id }} boothSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>--}}
+                                {{--<input class="form-control hidden-not-important boothInputs{{ $productionData->id }}" type="text" name="booth_size_edit{{ $productionData->id }}" id="booth_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>--}}
+                                {{--</td>--}}
+                                <td>
+                                    <span class="spanStaging{{ $productionData->id }} stagingQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
+                                    <input class="form-control hidden-not-important stagingInputs{{ $productionData->id }}" type="integer" name="staging_quantity_edit{{ $productionData->id }}" id="staging_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>
+                                </td>
+                                <td>
+                                    <span class="spanStaging{{ $productionData->id }} stagingDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
+                                    <input class="form-control hidden-not-important stagingInputs{{ $productionData->id }}" type="text" name="staging_details_edit{{ $productionData->id }}" id="staging_details_edit{{ $productionData->id }}" placeholder="details" value="{{ $productionData->details }}"/>
+                                </td>
+                                <td>
+                                    <div id="col1">
+                                        <button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important stagingUpdate{{ $productionData->id }}" onclick="updateProduction( 'staging', {{ $productionData->id }} )" aria-hidden="true"></button>
+                                        <button class="btn glyphicon glyphicon-edit stagingEdit{{ $productionData->id }}" aria-hidden="true" onclick="editProduction( 'staging', {{ $productionData->id }} )"></button>
+                                    </div>
+                                    <div id="col2">
+                                        <button class="btn btn-danger glyphicon glyphicon-trash stagingTrash{{ $productionData->id }}" onclick="trashProduction( 'staging', {{ $productionData->id }} )" aria-hidden="true"></button>
+                                        <button class="btn btn-danger hidden-not-important stagingDelete{{ $productionData->id }}" aria-hidden="true">Delete</button>
+                                    </div>
+                                </td>
                             </tr>
                         @endif
 

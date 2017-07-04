@@ -119,7 +119,7 @@
                 })
             },
             getEvents() {
-                let url = `/api/v1/events`;
+                let url = `/api/v1/events/all`;
                 this.$http.get(url).then(response => {
                     let events = [];
                     let $calendar = $('.calendar');

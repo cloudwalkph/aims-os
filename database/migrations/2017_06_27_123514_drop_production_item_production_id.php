@@ -25,6 +25,10 @@ class DropProductionItemProductionId extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('production_items', function(Blueprint $table) {
+            $table->foreign('production_id')
+                ->references('id')->on('productions')
+                ->onDelete('cascade');
+        });
     }
 }

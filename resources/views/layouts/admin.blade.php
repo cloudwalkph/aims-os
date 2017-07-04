@@ -111,6 +111,8 @@
 
             @if (Auth::user()->department->slug == "operations")
                 @include('components.sidebar.ops')
+            @elseif (Auth::user()->department->slug == "activations")
+                @include('components.sidebar.pm')
             @else
                 @include('components.sidebar.admin')
             @endif
