@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductionsItems extends Model
 {
-    use SoftDeletes;
+//    use SoftDeletes;
 
     protected $table = 'production_items';
     protected $guarded = ['id'];

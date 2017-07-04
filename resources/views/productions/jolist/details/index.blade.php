@@ -312,12 +312,9 @@
             form.append('production_id', productionID);
             form.append('description', description);
             form.append('visuals', file);
-            form.append('sizes', $('input[name='+ productionType +'_size_edit]'+ productionID).val());
-            form.append('qty', $('input[name='+ productionType +'_quantity_edit]'+ productionID).val());
-            form.append('details', $('input[name='+ productionType +'_details_edit]'+ productionID).val());
-
-            console.log(form);
-            return;
+            form.append('sizes', $('input[name='+ productionType +'_size_edit'+ productionID + ']').val());
+            form.append('qty', $('input[name='+ productionType +'_quantity_edit'+ productionID + ']').val());
+            form.append('details', $('input[name='+ productionType +'_details_edit'+ productionID + ']').val());
 
             let url = `/api/v1/productions/${jobOrderId}/details/update/`;
             axios.post(url, form).then(function(res) {

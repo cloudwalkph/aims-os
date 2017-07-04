@@ -50,7 +50,26 @@ class ProductionsController extends Controller
 
     public function update_details( $JoId, Request $request ){
         $input = $request->all();
-        dd($input);
+
+        $filename = '';
+        if ($request->hasFile('visuals')) {
+            $filename = uniqid() . '.png';
+
+            $request->file('visuals')->storeAs('productions', $filename);
+        }
+
+        $products = ProductionsItems::find($input['production_id']);
+
+        $products->description = $input['description'];
+        $products->visuals = $filename;
+        $products->sizes = $input['sizes'];
+        $products->qty = $input['qty'];
+        $products->details = $input['details'];
+        if( $products->save() ){
+            return response()->json($products, 200);
+        }else{
+            return false;
+        }
     }
 
     public function save_details( $JoId, Request $request ){
