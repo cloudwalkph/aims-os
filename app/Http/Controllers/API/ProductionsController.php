@@ -126,4 +126,12 @@ class ProductionsController extends Controller
             return false;
         }
     }
+
+    public function delete_details( $JoId, Request $request ){
+
+        $input = $request->all();
+        $production = ProductionsItems::find($input['production_id']);
+
+        $production->delete();
+    }
 }

@@ -230,6 +230,10 @@
             );
         }
 
+        String.prototype.capitalize = function() {
+            return this.charAt(0).toUpperCase() + this.slice(1);
+        }
+
         function saveProductions( jobOrderId, prodType, desc, size, quantity, proDetails){
             let form = new FormData();
             form.append('job_order_id', jobOrderId);
@@ -240,12 +244,20 @@
             form.append('sizes', size);
             form.append('qty', quantity);
             form.append('details', proDetails);
-
+            var code = '';
             let url = `/api/v1/productions/${jobOrderId}/details/`;
             axios.post(url, form).then(function(res) {
-                toastr.success('Successfully saved event details', 'Success')
+
+                $.each(res, function(i, data){
+                    code = '<tr id="'+data.type+'Row'+data.id+'"><td><span class="span'+data.type+data.id+' '+data.type+'Description'+data.id+'">'+data.description+'</span><select class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" name="'+data.type+'_description_edit'+data.id+'" id="'+data.type+'_description_edit'+data.id+'" value="'+data.description+'"><option value="">Select...</option><option value="'+data.type+'">'+data.type+' Tent Headers</option><option value="barricade">Barricade and Streamers</option><option value="boards">A Boards</option></select></td><td><a href="productions/'+data.visuals+'" class="span'+data.type+data.id+' '+data.type+'Visuals'+data.id+'" target="_blank">'+data.visuals+'</a><input class="form-control file_upload '+data.type+'Inputs'+data.id+'" style="display:none" type="file" name="'+data.type+'_file_edit'+data.id+'" id="'+data.type+'_file_edit'+data.id+'" value="productions/'+data.visuals+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Sizes'+data.id+'">'+data.sizes+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="text" name="'+data.type+'_size_edit'+data.id+'" id="tarp_size_edit'+data.id+'" placeholder="size" value="'+data.sizes+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Qty'+data.id+'">'+data.qty+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="integer" name="'+data.type+'_quantity_edit'+data.id+'" id="tarp_quantity_edit'+data.id+'" placeholder="quantity" value="'+data.qty+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Details'+data.id+'">'+data.details+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="text" name="'+data.type+'_details_edit'+data.id+'" id="tarp_details_edit'+data.id+'" placeholder="details" value="'+data.details+'"/></td><td><div id="col1"><button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important '+data.type+'Update'+data.id+'" onclick="updateProduction(\''+data.type+'\','+data.id+')" aria-hidden="true"></button><button class="btn glyphicon glyphicon-edit '+data.type+'Edit'+data.id+'" aria-hidden="true" onclick="editProduction(\''+data.type+'\','+data.id+')"></button></div><div id="col2"><button class="btn btn-danger glyphicon glyphicon-trash '+data.type+'Trash'+data.id+'" onclick="trashProduction(\''+data.type+'\','+data.id+'" aria-hidden="true"></button><button class="btn btn-danger hidden-not-important '+data.type+'Delete'+data.id+'" onclick="deleteProduction(\''+data.type+'\', '+data.id+')" aria-hidden="true">Delete</button></div></td></tr>';
+                    return false
+                });
+
+                $('tbody#tbody_'+prodType).prepend(code);
+                toastr.success('Successfully saved production details', 'Success')
             }).catch(function(error) {
-                toastr.error('Failed in saving event details', 'Error')
+                console.log(error);
+                toastr.error('Failed in saving production details', 'Error')
             });
         }
         
@@ -277,24 +289,17 @@
         }
         
         function editProduction(productionType, productionID) {
-            console.log($('.'+productionType+'Description' + productionID).val());
             $('.' + productionType + 'Update' + productionID).show();
             $('.' + productionType + 'Edit' + productionID).hide();
-            $('.span'+ productionType.capitalize() + productionID).hide();
+            $('.span'+ productionType + productionID).hide();
             $('.'+productionType+'Inputs' + productionID).removeClass('hidden-not-important');
             $('#'+productionType+'_file_edit'+ productionID).css('display','block');
 
             if( productionType == 'tarpaulin' ){
-                $('#'+productionType+' _description_edit' + productionID + ' option:selected').text( $('.'+productionType+'Description' + productionID).text() );
+                $('#'+productionType+'_description_edit' + productionID + ' option:selected').text( $('.'+productionType+'Description' + productionID).text() );
             }else {
-                $('#'+productionType+' _description_edit' + productionID ).text( $('.'+productionType+'Description' + productionID).text() );
+                $('#'+productionType+'_description_edit' + productionID ).text( $('.'+productionType+'Description' + productionID).text() );
             }
-
-
-        }
-
-        String.prototype.capitalize = function() {
-            return this.charAt(0).toUpperCase() + this.slice(1);
         }
 
         function updateProduction(productionType, productionID) {
@@ -333,6 +338,15 @@
 
             let url = `/api/v1/productions/${jobOrderId}/details/update/`;
             axios.post(url, form).then(function(res) {
+                var code = '';
+                $.each(res, function(i, data){
+                    code = '<tr id="'+data.type+'Row'+data.id+'"><td><span class="span'+data.type+data.id+' '+data.type+'Description'+data.id+'">'+data.description+'</span><select class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" name="'+data.type+'_description_edit'+data.id+'" id="'+data.type+'_description_edit'+data.id+'" value="'+data.description+'"><option value="">Select...</option><option value="'+data.type+'">'+data.type+' Tent Headers</option><option value="barricade">Barricade and Streamers</option><option value="boards">A Boards</option></select></td><td><a href="productions/'+data.visuals+'" class="span'+data.type+data.id+' '+data.type+'Visuals'+data.id+'" target="_blank">'+data.visuals+'</a><input class="form-control file_upload '+data.type+'Inputs'+data.id+'" style="display:none" type="file" name="'+data.type+'_file_edit'+data.id+'" id="'+data.type+'_file_edit'+data.id+'" value="productions/'+data.visuals+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Sizes'+data.id+'">'+data.sizes+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="text" name="'+data.type+'_size_edit'+data.id+'" id="tarp_size_edit'+data.id+'" placeholder="size" value="'+data.sizes+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Qty'+data.id+'">'+data.qty+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="integer" name="'+data.type+'_quantity_edit'+data.id+'" id="tarp_quantity_edit'+data.id+'" placeholder="quantity" value="'+data.qty+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Details'+data.id+'">'+data.details+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="text" name="'+data.type+'_details_edit'+data.id+'" id="tarp_details_edit'+data.id+'" placeholder="details" value="'+data.details+'"/></td><td><div id="col1"><button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important '+data.type+'Update'+data.id+'" onclick="updateProduction(\''+data.type+'\','+data.id+')" aria-hidden="true"></button><button class="btn glyphicon glyphicon-edit '+data.type+'Edit'+data.id+'" aria-hidden="true" onclick="editProduction(\''+data.type+'\','+data.id+')"></button></div><div id="col2"><button class="btn btn-danger glyphicon glyphicon-trash '+data.type+'Trash'+data.id+'" onclick="trashProduction(\''+data.type+'\','+data.id+'" aria-hidden="true"></button><button class="btn btn-danger hidden-not-important '+data.type+'Delete'+data.id+'" onclick="deleteProduction(\''+data.type+'\','+data.id+' )" aria-hidden="true">Delete</button></div></td></tr>';
+                    $('#'+data.type+'Row'+data.id).replaceWith(code);
+                    return false
+                });
+
+
+
                 toastr.success('Successfully saved event details', 'Success')
             }).catch(function(error) {
                 toastr.error('Failed in saving event details', 'Error')
@@ -353,6 +367,24 @@
                 $('.' + productionType + 'Trash' + productionID).addClass('glyphicon-remove');
                 $('.' + productionType + 'Edit' + productionID).hide();
             }
+        }
+        
+        function deleteProduction( productionType, productionID ) {
+
+            trashProduction( productionType, productionID );
+
+            let form = new FormData();
+            form.append('_token', $('input[name=_token]' ).val());
+            form.append('production_id', productionID);
+
+            let url = `/api/v1/productions/${jobOrderId}/details/delete/`;
+            axios.post(url, form).then(function(res) {
+                $('#'+productionType+'Row'+productionID).remove();
+                toastr.success('Successfully saved event details', 'Success')
+            }).catch(function(error) {
+                toastr.error('Failed in saving event details', 'Error')
+            });
+
         }
     </script>
 @endsection

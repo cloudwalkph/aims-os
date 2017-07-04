@@ -13,6 +13,7 @@
                             <th class="text-center">Size</th>
                             <th class="text-center">Quantity</th>
                             <th class="text-center">Other Details</th>
+                            <th class="text-center" width="150"> </th>
                         </tr>
                     </thead>
 
