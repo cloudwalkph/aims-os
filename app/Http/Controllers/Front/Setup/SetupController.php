@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\Setup;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\JobOrder;
 
 class SetupController extends Controller
 {
@@ -33,5 +34,27 @@ class SetupController extends Controller
         config(['app.name' => 'Setup | AIMS']);
 
         return view('setup.Manpower.index');
+    }
+
+    public function getJoList() {
+        config(['app.name' => 'Setup | AIMS']);
+
+        return view('setup.Pooling.index');
+    }
+
+    public function viewJo($joId) {
+        config(['app.name' => 'Setup | AIMS']);
+        $jo = JobOrder::where('id',$joId)->first();
+        
+        return view('setup.Pooling.joDetailView')
+                ->with('jo', $jo);
+    }
+
+    public function finalJo($joId) {
+        config(['app.name' => 'Setup | AIMS']);
+        $jo = JobOrder::where('id',$joId)->first();
+        
+        return view('setup.Final.index')
+                ->with('jo', $jo);
     }
 }

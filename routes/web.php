@@ -104,6 +104,9 @@ Route::group(['prefix' => 'hr'], function () {
 Route::group(['prefix' => 'setup'], function () {
     Route::get('/', 'Front\Setup\SetupController@index');
     Route::get('/manpower', 'Front\Setup\SetupController@manpowerList');
+    Route::get('/pooling', 'Front\Setup\SetupController@getJoList');
+    Route::get('/pooling/view/{joId}', 'Front\Setup\SetupController@viewJo');
+    Route::get('/final/view/{joId}', 'Front\Setup\SetupController@finalJo');
 });
 
 Route::group(['prefix' => 'productions'], function () {

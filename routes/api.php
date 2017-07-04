@@ -226,8 +226,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function() {
     });
 
     Route::group(['prefix' => 'setup'], function() {
+        Route::get('/manpower','SetupController@index');
+        Route::delete('/manpower/{manpowerId}', 'SetupController@delete');
         Route::post('/manpower','SetupController@store');
-        Route::post('/manpower/{manpowerId}','SetupController@store');
+        Route::post('/manpower/{manpowerId}','SetupController@update');
+        Route::get('/joOrder/list','SetupController@getJoOrderList');
+        Route::get('/joOrder/{joId}','SetupController@getJoOrder');
+        Route::get('/manpowerList/','SetupController@getManpowerListBySetup');
+        Route::get('/selected/manpower/{joId}','SetupController@getManpowerBySelectedSetup');
+        Route::post('/selected/manpower/{joId}','SetupController@addManpowerToJo');
     });
 
 //    production
