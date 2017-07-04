@@ -48,12 +48,10 @@ class NewDiscussion implements ShouldBroadcast
         $user = $this->discussion->user;
         $profile = $this->discussion->user->profile;
 
-        $array = [
-            'discussion'    => $this->discussion->toArray()
-        ];
+        $array = $this->discussion->toArray();
 
-        $array['discussion']['user'] = $user->toArray();
-        $array['discussion']['user']['profile'] = $profile->toArray();
+        $array['user'] = $user->toArray();
+        $array['user']['profile'] = $profile->toArray();
 
 //        \Log::info($array);
 
