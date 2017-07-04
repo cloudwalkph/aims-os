@@ -40,22 +40,36 @@
                     @foreach( $productionDatas as $productionData)
 
                         @if( $productionData->type == 'photowall' )
-                            <tr>
-                                <td>{{ $productionData->description }}</td>
-                                <td>{{ $productionData->visuals }}</td>
-                                <td>{{ $productionData->qty }}</td>
-                                <td>{{ $productionData->details }}</td>
+                            <tr id="photowallRow{{ $productionData->id }}">
                                 <td>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
-                                        </div>
+                                    <span class="spanPhotowall{{ $productionData->id }} photowallDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
+                                        <textarea class="form-control hidden-not-important photowallInputs{{ $productionData->id }}" name="photowall_description_edit{{ $productionData->id }}" id="photowall_description_edit{{ $productionData->id }}" value="{!! $productionData->description  !!} " cols="20"
+                                                  rows="5">{!! $productionData->description !!} </textarea>
+                                </td>
+                                <td>
+                                    <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanPhotowall{{ $productionData->id }} photowallVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
+                                    <input class="form-control file_upload photowallInputs{{ $productionData->id }}" style="display: none;" type="file" name="photowall_file_edit{{ $productionData->id }}" id="photowall_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
+                                </td>
+                                {{--<td>--}}
+                                    {{--<span class="spanPhotowall{{ $productionData->id }} photowallSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>--}}
+                                    {{--<input class="form-control hidden-not-important photowallInputs{{ $productionData->id }}" type="text" name="photowall_size_edit{{ $productionData->id }}" id="photowall_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>--}}
+                                {{--</td>--}}
+                                <td>
+                                    <span class="spanPhotowall{{ $productionData->id }} photowallQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
+                                    <input class="form-control hidden-not-important photowallInputs{{ $productionData->id }}" type="integer" name="photowall_quantity_edit{{ $productionData->id }}" id="photowall_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>
+                                </td>
+                                <td>
+                                    <span class="spanPhotowall{{ $productionData->id }} photowallDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
+                                    <input class="form-control hidden-not-important photowallInputs{{ $productionData->id }}" type="text" name="photowall_details_edit{{ $productionData->id }}" id="photowall_details_edit{{ $productionData->id }}" placeholder="details" value="{{ $productionData->details }}"/>
+                                </td>
+                                <td>
+                                    <div id="col1">
+                                        <button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important photowallUpdate{{ $productionData->id }}" onclick="updateProduction( 'photowall', {{ $productionData->id }} )" aria-hidden="true"></button>
+                                        <button class="btn glyphicon glyphicon-edit photowallEdit{{ $productionData->id }}" aria-hidden="true" onclick="editProduction( 'photowall', {{ $productionData->id }} )"></button>
+                                    </div>
+                                    <div id="col2">
+                                        <button class="btn btn-danger glyphicon glyphicon-trash photowallTrash{{ $productionData->id }}" onclick="trashProduction( 'photowall', {{ $productionData->id }} )" aria-hidden="true"></button>
+                                        <button class="btn btn-danger hidden-not-important photowallDelete{{ $productionData->id }}" aria-hidden="true">Delete</button>
                                     </div>
                                 </td>
                             </tr>
