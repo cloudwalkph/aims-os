@@ -10,7 +10,33 @@
                 $iframe.attr('src', '/ae/jo/details/{{ $jo->id }}/preview');
                 $iframe.on('load', function() {
                     $iframe.get(0).contentWindow.print();
-                    $iframe.attr('src', '#');
+                });
+            });
+
+            $('#printManpower').on('click', function() {
+                let $iframe = $('#joFrame');
+
+                $iframe.attr('src', '/ae/jo/details/{{ $jo->id }}/manpower');
+                $iframe.on('load', function() {
+                    $iframe.get(0).contentWindow.print();
+                });
+            });
+
+            $('#printVehicle').on('click', function() {
+                let $iframe = $('#joFrame');
+
+                $iframe.attr('src', '/ae/jo/details/{{ $jo->id }}/vehicle');
+                $iframe.on('load', function() {
+                    $iframe.get(0).contentWindow.print();
+                });
+            });
+
+            $('#printMeal').on('click', function() {
+                let $iframe = $('#joFrame');
+
+                $iframe.attr('src', '/ae/jo/details/{{ $jo->id }}/meal');
+                $iframe.on('load', function() {
+                    $iframe.get(0).contentWindow.print();
                 });
             });
 

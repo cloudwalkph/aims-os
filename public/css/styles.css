@@ -4,6 +4,9 @@ body {
     color: #333;
     background-color: #ffffff;
 }
+.huge {
+    font-size: 40px;
+}
 .required-field {
     color: red;
     font-size: 1.5em;
@@ -648,3 +651,16 @@ table#tbl-tarpaulin thead, tfoot {
 .fc-event .fc-content {
     padding: 10px 5px;
 }
+
+.hidden-not-important {
+    display: none;
+}
+
+#col1 {
+    display: inline-block;
+}
+
+#col2 {
+    display: inline-block;
+}
+

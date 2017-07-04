@@ -45,7 +45,10 @@ class ProductionsController extends Controller
 
 
         $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNo)->first();
-        $productionDatas  = Productions::join('production_items', 'productions.id', '=', 'production_items.production_id')->get();
+        $productionDatas  = Productions::join('production_items', 'productions.id', '=', 'production_items.production_id')
+            ->where('productions.id', $jo->id)
+            ->orderBy('production_items.id', 'desc')
+            ->get();
 
         return view('productions.jolist.details.index')
             ->with('jo', $jo)

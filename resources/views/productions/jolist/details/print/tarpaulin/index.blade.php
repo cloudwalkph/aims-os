@@ -13,7 +13,7 @@
                             <th class="text-center">Size</th>
                             <th class="text-center">Quantity</th>
                             <th class="text-center">Other Details</th>
-                            <th class="text-center"> </th>
+                            <th class="text-center" width="150"> </th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -47,23 +47,40 @@
                     @foreach( $productionDatas as $productionData)
 
                         @if( $productionData->type == 'tarpaulin' )
-                            <tr>
-                                <td>{{ $productionData->description }}</td>
-                                <td>{{ $productionData->visuals }}</td>
-                                <td>{{ $productionData->sizes }}</td>
-                                <td>{{ $productionData->qty }}</td>
-                                <td>{{ $productionData->details }}</td>
+                            <tr id="tarpaulinRow{{ $productionData->id }}">
                                 <td>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
-                                        </div>
+                                    <span class="spantarpaulin{{ $productionData->id }} tarpaulinDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
+                                    <select class="form-control hidden-not-important tarpaulinInputs{{ $productionData->id }}" name="tarpaulin_description_edit{{ $productionData->id }}" id="tarpaulin_description_edit{{ $productionData->id }}">
+                                        <option value="0">Select...</option>
+                                        <option value="tarpaulin">Tarpaulin Tent Headers</option>
+                                        <option value="barricade">Barricade and Streamers</option>
+                                        <option value="boards">A Boards</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spantarpaulin{{ $productionData->id }} tarpaulinVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
+                                    <input class="form-control file_upload tarpaulinInputs{{ $productionData->id }}" style="display: none;" type="file" name="tarpaulin_file_edit{{ $productionData->id }}" id="tarpaulin_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
+                                </td>
+                                <td>
+                                    <span class="spantarpaulin{{ $productionData->id }} tarpaulinSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>
+                                    <input class="form-control hidden-not-important tarpaulinInputs{{ $productionData->id }}" type="text" name="tarpaulin_size_edit{{ $productionData->id }}" id="tarp_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>
+                                </td>
+                                <td>
+                                    <span class="spantarpaulin{{ $productionData->id }} tarpaulinQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
+                                    <input class="form-control hidden-not-important tarpaulinInputs{{ $productionData->id }}" type="integer" name="tarpaulin_quantity_edit{{ $productionData->id }}" id="tarp_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>
+                                </td>
+                                <td>
+                                    <span class="spantarpaulin{{ $productionData->id }} tarpaulinDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
+                                    <input class="form-control hidden-not-important tarpaulinInputs{{ $productionData->id }}" type="text" name="tarpaulin_details_edit{{ $productionData->id }}" id="tarp_details_edit{{ $productionData->id }}" placeholder="details" value="{{ $productionData->details }}"/>
+                                </td>
+                                <td>
+                                    <div id="col1">
+                                        <button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important tarpaulinUpdate{{ $productionData->id }}" onclick="updateProduction( 'tarpaulin', {{ $productionData->id }} );" aria-hidden="true"></button>
+                                        <button class="btn glyphicon glyphicon-edit tarpaulinEdit{{ $productionData->id }}" aria-hidden="true" onclick="editProduction( 'tarpaulin', {{ $productionData->id }} );"></button>
+                                    </div>
+                                    <div id="col2">
+                                        <button class="btn btn-danger glyphicon glyphicon-trash tarpaulinTrash{{ $productionData->id }}" onclick="trashProduction( 'tarpaulin', {{ $productionData->id }} );" aria-hidden="true"></button>
+                                        <button class="btn btn-danger hidden-not-important tarpaulinDelete{{ $productionData->id }}" onclick="deleteProduction('tarpaulin', {{ $productionData->id }})" aria-hidden="true">Delete</button>
                                     </div>
                                 </td>
                             </tr>

@@ -1,10 +1,33 @@
 <template>
 	<div>
 		<button class="btn btn-primary pull-right"
-                data-toggle="modal" data-target="#createManpowerSetup" style="margin-bottom: 20px">
-                <i class="fa fa-plus"></i> Add Manpower
-        </button>
+      data-toggle="modal" data-target="#createManpowerSetup" style="margin-bottom: 20px">
+      <i class="fa fa-plus"></i> Add Manpower
+    </button>
+    <vuetable ref="Vuetable_manpower"
+         api-url="/api/v1/setup/manpower"
+         :fields="fields"
+         pagination-path=""
+         :css="css.table"
+         :sort-order="sortOrder"
+         :multi-sort="true"
+         :append-params="moreParams"
+         @vuetable:cell-clicked="onCellClicked"
+         @vuetable:pagination-data="onPaginationData"
+    ></vuetable>
+    <div class="vuetable-pagination">
+      <vuetable-pagination-info 
+         ref="paginationInfo"
+         info-class="pagination-info"
+      ></vuetable-pagination-info>
+      <vuetable-pagination 
+         ref="pagination"
+         :css="css.pagination"
+         :icons="css.icons"
+         @vuetable-pagination:change-page="onChangePage"
+      ></vuetable-pagination>
 
+    </div>
         <div class="modal fade" id="createManpowerSetup" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"> 
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -144,19 +167,28 @@
 </template>
 
 <script>
+   import moment from 'moment'
+   import Vuetable from 'vuetable-2/src/components/Vuetable'; 
+   import Vue from 'vue';
+   import VueEvents from 'vue-events';
+   import CustomActions from '../setup/commons/CustomActions';
+   import VuetablePagination from 'vuetable-2/src/components/VuetablePagination';
+   import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo';
+
+  Vue.use(VueEvents);
+
 	export default {
+      components: {
+         Vuetable,
+         VuetablePagination,
+         VuetablePaginationInfo
+      },
 		mounted() {
 			console.log('smaple lang');
 			this.getAgency();
-		},
-		data() {
-			return {
-				agencyList : [],
-				isFetching : {
-                    disabled : false,
-                    saveLabel : 'Save'
-                },
-				rowData : {
+
+         $('#createManpowerSetup').on('hidden.bs.modal', (e) => {
+               this.rowData = {
                     'first_name': null,
                     'middle_name': null,
                     'manpower_type_id': 1,
@@ -169,68 +201,191 @@
                     'hired_date': null,
                     'violations': null,
                     'rate': null
+                }; // reset form data 
+            });
+		},
+		data() {
+			return {
+              fields : [
+                {
+                    name: 'profile_picture',
+                    title: 'Photo',
+                    callback: 'imageParse',
+                    dataClass : 'customWith10'
+                },
+                {
+                  name: 'name',
+                  title: 'Full Name',
+                          dataClass : 'middleAlign'
+                },
+                {
+                  name: 'manpower_type',
+                  title: 'Manpower Type',
+                    dataClass : 'middleAlign',
+                    callback : 'expandType'
+                },
+                {
+                  name: 'agency.name',
+                  title: 'Agency',
+                          dataClass : 'middleAlign'
+                },
+                {
+                  name: 'birthdate',
+                  sortField: 'birthdate',
+                  dataClass: 'middleAlign',
+                  callback: 'formatDate|DD-MM-YYYY',
+                  title: 'Birthdate'
+                },
+                {
+                  name: 'email',
+                  title: 'Email',
+                          dataClass : 'middleAlign'
+                },
+                {
+                  name: 'contact_number',
+                  title: 'Contact #',
+                          dataClass : 'middleAlign'
+                },
+                {
+                  name: 'updated_at',
+                  sortField: 'updated_at',
+                  dataClass: 'middleAlign',
+                  callback: 'formatDate|DD-MM-YYYY',
+                  title: 'Last Updated'
+                },
+                {
+                  name: '__component:CustomActions',
+                  title: 'Actions',
+                  titleClass: 'text-center',
+                  dataClass: 'text-center middleAlign'
                 }
+              ],
+         		agencyList : [],
+         		isFetching : {
+                       disabled : false,
+                       saveLabel : 'Save'
+                   },
+         		rowData : {
+                       'first_name': null,
+                       'middle_name': null,
+                       'manpower_type_id': 1,
+                       'agency_id': 1,
+                       'birthdate': null,
+                       'city': null,
+                       'email': null,
+                       'contact_number': null,
+                       'fb_link': null,
+                       'hired_date': null,
+                       'violations': null,
+                       'rate': null
+               },
+               css: {
+                    table: {
+                        tableClass: 'table table-bordered table-striped table-hover',
+                        ascendingIcon: 'glyphicon glyphicon-chevron-up',
+                        descendingIcon: 'glyphicon glyphicon-chevron-down'
+                    },
+                    pagination: {
+                        wrapperClass: 'pagination',
+                        activeClass: 'active',
+                        disabledClass: 'disabled',
+                        pageClass: 'page',
+                        linkClass: 'link',
+                    },
+                    icons: {
+                        first: 'glyphicon glyphicon-step-backward',
+                        prev: 'glyphicon glyphicon-chevron-left',
+                        next: 'glyphicon glyphicon-chevron-right',
+                        last: 'glyphicon glyphicon-step-forward',
+                    }
+               },
+               sortOrder: [
+                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
+               ],
+               moreParams: {}
 			}
 		},
 		methods: {
-			onSubmitForm(e) {
-                this.isFetching = {
-                    disabled: true,
-                    saveLabel: 'Saving...'
-                }
-                
-                let form = new FormData($(e.target)[0]);
-                // for (var pair of form.entries()) {
-                //     console.log(pair[0]+ ', ' + pair[1]); 
-                // }
-                // return;
-                if(this.rowData.id) // EDIT
-                {
-                    let url = '/api/v1/setup/manpower/' + this.rowData.id;
-                    this.$http.post(url,form).then(response => {
-                        toastr.success('Successfully editted manpower', 'Success')
-                        console.log(response.data);
-                        this.isFetching = {
-                            disabled: false,
-                            saveLabel: 'Save'
-                        };
-                        ``
-                        $('#createManpowerSetup').modal('hide');
-                        this.$refs.Vuetable_manpower.reload(); // refresh vuetable
-                    }, error => {
-                        toastr.error('Failed in editing manpower', 'Error')
-                        console.log(error)
-                        this.isFetching = {
-                            disabled: false,
-                            saveLabel: 'Save'
-                        }
-                    });
-
-                    return;
-                }
-
-                let url = '/api/v1/setup/manpower';
-                this.$http.post(url,form).then(response => {
-                    toastr.success('Successfully added new manpower', 'Success')
-                    console.log(response.data);
-                    this.isFetching = {
-                        disabled: false,
-                        saveLabel: 'Save'
-                    };
-                    
-                    $('#createManpowerSetup').modal('hide');
-                    this.$refs.Vuetable_manpower.refresh(); // refresh vuetable
-                }, error => {
-                    toastr.error('Failed in adding new manpower', 'Error')
-                    console.log(error)
-                    this.isFetching = {
-                        disabled: false,
-                        saveLabel: 'Save'
-                    }
-                });
-                
+            onChangePage (page) {
+                this.$refs.Vuetable_manpower.changePage(page)
             },
-			getAgency() {
+            expandType(value) {
+               // console.log(value)
+               return value.name;
+                // let arr = [];
+                // for(let v in value)
+                // {
+                //     arr.push(value[v]['manpower_type'].name);
+                // }
+                // return arr.toString();
+            },
+            onPaginationData (paginationData) {
+                this.$refs.pagination.setPaginationData(paginationData)
+                this.$refs.paginationInfo.setPaginationData(paginationData)
+            },
+            formatDate (value, fmt = 'D MMM YYYY') {
+                return (value == null)
+                    ? ''
+                    : moment(value, 'YYYY-MM-DD').format(fmt)
+            },
+      		onSubmitForm(e) {
+                   this.isFetching = {
+                       disabled: true,
+                       saveLabel: 'Saving...'
+                   }
+                   
+                   let form = new FormData($(e.target)[0]);
+                   // for (var pair of form.entries()) {
+                   //     console.log(pair[0]+ ', ' + pair[1]); 
+                   // }
+                   // return;
+                   if(this.rowData.id) // EDIT
+                   {
+                       let url = '/api/v1/setup/manpower/' + this.rowData.id;
+                       this.$http.post(url,form).then(response => {
+                           toastr.success('Successfully editted manpower', 'Success')
+                           console.log(response.data);
+                           this.isFetching = {
+                               disabled: false,
+                               saveLabel: 'Save'
+                           };
+                           ``
+                           $('#createManpowerSetup').modal('hide');
+                           this.$refs.Vuetable_manpower.reload(); // refresh vuetable
+                       }, error => {
+                           toastr.error('Failed in editing manpower', 'Error')
+                           console.log(error)
+                           this.isFetching = {
+                               disabled: false,
+                               saveLabel: 'Save'
+                           }
+                       });
+
+                       return;
+                   }
+
+                   let url = '/api/v1/setup/manpower';
+                   this.$http.post(url,form).then(response => {
+                       toastr.success('Successfully added new manpower', 'Success')
+                       console.log(response.data);
+                       this.isFetching = {
+                           disabled: false,
+                           saveLabel: 'Save'
+                       };
+                       
+                       $('#createManpowerSetup').modal('hide');
+                       this.$refs.Vuetable_manpower.refresh(); // refresh vuetable
+                   }, error => {
+                       toastr.error('Failed in adding new manpower', 'Error')
+                       console.log(error)
+                       this.isFetching = {
+                           disabled: false,
+                           saveLabel: 'Save'
+                       }
+                   });
+                   
+               },
+      	   getAgency() {
                 let url = '/api/v1/agencies';
                 this.$http.get(url).then(response => {
                     this.agencyList = response.data.data;
@@ -239,7 +394,69 @@
                     console.log(error)
                     
                 });
+            },
+            onCellClicked (data, field, event) {
+              console.log(data)
             }
-		}
+	   },
+      events: {
+            'filter-set' (filterText) {
+                this.moreParams = {
+                    filter: filterText
+                }
+                Vue.nextTick( () => this.$refs.Vuetable_manpower.refresh() )
+            },
+            'reload-table' () {
+                Vue.nextTick( () => this.$refs.Vuetable_manpower.reload() )
+            },
+            'edit-table' (data) {
+                
+                data.birthdate = data.birthdate ? moment(data.birthdate).format('YYYY-MM-DD') : null;
+                data.hired_date = data.hired_date ? moment(data.hired_date).format('YYYY-MM-DD') : null;
+                Vue.nextTick( 
+                    () => {
+                        this.rowData = data
+                        $('#createManpowerSetup').modal('show');
+                    }
+                )
+            }
+        }
 	}
 </script>
+<style>
+    .pagination {
+        margin: 0;
+        float: right;
+    }
+    .pagination a.page {
+        border: 1px solid lightgray;
+        border-radius: 3px;
+        padding: 5px 10px;
+        margin-right: 2px;
+    }
+    .pagination a.page.active {
+        color: white;
+        background-color: #337ab7;
+        border: 1px solid lightgray;
+        border-radius: 3px;
+        padding: 5px 10px;
+        margin-right: 2px;
+    }
+    .pagination a.btn-nav {
+        border: 1px solid lightgray;
+        border-radius: 3px;
+        padding: 5px 7px;
+        margin-right: 2px;
+    }
+    .pagination a.btn-nav.disabled {
+        color: lightgray;
+        border: 1px solid lightgray;
+        border-radius: 3px;
+        padding: 5px 7px;
+        margin-right: 2px;
+        cursor: not-allowed;
+    }
+    .pagination-info {
+        float: left;
+    }
+</style>

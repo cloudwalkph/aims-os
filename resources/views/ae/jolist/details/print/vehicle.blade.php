@@ -50,6 +50,17 @@
     </div>
     {{--jo number and date end--}}
 
+    {{--project type checkbox start--}}
+    <div class="row">
+        {{--@foreach(json_decode($jo->project_types) as $type)--}}
+        <div class="col-md-4 col-sm-6 col-xs-6">
+            {{--<input type="checkbox" name="project_type" checked>--}}
+            <label for="project_type">{{ $jo->project_type }}</label>
+        </div>
+        {{--@endforeach--}}
+    </div>
+    {{--project type checkbox end--}}
+
     {{--additional jo details start--}}
     <div class="row">
         <div class="col-md-12">

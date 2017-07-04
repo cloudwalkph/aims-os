@@ -57,7 +57,7 @@
                             <label class="text-muted">Manpower Pooling</label>
                         </div>
                         <div class="options">
-                            <a href="#" class="btn btn-primary btn-lg">Add Manpower to JO</a>
+                            <a href="/setup/pooling" class="btn btn-primary btn-lg">Add Manpower to JO</a>
                         </div>
                     </div>
                 </div>

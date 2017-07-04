@@ -142,7 +142,7 @@ class ManpowerController extends Controller
     }
 
     public function getManpower() {
-        $manpower = Manpower::with('ManpowerAssignType.manpowerType')->with('agency')->orderBy('id','DESC')->paginate();
+        $manpower = Manpower::with('ManpowerAssignType.manpowerType')->with('agency')->where('setup_only', 0)->orderBy('id','DESC')->paginate();
         $data = $this->parseData($manpower);
         return response()->json($data, 200);
     }

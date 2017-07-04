@@ -48,13 +48,35 @@ class ProductionsController extends Controller
         return response()->json($jobOrders, 200);
     }
 
+    public function update_details( $JoId, Request $request ){
+        $input = $request->all();
+
+        $filename = '';
+        if ($request->hasFile('visuals')) {
+            $filename = uniqid() . '.png';
+
+            $request->file('visuals')->storeAs('productions', $filename);
+        }
+
+        $products = ProductionsItems::find($input['production_id']);
+
+        $products->description = $input['description'];
+        $products->visuals = $filename;
+        $products->sizes = $input['sizes'];
+        $products->qty = $input['qty'];
+        $products->details = $input['details'];
+        if( $products->save() ){
+            return response()->json($products, 200);
+        }else{
+            return false;
+        }
+    }
+
     public function save_details( $JoId, Request $request ){
 
         $input = $request->all();
 
         $input['job_order_id'] = $JoId;
-
-        $jo = Productions::where('job_order_no', '=', $JoId)->get();
 
         $filename = '';
         if ($request->hasFile('visuals')) {
@@ -64,6 +86,8 @@ class ProductionsController extends Controller
         }
 
         $production_id = 0;
+
+        $jo = Productions::where('job_order_no', '=', $JoId)->get();
 
         if( count($jo) <= 0 ){
             $production_id = $this->productionSave($JoId);
@@ -101,5 +125,13 @@ class ProductionsController extends Controller
         }else{
             return false;
         }
+    }
+
+    public function delete_details( $JoId, Request $request ){
+
+        $input = $request->all();
+        $production = ProductionsItems::find($input['production_id']);
+
+        $production->delete();
     }
 }

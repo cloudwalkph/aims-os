@@ -108,6 +108,9 @@ Vue.component('pooling-content', require('./components/HR/poolingContent.vue'));
 
 /*SETUp*/
 Vue.component('setup', require('./components/setup/manpower.vue'));
+Vue.component('setup-pooling', require('./components/setup/pooling.vue'));
+Vue.component('view-detail-jo', require('./components/setup/view-detail-jo.vue'));
+Vue.component('view-final-jo', require('./components/setup/view-final-jo.vue'));
 
 Vue.component('production-jo-table', require('./components/production/production-jo-table.vue'));
 

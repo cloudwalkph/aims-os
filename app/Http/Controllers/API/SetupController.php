@@ -5,6 +5,9 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Manpower;
+use App\Models\JobOrder;
+use App\Models\JobOrderManpower;
+use App\Models\JobOrderSelectedManpower;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Models\ManpowerFile;
 use Carbon\Carbon;
@@ -18,25 +21,76 @@ class SetupController extends Controller
      */
     public function index()
     {
-        //
+        $manpower = Manpower::with('manpowerType')->with('agency')->where('setup_only', 1)->orderBy('id','DESC')->paginate();
+        $data = $this->parseData($manpower);
+        return response()->json($data, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function getJoOrderList() {
+        $joManpower = JobOrderManpower::with('manpowerType')
+                        ->with('jobOrder')
+                        ->where('manpower_type_id', 1);
+
+        return response()->json($joManpower->paginate(), 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function getJoOrder($joId) {
+
+    }
+
+    public function getManpowerListBySetup() {
+        $manpower = Manpower::with('agency')
+                    ->where('manpower_type_id',1)
+                    ->whereNotIn('id', function($q) { // filter by selected manpower event date
+                    
+                        $q->select('manpower_id')
+                        ->whereNull('deleted_at')
+                        ->where('job_order_id',4)
+                        ->from('job_order_selected_manpowers');
+                    })
+                    ->where('setup_only',1)->paginate();
+        
+        $data = $this->parseData($manpower);
+        return response()->json($data, 200);
+    }
+
+    public function getManpowerBySelectedSetup($joId) {
+        
+        $joSelectedManpower = JobOrderSelectedManpower::with('jobOrder')
+            ->with('venue')
+            ->with(array('manpower.manpowerType' => function($q) { // where type only setup
+                $q->where('id',1);
+            }))
+            ->where('job_order_id', $joId)
+            ->where('manpower_type_required', 1)
+            ->paginate();
+        
+        return response()->json($joSelectedManpower, 200);
+    }
+
+    public function addManpowerToJo(Request $request, $joId) {
+        $input = $request->all();
+        
+        $data = [
+            'job_order_id' => $joId,
+            'manpower_id' => $input['id'],
+            'manpower_type_required' => 1,
+            'venue_id' => 0
+        ];
+        
+        $joManpower = JobOrderManpower::where('job_order_id', $joId)->where('manpower_type_id', 1)->first();
+
+        $manpowerNeeded = JobOrderSelectedManpower::where('job_order_id', $joId)->where('manpower_type_required',1)->get();
+        if($joManpower->manpower_needed <= count($manpowerNeeded))
+        {
+            $data['buffer'] = 1;
+        }
+
+        $query = JobOrderSelectedManpower::create($data);
+        return $data;
+        
+    }
+
     public function store(Request $request)
     {
         $input = $request->all();
@@ -63,7 +117,10 @@ class SetupController extends Controller
         $file = $this->upload($request, $manpower['id'], 'profile_picture');
         $files = $this->multiUpload($request, $manpower['id'], 'documents');
 
-        return response()->json($manpower->paginate(), 200);
+        // Count per page
+        $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
+
+        return response()->json($manpower->paginate($perPage), 200);
     }
 
     /**
@@ -110,6 +167,15 @@ class SetupController extends Controller
 
         // $manpower = $this->parseData($manpower->paginate());
         return response()->json($result, 200);
+    }
+
+    private function parseData($manpower) {
+        
+        foreach($manpower as $d)
+        {
+            $d['name'] = $d['first_name'].' '.$d['middle_name'].' '.$d['last_name'];
+        }
+        return $manpower;
     }
 
     public function multiUpload($request, $manpowerId, $inputName) {
@@ -181,5 +247,16 @@ class SetupController extends Controller
         }
 
         return $filename;
+    }
+
+    public function delete($id)
+    {
+        $manpower = Manpower::where('id', $id)->delete();
+
+        if (! $manpower) {
+            return response()->json([], 400);
+        }
+
+        return response()->json($manpower, 200);
     }
 }
