@@ -59,7 +59,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanTarpaulin{{ $productionData->id }} tarpaulinVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
-                                    <input class="form-control file_upload tarpaulinInputs{{ $productionData->id }}" style="display: none;" type="file" name="tarpaulin_file_edit{{ $productionData->id }}" id="tarp_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
+                                    <input class="form-control file_upload tarpaulinInputs{{ $productionData->id }}" style="display: none;" type="file" name="tarpaulin_file_edit{{ $productionData->id }}" id="tarpaulin_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
                                 </td>
                                 <td>
                                     <span class="spanTarpaulin{{ $productionData->id }} tarpaulinSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>

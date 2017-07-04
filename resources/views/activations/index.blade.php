@@ -17,112 +17,34 @@
             </div>
             {{-- breadcrumb end --}}
 
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <a href="/activations/1">
-                    <div class="button-menu">
-                        <div class="hero-widget well well-sm">
-                            <div class="icon">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
-                            <div class="text">
-                                <label class="text-muted">Production</label>
-                            </div>
-                            <div class="options">
-                                <a href="/activations/1" class="btn btn-primary btn-lg">View more...</a>
+            <div class="col-md-12">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-file-text fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">2</div>
+                                    <div>New Job Orders</div>
+                                </div>
                             </div>
                         </div>
+                        <a href="/activations/job-orders">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
+                </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <a href="/activations/2">
-                    <div class="button-menu">
-                        <div class="hero-widget well well-sm">
-                            <div class="icon">
-                                <i class="fa fa-paint-brush"></i>
-                            </div>
-                            <div class="text">
-                                <label class="text-muted">Creatives</label>
-                            </div>
-                            <div class="options">
-                                <a href="/activations/2" class="btn btn-primary btn-lg">View more...</a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                <div class="col-md-12">
+                    <h3>Recent Job Orders</h3>
 
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <a href="/activations/3">
-                    <div class="button-menu">
-                        <div class="hero-widget well well-sm">
-                            <div class="icon">
-                                <i class="fa fa-map-marker"></i>
-                            </div>
-                            <div class="text">
-                                <label class="text-muted">CMTUVA</label>
-                            </div>
-                            <div class="options">
-                                <a href="/activations/3" class="btn btn-primary btn-lg">View more...</a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <a href="/activations/4">
-                    <div class="button-menu">
-                        <div class="hero-widget well well-sm">
-                            <div class="icon">
-                                <i class="fa fa-user-plus"></i>
-                            </div>
-                            <div class="text">
-                                <label class="text-muted">Human Resources</label>
-                            </div>
-                            <div class="options">
-                                <a href="/activations/4" class="btn btn-primary btn-lg">View more...</a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <a href="/activations/5">
-                    <div class="button-menu">
-                        <div class="hero-widget well well-sm">
-                            <div class="icon">
-                                <i class="fa fa-cubes"></i>
-                            </div>
-                            <div class="text">
-                                <label class="text-muted">Inventory</label>
-                            </div>
-                            <div class="options">
-                                <a href="/activations/5" class="btn btn-primary btn-lg">View more...</a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <a href="/activations/9">
-                    <div class="button-menu">
-                        <div class="hero-widget well well-sm">
-                            <div class="icon">
-                                <i class="fa fa-wrench"></i>
-                            </div>
-                            <div class="text">
-                                <label class="text-muted">Setup</label>
-                            </div>
-                            <div class="options">
-                                <a href="/activations/9" class="btn btn-primary btn-lg">View more...</a>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                </div>
             </div>
 
         </div>

@@ -277,12 +277,24 @@
         }
         
         function editProduction(productionType, productionID) {
+            console.log($('.'+productionType+'Description' + productionID).val());
             $('.' + productionType + 'Update' + productionID).show();
             $('.' + productionType + 'Edit' + productionID).hide();
-            $('.spanTarpaulin' + productionID).hide();
-            $('.tarpaulinInputs' + productionID).removeClass('hidden-not-important');
-            $('#tarp_file_edit'+ productionID).css('display','block');
-            $('#tarpaulin_description_edit' + productionID + ' option:selected').text( $('.tarpaulinDescription' + productionID).text() );
+            $('.span'+ productionType.capitalize() + productionID).hide();
+            $('.'+productionType+'Inputs' + productionID).removeClass('hidden-not-important');
+            $('#'+productionType+'_file_edit'+ productionID).css('display','block');
+
+            if( productionType == 'tarpaulin' ){
+                $('#'+productionType+' _description_edit' + productionID + ' option:selected').text( $('.'+productionType+'Description' + productionID).text() );
+            }else {
+                $('#'+productionType+' _description_edit' + productionID ).text( $('.'+productionType+'Description' + productionID).text() );
+            }
+
+
+        }
+
+        String.prototype.capitalize = function() {
+            return this.charAt(0).toUpperCase() + this.slice(1);
         }
 
         function updateProduction(productionType, productionID) {
@@ -298,6 +310,9 @@
 
             if( productionType == 'tarpaulin' ){
                 description = $('#' + productionType + '_description_edit' + productionID + ' option:selected').text();
+            }else if( productionType == 'sticker' ){
+                description = $('#' + productionType + '_description_edit' + productionID).text();
+
             }
 
             if( (description.trim() == '') || (description.trim() == null) ){

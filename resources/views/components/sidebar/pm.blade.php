@@ -10,5 +10,8 @@
         <li id="job-orders">
             <a href="/activations/job-orders"><i class="fa fa-fw fa-file-text-o"></i> Job Orders</a>
         </li>
+        <li id="references">
+            <a href="/activations/references"><i class="fa fa-fw fa-clipboard"></i> References</a>
+        </li>
     </ul>
 </div>

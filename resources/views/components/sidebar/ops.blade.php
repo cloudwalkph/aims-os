@@ -16,5 +16,8 @@
         <li id="ob">
             <a href="/operations/official-business"><i class="fa fa-fw fa-hourglass"></i> OB</a>
         </li>
+        <li id="references">
+            <a href="/operations/references"><i class="fa fa-fw fa-clipboard"></i> References</a>
+        </li>
     </ul>
 </div>

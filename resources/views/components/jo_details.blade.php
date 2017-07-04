@@ -212,7 +212,6 @@
             <tr>
                 <th>MANPOWER TYPE</th>
                 <th># MANPOWER NEEDED</th>
-                <th>RATE</th>
                 <th>REMARKS</th>
                 <th>DATE</th>
             </tr>
@@ -223,7 +222,6 @@
                 <tr>
                     <td>{{ $man->manpowerType->name }}</td>
                     <td>{{ $man->manpower_needed }}</td>
-                    <td>{{ $man->rate }}</td>
                     <td>{{ $man->remarks }}</td>
                     <td>{{ $man->created_at->toFormattedDateString() }}</td>
                 </tr>
@@ -277,7 +275,6 @@
                 <th>VEHICLE TYPE</th>
                 <th>VENUE</th>
                 <th>VEHICLE NEEDED</th>
-                <th>RATE</th>
                 <th>REMARKS</th>
                 <th>DATE</th>
             </tr>
@@ -289,7 +286,6 @@
                     <td>{{ $vehicle->vehicleType->name }}</td>
                     <td>{{ $vehicle->venue->venue }}</td>
                     <td>{{ $vehicle->vehicle_needed }}</td>
-                    <td>{{ $vehicle->rate }}</td>
                     <td>{{ $vehicle->remarks }}</td>
                     <td>{{ $vehicle->created_at->toFormattedDateString() }}</td>
                 </tr>
