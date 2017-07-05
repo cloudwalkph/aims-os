@@ -61,7 +61,7 @@
 
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o" style="font-size: 20px;"></i>
+                        <img src="{{ asset('img/logo.png') }}" alt="sperm" width="25">
                         <span class="label label-danger hide" style="font-size: 14px;" id="notificationCount">10</span>
                     </a>
                     <ul class="dropdown-menu">

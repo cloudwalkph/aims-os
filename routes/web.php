@@ -144,6 +144,8 @@ Route::group(['prefix' => 'operations'], function () {
         Route::get('/{joNo}/assign', 'Front\Operations\JobOrderController@assignView');
         Route::get('/{joNo}/discussions', 'Front\Operations\JobOrderController@discussions');
         Route::post('/{joNo}/assign', 'Front\Operations\JobOrderController@assign');
+
+        Route::post('/{joId}/project-attachments', 'Front\Operations\JobOrderController@uploadProjectAttachments');
     });
 
     Route::get('/{departmentId}', 'Front\Operations\DepartmentsController@show');
@@ -160,6 +162,8 @@ Route::group(['prefix' => 'activations'], function () {
         Route::get('/', 'Front\Activations\JobOrderController@index');
         Route::get('/{joNo}', 'Front\Activations\JobOrderController@details');
         Route::get('/{joNo}/discussions', 'Front\Activations\JobOrderController@discussions');
+
+        Route::post('/{joId}/project-attachments', 'Front\Operations\JobOrderController@uploadProjectAttachments');
     });
 
     Route::get('/{departmentId}', 'Front\Activations\DepartmentsController@show');

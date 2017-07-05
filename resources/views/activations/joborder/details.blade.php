@@ -28,7 +28,8 @@
                     <div class="panel-heading">
 
                             <span class="pull-right">
-                                <button type="button" class="btn btn-default">
+                                <button type="button" class="btn btn-default"
+                                        data-toggle="modal" data-target="#createProjectAttachments">
                                     <i class="fa fa-file-text"></i> Upload Attachments
                                 </button> &nbsp;
                                 <button class="btn btn-default" onclick="frames['frame'].print();">
@@ -80,6 +81,7 @@
             </div>
 
             <div class="col-md-12">
+                <input type="hidden" name="job_order_id" id="jobOrderId" value="{{ $jo->id }}">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-pills">
                         <li class="{{ Request::is('*/'.$jo->job_order_no) ? 'active' : '' }}"><a href="/activations/job-orders/{{ $jo->job_order_no }}">Job Order Details</a></li>
@@ -93,4 +95,5 @@
     </div>
 
     <iframe src="/ae/jo/details/{{ $jo->id }}/preview" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
+    @include('activations.joborder.content.modals.attachment')
 @endsection

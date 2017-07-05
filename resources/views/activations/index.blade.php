@@ -26,7 +26,7 @@
                                     <i class="fa fa-file-text fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">2</div>
+                                    <div class="huge">{{ $totalCount }}</div>
                                     <div>New Job Orders</div>
                                 </div>
                             </div>
@@ -41,10 +41,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <h3>Recent Job Orders</h3>
-
-                </div>
             </div>
 
         </div>
