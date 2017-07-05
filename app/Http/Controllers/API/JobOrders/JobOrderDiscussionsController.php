@@ -21,7 +21,7 @@ class JobOrderDiscussionsController extends Controller {
     public function createDiscussion(CreateDiscussionRequest $request, $jobOrderId)
     {
         $user = $request->user();
-        $input = $request->all();
+        $input = $request->only(['user_id', 'message']);
         $input['user_id'] = $user->id;
         $input['job_order_id'] = $jobOrderId;
 
