@@ -46,6 +46,7 @@
                             <th class="text-center">Size</th>
                             <th class="text-center">Quantity</th>
                             <th class="text-center">Other Details</th>
+                            <th class="text-center" width="150"> </th>
                         </tr>
                         </thead>
                         <tfoot>
@@ -66,30 +67,29 @@
                                 </tr>
                             </form>
                         </tfoot>
-                        <tbody id="tbody-offset">
+                        <tbody id="tbody_offset">
                         @foreach( $productionDatas as $productionData)
 
                             @if( $productionData->type == 'offset' )
                                 <tr id="offsetRow{{ $productionData->id }}">
                                     <td>
-                                        <span class="spanOffset{{ $productionData->id }} offsetDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
-                                        <textarea class="form-control hidden-not-important offsetInputs{{ $productionData->id }}" name="offset_description_edit{{ $productionData->id }}" id="offset_description_edit{{ $productionData->id }}" value="{!! $productionData->description  !!} " cols="20"
-                                                  rows="5">{!! $productionData->description !!} </textarea>
+                                        <span class="spanoffset{{ $productionData->id }} offsetDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
+                                        <input class="form-control hidden-not-important offsetInputs{{ $productionData->id }}" type="text" name="offset_description_edit{{ $productionData->id }}" id="offset_description_edit{{ $productionData->id }}" placeholder="description"  value="{!! $productionData->description  !!} "/>
                                     </td>
                                     <td>
-                                        <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanOffset{{ $productionData->id }} offsetVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
+                                        <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanoffset{{ $productionData->id }} offsetVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
                                         <input class="form-control file_upload offsetInputs{{ $productionData->id }}" style="display: none;" type="file" name="offset_file_edit{{ $productionData->id }}" id="offset_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
                                     </td>
                                     <td>
-                                        <span class="spanOffset{{ $productionData->id }} offsetSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>
+                                        <span class="spanoffset{{ $productionData->id }} offsetSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>
                                         <input class="form-control hidden-not-important offsetInputs{{ $productionData->id }}" type="text" name="offset_size_edit{{ $productionData->id }}" id="offset_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>
                                     </td>
                                     <td>
-                                        <span class="spanOffset{{ $productionData->id }} offsetQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
+                                        <span class="spanoffset{{ $productionData->id }} offsetQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
                                         <input class="form-control hidden-not-important offsetInputs{{ $productionData->id }}" type="integer" name="offset_quantity_edit{{ $productionData->id }}" id="offset_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>
                                     </td>
                                     <td>
-                                        <span class="spanOffset{{ $productionData->id }} offsetDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
+                                        <span class="spanoffset{{ $productionData->id }} offsetDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
                                         <input class="form-control hidden-not-important offsetInputs{{ $productionData->id }}" type="text" name="offset_details_edit{{ $productionData->id }}" id="offset_details_edit{{ $productionData->id }}" placeholder="details" value="{{ $productionData->details }}"/>
                                     </td>
                                     <td>
@@ -99,7 +99,7 @@
                                         </div>
                                         <div id="col2">
                                             <button class="btn btn-danger glyphicon glyphicon-trash offsetTrash{{ $productionData->id }}" onclick="trashProduction( 'offset', {{ $productionData->id }} )" aria-hidden="true"></button>
-                                            <button class="btn btn-danger hidden-not-important offsetDelete{{ $productionData->id }}" aria-hidden="true">Delete</button>
+                                            <button class="btn btn-danger hidden-not-important offsetDelete{{ $productionData->id }}" onclick="deleteProduction('offset', {{ $productionData->id }})" aria-hidden="true">Delete</button>
                                         </div>
                                     </td>
                                 </tr>

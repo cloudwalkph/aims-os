@@ -60,11 +60,11 @@ class ProductionsController extends Controller
 
         $products = ProductionsItems::find($input['production_id']);
 
-        $products->description = $input['description'];
+        $products->description = nl2br( $input['description']);
         $products->visuals = $filename;
         $products->sizes = $input['sizes'];
         $products->qty = $input['qty'];
-        $products->details = $input['details'];
+        $products->details = nl2br( $input['details']);
         if( $products->save() ){
             return response()->json($products, 200);
         }else{
@@ -115,11 +115,11 @@ class ProductionsController extends Controller
         $storeProductionsItems = new ProductionsItems();
         $storeProductionsItems->production_id = $prodId;
         $storeProductionsItems->type = $values['production_type'];
-        $storeProductionsItems->description = $values['description'];
+        $storeProductionsItems->description = nl2br($values['description']);
         $storeProductionsItems->visuals = $filename;
         $storeProductionsItems->sizes = $values['sizes'];
         $storeProductionsItems->qty = $values['qty'];
-        $storeProductionsItems->details = $values['details'];
+        $storeProductionsItems->details = nl2br($values['details']);
         if( $storeProductionsItems->save() ){
             return response()->json($storeProductionsItems, 200);
         }else{

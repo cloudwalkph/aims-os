@@ -103,31 +103,38 @@
                         </form>
                     </tfoot>
 
-                    <tbody>
+                    <tbody id="tbody_sticker">
                         @foreach( $productionDatas as $productionData)
 
                             @if( $productionData->type == 'sticker' )
                                 <tr id="stickerRow{{ $productionData->id }}">
                                     <td>
-                                        <span class="spanSticker{{ $productionData->id }} stickerDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
+                                        <span class="spansticker{{ $productionData->id }} stickerDescription{{ $productionData->id }}">{!! $productionData->description !!}</span>
                                         <textarea class="form-control hidden-not-important stickerInputs{{ $productionData->id }}" name="sticker_description_edit{{ $productionData->id }}" id="sticker_description_edit{{ $productionData->id }}" value="{!! $productionData->description  !!} " cols="20"
-                                                  rows="5">{!! $productionData->description !!} </textarea>
+                                                  rows="5">{{ $productionData->description }} </textarea>
                                     </td>
                                     <td>
-                                        <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanSticker{{ $productionData->id }} stickerVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
+                                        <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spansticker{{ $productionData->id }} stickerVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
                                         <input class="form-control file_upload stickerInputs{{ $productionData->id }}" style="display: none;" type="file" name="sticker_file_edit{{ $productionData->id }}" id="sticker_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
                                     </td>
                                     <td>
-                                        <span class="spanSticker{{ $productionData->id }} stickerSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>
+                                        <span class="spansticker{{ $productionData->id }} stickerSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>
                                         <input class="form-control hidden-not-important stickerInputs{{ $productionData->id }}" type="text" name="sticker_size_edit{{ $productionData->id }}" id="stcker_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>
                                     </td>
                                     <td>
-                                        <span class="spanSticker{{ $productionData->id }} stickerQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
+                                        <span class="spansticker{{ $productionData->id }} stickerQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
                                         <input class="form-control hidden-not-important stickerInputs{{ $productionData->id }}" type="integer" name="sticker_quantity_edit{{ $productionData->id }}" id="stcker_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>
                                     </td>
                                     <td>
-                                        <span class="spanSticker{{ $productionData->id }} stickerDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
-                                        <input class="form-control hidden-not-important stickerInputs{{ $productionData->id }}" type="text" name="sticker_details_edit{{ $productionData->id }}" id="stcker_details_edit{{ $productionData->id }}" placeholder="details" value="{{ $productionData->details }}"/>
+
+                                        <?php
+                                        $text = $productionData->details;
+                                        $breaks = array("<br />","<br>","<br/>");
+                                        $text = str_ireplace($breaks, "\r\n", $text);
+                                        ?>
+
+                                        <span class="spansticker{{ $productionData->id }} stickerDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
+                                        <input type="text" class="form-control hidden-not-important stickerInputs{{ $productionData->id }}" name="sticker_details_edit{{ $productionData->id }}" id="sticker_details_edit{{ $productionData->id }}" value="{{ $productionData->details }} " cols="20" rows="5" />
                                     </td>
                                     <td>
                                         <div id="col1">
@@ -136,7 +143,7 @@
                                         </div>
                                         <div id="col2">
                                             <button class="btn btn-danger glyphicon glyphicon-trash stickerTrash{{ $productionData->id }}" onclick="trashProduction( 'sticker', {{ $productionData->id }} )" aria-hidden="true"></button>
-                                            <button class="btn btn-danger hidden-not-important stickerDelete{{ $productionData->id }}" aria-hidden="true">Delete</button>
+                                            <button class="btn btn-danger hidden-not-important stickerDelete{{ $productionData->id }}" onclick="deleteProduction('sticker', {{ $productionData->id }})" aria-hidden="true">Delete</button>
                                         </div>
                                     </td>
                                 </tr>
