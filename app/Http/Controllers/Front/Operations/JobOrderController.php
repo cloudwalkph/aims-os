@@ -202,4 +202,24 @@ class JobOrderController extends Controller
 
         return redirect()->back();
     }
+
+    public function uploadProjectAttachments(Request $request, $joId)
+    {
+        if (! $request->hasFile('file')) {
+            return redirect()->back();
+        }
+        $jo = JobOrder::where('id', $joId)->first();
+        $file = $request->file('file');
+        $filename = $jo->job_order_no.'-'.$file->getFilename().'.'.$file->extension();
+        // Move to storage
+        $path = $file->storeAs('project-attachments', $filename);
+        // Attachment data
+        $data = [
+            'job_order_id'      => $joId,
+            'file_name'         => $filename,
+            'reference_for'     => $request->get('reference_for')
+        ];
+        JobOrderProjectAttachment::create($data);
+        return redirect()->back();
+    }
 }
