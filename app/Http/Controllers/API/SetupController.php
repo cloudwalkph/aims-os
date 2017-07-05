@@ -80,7 +80,7 @@ class SetupController extends Controller
         
         $joManpower = JobOrderManpower::where('job_order_id', $joId)->where('manpower_type_id', 1)->first();
 
-        $manpowerNeeded = JobOrderSelectedManpower::where('job_order_id', $joId)->where('manpower_type_required',1)->get();
+        $manpowerNeeded = JobOrderSelectedManpower::where('job_order_id', $joId)->where('manpower_type_required',1)->where('buffer',0)->get();
         if($joManpower->manpower_needed <= count($manpowerNeeded))
         {
             $data['buffer'] = 1;

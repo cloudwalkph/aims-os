@@ -361,6 +361,7 @@
 				this.$http.post(url,data).then(response => {
 					
 					this.$refs.Vuetable_selected_setup.refresh();		
+					this.$refs.Vuetable_setup_list.refresh();		
 					toastr.success(data.first_name + ' Added to selected setup', 'Success');
 				}, error => {
 				
@@ -383,7 +384,17 @@
 		},
 		events: {
 			'remove-selected' (data) {
-				console.log(data);
+				
+				let url = `/api/v1/hr/selected-manpower/${data.manpower.id}/${$('#jobOrderId').val()}`; // params selected id and joborder id
+                
+                this.$http.delete(url).then(response => {
+                    this.$refs.Vuetable_selected_setup.refresh();	
+                    this.$refs.Vuetable_setup_list.refresh();	
+
+                }, error => {
+                    console.log(error)
+                })
+
 			}
 		}
 	}
