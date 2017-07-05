@@ -14,6 +14,7 @@ use App\Models\JobOrderManpower;
 use App\Models\JobOrderMeal;
 use App\Models\JobOrderMom;
 use App\Models\JobOrderVehicle;
+use App\Repositories\Validate\JobOrdersRepository;
 use App\Traits\FilterTrait;
 use App\Traits\NotificationTrait;
 use Carbon\Carbon;
@@ -21,6 +22,27 @@ use Illuminate\Http\Request;
 
 class JobOrdersController extends Controller {
     use FilterTrait, NotificationTrait;
+
+    protected $jobOrder;
+
+    public function __construct(JobOrdersRepository $jobOrder)
+    {
+        $this->jobOrder = $jobOrder;
+    }
+
+    public function getAll(Request $request)
+    {
+        $user = $request->user();
+
+        $jos = null;
+        switch ($user->department->slug) {
+            case 'ae':
+                $jos = $this->jobOrder->getAccountsJobOrders($user);
+                break;
+        }
+
+        return response()->json($jos, 200);
+    }
 
     public function all(Request $request)
     {
