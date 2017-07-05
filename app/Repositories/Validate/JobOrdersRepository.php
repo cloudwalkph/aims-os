@@ -63,8 +63,9 @@ class JobOrdersRepository {
                 continue;
             }
 
-            $jobOrder['start_date'] = Carbon::createFromTimestamp(strtotime($schedules[0]->jo_datetime))->toDateString();
-            $jobOrder['end_date'] = Carbon::createFromTimestamp(strtotime($schedules[$schedules->count() - 1]->jo_datetime))->toDateString();
+            $startDate = Carbon::createFromTimestamp(strtotime($schedules[0]->jo_datetime));
+            $endDate = Carbon::createFromTimestamp(strtotime($schedules[$schedules->count() - 1]->jo_datetime));
+            $today = Carbon::today('Asia/Manila');
 
             // Check if the post event is already done, don't include anymore
             $postEvent = Carbon::createFromTimestamp(strtotime($schedules[$schedules->count() - 1]->jo_datetime))->addDays(2);
@@ -73,20 +74,23 @@ class JobOrdersRepository {
             }
 
             $preEvent = Carbon::createFromTimestamp(strtotime($schedules[0]->jo_datetime))->subDays(2);
-
-            $preEvent = $preEvent->isFuture() ? 'active' : 'inactive';
-            $postEvent = $postEvent->isFuture() ? 'active' : 'inactive';
+//return $startDate->diffInDays($today, false);
+            $preEvent = $preEvent->isPast() && $startDate->diffInDays($today, false) < 0  ? 'active' : 'inactive';
+            $postEvent = $postEvent->isFuture() && $endDate->diffInDays($today, false)  > 0  ? 'active' : 'inactive';
 
             $eventProper = [];
             foreach ($schedules as $schedule) {
                 $day = Carbon::createFromTimestamp(strtotime($schedule->jo_datetime));
-                if ($day->isToday() || $day->isFuture()) {
+                if ($day->isToday()) {
                     $eventProper = 'active';
                     break;
                 }
 
                 $eventProper = 'inactive';
             }
+
+            $jobOrder['start_date'] = $startDate->toDateString();
+            $jobOrder['end_date'] = $endDate->toDateString();
 
             // Store into the return array
             $jobOrder['pre_event'] = $preEvent;
