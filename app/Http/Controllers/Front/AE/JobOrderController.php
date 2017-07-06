@@ -259,7 +259,7 @@ class JobOrderController extends Controller
 
     public function discussions($joNumber)
     {
-        config(['app.name' => 'Project Attachments | AIMS']);
+        config(['app.name' => 'Discussions | AIMS']);
 
         $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNumber)->first();
 

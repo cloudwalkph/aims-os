@@ -63,8 +63,8 @@ class NewDiscussion implements ShouldBroadcast
      *
      * @return string
      */
-    public function broadcastAs()
-    {
-        return 'new.message';
-    }
+//    public function broadcastAs()
+//    {
+//        return 'new.message';
+//    }
 }
