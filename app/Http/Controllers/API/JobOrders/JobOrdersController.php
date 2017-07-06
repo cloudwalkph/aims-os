@@ -107,12 +107,12 @@ class JobOrdersController extends Controller {
         }
 
         if ($user->department->slug === "ae") {
-            $query->where('user_id', $user->id);
+            $query->where('job_orders.user_id', $user->id);
         }
 
         // Count per page
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
-\Log::info($query->toSql());
+
         // Get the data
         $jobOrders = $query->paginate($perPage);
 
