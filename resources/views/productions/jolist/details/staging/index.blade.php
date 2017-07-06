@@ -12,6 +12,7 @@
                         <th class="text-center">Visual peg per file and size</th>
                         <th class="text-center">Quantity</th>
                         <th class="text-center">Other details</th>
+                        <th class="text-center" width="150"> </th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -49,18 +50,18 @@
                             </tr>
                         </form>
                     </tfoot>
-                    <tbody>
+                    <tbody id="tbody_staging">
                     @foreach( $productionDatas as $productionData)
 
                         @if( $productionData->type == 'staging' )
                             <tr id="stagingRow{{ $productionData->id }}">
                                 <td>
-                                    <span class="spanStaging{{ $productionData->id }} stagingDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
-                                        <textarea class="form-control hidden-not-important stagingInputs{{ $productionData->id }}" name="staging_description_edit{{ $productionData->id }}" id="staging_description_edit{{ $productionData->id }}" value="{!! $productionData->description  !!} " cols="20"
-                                                  rows="5">{!! $productionData->description !!} </textarea>
+                                    <span class="spanstaging{{ $productionData->id }} stagingDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
+                                    <input class="form-control hidden-not-important stagingInputs{{ $productionData->id }}" type="integer" name="staging_description_edit{{ $productionData->id }}" id="staging_description_edit{{ $productionData->id }}" value="{{ $productionData->description }}"/>
+
                                 </td>
                                 <td>
-                                    <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanStaging{{ $productionData->id }} stagingVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
+                                    <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanstaging{{ $productionData->id }} stagingVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
                                     <input class="form-control file_upload stagingInputs{{ $productionData->id }}" style="display: none;" type="file" name="staging_file_edit{{ $productionData->id }}" id="staging_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
                                 </td>
                                 {{--<td>--}}
@@ -68,11 +69,11 @@
                                 {{--<input class="form-control hidden-not-important boothInputs{{ $productionData->id }}" type="text" name="booth_size_edit{{ $productionData->id }}" id="booth_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>--}}
                                 {{--</td>--}}
                                 <td>
-                                    <span class="spanStaging{{ $productionData->id }} stagingQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
+                                    <span class="spanstaging{{ $productionData->id }} stagingQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
                                     <input class="form-control hidden-not-important stagingInputs{{ $productionData->id }}" type="integer" name="staging_quantity_edit{{ $productionData->id }}" id="staging_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>
                                 </td>
-                                <td>
-                                    <span class="spanStaging{{ $productionData->id }} stagingDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
+                                <td id="event_staging_details{{ $productionData->id }}">
+                                    <span class="spanstaging{{ $productionData->id }} stagingDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
                                     <input class="form-control hidden-not-important stagingInputs{{ $productionData->id }}" type="text" name="staging_details_edit{{ $productionData->id }}" id="staging_details_edit{{ $productionData->id }}" placeholder="details" value="{{ $productionData->details }}"/>
                                 </td>
                                 <td>

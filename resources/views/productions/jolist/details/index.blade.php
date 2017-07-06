@@ -281,6 +281,11 @@
                         code = '<tr id="'+data.type+'Row'+data.id+'"><td><span class="span'+data.type+data.id+' '+data.type+'Description'+data.id+'">'+data.description+'</span><input type="text" class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" name="'+data.type+'_description_edit'+data.id+'" id="'+data.type+'_description_edit'+data.id+'" value="'+data.description+'" /></td><td><a href="productions/'+data.visuals+'" class="span'+data.type+data.id+' '+data.type+'Visuals'+data.id+'" target="_blank">'+data.visuals+'</a><input class="form-control file_upload '+data.type+'Inputs'+data.id+'" style="display:none" type="file" name="'+data.type+'_file_edit'+data.id+'" id="'+data.type+'_file_edit'+data.id+'" value="productions/'+data.visuals+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Qty'+data.id+'">'+data.qty+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="integer" name="'+data.type+'_quantity_edit'+data.id+'" id="tarp_quantity_edit'+data.id+'" placeholder="quantity" value="'+data.qty+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Details'+data.id+'">'+data.details+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="text" name="'+data.type+'_details_edit'+data.id+'" id="tarp_details_edit'+data.id+'" placeholder="details" value="'+nl2br(data.details)+'"/></td><td><div id="col1"><button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important '+data.type+'Update'+data.id+'" onclick="updateProduction(\''+data.type+'\','+data.id+')" aria-hidden="true"></button><button class="btn glyphicon glyphicon-edit '+data.type+'Edit'+data.id+'" aria-hidden="true" onclick="editProduction(\''+data.type+'\','+data.id+')"></button></div><div id="col2"><button class="btn btn-danger glyphicon glyphicon-trash '+data.type+'Trash'+data.id+'" onclick="trashProduction(\''+data.type+'\','+data.id+')" aria-hidden="true"></button><button class="btn btn-danger hidden-not-important '+data.type+'Delete'+data.id+'" onclick="deleteProduction(\''+data.type+'\', '+data.id+')" aria-hidden="true">Delete</button></div></td></tr>';
                         return false
                     });
+                }else if( prodType == 'staging' ){
+                    $.each(res, function(i, data){
+                        code = '<tr id="'+data.type+'Row'+data.id+'"><td><span class="span'+data.type+data.id+' '+data.type+'Description'+data.id+'">'+data.description+'</span><select class="form-control  hidden-not-important '+data.type+'Inputs'+data.id+'" name="'+data.type+'_description_edit'+data.id+'" id="'+data.type+'_description_edit'+data.id+'" onchange="loadStagingInputsForEdit( this.value, '+data.id+' )"> <option value="none">Select...</option> <option value="led">LED</option> <option value="stage">Stage</option> <option value="tents">Tents</option> <option value="iwata">Iwata Fans</option> <option value="clothes">Black / Blue Clothes</option> <option value="wire">Wire Clips</option> <option value="sound">Sound System</option> <option value="microphones">Microphones</option> <option value="tables">Tables</option> <option value="accordions">Accordions</option> <option value="others">Others</option> </select></td><td><a href="productions/'+data.visuals+'" class="span'+data.type+data.id+' '+data.type+'Visuals'+data.id+'" target="_blank">'+data.visuals+'</a><input class="form-control file_upload '+data.type+'Inputs'+data.id+'" style="display:none" type="file" name="'+data.type+'_file_edit'+data.id+'" id="'+data.type+'_file_edit'+data.id+'" value="productions/'+data.visuals+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Qty'+data.id+'">'+data.qty+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="integer" name="'+data.type+'_quantity_edit'+data.id+'" id="tarp_quantity_edit'+data.id+'" placeholder="quantity" value="'+data.qty+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Details'+data.id+'">'+data.details+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="text" name="'+data.type+'_details_edit'+data.id+'" id="tarp_details_edit'+data.id+'" placeholder="details" value="'+data.details+'"/></td><td><div id="col1"><button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important '+data.type+'Update'+data.id+'" onclick="updateProduction(\''+data.type+'\','+data.id+')" aria-hidden="true"></button><button class="btn glyphicon glyphicon-edit '+data.type+'Edit'+data.id+'" aria-hidden="true" onclick="editProduction(\''+data.type+'\','+data.id+')"></button></div><div id="col2"><button class="btn btn-danger glyphicon glyphicon-trash '+data.type+'Trash'+data.id+'" onclick="trashProduction(\''+data.type+'\','+data.id+')" aria-hidden="true"></button><button class="btn btn-danger hidden-not-important '+data.type+'Delete'+data.id+'" onclick="deleteProduction(\''+data.type+'\', '+data.id+')" aria-hidden="true">Delete</button></div></td></tr>';
+                        return false
+                    });
                 }
 
                 $('tbody#tbody_'+prodType).prepend(code);
@@ -302,6 +307,7 @@
             $('td#event_staging_details').empty();
 
             var stagingContent = '';
+
             if( elet == 'led' ){
                 stagingContent = '<div class="row">\n<div class="col-xs-4">\nElevation Trussing :\n</div>\n<div class="col-xs-8">\n<input class="form-control" type="text" name="staging_elevation" id="staging_elevation">\n</div>\n</div>\n<div class="row">\n<div class="col-xs-4">\nHanged Trusses :\n</div>\n<div class="col-xs-8">\n<input class="form-control" type="text" name="staging_hanged" id="staging_hanged">\n</div>\n</div>\n<div class="row">\n<div class="col-xs-4">\nOthers :\n</div>\n<div class="col-xs-8">\n<input class="form-control" type="text" name="staging_others" id="staging_others">\n</div>\n</div>';
             }else if( elet == 'stage' ){
@@ -322,6 +328,35 @@
 
             $('td#event_staging_details').append(stagingContent);
         }
+
+        function loadStagingInputsForEdit(elet, productType, productID) {
+            stagingFormType = elet;
+
+            $('td#event_staging_details'+productID).empty();
+
+            var stagingContent = '';
+
+
+            if( elet == 'led' ){
+                stagingContent = '<div class="row"><div class="col-xs-4">Elevation Trussing :</div><div class="col-xs-8"><input class="form-control" type="text" name="staging_elevation'+productID+''+productID+'" id="staging_elevation'+productID+'"></div></div><div class="row"><div class="col-xs-4">Hanged Trusses :</div><div class="col-xs-8"><input class="form-control" type="text" name="staging_hanged'+productID+'" id="staging_hanged'+productID+'"></div></div><div class="row"><div class="col-xs-4">Others :</div><div class="col-xs-8"><input class="form-control" type="text" name="staging_others'+productID+'" id="staging_others'+productID+'"></div></div>';
+            }else if( elet == 'stage' ){
+                stagingContent = '<div class="row"><div class="col-xs-12">With Roofing :</div><div class="col-xs-12"><ul class="list-inline"><li><label for="roofingY"><input id="roofingY'+productID+'" type="radio" name="roofing'+productID+'" value="Yes"> Yes</label></li><li><label for="roofingN"><input id="roofingN'+productID+'" type="radio" name="roofing'+productID+'" value="NO"> No</label></li></ul></div><div class="col-xs-12">Trusses :</div><div class="col-xs-12"><ul class="list-inline"><li><label for="trussesY"><input id="trussesY'+productID+'" type="radio" name="trusses'+productID+'"> Yes</label></li><li><label for="roofingN"><input id="trussesN'+productID+'" type="radio" name="trusses'+productID+'"> No</label></li></ul></div><div class="col-xs-4">Materials to be used :</div><div class="col-xs-8"><input class="form-control" type="text" name="staging_details'+productID+'" id="staging_details'+productID+'"></div></div>';
+            }else if( elet == 'tents' ){
+                stagingContent = '<div class="row"><div class="col-xs-12">With Aircon :</div><div class="col-xs-12"><ul class="list-inline"><li><label for="airconY"><input id="airconY'+productID+'" type="radio" name="aircon'+productID+'"> Yes</label></li><li><label for="roofingN"><input id="airconN'+productID+'" type="radio" name="aircon'+productID+'"> No</label></li></ul></div><div class="col-xs-3">Supplier :</div><div class="col-xs-9"><input class="form-control" type="text" name="staging_details'+productID+'" id="staging_details'+productID+'"></div></div>';
+            }else if( elet == 'iwata' ){
+                stagingContent = '<div class="row"><div class="col-xs-3">Supplier :</div><div class="col-xs-9"><input class="form-control" type="text" name="staging_details'+productID+'" id="staging_details'+productID+'"></div></div>';
+            }else if( elet == 'sound' ){
+                stagingContent = '<div class="row"><div class="col-xs-12"><label for="table_selection"><input type="radio" name="staging_sounds'+productID+'" id="table_selection'+productID+'" value="internal"> Internal</label></div><div class="col-xs-12"><label for="table_selection1"><input type="radio" name="staging_sounds'+productID+'" id="table_selection1'+productID+'" value="external or rental"> External or Rental</label></div><div class="col-xs-6">Supplier :</div><div class="col-xs-6"><input class="form-control" type="text" name="staging_details'+productID+'" id="staging_details'+productID+'"></div></div>';
+            }else if( elet == 'microphones' ){
+                stagingContent = '<div class="row"><div class="col-xs-12 text-center">INTERNAL</div></div><div class="row"><div class="col-xs-4"><label for="wireless"><input type="checkbox" id="wireless'+productID+'" name="staging_wireless'+productID+'"> Wireless</label></div><div class="col-xs-4"><label for="wired"><input type="checkbox" id="wired'+productID+'" name="staging_wired'+productID+'"> Wired</label></div><div class="col-xs-4"><label for="mic_stand"><input type="checkbox" id="mic_stand'+productID+'" name="staging_micstand'+productID+'"> Mic Stand</label></div></div><div class="row"><div class="col-xs-1">QTY</div><div class="col-xs-3"><input type="text" class="form-control" name="qty_wireless'+productID+'" id="qty_wireless'+productID+'"></div><div class="col-xs-1">QTY</div><div class="col-xs-3"><input type="text" class="form-control" name="qty_wired'+productID+'" id="qty_wired'+productID+'"></div><div class="col-xs-1">QTY</div><div class="col-xs-3"><input type="text" class="form-control" name="qty_mic_stand'+productID+'" id="qty_mic_stand'+productID+'"></div></div><hr><div class="row"><div class="col-xs-12">EXTERNAL OR RENTAL</div><div class="col-xs-6"><label for="e-wireless"><input type="checkbox" name="ex_wireless'+productID+'" id="e-wireless'+productID+'"> Wireless</label></div><div class="col-xs-6"><label for="e-wired"><input type="checkbox" name="ex_wired'+productID+'" id="e-wired'+productID+'"> Wired</label></div><div class="col-xs-2">QTY :</div><div class="col-xs-4"><input type="text" class="form-control" name="ex_qty_wireless'+productID+'" id="ex_qty_mic_stand_wireless'+productID+'"></div><div class="col-xs-2">QTY :</div><div class="col-xs-4"><input type="text" class="form-control" name="ex_qty_wired'+productID+'" id="ex_qty_mic_stand_wired'+productID+'"></div></div>';
+            }else if( elet == 'tables' ){
+                stagingContent = '<div class="row"><div class="col-xs-12"><label for="t-internal"><input type="radio" id="t-internal'+productID+'" name="staging_tables'+productID+'"> Internal</label></div><div class="col-xs-12"><label for="t-external"><input type="radio" id="t-external'+productID+'" name="staging_tables'+productID+'"> External</label></div><div class="col-xs-3">Supplier :</div><div class="col-xs-9"><input class="form-control" type="text" name="staging_details'+productID+'" id="staging_details'+productID+'"></div></div>';
+            }else{
+                stagingContent = '<div class="row"><div class="col-xs-12"><input class="form-control" type="text" name="staging_details'+productID+'" id="staging_details'+productID+'"></div></div>';
+            }
+
+            $('td#event_staging_details'+productID).append(stagingContent);
+        }
         
         function editProduction(productionType, productionID) {
             $('.' + productionType + 'Update' + productionID).show();
@@ -330,7 +365,7 @@
             $('.'+productionType+'Inputs' + productionID).removeClass('hidden-not-important');
             $('#'+productionType+'_file_edit'+ productionID).css('display','block');
 
-            if( productionType == 'tarpaulin' ){
+            if( productionType == 'tarpaulin' || productionType == 'staging' ){
                 $('#'+productionType+'_description_edit' + productionID + ' option:selected').text( $('.'+productionType+'Description' + productionID).text() );
             }else {
                 $('#'+productionType+'_description_edit' + productionID ).text( $('.'+productionType+'Description' + productionID).text() );
@@ -357,7 +392,7 @@
             }
 
             if( (description.trim() == '') || (description.trim() == null) ){
-                console.log('null');
+//                console.log('null');
                 return;
             }
 
@@ -375,11 +410,6 @@
             let url = `/api/v1/productions/${jobOrderId}/details/update/`;
             axios.post(url, form).then(function(res) {
                 var code = '';
-//                $.each(res, function(i, data){
-//                    code = '<tr id="'+data.type+'Row'+data.id+'"><td><span class="span'+data.type+data.id+' '+data.type+'Description'+data.id+'">'+data.description+'</span><select class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" name="'+data.type+'_description_edit'+data.id+'" id="'+data.type+'_description_edit'+data.id+'" value="'+data.description+'"><option value="">Select...</option><option value="'+data.type+'">'+data.type+' Tent Headers</option><option value="barricade">Barricade and Streamers</option><option value="boards">A Boards</option></select></td><td><a href="productions/'+data.visuals+'" class="span'+data.type+data.id+' '+data.type+'Visuals'+data.id+'" target="_blank">'+data.visuals+'</a><input class="form-control file_upload '+data.type+'Inputs'+data.id+'" style="display:none" type="file" name="'+data.type+'_file_edit'+data.id+'" id="'+data.type+'_file_edit'+data.id+'" value="productions/'+data.visuals+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Sizes'+data.id+'">'+data.sizes+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="text" name="'+data.type+'_size_edit'+data.id+'" id="tarp_size_edit'+data.id+'" placeholder="size" value="'+data.sizes+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Qty'+data.id+'">'+data.qty+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="integer" name="'+data.type+'_quantity_edit'+data.id+'" id="tarp_quantity_edit'+data.id+'" placeholder="quantity" value="'+data.qty+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Details'+data.id+'">'+data.details+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="text" name="'+data.type+'_details_edit'+data.id+'" id="tarp_details_edit'+data.id+'" placeholder="details" value="'+data.details+'"/></td><td><div id="col1"><button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important '+data.type+'Update'+data.id+'" onclick="updateProduction(\''+data.type+'\','+data.id+')" aria-hidden="true"></button><button class="btn glyphicon glyphicon-edit '+data.type+'Edit'+data.id+'" aria-hidden="true" onclick="editProduction(\''+data.type+'\','+data.id+')"></button></div><div id="col2"><button class="btn btn-danger glyphicon glyphicon-trash '+data.type+'Trash'+data.id+'" onclick="trashProduction(\''+data.type+'\','+data.id+')" aria-hidden="true"></button><button class="btn btn-danger hidden-not-important '+data.type+'Delete'+data.id+'" onclick="deleteProduction(\''+data.type+'\','+data.id+' )" aria-hidden="true">Delete</button></div></td></tr>';
-//                    $('#'+data.type+'Row'+data.id).replaceWith(code);
-//                    return false
-//                });
 
                 if( productionType == 'tarpaulin' ){
                     $.each(res, function(i, data){
@@ -405,8 +435,13 @@
                         $('#'+data.type+'Row'+data.id).replaceWith(code);
                         return false
                     });
+                }else if( productionType == 'staging' ){
+                    $.each(res, function(i, data){
+                        code = '<tr id="'+data.type+'Row'+data.id+'"><td><span class="span'+data.type+data.id+' '+data.type+'Description'+data.id+'">'+data.description+'</span><input type="text" class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" name="'+data.type+'_description_edit'+data.id+'" id="'+data.type+'_description_edit'+data.id+'" value="'+data.description+'" /></td><td><a href="productions/'+data.visuals+'" class="span'+data.type+data.id+' '+data.type+'Visuals'+data.id+'" target="_blank">'+data.visuals+'</a><input class="form-control file_upload '+data.type+'Inputs'+data.id+'" style="display:none" type="file" name="'+data.type+'_file_edit'+data.id+'" id="'+data.type+'_file_edit'+data.id+'" value="productions/'+data.visuals+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Qty'+data.id+'">'+data.qty+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="integer" name="'+data.type+'_quantity_edit'+data.id+'" id="tarp_quantity_edit'+data.id+'" placeholder="quantity" value="'+data.qty+'"/></td><td><span class="span'+data.type+data.id+' '+data.type+'Details'+data.id+'">'+data.details+'</span><input class="form-control hidden-not-important '+data.type+'Inputs'+data.id+'" type="text" name="'+data.type+'_details_edit'+data.id+'" id="tarp_details_edit'+data.id+'" placeholder="details" value="'+data.details+'"/></td><td><div id="col1"><button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important '+data.type+'Update'+data.id+'" onclick="updateProduction(\''+data.type+'\','+data.id+')" aria-hidden="true"></button><button class="btn glyphicon glyphicon-edit '+data.type+'Edit'+data.id+'" aria-hidden="true" onclick="editProduction(\''+data.type+'\','+data.id+')"></button></div><div id="col2"><button class="btn btn-danger glyphicon glyphicon-trash '+data.type+'Trash'+data.id+'" onclick="trashProduction(\''+data.type+'\','+data.id+')" aria-hidden="true"></button><button class="btn btn-danger hidden-not-important '+data.type+'Delete'+data.id+'" onclick="deleteProduction(\''+data.type+'\', '+data.id+')" aria-hidden="true">Delete</button></div></td></tr>';
+                        $('#'+data.type+'Row'+data.id).replaceWith(code);
+                        return false
+                    });
                 }
-
 
                 toastr.success('Successfully saved event details', 'Success')
             }).catch(function(error) {
