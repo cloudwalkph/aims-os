@@ -15,6 +15,7 @@ use App\Models\JobOrderMeal;
 use App\Models\JobOrderMom;
 use App\Models\JobOrderProjectAttachment;
 use App\Models\JobOrderSchedule;
+use App\Models\JobOrderSelectedVenue;
 use App\Models\JobOrderVehicle;
 use App\Models\ManpowerType;
 use App\Models\MealType;
@@ -132,7 +133,12 @@ class JobOrderController extends Controller
 
         $aes = JobOrderAddUser::where('job_order_id', $jo->id)->get();
 
-        $venues = Venue::all();
+        $selectedVenues = JobOrderSelectedVenue::where('job_order_id', $jo->id)->get();
+        $venueIds = [];
+        foreach ($selectedVenues as $venue) {
+            $venueIds[] = $venue->id;
+        }
+        $venues = Venue::whereIn('id', $venueIds)->get();
 
         $schedules = JobOrderSchedule::where('job_order_id', $jo->id)
             ->get();
