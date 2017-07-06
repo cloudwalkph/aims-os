@@ -253,5 +253,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API', 'middleware'  => 'api'], f
         Route::post('/{JoId}/details', 'ProductionsController@save_details');
         Route::post('/{JoId}/details/update', 'ProductionsController@update_details');
         Route::post('/{JoId}/details/delete', 'ProductionsController@delete_details');
+
+        Route::group(['prefix' => 'costing'], function() {
+            Route::post('/save', 'ProductionsController@save_costing');
+            Route::post('/delete', 'ProductionsController@delete_costing');
+        });
     });
 });

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\JobOrder;
 use App\Models\Productions;
 use App\Models\ProductionsItems;
+use App\Models\ProductionSuppliers;
 
 class ProductionsController extends Controller
 {
@@ -131,6 +132,34 @@ class ProductionsController extends Controller
 
         $input = $request->all();
         $production = ProductionsItems::find($input['production_id']);
+
+        $production->delete();
+    }
+
+    public function save_costing( Request $request ){
+
+        $input = $request->all();
+
+//        dd($input['job_order_no']);
+
+        $storeProductionSuppliers = new ProductionSuppliers();
+        $storeProductionSuppliers->job_order_no    = $input['job_order_no'];
+        $storeProductionSuppliers->production_type = $input['production_type'];
+        $storeProductionSuppliers->company_name    = $input['company_name'];
+        $storeProductionSuppliers->point_person    = $input['point_person'];
+        $storeProductionSuppliers->contact         = $input['contact'];
+
+        if( $storeProductionSuppliers->save() ){
+            return response()->json($storeProductionSuppliers, 200);
+        }else{
+            return false;
+        }
+    }
+
+    public function delete_costing( Request $request ){
+
+        $input = $request->all();
+        $production = ProductionSuppliers::find($input['costing_id']);
 
         $production->delete();
     }
