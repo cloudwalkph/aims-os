@@ -20,7 +20,7 @@
         </div>
 
         <div class="row">
-            <div class="form-group">
+            <div class="col-md-12">
                 <div class="input-group">
                     <input type="text" class="comments form-control" id="discussionMessage"
                            @input="discussionMessageChanged"
