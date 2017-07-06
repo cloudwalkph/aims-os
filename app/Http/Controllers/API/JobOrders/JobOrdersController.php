@@ -107,7 +107,7 @@ class JobOrdersController extends Controller {
         }
 
         if ($user->department->slug === "ae") {
-            $query->getUserCreatedJOs($user['id']);
+            $query->where('user_id', $user->id);
         }
 
         // Count per page
