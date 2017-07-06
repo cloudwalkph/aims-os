@@ -9,7 +9,7 @@
                 <i class="fa fa-plus"></i> ADD
             </button>
             <div class="box-body">
-                <table class="table table-striped" border="1" id="tbl-booth">
+                <table class="table table-striped text-center" border="1" id="tbl-booth">
                     <thead>
                         <tr>
                             <th class="text-center">Description</th>
@@ -35,7 +35,7 @@
                             </td>
                         </tr>
                     </form>
-                    </tfoot>
+                     </tfoot>
                     <tbody id="tbody_booth">
                     @foreach( $productionDatas as $productionData)
 
