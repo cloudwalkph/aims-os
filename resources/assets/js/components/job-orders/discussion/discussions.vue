@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="messages">
+        <div class="messages" style="border: 1px solid #dbdbdb;">
             <ul id="comments-list" class="comments-list">
                 <li v-for="(discussion, index) in discussions" class="item">
                     <div class="comment-box">
@@ -19,19 +19,23 @@
             </ul>
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-bottom: 50px;">
             <div class="col-md-12">
                 <div class="input-group">
                     <input type="text" class="comments form-control" id="discussionMessage"
                            @input="discussionMessageChanged"
+                           @keyup.enter="createDiscussion"
                            :value="discussionMessage"
+                           style="height: 50px; font-size: 18px;"
                            placeholder="What are you working on?">
 
                     <span class="input-group-btn">
                     <button class="btn btn-default btn-block"
                             href="#contentBottom"
+                            id="createDiscussionButton"
+                            style="height: 50px; width: 150px;"
                             @click="createDiscussion"
-                            type="button"><i class="fa fa-send"></i></button>
+                            type="button"><i class="fa fa-send" style="font-size: 20px"></i></button>
                 </span>
                 </div>
             </div>
@@ -72,7 +76,8 @@
                 })
             },
             createDiscussion(e) {
-                $(e.target).prop('disabled', true);
+                e.preventDefault();
+                $('#createDiscussionButton').prop('disabled', true);
 
                 let jobOrderId = $('#jobOrderId').val();
                 let data = {
@@ -85,12 +90,13 @@
 //                    this.discussions = this.sortByTime(this.discussions);
 
                     toastr.success('Successfully posted a message', 'Success');
-                    $(e.target).prop('disabled', false);
+                    $('#createDiscussionButton').prop('disabled', false);
+                    $('#discussionMessage').val();
                     this.scrollToEnd();
                 }, error => {
                     toastr.error('Failed in posting a message', 'Error');
                     console.log(error);
-                    $(e.target).prop('disabled', false);
+                    $('#createDiscussionButton').prop('disabled', false);
                 })
             },
             scrollToEnd: function() {

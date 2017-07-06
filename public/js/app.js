@@ -50095,6 +50095,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50132,7 +50136,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         createDiscussion: function createDiscussion(e) {
             var _this2 = this;
 
-            $(e.target).prop('disabled', true);
+            e.preventDefault();
+            $('#createDiscussionButton').prop('disabled', true);
 
             var jobOrderId = $('#jobOrderId').val();
             var data = {
@@ -50145,12 +50150,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //                    this.discussions = this.sortByTime(this.discussions);
 
                 toastr.success('Successfully posted a message', 'Success');
-                $(e.target).prop('disabled', false);
+                $('#createDiscussionButton').prop('disabled', false);
+                $('#discussionMessage').val();
                 _this2.scrollToEnd();
             }, function (error) {
                 toastr.error('Failed in posting a message', 'Error');
                 console.log(error);
-                $(e.target).prop('disabled', false);
+                $('#createDiscussionButton').prop('disabled', false);
             });
         },
 
@@ -120630,7 +120636,10 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "messages"
+    staticClass: "messages",
+    staticStyle: {
+      "border": "1px solid #dbdbdb"
+    }
   }, [_c('ul', {
     staticClass: "comments-list",
     attrs: {
@@ -120655,13 +120664,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "contentBottom"
     }
   })], 2)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
+    staticClass: "row",
+    staticStyle: {
+      "margin-bottom": "50px"
+    }
   }, [_c('div', {
     staticClass: "col-md-12"
   }, [_c('div', {
     staticClass: "input-group"
   }, [_c('input', {
     staticClass: "comments form-control",
+    staticStyle: {
+      "height": "50px",
+      "font-size": "18px"
+    },
     attrs: {
       "type": "text",
       "id": "discussionMessage",
@@ -120671,21 +120687,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": _vm.discussionMessage
     },
     on: {
-      "input": _vm.discussionMessageChanged
+      "input": _vm.discussionMessageChanged,
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.createDiscussion($event)
+      }
     }
   }), _vm._v(" "), _c('span', {
     staticClass: "input-group-btn"
   }, [_c('button', {
     staticClass: "btn btn-default btn-block",
+    staticStyle: {
+      "height": "50px",
+      "width": "150px"
+    },
     attrs: {
       "href": "#contentBottom",
+      "id": "createDiscussionButton",
       "type": "button"
     },
     on: {
       "click": _vm.createDiscussion
     }
   }, [_c('i', {
-    staticClass: "fa fa-send"
+    staticClass: "fa fa-send",
+    staticStyle: {
+      "font-size": "20px"
+    }
   })])])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
