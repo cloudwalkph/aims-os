@@ -89,10 +89,6 @@ class JobOrdersController extends Controller {
             $query = JobOrder::orderBy('id', 'asc');
         }
 
-        if ($user->department->slug === "ae") {
-            $query->getUserCreatedJOs($user['id']);
-        }
-
         $query->join('job_order_clients', 'job_order_clients.job_order_id', '=', 'job_orders.id')
             ->join('clients', 'job_order_clients.client_id', '=', 'clients.id')
             ->join('user_profiles', 'user_profiles.user_id', '=', 'job_orders.user_id')
@@ -108,6 +104,10 @@ class JobOrdersController extends Controller {
         // Filter
         if ($request->has('filter')) {
             $this->filter($query, $request, JobOrder::$filterable);
+        }
+
+        if ($user->department->slug === "ae") {
+            $query->getUserCreatedJOs($user['id']);
         }
 
         // Count per page
