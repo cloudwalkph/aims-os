@@ -49,7 +49,7 @@ class JobOrdersController extends Controller {
         $user = $request->user();
 
         if ($user->department->slug === "ae") {
-            $jos = JobOrder::getUserCreatedJOs($user['id'])
+            $jos = JobOrder::where('user_id', $user->id)
                 ->get();
 
             return response()->json($jos, 200);
