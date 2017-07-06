@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <table id="tbl_staging" class="table table-striped" border="1">
+                <table id="tbl_staging" class="table table-striped text-center" border="1">
                     <thead>
                     <tr>
                         <th class="text-center">Description</th>

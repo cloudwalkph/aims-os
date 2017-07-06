@@ -85,7 +85,7 @@
                 <i class="fa fa-plus"></i> ADD
             </button>
             <div class="box-body">
-                <table class="table table-striped" border="1" id="tbl-photowall">
+                <table class="table table-striped text-center" border="1" id="tbl-photowall">
                     <thead>
                     <tr>
                         <th class="text-center">Description</th>

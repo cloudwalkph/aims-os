@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <table class="table table-striped" border="1" id="tbl-stickers">
+                <table class="table table-striped text-center" border="1" id="tbl-stickers">
                     <thead>
                         <tr>
                             <th class="text-center">Description</th>
@@ -93,7 +93,7 @@
                     </thead>
 
                     <tfoot>
-                        <form class="form_tarpaulin" method="POST" enctype="multipart/form-data">
+                        <form class="form_tarpaulin " method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <input type="hidden" name="production_sticker" value="sticker" />
                             <tr>

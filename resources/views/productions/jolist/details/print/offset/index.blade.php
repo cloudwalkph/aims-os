@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <table class="table table-striped" border="1" id="tbl-offset">
+                    <table class="table table-striped text-center" border="1" id="tbl-offset">
                         <thead>
                         <tr>
                             <th class="text-center">Description</th>

@@ -49548,50 +49548,13 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('v-select', __WEBPACK_IMPO
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
-/* 244 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {},
-
-    props: ['discussion']
-});
-
-/***/ }),
+/* 244 */,
 /* 245 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__discussion_item_vue__ = __webpack_require__(479);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__discussion_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__discussion_item_vue__);
+/* WEBPACK VAR INJECTION */(function($) {//
 //
 //
 //
@@ -49621,10 +49584,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
-
-Vue.component('discussion-item', __WEBPACK_IMPORTED_MODULE_0__discussion_item_vue___default.a);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -49635,6 +49610,8 @@ Vue.component('discussion-item', __WEBPACK_IMPORTED_MODULE_0__discussion_item_vu
     },
     mounted: function mounted() {
         this.getDiscussions();
+
+        this.listenForEcho();
     },
 
     methods: {
@@ -49652,6 +49629,7 @@ Vue.component('discussion-item', __WEBPACK_IMPORTED_MODULE_0__discussion_item_vu
             // the department id of ae == 7
             this.$http.get('/api/v1/job-orders/' + jobOrderId + '/discussions').then(function (response) {
                 _this.discussions = _this.sortByTime(response.data);
+                _this.scrollToEnd();
             }, function (error) {
                 console.log(error);
             });
@@ -49659,7 +49637,8 @@ Vue.component('discussion-item', __WEBPACK_IMPORTED_MODULE_0__discussion_item_vu
         createDiscussion: function createDiscussion(e) {
             var _this2 = this;
 
-            $(e.target).prop('disabled', true);
+            e.preventDefault();
+            $('#createDiscussionButton').prop('disabled', true);
 
             var jobOrderId = $('#jobOrderId').val();
             var data = {
@@ -49668,36 +49647,61 @@ Vue.component('discussion-item', __WEBPACK_IMPORTED_MODULE_0__discussion_item_vu
 
             var url = '/api/v1/job-orders/' + jobOrderId + '/discussions';
             this.$http.post(url, data).then(function (response) {
-                _this2.discussions.push(response.data);
-                _this2.discussions = _this2.sortByTime(_this2.discussions);
+                //                    this.discussions.push(response.data);
+                //                    this.discussions = this.sortByTime(this.discussions);
 
                 toastr.success('Successfully posted a message', 'Success');
-                $(e.target).prop('disabled', false);
+                $('#createDiscussionButton').prop('disabled', false);
+                $('#discussionMessage').val();
+                _this2.scrollToEnd();
             }, function (error) {
                 toastr.error('Failed in posting a message', 'Error');
                 console.log(error);
-                $(e.target).prop('disabled', false);
+                $('#createDiscussionButton').prop('disabled', false);
+            });
+        },
+
+        scrollToEnd: function scrollToEnd() {
+            var container = this.$el.querySelector(".messages");
+            container.scrollTop = container.scrollHeight;
+        },
+        listenForEcho: function listenForEcho() {
+            var _this3 = this;
+
+            var notifSound = new Audio('/sounds/notification.mp3');
+            var jobOrderId = $('#jobOrderId').val();
+
+            Echo.channel('jo.' + jobOrderId).listen('NewDiscussion', function (response) {
+                notifSound.play();
+                console.log(response);
+                _this3.discussions.push(response);
+
+                setTimeout(function () {
+                    _this3.scrollToEnd();
+                }, 4);
             });
         },
         sortByTime: function sortByTime(discussions) {
-            if (discussions.length > 1) {
-                var sorted = discussions.sort(function (a, b) {
-                    var key1 = new Date('1970/01/01 ' + a.created_at);
-                    var key2 = new Date('1970/01/01 ' + b.created_at);
-
-                    if (key1 < key2) {
-                        return -1;
-                    } else if (key1 == key2) {
-                        return 0;
-                    } else {
-                        return 1;
-                    }
-                });
-
-                return sorted;
-            } else {
-                return discussions;
-            }
+            //                if (discussions.length > 1) {
+            //                    let sorted = discussions.sort(
+            //                        (a, b)  => {
+            //                            let key1 = new Date('1970/01/01 ' + a.created_at);
+            //                            let key2 = new Date('1970/01/01 ' + b.created_at);
+            //
+            //                            if (key1 < key2) {
+            //                                return -1;
+            //                            } else if (key1 == key2) {
+            //                                return 0;
+            //                            } else {
+            //                                return 1;
+            //                            }
+            //                        }
+            //                )
+            //                    return sorted;
+            //                } else {
+            //                    return discussions;
+            //                }
+            return discussions;
         }
     }
 });
@@ -109953,40 +109957,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 479 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(244),
-  /* template */
-  __webpack_require__(550),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Users\\ROEL\\Documents\\GitHub\\aims-os\\resources\\assets\\js\\components\\job-orders\\discussion\\discussion-item.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] discussion-item.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0fa71b60", Component.options)
-  } else {
-    hotAPI.reload("data-v-0fa71b60", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 479 */,
 /* 480 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -113388,42 +113359,7 @@ if (false) {
 }
 
 /***/ }),
-/* 550 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "comments-container"
-  }, [_c('ul', {
-    staticClass: "comments-list",
-    attrs: {
-      "id": "comments-list"
-    }
-  }, [_c('li', [_c('div', {
-    staticClass: "comment-main-level"
-  }, [_c('div', {
-    staticClass: "comment-box"
-  }, [_c('div', {
-    staticClass: "comment-head"
-  }, [_c('h6', {
-    staticClass: "comment-name"
-  }, [_vm._v(_vm._s(_vm.discussion.user.profile.first_name) + " " + _vm._s(_vm.discussion.user.profile.last_name))]), _vm._v(" "), _c('h6', {
-    staticClass: "comment-date"
-  }, [_vm._v(_vm._s(_vm.discussion.created_at))])]), _vm._v(" "), _c('p', {
-    staticClass: "comment-content"
-  }, [_vm._v("\n                            " + _vm._s(_vm.discussion.message) + "\n                        ")])])])])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0fa71b60", module.exports)
-  }
-}
-
-/***/ }),
+/* 550 */,
 /* 551 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -121215,48 +121151,85 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "form-group"
-  }, [_c('div', {
-    staticClass: "col-sm-12"
-  }, [_c('textarea', {
-    staticClass: "comments",
+    staticClass: "messages",
     staticStyle: {
-      "width": "100%",
-      "height": "200px",
-      "font-size": "14px",
-      "line-height": "18px",
-      "border": "1px solid #dddddd",
-      "padding": "10px"
+      "border": "1px solid #dbdbdb"
+    }
+  }, [_c('ul', {
+    staticClass: "comments-list",
+    attrs: {
+      "id": "comments-list"
+    }
+  }, [_vm._l((_vm.discussions), function(discussion, index) {
+    return _c('li', {
+      staticClass: "item"
+    }, [_c('div', {
+      staticClass: "comment-box"
+    }, [_c('div', {
+      staticClass: "comment-head"
+    }, [_c('h6', {
+      staticClass: "comment-name"
+    }, [_vm._v(_vm._s(discussion.user.profile.first_name) + " " + _vm._s(discussion.user.profile.last_name))]), _vm._v(" "), _c('h6', {
+      staticClass: "comment-date"
+    }, [_vm._v(_vm._s(discussion.created_at))])]), _vm._v(" "), _c('p', {
+      staticClass: "comment-content"
+    }, [_vm._v("\n                        " + _vm._s(discussion.message) + "\n                    ")])])])
+  }), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "contentBottom"
+    }
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "margin-bottom": "50px"
+    }
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('input', {
+    staticClass: "comments form-control",
+    staticStyle: {
+      "height": "50px",
+      "font-size": "18px"
     },
     attrs: {
+      "type": "text",
       "id": "discussionMessage",
-      "placeholder": "Write a comment..."
+      "placeholder": "What are you working on?"
     },
     domProps: {
       "value": _vm.discussionMessage
     },
     on: {
-      "input": _vm.discussionMessageChanged
+      "input": _vm.discussionMessageChanged,
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.createDiscussion($event)
+      }
     }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-12"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-btn"
   }, [_c('button', {
-    staticClass: "btn btn-default pull-right",
+    staticClass: "btn btn-default btn-block",
+    staticStyle: {
+      "height": "50px",
+      "width": "150px"
+    },
     attrs: {
+      "href": "#contentBottom",
+      "id": "createDiscussionButton",
       "type": "button"
     },
     on: {
       "click": _vm.createDiscussion
     }
-  }, [_vm._v("Post")])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _vm._l((_vm.discussions), function(discussion, index) {
-    return _c('discussion-item', {
-      key: discussion.id,
-      attrs: {
-        "discussion": discussion,
-        "index": index
-      }
-    })
-  })], 2)
+  }, [_c('i', {
+    staticClass: "fa fa-send",
+    staticStyle: {
+      "font-size": "20px"
+    }
+  })])])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

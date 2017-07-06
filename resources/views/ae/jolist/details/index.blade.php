@@ -226,7 +226,7 @@
         </div>
 
         {{--<iframe src="/ae/jo/details/{{ $jo->id }}/meal" name="frameMeal" id="mealFrame" style="width: 0; height: 0"></iframe>--}}
-        <iframe src="#" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>
+        {{--<iframe src="#" name="frame" id="joFrame" style="width: 0; height: 0"></iframe>--}}
         {{--<iframe src="/ae/jo/details/{{ $jo->id }}/manpower" name="frameManpower" id="manpowerFrame" style="width: 0; height: 0"></iframe>--}}
         {{--<iframe src="/ae/jo/details/{{ $jo->id }}/vehicle" name="frameVehicle" id="vehicleFrame" style="width: 0; height: 0"></iframe>--}}
     </div>

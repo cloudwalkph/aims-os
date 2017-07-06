@@ -79,6 +79,8 @@ class JobOrdersController extends Controller {
      */
     public function index(Request $request)
     {
+        $user = $request->user();
+
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
@@ -104,9 +106,13 @@ class JobOrdersController extends Controller {
             $this->filter($query, $request, JobOrder::$filterable);
         }
 
+        if ($user->department->slug === "ae") {
+            $query->where('job_orders.user_id', $user->id);
+        }
+
         // Count per page
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
-\Log::info($query->toSql());
+
         // Get the data
         $jobOrders = $query->paginate($perPage);
 
