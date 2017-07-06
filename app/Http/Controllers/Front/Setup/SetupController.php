@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Front\Setup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JobOrder;
+use App\Models\ManpowerSchedules;
+use App\Models\JobOrderSelectedManpower;
+use App\Models\Venue;
+use App\Models\JobOrderManpowerEvent;
+use App\Models\JobOrderDetail;
 
 class SetupController extends Controller
 {
@@ -56,5 +61,34 @@ class SetupController extends Controller
         
         return view('setup.Final.index')
                 ->with('jo', $jo);
+    }
+
+    public function previewFinalDeployment($joNumber) {
+        config(['app.name' => 'Human Resources | AIMS']);
+        
+        $jo = JobOrder::where('job_order_no', $joNumber)->with('user.profile')->first();
+
+        $data = [];
+        $manpowerSched = ManpowerSchedules::where('job_order_id', $jo->id)->get();
+
+        foreach($manpowerSched as $sched)
+        {
+            $venue = Venue::where('id',$sched->venue_id)->first();
+            if(!$venue)
+            {
+                $venue = (object) ['venue' => 'TBA'];
+            }
+            if($sched->type == 'briefingSched')
+            {
+                $sched['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerAssignType.manpowerType')->with('venue')->where('job_order_id', $jo->id)->where('venue_id',$sched->venue_id)->get();
+                $data['briefing'][$venue->venue][] = $sched;
+                // $return['briefing'][$venue->venue]['manpower_list'] = JobOrderSelectedManpower::with('manpower.manpowerType')->where('job_order_id', $jo->id)->where('venue_id',$venue->id)->get(); 
+                // $return['briefing'][$venue->venue]['schedule'] = $sched;
+            }
+        }
+        // \Log::info($return['briefing']);
+        return view('setup.Print.final_deployment', compact('jo','data'));
+                // ->with('jo', $jo)
+                // ->with('data', $data);
     }
 }

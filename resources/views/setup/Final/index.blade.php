@@ -9,5 +9,6 @@
 	        <view-final-jo></view-final-jo>
 	        
         </div>
+        <iframe name="finalDeploymentFrameSetup" id="finalDepFrameIdSetup" src="/setup/finalDeployment/{{$jo['job_order_no']}}" style="width:0;height:0"></iframe>
     </div>
 @endsection
