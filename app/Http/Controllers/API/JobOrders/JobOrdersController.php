@@ -49,7 +49,7 @@ class JobOrdersController extends Controller {
         $user = $request->user();
 
         if ($user->department->slug === "ae") {
-            $jos = JobOrder::where('user_id', $user->id)
+            $jos = JobOrder::getUserCreatedJOs($user['id'])
                 ->get();
 
             return response()->json($jos, 200);
@@ -79,12 +79,18 @@ class JobOrdersController extends Controller {
      */
     public function index(Request $request)
     {
+        $user = $request->user();
+
         // Sort
         if ($request->has('sort')) {
             list($sortCol, $sortDir) = explode('|', $request->get('sort'));
             $query = JobOrder::orderBy($sortCol, $sortDir);
         } else {
             $query = JobOrder::orderBy('id', 'asc');
+        }
+
+        if ($user->department->slug === "ae") {
+            $query->getUserCreatedJOs($user['id']);
         }
 
         $query->join('job_order_clients', 'job_order_clients.job_order_id', '=', 'job_orders.id')
