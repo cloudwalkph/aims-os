@@ -120657,7 +120657,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 2)]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "form-group"
+    staticClass: "col-md-12"
   }, [_c('div', {
     staticClass: "input-group"
   }, [_c('input', {
