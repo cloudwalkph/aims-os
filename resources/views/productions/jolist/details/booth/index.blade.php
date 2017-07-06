@@ -16,6 +16,7 @@
                             <th class="text-center">Visual Peg per File and Size</th>
                             <th class="text-center">Quantity</th>
                             <th class="text-center">Materials to be used and other details</th>
+                            <th class="text-center" width="150"> </th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -35,18 +36,17 @@
                         </tr>
                     </form>
                     </tfoot>
-                    <tbody>
+                    <tbody id="tbody_booth">
                     @foreach( $productionDatas as $productionData)
 
                         @if( $productionData->type == 'booth' )
                             <tr id="boothRow{{ $productionData->id }}">
                                 <td>
-                                    <span class="spanBooth{{ $productionData->id }} boothDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
-                                        <textarea class="form-control hidden-not-important boothInputs{{ $productionData->id }}" name="booth_description_edit{{ $productionData->id }}" id="booth_description_edit{{ $productionData->id }}" value="{!! $productionData->description  !!} " cols="20"
-                                                  rows="5">{!! $productionData->description !!} </textarea>
+                                    <span class="spanbooth{{ $productionData->id }} boothDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
+                                    <input class="form-control hidden-not-important boothInputs{{ $productionData->id }}" type="text" name="booth_description_edit{{ $productionData->id }}" id="booth_description_edit{{ $productionData->id }}" placeholder="description" value="{!! $productionData->description  !!}" />
                                 </td>
                                 <td>
-                                    <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanBooth{{ $productionData->id }} boothVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
+                                    <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanbooth{{ $productionData->id }} boothVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
                                     <input class="form-control file_upload boothInputs{{ $productionData->id }}" style="display: none;" type="file" name="booth_file_edit{{ $productionData->id }}" id="booth_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
                                 </td>
                                 {{--<td>--}}
@@ -54,11 +54,11 @@
                                     {{--<input class="form-control hidden-not-important boothInputs{{ $productionData->id }}" type="text" name="booth_size_edit{{ $productionData->id }}" id="booth_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>--}}
                                 {{--</td>--}}
                                 <td>
-                                    <span class="spanBooth{{ $productionData->id }} boothQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
+                                    <span class="spanbooth{{ $productionData->id }} boothQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
                                     <input class="form-control hidden-not-important boothInputs{{ $productionData->id }}" type="integer" name="booth_quantity_edit{{ $productionData->id }}" id="booth_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>
                                 </td>
                                 <td>
-                                    <span class="spanBooth{{ $productionData->id }} boothDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
+                                    <span class="spanbooth{{ $productionData->id }} boothDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
                                     <input class="form-control hidden-not-important boothInputs{{ $productionData->id }}" type="text" name="booth_details_edit{{ $productionData->id }}" id="booth_details_edit{{ $productionData->id }}" placeholder="details" value="{{ $productionData->details }}"/>
                                 </td>
                                 <td>
@@ -68,7 +68,7 @@
                                     </div>
                                     <div id="col2">
                                         <button class="btn btn-danger glyphicon glyphicon-trash boothTrash{{ $productionData->id }}" onclick="trashProduction( 'booth', {{ $productionData->id }} )" aria-hidden="true"></button>
-                                        <button class="btn btn-danger hidden-not-important boothDelete{{ $productionData->id }}" aria-hidden="true">Delete</button>
+                                        <button class="btn btn-danger hidden-not-important boothDelete{{ $productionData->id }}" onclick="deleteProduction('booth', {{ $productionData->id }})" aria-hidden="true">Delete</button>
                                     </div>
                                 </td>
                             </tr>

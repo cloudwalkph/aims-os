@@ -17,6 +17,7 @@
                         <th class="text-center">Visual Peg per File and Size</th>
                         <th class="text-center">Quantity</th>
                         <th class="text-center">Materials to be used and other details</th>
+                        <th class="text-center" width="150"> </th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -25,7 +26,7 @@
                         <input type="hidden" name="production_shirts" value="shirts" />
                         <tr>
                             <td><input class="form-control" type="text" name="shirts_description" id="shirts_description" placeholder="description" /></td>
-                            <td><input class="form-control" type="file" name="shirts_file" id="shirts_file" /></td>
+                            <td><input class="form-control file_upload" type="file" name="shirts_file" id="shirts_file" /></td>
                             <td><input class="form-control" type="integer" name="shirts_quantity" id="shirts_quantity" placeholder="quantity" /></td>
                             <td><input class="form-control" type="text" name="shirts_details" id="shirts_details" placeholder="details" /></td>
                             <td>
@@ -36,18 +37,18 @@
                         </tr>
                     </form>
                     </tfoot>
-                    <tbody>
+                    <tbody id="tbody_shirts">
                     @foreach( $productionDatas as $productionData)
 
                         @if( $productionData->type == 'shirts' )
                             <tr id="shirtsRow{{ $productionData->id }}">
                                 <td>
-                                    <span class="spanShirts{{ $productionData->id }} shirtsDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
-                                        <textarea class="form-control hidden-not-important shirtsInputs{{ $productionData->id }}" name="shirts_description_edit{{ $productionData->id }}" id="shirts_description_edit{{ $productionData->id }}" value="{!! $productionData->description  !!} " cols="20"
-                                                  rows="5">{!! $productionData->description !!} </textarea>
+                                    <span class="spanshirts{{ $productionData->id }} shirtsDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
+                                    <input class="form-control hidden-not-important shirtsInputs{{ $productionData->id }}" type="text" name="shirts_description_edit{{ $productionData->id }}" id="shirts_description_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->description }}"/>
+
                                 </td>
                                 <td>
-                                    <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanShirts{{ $productionData->id }} shirtsVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
+                                    <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanshirts{{ $productionData->id }} shirtsVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
                                     <input class="form-control file_upload shirtsInputs{{ $productionData->id }}" style="display: none;" type="file" name="shirts_file_edit{{ $productionData->id }}" id="shirts_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
                                 </td>
                                 {{--<td>--}}
@@ -55,11 +56,11 @@
                                 {{--<input class="form-control hidden-not-important boothInputs{{ $productionData->id }}" type="text" name="booth_size_edit{{ $productionData->id }}" id="booth_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>--}}
                                 {{--</td>--}}
                                 <td>
-                                    <span class="spanShirts{{ $productionData->id }} shirtsQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
+                                    <span class="spanshirts{{ $productionData->id }} shirtsQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
                                     <input class="form-control hidden-not-important shirtsInputs{{ $productionData->id }}" type="integer" name="shirts_quantity_edit{{ $productionData->id }}" id="shirts_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>
                                 </td>
                                 <td>
-                                    <span class="spanShirts{{ $productionData->id }} shirtsDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
+                                    <span class="spanshirts{{ $productionData->id }} shirtsDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
                                     <input class="form-control hidden-not-important shirtsInputs{{ $productionData->id }}" type="text" name="shirts_details_edit{{ $productionData->id }}" id="shirts_details_edit{{ $productionData->id }}" placeholder="details" value="{{ $productionData->details }}"/>
                                 </td>
                                 <td>
@@ -69,7 +70,7 @@
                                     </div>
                                     <div id="col2">
                                         <button class="btn btn-danger glyphicon glyphicon-trash shirtsTrash{{ $productionData->id }}" onclick="trashProduction( 'shirts', {{ $productionData->id }} )" aria-hidden="true"></button>
-                                        <button class="btn btn-danger hidden-not-important shirtsDelete{{ $productionData->id }}" aria-hidden="true">Delete</button>
+                                        <button class="btn btn-danger hidden-not-important shirtsDelete{{ $productionData->id }}" onclick="deleteProduction('booth', {{ $productionData->id }})" aria-hidden="true">Delete</button>
                                     </div>
                                 </td>
                             </tr>

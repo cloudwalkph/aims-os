@@ -1,8 +1,18 @@
 <div class="active tab-pane" id="tarpaulin">
     <div class="form-horizontal">
         <div class="box box-info">
-            <div class="box-header">
-                @include('productions.common.supplier')
+            <div class="box-header row">
+                {{--@include('productions.common.supplier')--}}
+                <div class="col-md-10 printpg">
+                    <h4 class="box-title">Supplier : Middleware Printing Services</h4>
+                    <h4 class="box-title">Point Person : Ver S Cont</h4>
+                    <h4 class="box-title">Contact No. : 09123456789</h4>
+                </div>
+                
+                <div class="col-md-1">
+                    <a href="/productions/jo/jolist/details/print/tarpaulin/costing/{{ $jo->job_order_no }}" class="btn btn-primary btn-lg btn-costing">Costing</a>
+                </div>
+
             </div>
             <div class="box-body">
                 <table id="tbl-tarpaulin" class="table text-center table-striped" border="1">
