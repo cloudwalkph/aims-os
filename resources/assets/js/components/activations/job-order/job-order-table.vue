@@ -2,7 +2,7 @@
     <div>
         <activations-jo-filter-bar></activations-jo-filter-bar>
         <vuetable ref="vuetable"
-                  :api-url="apiUrl"
+                  api-url="/api/v1/job-orders/department/11/"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -48,7 +48,6 @@
         },
         data () {
             return {
-                apiUrl: `/api/v1/job-orders/department/11/`,
                 fields: [
                     {
                         name: '__sequence',
@@ -72,16 +71,16 @@
                         title: 'Project Title'
                     },
                     {
+                        name: 'project_type',
+                        sortField: 'project_type',
+                        title: 'Project Type'
+                    },
+                    {
                         name: 'created_at',
                         sortField: 'created_at',
                         title: 'Event Date',
                         dataClass: 'text-capitalize',
                         callback: 'formatDate|DD-MM-YYYY'
-                    },
-                    {
-                        name: 'created_by',
-                        sortField: 'created_by',
-                        title: 'Project Manager'
                     },
                     {
                         name: 'status',
@@ -116,7 +115,7 @@
                     },
                 },
                 sortOrder: [
-                    { field: 'job_order_no', sortField: 'job_order_no', direction: 'asc'}
+                    { field: 'created_at', sortField: 'created_at', direction: 'asc'}
                 ],
                 moreParams: {}
             }
