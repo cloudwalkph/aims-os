@@ -664,3 +664,9 @@ table#tbl-tarpaulin thead, tfoot {
     display: inline-block;
 }
 
+.messages {
+    max-height: 600px;
+    min-height: 600px;
+    overflow-y: scroll;
+}
+

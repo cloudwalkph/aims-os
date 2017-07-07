@@ -1,8 +1,85 @@
 <div class="active tab-pane" id="tarpaulin">
     <div class="form-horizontal">
         <div class="box box-info">
-            <div class="box-header">
-                @include('productions.common.supplier')
+            <div class="box-header row">
+                {{--@include('productions.common.supplier')--}}
+                <div class="col-md-10 printpg">
+                    <table style="margin: 10px;">
+                        <tr>
+                            <td><h4 class="box-title">Supplier </h4></td>
+                            <td><input class="form-control costing-input" type="text" name="tarpaulin_supplier" id="tarpaulin_supplier"></td>
+                        </tr>
+                        <tr>
+                            <td><h4 class="box-title">Point Person &nbsp&nbsp&nbsp</h4></td>
+                            <td><input class="form-control costing-input" type="text" name="tarpaulin_person" id="tarpaulin_person"></td>
+                        </tr>
+                        <tr>
+                            <td><h4 class="box-title">Contact No. </h4></td>
+                            <td><input class="form-control costing-input" type="text" name="tarpaulin_contact" id="tarpaulin_contact"></td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target=".supplier-modal">View Suppliers</button>
+                                <button type="button" class="btn btn-primary" onclick="saveCosting( 'tarpaulin', '{{ $jo->job_order_no }}' );">Save</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade supplier-modal" id="supplier-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Suppliers for tarpaulin</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Supplier</th>
+                                            <th>Point Person</th>
+                                            <th>Contact No.</th>
+                                            <th> </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tbody_tarpaulin_supplier">
+
+                                        @foreach( $suppliers as $supplier)
+
+                                            @if( $supplier->production_type == 'tarpaulin' )
+
+                                                <tr id="{{$supplier->production_type}}RowCosting{{$supplier->id}}">
+                                                    <td>{{$supplier->company_name}}</td>
+                                                    <td>{{$supplier->point_person}}</td>
+                                                    <td>{{$supplier->contact}}</td>
+                                                    <td>
+                                                        <div id="col2">
+                                                            <button class="btn btn-danger glyphicon glyphicon-trash {{$supplier->production_type}}TrashCosting{{$supplier->id}}" onclick="trashCosting('{{$supplier->production_type}}','{{$supplier->id}}')" aria-hidden="true"></button>
+                                                            <button class="btn btn-danger hidden-not-important {{$supplier->production_type}}DeleteCosting{{$supplier->id}}" onclick="deleteCosting('{{$supplier->production_type}}', '{{$supplier->id}}')" aria-hidden="true">Delete</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            @endif
+
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="col-md-1">
+                    <a href="/productions/jo/costing/{{ $jo->job_order_no }}/tarpaulin" class="btn btn-primary btn-lg btn-costing">Costing</a>
+                </div>
+
             </div>
             <div class="box-body">
                 <table id="tbl-tarpaulin" class="table text-center table-striped" border="1">

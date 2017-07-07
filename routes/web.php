@@ -22,6 +22,7 @@ Route::post('/change-password', 'HomeController@changePassword');
 
 Route::group(['prefix' => 'job-orders'], function() {
     Route::get('/{joNo}', 'JobOrdersController@index');
+    Route::get('/{joNo}/discussions', 'JobOrdersController@discussions');
 });
 
 Route::group(['prefix' => 'ae'], function () {
@@ -126,7 +127,7 @@ Route::group(['prefix' => 'productions'], function () {
     Route::group(['prefix' => 'jo'], function () {
         Route::get('/', 'Front\Productions\ProductionsController@jos');
         Route::get('/details/{joNo}', 'Front\Productions\ProductionsController@show');
-        Route::get('/jolist/details/print/tarpaulin/costing/{joNo}', 'Front\Productions\ProductionsController@costing');
+        Route::get('/costing/{joNo}/{productionType}', 'Front\Productions\ProductionsController@costing');
 
     });
 });

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\JobOrder;
 use App\Models\Productions;
 use App\Models\ProductionsItems;
+use App\Models\ProductionSuppliers;
 
 class ProductionsController extends Controller
 {
@@ -60,11 +61,11 @@ class ProductionsController extends Controller
 
         $products = ProductionsItems::find($input['production_id']);
 
-        $products->description = $input['description'];
+        $products->description = nl2br( $input['description']);
         $products->visuals = $filename;
         $products->sizes = $input['sizes'];
         $products->qty = $input['qty'];
-        $products->details = $input['details'];
+        $products->details = nl2br( $input['details']);
         if( $products->save() ){
             return response()->json($products, 200);
         }else{
@@ -115,11 +116,11 @@ class ProductionsController extends Controller
         $storeProductionsItems = new ProductionsItems();
         $storeProductionsItems->production_id = $prodId;
         $storeProductionsItems->type = $values['production_type'];
-        $storeProductionsItems->description = $values['description'];
+        $storeProductionsItems->description = nl2br($values['description']);
         $storeProductionsItems->visuals = $filename;
         $storeProductionsItems->sizes = $values['sizes'];
         $storeProductionsItems->qty = $values['qty'];
-        $storeProductionsItems->details = $values['details'];
+        $storeProductionsItems->details = nl2br($values['details']);
         if( $storeProductionsItems->save() ){
             return response()->json($storeProductionsItems, 200);
         }else{
@@ -131,6 +132,34 @@ class ProductionsController extends Controller
 
         $input = $request->all();
         $production = ProductionsItems::find($input['production_id']);
+
+        $production->delete();
+    }
+
+    public function save_costing( Request $request ){
+
+        $input = $request->all();
+
+//        dd($input['job_order_no']);
+
+        $storeProductionSuppliers = new ProductionSuppliers();
+        $storeProductionSuppliers->job_order_no    = $input['job_order_no'];
+        $storeProductionSuppliers->production_type = $input['production_type'];
+        $storeProductionSuppliers->company_name    = $input['company_name'];
+        $storeProductionSuppliers->point_person    = $input['point_person'];
+        $storeProductionSuppliers->contact         = $input['contact'];
+
+        if( $storeProductionSuppliers->save() ){
+            return response()->json($storeProductionSuppliers, 200);
+        }else{
+            return false;
+        }
+    }
+
+    public function delete_costing( Request $request ){
+
+        $input = $request->all();
+        $production = ProductionSuppliers::find($input['costing_id']);
 
         $production->delete();
     }

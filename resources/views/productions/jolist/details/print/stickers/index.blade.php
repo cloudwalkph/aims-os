@@ -2,10 +2,85 @@
     <div class="form-horizontal">
         <div class="box box-info">
             <div class="box-header">
-                @include('productions.common.supplier')
+                <div class="col-md-10 printpg">
+                    <table style="margin: 10px;">
+                        <tr>
+                            <td><h4 class="box-title">Supplier </h4></td>
+                            <td><input class="form-control costing-input" type="text" name="sticker_supplier" id="sticker_supplier"></td>
+                        </tr>
+                        <tr>
+                            <td><h4 class="box-title">Point Person &nbsp&nbsp&nbsp</h4></td>
+                            <td><input class="form-control costing-input" type="text" name="sticker_person" id="sticker_person"></td>
+                        </tr>
+                        <tr>
+                            <td><h4 class="box-title">Contact No. </h4></td>
+                            <td><input class="form-control costing-input" type="text" name="sticker_contact" id="sticker_contact"></td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target=".supplier-modal-sticker">View Suppliers</button>
+                                <button type="button" class="btn btn-primary" onclick="saveCosting( 'sticker', '{{ $jo->job_order_no }}' );">Save</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade supplier-modal-sticker" id="supplier-modal-sticker" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Suppliers for sticker</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Supplier</th>
+                                        <th>Point Person</th>
+                                        <th>Contact No.</th>
+                                        <th> </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbody_sticker_supplier">
+
+                                    @foreach( $suppliers as $supplier)
+
+                                        @if( $supplier->production_type == 'sticker' )
+
+                                            <tr id="{{$supplier->production_type}}RowCosting{{$supplier->id}}">
+                                                <td>{{$supplier->company_name}}</td>
+                                                <td>{{$supplier->point_person}}</td>
+                                                <td>{{$supplier->contact}}</td>
+                                                <td>
+                                                    <div id="col2">
+                                                        <button class="btn btn-danger glyphicon glyphicon-trash {{$supplier->production_type}}TrashCosting{{$supplier->id}}" onclick="trashCosting('{{$supplier->production_type}}','{{$supplier->id}}')" aria-hidden="true"></button>
+                                                        <button class="btn btn-danger hidden-not-important {{$supplier->production_type}}DeleteCosting{{$supplier->id}}" onclick="deleteCosting('{{$supplier->production_type}}', '{{$supplier->id}}')" aria-hidden="true">Delete</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        @endif
+
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <a href="/productions/jo/costing/{{ $jo->job_order_no }}/sticker" class="btn btn-primary btn-lg btn-costing">Costing</a>
+                </div>
             </div>
             <div class="box-body">
-                <table class="table table-striped" border="1" id="tbl-stickers">
+                <table class="table table-striped text-center" border="1" id="tbl-stickers">
                     <thead>
                         <tr>
                             <th class="text-center">Description</th>
@@ -18,7 +93,7 @@
                     </thead>
 
                     <tfoot>
-                        <form class="form_tarpaulin" method="POST" enctype="multipart/form-data">
+                        <form class="form_tarpaulin " method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <input type="hidden" name="production_sticker" value="sticker" />
                             <tr>
@@ -103,31 +178,38 @@
                         </form>
                     </tfoot>
 
-                    <tbody>
+                    <tbody id="tbody_sticker">
                         @foreach( $productionDatas as $productionData)
 
                             @if( $productionData->type == 'sticker' )
                                 <tr id="stickerRow{{ $productionData->id }}">
                                     <td>
-                                        <span class="spanSticker{{ $productionData->id }} stickerDescription{{ $productionData->id }}">{{ $productionData->description }}</span>
+                                        <span class="spansticker{{ $productionData->id }} stickerDescription{{ $productionData->id }}">{!! $productionData->description !!}</span>
                                         <textarea class="form-control hidden-not-important stickerInputs{{ $productionData->id }}" name="sticker_description_edit{{ $productionData->id }}" id="sticker_description_edit{{ $productionData->id }}" value="{!! $productionData->description  !!} " cols="20"
-                                                  rows="5">{!! $productionData->description !!} </textarea>
+                                                  rows="5">{{ $productionData->description }} </textarea>
                                     </td>
                                     <td>
-                                        <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spanSticker{{ $productionData->id }} stickerVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
+                                        <a href="{{ storage_path('productions/'.$productionData->visuals) }}" class="spansticker{{ $productionData->id }} stickerVisuals{{ $productionData->id }}" target="_blank">{{ $productionData->visuals }}</a>
                                         <input class="form-control file_upload stickerInputs{{ $productionData->id }}" style="display: none;" type="file" name="sticker_file_edit{{ $productionData->id }}" id="sticker_file_edit{{ $productionData->id }}" value="{{ storage_path('productions/'.$productionData->visuals) }}"/>
                                     </td>
                                     <td>
-                                        <span class="spanSticker{{ $productionData->id }} stickerSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>
+                                        <span class="spansticker{{ $productionData->id }} stickerSizes{{ $productionData->id }}">{{ $productionData->sizes }}</span>
                                         <input class="form-control hidden-not-important stickerInputs{{ $productionData->id }}" type="text" name="sticker_size_edit{{ $productionData->id }}" id="stcker_size_edit{{ $productionData->id }}" placeholder="size" value="{{ $productionData->sizes }}"/>
                                     </td>
                                     <td>
-                                        <span class="spanSticker{{ $productionData->id }} stickerQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
+                                        <span class="spansticker{{ $productionData->id }} stickerQty{{ $productionData->id }}">{{ $productionData->qty }}</span>
                                         <input class="form-control hidden-not-important stickerInputs{{ $productionData->id }}" type="integer" name="sticker_quantity_edit{{ $productionData->id }}" id="stcker_quantity_edit{{ $productionData->id }}" placeholder="quantity" value="{{ $productionData->qty }}"/>
                                     </td>
                                     <td>
-                                        <span class="spanSticker{{ $productionData->id }} stickerDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
-                                        <input class="form-control hidden-not-important stickerInputs{{ $productionData->id }}" type="text" name="sticker_details_edit{{ $productionData->id }}" id="stcker_details_edit{{ $productionData->id }}" placeholder="details" value="{{ $productionData->details }}"/>
+
+                                        <?php
+                                        $text = $productionData->details;
+                                        $breaks = array("<br />","<br>","<br/>");
+                                        $text = str_ireplace($breaks, "\r\n", $text);
+                                        ?>
+
+                                        <span class="spansticker{{ $productionData->id }} stickerDetails{{ $productionData->id }}">{!! $productionData->details !!}</span>
+                                        <input type="text" class="form-control hidden-not-important stickerInputs{{ $productionData->id }}" name="sticker_details_edit{{ $productionData->id }}" id="sticker_details_edit{{ $productionData->id }}" value="{{ $productionData->details }} " cols="20" rows="5" />
                                     </td>
                                     <td>
                                         <div id="col1">
@@ -136,7 +218,7 @@
                                         </div>
                                         <div id="col2">
                                             <button class="btn btn-danger glyphicon glyphicon-trash stickerTrash{{ $productionData->id }}" onclick="trashProduction( 'sticker', {{ $productionData->id }} )" aria-hidden="true"></button>
-                                            <button class="btn btn-danger hidden-not-important stickerDelete{{ $productionData->id }}" aria-hidden="true">Delete</button>
+                                            <button class="btn btn-danger hidden-not-important stickerDelete{{ $productionData->id }}" onclick="deleteProduction('sticker', {{ $productionData->id }})" aria-hidden="true">Delete</button>
                                         </div>
                                     </td>
                                 </tr>

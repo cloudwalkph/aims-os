@@ -6,7 +6,6 @@
 
 @section('content')
 
-
     {{-- breadcrumb start --}}
     <div class="col-lg-12">
         <h1 class="page-header">
@@ -45,7 +44,7 @@
 
             </div>
             <div class="panel-body">
-
+                <h4>{{ ucfirst( $productiontype ) }}</h4>
             </div>
         </div>
     </div>
@@ -62,33 +61,45 @@
                 <th>Total Cost</th>
                 <th>Supplier</th>
                 <th>Remarks</th>
+                <th width="150"> </th>
             </tr>
             </thead>
 
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>Booth</td>
-                <td>Sintra, plywood</td>
-                <td>100</td>
-                <td>200</td>
-                <td>2000</td>
-                <td>Middleware</td>
-                <td>2 days delivery</td>
-                <td>
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <button class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></button>
+            <tbody id="tbody_costing">
+
+            @foreach( $prodlist as $product_details )
+                <tr>
+                    <td>
+                        booth{{ $product_details->id.$product_details->product_id }}
+                    </td>
+                    <td>
+                        {{ $product_details->description }}
+                    </td>
+                    <td>
+                        visuals : {{ $product_details->visuals }}
+                        <br>
+                        sizes : {{ $product_details->sizes }}
+                        <br>
+                        materials : {{ $product_details->details }}
+                        <br>
+                    </td>
+                    <td></td>
+                    <td>{{ $product_details->qty }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <div id="col1">
+                            <button class="btn btn-warning glyphicon glyphicon-floppy-disk hidden-not-important costingUpdate{{ $product_details->id }}" onclick="updateCosting( 'costing', {{ $product_details->id }} )" aria-hidden="true"></button>
+                            <button class="btn glyphicon glyphicon-edit costingEdit{{ $product_details->id }}" aria-hidden="true" onclick="editCosting( 'costing', {{ $product_details->id }} )"></button>
                         </div>
-                        <div class="col-xs-4">
-                            <button class="glyphicon glyphicon-edit" aria-hidden="true"></button>
+                        <div id="col2">
+                            <button class="btn btn-danger glyphicon glyphicon-trash costingTrash{{ $product_details->id }}" onclick="trashCosting( 'costing', {{ $product_details->id }} )" aria-hidden="true"></button>
+                            <button class="btn btn-danger hidden-not-important costingDelete{{ $product_details->id }}" onclick="deleteCosting('costing', {{ $product_details->id }})" aria-hidden="true">Delete</button>
                         </div>
-                        <div class="col-xs-4">
-                            <button class="glyphicon glyphicon-trash" aria-hidden="true"></button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

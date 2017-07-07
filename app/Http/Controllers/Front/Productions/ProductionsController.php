@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\JobOrder;
 use App\Models\Productions;
 use App\Models\ProductionsItems;
+use App\Models\ProductionSuppliers;
 
 class ProductionsController extends Controller
 {
@@ -43,15 +44,17 @@ class ProductionsController extends Controller
     {
         config(['app.name' => 'Productions | AIMS']);
 
-
         $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNo)->first();
         $productionDatas  = Productions::join('production_items', 'productions.id', '=', 'production_items.production_id')
             ->where('productions.id', $jo->id)
             ->orderBy('production_items.id', 'desc')
             ->get();
 
+        $suppliers = ProductionSuppliers::where('job_order_no', $joNo)->get();
+
         return view('productions.jolist.details.index')
             ->with('jo', $jo)
+            ->with('suppliers', $suppliers)
             ->with('productionDatas', $productionDatas);
     }
 
@@ -61,12 +64,20 @@ class ProductionsController extends Controller
         return view('productions.references');
     }
 
-    public function costing($joNo){
-        config(['app.name' => 'Productions | AIMS']);
+    public function costing( $joNo, $productionType ){
+//        config(['app.name' => 'Productions | AIMS']);
+//
+//        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNo)->first();
+//        $production_list  = Productions::join('production_items', 'productions.id', '=', 'production_items.production_id')
+//            ->where('production_items.type', $productionType)
+//            ->where('productions.id', $jo->id)
+//            ->orderBy('production_items.id', 'desc')
+//            ->get();
+//
+//        return view('productions.common.costing')
+//        ->with('jo', $jo)
+//        ->with('productiontype', $productionType)
+//        ->with('prodlist', $production_list);
 
-        $jo = JobOrder::with('clients', 'user')->where('job_order_no', $joNo)->first();
-
-        return view('productions.jolist.details.print.tarpaulin.costing')
-        ->with('jo', $jo);
     }
 }
