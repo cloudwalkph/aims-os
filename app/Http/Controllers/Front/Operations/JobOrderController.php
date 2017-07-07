@@ -15,6 +15,7 @@ use App\Models\JobOrderProduct;
 use App\Models\JobOrderProjectAttachment;
 use App\Models\JobOrderVehicle;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class JobOrderController extends Controller
@@ -185,6 +186,18 @@ class JobOrderController extends Controller
     {
         $input = $request->all();
         $jo = JobOrder::where('job_order_no', '=', $joId)->first();
+
+        $departmentInvolved = JobOrderDepartmentInvolved::where('job_order_id', $jo->id)
+            ->where('department_id', '11')->first();
+
+        if(! $departmentInvolved) {
+            $department = [
+                'job_order_id'  => $jo->id,
+                'department_id' => '11',
+                'deadline'      => Carbon::now()
+            ];
+            $departmentInvolved = JobOrderDepartmentInvolved::create($department);
+        }
 
         $data = [
             'job_order_id'  => $jo->id,

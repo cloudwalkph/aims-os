@@ -2,7 +2,7 @@
     <div>
         <activations-jo-filter-bar></activations-jo-filter-bar>
         <vuetable ref="vuetable"
-                  api-url="/api/v1/job-orders"
+                  :api-url="apiUrl"
                   :fields="fields"
                   pagination-path=""
                   :css="css.table"
@@ -48,6 +48,7 @@
         },
         data () {
             return {
+                apiUrl: `/api/v1/job-orders/department/11/`,
                 fields: [
                     {
                         name: '__sequence',
