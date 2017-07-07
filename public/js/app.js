@@ -43946,9 +43946,6 @@ Vue.component('v-select', __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a);
             this.first_name = '';
             this.last_name = '';
             this.middle_name = '';
-            this.department_id = '';
-            this.user_role_id = '';
-            this.gender = '';
             this.birth_date = '';
             this.street = '';
             this.barangay = '';
@@ -55277,6 +55274,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -55394,7 +55410,8 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomRemoveSelected', __
             briefingSched: [],
             venueList: [],
             jobOrderNumberLabel: $('#jobOrderNumber').val(),
-            jobOrderTitleLabel: $('#jobOrderTitle').val()
+            jobOrderTitleLabel: $('#jobOrderTitle').val(),
+            selectedManpower: {}
         };
     },
 
@@ -55527,6 +55544,22 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomRemoveSelected', __
             }, function (error) {});
             // window.location.href = window.location.origin + '/setup/pooling/view/' + data.job_order.id;
         },
+        onCellClickedSelected: function onCellClickedSelected(data, field, event) {
+            this.selectedManpower = data;
+            $('#changeVenueModal').modal('show');
+        },
+        onAssignVenue: function onAssignVenue(event, manpowerId) {
+            var _this5 = this;
+
+            this.selectedManpower.venue_id = Number(event.target.value);
+            var url = '/api/v1/setup/change/venue/' + this.selectedManpower.id;
+
+            this.$http.post(url, this.selectedManpower).then(function (response) {
+                console.log(response.data);
+                _this5.$refs.Vuetable_selected_setup.refresh();
+                $('#changeVenueModal').modal('hide');
+            }, function (error) {});
+        },
         goToFinalDeployment: function goToFinalDeployment() {
             window.location.href = window.location.origin + '/setup/final/view/' + $('#jobOrderId').val();
         },
@@ -55542,13 +55575,13 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomRemoveSelected', __
     },
     events: {
         'remove-selected': function removeSelected(data) {
-            var _this5 = this;
+            var _this6 = this;
 
             var url = '/api/v1/hr/selected-manpower/' + data.manpower.id + '/' + $('#jobOrderId').val(); // params selected id and joborder id
 
             this.$http.delete(url).then(function (response) {
-                _this5.$refs.Vuetable_selected_setup.refresh();
-                _this5.$refs.Vuetable_setup_list.refresh();
+                _this6.$refs.Vuetable_selected_setup.refresh();
+                _this6.$refs.Vuetable_setup_list.refresh();
             }, function (error) {
                 console.log(error);
             });
@@ -55575,6 +55608,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuetable_2_src_components_VuetablePagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vuetable_2_src_components_VuetablePagination__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuetable_2_src_components_VuetablePaginationInfo__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuetable_2_src_components_VuetablePaginationInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vuetable_2_src_components_VuetablePaginationInfo__);
+//
+//
+//
+//
 //
 //
 //
@@ -114296,6 +114333,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "css": _vm.css.table,
       "sort-order": _vm.sortOrder,
       "multi-sort": true
+    },
+    on: {
+      "vuetable:cell-clicked": _vm.onCellClickedSelected
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "vuetable-pagination"
@@ -114467,7 +114507,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.goToFinalDeployment
     }
-  }, [_vm._v("Continue to final deployment")])])])])
+  }, [_vm._v("Continue to final deployment")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "changeVenueModal",
+      "tabIndex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('select', {
+    staticClass: "form-control",
+    on: {
+      "change": function($event) {
+        _vm.onAssignVenue($event)
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("TBA")]), _vm._v(" "), _vm._l((_vm.venueList), function(venue) {
+    return _c('option', [_vm._v(_vm._s(venue.venue))])
+  })], 2)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container-fluid text-center"
@@ -114480,6 +114550,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "container-fluid"
   }, [_c('h4', [_vm._v("Selected Setup")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Change Venue")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -118394,7 +118484,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container-fluid"
   }, [_c('div', {
     staticClass: "col-md-4"
-  }, [_c('div', [_c('label', [_vm._v("Job Order #: " + _vm._s(_vm.jobOrderNumberLabel))]), _c('span')]), _vm._v(" "), _c('div', [_c('label', [_vm._v("Project Title: " + _vm._s(_vm.jobOrderTitleLabel))]), _c('span')])])]), _vm._v(" "), _c('div', {
+  }, [_c('div', [_c('label', [_vm._v("Job Order #: " + _vm._s(_vm.jobOrderNumberLabel))]), _c('span')]), _vm._v(" "), _c('div', [_c('label', [_vm._v("Project Title: " + _vm._s(_vm.jobOrderTitleLabel))]), _c('span')])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
     staticClass: "container-fluid"
   }, [_c('h4', {
     staticClass: "text-center"
@@ -118406,12 +118498,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "col-md-12 col-sm-12"
       }, [_c('table', {
         staticClass: "table table-striped"
-      }, [_c('caption', [_vm._v("DATE : " + _vm._s(manpowerSched.created_datetime))]), _vm._v(" "), _vm._m(0, true), _vm._v(" "), _c('tbody', _vm._l((manpowerSched.manpower_list), function(manpowerList) {
+      }, [_c('caption', [_vm._v("DATE : " + _vm._s(manpowerSched.created_datetime))]), _vm._v(" "), _vm._m(1, true), _vm._v(" "), _c('tbody', _vm._l((manpowerSched.manpower_list), function(manpowerList) {
         return _c('tr', [_c('td', [_vm._v("\n\t\t\t\t\t\t    \t" + _vm._s(manpowerList.manpower.first_name + ' ' + manpowerList.manpower.last_name) + "\n\t\t\t\t\t\t    ")]), _vm._v(" "), (manpowerList.buffer == 1) ? _c('td', [_vm._v("Buffer")]) : _c('td')])
       }))])])
     })], 2)
   })], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-block",
+    attrs: {
+      "type": "button",
+      "onclick": "frames['finalDeploymentFrameSetup'].print();"
+    }
+  }, [_vm._v("Print")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Full Name")]), _vm._v(" "), _c('th', [_vm._v("Buffer")])])])
 }]}
 module.exports.render._withStripped = true
