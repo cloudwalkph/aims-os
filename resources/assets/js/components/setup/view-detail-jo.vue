@@ -55,6 +55,7 @@
 				:css="css.table"
 				:sort-order="sortOrder"
 				:multi-sort="true"
+				@vuetable:cell-clicked="onCellClickedSelected"
 			></vuetable>
 			<div class="vuetable-pagination">
 				<vuetable-pagination-info 
@@ -122,6 +123,25 @@
 				<button type="button" class="btn btn-default pull-right" @click="goToFinalDeployment">Continue to final deployment</button>
 			</div>
 		</div>
+
+		<div class="modal fade" id="changeVenueModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Change Venue</h4>
+                    </div>
+                    <div class="modal-body">
+                    	<select class="form-control" @change="onAssignVenue($event)">
+	                        <option value="0">TBA</option>
+	                        <option value="1">TBA</option>
+	                        <option v-for="venue in venueList">{{venue.venue}}</option>
+	                    </select>
+                    </div>
+				</div>
+			</div> 
+		</div>
+
 	</div>
 	
 </template>
@@ -258,7 +278,8 @@
                 briefingSched: [],
                 venueList: [],
                 jobOrderNumberLabel: $('#jobOrderNumber').val(),
-                jobOrderTitleLabel: $('#jobOrderTitle').val()
+                jobOrderTitleLabel: $('#jobOrderTitle').val(),
+                selectedManpower: {}
 			}
 		},
 		methods: {
@@ -368,6 +389,23 @@
 				});
 				// window.location.href = window.location.origin + '/setup/pooling/view/' + data.job_order.id;
 			},
+			onCellClickedSelected(data, field, event) {
+				this.selectedManpower = data;
+				$('#changeVenueModal').modal('show')
+			},
+			onAssignVenue(event, manpowerId) {
+                this.selectedManpower.venue_id = Number(event.target.value);
+                let url = `/api/v1/setup/change/venue/${this.selectedManpower.id}`;
+
+               	this.$http.post(url,this.selectedManpower).then(response => {
+					console.log(response.data)
+					this.$refs.Vuetable_selected_setup.refresh();		
+					$('#changeVenueModal').modal('hide');
+				}, error => {
+				
+				});
+
+            },
 			goToFinalDeployment() {
 				window.location.href = `${window.location.origin}/setup/final/view/${$('#jobOrderId').val()}`;
 			},
