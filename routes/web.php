@@ -116,6 +116,7 @@ Route::group(['prefix' => 'setup'], function () {
     Route::get('/pooling', 'Front\Setup\SetupController@getJoList');
     Route::get('/pooling/view/{joId}', 'Front\Setup\SetupController@viewJo');
     Route::get('/final/view/{joId}', 'Front\Setup\SetupController@finalJo');
+    Route::get('/finalDeployment/{joNumber}', 'Front\Setup\SetupController@previewFinalDeployment');
 });
 
 Route::group(['prefix' => 'productions'], function () {

@@ -91,6 +91,16 @@ class SetupController extends Controller
         
     }
 
+    public function changeVenue(Request $request, $selectedId) {
+        $input = $request->all();
+        
+        $data = [
+            'venue_id' => $input['venue_id']
+        ];
+        $query = JobOrderSelectedManpower::where('id', $selectedId)->update($data);
+        return response()->json($query, 200);
+    }
+
     public function store(Request $request)
     {
         $input = $request->all();

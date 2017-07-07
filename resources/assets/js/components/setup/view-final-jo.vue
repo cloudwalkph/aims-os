@@ -9,6 +9,10 @@
 					<label>Project Title: {{jobOrderTitleLabel}}</label><span></span>
 				</div>
 			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<button type="button" class="btn btn-default btn-block" onclick="frames['finalDeploymentFrameSetup'].print();">Print</button>
+			</div>
 		</div>
 		<div class="container-fluid">
 			<h4 class="text-center">Final Deployment</h4>
