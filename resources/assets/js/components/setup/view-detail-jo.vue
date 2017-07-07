@@ -134,7 +134,6 @@
                     <div class="modal-body">
                     	<select class="form-control" @change="onAssignVenue($event)">
 	                        <option value="0">TBA</option>
-	                        <option value="1">TBA</option>
 	                        <option v-for="venue in venueList">{{venue.venue}}</option>
 	                    </select>
                     </div>
