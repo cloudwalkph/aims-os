@@ -74,6 +74,7 @@ class SetupController extends Controller
             }))
             ->where('job_order_id', $joId)
             ->where('manpower_type_required', 1)
+            ->orderBy('buffer','ASC')
             ->paginate();
         
         return response()->json($joSelectedManpower, 200);
