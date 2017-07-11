@@ -241,8 +241,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API', 'middleware'  => 'api'], f
         Route::post('/manpower','SetupController@store');
         Route::post('/manpower/{manpowerId}','SetupController@update');
         Route::get('/joOrder/list','SetupController@getJoOrderList');
-        Route::get('/joOrder/{joId}','SetupController@getJoOrder');
-        Route::get('/manpowerList/','SetupController@getManpowerListBySetup');
+        Route::get('/joOrder/{joId}','SetupController@getJoOrderManpowerByJoId');
+        Route::get('/manpowerList/{joId}','SetupController@getManpowerListBySetup');
         Route::get('/selected/manpower/{joId}','SetupController@getManpowerBySelectedSetup');
         Route::post('/selected/manpower/{joId}','SetupController@addManpowerToJo');
         Route::post('/change/venue/{selectedManpowerId}','SetupController@changeVenue');

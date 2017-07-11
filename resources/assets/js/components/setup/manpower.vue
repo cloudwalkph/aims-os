@@ -306,6 +306,10 @@
 			}
 		},
 		methods: {
+            imageParse(value) {
+                if(value)
+                    return '<div><img src="/'+value+'" style="width : 50%;"/></div>';
+            },
             onChangePage (page) {
                 this.$refs.Vuetable_manpower.changePage(page)
             },

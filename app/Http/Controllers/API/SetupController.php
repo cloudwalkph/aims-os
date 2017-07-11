@@ -11,9 +11,11 @@ use App\Models\JobOrderSelectedManpower;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Models\ManpowerFile;
 use Carbon\Carbon;
+use App\Traits\FilterTrait;
 
 class SetupController extends Controller
 {
+    use FilterTrait;
     /**
      * Display a listing of the resource.
      *
@@ -34,23 +36,32 @@ class SetupController extends Controller
         return response()->json($joManpower->paginate(), 200);
     }
 
-    public function getJoOrder($joId) {
+    public function getJoOrderManpowerByJoId($joId) {
+        $joManpower = JobOrderManpower::with('jobOrder.user.profile')
+                        ->where('manpower_type_id', 1)
+                        ->where('job_order_id', $joId);
 
+        return response()->json($joManpower->first(), 200);
     }
 
-    public function getManpowerListBySetup() {
+    public function getManpowerListBySetup($joId, Request $request) {
         $manpower = Manpower::with('agency')
                     ->where('manpower_type_id',1)
-                    ->whereNotIn('id', function($q) { // filter by selected manpower event date
+                    ->whereNotIn('id', function($q) use ($joId) { // filter by selected manpower event date
                     
                         $q->select('manpower_id')
                         ->whereNull('deleted_at')
-                        ->where('job_order_id',4)
+                        ->where('job_order_id',$joId)
                         ->from('job_order_selected_manpowers');
                     })
-                    ->where('setup_only',1)->paginate();
-        
-        $data = $this->parseData($manpower);
+                    ->where('setup_only',1);
+
+        if ($request->has('filter')) {
+            $this->filter($manpower, $request, Manpower::$filterable);
+        }
+
+        $data = $this->parseData($manpower->paginate());
+
         return response()->json($data, 200);
     }
 
