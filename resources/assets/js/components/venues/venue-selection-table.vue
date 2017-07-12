@@ -13,15 +13,14 @@
                       :append-params="moreParams"
                       @vuetable:pagination-data="onPaginationData"
             ></vuetable>
-            <div class="vuetable-pagination">
+            <div class="vuetable-pagination ui basic segment grid">
                 <vuetable-pagination-info ref="paginationInfo"
-                                          info-class="pagination-info"
                 ></vuetable-pagination-info>
+
                 <vuetable-pagination ref="pagination"
-                                     :css="css.pagination"
-                                     :icons="css.icons"
-                                     @vuetable-pagination:change-page="onChangePage"
-                ></vuetable-pagination>
+                    :css="css.pagination"
+                    @vuetable-pagination:change-page="onChangePage"
+                    ></vuetable-pagination>
             </div>
 
             <venues-modal></venues-modal>
@@ -268,11 +267,17 @@
                         descendingIcon: 'glyphicon glyphicon-chevron-down'
                     },
                     pagination: {
-                        wrapperClass: 'pagination',
-                        activeClass: 'active',
+                        wrapperClass: 'pagination pull-right',
+                        activeClass: 'btn-primary',
                         disabledClass: 'disabled',
-                        pageClass: 'page',
-                        linkClass: 'link',
+                        pageClass: 'btn btn-border',
+                        linkClass: 'btn btn-border',
+                        icons: {
+                            first: '',
+                            prev: '',
+                            next: '',
+                            last: '',
+                        }
                     },
                     icons: {
                         first: 'glyphicon glyphicon-step-backward',
@@ -296,7 +301,7 @@
                     ? ''
                     : moment(value, 'YYYY-MM-DD').format(fmt)
             },
-            onPaginationData (paginationData) {
+           onPaginationData (paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)
                 this.$refs.paginationInfo.setPaginationData(paginationData)
             },

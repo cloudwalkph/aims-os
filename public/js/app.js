@@ -44129,6 +44129,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -44208,11 +44209,17 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('user-update-modal', __WEB
                     descendingIcon: 'glyphicon glyphicon-chevron-down'
                 },
                 pagination: {
-                    wrapperClass: 'pagination',
-                    activeClass: 'active',
+                    wrapperClass: 'pagination pull-right',
+                    activeClass: 'btn-primary',
                     disabledClass: 'disabled',
-                    pageClass: 'page',
-                    linkClass: 'link'
+                    pageClass: 'btn btn-border',
+                    linkClass: 'btn btn-border',
+                    icons: {
+                        first: '',
+                        prev: '',
+                        next: '',
+                        last: ''
+                    }
                 },
                 icons: {
                     first: 'glyphicon glyphicon-step-backward',
@@ -48089,6 +48096,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 var Vuetable = __webpack_require__(5);
 var VuetablePagination = __webpack_require__(8);
@@ -48119,11 +48127,17 @@ module.exports = {
           descendingIcon: 'glyphicon glyphicon-chevron-down'
         },
         pagination: {
-          wrapperClass: 'pagination',
-          activeClass: 'active',
+          wrapperClass: 'pagination pull-right',
+          activeClass: 'btn-primary',
           disabledClass: 'disabled',
-          pageClass: 'page',
-          linkClass: 'link'
+          pageClass: 'btn btn-border',
+          linkClass: 'btn btn-border',
+          icons: {
+            first: '',
+            prev: '',
+            next: '',
+            last: ''
+          }
         },
         icons: {
           first: 'glyphicon glyphicon-step-backward',
@@ -48168,12 +48182,12 @@ module.exports = {
     onCellClicked: function onCellClicked(data, field, event) {
       console.log('cellClicked: ', field.name);
     },
-    onChangePage: function onChangePage(page) {
-      this.$refs.vuetable.changePage(page);
-    },
     onPaginationData: function onPaginationData(paginationData) {
       this.$refs.pagination.setPaginationData(paginationData);
       this.$refs.paginationInfo.setPaginationData(paginationData);
+    },
+    onChangePage: function onChangePage(page) {
+      this.$refs.vuetableInventory.changePage(page);
     }
   },
   mounted: function mounted() {},
@@ -50657,6 +50671,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -50742,17 +50757,17 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('filter-bar', __WEBPACK_IM
                     descendingIcon: 'glyphicon glyphicon-chevron-down'
                 },
                 pagination: {
-                    wrapperClass: 'pagination',
-                    activeClass: 'active',
+                    wrapperClass: 'pagination pull-right',
+                    activeClass: 'btn-primary',
                     disabledClass: 'disabled',
-                    pageClass: 'page',
-                    linkClass: 'link'
-                },
-                icons: {
-                    first: 'glyphicon glyphicon-step-backward',
-                    prev: 'glyphicon glyphicon-chevron-left',
-                    next: 'glyphicon glyphicon-chevron-right',
-                    last: 'glyphicon glyphicon-step-forward'
+                    pageClass: 'btn btn-border',
+                    linkClass: 'btn btn-border',
+                    icons: {
+                        first: '',
+                        prev: '',
+                        next: '',
+                        last: ''
+                    }
                 }
             },
             sortOrder: [{ field: 'created_at', sortField: 'created_at', direction: 'asc' }],
@@ -55437,7 +55452,8 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('filter-bar', __WEBPACK_IM
             }, {
                 name: 'buffer',
                 title: 'Buffer',
-                dataClass: 'customWith10'
+                dataClass: 'customWith10',
+                callback: 'bufferParse'
             }, {
                 name: '__component:CustomRemoveSelected',
                 title: 'Actions',
@@ -55573,6 +55589,12 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('filter-bar', __WEBPACK_IM
                 return value;
             }
             return 'TBA';
+        },
+        bufferParse: function bufferParse(value) {
+            if (value) {
+                return 'Buffer';
+            }
+            return '';
         },
         getFullName: function getFullName(value) {
             return value.first_name + ' ' + value.last_name;
@@ -56873,7 +56895,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -57013,11 +57034,17 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('venues-update-modal', __W
                     descendingIcon: 'glyphicon glyphicon-chevron-down'
                 },
                 pagination: {
-                    wrapperClass: 'pagination',
-                    activeClass: 'active',
+                    wrapperClass: 'pagination pull-right',
+                    activeClass: 'btn-primary',
                     disabledClass: 'disabled',
-                    pageClass: 'page',
-                    linkClass: 'link'
+                    pageClass: 'btn btn-border',
+                    linkClass: 'btn btn-border',
+                    icons: {
+                        first: '',
+                        prev: '',
+                        next: '',
+                        last: ''
+                    }
                 },
                 icons: {
                     first: 'glyphicon glyphicon-step-backward',
@@ -57238,6 +57265,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -57370,11 +57398,17 @@ __WEBPACK_IMPORTED_MODULE_5_vue___default.a.component('venues-update-modal', __W
                     descendingIcon: 'glyphicon glyphicon-chevron-down'
                 },
                 pagination: {
-                    wrapperClass: 'pagination',
-                    activeClass: 'active',
+                    wrapperClass: 'pagination pull-right',
+                    activeClass: 'btn-primary',
                     disabledClass: 'disabled',
-                    pageClass: 'page',
-                    linkClass: 'link'
+                    pageClass: 'btn btn-border',
+                    linkClass: 'btn btn-border',
+                    icons: {
+                        first: '',
+                        prev: '',
+                        next: '',
+                        last: ''
+                    }
                 },
                 icons: {
                     first: 'glyphicon glyphicon-step-backward',
@@ -119878,28 +119912,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "api-url": "/api/v1/job-orders",
       "fields": _vm.fields,
-      "pagination-path": "",
       "css": _vm.css.table,
       "sort-order": _vm.sortOrder,
       "multi-sort": true,
-      "append-params": _vm.moreParams
+      "append-params": _vm.moreParams,
+      "data-path": "data",
+      "pagination-path": "",
+      "pagination-component": "vuetable-pagination"
     },
     on: {
       "vuetable:cell-clicked": _vm.onCellClicked,
       "vuetable:pagination-data": _vm.onPaginationData
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "vuetable-pagination"
+    staticClass: "vuetable-pagination ui basic segment grid"
   }, [_c('vuetable-pagination-info', {
-    ref: "paginationInfo",
-    attrs: {
-      "info-class": "pagination-info"
-    }
+    ref: "paginationInfo"
   }), _vm._v(" "), _c('vuetable-pagination', {
     ref: "pagination",
     attrs: {
-      "css": _vm.css.pagination,
-      "icons": _vm.css.icons
+      "css": _vm.css.pagination
     },
     on: {
       "vuetable-pagination:change-page": _vm.onChangePage
@@ -120579,28 +120611,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "api-url": "/api/v1/users/",
       "fields": _vm.fields,
-      "pagination-path": "",
       "css": _vm.css.table,
       "sort-order": _vm.sortOrder,
       "multi-sort": true,
       "detail-row-component": "my-detail-row",
-      "append-params": _vm.moreParams
+      "append-params": _vm.moreParams,
+      "pagination-path": "",
+      "pagination-component": "vuetable-pagination",
+      "data-path": "data"
     },
     on: {
       "vuetable:pagination-data": _vm.onPaginationData
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "vuetable-pagination"
+    staticClass: "vuetable-pagination ui basic segment grid"
   }, [_c('vuetable-pagination-info', {
-    ref: "paginationInfo",
-    attrs: {
-      "info-class": "pagination-info"
-    }
+    ref: "paginationInfo"
   }), _vm._v(" "), _c('vuetable-pagination', {
     ref: "pagination",
     attrs: {
-      "css": _vm.css.pagination,
-      "icons": _vm.css.icons
+      "css": _vm.css.pagination
     },
     on: {
       "vuetable-pagination:change-page": _vm.onChangePage
@@ -122648,17 +122678,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "vuetable:pagination-data": _vm.onPaginationData
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "vuetable-pagination"
+    staticClass: "vuetable-pagination ui basic segment grid"
   }, [_c('vuetable-pagination-info', {
-    ref: "paginationInfo",
-    attrs: {
-      "info-class": "pagination-info"
-    }
+    ref: "paginationInfo"
   }), _vm._v(" "), _c('vuetable-pagination', {
     ref: "pagination",
     attrs: {
-      "css": _vm.css.pagination,
-      "icons": _vm.css.icons
+      "css": _vm.css.pagination
     },
     on: {
       "vuetable-pagination:change-page": _vm.onChangePage
@@ -123839,28 +123865,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "api-url": "/api/v1/venues",
       "fields": _vm.fields,
-      "pagination-path": "",
       "css": _vm.css.table,
       "sort-order": _vm.sortOrder,
       "multi-sort": true,
       "detail-row-component": "my-detail-row",
-      "append-params": _vm.moreParams
+      "append-params": _vm.moreParams,
+      "pagination-path": "",
+      "pagination-component": "vuetable-pagination",
+      "data-path": "data"
     },
     on: {
       "vuetable:pagination-data": _vm.onPaginationData
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "vuetable-pagination"
+    staticClass: "vuetable-pagination ui basic segment grid"
   }, [_c('vuetable-pagination-info', {
-    ref: "paginationInfo",
-    attrs: {
-      "info-class": "pagination-info"
-    }
+    ref: "paginationInfo"
   }), _vm._v(" "), _c('vuetable-pagination', {
     ref: "pagination",
     attrs: {
-      "css": _vm.css.pagination,
-      "icons": _vm.css.icons
+      "css": _vm.css.pagination
     },
     on: {
       "vuetable-pagination:change-page": _vm.onChangePage
@@ -124095,12 +124119,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "api-url": _vm.apiUrl,
       "fields": _vm.fields,
-      "pagination-path": "",
       "css": _vm.css.table,
       "sort-order": _vm.sortOrder,
       "multi-sort": true,
       "detail-row-component": _vm.detailRowComponent,
-      "append-params": _vm.appendParams
+      "append-params": _vm.appendParams,
+      "pagination-path": "",
+      "pagination-component": "vuetable-pagination",
+      "data-path": "data"
     },
     on: {
       "vuetable:cell-clicked": _vm.onCellClicked,
@@ -124108,17 +124134,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "vuetable:pagination-data": _vm.onPaginationData
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "vuetable-pagination"
+    staticClass: "vuetable-pagination ui basic segment grid"
   }, [_c('vuetable-pagination-info', {
-    ref: "paginationInfo",
-    attrs: {
-      "info-class": "pagination-info"
-    }
+    ref: "paginationInfo"
   }), _vm._v(" "), _c('vuetable-pagination', {
     ref: "pagination",
     attrs: {
-      "css": _vm.css.pagination,
-      "icons": _vm.css.icons
+      "css": _vm.css.pagination
     },
     on: {
       "vuetable-pagination:change-page": _vm.onChangePage

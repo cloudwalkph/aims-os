@@ -4,23 +4,24 @@
         <vuetable ref="vuetable"
                   api-url="/api/v1/job-orders"
                   :fields="fields"
-                  pagination-path=""
                   :css="css.table"
                   :sort-order="sortOrder"
                   :multi-sort="true"
                   :append-params="moreParams"
                   @vuetable:cell-clicked="onCellClicked"
                   @vuetable:pagination-data="onPaginationData"
+                  data-path="data"
+                  pagination-path=""
+                  pagination-component="vuetable-pagination"
         ></vuetable>
-        <div class="vuetable-pagination">
+        <div class="vuetable-pagination ui basic segment grid">
             <vuetable-pagination-info ref="paginationInfo"
-                                      info-class="pagination-info"
             ></vuetable-pagination-info>
+
             <vuetable-pagination ref="pagination"
-                                 :css="css.pagination"
-                                 :icons="css.icons"
-                                 @vuetable-pagination:change-page="onChangePage"
-            ></vuetable-pagination>
+                :css="css.pagination"
+                @vuetable-pagination:change-page="onChangePage"
+                ></vuetable-pagination>
         </div>
     </div>
 </template>
@@ -122,17 +123,17 @@
                         descendingIcon: 'glyphicon glyphicon-chevron-down'
                     },
                     pagination: {
-                        wrapperClass: 'pagination',
-                        activeClass: 'active',
+                        wrapperClass: 'pagination pull-right',
+                        activeClass: 'btn-primary',
                         disabledClass: 'disabled',
-                        pageClass: 'page',
-                        linkClass: 'link',
-                    },
-                    icons: {
-                        first: 'glyphicon glyphicon-step-backward',
-                        prev: 'glyphicon glyphicon-chevron-left',
-                        next: 'glyphicon glyphicon-chevron-right',
-                        last: 'glyphicon glyphicon-step-forward',
+                        pageClass: 'btn btn-border',
+                        linkClass: 'btn btn-border',
+                        icons: {
+                            first: '',
+                            prev: '',
+                            next: '',
+                            last: '',
+                        }
                     },
                 },
                 sortOrder: [
