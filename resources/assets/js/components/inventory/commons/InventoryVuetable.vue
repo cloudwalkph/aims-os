@@ -7,7 +7,6 @@
     <vuetable ref="vuetableInventory"
       :api-url="apiUrl"
       :fields="fields"
-      pagination-path=""
       :css="css.table"
       :sort-order="sortOrder"
       :multi-sort="true"
@@ -16,16 +15,18 @@
       @vuetable:cell-clicked="onCellClicked"
       @vuetable:row-clicked="onRowClicked"
       @vuetable:pagination-data="onPaginationData"
+      pagination-path=""
+      pagination-component="vuetable-pagination"
+      data-path="data"
     ></vuetable>
-    <div class="vuetable-pagination">
+    <div class="vuetable-pagination ui basic segment grid">
       <vuetable-pagination-info ref="paginationInfo"
-        info-class="pagination-info"
       ></vuetable-pagination-info>
+
       <vuetable-pagination ref="pagination"
-        :css="css.pagination"
-        :icons="css.icons"
-        @vuetable-pagination:change-page="onChangePage"
-      ></vuetable-pagination>
+          :css="css.pagination"
+          @vuetable-pagination:change-page="onChangePage"
+          ></vuetable-pagination>
     </div>
   </div>
 </template>
@@ -60,11 +61,17 @@
             descendingIcon: 'glyphicon glyphicon-chevron-down'
           },
           pagination: {
-            wrapperClass: 'pagination',
-            activeClass: 'active',
-            disabledClass: 'disabled',
-            pageClass: 'page',
-            linkClass: 'link',
+              wrapperClass: 'pagination pull-right',
+              activeClass: 'btn-primary',
+              disabledClass: 'disabled',
+              pageClass: 'btn btn-border',
+              linkClass: 'btn btn-border',
+              icons: {
+                  first: '',
+                  prev: '',
+                  next: '',
+                  last: '',
+              }
           },
           icons: {
             first: 'glyphicon glyphicon-step-backward',
@@ -105,12 +112,12 @@
       onCellClicked (data, field, event) {
         console.log('cellClicked: ', field.name)
       },
-      onChangePage (page) {
-        this.$refs.vuetable.changePage(page);
-      },
       onPaginationData (paginationData) {
-        this.$refs.pagination.setPaginationData(paginationData);
-        this.$refs.paginationInfo.setPaginationData(paginationData);
+        this.$refs.pagination.setPaginationData(paginationData)
+        this.$refs.paginationInfo.setPaginationData(paginationData)
+      },
+      onChangePage (page) {
+          this.$refs.vuetableInventory.changePage(page)
       },
     },
     mounted: function () {

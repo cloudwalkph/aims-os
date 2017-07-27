@@ -255,7 +255,8 @@
                     {
                         name: 'buffer',
                         title: 'Buffer',
-                        dataClass : 'customWith10'
+                        dataClass : 'customWith10',
+                        callback: 'bufferParse'
                     },
                     {
                         name: '__component:CustomRemoveSelected',
@@ -368,6 +369,12 @@
 					return value
 				}
 				return 'TBA';
+			},
+			bufferParse(value) {
+				if(value){
+					return 'Buffer';
+				}
+				return '';
 			},
 			getFullName(value) {
 				return `${value.first_name} ${value.last_name}`;
