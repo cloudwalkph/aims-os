@@ -207,17 +207,7 @@
                             <li class="{{ Request::is('*/discussions') ? 'active' : '' }}"><a href="/ae/jo/details/{{ $jo->job_order_no }}/discussions">Discussions</a></li>
                         </ul>
 
-                        {{--<div class="tab-content">--}}
-                            @yield('job-order-content')
-
-                            {{--@include('ae.jolist.details.mom.index')--}}
-                            {{--@include('ae.jolist.details.event.index')--}}
-                            {{--@include('ae.jolist.details.project.index')--}}
-                            {{--@include('ae.jolist.details.client.index')--}}
-                            {{--@include('ae.jolist.details.status.index')--}}
-                            {{--@include('ae.jolist.details.requests.index')--}}
-                            {{--@include('ae.jolist.details.discussion.index')--}}
-                        {{--</div>--}}
+                        @yield('job-order-content')
                     </div>
                 </div>
             </div>
