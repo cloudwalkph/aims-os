@@ -66,7 +66,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API', 'middleware'  => 'api'], f
     // Job Orders
     Route::group(['namespace' => 'JobOrders'], function() {
         Route::group(['prefix' => 'mobile/job-orders'], function() {
-            Route::get('/', 'JobOrdersController@index');
+            Route::get('/', 'JobOrdersController@getAll');
         });
 
         // Job Orders
