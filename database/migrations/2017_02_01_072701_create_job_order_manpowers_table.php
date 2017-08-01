@@ -20,7 +20,7 @@ class CreateJobOrderManpowersTable extends Migration
             $table->integer('manpower_needed');
             $table->double('rate');
             $table->mediumText('remarks');
-            $table->enum('status', ['active', 'revision'])->default('active');
+            $table->enum('status', ['active', 'revision', 'pending'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });

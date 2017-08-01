@@ -64,7 +64,7 @@ class DepartmentsTableSeeder extends Seeder
 
         Department::create([
             'slug'  => 'activations',
-            'name'  => 'Activations'
+            'name'  => 'Project Manager'
         ]);
 
         Department::create([
