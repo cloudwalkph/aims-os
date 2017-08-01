@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class JobOrdersRepository {
     public function getAccountsJobOrders(User $user)
     {
-        $jobOrders = JobOrder::with('moms', 'schedules.venue', 'discussions.user.profile')
+        $jobOrders = JobOrder::with('moms', 'schedules.venue', 'discussions.user.profile')->where('user_id', $user->id)
             ->get();
 
         return $this->parseJobOrder($jobOrders);
