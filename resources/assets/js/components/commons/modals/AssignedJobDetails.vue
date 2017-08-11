@@ -15,6 +15,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <a class="btn btn-primary" :href="jobOrderUrl()">View Details</a>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -31,6 +32,9 @@
                 var d = new Date(milliseconds);
                 return d.toDateString();
             },
+            jobOrderUrl: function() {
+                return `/job-orders/${jo.job_order.job_order_no}`;
+            }
         },
         mounted: function () {
         },
