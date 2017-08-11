@@ -45991,8 +45991,8 @@ module.exports = {
             var d = new Date(milliseconds);
             return d.toDateString();
         },
-        jobOrderUrl: function jobOrderUrl() {
-            return '/job-orders/' + jo.job_order.job_order_no;
+        jobOrderUrl: function jobOrderUrl(joNo) {
+            return '/job-orders/' + joNo;
         }
     },
     mounted: function mounted() {},
@@ -117486,7 +117486,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('a', {
     staticClass: "btn btn-primary",
     attrs: {
-      "href": _vm.jobOrderUrl()
+      "href": _vm.jobOrderUrl(_vm.jo.job_order.job_order_no)
     }
   }, [_vm._v("View Details")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default",
