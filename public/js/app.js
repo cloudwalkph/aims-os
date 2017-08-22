@@ -47049,6 +47049,12 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 var Home = __webpack_require__(456);
 var Calendar = __webpack_require__(129);
@@ -47373,7 +47379,8 @@ module.exports = {
         // this.getJobOrders();
         // this.getJOInventory();
         // this.getUsers();
-    }
+    },
+    props: ['current-user']
 };
 
 /***/ }),
@@ -47774,14 +47781,17 @@ module.exports = {
 //
 //
 //
-
-var CreateJobModal = __webpack_require__(465);
-var InventoryVuetable = __webpack_require__(13);
+//
+//
+//
+//
+//
+//
 
 module.exports = {
   components: {
-    CreateJobModal: CreateJobModal,
-    InventoryVuetable: InventoryVuetable
+    CreateJobModal: __webpack_require__(465),
+    InventoryVuetable: __webpack_require__(13)
   },
   data: function data() {
     return {
@@ -47817,6 +47827,9 @@ module.exports = {
     }
   },
   props: {
+    currentUser: {
+      type: Object
+    },
     propData: {
       type: Object
     }
@@ -117997,6 +118010,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "root",
     tag: "component",
     attrs: {
+      "currentUser": _vm.currentUser,
       "openPage": _vm.openPage,
       "propData": _vm.inventoryData,
       "propIJobId": _vm.iJobId
@@ -124600,27 +124614,11 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('InventoryVuetable', {
-    ref: "onGoingProjectsVuetable",
-    attrs: {
-      "api-url": "api/v1/inventory/job",
-      "fields": _vm.fields
-    }
-  })], 1), _vm._v(" "), _c("create-job-modal", {
-    tag: "component",
-    attrs: {
-      "propData": _vm.propData,
-      "refresh-vuetable": _vm.refreshVuetable
-    }
-  })], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  }, [_c('div', {
     staticClass: "col-md-12"
   }, [_c('h1', {
     staticClass: "pull-left table-title"
-  }, [_vm._v("Ongoing Project")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Ongoing Project")]), _vm._v(" "), (_vm.currentUser.user_role_id < 4) ? _c('button', {
     staticClass: "btn btn-primary pull-right",
     attrs: {
       "type": "button",
@@ -124629,8 +124627,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-plus"
-  }), _vm._v(" Create Job\n        ")])])
-}]}
+  }), _vm._v(" Create Job\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('InventoryVuetable', {
+    ref: "onGoingProjectsVuetable",
+    attrs: {
+      "api-url": "api/v1/inventory/job",
+      "fields": _vm.fields
+    }
+  })], 1), _vm._v(" "), _c("createJobModal", {
+    tag: "component",
+    attrs: {
+      "propData": _vm.propData,
+      "refresh-vuetable": _vm.refreshVuetable
+    }
+  })], 1)
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
