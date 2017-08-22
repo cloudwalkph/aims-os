@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <h1 class="pull-left table-title">Ongoing Project</h1>
             <button 
-              v-if="currentUser.user_role_id < 3" 
+              v-if="currentUser.user_role_id < 4" 
               type="button" 
               class="btn btn-primary pull-right" 
               data-toggle="modal" 
