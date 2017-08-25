@@ -101,7 +101,8 @@ class JobOrderProductController extends Controller {
         });
         $query->addSelect('disposed', 'returned');
         $query->addSelect(\DB::raw('(IFNULL(delivered, 0) - IFNULL(disposed, 0) + IFNULL(returned, 0)) as products_on_hand, (IFNULL(disposed, 0) - IFNULL(returned, 0)) as total_disposed'));
-
+        $query->addSelect(\DB::raw('((IFNULL(delivered, 0) - IFNULL(disposed, 0) + IFNULL(returned, 0)) - (IFNULL(disposed, 0) - IFNULL(returned, 0))) as current_on_hand'));
+        
         // Filter
         if ($request->has('filter')) {
             // $this->filter($query, $request, array('jobOrder.project_name', 'jobOrder.job_order_no', 'item_name'));

@@ -55,6 +55,10 @@
                 {
                   name: 'total_disposed',
                   title: 'Disposed'
+                },
+                {
+                  name: 'current_on_hand',
+                  title: 'Current on Hand'
                 }
               ],
               sortOrder: [
