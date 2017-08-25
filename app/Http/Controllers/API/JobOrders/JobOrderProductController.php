@@ -7,6 +7,8 @@ use App\Models\JobOrderProduct;
 use App\Traits\FilterTrait;
 use Illuminate\Http\Request;
 
+use DB;
+
 class JobOrderProductController extends Controller {
     use FilterTrait;
     /**
@@ -87,8 +89,8 @@ class JobOrderProductController extends Controller {
             $query->orderBy('job_order_products.id', 'asc');
         }
 
-        $query->join('job_orders', 'job_orders.id', '=', 'job_order_products.job_order_id');
-        $query->addSelect('job_orders.project_name', 'job_orders.job_order_no');
+        $query->with('jobOrder');
+        $query->has('jobOrder');
 
         $query->leftJoin(\DB::raw('(SELECT product_id, SUM(delivery_quantity) AS delivered FROM inventory_deliveries WHERE deleted_at IS NULL GROUP BY product_id) AS inventory_deliveries'), function($q) {
           $q->on('job_order_products.id', '=', 'inventory_deliveries.product_id');
@@ -102,7 +104,14 @@ class JobOrderProductController extends Controller {
 
         // Filter
         if ($request->has('filter')) {
-            $this->filter($query, $request, array('project_name', 'job_order_no', 'item_name'));
+            // $this->filter($query, $request, array('jobOrder.project_name', 'jobOrder.job_order_no', 'item_name'));
+            $value = "%{$request->get('filter')}%";
+            
+            $query->orWhereHas('jobOrder', function ($q) use ($value) {
+              $q->where('job_order_no', 'like', $value);
+              $q->orWhere('project_name', 'like', $value);
+            });
+            $query->orWhere('item_name', 'like', $value);
         }
 
         // Count per page

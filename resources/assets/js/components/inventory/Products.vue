@@ -32,14 +32,12 @@
               frameSrc: 'inventory/print/product',
               fields: [
                 {
-                  name: 'job_order_no',
+                  name: 'job_order.job_order_no',
                   title: 'Job Order Number',
-                  sortField: 'job_order_no',
                 },
                 {
-                  name: 'project_name',
+                  name: 'job_order.project_name',
                   title: 'Project Name',
-                  sortField: 'project_name',
                 },
                 {
                   name: 'item_name',

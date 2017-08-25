@@ -41,6 +41,8 @@ class InventoryJobController extends Controller
 
         $query->with('jobOrder.products', 'assignedPerson.user.profile');
 
+        $query->has('jobOrder');
+
         // Filter
         if ($request->has('filter')) {
           $value = "%{$request->get('filter')}%";
@@ -73,13 +75,15 @@ class InventoryJobController extends Controller
     public function create(Request $request)
     {
         $user = $request->user();
-        $jos = JobOrderDepartmentInvolved::with('jobOrder.inventoryJobs')
-            ->where('department_id', $user['department_id'])
-            ->doesntHave('jobOrder.inventoryJobs')
-            ->get();
+
+        $query = JobOrderDepartmentInvolved::with('jobOrder.inventoryJobs');
+        $query->has('jobOrder');
+        $query->doesntHave('jobOrder.inventoryJobs');
+        $query->where('department_id', $user['department_id']);
+
+        $jos = $query->get();
 
         $result = [];
-
         foreach ($jos as $jo) {
             $result[] = $jo->jobOrder;
         }
