@@ -40,6 +40,7 @@ class InventoryController extends Controller
         }
 
         $query->with('jobOrder');
+        $query->with('inventoryFiles');
 
         // Filter
         if($request->has('category')) {
