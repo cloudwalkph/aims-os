@@ -47643,6 +47643,14 @@ module.exports = {
         particulars: 'Skirt'
       }],
       fields: [{
+        name: 'inventory_files',
+        title: 'Photo',
+        callback: function callback(photo_array) {
+          if (photo_array.length > 0) {
+            return '<img src="' + photo_array[0].url + '" class="img-rounded" :alt="' + photo_array[0].url + '" width="100">';
+          }
+        }
+      }, {
         name: 'job_order.job_order_no',
         title: 'Job Order Number'
       }, {
@@ -47873,13 +47881,11 @@ module.exports = {
       apiUrl: 'api/v1/job-order-inventory/all',
       frameSrc: 'inventory/print/product',
       fields: [{
-        name: 'job_order_no',
-        title: 'Job Order Number',
-        sortField: 'job_order_no'
+        name: 'job_order.job_order_no',
+        title: 'Job Order Number'
       }, {
-        name: 'project_name',
-        title: 'Project Name',
-        sortField: 'project_name'
+        name: 'job_order.project_name',
+        title: 'Project Name'
       }, {
         name: 'item_name',
         title: 'Item Name',
@@ -47893,6 +47899,9 @@ module.exports = {
       }, {
         name: 'total_disposed',
         title: 'Disposed'
+      }, {
+        name: 'current_on_hand',
+        title: 'Current on Hand'
       }],
       sortOrder: [{ field: 'id', direction: 'asc' }],
       moreParams: {},
