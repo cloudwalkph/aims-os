@@ -5,10 +5,26 @@
                 <i class="fa fa-plus"></i> Add Manpower
         </button>
         <vuetable ref="Vuetable_manpower"
-        			api-url="/api/v1/hr/manpower"
-        			:fields="fields"
-                    @vuetable:cell-clicked="onCellClicked"
+    			api-url="/api/v1/hr/manpower"
+    			:fields="fields"
+                pagination-path=""
+                :multi-sort="true"
+                :css="css.table"
+                detail-row-component="my-detail-row"
+                :append-params="moreParams"
+                @vuetable:cell-clicked="onCellClicked"
+                @vuetable:pagination-data="onPaginationData"
        	></vuetable>
+        <div class="vuetable-pagination">
+            <vuetable-pagination-info ref="paginationInfo"
+                                      info-class="pagination-info"
+            ></vuetable-pagination-info>
+            <vuetable-pagination ref="pagination"
+                                 :css="css.pagination"
+                                 :icons="css.icons"
+                                 @vuetable-pagination:change-page="onChangePage"
+            ></vuetable-pagination>
+        </div>
 
         <div class="modal fade" id="createManpower" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"> 
             <div class="modal-dialog modal-lg" role="document">
@@ -172,7 +188,9 @@
 
 <script>
     import moment from 'moment'
-    import Vuetable from 'vuetable-2/src/components/Vuetable'; 
+    import Vuetable from 'vuetable-2/src/components/Vuetable'
+    import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+    import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
     import Vue from 'vue';
     import CustomActions from '../HR/commons/CustomActions';
     import VueEvents from 'vue-events';
@@ -182,7 +200,9 @@
 
     export default {
         components: {
-            Vuetable
+            Vuetable,
+            VuetablePagination,
+            VuetablePaginationInfo
         },
         mounted() {
         	this.getManpowerType();
@@ -288,7 +308,28 @@
                     'hired_date': null,
                     'violations': null,
                     'rate': null
-                }
+                },
+                css: {
+                    table: {
+                        tableClass: 'table table-bordered',
+                        ascendingIcon: 'glyphicon glyphicon-chevron-up',
+                        descendingIcon: 'glyphicon glyphicon-chevron-down'
+                    },
+                    pagination: {
+                        wrapperClass: 'pagination',
+                        activeClass: 'active',
+                        disabledClass: 'disabled',
+                        pageClass: 'page',
+                        linkClass: 'link',
+                    },
+                    icons: {
+                        first: 'glyphicon glyphicon-step-backward',
+                        prev: 'glyphicon glyphicon-chevron-left',
+                        next: 'glyphicon glyphicon-chevron-right',
+                        last: 'glyphicon glyphicon-step-forward',
+                    },
+                },
+                moreParams: {}
 
         	}
         },
@@ -404,6 +445,13 @@
 
                 this.rowData = data
                 $('#createManpower').modal('show');
+            },
+            onPaginationData (paginationData) {
+                this.$refs.pagination.setPaginationData(paginationData)
+                this.$refs.paginationInfo.setPaginationData(paginationData)
+            },
+            onChangePage (page) {
+                this.$refs.Vuetable_manpower.changePage(page)
             }
         },
         events: {
