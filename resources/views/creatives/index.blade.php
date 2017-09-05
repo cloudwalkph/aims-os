@@ -123,6 +123,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
+                                        <a class="btn btn-primary" href="/job-orders/{{ $jo['job_order']['job_order_no'] }}">View Details</a>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>

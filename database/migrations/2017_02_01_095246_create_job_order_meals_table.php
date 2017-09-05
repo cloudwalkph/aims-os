@@ -21,7 +21,7 @@ class CreateJobOrderMealsTable extends Migration
             $table->string('serving_time');
             $table->string('pickup_by');
             $table->mediumText('remarks');
-            $table->enum('status', ['active', 'revision'])->default('active');
+            $table->enum('status', ['active', 'revision', 'pending'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });

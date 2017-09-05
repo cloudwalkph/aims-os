@@ -106,9 +106,9 @@ class JobOrdersController extends Controller {
             $this->filter($query, $request, JobOrder::$filterable);
         }
 
-        if ($user->department->slug === "ae") {
-            $query->where('job_orders.user_id', $user->id);
-        }
+//        if ($user->department->slug === "ae") {
+//            $query->where('job_orders.user_id', $user->id);
+//        }
 
         // Count per page
         $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;

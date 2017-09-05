@@ -3,8 +3,14 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="pull-left table-title">Ongoing Project</h1>
-            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalCreateJob">
-                <i class="fa fa-plus"></i> Create Job
+            <button 
+              v-if="currentUser.user_role_id < 4" 
+              type="button" 
+              class="btn btn-primary pull-right" 
+              data-toggle="modal" 
+              data-target="#modalCreateJob"
+            >
+              <i class="fa fa-plus"></i> Create Job
             </button>
         </div>
         <div class="col-md-12">
@@ -14,20 +20,17 @@
               :fields="fields"
             ></InventoryVuetable>
         </div>
-        <component is="create-job-modal" :propData="propData" :refresh-vuetable="refreshVuetable">
+        <component is="createJobModal" :propData="propData" :refresh-vuetable="refreshVuetable">
         </component>
     </div>
 
 </template>
 
 <script>
-    var CreateJobModal = require('./modals/CreateJob');
-    var InventoryVuetable = require('./commons/InventoryVuetable');
-
     module.exports = {
         components: {
-          CreateJobModal,
-          InventoryVuetable
+          CreateJobModal: require('./modals/CreateJob'),
+          InventoryVuetable: require('./commons/InventoryVuetable')
         },
         data: function () {
             return {
@@ -69,6 +72,9 @@
           }
         },
         props: {
+          currentUser: {
+            type: Object
+          },
           propData: {
             type: Object
           }

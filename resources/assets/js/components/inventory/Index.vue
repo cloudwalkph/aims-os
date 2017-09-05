@@ -31,7 +31,13 @@
         </div>
 
         <div class="col-lg-12">
-            <component :is="currentView" :openPage="openPage" :propData="inventoryData" :propIJobId="iJobId" ref="root">
+            <component 
+                :currentUser="currentUser"
+                :is="currentView" 
+                :openPage="openPage" 
+                :propData="inventoryData" 
+                :propIJobId="iJobId" 
+                ref="root">
                 <!-- component changes when vm.currentView changes! -->
             </component>
         </div>
@@ -290,7 +296,8 @@
           // this.getJobOrders();
           // this.getJOInventory();
           // this.getUsers();
-        }
+        },
+        props: ['current-user']
     }
 
 </script>

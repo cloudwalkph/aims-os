@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-sm-12">
 
-                <inventory ></inventory>
+                <inventory :current-user="{{ json_encode(Auth::user()) }}"></inventory>
 
             </div>
         </div>

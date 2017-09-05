@@ -139,6 +139,15 @@
               ],
               fields: [
                 {
+                  name: 'inventory_files',
+                  title: 'Photo',
+                  callback: function(photo_array) {
+                    if(photo_array.length > 0) {
+                      return '<img src="' + photo_array[0].url + '" class="img-rounded" :alt="' + photo_array[0].url + '" width="100">';
+                    }
+                  }
+                },
+                {
                   name: 'job_order.job_order_no',
                   title: 'Job Order Number',
                 },

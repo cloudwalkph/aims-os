@@ -280,12 +280,25 @@
         <div class="row">
             <div class="col-md-12">
                 <h5><b>PROJECT ATTACHMENTS:</b></h5>
-                @foreach($attachments as $a)
-                    <div class="col-md-12">
-                        <input type="checkbox" name="project_attachments">
-                        <label for="project_attachments">{{ $a->reference_for }}</label>
-                    </div>
-                @endforeach
+                    <table class="table table-condensed table-bordered">
+                    <thead>
+                    <tr>
+                        <th>FILE NAME</th>
+                        <th>REFERENCE FOR</th>
+                        <th>DATE</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach($attachments as $a)
+                            <tr>
+                                <td>{{ $a->file_name }}</td>
+                                <td>{{ $a->reference_for }}</td>
+                                <td>{{ $a->created_at->toFormattedDateString() }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
         {{--project attachment end--}}

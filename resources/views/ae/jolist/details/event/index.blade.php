@@ -72,7 +72,11 @@
                         @foreach ($schedules as $schedule)
                             <tr>
                                 <td>{{ \Carbon\Carbon::createFromTimestamp(strtotime($schedule->jo_datetime))->toFormattedDateString() }}</td>
-                                <td>{{ $schedule->venue->category }} : {{ $schedule->venue->subcategory }} : {{ $schedule->venue->venue }}</td>
+                                @if($schedule->venue_id)
+                                    <td>{{ $schedule->venue->category }} : {{ $schedule->venue->subcategory }} : {{ $schedule->venue->venue }}</td>
+                                @else
+                                    <td></td>
+                                @endif
                                 <td>{{ $schedule->remarks }}</td>
                                 <td>{{ $schedule->status }}</td>
                             </tr>

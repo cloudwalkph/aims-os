@@ -4,23 +4,24 @@
         <vuetable ref="vuetable"
                   api-url="/api/v1/users/"
                   :fields="fields"
-                  pagination-path=""
                   :css="css.table"
                   :sort-order="sortOrder"
                   :multi-sort="true"
                   detail-row-component="my-detail-row"
                   :append-params="moreParams"
                   @vuetable:pagination-data="onPaginationData"
+                  pagination-path=""
+                  pagination-component="vuetable-pagination"
+                  data-path="data"
         ></vuetable>
-        <div class="vuetable-pagination">
+        <div class="vuetable-pagination ui basic segment grid">
             <vuetable-pagination-info ref="paginationInfo"
-                                      info-class="pagination-info"
             ></vuetable-pagination-info>
+
             <vuetable-pagination ref="pagination"
-                                 :css="css.pagination"
-                                 :icons="css.icons"
-                                 @vuetable-pagination:change-page="onChangePage"
-            ></vuetable-pagination>
+                :css="css.pagination"
+                @vuetable-pagination:change-page="onChangePage"
+                ></vuetable-pagination>
         </div>
 
         <user-modal></user-modal>
@@ -118,11 +119,17 @@
                         descendingIcon: 'glyphicon glyphicon-chevron-down'
                     },
                     pagination: {
-                        wrapperClass: 'pagination',
-                        activeClass: 'active',
+                        wrapperClass: 'pagination pull-right',
+                        activeClass: 'btn-primary',
                         disabledClass: 'disabled',
-                        pageClass: 'page',
-                        linkClass: 'link',
+                        pageClass: 'btn btn-border',
+                        linkClass: 'btn btn-border',
+                        icons: {
+                            first: '',
+                            prev: '',
+                            next: '',
+                            last: '',
+                        }
                     },
                     icons: {
                         first: 'glyphicon glyphicon-step-backward',
