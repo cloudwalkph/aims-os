@@ -40729,12 +40729,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetable_2_src_components_Vuetable__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetable_2_src_components_Vuetable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuetable_2_src_components_Vuetable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__HR_commons_CustomActions__ = __webpack_require__(402);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__HR_commons_CustomActions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__HR_commons_CustomActions__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_events__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_events__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuetable_2_src_components_VuetablePagination__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuetable_2_src_components_VuetablePagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vuetable_2_src_components_VuetablePagination__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuetable_2_src_components_VuetablePaginationInfo__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuetable_2_src_components_VuetablePaginationInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vuetable_2_src_components_VuetablePaginationInfo__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__HR_commons_CustomActions__ = __webpack_require__(402);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__HR_commons_CustomActions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__HR_commons_CustomActions__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_events__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_vue_events__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -40914,12 +40934,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_4_vue_events___default.a);
-__WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK_IMPORTED_MODULE_3__HR_commons_CustomActions___default.a);
+
+
+__WEBPACK_IMPORTED_MODULE_4_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_events___default.a);
+__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('CustomActions', __WEBPACK_IMPORTED_MODULE_5__HR_commons_CustomActions___default.a);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
-        Vuetable: __WEBPACK_IMPORTED_MODULE_1_vuetable_2_src_components_Vuetable___default.a
+        Vuetable: __WEBPACK_IMPORTED_MODULE_1_vuetable_2_src_components_Vuetable___default.a,
+        VuetablePagination: __WEBPACK_IMPORTED_MODULE_2_vuetable_2_src_components_VuetablePagination___default.a,
+        VuetablePaginationInfo: __WEBPACK_IMPORTED_MODULE_3_vuetable_2_src_components_VuetablePaginationInfo___default.a
     },
     mounted: function mounted() {
         var _this = this;
@@ -41014,7 +41038,28 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK
                 'hired_date': null,
                 'violations': null,
                 'rate': null
-            }
+            },
+            css: {
+                table: {
+                    tableClass: 'table table-bordered',
+                    ascendingIcon: 'glyphicon glyphicon-chevron-up',
+                    descendingIcon: 'glyphicon glyphicon-chevron-down'
+                },
+                pagination: {
+                    wrapperClass: 'pagination',
+                    activeClass: 'active',
+                    disabledClass: 'disabled',
+                    pageClass: 'page',
+                    linkClass: 'link'
+                },
+                icons: {
+                    first: 'glyphicon glyphicon-step-backward',
+                    prev: 'glyphicon glyphicon-chevron-left',
+                    next: 'glyphicon glyphicon-chevron-right',
+                    last: 'glyphicon glyphicon-step-forward'
+                }
+            },
+            moreParams: {}
 
         };
     },
@@ -41150,6 +41195,13 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK
 
             this.rowData = data;
             $('#createManpower').modal('show');
+        },
+        onPaginationData: function onPaginationData(paginationData) {
+            this.$refs.pagination.setPaginationData(paginationData);
+            this.$refs.paginationInfo.setPaginationData(paginationData);
+        },
+        onChangePage: function onChangePage(page) {
+            this.$refs.Vuetable_manpower.changePage(page);
         }
     },
     events: {
@@ -41159,14 +41211,14 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK
             this.moreParams = {
                 filter: filterText
             };
-            __WEBPACK_IMPORTED_MODULE_2_vue___default.a.nextTick(function () {
+            __WEBPACK_IMPORTED_MODULE_4_vue___default.a.nextTick(function () {
                 return _this5.$refs.Vuetable_manpower.refresh();
             });
         },
         'reload-table': function reloadTable() {
             var _this6 = this;
 
-            __WEBPACK_IMPORTED_MODULE_2_vue___default.a.nextTick(function () {
+            __WEBPACK_IMPORTED_MODULE_4_vue___default.a.nextTick(function () {
                 return _this6.$refs.Vuetable_manpower.reload();
             });
         },
@@ -41202,7 +41254,7 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('CustomActions', __WEBPACK
 
             data.birthdate = data.birthdate ? __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.birthdate).format('YYYY-MM-DD') : null;
             data.hired_date = data.hired_date ? __WEBPACK_IMPORTED_MODULE_0_moment___default()(data.hired_date).format('YYYY-MM-DD') : null;
-            __WEBPACK_IMPORTED_MODULE_2_vue___default.a.nextTick(function () {
+            __WEBPACK_IMPORTED_MODULE_4_vue___default.a.nextTick(function () {
                 _this7.rowData = data;
                 $('#createManpower').modal('show');
             });
@@ -118398,12 +118450,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "Vuetable_manpower",
     attrs: {
       "api-url": "/api/v1/hr/manpower",
-      "fields": _vm.fields
+      "fields": _vm.fields,
+      "pagination-path": "",
+      "multi-sort": true,
+      "css": _vm.css.table,
+      "detail-row-component": "my-detail-row",
+      "append-params": _vm.moreParams
     },
     on: {
-      "vuetable:cell-clicked": _vm.onCellClicked
+      "vuetable:cell-clicked": _vm.onCellClicked,
+      "vuetable:pagination-data": _vm.onPaginationData
     }
   }), _vm._v(" "), _c('div', {
+    staticClass: "vuetable-pagination"
+  }, [_c('vuetable-pagination-info', {
+    ref: "paginationInfo",
+    attrs: {
+      "info-class": "pagination-info"
+    }
+  }), _vm._v(" "), _c('vuetable-pagination', {
+    ref: "pagination",
+    attrs: {
+      "css": _vm.css.pagination,
+      "icons": _vm.css.icons
+    },
+    on: {
+      "vuetable-pagination:change-page": _vm.onChangePage
+    }
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {
       "id": "createManpower",
